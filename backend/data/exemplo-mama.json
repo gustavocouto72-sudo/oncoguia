@@ -1,0 +1,169 @@
+{
+  "_meta": {
+    "descricao": "Fallback de exemplo — usado APENAS enquanto o squad mbe-oncologia ainda não gerou squads/mbe-oncologia/output/regimes-consolidados.json. Segue o mesmo schema (pipeline/data/schema-regime.md) para que a interface funcione idêntica antes e depois do primeiro run. NÃO é recomendação clínica.",
+    "origem": "exemplo",
+    "gerado_em": "2026-07-18"
+  },
+  "regimes": [
+    {
+      "regimen_id": "mama-adj-her2pos-th",
+      "tumor": "mama",
+      "cenario": "adjuvancia",
+      "subtipo": "HER2 positivo",
+      "nome": "TH",
+      "esquema": "Paclitaxel 80 mg/m² EV semanal x12 + Trastuzumabe (8→6 mg/kg) → Trastuzumabe 6 mg/kg 21/21d por 1 ano",
+      "elegibilidade_protocolo": "Mama invasiva HER2+, T ≤3 cm, N0, função cardíaca preservada",
+      "referencia": {
+        "citacao": "Tolaney SM et al. Adjuvant paclitaxel and trastuzumab for node-negative, HER2-positive breast cancer. N Engl J Med. 2015;372(2):134-141.",
+        "doi": "10.1056/NEJMoa1406281",
+        "pmid": "25564897",
+        "estudo": "APT trial",
+        "ano": 2015
+      },
+      "afirmado_protocolo": { "grade": "1A", "esmo_mcbs": "A", "nccn_affordability": null },
+      "verificacao": {
+        "grade": { "status": "diverge", "valor_rederivado": "2B", "justificativa": "APT é fase II de braço único (sem randomização): não sustenta qualidade 'alta'.", "fonte": "https://doi.org/10.1056/NEJMoa1406281" },
+        "esmo_mcbs": { "status": "diverge", "valor_rederivado": "n/a", "justificativa": "Formulário 1 exige comparação randomizada; braço único não é graduável.", "fonte": "https://www.esmo.org/guidelines/esmo-mcbs" },
+        "nccn_affordability": { "status": "indeterminado", "valor_rederivado": 3, "justificativa": "Paclitaxel genérico + trastuzumabe biológico/biossimilar por 1 ano.", "fonte": "NCCN Evidence Blocks (referência EUA)" },
+        "elegibilidade": {
+          "criterios_inclusao": [
+            { "campo": "her2", "operador": "=", "valor": "positivo" },
+            { "campo": "tstage", "operador": "<=", "valor": "cT2" },
+            { "campo": "node", "operador": "=", "valor": "N0" },
+            { "campo": "feve", "operador": ">=", "valor": 50 }
+          ],
+          "criterios_exclusao": [
+            { "campo": "cardiopatia_significativa", "operador": "=", "valor": true }
+          ],
+          "amplitude": "mais_amplo",
+          "divergencia_vs_protocolo": "APT exigiu FEVE ≥50% na inclusão; o protocolo pede apenas 'função cardíaca preservada' (qualitativo). O motor fixa FEVE ≥50% para não indicar fora da população estudada.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1406281"
+        }
+      },
+      "beneficio": {
+        "desfecho_principal": "Sobrevida livre de doença invasiva (iDFS) em 7 anos",
+        "magnitude": "iDFS ~93% em braço único (sem comparador randomizado)",
+        "fonte": "https://doi.org/10.1056/NEJMoa1406281"
+      },
+      "toxicidades": [
+        { "nome": "Neuropatia periférica", "severidade": "moderada", "frequencia": "comum" },
+        { "nome": "Reação infusional", "severidade": "leve" },
+        { "nome": "Disfunção cardíaca / queda de FEVE", "severidade": "grave", "frequencia": "rara" }
+      ],
+      "consolidacao": { "status": "divergencia", "selo_confianca": "divergencia", "flags": ["grade_afirmado_1A_insustentavel_braco_unico", "mcbs_afirmado_A_mas_nao_graduavel", "elegibilidade_mais_ampla_feve"] },
+      "versao": 1,
+      "atualizado_em": null,
+      "revisado_por": null,
+      "historico_versoes": [
+        { "versao": 1, "data": "2026-07-17", "origem": "extracao-inicial", "mudanca": "Primeira consolidação; 2 eixos divergem do afirmado.", "eixos_afetados": ["grade", "esmo_mcbs"], "fonte": null, "decidido_por": null }
+      ],
+      "flags": ["revisao_prioritaria"]
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-act",
+      "tumor": "mama",
+      "cenario": "adjuvancia",
+      "subtipo": "HER2 negativo",
+      "nome": "AC-T",
+      "esquema": "Doxorrubicina 60 mg/m² + Ciclofosfamida 600 mg/m² 21/21d x4 → Paclitaxel 80 mg/m² semanal x12 (ou 175 mg/m² 21/21d x4)",
+      "elegibilidade_protocolo": "Mama invasiva HER2 negativo, indicação de quimioterapia adjuvante, ECOG 0–1, função cardíaca preservada",
+      "referencia": {
+        "citacao": "Sparano JA et al. Weekly paclitaxel in the adjuvant treatment of breast cancer. N Engl J Med. 2008;358(16):1663-1671.",
+        "doi": "10.1056/NEJMoa0707056",
+        "pmid": "18420499",
+        "estudo": "ECOG E1199",
+        "ano": 2008
+      },
+      "afirmado_protocolo": { "grade": "1A", "esmo_mcbs": "A", "nccn_affordability": null },
+      "verificacao": {
+        "grade": { "status": "concorda", "valor_rederivado": "1A", "justificativa": "Ensaios randomizados de fase III com desfecho de sobrevida; qualidade alta sustentada.", "fonte": "https://doi.org/10.1056/NEJMoa0707056" },
+        "esmo_mcbs": { "status": "concorda", "valor_rederivado": "A", "justificativa": "Benefício de sobrevida em cenário adjuvante (curativo).", "fonte": "https://www.esmo.org/guidelines/esmo-mcbs" },
+        "nccn_affordability": { "status": "indeterminado", "valor_rederivado": 2, "justificativa": "Antracíclico + taxano genéricos; custo relativamente baixo.", "fonte": "NCCN Evidence Blocks (referência EUA)" },
+        "elegibilidade": {
+          "criterios_inclusao": [
+            { "campo": "her2", "operador": "=", "valor": "negativo" },
+            { "campo": "ecog", "operador": "<=", "valor": 1 }
+          ],
+          "criterios_exclusao": [
+            { "campo": "feve", "operador": "<", "valor": 50 }
+          ],
+          "amplitude": "igual",
+          "divergencia_vs_protocolo": "",
+          "fonte": "https://doi.org/10.1056/NEJMoa0707056"
+        }
+      },
+      "beneficio": {
+        "desfecho_principal": "Redução de recorrência e mortalidade em câncer de mama inicial",
+        "magnitude": "Ganho absoluto de sobrevida em ensaios randomizados de fase III",
+        "fonte": "https://doi.org/10.1056/NEJMoa0707056"
+      },
+      "toxicidades": [
+        { "nome": "Neutropenia", "severidade": "grave", "frequencia": "comum" },
+        { "nome": "Alopecia", "severidade": "moderada" },
+        { "nome": "Neuropatia periférica (taxano)", "severidade": "moderada" },
+        { "nome": "Cardiotoxicidade (antraciclina)", "severidade": "grave", "frequencia": "incomum" }
+      ],
+      "consolidacao": { "status": "confirmado", "selo_confianca": "confirmado", "flags": [] },
+      "versao": 1,
+      "atualizado_em": null,
+      "revisado_por": null,
+      "historico_versoes": [
+        { "versao": 1, "data": "2026-07-17", "origem": "extracao-inicial", "mudanca": "Primeira consolidação; todos os eixos concordam.", "eixos_afetados": [], "fonte": null, "decidido_por": null }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "mama-adj-rhpos-abemaciclibe",
+      "tumor": "mama",
+      "cenario": "adjuvancia",
+      "subtipo": "RH positivo / HER2 negativo",
+      "nome": "Abemaciclibe + endócrino",
+      "esquema": "Abemaciclibe 150 mg VO 2x/dia por 2 anos + terapia endócrina adjuvante (inibidor de aromatase ou tamoxifeno)",
+      "elegibilidade_protocolo": "Mama RH+/HER2-, alto risco de recorrência (linfonodos positivos + fatores de risco), em terapia endócrina adjuvante",
+      "referencia": {
+        "citacao": "Johnston SRD et al. Abemaciclib combined with endocrine therapy for the adjuvant treatment of HR+, HER2-, node-positive, high-risk, early breast cancer (monarchE). J Clin Oncol. 2020;38(34):3987-3998.",
+        "doi": "10.1200/JCO.20.02514",
+        "pmid": "32954927",
+        "estudo": "monarchE",
+        "ano": 2020
+      },
+      "afirmado_protocolo": { "grade": "1B", "esmo_mcbs": "A", "nccn_affordability": null },
+      "verificacao": {
+        "grade": { "status": "concorda", "valor_rederivado": "1B", "justificativa": "RCT de fase III; seguimento ainda maturando para desfechos duros → qualidade moderada-alta.", "fonte": "https://doi.org/10.1200/JCO.20.02514" },
+        "esmo_mcbs": { "status": "diverge", "valor_rederivado": "B", "justificativa": "Ganho em iDFS com sobrevida global imatura reduz a magnitude na escala MCBS de cenário adjuvante.", "fonte": "https://www.esmo.org/guidelines/esmo-mcbs" },
+        "nccn_affordability": { "status": "indeterminado", "valor_rederivado": 4, "justificativa": "Inibidor de CDK4/6 oral por 2 anos — custo alto sustentado.", "fonte": "NCCN Evidence Blocks (referência EUA)" },
+        "elegibilidade": {
+          "criterios_inclusao": [
+            { "campo": "rh", "operador": "=", "valor": "positivo" },
+            { "campo": "her2", "operador": "=", "valor": "negativo" },
+            { "campo": "node", "operador": ">=", "valor": "N1" },
+            { "campo": "ki67", "operador": ">=", "valor": 20 }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": "mais_amplo",
+          "divergencia_vs_protocolo": "O braço original exigiu ≥4 linfonodos, ou 1–3 linfonodos com grau 3 / T ≥5 cm / Ki-67 ≥20%. O protocolo institucional generaliza para 'alto risco' — o motor mantém N≥N1 + Ki-67≥20% como corte operacional.",
+          "fonte": "https://doi.org/10.1200/JCO.20.02514"
+        }
+      },
+      "beneficio": {
+        "desfecho_principal": "Sobrevida livre de doença invasiva (iDFS) em alto risco",
+        "magnitude": "Redução relativa ~25–30% no risco de recorrência (OS ainda imatura)",
+        "fonte": "https://doi.org/10.1200/JCO.20.02514"
+      },
+      "toxicidades": [
+        { "nome": "Diarreia", "severidade": "moderada", "frequencia": "muito comum" },
+        { "nome": "Neutropenia", "severidade": "grave" },
+        { "nome": "Fadiga", "severidade": "leve" },
+        { "nome": "Tromboembolismo venoso", "severidade": "grave", "frequencia": "incomum" }
+      ],
+      "consolidacao": { "status": "divergencia", "selo_confianca": "divergencia", "flags": ["mcbs_magnitude_os_imatura", "elegibilidade_alto_risco_generalizada"] },
+      "versao": 1,
+      "atualizado_em": null,
+      "revisado_por": null,
+      "historico_versoes": [
+        { "versao": 1, "data": "2026-07-17", "origem": "extracao-inicial", "mudanca": "Primeira consolidação; MCBS diverge do afirmado.", "eixos_afetados": ["esmo_mcbs"], "fonte": null, "decidido_por": null }
+      ],
+      "flags": ["revisao_prioritaria"]
+    }
+  ]
+}
