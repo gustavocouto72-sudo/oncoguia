@@ -6,4 +6,4 @@
 # Ao promover um run novo: atualize esta linha, rode app/build-data.py e reinicie
 # o backend. Runs antigos (ex.: 2026-07-21-protocolo-completo, batch rejeitado)
 # ficam no disco como histórico — mas nada deve lê-los para publicar ou validar.
-2026-07-22-refeito-completo/v1
+2026-08-18-intake-revisao/v1

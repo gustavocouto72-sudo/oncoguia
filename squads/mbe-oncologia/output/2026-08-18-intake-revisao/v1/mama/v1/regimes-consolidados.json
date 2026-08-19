@@ -2,7 +2,7 @@
   "meta": {
     "titulo": "Protocolos — mama (re-extração 2026-07-22)",
     "tumor": "mama",
-    "gerado_em": "2026-08-18",
+    "gerado_em": "2026-08-19",
     "total_regimes": 60,
     "distribuicao_selo": {
       "re_derivado": 16,
@@ -1230,11 +1230,12 @@
       ],
       "elegibilidade_protocolo": null,
       "referencia": {
-        "citacao": "Sikov WM, Berry DA, Perou CM, et al. Impact of the addition of carboplatin and/or bevacizumab to neoadjuvant once-per-week paclitaxel followed by dose-dense AC on pathologic complete response rates in stage II to III triple-negative breast cancer. JAMA. 2015;312(9):915-926.",
+        "citacao": "Sikov WM, Berry DA, Perou CM, et al. Impact of the addition of carboplatin and/or bevacizumab to neoadjuvant once-per-week paclitaxel followed by dose-dense doxorubicin and cyclophosphamide on pathologic complete response rates in stage II to III triple-negative breast cancer: CALGB 40603 (Alliance). J Clin Oncol. 2015;33(1):13-21.",
         "doi": "10.1200/jco.2014.57.0572",
-        "pmid": null,
+        "pmid": "25092775",
         "estudo": "CALGB 40603",
-        "ano": 2015
+        "ano": 2015,
+        "primeiro_autor": "Sikov"
       },
       "afirmado_protocolo": {
         "grade": null,
@@ -1360,14 +1361,14 @@
           "doi_reparado: 10.1001/jama.2014.13346 (404) → 10.1200/jco.2014.57.0572 (200), via Crossref por nome (CALGB 40603, Sikov 2015; score 1.1878 vs 2º 0.6962)",
           "elegibilidade:mais_amplo (indicação potencialmente além da evidência)",
           "divergencia:elegibilidade",
-          "citacao_inconsistente_com_doi: texto da citação diz \"JAMA 2015;312(9):915-926\", mas o DOI/PMID resolvem para J Clin Oncol 2015 (Sikov, CALGB 40603) — corrigir via acao corrigir_referencia"
+          "citacao_corrigida_metadado: texto da citação realinhado ao que o DOI/PMID resolvem (J Clin Oncol 2015;33(1):13-21); DOI inalterado"
         ],
         "decisao_revisao": "rederivado_aguarda_revisao",
         "correcao": "Carboplatina + paclitaxel adjuvante é usado especificamente no contexto do câncer de mama triplo-negativo (TNBC), um subtipo dentro do grupo HER2-negativo — não é regime padrão para HER2-negativo/HR-positivo. A evidência de benefício em sobrevida vem predominantemente de estudos em TNBC de alto risco (estádio II-III), sendo menos estabelecida ou não indicada para doença luminal HER2-negativa.",
         "spec_revisor_resultado": "aplicada",
         "spec_revisor_nao_computavel": "\"TNBC de alto risco (estádio II-III)\": a parte TNBC virou regra (her2=negativo + rh=negativo). \"Estádio II-III\" NÃO virou regra — mama não tem primitivo de estádio agrupado, e derivá-lo de T/N exigiria o mapa canônico de estadiamento; forçar T≥T2 excluiria T1N1 (IIA), que é EC II. Fica como ressalva."
       },
-      "versao": 3,
+      "versao": 4,
       "atualizado_em": "2026-07-22",
       "revisado_por": null,
       "revisado_em": null,
@@ -1401,6 +1402,12 @@
           "data": "2026-08-18",
           "origem": "step-08:verificador-elegibilidade",
           "nota": "Eixo elegibilidade re-confrontado contra o estudo-pivô após a spec do revisor; selo re-avaliado pela regra do Step 07."
+        },
+        {
+          "versao": 4,
+          "data": "2026-08-19",
+          "origem": "step-08:correcao-metadado",
+          "nota": "Citação alinhada ao DOI/PMID (Sikov, J Clin Oncol 2015). Correção de rótulo: DOI, estudo e ano inalterados."
         }
       ],
       "flags": [
@@ -1408,7 +1415,7 @@
         "doi_reparado: 10.1001/jama.2014.13346 (404) → 10.1200/jco.2014.57.0572 (200), via Crossref por nome (CALGB 40603, Sikov 2015; score 1.1878 vs 2º 0.6962)",
         "elegibilidade:mais_amplo (indicação potencialmente além da evidência)",
         "divergencia:elegibilidade",
-        "citacao_inconsistente_com_doi: texto da citação diz \"JAMA 2015;312(9):915-926\", mas o DOI/PMID resolvem para J Clin Oncol 2015 (Sikov, CALGB 40603) — corrigir via acao corrigir_referencia"
+        "citacao_corrigida_metadado: texto da citação realinhado ao que o DOI/PMID resolvem (J Clin Oncol 2015;33(1):13-21); DOI inalterado"
       ],
       "elegibilidade": {
         "criterios": [],
@@ -2653,13 +2660,18 @@
           "fonte": "PCDT Câncer de Mama (MS, nov/2024) / estimativa qualitativa"
         },
         "elegibilidade": {
-          "status": "concorda",
-          "amplitude": "equivalente",
+          "status": "diverge",
+          "amplitude": "mais_amplo",
           "criterios_inclusao": [
             {
               "campo": "her2",
               "operador": "=",
               "valor": "positivo"
+            },
+            {
+              "campo": "neoadjuvancia_com_taxano_e_trastuzumabe",
+              "operador": "=",
+              "valor": "≥9 semanas de cada"
             },
             {
               "campo": "doenca_residual_invasiva_pos_neoadjuvante",
@@ -2679,28 +2691,40 @@
               "valor": "T1aN0 e T1bN0 (excluídos no estudo)"
             }
           ],
-          "divergencia_vs_protocolo": "RESOLVIDA. A divergência anterior era exatamente a ausência da exclusão de T1a/T1bN0; a spec do revisor a codificou em regra (not(t∈[T1a,T1b] and n=N0)). A regra passa a reproduzir a população do KATHERINE: HER2+ com doença residual invasiva em mama e/ou axila após neoadjuvância, exceto T1aN0/T1bN0. RESSALVA (lacuna, não divergência): o estudo exigiu que a neoadjuvância contivesse TAXANO + TRASTUZUMABE (≥9 semanas de cada); a regra não força esse conteúdo porque mama não tem primitivo de terapia neoadjuvante recebida — e o texto do protocolo também não o afirma, então não há o que confrontar nesse ponto.",
-          "justificativa": "Re-derivado da população do KATHERINE (von Minckwitz 2019, NEJM; PMID 30516102): HER2+ com doença residual invasiva pós-neoadjuvância com taxano ± antraciclina + trastuzumabe, exceto T1aN0/T1bN0. A regra nova confere com os critérios que o protocolo afirma.",
+          "divergencia_vs_protocolo": "A divergência original tinha DOIS componentes. (1) RESOLVIDO: a exclusão de T1a/T1bN0 não estava na regra e agora está — not(t∈[T1a,T1b] and n=N0), pela spec do revisor. (2) PENDENTE: o KATHERINE exigiu que a neoadjuvância contivesse TAXANO + TRASTUZUMABE, ≥9 semanas de cada; a regra não tem contrapartida para isso e mama não tem primitivo de terapia neoadjuvante recebida. Enquanto não houver, a regra admite HER2+ com doença residual após neoadjuvância SEM trastuzumabe — paciente que o estudo excluiu. É afrouxamento real (mais_amplo), não mera lacuna de anotação: por isso o eixo permanece diverge e o selo, divergencia.",
+          "justificativa": "Re-derivado da população do KATHERINE (von Minckwitz 2019, NEJM; PMID 30516102). Um dos dois componentes da divergência foi sanado pela spec; o outro segue sem cobertura na regra.",
           "fonte": "https://doi.org/10.1056/NEJMoa1814017",
-          "rederivado_em": "2026-08-18",
-          "rederivado_por": "step-08:verificador-elegibilidade"
+          "rederivado_em": "2026-08-19",
+          "rederivado_por": "step-08:verificador-elegibilidade (revisão do veredito)"
         }
       },
       "consolidacao": {
-        "status": "confirmado",
-        "selo_confianca": "confirmado",
-        "eixos_diverge": [],
-        "lacunas": [
-          "elegibilidade_taxano_trastuzumabe_previos_nao_computaveis"
+        "status": "divergencia",
+        "selo_confianca": "divergencia",
+        "eixos_diverge": [
+          "elegibilidade"
         ],
+        "lacunas": [],
         "flags": [
-          "elegibilidade_lacuna: exigência de taxano+trastuzumabe neoadjuvantes do KATHERINE não é computável (sem primitivo)"
+          "divergencia:elegibilidade",
+          "elegibilidade:mais_amplo (indicação potencialmente além da evidência)"
         ],
         "decisao_revisao": "rederivado_aguarda_revisao",
         "correcao": "O KATHERINE de fato excluiu tumores T1a/T1bN0 do desenho original, pois esses casos, geralmente não são submetidos a terapia neoadjuvante (T1N0 pequeno é candidato preferencial a cirurgia primária) para depois fazer adjuvancia. Como consequência, não existe população relevante de T1a/T1bN0 com \"doença residual pós-neoadjuvante\" dentro do próprio ensaio. \nENTÃO, Na prática não incluir T1a/T1bN0 (≤1 cm, linfonodo negativo). A via preferencial é cirurgia primária, não neoadjuvância — nesse cenário, o padrão adjuvante de baixo risco é paclitaxel semanal + trastuzumab por 1 ano",
-        "spec_revisor_resultado": "aplicada"
+        "spec_revisor_resultado": "aplicada",
+        "pendencias_re_revisao": [
+          {
+            "id": "katherine_taxano_trastuzumabe_neoadjuvantes",
+            "descricao": "O KATHERINE exigiu taxano + trastuzumabe na neoadjuvância (≥9 semanas de cada). A regra não cobre esse requisito e não há primitivo em mama para representá-lo.",
+            "decisao_do_revisor": [
+              "criar primitivo booleano (ex.: neoadjuvancia_com_taxano_e_trastuzumabe, estável=false, seção Contexto/História de tratamento) e incluí-lo na regra — fecha a divergência",
+              "aceitar a indicação mais ampla com nota clínica — mantém o selo divergencia, documentado"
+            ],
+            "status": "aberto"
+          }
+        ]
       },
-      "versao": 3,
+      "versao": 4,
       "atualizado_em": "2026-07-22",
       "revisado_por": null,
       "revisado_em": null,
@@ -2725,10 +2749,17 @@
           "data": "2026-08-18",
           "origem": "step-08:verificador-elegibilidade",
           "nota": "Eixo elegibilidade re-confrontado contra o estudo-pivô após a spec do revisor; selo re-avaliado pela regra do Step 07."
+        },
+        {
+          "versao": 4,
+          "data": "2026-08-19",
+          "origem": "step-08:revisao-do-veredito",
+          "nota": "Veredito de elegibilidade revertido para diverge: o componente taxano+trastuzumabe neoadjuvantes não tem contrapartida na regra."
         }
       ],
       "flags": [
-        "elegibilidade_lacuna: exigência de taxano+trastuzumabe neoadjuvantes do KATHERINE não é computável (sem primitivo)"
+        "divergencia:elegibilidade",
+        "elegibilidade:mais_amplo (indicação potencialmente além da evidência)"
       ],
       "elegibilidade": {
         "criterios": [
