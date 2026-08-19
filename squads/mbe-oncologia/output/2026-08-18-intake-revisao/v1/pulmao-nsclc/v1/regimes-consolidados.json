@@ -1,0 +1,3107 @@
+{
+  "meta": {
+    "titulo": "Protocolos — pulmao-nsclc (re-extração 2026-07-22)",
+    "tumor": "pulmao-nsclc",
+    "gerado_em": "2026-08-18",
+    "total_regimes": 21,
+    "distribuicao_selo": {
+      "re_derivado": 14,
+      "incompleto": 5,
+      "confirmado": 2
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 0,
+      "incongruentes": 2
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "pendente"
+    },
+    "derivado_de": "2026-07-22-refeito-completo/pulmao-nsclc/v1",
+    "nota": "Fatia por tumor do agregado deste run (vocabulário para o check de órfãos). Idêntica ao agregado."
+  },
+  "campos_primitivos": [
+    {
+      "campo": "ressecavel",
+      "tipo": "boolean",
+      "label": "Ressecavel",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "egfr_alk",
+      "tipo": "enum",
+      "label": "Egfr alk",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "negativos"
+      ]
+    },
+    {
+      "campo": "pdl1_pos",
+      "tipo": "boolean",
+      "label": "Pdl1 pos",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ressecado",
+      "tipo": "boolean",
+      "label": "Ressecado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "estadio",
+      "tipo": "enum",
+      "label": "Estadio",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "II_IIIA",
+        "I",
+        "III_irressecavel"
+      ]
+    },
+    {
+      "campo": "egfr_mutado",
+      "tipo": "boolean",
+      "label": "Egfr mutado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "alk_positivo",
+      "tipo": "boolean",
+      "label": "Alk positivo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "pdl1_alto",
+      "tipo": "boolean",
+      "label": "Pdl1 alto",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "egfr_negativo",
+      "tipo": "boolean",
+      "label": "Egfr negativo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "mutacao_acionavel",
+      "tipo": "boolean",
+      "label": "Mutacao acionavel",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "alto_volume_ou_snc",
+      "tipo": "boolean",
+      "label": "Alto volume ou snc",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "egfr_exon20",
+      "tipo": "boolean",
+      "label": "Egfr exon20",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ros1_positivo",
+      "tipo": "boolean",
+      "label": "Ros1 positivo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "segunda_linha",
+      "tipo": "boolean",
+      "label": "Segunda linha",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "io_previa",
+      "tipo": "boolean",
+      "label": "Io previa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "linha_subsequente",
+      "tipo": "boolean",
+      "label": "Linha subsequente",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "nsclc-neoadj-nivolumabe-qt",
+      "tumor": "pulmao-nsclc",
+      "cenario": "neoadjuvancia",
+      "subtipo": "CPNPC ressecável (II-IIIA), EGFR/ALK negativos, PD-L1≥1% — neoadjuvante",
+      "nome": "Nivolumabe + Quimioterapia (CheckMate 816)",
+      "esquema": "Nivolumabe 360 mg + QT baseada em platina D1, 3 ciclos, seguido de cirurgia (sem adjuvância)",
+      "farmacos": [
+        {
+          "nome": "Nivolumabe",
+          "dose": "360 mg",
+          "via": "EV",
+          "frequencia": "21/21d x3"
+        },
+        {
+          "nome": "Cisplatina/Carboplatina + Pemetrexede/Paclitaxel/Gemcitabina",
+          "dose": "conforme histologia",
+          "via": "EV",
+          "frequencia": "21/21d x3"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC ressecável estágio II-IIIA, EGFR e ALK negativos, PD-L1≥1%, tratamento neoadjuvante.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "ressecavel",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "egfr_alk",
+                "negativos"
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_pos",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FORDE PM et al. Neoadjuvant nivolumab plus chemotherapy in resectable NSCLC — final overall survival analysis of CheckMate 816. N Engl J Med. 2024;390(23):2183-2193.",
+        "doi": "10.1056/NEJMoa2202170",
+        "pmid": null,
+        "estudo": "CheckMate 816",
+        "ano": 2022,
+        "primeiro_autor": "Forde"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de eventos e ↑ resposta patológica completa; SG favorável",
+        "magnitude": "CheckMate 816: EFS HR 0,63; pCR 24% vs 2,2%; SG favorável",
+        "fonte": "10.1056/NEJMoa2202170"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CheckMate 816 (fase 3): ganho de EFS/pCR e SG com nivolumabe neoadjuvante. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2202170"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário neoadjuvante curativo com ganho de EFS/SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2202170"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Nivolumabe de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "ressecavel",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "egfr_alk",
+              "operador": "=",
+              "valor": "negativos"
+            },
+            {
+              "campo": "pdl1_pos",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: CheckMate 816 em ressecável PD-L1≥1%, EGFR/ALK neg.",
+          "justificativa": "Concorda: CheckMate 816 em ressecável PD-L1≥1%, EGFR/ALK neg.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2202170"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "rotulo_corrigido: primeiro_autor→Forde, ano→2022; DOI 10.1056/NEJMoa2202170 já correto (paper certo), selo inalterado.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-periop-pembrolizumabe-qt",
+      "tumor": "pulmao-nsclc",
+      "cenario": "neoadjuvancia",
+      "subtipo": "CPNPC ressecável (Ib-IIIA), EGFR/ALK negativos — perioperatório",
+      "nome": "Pembrolizumabe perioperatório + QT (KEYNOTE-671)",
+      "esquema": "Pembrolizumabe 200 mg + QT platina D1, 4 ciclos neoadjuvantes → cirurgia → pembrolizumabe adjuvante a cada 3 semanas por 1 ano",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d (neo 4 ciclos + adj 1 ano)"
+        },
+        {
+          "nome": "QT platina",
+          "dose": "conforme histologia",
+          "via": "EV",
+          "frequencia": "21/21d x4"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC ressecável estágio Ib-IIIA, EGFR e ALK negativos, tratamento perioperatório.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "ressecavel",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "egfr_alk",
+                "negativos"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "WAKELEE H et al. Perioperative pembrolizumab for early-stage NSCLC (KEYNOTE-671). N Engl J Med. 2023;389(6):491-503. 4-year update: ASCO 2025.",
+        "doi": "10.1056/NEJMoa2302983",
+        "pmid": null,
+        "estudo": "KEYNOTE-671",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de eventos e ↑ sobrevida global",
+        "magnitude": "KEYNOTE-671: EFS HR 0,58; SG HR 0,72",
+        "fonte": "10.1056/NEJMoa2302983"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "KEYNOTE-671 (fase 3): ganho de EFS e SG com pembrolizumabe perioperatório. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2302983"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário perioperatório curativo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2302983"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Pembrolizumabe perioperatório de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "ressecavel",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "egfr_alk",
+              "operador": "=",
+              "valor": "negativos"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: KEYNOTE-671 em ressecável Ib-IIIA.",
+          "justificativa": "Concorda: KEYNOTE-671 em ressecável Ib-IIIA.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2302983"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-periop-durva-nivo-nao-incluido",
+      "tumor": "pulmao-nsclc",
+      "cenario": "neoadjuvancia",
+      "subtipo": "CPNPC ressecável — perioperatório com durvalumabe/nivolumabe (não incluído)",
+      "nome": "Durvalumabe (AEGEAN) / Nivolumabe (CheckMate 77T) perioperatório (NÃO incluído)",
+      "esquema": "Durvalumabe (AEGEAN) ou Nivolumabe (CheckMate 77T) perioperatório — não incluído",
+      "farmacos": [
+        {
+          "nome": "Durvalumabe ou Nivolumabe",
+          "dose": "conforme estudo",
+          "via": "EV",
+          "frequencia": "perioperatório"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC ressecável (protocolo NÃO inclui AEGEAN/CheckMate 77T: ausência de resultados maduros de sobrevida global e seguimento a longo prazo, ao contrário dos desfechos já alcançados por CheckMate 816 e KEYNOTE-671).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "ressecavel",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Heymach JV et al. Perioperative Durvalumab for Resectable NSCLC (AEGEAN). N Engl J Med. 2023. DOI 10.1056/NEJMoa2304875. 2º pivô: CheckMate 77T (nivolumabe perioperatório).",
+        "doi": "10.1056/NEJMoa2304875",
+        "pmid": null,
+        "estudo": "AEGEAN / CheckMate 77T",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Ganho de EFS com SG ainda imatura",
+        "magnitude": "AEGEAN/CheckMate 77T: EFS positivo; SG não madura no momento da decisão",
+        "fonte": "AEGEAN/CheckMate 77T"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "2B",
+          "afirmado_protocolo": null,
+          "justificativa": "AEGEAN/CheckMate 77T têm EFS positivo mas SG imatura; protocolo prefere aguardar maturação frente às opções já com SG (816/671). Coerente com não incluir agora.",
+          "fonte": "referência AEGEAN/CheckMate 77T"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "SG imatura; não graduável definitivamente.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Custo alto sem SG madura. Affordability baixa. Sustenta o adiamento da incorporação.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incluído (aguardando SG)."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "ressecavel",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: decisão de aguardar SG madura é adversarialmente defensável (816/671 já cobrem o cenário).",
+          "justificativa": "Concorda: decisão de aguardar SG madura é adversarialmente defensável (816/671 já cobrem o cenário).",
+          "fonte": "https://doi.org/10.1056/NEJMoa2304875"
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: EFS positivo mas SG imatura (AEGEAN/CheckMate 77T); reavaliar com dados maduros"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: EFS positivo mas SG imatura (AEGEAN/CheckMate 77T); reavaliar com dados maduros"
+      ]
+    },
+    {
+      "regimen_id": "nsclc-adj-qt-platina",
+      "tumor": "pulmao-nsclc",
+      "cenario": "adjuvancia",
+      "subtipo": "CPNPC ressecado estágio II-IIIA — quimioterapia adjuvante",
+      "nome": "Quimioterapia adjuvante baseada em platina (LACE)",
+      "esquema": "Cisplatina 75 mg/m² + (Pemetrexede/Vinorelbina/Docetaxel/Gemcitabina/Etoposídeo conforme histologia), 21/21d x4 ciclos",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d x4"
+        },
+        {
+          "nome": "Agente conforme histologia",
+          "dose": "conforme esquema",
+          "via": "EV",
+          "frequencia": "21/21d x4"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC ressecado estágio II-IIIA (AJCC 8ª ed.), ECOG 0-1; discutir risco-benefício em Ib de 4 cm/fatores de risco.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "ressecado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "estadio",
+                "II_IIIA"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PIGNON JP et al. Lung adjuvant cisplatin evaluation: a pooled analysis by the LACE Collaborative Group. J Clin Oncol. 2008;26(21):3552-3559.",
+        "doi": "10.1200/JCO.2007.13.9030",
+        "pmid": null,
+        "estudo": "LACE (meta-análise)",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global com QT adjuvante baseada em cisplatina",
+        "magnitude": "LACE: ganho absoluto de SG ~5,4% em 5 anos (HR 0,89)",
+        "fonte": "10.1200/JCO.2007.13.9030"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "LACE (meta-análise de fase 3): QT adjuvante baseada em cisplatina melhora SG em II-IIIA. Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9030"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9030"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "QT genérica, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "ressecado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "estadio",
+              "operador": "=",
+              "valor": "II_IIIA"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: LACE em II-IIIA ressecado.",
+          "justificativa": "Concorda: LACE em II-IIIA ressecado.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9030"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-adj-osimertinibe-egfr",
+      "tumor": "pulmao-nsclc",
+      "cenario": "adjuvancia",
+      "subtipo": "CPNPC ressecado EGFR mutado (ex19del/L858R), IB-IIIA — adjuvante alvo",
+      "nome": "Osimertinibe adjuvante (ADAURA)",
+      "esquema": "Osimertinibe 80 mg VO 1x/dia por 36 meses (após QT adjuvante quando indicada)",
+      "farmacos": [
+        {
+          "nome": "Osimertinibe",
+          "dose": "80 mg",
+          "via": "VO",
+          "frequencia": "1x/dia por 36 meses"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC ressecado com mutação EGFR (ex19del/L858R), estágio IB-IIIA (AJCC 7), adjuvância alvo por 36 meses.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "ressecado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "egfr_mutado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "WU YL et al. Osimertinib in resected EGFR-mutated NSCLC: overall survival results from ADAURA. N Engl J Med. 2023;389(2):137-147.",
+        "doi": "10.1056/NEJMoa2027071",
+        "pmid": null,
+        "estudo": "ADAURA",
+        "ano": 2020,
+        "primeiro_autor": "Wu"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença e ↑ sobrevida global",
+        "magnitude": "ADAURA: SLD HR 0,27; SG HR 0,49",
+        "fonte": "10.1056/NEJMoa2306073"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash/diarreia (TKI)",
+          "severidade": "moderada",
+          "conduta": "suporte; ajuste",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "ADAURA (fase 3): ganho robusto de SLD e SG com osimertinibe adjuvante em EGFR mutado. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2027071"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2027071"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Osimertinibe por 36 meses de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "ressecado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "egfr_mutado",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ADAURA em EGFR mutado ressecado.",
+          "justificativa": "Concorda: ADAURA em EGFR mutado ressecado.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2027071"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1056/NEJMoa2306073 → 10.1056/NEJMoa2027071 (ADAURA, Wu 2020; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-adj-alectinibe-alk",
+      "tumor": "pulmao-nsclc",
+      "cenario": "adjuvancia",
+      "subtipo": "CPNPC ressecado ALK+ (IB-IIIA) — adjuvante alvo",
+      "nome": "Alectinibe adjuvante (ALINA)",
+      "esquema": "Alectinibe 600 mg VO 2x/dia por 24 meses (sem QT adjuvante)",
+      "farmacos": [
+        {
+          "nome": "Alectinibe",
+          "dose": "600 mg",
+          "via": "VO",
+          "frequencia": "2x/dia por 24 meses"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC ressecado ALK+, estágio IB-IIIA (AJCC 7), adjuvância alvo por 24 meses (dados de SG ainda imaturos).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "ressecado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "alk_positivo",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "TSAO MS et al. Alectinib versus platinum-based chemotherapy in resected ALK-positive NSCLC (ALINA). N Engl J Med. 2024;390(6):561-572.",
+        "doi": "10.1056/NEJMoa2310532",
+        "pmid": null,
+        "estudo": "ALINA",
+        "ano": 2024,
+        "primeiro_autor": "Wu"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença (redução robusta de recorrência); SG imatura",
+        "magnitude": "ALINA: SLD HR 0,24; SG ainda imatura",
+        "fonte": "10.1056/NEJMoa2309820"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash/diarreia (TKI)",
+          "severidade": "moderada",
+          "conduta": "suporte; ajuste",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "ALINA (fase 3): ganho robusto de SLD (HR 0,24); SG imatura → recomendação forte para SLD, aguardar SG. Protocolo posiciona como 'discutir individualmente'.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2310532"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "B (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo com SLD positiva; SG imatura → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2310532"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Alectinibe por 24 meses de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "ressecado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "alk_positivo",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ALINA em ALK+ ressecado (protocolo sinaliza SG imatura).",
+          "justificativa": "Concorda: ALINA em ALK+ ressecado (protocolo sinaliza SG imatura).",
+          "fonte": "https://doi.org/10.1056/NEJMoa2310532"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1056/NEJMoa2309820 → 10.1056/NEJMoa2310532 (ALINA, Wu 2024; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-adj-atezolizumabe-pdl1",
+      "tumor": "pulmao-nsclc",
+      "cenario": "adjuvancia",
+      "subtipo": "CPNPC ressecado II-IIIA, EGFR/ALK/ROS1 neg, PD-L1≥50% — imunoterapia adjuvante",
+      "nome": "Atezolizumabe adjuvante (IMpower010)",
+      "esquema": "Atezolizumabe 1.200 mg EV a cada 21 dias por 12 meses (PD-L1≥50%)",
+      "farmacos": [
+        {
+          "nome": "Atezolizumabe",
+          "dose": "1.200 mg",
+          "via": "EV",
+          "frequencia": "21/21d por 12 meses"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC ressecado estágio II-IIIA (AJCC 7), EGFR/ALK/ROS1 negativos, PD-L1≥50% (após QT adjuvante).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "ressecado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_alto",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FELIP E et al. Adjuvant atezolizumab after chemotherapy in resected stage IB-IIIA NSCLC (IMpower010). Lancet. 2021;398(10308):1344-1357.",
+        "doi": "10.1016/S0140-6736(21)02098-5",
+        "pmid": null,
+        "estudo": "IMpower010",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença (maior em PD-L1≥50%)",
+        "magnitude": "IMpower010: SLD HR 0,66 no estágio II-IIIA PD-L1≥1%; benefício maior em PD-L1≥50%",
+        "fonte": "10.1016/S0140-6736(21)02098-5"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "IMpower010 (fase 3): ganho de SLD com atezolizumabe adjuvante, concentrado em PD-L1≥50%. Recomendação forte nesse subgrupo.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(21)02098-5"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(21)02098-5"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Atezolizumabe por 12 meses de custo alto; restrição a PD-L1≥50%. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "ressecado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "pdl1_alto",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: protocolo restringe a PD-L1≥50%, uso adversarialmente correto do biomarcador.",
+          "justificativa": "Concorda: protocolo restringe a PD-L1≥50%, uso adversarialmente correto do biomarcador.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(21)02098-5"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-adj-io-estagioI-nao-incluido",
+      "tumor": "pulmao-nsclc",
+      "cenario": "adjuvancia",
+      "subtipo": "CPNPC estágio I — imunoterapia adjuvante (não incluída)",
+      "nome": "Imunoterapia adjuvante em estágio I (NÃO incluída)",
+      "esquema": "Imunoterapia adjuvante em estágio I — não incluída",
+      "farmacos": [
+        {
+          "nome": "Imunoterapia",
+          "dose": "—",
+          "via": "EV",
+          "frequencia": "não indicado"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC estágio I (protocolo NÃO inclui imunoterapia adjuvante: acréscimo não melhorou desfechos e associa-se a toxicidade deletéria em cenário curativo; PD-L1 é o balizador).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "ressecado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "estadio",
+                "I"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base: ausência de benefício de imunoterapia adjuvante em estágio I (subanálises de IMpower010/PEARLS).",
+        "doi": null,
+        "pmid": null,
+        "estudo": "—",
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "Imunoterapia adjuvante não demonstrou benefício em estágio I, com risco de toxicidade em cenário curativo. Coerente com não incluir.",
+          "fonte": "subanálise IMpower010/PEARLS"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Sem benefício demonstrado em estágio I; não graduável como benefício.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 5,
+          "afirmado_protocolo": null,
+          "justificativa": "Custo alto sem benefício em estágio I; risco de dano. Affordability muito baixa. Sustenta a não inclusão.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incluído em estágio I."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "ressecado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "estadio",
+              "operador": "=",
+              "valor": "I"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ausência de benefício em estágio I sustenta a não inclusão.",
+          "justificativa": "Concorda: ausência de benefício em estágio I sustenta a não inclusão.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: sem benefício de imunoterapia adjuvante em estágio I; risco de toxicidade em cenário curativo",
+          "doi_incongruente: 5 candidatos resolvíveis para '—' (Base None); topo 0.3 vs 2º 0.2935 sem margem clara — não escolher; mantém incompleto"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: sem benefício de imunoterapia adjuvante em estágio I; risco de toxicidade em cenário curativo",
+        "doi_incongruente: 5 candidatos resolvíveis para '—' (Base None); topo 0.3 vs 2º 0.2935 sem margem clara — não escolher; mantém incompleto"
+      ]
+    },
+    {
+      "regimen_id": "nsclc-def-crt-durvalumab",
+      "tumor": "pulmao-nsclc",
+      "cenario": "localmente-avancado",
+      "subtipo": "CPNPC estágio III irressecável — quimiorradioterapia definitiva + consolidação",
+      "nome": "Quimiorradioterapia + Durvalumabe de consolidação (PACIFIC)",
+      "esquema": "QT (platina + pemetrexede/etoposídeo/paclitaxel) concomitante à RT → Durvalumabe 10 mg/kg EV a cada 14 dias por 24 ciclos (EGFR neg, PD-L1≥1%)",
+      "farmacos": [
+        {
+          "nome": "QT platina + RT",
+          "dose": "conforme esquema",
+          "via": "EV",
+          "frequencia": "concomitante"
+        },
+        {
+          "nome": "Durvalumabe",
+          "dose": "10 mg/kg",
+          "via": "EV",
+          "frequencia": "14/14d x24 (consolidação)"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC estágio III irressecável, sem progressão após quimiorradioterapia, EGFR negativo e PD-L1≥1% (consolidação com durvalumabe).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "estadio",
+                "III_irressecavel"
+              ]
+            },
+            {
+              "eq": [
+                "egfr_negativo",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ANTONIA SJ et al. Durvalumab after chemoradiotherapy in stage III NSCLC (PACIFIC). N Engl J Med. 2017;377(20):1919-1929. OS: N Engl J Med. 2018;379:2342.",
+        "doi": "10.1056/NEJMoa1709937",
+        "pmid": null,
+        "estudo": "PACIFIC",
+        "ano": 2017
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e ↑ sobrevida global",
+        "magnitude": "PACIFIC: SLP HR 0,52; SG HR 0,68",
+        "fonte": "10.1056/NEJMoa1709937"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "PACIFIC (fase 3): ganho de SLP/SG com durvalumabe de consolidação pós-quimiorradioterapia. Padrão de cuidado. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1709937"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo (estágio III) com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1709937"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Durvalumabe de consolidação de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "estadio",
+              "operador": "=",
+              "valor": "III_irressecavel"
+            },
+            {
+              "campo": "egfr_negativo",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: PACIFIC em estágio III irressecável EGFR neg.",
+          "justificativa": "Concorda: PACIFIC em estágio III irressecável EGFR neg.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1709937"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-met-io-mono-pdl1alto",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático sem mutação acionável, PD-L1≥50% — 1ª linha (IO mono)",
+      "nome": "Pembrolizumabe / Atezolizumabe / Cemiplimabe (monoterapia)",
+      "esquema": "Pembrolizumabe 200 mg 21/21d; ou Atezolizumabe 1.200 mg 21/21d; ou Cemiplimabe 350 mg 21/21d, até progressão",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe (ou Atezo/Cemiplimabe)",
+          "dose": "200/1200/350 mg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático sem mutações acionáveis, PD-L1≥50%, 1ª linha (imunoterapia isolada; considerar QT+imuno se necessária taxa de resposta).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_alto",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "mutacao_acionavel",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "RECK M et al. Pembrolizumab versus chemotherapy for PD-L1-positive NSCLC (KEYNOTE-024). N Engl J Med. 2016;375(19):1823-1833.",
+        "doi": "10.1056/NEJMoa1606774",
+        "pmid": null,
+        "estudo": "KEYNOTE-024 / EMPOWER-Lung 3 / IMpower110",
+        "ano": 2016
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs quimioterapia",
+        "magnitude": "KEYNOTE-024: SG HR 0,60 em PD-L1≥50%",
+        "fonte": "10.1056/NEJMoa1606774"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "KEYNOTE-024 (fase 3) e sucessores: IO mono superior à QT em PD-L1≥50%. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1606774"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,60) em doença metastática → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1606774"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Imunoterapia de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "pdl1_alto",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "mutacao_acionavel",
+              "operador": "=",
+              "valor": false
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: restrito a PD-L1≥50%, uso adversarialmente correto do biomarcador.",
+          "justificativa": "Concorda: restrito a PD-L1≥50%, uso adversarialmente correto do biomarcador.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1606774"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-met-io-qt-pdl1baixo",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático sem mutação acionável, PD-L1<50% — 1ª linha (QT+IO)",
+      "nome": "Pembrolizumabe (ou Cemiplimabe) + Quimioterapia",
+      "esquema": "Pembrolizumabe 200 mg + carboplatina/cisplatina + pemetrexede (não escamoso) ou paclitaxel (escamoso), 21/21d x4 → manutenção",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Platina + Pemetrexede/Paclitaxel",
+          "dose": "conforme histologia",
+          "via": "EV",
+          "frequencia": "21/21d x4"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático sem mutações acionáveis, PD-L1 1-49% ou <1%, 1ª linha (QT + imunoterapia conforme histologia).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "mutacao_acionavel",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_alto",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "GANDHI L et al. Pembrolizumab plus chemotherapy in metastatic NSCLC (KEYNOTE-189). N Engl J Med. 2018;378(22):2078-2092. PAZ-ARES L et al. KEYNOTE-407 (escamoso). N Engl J Med. 2018;379:2040.",
+        "doi": "10.1056/NEJMoa1801005",
+        "pmid": null,
+        "estudo": "KEYNOTE-189 / KEYNOTE-407",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs quimioterapia",
+        "magnitude": "KEYNOTE-189: SG HR 0,49; KEYNOTE-407: SG HR 0,64",
+        "fonte": "10.1056/NEJMoa1801005"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "KEYNOTE-189/407 (fase 3): QT+pembrolizumabe superior à QT. Recomendação forte independentemente de PD-L1.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1801005"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,49-0,64) → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1801005"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "QT + imunoterapia de custo alto (driver: IO). Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "mutacao_acionavel",
+              "operador": "=",
+              "valor": false
+            },
+            {
+              "campo": "pdl1_alto",
+              "operador": "=",
+              "valor": false
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: KEYNOTE-189/407 em metastático sem mutação.",
+          "justificativa": "Concorda: KEYNOTE-189/407 em metastático sem mutação.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1801005"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-met-atezo-bev-nao-incluido",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático — atezolizumabe + bevacizumabe + QT (não incluído)",
+      "nome": "Atezolizumabe + Bevacizumabe + QT (IMpower150) — NÃO incluído",
+      "esquema": "Atezolizumabe + Bevacizumabe + carboplatina + paclitaxel — não incluído",
+      "farmacos": [
+        {
+          "nome": "Atezolizumabe + Bevacizumabe + QT",
+          "dose": "conforme IMpower150",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático (protocolo NÃO inclui: ganho de SG marginal, alto potencial de toxicidade e piora de qualidade de vida — IMpower150).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SOCINSKI MA et al. Atezolizumab for first-line treatment of metastatic nonsquamous NSCLC (IMpower150). N Engl J Med. 2018;378(24):2288-2301.",
+        "doi": "10.1056/NEJMoa1716948",
+        "pmid": null,
+        "estudo": "IMpower150",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global marginal com maior toxicidade",
+        "magnitude": "IMpower150: ganho de SG marginal (~1,7 mês mediana) com esquema de 4 drogas",
+        "fonte": "10.1056/NEJMoa1716948"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "IMpower150 (fase 3) positivo mas com ganho marginal e esquema de 4 drogas mais tóxico. Certeza alta; benefício incremental pequeno frente a QT+IO. Coerente com não incluir.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1716948"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "2-3",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG marginal frente a QT+IO simples; benefício incremental baixo → MCBS baixo. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1716948"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 5,
+          "afirmado_protocolo": null,
+          "justificativa": "Esquema de 4 drogas (IO+antiangiogênico+QT) de custo altíssimo e toxicidade. Affordability muito baixa. Sustenta a não inclusão.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incluído."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ganho marginal e toxicidade frente a QT+IO simples sustentam a não inclusão.",
+          "justificativa": "Concorda: ganho marginal e toxicidade frente a QT+IO simples sustentam a não inclusão.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1716948"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: ganho de SG marginal (~1,7 mês) e maior toxicidade (IMpower150)"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: ganho de SG marginal (~1,7 mês) e maior toxicidade (IMpower150)"
+      ]
+    },
+    {
+      "regimen_id": "nsclc-met-qt-durva-treme-nao-incluido",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático — QT + durvalumabe + tremelimumabe (não incluído)",
+      "nome": "QT + Durvalumabe + Tremelimumabe (POSEIDON) — NÃO incluído",
+      "esquema": "QT + durvalumabe + tremelimumabe — não incluído (sobretudo escamoso)",
+      "farmacos": [
+        {
+          "nome": "QT + Durvalumabe + Tremelimumabe",
+          "dose": "conforme POSEIDON",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático estágio IV (protocolo NÃO inclui POSEIDON: dados conflitantes e potencialmente deletérios em escamoso, resultados marginais frente à monoimunoterapia + QT).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "JOHNSON ML et al. Durvalumab with or without tremelimumab in combination with chemotherapy in metastatic NSCLC (POSEIDON). J Clin Oncol. 2023;41(6):1213-1227.",
+        "doi": "10.1200/JCO.22.00975",
+        "pmid": null,
+        "estudo": "POSEIDON",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Ganho marginal com dupla imunoterapia + QT",
+        "magnitude": "POSEIDON: benefício marginal, não contrabalançado pela toxicidade da dupla imunoterapia",
+        "fonte": "10.1200/JCO.22.00975"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "POSEIDON com benefício marginal e toxicidade adicional da dupla imunoterapia; dados conflitantes em escamoso. Coerente com não incluir frente a QT+IO simples.",
+          "fonte": "https://doi.org/10.1200/JCO.22.00975"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": null,
+          "justificativa": "Benefício marginal frente à monoimunoterapia+QT → MCBS baixo. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1200/JCO.22.00975"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 5,
+          "afirmado_protocolo": null,
+          "justificativa": "Dupla imunoterapia + QT de custo altíssimo. Affordability muito baixa. Sustenta a não inclusão.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incluído."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: benefício marginal e toxicidade da dupla imuno sustentam a não inclusão.",
+          "justificativa": "Concorda: benefício marginal e toxicidade da dupla imuno sustentam a não inclusão.",
+          "fonte": "https://doi.org/10.1200/JCO.22.00975"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: benefício marginal + toxicidade da dupla imunoterapia (POSEIDON)"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: benefício marginal + toxicidade da dupla imunoterapia (POSEIDON)"
+      ]
+    },
+    {
+      "regimen_id": "nsclc-met-osimertinibe-egfr",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático EGFR mutado (ex19del/L858R) — 1ª linha alvo",
+      "nome": "Osimertinibe (FLAURA)",
+      "esquema": "Osimertinibe 80 mg VO 1x/dia até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Osimertinibe",
+          "dose": "80 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático com mutação EGFR sensibilizante (ex19del/L858R), 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "egfr_mutado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "RAMALINGAM SS et al. Overall survival with osimertinib in untreated EGFR-mutated advanced NSCLC (FLAURA). N Engl J Med. 2020;382(1):41-50.",
+        "doi": "10.1056/NEJMoa1913662",
+        "pmid": null,
+        "estudo": "FLAURA",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e ↑ sobrevida global",
+        "magnitude": "FLAURA: SLP HR 0,46; SG HR 0,80 (38,6 vs 31,8 meses)",
+        "fonte": "10.1056/NEJMoa1913662"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash/diarreia (TKI)",
+          "severidade": "moderada",
+          "conduta": "suporte; ajuste",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "FLAURA (fase 3): osimertinibe com ganho de SLP/SG em EGFR mutado. Padrão de 1ª linha. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1913662"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG e SLP em doença metastática EGFR+ → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1913662"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Osimertinibe de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "egfr_mutado",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: FLAURA em EGFR mutado 1ª linha.",
+          "justificativa": "Concorda: FLAURA em EGFR mutado 1ª linha.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1913662"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-met-osi-qt-egfr",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático EGFR mutado alto volume/SNC — osimertinibe + QT",
+      "nome": "Osimertinibe + Quimioterapia (FLAURA2)",
+      "esquema": "Osimertinibe 80 mg/dia + carboplatina + pemetrexede, 21/21d x4-6 → osimertinibe + pemetrexede manutenção",
+      "farmacos": [
+        {
+          "nome": "Osimertinibe",
+          "dose": "80 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        },
+        {
+          "nome": "Carboplatina + Pemetrexede",
+          "dose": "conforme esquema",
+          "via": "EV",
+          "frequencia": "21/21d x4-6"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático EGFR mutado com alto volume de doença/crise visceral/metástase em SNC (necessidade de resposta rápida).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "egfr_mutado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "alto_volume_ou_snc",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PLANCHARD D et al. Osimertinib with or without chemotherapy in EGFR-mutated advanced NSCLC (FLAURA2). N Engl J Med. 2023;389(21):1935-1948.",
+        "doi": "10.1056/NEJMoa2306434",
+        "pmid": null,
+        "estudo": "FLAURA2",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão",
+        "magnitude": "FLAURA2: SLP HR 0,62 (25,5 vs 16,7 meses)",
+        "fonte": "10.1056/NEJMoa2306434"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash/diarreia (TKI)",
+          "severidade": "moderada",
+          "conduta": "suporte; ajuste",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "FLAURA2 (fase 3): ganho de SLP com osimertinibe+QT, útil em alto volume/SNC. Recomendação forte nesse subgrupo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2306434"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "3",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SLP substancial; SG imatura → MCBS ~3. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2306434"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Osimertinibe + QT de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "egfr_mutado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "alto_volume_ou_snc",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: FLAURA2 em EGFR mutado alto volume/SNC.",
+          "justificativa": "Concorda: FLAURA2 em EGFR mutado alto volume/SNC.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2306434"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-met-amivantamab-nao-incluido",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático EGFR mutado — amivantamab (não incluído)",
+      "nome": "Amivantamab + Lazertinibe (MARIPOSA) / + QT (MARIPOSA2) — NÃO incluído",
+      "esquema": "Amivantamab + lazertinibe (1ª linha) ou amivantamab + QT (pós-osimertinibe) — não incluído",
+      "farmacos": [
+        {
+          "nome": "Amivantamab (± Lazertinibe/QT)",
+          "dose": "conforme estudo",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático EGFR mutado (protocolo NÃO inclui: MARIPOSA com resultados próximos ao FLAURA2 e maior toxicidade; MARIPOSA2 com benefício clínico marginal, ESMO MCBS 2).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "egfr_mutado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CHO BC et al. Amivantamab plus lazertinib versus osimertinib in EGFR-mutant advanced NSCLC (MARIPOSA). N Engl J Med. 2024;391(16):1486-1498.",
+        "doi": "10.1056/NEJMoa2403614",
+        "pmid": null,
+        "estudo": "MARIPOSA / MARIPOSA-2",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP com maior toxicidade (1ª linha); benefício marginal pós-osimertinibe",
+        "magnitude": "MARIPOSA: SLP superior ao osimertinibe mas com toxicidade relevante; MARIPOSA2: benefício marginal (ESMO MCBS 2)",
+        "fonte": "10.1056/NEJMoa2403614"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Rash/diarreia (TKI)",
+          "severidade": "moderada",
+          "conduta": "suporte; ajuste",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "MARIPOSA/MARIPOSA2 com ganho de SLP porém maior toxicidade e benefício incremental marginal frente a osimertinibe/FLAURA2. Coerente com não incluir.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2403614"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": "2",
+          "justificativa": "Protocolo afirma ESMO-MCBS 2 (MARIPOSA2). Re-derivação: benefício marginal pós-osimertinibe → MCBS 2. Concorda.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2403614"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 5,
+          "afirmado_protocolo": null,
+          "justificativa": "Amivantamab de custo altíssimo com maior toxicidade. Affordability muito baixa. Sustenta a não inclusão.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incluído."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "egfr_mutado",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: benefício marginal/toxicidade frente a osimertinibe sustentam a não inclusão.",
+          "justificativa": "Concorda: benefício marginal/toxicidade frente a osimertinibe sustentam a não inclusão.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2403614"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: benefício incremental marginal + toxicidade (MARIPOSA/MARIPOSA2, MCBS 2)"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: benefício incremental marginal + toxicidade (MARIPOSA/MARIPOSA2, MCBS 2)"
+      ]
+    },
+    {
+      "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático EGFR exon 20 — amivantamab+QT PAPILLON (não incluído)",
+      "nome": "Carboplatina + Pemetrexede + Amivantamab (PAPILLON) — NÃO incluído",
+      "esquema": "Carboplatina + pemetrexede + amivantamab (EGFR exon 20) — não incluído",
+      "farmacos": [
+        {
+          "nome": "Carboplatina + Pemetrexede + Amivantamab",
+          "dose": "conforme PAPILLON",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático com inserção no exon 20 do EGFR (protocolo NÃO inclui PAPILLON: dados imaturos em SG e magnitude do benefício marginal, ESMO MCBS 3).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "egfr_exon20",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ZHOU C et al. Amivantamab plus chemotherapy in NSCLC with EGFR exon 20 insertions (PAPILLON). N Engl J Med. 2023;389(22):2039-2051.",
+        "doi": "10.1056/NEJMoa2306441",
+        "pmid": null,
+        "estudo": "PAPILLON",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão (SG imatura)",
+        "magnitude": "PAPILLON: SLP HR 0,40; SG imatura no momento da decisão",
+        "fonte": "10.1056/NEJMoa2306441"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "PAPILLON (fase 3): ganho robusto de SLP (HR 0,40) em exon 20; SG imatura. Protocolo afirma MCBS 3 e aguarda SG. ATENÇÃO à cobertura (ver flag).",
+          "fonte": "https://doi.org/10.1056/NEJMoa2306441"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "3",
+          "afirmado_protocolo": "3",
+          "justificativa": "Protocolo afirma ESMO-MCBS 3. Re-derivação: ganho de SLP substancial, SG imatura → MCBS ~3. Concorda.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2306441"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 5,
+          "afirmado_protocolo": null,
+          "justificativa": "Amivantamab de custo altíssimo. Affordability muito baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incluído (aguardando SG)."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "egfr_exon20",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda com o MCBS afirmado (3). ATENÇÃO: PAPILLON é o único alvo específico para EGFR exon 20; a não inclusão deixa esse subgrupo raro apenas com QT — lacuna de cobertura a revisar quando a SG amadurecer.",
+          "justificativa": "Concorda com o MCBS afirmado (3). ATENÇÃO: PAPILLON é o único alvo específico para EGFR exon 20; a não inclusão deixa esse subgrupo raro apenas com QT — lacuna de cobertura a revisar quando a SG amadurecer.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2306441"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: SG imatura, MCBS 3 (PAPILLON)",
+          "cobertura: único alvo para EGFR exon 20; não inclusão deixa subgrupo raro só com QT — revisar com SG madura"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: SG imatura, MCBS 3 (PAPILLON)",
+        "cobertura: único alvo para EGFR exon 20; não inclusão deixa subgrupo raro só com QT — revisar com SG madura"
+      ]
+    },
+    {
+      "regimen_id": "nsclc-met-alectinibe-alk",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático ALK+ — 1ª linha alvo",
+      "nome": "Alectinibe / Lorlatinibe / Brigatinibe (ALK+)",
+      "esquema": "Alectinibe 600 mg 2x/dia (ALEX); ou Lorlatinibe 100 mg/dia (CROWN); ou Brigatinibe, até progressão",
+      "farmacos": [
+        {
+          "nome": "Alectinibe (ou Lorlatinibe/Brigatinibe)",
+          "dose": "600 mg 2x (100 mg)",
+          "via": "VO",
+          "frequencia": "contínuo"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático com fusão/rearranjo ALK, 1ª linha (TKI de ALK).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "alk_positivo",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PETERS S et al. Alectinib versus crizotinib in untreated ALK-positive NSCLC (ALEX). N Engl J Med. 2017;377(9):829-838. SOLOMON BJ et al. Lorlatinib (CROWN) 5-year outcomes. J Clin Oncol. 2024.",
+        "doi": "10.1056/NEJMoa1704795",
+        "pmid": null,
+        "estudo": "ALEX / CROWN",
+        "ano": 2017
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão (com atividade em SNC)",
+        "magnitude": "ALEX: SLP HR 0,43; CROWN (lorlatinibe): SLP em 5 anos ~60%",
+        "fonte": "10.1056/NEJMoa1704795"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash/diarreia (TKI)",
+          "severidade": "moderada",
+          "conduta": "suporte; ajuste",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "ALEX/CROWN (fase 3): TKIs de ALK de nova geração com ganho robusto de SLP e controle de SNC. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1704795"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho robusto de SLP com controle de SNC em doença metastática → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1704795"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "TKIs de ALK de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "alk_positivo",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ALEX/CROWN em ALK+ 1ª linha.",
+          "justificativa": "Concorda: ALEX/CROWN em ALK+ 1ª linha.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1704795"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-met-crizotinibe-ros1",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático ROS1+ — 1ª linha alvo",
+      "nome": "Crizotinibe (ROS1+)",
+      "esquema": "Crizotinibe 250 mg VO 2x/dia até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Crizotinibe",
+          "dose": "250 mg",
+          "via": "VO",
+          "frequencia": "2x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático com rearranjo ROS1, 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "ros1_positivo",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SHAW AT et al. Crizotinib in ROS1-rearranged NSCLC. N Engl J Med. 2014;371(21):1963-1971.",
+        "doi": "10.1056/NEJMoa1406766",
+        "pmid": null,
+        "estudo": "PROFILE 1001 (Shaw)",
+        "ano": 2014
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Alta taxa de resposta e SLP",
+        "magnitude": "Crizotinibe em ROS1+: TRO ~72%; SLP ~19 meses",
+        "fonte": "10.1056/NEJMoa1406766"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash/diarreia (TKI)",
+          "severidade": "moderada",
+          "conduta": "suporte; ajuste",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "Crizotinibe em ROS1+ (fase 1 expandida/fase 2) com atividade robusta. Recomendação forte para essa alteração rara.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1406766"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Estudo de braço único em população rara; não graduável de forma discreta.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1406766"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Crizotinibe de custo intermediário-alto. Affordability intermediária.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo intermediário."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "ros1_positivo",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: crizotinibe em ROS1+.",
+          "justificativa": "Concorda: crizotinibe em ROS1+.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1406766"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-met-2l-io-ou-docetaxel",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático — 2ª linha (sem imunoterapia prévia)",
+      "nome": "Nivolumabe/Atezolizumabe/Pembrolizumabe ou Docetaxel",
+      "esquema": "IO (nivolumabe/atezolizumabe/pembrolizumabe se PD-L1+) se não usada em 1ª linha; ou Docetaxel; ou pemetrexede/gemcitabina",
+      "farmacos": [
+        {
+          "nome": "IO ou Docetaxel",
+          "dose": "conforme agente",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático em 2ª linha, PS 0-1, sem mutações acionáveis e sem imunoterapia prévia (IO preferida; senão docetaxel/pemetrexede).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "io_previa",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BORGHAEI H et al. Nivolumab versus docetaxel in advanced nonsquamous NSCLC (CheckMate 057). N Engl J Med. 2015;373(17):1627-1639. RITTMEYER A et al. OAK. Lancet. 2017;389:255.",
+        "doi": "10.1056/NEJMoa1507643",
+        "pmid": null,
+        "estudo": "CheckMate 017/057 / OAK / KEYNOTE-010",
+        "ano": 2015
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs docetaxel (IO em 2ª linha)",
+        "magnitude": "CheckMate 057/OAK: SG HR ~0,73 vs docetaxel",
+        "fonte": "10.1056/NEJMoa1507643"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CheckMate 017/057/OAK/KEYNOTE-010 (fase 3): IO superior ao docetaxel em 2ª linha (sem IO prévia). Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1507643"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG vs docetaxel → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1507643"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Docetaxel barato; IO de custo alto. Affordability intermediária.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Docetaxel no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "io_previa",
+              "operador": "=",
+              "valor": false
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: IO em 2ª linha sem IO prévia.",
+          "justificativa": "Concorda: IO em 2ª linha sem IO prévia.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1507643"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "nsclc-met-2l-nao-incluidos",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático — combinações de 2ª linha (não incluídas)",
+      "nome": "Dupla imuno / Atezo+Bev / Ramucirumab+Docetaxel / ADCs (NÃO incluídos)",
+      "esquema": "Dupla imunoterapia (anti-CTLA4), atezolizumabe+bevacizumabe, ramucirumabe+docetaxel, e ADCs (dato-DXd/T-DXd/sacituzumabe) — não incluídos em 2ª/3ª linha",
+      "farmacos": [
+        {
+          "nome": "Combinações de 2ª linha",
+          "dose": "conforme estudo",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático em linhas subsequentes (protocolo NÃO inclui: dupla imunoterapia com benefício marginal/exclusivo de SLP; ramucirumabe+docetaxel com ganho marginal de SG e maior toxicidade; ADCs sem ganho significativo de SG e dados conflitantes).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "linha_subsequente",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base: CheckMate 9LA (dupla imuno), REVEL (ramucirumab+docetaxel), estudos de ADCs (dato-DXd/T-DXd) — benefícios marginais ou imaturos em SG.",
+        "doi": null,
+        "pmid": null,
+        "estudo": "CheckMate 9LA / REVEL / TROPION-Lung / DESTINY-Lung",
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "Combinações de 2ª linha com benefício marginal/exclusivo de SLP ou SG imatura, e maior toxicidade. Coerente com não incluir frente às opções estabelecidas.",
+          "fonte": "referência CheckMate 9LA/REVEL/ADCs"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Benefício marginal/imaturo; não graduável como benefício estabelecido.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 5,
+          "afirmado_protocolo": null,
+          "justificativa": "Custo alto/altíssimo com benefício marginal ou imaturo. Affordability muito baixa. Sustenta a não inclusão.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incluído."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "linha_subsequente",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: benefícios marginais/imaturos e toxicidade sustentam a não inclusão dessas combinações de 2ª linha.",
+          "justificativa": "Concorda: benefícios marginais/imaturos e toxicidade sustentam a não inclusão dessas combinações de 2ª linha.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: dupla imuno (benefício SLP), ramucirumab+docetaxel (marginal), ADCs (SG imatura/conflitante)",
+          "doi_nao_reparado: sem match resolvível+congruente para 'CheckMate 9LA / REVEL / TROPION-Lung / DESTINY-Lung' (Base None); mantém incompleto"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPNPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: dupla imuno (benefício SLP), ramucirumab+docetaxel (marginal), ADCs (SG imatura/conflitante)",
+        "doi_nao_reparado: sem match resolvível+congruente para 'CheckMate 9LA / REVEL / TROPION-Lung / DESTINY-Lung' (Base None); mantém incompleto"
+      ]
+    }
+  ]
+}

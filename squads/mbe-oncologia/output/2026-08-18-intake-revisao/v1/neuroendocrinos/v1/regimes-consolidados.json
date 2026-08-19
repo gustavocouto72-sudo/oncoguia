@@ -1,0 +1,751 @@
+{
+  "meta": {
+    "titulo": "Protocolos — neuroendocrinos (re-extração 2026-07-22)",
+    "tumor": "neuroendocrinos",
+    "gerado_em": "2026-08-18",
+    "total_regimes": 5,
+    "distribuicao_selo": {
+      "re_derivado": 3,
+      "incompleto": 2
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 0,
+      "incongruentes": 0
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "pendente"
+    },
+    "derivado_de": "2026-07-22-refeito-completo/neuroendocrinos/v1",
+    "nota": "Fatia por tumor do agregado deste run (vocabulário para o check de órfãos). Idêntica ao agregado."
+  },
+  "campos_primitivos": [
+    {
+      "campo": "net_bem_diferenciado",
+      "tipo": "boolean",
+      "label": "Net bem diferenciado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "sstr_positivo",
+      "tipo": "boolean",
+      "label": "Sstr positivo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "sitio",
+      "tipo": "enum",
+      "label": "Sitio",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "pancreas"
+      ]
+    },
+    {
+      "campo": "nec_alto_grau",
+      "tipo": "boolean",
+      "label": "Nec alto grau",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "net-baixograu-analogo-somatostatina",
+      "tumor": "neuroendocrinos",
+      "cenario": "metastatico",
+      "subtipo": "TNE bem diferenciado de baixo grau (GEP/intestino médio), receptor de somatostatina+",
+      "nome": "Análogos de somatostatina (Octreotídeo LAR / Lanreotídeo)",
+      "esquema": "Octreotídeo LAR 30 mg IM a cada 28 dias, ou Lanreotídeo 120 mg SC profundo a cada 28 dias",
+      "farmacos": [
+        {
+          "nome": "Octreotídeo LAR",
+          "dose": "30 mg",
+          "via": "IM",
+          "frequencia": "a cada 28 dias"
+        },
+        {
+          "nome": "Lanreotídeo",
+          "dose": "120 mg",
+          "via": "SC",
+          "frequencia": "a cada 28 dias"
+        }
+      ],
+      "elegibilidade_protocolo": "Tumor neuroendócrino bem diferenciado com expressão de receptores de somatostatina, 1ª linha (mesmo sem síndrome hormonal), doença estável/crescimento lento.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "net_bem_diferenciado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sstr_positivo",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "RINKE A et al. Octreotide LAR in the control of tumor growth in metastatic neuroendocrine midgut tumors (PROMID). J Clin Oncol. 2009;27(28):4656-4663. CAPLIN ME et al. Lanreotide in metastatic enteropancreatic neuroendocrine tumors (CLARINET). N Engl J Med. 2014;371(3):224-233.",
+        "doi": "10.1200/JCO.2009.22.8510",
+        "pmid": null,
+        "estudo": "PROMID / CLARINET",
+        "ano": 2009
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão (efeito antiproliferativo)",
+        "magnitude": "PROMID: SLP 14,3 vs 6,0 meses. CLARINET: SLP não alcançada vs 18 meses (HR ~0,47)",
+        "fonte": "10.1200/JCO.2009.22.8510"
+      },
+      "toxicidades": [
+        {
+          "nome": "Diarreia/dor abdominal",
+          "severidade": "leve",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: análogo de somatostatina"
+        },
+        {
+          "nome": "Colelitíase",
+          "severidade": "moderada",
+          "conduta": "monitorar",
+          "fonte": "Bula/ficha técnica: análogo de somatostatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "PROMID e CLARINET (fase 3): efeito antiproliferativo com ganho de SLP. Padrão de 1ª linha. Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.2009.22.8510"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Comparação indireta entre os dois agentes sem ganho de SG/QoL/sintomas — escolha por farmacoeconomia. Ganho de SLP não graduável de forma discreta como MCBS alto.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1316158"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 2,
+          "afirmado_protocolo": null,
+          "justificativa": "Análogos de somatostatina de custo intermediário; escolha entre eles por farmacoeconomia. Affordability intermediária.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Escolha por farmacoeconomia."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "net_bem_diferenciado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "sstr_positivo",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: PROMID/CLARINET em TNE bem diferenciado SSTR+.",
+          "justificativa": "Concorda: PROMID/CLARINET em TNE bem diferenciado SSTR+.",
+          "fonte": "https://doi.org/10.1200/JCO.2009.22.8510"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (neuroendocrinos) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "net-baixograu-lu177-dotatate",
+      "tumor": "neuroendocrinos",
+      "cenario": "metastatico",
+      "subtipo": "TNE bem diferenciado — terapia com radionuclídeos (PRRT)",
+      "nome": "Lutécio-177 DOTATATE (PRRT)",
+      "esquema": "177Lu-DOTATATE (PRRT), 4 ciclos, em pacientes SSTR+ (2ª linha pós-análogo, ou 1ª linha em grau 2/3 mais agressivo)",
+      "farmacos": [
+        {
+          "nome": "177Lu-DOTATATE",
+          "dose": "7,4 GBq/ciclo",
+          "via": "EV",
+          "frequencia": "a cada 8 semanas, 4 ciclos"
+        }
+      ],
+      "elegibilidade_protocolo": "TNE bem diferenciado SSTR+, após falha de análogo de somatostatina (NETTER-1); ou 1ª linha em grau 2/3 (Ki-67 10-55%) com receptores positivos (NETTER-2).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "net_bem_diferenciado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sstr_positivo",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "STROSBERG JR et al. Phase 3 trial of 177Lu-Dotatate for midgut neuroendocrine tumors (NETTER-1). N Engl J Med. 2017;376(2):125-135. PAVEL M et al. 177Lu-Dotatate versus high-dose octreotide LAR in treatment-naive grade 2/3 GEP-NET (NETTER-2). Lancet. 2024.",
+        "doi": "10.1056/NEJMoa1607427",
+        "pmid": null,
+        "estudo": "NETTER-1 / NETTER-2",
+        "ano": 2017
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e taxa de resposta",
+        "magnitude": "NETTER-1: SLP não alcançada vs 8,4 meses; HR 0,21; TRO 18%. NETTER-2 (1ª linha grau 2/3): HR 0,28; TRO 42% vs 10%",
+        "fonte": "10.1056/NEJMoa1607427"
+      },
+      "toxicidades": [
+        {
+          "nome": "Toxicidade hematológica/renal (PRRT)",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma/função renal; aminoácidos nefroprotetores",
+          "fonte": "Bula/ficha técnica: 177Lu-DOTATATE"
+        },
+        {
+          "nome": "Náusea",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: 177Lu-DOTATATE"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "NETTER-1 e NETTER-2 (fase 3): ganho robusto de SLP/TRO. Recomendação forte (2ª linha e 1ª linha em grau 2/3).",
+          "fonte": "https://doi.org/10.1056/NEJMoa1607427"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho substancial de SLP (HR 0,21-0,28) e TRO → ESMO-MCBS ~4. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1607427"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "PRRT (177Lu-DOTATATE) de custo alto e logística de medicina nuclear. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto; medicina nuclear."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "net_bem_diferenciado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "sstr_positivo",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: NETTER-1/2 em TNE SSTR+.",
+          "justificativa": "Concorda: NETTER-1/2 em TNE SSTR+.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1607427"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (neuroendocrinos) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "net-baixograu-alvo-nao-incluido",
+      "tumor": "neuroendocrinos",
+      "cenario": "metastatico",
+      "subtipo": "TNE bem diferenciado — terapias alvo (não incluídas)",
+      "nome": "Everolimo / Sunitinibe (NÃO incluídos)",
+      "esquema": "Everolimo ou Sunitinibe — não inclusão pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Everolimo (ou Sunitinibe)",
+          "dose": "10 mg (37,5 mg)",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "TNE bem diferenciado (protocolo NÃO inclui everolimo/sunitinibe: sem ganho robusto em SG ou QoL, apesar de benefício em desfecho substitutivo SLP).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "net_bem_diferenciado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base RADIANT-3/RADIANT-4 (everolimo) e SUN1111 (sunitinibe) — benefício em SLP sem ganho robusto de SG. Protocolo cita a ausência de benefício em SG/QoL.",
+        "doi": null,
+        "pmid": null,
+        "estudo": "RADIANT / SUN1111",
+        "ano": 2011
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP sem ganho robusto de SG/QoL",
+        "magnitude": "Everolimo/sunitinibe: ganho de SLP em desfecho substitutivo, sem SG robusta",
+        "fonte": "RADIANT/SUN1111"
+      },
+      "toxicidades": [
+        {
+          "nome": "Estomatite/hiperglicemia (everolimo)",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Everolimo"
+        },
+        {
+          "nome": "Hipertensão/diarreia (sunitinibe)",
+          "severidade": "moderada",
+          "conduta": "ajuste",
+          "fonte": "Bula/ficha técnica: Sunitinibe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "Terapias alvo com ganho de SLP (desfecho substitutivo) mas sem SG/QoL robustas. Certeza alta do efeito em SLP; benefício clínico incerto. Coerente com não incluir preferencialmente.",
+          "fonte": "referência RADIANT/SUN1111"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho em desfecho substitutivo (SLP) sem SG → MCBS baixo (~2). Sem afirmação do protocolo.",
+          "fonte": "referência RADIANT/SUN1111"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Everolimo/sunitinibe de custo intermediário-alto sem ganho de SG. Affordability intermediária-baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incluído preferencialmente."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "net_bem_diferenciado",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ganho apenas em SLP (substitutivo) sustenta a não inclusão preferencial.",
+          "justificativa": "Concorda: ganho apenas em SLP (substitutivo) sustenta a não inclusão preferencial.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: benefício em SLP (substitutivo) sem ganho de SG/QoL",
+          "doi_nao_reparado: sem match resolvível+congruente para 'RADIANT / SUN1111' (Base 2011); mantém incompleto"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (neuroendocrinos) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: benefício em SLP (substitutivo) sem ganho de SG/QoL",
+        "doi_nao_reparado: sem match resolvível+congruente para 'RADIANT / SUN1111' (Base 2011); mantém incompleto"
+      ]
+    },
+    {
+      "regimen_id": "net-baixograu-capetem",
+      "tumor": "neuroendocrinos",
+      "cenario": "metastatico",
+      "subtipo": "TNE pancreático bem diferenciado — quimioterapia (CAPTEM)",
+      "nome": "CAPTEM (Capecitabina + Temozolomida)",
+      "esquema": "Capecitabina 750 mg/m² 2x/dia D1-14 + Temozolomida 200 mg/m² 1x/dia D10-14, ciclos de 28 dias",
+      "farmacos": [
+        {
+          "nome": "Capecitabina",
+          "dose": "750 mg/m²",
+          "via": "VO",
+          "frequencia": "2x/dia D1-14"
+        },
+        {
+          "nome": "Temozolomida",
+          "dose": "200 mg/m²",
+          "via": "VO",
+          "frequencia": "D10-14"
+        }
+      ],
+      "elegibilidade_protocolo": "TNE pancreático bem diferenciado avançado (E2211 mostra superioridade do CAPTEM vs temozolomida isolada; medicações sem aprovação em bula no Brasil para esse uso — discutir individualmente).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "net_bem_diferenciado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sitio",
+                "pancreas"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "KUNZ PL et al. Randomized study of temozolomide or temozolomide and capecitabine in patients with advanced pancreatic neuroendocrine tumors (E2211). J Clin Oncol. 2022;40(15):1681-1689.",
+        "doi": "10.1200/JCO.22.01013",
+        "pmid": null,
+        "estudo": "E2211 (CAPTEM)",
+        "ano": 2023,
+        "primeiro_autor": "Kunz"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e sobrevida global vs temozolomida isolada",
+        "magnitude": "E2211: SLP 22,7 vs 14,4 meses (HR 0,58); SG 58,7 vs 53,8 meses (HR 0,41)",
+        "fonte": "10.1200/JCO.21.01621"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "E2211 (fase 2 randomizada) com ganho de SLP e SG do CAPTEM. Recomendação forte; ressalva de aprovação em bula no Brasil.",
+          "fonte": "https://doi.org/10.1200/JCO.22.01013"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,41) e SLP em TNE pancreático → ESMO-MCBS ~4. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1200/JCO.22.01013"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Capecitabina/temozolomida genéricas, no SUS. Affordability alta (ressalva regulatória de bula).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Ressalva de bula no Brasil."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "net_bem_diferenciado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "sitio",
+              "operador": "=",
+              "valor": "pancreas"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: E2211 em TNE pancreático.",
+          "justificativa": "Concorda: E2211 em TNE pancreático.",
+          "fonte": "https://doi.org/10.1200/JCO.22.01013"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "ressalva_regulatoria: uso sem aprovação em bula no Brasil — discutir individualmente"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (neuroendocrinos) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1200/JCO.21.01621 → 10.1200/JCO.22.01013 (E2211 (CAPTEM), Kunz 2023; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "ressalva_regulatoria: uso sem aprovação em bula no Brasil — discutir individualmente"
+      ]
+    },
+    {
+      "regimen_id": "net-altograu-platina-etoposideo",
+      "tumor": "neuroendocrinos",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma neuroendócrino de alto grau (pouco diferenciado)",
+      "nome": "Platina + Etoposídeo (alto grau)",
+      "esquema": "Cisplatina/Carboplatina + Etoposídeo, esquema análogo ao carcinoma de pequenas células de pulmão",
+      "farmacos": [
+        {
+          "nome": "Cisplatina/Carboplatina",
+          "dose": "conforme SCLC",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D3"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma neuroendócrino de alto grau (pouco diferenciado); quimioterapia padrão baseada em platina e etoposídeo, semelhante ao tumor de pulmão de pequenas células.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "nec_alto_grau",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Extrapolação do carcinoma de pequenas células de pulmão; protocolo não cita estudo-pivô específico para NEC de alto grau.",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: platina/etoposídeo"
+        },
+        {
+          "nome": "Nefrotoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "",
+          "afirmado_protocolo": null,
+          "justificativa": "Extrapolação do tratamento do SCLC; protocolo não cita estudo-pivô próprio para NEC de alto grau. Sem fonte primária dedicada para re-derivar GRADE. Lacuna.",
+          "fonte": ""
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Sem estudo-pivô dedicado; não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Platina/etoposídeo genéricos, no SUS. Affordability alta — eixo de evidência incompleto.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "nec_alto_grau",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Extrapolação do SCLC; sem estudo-pivô dedicado para confronto.",
+          "justificativa": "Extrapolação do SCLC; sem estudo-pivô dedicado para confronto.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "extrapolacao: esquema extrapolado do SCLC; protocolo não cita pivô dedicado para NEC de alto grau",
+          "doi_nao_reparado: sem match resolvível+congruente para '' (Extrapolação None); mantém incompleto"
+        ],
+        "decisao_revisao": "pendente_oncologista_referencia"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (neuroendocrinos) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "extrapolacao: esquema extrapolado do SCLC; protocolo não cita pivô dedicado para NEC de alto grau",
+        "doi_nao_reparado: sem match resolvível+congruente para '' (Extrapolação None); mantém incompleto"
+      ]
+    }
+  ]
+}

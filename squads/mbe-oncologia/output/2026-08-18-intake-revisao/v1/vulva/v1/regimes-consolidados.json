@@ -1,0 +1,324 @@
+{
+  "meta": {
+    "titulo": "Protocolos — vulva (re-extração 2026-07-22)",
+    "tumor": "vulva",
+    "gerado_em": "2026-08-18",
+    "total_regimes": 2,
+    "distribuicao_selo": {
+      "re_derivado": 1,
+      "incompleto": 1
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 0,
+      "incongruentes": 0
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "pendente"
+    },
+    "derivado_de": "2026-07-22-refeito-completo/vulva/v1",
+    "nota": "Fatia por tumor do agregado deste run (vocabulário para o check de órfãos). Idêntica ao agregado."
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "vulva"
+      ]
+    },
+    {
+      "campo": "estadio_iii_iva",
+      "tipo": "boolean",
+      "label": "Estadio iii iva",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "avancada_recidivada",
+      "tipo": "boolean",
+      "label": "Avancada recidivada",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "vulva-neoadj-cisplatina-crt",
+      "tumor": "vulva",
+      "cenario": "localmente-avancado",
+      "subtipo": "Carcinoma de vulva estádio III/IVA — neoadjuvante com quimiorradiação",
+      "nome": "Cisplatina semanal + RT (neoadjuvante)",
+      "esquema": "Cisplatina 40 mg/m² a cada 7 dias concomitante à radioterapia (alternativas: cisplatina+5-FU, cisplatina+gemcitabina, mitomicina+5-FU)",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "40 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal (concomitante à RT)"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma escamoso de vulva localmente avançado estádio III e IVA, tratamento neoadjuvante com quimiorradiação.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "vulva"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_iii_iva",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HOROWITZ NS et al. Phase II trial of cisplatin, gemcitabine, and IMRT for locally advanced vulvar squamous cell carcinoma (NRG Oncology/GOG 279). J Clin Oncol. 2024;42(16):1914-1921. MOORE DH et al. GOG. Int J Radiat Oncol Biol Phys. 1998;42(1):79-85.",
+        "doi": "10.1200/JCO.23.02235",
+        "pmid": null,
+        "estudo": "GOG 279 (Horowitz) / GOG (Moore)",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ resposta patológica completa e ressecabilidade",
+        "magnitude": "GOG 279: altas taxas de resposta patológica completa com cisplatina+gemcitabina+IMRT",
+        "fonte": "10.1200/JCO.23.02235"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2B",
+          "afirmado_protocolo": null,
+          "justificativa": "GOG 279 (fase 2) e estudos GOG fundamentam quimiorradiação neoadjuvante em vulva localmente avançada (tumor raro; evidência fase 2). Recomendação.",
+          "fonte": "https://doi.org/10.1200/JCO.23.02235"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "B (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo/neoadjuvante; fase 2. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1200/JCO.23.02235"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "vulva"
+            },
+            {
+              "campo": "estadio_iii_iva",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: quimiorradiação neoadjuvante em vulva localmente avançada.",
+          "justificativa": "Concorda: quimiorradiação neoadjuvante em vulva localmente avançada.",
+          "fonte": "https://doi.org/10.1200/JCO.23.02235"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (vulva) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "vulva-avancada-recidivada",
+      "tumor": "vulva",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de vulva avançado/recidivado — sistêmico",
+      "nome": "Esquemas ativos (cisplatina-based, como na neoadjuvância)",
+      "esquema": "Cisplatina ± 5-FU/gemcitabina, ou mitomicina+5-FU — esquemas ativos utilizados também na doença avançada/recidivada",
+      "farmacos": [
+        {
+          "nome": "Cisplatina ± 5-FU/Gemcitabina",
+          "dose": "conforme esquema",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de vulva em doença avançada ou recidivada (esquemas ativos descritos no cenário neoadjuvante podem ser utilizados).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "vulva"
+              ]
+            },
+            {
+              "eq": [
+                "avancada_recidivada",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Esquemas ativos extrapolados do cenário neoadjuvante; protocolo não cita estudo-pivô dedicado para doença avançada/recidivada.",
+        "doi": null,
+        "pmid": null,
+        "estudo": "Extrapolação da neoadjuvância (tumor raro)",
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "",
+          "afirmado_protocolo": null,
+          "justificativa": "Doença avançada/recidivada de vulva sem estudo-pivô dedicado; esquemas extrapolados do neoadjuvante. Tumor raro, sem RCT dedicado. Lacuna de fonte primária.",
+          "fonte": ""
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Sem estudo-pivô dedicado; não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, no SUS. Affordability alta — eixo de evidência incompleto.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Sem estudo-pivô dedicado para doença avançada."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "vulva"
+            },
+            {
+              "campo": "avancada_recidivada",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "No SUS.",
+          "justificativa": "No SUS.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "extrapolacao: esquemas do neoadjuvante aplicados à doença avançada; sem RCT dedicado (tumor raro)",
+          "doi_nao_reparado: sem match resolvível+congruente para 'Extrapolação da neoadjuvância (tumor raro)' (Esquemas None); mantém incompleto"
+        ],
+        "decisao_revisao": "pendente_oncologista_referencia"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (vulva) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "extrapolacao: esquemas do neoadjuvante aplicados à doença avançada; sem RCT dedicado (tumor raro)",
+        "doi_nao_reparado: sem match resolvível+congruente para 'Extrapolação da neoadjuvância (tumor raro)' (Esquemas None); mantém incompleto"
+      ]
+    }
+  ]
+}

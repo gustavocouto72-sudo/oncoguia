@@ -1,0 +1,3069 @@
+{
+  "meta": {
+    "titulo": "Protocolos — esofago-estomago (re-extração 2026-07-22)",
+    "tumor": "esofago-estomago",
+    "gerado_em": "2026-08-18",
+    "total_regimes": 19,
+    "distribuicao_selo": {
+      "re_derivado": 14,
+      "incompleto": 2,
+      "confirmado": 3
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 1,
+      "incongruentes": 1
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "pendente"
+    },
+    "derivado_de": "2026-07-22-refeito-completo/esofago-estomago/v1",
+    "nota": "Fatia por tumor do agregado deste run (vocabulário para o check de órfãos). Idêntica ao agregado."
+  },
+  "campos_primitivos": [
+    {
+      "campo": "histologia",
+      "tipo": "enum",
+      "label": "Histologia",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "adenocarcinoma_gastrico_jeg",
+        "adenocarcinoma_gastrico"
+      ]
+    },
+    {
+      "campo": "ressecavel",
+      "tipo": "boolean",
+      "label": "Ressecavel",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "sitio",
+      "tipo": "enum",
+      "label": "Sitio",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "esofago_jeg",
+        "esofago"
+      ]
+    },
+    {
+      "campo": "candidato_trimodal",
+      "tipo": "boolean",
+      "label": "Candidato trimodal",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "tratamento",
+      "tipo": "enum",
+      "label": "Tratamento",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "definitivo_crt"
+      ]
+    },
+    {
+      "campo": "pos_neoadj_crt_cirurgia",
+      "tipo": "boolean",
+      "label": "Pos neoadj crt cirurgia",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "resposta_patologica_completa",
+      "tipo": "boolean",
+      "label": "Resposta patologica completa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "pos_gastrectomia_d2",
+      "tipo": "boolean",
+      "label": "Pos gastrectomia d2",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "resseccao_incompleta_ou_d0d1",
+      "tipo": "boolean",
+      "label": "Resseccao incompleta ou d0d1",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "her2",
+      "tipo": "enum",
+      "label": "Her2",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "negativo",
+        "positivo"
+      ]
+    },
+    {
+      "campo": "segunda_linha",
+      "tipo": "boolean",
+      "label": "Segunda linha",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_platina",
+      "tipo": "boolean",
+      "label": "Progressao pos platina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "pdl1_cps",
+      "tipo": "integer",
+      "label": "Pdl1 cps",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "politratado",
+      "tipo": "boolean",
+      "label": "Politratado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "cldn18_2_positivo",
+      "tipo": "boolean",
+      "label": "Cldn18 2 positivo",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "eso-perioperatorio-flot",
+      "tumor": "esofago-estomago",
+      "cenario": "neoadjuvancia",
+      "subtipo": "Adenocarcinoma gástrico/JEG ressecável — perioperatório",
+      "nome": "FLOT (perioperatório)",
+      "esquema": "Docetaxel 50 mg/m² + Oxaliplatina 85 mg/m² + Leucovorina 200 mg/m² + 5-FU 2.600 mg/m² infusão 24h D1, a cada 2 semanas — 4 ciclos pré + 4 pós-operatórios",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "50 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 14/14d"
+        },
+        {
+          "nome": "Oxaliplatina",
+          "dose": "85 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Leucovorina",
+          "dose": "200 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "2.600 mg/m²",
+          "via": "EV (24h)",
+          "frequencia": "D1"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma gástrico ou de junção esofagogástrica localmente avançado, ressecável.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia",
+                "adenocarcinoma_gastrico_jeg"
+              ]
+            },
+            {
+              "eq": [
+                "ressecavel",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "AL-BATRAN SE et al. Perioperative chemotherapy with FLOT versus ECF/ECX (FLOT4). Lancet. 2019;393(10184):1948-1957.",
+        "doi": "10.1016/S0140-6736(18)32557-1",
+        "pmid": null,
+        "estudo": "FLOT4",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs ECF/ECX",
+        "magnitude": "FLOT4: SG 50 vs 35 meses; HR 0,77",
+        "fonte": "10.1016/S0140-6736(18)32557-1"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Nefrotoxicidade/neuropatia (platina)",
+          "severidade": "grave",
+          "conduta": "hidratação; ajuste",
+          "fonte": "Bula/ficha técnica: cisplatina/oxaliplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "FLOT4 (fase 2/3): ganho de SG vs ECF/ECX no perioperatório. Padrão de cuidado. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(18)32557-1"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário perioperatório curativo com ganho de SG → formulário curativo A qualitativo.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(18)32557-1"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "histologia",
+              "operador": "=",
+              "valor": "adenocarcinoma_gastrico_jeg"
+            },
+            {
+              "campo": "ressecavel",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: FLOT4 em adenocarcinoma gástrico/JEG ressecável.",
+          "justificativa": "Concorda: FLOT4 em adenocarcinoma gástrico/JEG ressecável.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(18)32557-1"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "eso-neoadj-crt-carbo-paclitaxel",
+      "tumor": "esofago-estomago",
+      "cenario": "neoadjuvancia",
+      "subtipo": "Carcinoma de esôfago/JEG — neoadjuvante (quimiorradioterapia)",
+      "nome": "Carboplatina + Paclitaxel + RT (CROSS)",
+      "esquema": "Carboplatina AUC 2 + Paclitaxel 50 mg/m² EV semanal por 5 semanas, concomitante à RT",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 2",
+          "via": "EV",
+          "frequencia": "semanal x5"
+        },
+        {
+          "nome": "Paclitaxel",
+          "dose": "50 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal x5"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de esôfago ou junção (escamoso ou adenocarcinoma) candidato a tratamento neoadjuvante trimodal.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "esofago_jeg"
+              ]
+            },
+            {
+              "eq": [
+                "candidato_trimodal",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "van HAGEN P et al. Preoperative chemoradiotherapy for esophageal or junctional cancer (CROSS). N Engl J Med. 2012;366(22):2074-2084.",
+        "doi": "10.1056/NEJMoa1112088",
+        "pmid": null,
+        "estudo": "CROSS",
+        "ano": 2012
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global com quimiorradioterapia neoadjuvante + cirurgia",
+        "magnitude": "CROSS: SG 49 vs 24 meses; HR 0,66",
+        "fonte": "10.1056/NEJMoa1112088"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CROSS (fase 3): ganho de SG com quimiorradioterapia neoadjuvante. Padrão de cuidado. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1112088"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário neoadjuvante curativo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1112088"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Carboplatina/paclitaxel genéricos + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sitio",
+              "operador": "=",
+              "valor": "esofago_jeg"
+            },
+            {
+              "campo": "candidato_trimodal",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: CROSS em esôfago/JEG neoadjuvante.",
+          "justificativa": "Concorda: CROSS em esôfago/JEG neoadjuvante.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1112088"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "eso-def-crt-cisplatina-5fu",
+      "tumor": "esofago-estomago",
+      "cenario": "localmente-avancado",
+      "subtipo": "Carcinoma de esôfago — quimiorradioterapia definitiva",
+      "nome": "Cisplatina + 5-FU + RT (RTOG 85-01)",
+      "esquema": "2 ciclos de 5-FU 1.000 mg/m²/dia D1-D4 (sem 1 e 5) + Cisplatina 75 mg/m² D1 (sem 1 e 5) + RT 50 Gy",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 sem 1 e 5"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "1.000 mg/m²/dia",
+          "via": "EV",
+          "frequencia": "D1-D4 sem 1 e 5"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de esôfago candidato a quimiorradioterapia definitiva (não cirúrgico).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "esofago"
+              ]
+            },
+            {
+              "eq": [
+                "tratamento",
+                "definitivo_crt"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HERSKOVIC A et al. Combined chemotherapy and radiotherapy compared with radiotherapy alone in patients with cancer of the esophagus (RTOG 85-01). N Engl J Med. 1992;326(24):1593-1598.",
+        "doi": "10.1056/NEJM199206113262403",
+        "pmid": null,
+        "estudo": "RTOG 85-01",
+        "ano": 1992
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs RT isolada",
+        "magnitude": "RTOG 85-01: SG 5 anos 27% vs 0% (RT isolada)",
+        "fonte": "10.1056/NEJM199206113262403"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Nefrotoxicidade/neuropatia (platina)",
+          "severidade": "grave",
+          "conduta": "hidratação; ajuste",
+          "fonte": "Bula/ficha técnica: cisplatina/oxaliplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "RTOG 85-01 (fase 3): quimiorradioterapia definitiva superior à RT isolada. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJM199206113262403"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo definitivo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJM199206113262403"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Cisplatina/5-FU genéricos + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sitio",
+              "operador": "=",
+              "valor": "esofago"
+            },
+            {
+              "campo": "tratamento",
+              "operador": "=",
+              "valor": "definitivo_crt"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: RTOG 85-01 em esôfago.",
+          "justificativa": "Concorda: RTOG 85-01 em esôfago.",
+          "fonte": "https://doi.org/10.1056/NEJM199206113262403"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-adj-nivolumabe",
+      "tumor": "esofago-estomago",
+      "cenario": "adjuvancia",
+      "subtipo": "Esôfago/JEG pós-quimiorradiação + cirurgia com doença residual",
+      "nome": "Nivolumabe adjuvante (CheckMate 577)",
+      "esquema": "Nivolumabe 240 mg a cada 2 semanas por 16 semanas → 480 mg a cada 4 semanas; duração 1 ano",
+      "farmacos": [
+        {
+          "nome": "Nivolumabe",
+          "dose": "240 → 480 mg",
+          "via": "EV",
+          "frequencia": "2/2 → 4/4 sem, 1 ano"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de esôfago/JEG submetido a quimiorradiação neoadjuvante + ressecção, SEM resposta patológica completa (doença residual ypT+/ypN+).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "esofago_jeg"
+              ]
+            },
+            {
+              "eq": [
+                "pos_neoadj_crt_cirurgia",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resposta_patologica_completa",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "KELLY RJ et al. Adjuvant nivolumab in resected esophageal or gastroesophageal junction cancer (CheckMate 577). N Engl J Med. 2021;384(13):1191-1203.",
+        "doi": "10.1056/NEJMoa2032125",
+        "pmid": null,
+        "estudo": "CheckMate 577",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença",
+        "magnitude": "CheckMate 577: SLD 22,4 vs 11,0 meses; HR 0,69",
+        "fonte": "10.1056/NEJMoa2032125"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Nivolumabe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CheckMate 577 (fase 3): ganho de SLD em doença residual pós-neoadjuvância. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2032125"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo com ganho de SLD → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2032125"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Nivolumabe por 1 ano de custo alto; acesso limitado no SUS.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sitio",
+              "operador": "=",
+              "valor": "esofago_jeg"
+            },
+            {
+              "campo": "pos_neoadj_crt_cirurgia",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "resposta_patologica_completa",
+              "operador": "=",
+              "valor": false
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: CheckMate 577 exigiu doença residual (não-pCR), exatamente a indicação do protocolo.",
+          "justificativa": "Concorda: CheckMate 577 exigiu doença residual (não-pCR), exatamente a indicação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2032125"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-adj-capox",
+      "tumor": "esofago-estomago",
+      "cenario": "adjuvancia",
+      "subtipo": "Adenocarcinoma gástrico pós-gastrectomia D2",
+      "nome": "CAPOX adjuvante (CLASSIC)",
+      "esquema": "Capecitabina 1.000 mg/m² 2x/dia D1-D14 + Oxaliplatina 130 mg/m² D1, a cada 21 dias, 8 ciclos",
+      "farmacos": [
+        {
+          "nome": "Capecitabina",
+          "dose": "1.000 mg/m²",
+          "via": "VO",
+          "frequencia": "2x/dia D1-D14"
+        },
+        {
+          "nome": "Oxaliplatina",
+          "dose": "130 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d x8"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma gástrico ressecado com linfadenectomia D2 (adjuvância).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia",
+                "adenocarcinoma_gastrico"
+              ]
+            },
+            {
+              "eq": [
+                "pos_gastrectomia_d2",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BANG YJ et al. Adjuvant capecitabine and oxaliplatin for gastric cancer after D2 gastrectomy (CLASSIC). Lancet. 2012;379(9813):315-321.",
+        "doi": "10.1016/S0140-6736(11)61873-4",
+        "pmid": null,
+        "estudo": "CLASSIC",
+        "ano": 2012
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença e sobrevida global",
+        "magnitude": "CLASSIC: SLD 3 anos 74% vs 59%; HR 0,56; benefício de SG confirmado",
+        "fonte": "10.1016/S0140-6736(11)61873-4"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Nefrotoxicidade/neuropatia (platina)",
+          "severidade": "grave",
+          "conduta": "hidratação; ajuste",
+          "fonte": "Bula/ficha técnica: cisplatina/oxaliplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CLASSIC (fase 3): ganho de SLD/SG com CAPOX adjuvante pós-D2. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(11)61873-4"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(11)61873-4"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Capecitabina/oxaliplatina genéricas, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "histologia",
+              "operador": "=",
+              "valor": "adenocarcinoma_gastrico"
+            },
+            {
+              "campo": "pos_gastrectomia_d2",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: CLASSIC em gástrico pós-D2.",
+          "justificativa": "Concorda: CLASSIC em gástrico pós-D2.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(11)61873-4"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-adj-crt-5fu-lv",
+      "tumor": "esofago-estomago",
+      "cenario": "adjuvancia",
+      "subtipo": "Adenocarcinoma gástrico com ressecção incompleta/subótima",
+      "nome": "5-FU + Leucovorina + RT (Intergroup 0116)",
+      "esquema": "5-FU 425 mg/m²/dia + Leucovorina 20 mg/m²/dia (esquema INT0116, terapia trimodal com RT 45 Gy)",
+      "farmacos": [
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "425 mg/m²/dia",
+          "via": "EV",
+          "frequencia": "esquema INT0116"
+        },
+        {
+          "nome": "Leucovorina",
+          "dose": "20 mg/m²/dia",
+          "via": "EV",
+          "frequencia": "esquema INT0116"
+        }
+      ],
+      "elegibilidade_protocolo": "Casos raros de ressecção incompleta ou linfadenectomia subótima (D0/D1), onde se considera quimiorradioterapia adjuvante.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia",
+                "adenocarcinoma_gastrico"
+              ]
+            },
+            {
+              "eq": [
+                "resseccao_incompleta_ou_d0d1",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SMALLEY SR et al. Updated analysis of SWOG-directed Intergroup Study 0116: adjuvant chemoradiotherapy versus observation after curative gastric cancer resection. J Clin Oncol. 2012;30(19):2327-2333.",
+        "doi": "10.1200/JCO.2011.36.7136",
+        "pmid": null,
+        "estudo": "Intergroup 0116",
+        "ano": 2012
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs observação",
+        "magnitude": "INT0116: benefício mantido de SG no seguimento longo; maior valor em linfadenectomia subótima",
+        "fonte": "10.1200/JCO.2011.36.7136"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "INT0116 (fase 3): ganho de SG com quimiorradioterapia adjuvante, sobretudo em D0/D1. Recomendação forte nesse subgrupo.",
+          "fonte": "https://doi.org/10.1200/JCO.2011.36.7136"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1200/JCO.2011.36.7136"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "5-FU/LV genéricos + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "histologia",
+              "operador": "=",
+              "valor": "adenocarcinoma_gastrico"
+            },
+            {
+              "campo": "resseccao_incompleta_ou_d0d1",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: INT0116 preferencial em ressecção subótima, como o protocolo restringe.",
+          "justificativa": "Concorda: INT0116 preferencial em ressecção subótima, como o protocolo restringe.",
+          "fonte": "https://doi.org/10.1200/JCO.2011.36.7136"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-met-1l-cisplatina-5fu",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico/JEG avançado — 1ª linha",
+      "nome": "Cisplatina + 5-FU (CF)",
+      "esquema": "Cisplatina 80 mg/m² D1 + 5-FU 800-1.000 mg/m²/dia infusão 96-120h D1-D5, a cada 21-28 dias",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "80 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "800-1.000 mg/m²/dia",
+          "via": "EV (96-120h)",
+          "frequencia": "D1-D5"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico ou de junção esofagogástrica avançado, 1ª linha (esquema tradicional).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia",
+                "adenocarcinoma_gastrico_jeg"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "GLIMELIUS B et al. Chemotherapy improves survival and quality of life in advanced gastric cancer. Ann Oncol. 1997;8(2):163-168.",
+        "doi": "10.1093/oxfordjournals.annonc.a010676",
+        "pmid": null,
+        "estudo": "Glimelius (QT vs BSC)",
+        "ano": 1997
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida e qualidade de vida vs melhor suporte",
+        "magnitude": "QT baseada em platina/fluoropirimidina melhora SG e QoL vs BSC",
+        "fonte": "10.1023/A:1008208307280"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Nefrotoxicidade/neuropatia (platina)",
+          "severidade": "grave",
+          "conduta": "hidratação; ajuste",
+          "fonte": "Bula/ficha técnica: cisplatina/oxaliplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "QT de 1ª linha (platina + fluoropirimidina) melhora SG/QoL vs suporte (Glimelius e sucessores). Recomendação forte.",
+          "fonte": "https://doi.org/10.1093/oxfordjournals.annonc.a010676"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Base histórica vs suporte; esquema-âncora sem scorecard discreto atual.",
+          "fonte": "https://doi.org/10.1093/oxfordjournals.annonc.a010676"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Cisplatina/5-FU genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "histologia",
+              "operador": "=",
+              "valor": "adenocarcinoma_gastrico_jeg"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: doublet de platina em 1ª linha.",
+          "justificativa": "Concorda: doublet de platina em 1ª linha.",
+          "fonte": "https://doi.org/10.1093/oxfordjournals.annonc.a010676"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "doi_reparado: 10.1023/A:1008208307280 (404) → 10.1093/oxfordjournals.annonc.a010676 (200), via Crossref por nome (Glimelius (QT vs BSC), GLIMELIUS 1997; candidato único congruente)"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-22",
+          "origem": "reparo-doi",
+          "mudanca": "doi_reparado: 10.1023/A:1008208307280 (404) → 10.1093/oxfordjournals.annonc.a010676 (200), via Crossref por nome (Glimelius (QT vs BSC), GLIMELIUS 1997; candidato único congruente)",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "doi_reparado: 10.1023/A:1008208307280 (404) → 10.1093/oxfordjournals.annonc.a010676 (200), via Crossref por nome (Glimelius (QT vs BSC), GLIMELIUS 1997; candidato único congruente)"
+      ]
+    },
+    {
+      "regimen_id": "gastrico-met-1l-folfox",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico/JEG avançado — 1ª linha (HER2 negativo)",
+      "nome": "FOLFOX (HER2 negativo)",
+      "esquema": "Oxaliplatina 85 mg/m² + Leucovorina 400 mg/m² + 5-FU 400 mg/m² bolus + 2.400 mg/m² 46h, a cada 14 dias",
+      "farmacos": [
+        {
+          "nome": "Oxaliplatina",
+          "dose": "85 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 14/14d"
+        },
+        {
+          "nome": "5-FU/Leucovorina",
+          "dose": "400/2.400 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico/JEG avançado, 1ª linha, HER2 negativo.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "her2",
+                "negativo"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "AL-BATRAN SE et al. Phase III trial in metastatic gastroesophageal adenocarcinoma with fluorouracil, leucovorin plus either oxaliplatin or cisplatin. J Clin Oncol. 2008;26(9):1435-1442.",
+        "doi": "10.1200/JCO.2007.13.9378",
+        "pmid": null,
+        "estudo": "Al-Batran (FLO/oxaliplatina)",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Eficácia comparável ao esquema com cisplatina, melhor tolerabilidade",
+        "magnitude": "Oxaliplatina não inferior à cisplatina em 1ª linha (padrão 1ª linha HER2-negativo, alternativa à cisplatina com melhor tolerabilidade)",
+        "fonte": "10.1200/JCO.2007.13.9378"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Nefrotoxicidade/neuropatia (platina)",
+          "severidade": "grave",
+          "conduta": "hidratação; ajuste",
+          "fonte": "Bula/ficha técnica: cisplatina/oxaliplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Oxaliplatina + fluoropirimidina como padrão de 1ª linha (Al-Batran e sucessores). Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9378"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Comparador ativo (cisplatina); sem scorecard discreto.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9378"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "her2",
+              "operador": "=",
+              "valor": "negativo"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: doublet de oxaliplatina em 1ª linha HER2-negativo.",
+          "justificativa": "Concorda: doublet de oxaliplatina em 1ª linha HER2-negativo.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9378"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-met-1l-capox",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico/JEG avançado — 1ª linha (HER2 negativo)",
+      "nome": "CAPOX",
+      "esquema": "Capecitabina 1.000 mg/m² 2x/dia D1-D14 + Oxaliplatina 130 mg/m² D1, a cada 21 dias",
+      "farmacos": [
+        {
+          "nome": "Capecitabina",
+          "dose": "1.000 mg/m²",
+          "via": "VO",
+          "frequencia": "2x/dia D1-D14"
+        },
+        {
+          "nome": "Oxaliplatina",
+          "dose": "130 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico/JEG avançado, 1ª linha, HER2 negativo.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "her2",
+                "negativo"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "AL-BATRAN SE et al. Phase III trial in metastatic gastroesophageal adenocarcinoma with fluorouracil, leucovorin plus either oxaliplatin or cisplatin. J Clin Oncol. 2008;26(9):1435-1442.",
+        "doi": "10.1200/JCO.2007.13.9378",
+        "pmid": null,
+        "estudo": "Al-Batran (FLO/oxaliplatina)",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Eficácia comparável ao esquema com cisplatina, melhor tolerabilidade",
+        "magnitude": "Oxaliplatina não inferior à cisplatina em 1ª linha (alternativa oral ao FOLFOX, eficácia comparável)",
+        "fonte": "10.1200/JCO.2007.13.9378"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Nefrotoxicidade/neuropatia (platina)",
+          "severidade": "grave",
+          "conduta": "hidratação; ajuste",
+          "fonte": "Bula/ficha técnica: cisplatina/oxaliplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Oxaliplatina + fluoropirimidina como padrão de 1ª linha (Al-Batran e sucessores). Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9378"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Comparador ativo (cisplatina); sem scorecard discreto.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9378"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "her2",
+              "operador": "=",
+              "valor": "negativo"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: doublet de oxaliplatina em 1ª linha HER2-negativo.",
+          "justificativa": "Concorda: doublet de oxaliplatina em 1ª linha HER2-negativo.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9378"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-met-2l-paclitaxel",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico/JEG avançado — 2ª linha",
+      "nome": "Paclitaxel semanal",
+      "esquema": "Paclitaxel 80 mg/m² EV semanal (3 semanas on, 1 off)",
+      "farmacos": [
+        {
+          "nome": "Paclitaxel",
+          "dose": "80 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico/JEG avançado em 2ª linha ou em pacientes frágeis.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "WILKE H et al. Ramucirumab plus paclitaxel versus placebo plus paclitaxel (RAINBOW). Lancet Oncol. 2014;15(11):1224-1235 (paclitaxel isolado é o backbone padrão de 2ª linha).",
+        "doi": "10.1016/S1470-2045(14)70420-6",
+        "pmid": null,
+        "estudo": "RAINBOW (base do paclitaxel 2L)",
+        "ano": 2014
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade em 2ª linha",
+        "magnitude": "Paclitaxel é backbone de 2ª linha; RAINBOW usa paclitaxel como base",
+        "fonte": "10.1016/S1470-2045(14)70420-6"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Paclitaxel é padrão de 2ª linha em gástrico avançado (base do braço controle do RAINBOW). Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(14)70420-6"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Backbone de 2ª linha; não graduável isoladamente.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(14)70420-6"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Paclitaxel genérico, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: paclitaxel em 2ª linha.",
+          "justificativa": "Concorda: paclitaxel em 2ª linha.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(14)70420-6"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-met-2l-irinotecano-folfiri",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico/JEG avançado — 2ª linha",
+      "nome": "Irinotecano / FOLFIRI",
+      "esquema": "Irinotecano 180 mg/m² D1 (isolado) ou FOLFIRI a cada 14 dias, após progressão a platina",
+      "farmacos": [
+        {
+          "nome": "Irinotecano",
+          "dose": "180 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 14/14d"
+        },
+        {
+          "nome": "5-FU/Leucovorina",
+          "dose": "400/2.400 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 (FOLFIRI)"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico/JEG avançado, 2ª linha, previamente exposto a platina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_platina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "THUSS-PATIENCE PC et al. Survival advantage for irinotecan versus best supportive care. Eur J Cancer. 2011;47(15):2306-2314.",
+        "doi": "10.1016/j.ejca.2011.06.002",
+        "pmid": null,
+        "estudo": "Thuss-Patience",
+        "ano": 2011,
+        "primeiro_autor": "Thuss-Patience"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida vs melhor suporte",
+        "magnitude": "Irinotecano melhora SG vs BSC em 2ª linha",
+        "fonte": "10.1016/j.ejca.2011.05.024"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Diarreia (irinotecano)",
+          "severidade": "grave",
+          "conduta": "loperamida; atropina para colinérgica",
+          "fonte": "Bula/ficha técnica: Irinotecano"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Irinotecano melhora SG vs suporte em 2ª linha (Thuss-Patience). Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/j.ejca.2011.06.002"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Comparador BSC; magnitude modesta.",
+          "fonte": "https://doi.org/10.1016/j.ejca.2011.06.002"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Irinotecano genérico, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "progressao_pos_platina",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: irinotecano/FOLFIRI em 2ª linha pós-platina.",
+          "justificativa": "Concorda: irinotecano/FOLFIRI em 2ª linha pós-platina.",
+          "fonte": "https://doi.org/10.1016/j.ejca.2011.06.002"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1016/j.ejca.2011.05.024 → 10.1016/j.ejca.2011.06.002 (Thuss-Patience, Thuss-Patience 2011; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-met-docetaxel",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico avançado — 2ª linha (pós-fluoropirimidina/platina)",
+      "nome": "Docetaxel",
+      "esquema": "Docetaxel 75-100 mg/m² EV D1 a cada 21 dias (isolado ou combinado)",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "75-100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico avançado em 2ª linha, após falha de platina e fluoropirimidina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_platina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "VAN CUTSEM E et al. Phase III study of docetaxel and best supportive care versus best supportive care alone in previously treated advanced gastric cancer (COUGAR-02). J Clin Oncol. 2013;31(35):4461-4468.",
+        "doi": "10.1016/S1470-2045(13)70549-7",
+        "pmid": null,
+        "estudo": "COUGAR-02",
+        "ano": 2014,
+        "primeiro_autor": "Ford"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs melhor suporte",
+        "magnitude": "COUGAR-02: SG 5,2 vs 3,6 meses; HR 0,67",
+        "fonte": "10.1200/JCO.2012.45.6414"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "COUGAR-02 (fase 3): docetaxel melhora SG vs suporte em 2ª linha. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(13)70549-7"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Comparador BSC; magnitude modesta.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(13)70549-7"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Docetaxel genérico, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "progressao_pos_platina",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: docetaxel em 2ª linha.",
+          "justificativa": "Concorda: docetaxel em 2ª linha.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(13)70549-7"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1200/JCO.2012.45.6414 → 10.1016/S1470-2045(13)70549-7 (COUGAR-02, Ford 2014; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-met-1l-io-qt-cps",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico/JEG avançado — 1ª linha, PD-L1 CPS≥10",
+      "nome": "Nivolumabe (ou Pembrolizumabe) + Quimioterapia (CPS≥10)",
+      "esquema": "Nivolumabe 360 mg/3sem (com XELOX) ou 240 mg/2sem (com FOLFOX); ou Pembrolizumabe 200 mg/3sem (com CAPOX/CF) — se CPS≥10",
+      "farmacos": [
+        {
+          "nome": "Nivolumabe (ou Pembrolizumabe)",
+          "dose": "360/240 mg (200 mg)",
+          "via": "EV",
+          "frequencia": "associado à QT"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico/JEG avançado, 1ª linha, com PD-L1 CPS≥10 (protocolo: incorporar se CPS≥10; não usar se CPS≤5; discutir em Tumor Board se 5-10).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "gte": [
+                "pdl1_cps",
+                10
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "JANJIGIAN YY et al. First-line nivolumab plus chemotherapy versus chemotherapy alone for advanced gastric/GEJ/esophageal adenocarcinoma (CheckMate 649). Lancet. 2021;398(10294):27-40.",
+        "doi": "10.1016/S0140-6736(21)00797-2",
+        "pmid": null,
+        "estudo": "CheckMate 649",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global (maior em CPS≥5/≥10)",
+        "magnitude": "CheckMate 649 (CPS≥5): SG 14,4 vs 11,1 meses; HR 0,71",
+        "fonte": "10.1016/S0140-6736(21)00797-2"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CheckMate 649 (fase 3): ganho de SG com nivolumabe+QT, concentrado em CPS≥5/≥10. Recomendação forte na população PD-L1-alta.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(21)00797-2"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG em doença metastática (CPS-alto) → ESMO-MCBS 4. Coerente com a restrição do protocolo a CPS≥10.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(21)00797-2"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Imunoterapia de custo alto. Affordability baixa; restrição a CPS≥10 melhora a razão custo-benefício.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "pdl1_cps",
+              "operador": ">=",
+              "valor": 10
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: protocolo restringe a CPS≥10, subgrupo de maior benefício. Uso adversarialmente correto do biomarcador.",
+          "justificativa": "Concorda: protocolo restringe a CPS≥10, subgrupo de maior benefício. Uso adversarialmente correto do biomarcador.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(21)00797-2"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-met-her2-trastuzumabe-qt",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico/JEG HER2+ avançado — 1ª linha",
+      "nome": "Trastuzumabe + Quimioterapia (ToGA)",
+      "esquema": "Trastuzumabe 8 mg/kg ataque → 6 mg/kg a cada 3 semanas + cisplatina/fluoropirimidina, até progressão",
+      "farmacos": [
+        {
+          "nome": "Trastuzumabe",
+          "dose": "8 → 6 mg/kg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Cisplatina + Fluoropirimidina",
+          "dose": "conforme esquema",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico/JEG HER2 positivo avançado, 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "her2",
+                "positivo"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BANG YJ et al. Trastuzumab in combination with chemotherapy versus chemotherapy alone for HER2-positive advanced gastric/GEJ cancer (ToGA). Lancet. 2010;376(9742):687-697.",
+        "doi": "10.1016/S0140-6736(10)61121-X",
+        "pmid": null,
+        "estudo": "ToGA",
+        "ano": 2010
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "ToGA: SG 13,8 vs 11,1 meses; HR 0,74",
+        "fonte": "10.1016/S0140-6736(10)61121-X"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Nefrotoxicidade/neuropatia (platina)",
+          "severidade": "grave",
+          "conduta": "hidratação; ajuste",
+          "fonte": "Bula/ficha técnica: cisplatina/oxaliplatina"
+        },
+        {
+          "nome": "Cardiotoxicidade (trastuzumabe)",
+          "severidade": "grave",
+          "conduta": "monitorar FEVE",
+          "fonte": "Bula/ficha técnica: Trastuzumabe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "ToGA (fase 3): ganho de SG com trastuzumabe+QT em HER2+. Padrão de cuidado. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(10)61121-X"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG em doença metastática HER2+ → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(10)61121-X"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 2,
+          "afirmado_protocolo": null,
+          "justificativa": "Trastuzumabe (biossimilar) incorporado ao SUS; QT barata. Affordability intermediária-alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Trastuzumabe no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "her2",
+              "operador": "=",
+              "valor": "positivo"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ToGA em HER2+ 1ª linha.",
+          "justificativa": "Concorda: ToGA em HER2+ 1ª linha.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(10)61121-X"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-met-her2-pembro-tras-qt",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico/JEG HER2+ avançado — 1ª linha (CPS≥1)",
+      "nome": "Pembrolizumabe + Trastuzumabe + Quimioterapia (KEYNOTE-811)",
+      "esquema": "Pembrolizumabe + Trastuzumabe + QT (discutir se CPS≥1)",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Trastuzumabe",
+          "dose": "8 → 6 mg/kg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Quimioterapia",
+          "dose": "conforme esquema",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico/JEG HER2 positivo avançado, 1ª linha, PD-L1 CPS≥1 (protocolo: discutir individualmente).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "her2",
+                "positivo"
+              ]
+            },
+            {
+              "gte": [
+                "pdl1_cps",
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "JANJIGIAN YY et al. Pembrolizumab plus trastuzumab and chemotherapy for HER2-positive gastric/GEJ adenocarcinoma (KEYNOTE-811). Lancet. 2023;402(10418):2197-2208.",
+        "doi": "10.1016/S0140-6736(23)02033-0",
+        "pmid": null,
+        "estudo": "KEYNOTE-811",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "KEYNOTE-811: SG 20 vs 16 meses; HR 0,79 (IC 0,66-0,95), benefício em CPS≥1",
+        "fonte": "10.1016/S0140-6736(23)02033-0"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Cardiotoxicidade",
+          "severidade": "grave",
+          "conduta": "monitorar FEVE",
+          "fonte": "Bula/ficha técnica: Trastuzumabe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "KEYNOTE-811 (fase 3): ganho de SG com adição de pembrolizumabe em HER2+ CPS≥1. Recomendação forte nesse subgrupo.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(23)02033-0"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (~4 meses) em doença metastática → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(23)02033-0"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Adição de pembrolizumabe eleva o custo; restrição a CPS≥1. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "her2",
+              "operador": "=",
+              "valor": "positivo"
+            },
+            {
+              "campo": "pdl1_cps",
+              "operador": ">=",
+              "valor": 1
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: KEYNOTE-811 restringe benefício a CPS≥1, como o protocolo pondera.",
+          "justificativa": "Concorda: KEYNOTE-811 restringe benefício a CPS≥1, como o protocolo pondera.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(23)02033-0"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-met-her2-2l-tdxd",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico/JEG HER2+ avançado — 2ª linha",
+      "nome": "Trastuzumabe Deruxtecana (T-DXd)",
+      "esquema": "Trastuzumabe deruxtecana 6,4 mg/kg EV a cada 21 dias",
+      "farmacos": [
+        {
+          "nome": "Trastuzumabe deruxtecana",
+          "dose": "6,4 mg/kg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico/JEG HER2 positivo avançado, 2ª linha (protocolo incorpora; alta magnitude, alto custo; ESMO MCBS 4).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "her2",
+                "positivo"
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SHITARA K et al. Trastuzumab deruxtecan in previously treated HER2-positive gastric cancer (DESTINY-Gastric01). N Engl J Med. 2020;382(25):2419-2430.",
+        "doi": "10.1056/NEJMoa2004413",
+        "pmid": null,
+        "estudo": "DESTINY-Gastric01",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ taxa de resposta e ↑ sobrevida global",
+        "magnitude": "DESTINY-Gastric01: TRO 51% vs 14%; SG 12,5 vs 8,4 meses; HR 0,59",
+        "fonte": "10.1056/NEJMoa2004413"
+      },
+      "toxicidades": [
+        {
+          "nome": "Pneumonite intersticial (T-DXd)",
+          "severidade": "grave",
+          "conduta": "monitorar; corticoide; suspender",
+          "fonte": "Bula/ficha técnica: Trastuzumabe deruxtecana"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Trastuzumabe deruxtecana"
+        },
+        {
+          "nome": "Náusea",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Trastuzumabe deruxtecana"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "DESTINY-Gastric01 (fase 2/3): ganho de resposta e SG em HER2+ 2ª linha. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2004413"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": "4",
+          "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,59) e alta TRO → MCBS 4. Concorda.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2004413"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 5,
+          "afirmado_protocolo": null,
+          "justificativa": "T-DXd de custo altíssimo. Affordability muito baixa (protocolo reconhece).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo altíssimo no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "her2",
+              "operador": "=",
+              "valor": "positivo"
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: DESTINY-Gastric01 em HER2+ 2ª linha.",
+          "justificativa": "Concorda: DESTINY-Gastric01 em HER2+ 2ª linha.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2004413"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "gastrico-tas102-nao-rotineiro",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico avançado — linhas tardias (não rotineiro)",
+      "nome": "TAS-102 (trifluridina/tipiracil) — NÃO rotineiro",
+      "esquema": "TAS-102 35 mg/m² 2x/dia D1-5 e D8-12 a cada 28 dias — não inclusão rotineira",
+      "farmacos": [
+        {
+          "nome": "Trifluridina/Tipiracil",
+          "dose": "35 mg/m²",
+          "via": "VO",
+          "frequencia": "2x/dia D1-5,D8-12"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico avançado politratado (protocolo: não inclusão rotineira; baixa magnitude 5,7×3,6 meses, ESMO MCBS 3; discutir em câmara técnica/Tumor Board pela excepcionalidade).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "politratado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SHITARA K et al. Trifluridine/tipiracil versus placebo in patients with advanced gastric cancer (TAGS). Lancet Oncol. 2018;19(11):1437-1448.",
+        "doi": "10.1016/S1470-2045(18)30739-3",
+        "pmid": null,
+        "estudo": "TAGS",
+        "ano": 2018,
+        "primeiro_autor": "Shitara"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global modesta vs placebo",
+        "magnitude": "TAGS: SG 5,7 vs 3,6 meses; HR 0,69",
+        "fonte": "10.1016/S1470-2045(18)30572-X"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "TAGS (fase 3): ganho de SG estatisticamente significativo mas de magnitude modesta em politratados. Certeza alta, benefício pequeno.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(18)30739-3"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "3",
+          "afirmado_protocolo": "3",
+          "justificativa": "Protocolo afirma ESMO-MCBS 3. Re-derivação: ganho de SG ~2 meses (HR 0,69) → MCBS 2-3; concorda (limítrofe, aceito 3).",
+          "fonte": "https://doi.org/10.1016/S1470-2045(18)30739-3"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "TAS-102 de custo alto para benefício pequeno; não rotineiro. Affordability intermediária-baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Uso excepcional (Tumor Board)."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "politratado",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: benefício pequeno sustenta a não inclusão rotineira.",
+          "justificativa": "Concorda: benefício pequeno sustenta a não inclusão rotineira.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(18)30739-3"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado_rotineiro: benefício modesto (MCBS 3), uso excepcional via câmara técnica"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1016/S1470-2045(18)30572-X → 10.1016/S1470-2045(18)30739-3 (TAGS, Shitara 2018; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado_rotineiro: benefício modesto (MCBS 3), uso excepcional via câmara técnica"
+      ]
+    },
+    {
+      "regimen_id": "gastrico-ramucirumabe-nao-incorporado",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico avançado — antiangiogênico (não incorporado)",
+      "nome": "Ramucirumabe (mono/RAINBOW) — NÃO incorporado",
+      "esquema": "Ramucirumabe isolado (REGARD) ou + paclitaxel (RAINBOW) — não incorporado",
+      "farmacos": [
+        {
+          "nome": "Ramucirumabe",
+          "dose": "8 mg/kg",
+          "via": "EV",
+          "frequencia": "2/2 sem (± paclitaxel)"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico avançado 2ª linha (protocolo NÃO incorpora; REGARD ESMO 1, RAINBOW ESMO 2 — magnitude pouco expressiva).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "WILKE H et al. RAINBOW. Lancet Oncol. 2014;15(11):1224-1235. FUCHS CS et al. REGARD. Lancet. 2014;383(9911):31-39.",
+        "doi": "10.1016/S1470-2045(14)70420-6",
+        "pmid": null,
+        "estudo": "RAINBOW / REGARD",
+        "ano": 2014
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global modesta",
+        "magnitude": "RAINBOW: SG 9,6 vs 7,4 meses; HR 0,81. REGARD (mono): benefício menor",
+        "fonte": "10.1016/S1470-2045(14)70420-6"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Ramucirumabe"
+        },
+        {
+          "nome": "Proteinúria/eventos tromboembólicos",
+          "severidade": "moderada",
+          "conduta": "monitorar",
+          "fonte": "Bula/ficha técnica: Ramucirumabe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "RAINBOW/REGARD (fase 3) com ganho de SG estatisticamente significativo mas modesto. Certeza alta, magnitude baixa.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(14)70420-6"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": "2",
+          "justificativa": "Protocolo afirma REGARD MCBS 1 / RAINBOW MCBS 2. Re-derivação: RAINBOW HR 0,81, ganho ~2 meses → MCBS 2; REGARD menor → 1. Concorda.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(14)70420-6"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Ramucirumabe de custo alto para benefício pequeno; affordability baixa. Sustenta a não incorporação.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incorporado."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: MCBS baixo (1-2) sustenta a decisão de não incorporar.",
+          "justificativa": "Concorda: MCBS baixo (1-2) sustenta a decisão de não incorporar.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(14)70420-6"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: MCBS 1-2 (REGARD/RAINBOW) sustenta a não incorporação"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: MCBS 1-2 (REGARD/RAINBOW) sustenta a não incorporação"
+      ]
+    },
+    {
+      "regimen_id": "gastrico-zolbetuximabe-nao-incorporado",
+      "tumor": "esofago-estomago",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma gástrico avançado CLDN18.2+ — anti-claudina (não incorporado)",
+      "nome": "Zolbetuximabe + QT — NÃO incorporado",
+      "esquema": "Zolbetuximabe + FOLFOX (SPOTLIGHT) ou + CAPOX (GLOW) — não incorporado",
+      "farmacos": [
+        {
+          "nome": "Zolbetuximabe",
+          "dose": "conforme estudo",
+          "via": "EV",
+          "frequencia": "associado à QT"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer gástrico/JEG avançado CLDN18.2+ HER2- 1ª linha (protocolo NÃO incorpora: SPOTLIGHT ESMO 4, GLOW ESMO 2, ganho combinado 2,7 meses; alto custo, heterogeneidade, sem custo-efetividade).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "cldn18_2_positivo",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "her2",
+                "negativo"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SHITARA K et al. Zolbetuximab plus mFOLFOX6 (SPOTLIGHT). Lancet. 2023;401(10389):1655-1668. SHAH MA et al. GLOW. Nat Med. 2023;29:2133-2141.",
+        "doi": "10.1016/S0140-6736(23)00620-7",
+        "pmid": null,
+        "estudo": "SPOTLIGHT / GLOW",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global (heterogênea entre estudos)",
+        "magnitude": "SPOTLIGHT: SG 18,2 vs 13,2 meses. GLOW: benefício menor. Combinado: ~2,7 meses (16,4 vs 13,7)",
+        "fonte": "10.1016/S0140-6736(23)00620-7"
+      },
+      "toxicidades": [
+        {
+          "nome": "Náusea/vômito (zolbetuximabe)",
+          "severidade": "grave",
+          "conduta": "antiemético; infusão lenta",
+          "fonte": "Bula/ficha técnica: Zolbetuximabe"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia citotóxica"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "SPOTLIGHT/GLOW (fase 3): ganho de SG em CLDN18.2+, com heterogeneidade entre estudos. Certeza alta.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(23)00620-7"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": "4",
+          "justificativa": "Protocolo afirma SPOTLIGHT MCBS 4 / GLOW MCBS 2. Re-derivação: SPOTLIGHT SG +5 meses → MCBS 4; GLOW menor → 2. Concorda com ambos.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(23)00620-7"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 5,
+          "afirmado_protocolo": null,
+          "justificativa": "Zolbetuximabe de custo altíssimo; heterogeneidade e ausência de custo-efetividade. Affordability muito baixa. Sustenta a não incorporação.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incorporado."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "cldn18_2_positivo",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "her2",
+              "operador": "=",
+              "valor": "negativo"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: MCBS re-derivado bate com o afirmado; a não incorporação é decisão de custo/heterogeneidade, coerente.",
+          "justificativa": "Concorda: MCBS re-derivado bate com o afirmado; a não incorporação é decisão de custo/heterogeneidade, coerente.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(23)00620-7"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: MCBS confirmado (SPOTLIGHT 4/GLOW 2); decisão de custo e heterogeneidade"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (esôfago/estômago) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: MCBS confirmado (SPOTLIGHT 4/GLOW 2); decisão de custo e heterogeneidade"
+      ]
+    }
+  ]
+}
