@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "tumor": "bexiga",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "EV-302 — enfortumabe vedotina + pembrolizumabe vs quimio em 1ª linha urotelial avançado",
+      "identificador": "NCT04223856",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Novo padrão de 1ª linha (supera quimio à base de platina).",
+      "acao": "Reavaliar 1ª linha metastático."
+    },
+    {
+      "titulo": "CheckMate 274 — nivolumabe adjuvante em urotelial de alto risco pós-cirurgia",
+      "identificador": "NCT02632409",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO adjuvante melhora SLD.",
+      "acao": "Avaliar adjuvância."
+    }
+  ]
+}

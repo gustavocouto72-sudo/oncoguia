@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "tumor": "renal",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "CheckMate 9ER — nivolumabe + cabozantinibe vs sunitinibe em 1ª linha de CCR",
+      "identificador": "NCT03141177",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Combinação IO+TKI melhora SG na 1ª linha.",
+      "acao": "Reavaliar 1ª linha avançado."
+    },
+    {
+      "titulo": "KEYNOTE-564 — pembrolizumabe adjuvante em CCR de alto risco pós-nefrectomia",
+      "identificador": "NCT03142334",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO adjuvante melhora SLD/SG.",
+      "acao": "Avaliar adjuvância."
+    }
+  ]
+}

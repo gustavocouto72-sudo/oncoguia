@@ -1,0 +1,1251 @@
+{
+  "meta": {
+    "titulo": "Protocolos — pancreas (re-extração 2026-07-22)",
+    "tumor": "pancreas",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 8,
+    "distribuicao_selo": {
+      "re_derivado": 6,
+      "incompleto": 2
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 0,
+      "incongruentes": 0
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "pendente"
+    }
+  },
+  "campos_primitivos": [
+    {
+      "campo": "pancreas_ressecado",
+      "tipo": "boolean",
+      "label": "Pancreas ressecado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "paciente_robusto",
+      "tipo": "boolean",
+      "label": "Paciente robusto",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ecog",
+      "tipo": "integer",
+      "label": "Ecog",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "mutacao_brca_germinativa",
+      "tipo": "boolean",
+      "label": "Mutacao brca germinativa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "sem_progressao_pos_platina",
+      "tipo": "boolean",
+      "label": "Sem progressao pos platina",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "pancreas-adj-mfolfirinox",
+      "tumor": "pancreas",
+      "cenario": "adjuvancia",
+      "subtipo": "Adenocarcinoma de pâncreas ressecado — adjuvância (paciente robusto)",
+      "nome": "mFOLFIRINOX adjuvante",
+      "esquema": "Oxaliplatina 85 mg/m² + Irinotecano 150 mg/m² + Leucovorina 400 mg/m² + 5-FU 2.400 mg/m² infusão 48h D1, a cada 2 semanas",
+      "farmacos": [
+        {
+          "nome": "Oxaliplatina",
+          "dose": "85 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 14/14d"
+        },
+        {
+          "nome": "Irinotecano",
+          "dose": "150 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Leucovorina",
+          "dose": "400 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "2.400 mg/m²",
+          "via": "EV (48h)",
+          "frequencia": "D1"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma de pâncreas ressecado, paciente robusto (bom performance status, reserva orgânica adequada, boa recuperação pós-operatória).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "pancreas_ressecado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "paciente_robusto",
+                true
+              ]
+            },
+            {
+              "not": {
+                "gte": [
+                  "ecog",
+                  2
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CONROY T et al. FOLFIRINOX or gemcitabine as adjuvant therapy for pancreatic cancer (PRODIGE 24). N Engl J Med. 2018;379:2395-2406. 5-year outcomes: JAMA Oncol. 2023;9(2):234-243.",
+        "doi": "10.1056/NEJMoa1809775",
+        "pmid": null,
+        "estudo": "PRODIGE 24 / CCTG PA.6",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença e sobrevida global vs gemcitabina",
+        "magnitude": "PRODIGE 24: SG mediana 54,4 vs 35,0 meses; HR 0,64",
+        "fonte": "10.1056/NEJMoa1809775"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito/diarreia",
+          "severidade": "moderada",
+          "conduta": "antiemético; suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (oxaliplatina)",
+          "severidade": "grave",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Oxaliplatina"
+        },
+        {
+          "nome": "Diarreia (irinotecano)",
+          "severidade": "grave",
+          "conduta": "loperamida; atropina",
+          "fonte": "Bula/ficha técnica: Irinotecano"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "PRODIGE 24 (fase 3): ganho robusto de SLD/SG com mFOLFIRINOX adjuvante em pacientes robustos. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1809775"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo com ganho expressivo de SG → formulário curativo A qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1809775"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "pancreas_ressecado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "paciente_robusto",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "ecog",
+              "operador": ">=",
+              "valor": 2
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: PRODIGE 24 exigiu bom performance status; protocolo restringe a pacientes robustos.",
+          "justificativa": "Concorda: PRODIGE 24 exigiu bom performance status; protocolo restringe a pacientes robustos.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1809775"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (pâncreas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "pancreas-adj-gemcitabina",
+      "tumor": "pancreas",
+      "cenario": "adjuvancia",
+      "subtipo": "Adenocarcinoma de pâncreas ressecado — adjuvância (não robusto)",
+      "nome": "Gemcitabina adjuvante",
+      "esquema": "Gemcitabina 1.000 mg/m² EV semanal x3 + 1 semana de descanso",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal x3 + 1 off"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma de pâncreas ressecado, pacientes não candidatos ao mFOLFIRINOX (fragilidade/comorbidades).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "pancreas_ressecado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "paciente_robusto",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "OETTLE H et al. Adjuvant chemotherapy with gemcitabine vs observation in patients undergoing curative-intent resection of pancreatic cancer (CONKO-001). JAMA. 2007;297(3):267-277.",
+        "doi": "10.1001/jama.297.3.267",
+        "pmid": null,
+        "estudo": "CONKO-001",
+        "ano": 2007
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença (e SG no seguimento longo) vs observação",
+        "magnitude": "CONKO-001: SLD 13,4 vs 6,9 meses; benefício de SG confirmado a longo prazo",
+        "fonte": "10.1001/jama.297.3.267"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito/diarreia",
+          "severidade": "moderada",
+          "conduta": "antiemético; suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CONKO-001 (fase 3): ganho de SLD/SG com gemcitabina adjuvante. Recomendação forte para não candidatos a FOLFIRINOX.",
+          "fonte": "https://doi.org/10.1001/jama.297.3.267"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1001/jama.297.3.267"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Gemcitabina genérica, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "pancreas_ressecado",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "paciente_robusto",
+              "operador": "=",
+              "valor": false
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: gemcitabina adjuvante para não candidatos ao doublet intensivo.",
+          "justificativa": "Concorda: gemcitabina adjuvante para não candidatos ao doublet intensivo.",
+          "fonte": "https://doi.org/10.1001/jama.297.3.267"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (pâncreas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "pancreas-adj-nabpac-gem-nao-incorporado",
+      "tumor": "pancreas",
+      "cenario": "adjuvancia",
+      "subtipo": "Adenocarcinoma de pâncreas ressecado — adjuvância (não incorporado)",
+      "nome": "Nab-Paclitaxel + Gemcitabina adjuvante (NÃO incorporado)",
+      "esquema": "Nab-paclitaxel + gemcitabina adjuvante — não inclusão pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Nab-paclitaxel",
+          "dose": "125 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8,D15"
+        },
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8,D15"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma de pâncreas ressecado (protocolo NÃO inclui: estudo APACT falhou no desfecho primário — DFS por revisão independente; ganho de SG é exploratório).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "pancreas_ressecado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "TEMPERO MA et al. Adjuvant nab-paclitaxel plus gemcitabine versus gemcitabine alone in resected pancreatic cancer (APACT). Lancet Oncol. 2023;24(4):446-458.",
+        "doi": null,
+        "pmid": null,
+        "estudo": "APACT",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Desfecho primário (DFS por revisão independente) NÃO atingido",
+        "magnitude": "APACT: DFS por revisão independente não significativa; diferença em SG exploratória",
+        "fonte": "APACT (Lancet Oncol 2023) — DOI não validado nesta rodada"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito/diarreia",
+          "severidade": "moderada",
+          "conduta": "antiemético; suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "2B",
+          "afirmado_protocolo": null,
+          "justificativa": "APACT falhou no desfecho primário (DFS por revisão independente); ganho de SG é exploratório e não confirmatório → certeza reduzida. Coerente com não incorporar.",
+          "fonte": "referência não recuperada com DOI validado"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Desfecho primário negativo; não graduável como benefício estabelecido.",
+          "fonte": "referência não recuperada"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Nab-paclitaxel de custo alto sem benefício confirmatório. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto; não incorporado."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "pancreas_ressecado",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda com a leitura do protocolo: desfecho primário negativo (APACT) sustenta a não inclusão.",
+          "justificativa": "Concorda com a leitura do protocolo: desfecho primário negativo (APACT) sustenta a não inclusão.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: APACT falhou no desfecho primário (DFS); SG exploratória",
+          "doi_nao_validado: buscar DOI do APACT (Tempero Lancet Oncol 2023)",
+          "doi_nao_reparado: sem match resolvível+congruente para 'APACT' (TEMPERO 2023); mantém incompleto"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (pâncreas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: APACT falhou no desfecho primário (DFS); SG exploratória",
+        "doi_nao_validado: buscar DOI do APACT (Tempero Lancet Oncol 2023)",
+        "doi_nao_reparado: sem match resolvível+congruente para 'APACT' (TEMPERO 2023); mantém incompleto"
+      ]
+    },
+    {
+      "regimen_id": "pancreas-adj-gem-cape-nao-incorporado",
+      "tumor": "pancreas",
+      "cenario": "adjuvancia",
+      "subtipo": "Adenocarcinoma de pâncreas ressecado — adjuvância (não incorporado)",
+      "nome": "Gemcitabina + Capecitabina adjuvante (NÃO incorporado)",
+      "esquema": "Gemcitabina + Capecitabina adjuvante — não inclusão pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal"
+        },
+        {
+          "nome": "Capecitabina",
+          "dose": "1.660 mg/m²/dia",
+          "via": "VO",
+          "frequencia": "D1-D21"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma de pâncreas ressecado (protocolo NÃO inclui: ESPAC-4 com benefício marginal de SG 30,2 vs 27,9 meses).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "pancreas_ressecado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "NEOPTOLEMOS JP et al. Comparison of adjuvant gemcitabine and capecitabine with gemcitabine monotherapy in resected pancreatic cancer (ESPAC-4). Lancet. 2017;389(10073):1011-1024.",
+        "doi": "10.1016/S0140-6736(16)32409-6",
+        "pmid": null,
+        "estudo": "ESPAC-4",
+        "ano": 2017
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global marginal vs gemcitabina",
+        "magnitude": "ESPAC-4: SG 30,2 vs 27,9 meses (ganho ~2,3 meses)",
+        "fonte": "10.1016/S0140-6736(16)32409-6"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito/diarreia",
+          "severidade": "moderada",
+          "conduta": "antiemético; suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "ESPAC-4 (fase 3): ganho de SG estatisticamente significativo mas de magnitude marginal. Certeza alta; benefício pequeno.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(16)32409-6"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho marginal de SG (~2,3 meses) → MCBS ~2. Sem afirmação do protocolo. Base para não incorporar frente ao mFOLFIRINOX.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(16)32409-6"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, no SUS — mas benefício marginal frente ao mFOLFIRINOX/gemcitabina justifica não incorporar.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "pancreas_ressecado",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: benefício marginal (ESPAC-4) frente às opções incorporadas sustenta a não inclusão.",
+          "justificativa": "Concorda: benefício marginal (ESPAC-4) frente às opções incorporadas sustenta a não inclusão.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(16)32409-6"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: benefício marginal (~2,3 meses, ESPAC-4) frente ao mFOLFIRINOX"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (pâncreas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: benefício marginal (~2,3 meses, ESPAC-4) frente ao mFOLFIRINOX"
+      ]
+    },
+    {
+      "regimen_id": "pancreas-met-mfolfirinox",
+      "tumor": "pancreas",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma de pâncreas avançado/metastático — 1ª linha (robusto)",
+      "nome": "mFOLFIRINOX",
+      "esquema": "Oxaliplatina 85 mg/m² + Irinotecano 150 mg/m² + Leucovorina 400 mg/m² + 5-FU 2.400 mg/m² infusão 48h D1, a cada 2 semanas",
+      "farmacos": [
+        {
+          "nome": "Oxaliplatina",
+          "dose": "85 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 14/14d"
+        },
+        {
+          "nome": "Irinotecano",
+          "dose": "150 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Leucovorina",
+          "dose": "400 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "2.400 mg/m²",
+          "via": "EV (48h)",
+          "frequencia": "D1"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma de pâncreas avançado/metastático, 1ª linha, paciente robusto com boa performance física.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "paciente_robusto",
+                true
+              ]
+            },
+            {
+              "not": {
+                "gte": [
+                  "ecog",
+                  2
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CONROY T et al. FOLFIRINOX versus gemcitabine for metastatic pancreatic cancer. N Engl J Med. 2011;364(19):1817-1825.",
+        "doi": "10.1056/NEJMoa1011923",
+        "pmid": null,
+        "estudo": "PRODIGE 4/ACCORD 11",
+        "ano": 2011
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs gemcitabina",
+        "magnitude": "PRODIGE 4: SG 11,1 vs 6,8 meses; HR 0,57",
+        "fonte": "10.1056/NEJMoa1011923"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito/diarreia",
+          "severidade": "moderada",
+          "conduta": "antiemético; suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (oxaliplatina)",
+          "severidade": "grave",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Oxaliplatina"
+        },
+        {
+          "nome": "Diarreia (irinotecano)",
+          "severidade": "grave",
+          "conduta": "loperamida; atropina",
+          "fonte": "Bula/ficha técnica: Irinotecano"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "PRODIGE 4/ACCORD 11 (fase 3): ganho robusto de SG vs gemcitabina em pacientes robustos. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1011923"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,57, ~4,3 meses) em doença metastática → ESMO-MCBS 4. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1011923"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "paciente_robusto",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "ecog",
+              "operador": ">=",
+              "valor": 2
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: PRODIGE 4 exigiu bom performance status.",
+          "justificativa": "Concorda: PRODIGE 4 exigiu bom performance status.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1011923"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (pâncreas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "pancreas-met-gemcitabina",
+      "tumor": "pancreas",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma de pâncreas avançado — 1ª linha (não robusto)",
+      "nome": "Gemcitabina (monoterapia)",
+      "esquema": "Gemcitabina 1.000 mg/m² EV D1,D8,D15 a cada 28 dias",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8,D15 28/28d"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma de pâncreas avançado, 1ª linha, pacientes não candidatos ao mFOLFIRINOX.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "paciente_robusto",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BURRIS HA et al. Improvements in survival and clinical benefit with gemcitabine as first-line therapy for patients with advanced pancreas cancer. J Clin Oncol. 1997;15(6):2403-2413.",
+        "doi": "10.1200/JCO.1997.15.6.2403",
+        "pmid": null,
+        "estudo": "Burris",
+        "ano": 1997
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ benefício clínico e sobrevida vs 5-FU",
+        "magnitude": "Burris: melhora do clinical benefit response e SG vs 5-FU",
+        "fonte": "10.1200/JCO.1997.15.6.2403"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito/diarreia",
+          "severidade": "moderada",
+          "conduta": "antiemético; suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Burris (fase 3): gemcitabina estabeleceu benefício clínico/SG vs 5-FU. Padrão para não candidatos ao doublet. Recomendação forte nesse subgrupo.",
+          "fonte": "https://doi.org/10.1200/JCO.1997.15.6.2403"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Base histórica; comparador 5-FU. Não graduável de forma discreta.",
+          "fonte": "https://doi.org/10.1200/JCO.1997.15.6.2403"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Gemcitabina genérica, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "paciente_robusto",
+              "operador": "=",
+              "valor": false
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: gemcitabina para não candidatos ao doublet.",
+          "justificativa": "Concorda: gemcitabina para não candidatos ao doublet.",
+          "fonte": "https://doi.org/10.1200/JCO.1997.15.6.2403"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (pâncreas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "pancreas-met-nabpac-gem-nao-incorporado",
+      "tumor": "pancreas",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma de pâncreas avançado — 1ª linha (não incorporado)",
+      "nome": "Nab-Paclitaxel + Gemcitabina (NÃO incorporado)",
+      "esquema": "Nab-paclitaxel 125 mg/m² + Gemcitabina 1.000 mg/m² D1,D8,D15 a cada 28 dias — não inclusão pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Nab-paclitaxel",
+          "dose": "125 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8,D15 28/28d"
+        },
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8,D15"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma de pâncreas avançado, 1ª linha (protocolo NÃO inclui: sem comparação direta com FOLFIRINOX; meta-análise em rede (Mastrantoni 2024) e dados reais (Papneja 2020) favorecem FOLFIRINOX em SG).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "VON HOFF DD et al. Increased survival in pancreatic cancer with nab-paclitaxel plus gemcitabine (MPACT). N Engl J Med. 2013;369(18):1691-1703.",
+        "doi": "10.1056/NEJMoa1304369",
+        "pmid": null,
+        "estudo": "MPACT",
+        "ano": 2013
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs gemcitabina",
+        "magnitude": "MPACT: SG 8,5 vs 6,7 meses; HR 0,72 (regime é positivo; não incorporado por preferência ao FOLFIRINOX)",
+        "fonte": "10.1056/NEJMoa1304369"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito/diarreia",
+          "severidade": "moderada",
+          "conduta": "antiemético; suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (nab-paclitaxel)",
+          "severidade": "grave",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Nab-paclitaxel"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "MPACT (fase 3): ganho de SG vs gemcitabina — o regime tem evidência sólida. A não inclusão é decisão de preferência (FOLFIRINOX superior em comparações indiretas), não de fragilidade da evidência.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1304369"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,72) → ESMO-MCBS 4. O regime é graduável e positivo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1304369"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Nab-paclitaxel de custo alto (driver). Affordability baixa; FOLFIRINOX (genérico) é preferido por custo e eficácia.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto (nab-paclitaxel)."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Elegibilidade concorda (MPACT em metastático). ATENÇÃO: a não inclusão total remove uma opção validada para pacientes INELEGÍVEIS ao FOLFIRINOX (mas com performance intermediária) — lacuna de cobertura a revisar.",
+          "justificativa": "Elegibilidade concorda (MPACT em metastático). ATENÇÃO: a não inclusão total remove uma opção validada para pacientes INELEGÍVEIS ao FOLFIRINOX (mas com performance intermediária) — lacuna de cobertura a revisar.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1304369"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "cobertura: nab-pac+gem é padrão para inelegíveis a FOLFIRINOX (MPACT positivo); não inclusão total pode deixar subgrupo sem opção intermediária — revisar",
+          "nao_incorporado_por_preferencia: FOLFIRINOX preferido por custo/eficácia indireta"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (pâncreas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "cobertura: nab-pac+gem é padrão para inelegíveis a FOLFIRINOX (MPACT positivo); não inclusão total pode deixar subgrupo sem opção intermediária — revisar",
+        "nao_incorporado_por_preferencia: FOLFIRINOX preferido por custo/eficácia indireta"
+      ]
+    },
+    {
+      "regimen_id": "pancreas-met-olaparibe-nao-incorporado",
+      "tumor": "pancreas",
+      "cenario": "metastatico",
+      "subtipo": "Adenocarcinoma de pâncreas avançado gBRCA+ — manutenção (não incorporado)",
+      "nome": "Olaparibe de manutenção (NÃO incorporado)",
+      "esquema": "Olaparibe de manutenção após platina (gBRCA mutado) — não inclusão pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Olaparibe",
+          "dose": "300 mg",
+          "via": "VO",
+          "frequencia": "2x/dia (manutenção)"
+        }
+      ],
+      "elegibilidade_protocolo": "Adenocarcinoma de pâncreas metastático com mutação germinativa BRCA, sem progressão após platina (protocolo NÃO inclui: POLO atingiu SLP mas sem ganho de SG; sem dados de QoL; possível subtratamento no controle; ESMO MCBS 2).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "mutacao_brca_germinativa",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sem_progressao_pos_platina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP sem ganho de sobrevida global",
+        "magnitude": "POLO: SLP 7,4 vs 3,8 meses; HR 0,53; SG sem diferença significativa",
+        "fonte": "10.1056/NEJMoa1903387"
+      },
+      "toxicidades": [
+        {
+          "nome": "Anemia/fadiga",
+          "severidade": "moderada",
+          "conduta": "monitorar hemograma; ajuste",
+          "fonte": "Bula/ficha técnica: Olaparibe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2B",
+          "afirmado_protocolo": null,
+          "justificativa": "POLO (fase 3) atingiu SLP mas sem ganho de SG após longo seguimento; possível subtratamento no controle. Certeza moderada. Coerente com não incorporar.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1903387"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": "2",
+          "justificativa": "Protocolo afirma ESMO-MCBS 2. Re-derivação: ganho de SLP sem SG → MCBS 2. Concorda.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1903387"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Olaparibe de custo alto sem ganho de SG. Affordability baixa. Sustenta a não incorporação.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto; não incorporado."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "mutacao_brca_germinativa",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "sem_progressao_pos_platina",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: SLP sem SG (POLO) e MCBS 2 sustentam a não incorporação.",
+          "justificativa": "Concorda: SLP sem SG (POLO) e MCBS 2 sustentam a não incorporação.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: SLP sem ganho de SG (POLO); MCBS 2",
+          "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (pâncreas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: SLP sem ganho de SG (POLO); MCBS 2",
+        "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+      ]
+    }
+  ]
+}

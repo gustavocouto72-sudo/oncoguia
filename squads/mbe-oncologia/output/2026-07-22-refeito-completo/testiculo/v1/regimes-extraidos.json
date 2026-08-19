@@ -1,0 +1,733 @@
+{
+  "meta": {
+    "tumor": "testiculo",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 7
+  },
+  "campos_primitivos": [
+    {
+      "campo": "cenario",
+      "tipo": "enum",
+      "opcoes": [
+        "adjuvancia",
+        "localmente-avancado",
+        "metastatico"
+      ],
+      "label": "Cenário de tratamento",
+      "secao": "Contexto"
+    },
+    {
+      "campo": "linha_tratamento",
+      "tipo": "enum",
+      "opcoes": [
+        "primeira",
+        "recidiva",
+        "refrataria"
+      ],
+      "label": "Linha de tratamento",
+      "secao": "Contexto"
+    },
+    {
+      "campo": "pos_orquiectomia",
+      "tipo": "boolean",
+      "label": "Após orquiectomia",
+      "secao": "Contexto"
+    },
+    {
+      "campo": "histologia",
+      "tipo": "enum",
+      "opcoes": [
+        "seminoma",
+        "nao_seminoma"
+      ],
+      "label": "Histologia do tumor germinativo",
+      "secao": "Biologia"
+    },
+    {
+      "campo": "estadio_clinico",
+      "tipo": "enum",
+      "opcoes": [
+        "I",
+        "II",
+        "III"
+      ],
+      "label": "Estádio clínico",
+      "secao": "Estadiamento"
+    },
+    {
+      "campo": "risco_igcccg",
+      "tipo": "enum",
+      "opcoes": [
+        "bom",
+        "intermediario",
+        "alto"
+      ],
+      "label": "Grupo prognóstico IGCCCG (doença avançada)",
+      "secao": "Estadiamento"
+    },
+    {
+      "campo": "invasao_linfovascular",
+      "tipo": "boolean",
+      "label": "Invasão linfovascular (fator de alto risco no EI não-seminoma)",
+      "secao": "Patologia"
+    },
+    {
+      "campo": "contraindicacao_bleomicina",
+      "tipo": "boolean",
+      "label": "Contraindicação à bleomicina (ex.: disfunção pulmonar)",
+      "secao": "Comorbidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "testiculo-seminoma-eI-carboplatina-adj",
+      "tumor": "testiculo",
+      "cenario": "adjuvancia",
+      "subtipo": "Seminoma estádio clínico I",
+      "nome": "Carboplatina adjuvante (AUC 7)",
+      "esquema": "Carboplatina AUC 7 EV, 1 ou 2 ciclos, após orquiectomia",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 7",
+          "via": "EV",
+          "frequencia": "1-2 ciclos"
+        }
+      ],
+      "elegibilidade_protocolo": "Seminoma estádio clínico I após orquiectomia (alternativa à vigilância ativa e à RT para-aórtica).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "cenario",
+                "adjuvancia"
+              ]
+            },
+            {
+              "eq": [
+                "histologia",
+                "seminoma"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_clinico",
+                "I"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "OLIVER RTD et al. Radiotherapy versus single-dose carboplatin in adjuvant treatment of stage I seminoma: a randomised trial (MRC TE19/EORTC 30982). Lancet. 2005;366(9482):293-300.",
+        "doi": "10.1016/S0140-6736(05)66984-X",
+        "pmid": null,
+        "estudo": "MRC TE19 / EORTC 30982",
+        "ano": 2005
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Não inferioridade da carboplatina vs RT em sobrevida livre de recidiva",
+        "magnitude": "TE19: taxa de recidiva ~5% com carboplatina AUC7, não inferior à RT, com menor risco de 2º tumor",
+        "fonte": "10.1016/S0140-6736(05)66984-X"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "moderada",
+          "conduta": "monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Carboplatina"
+        },
+        {
+          "nome": "Náusea",
+          "severidade": "leve",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Carboplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "testiculo-nsgct-eI-bep1",
+      "tumor": "testiculo",
+      "cenario": "adjuvancia",
+      "subtipo": "Tumor não-seminomatoso estádio clínico I (alto risco)",
+      "nome": "BEP x1 ciclo (adjuvante)",
+      "esquema": "BEP 1 ciclo após orquiectomia: Bleomicina 30 UI D1,D8,D15 + Etoposídeo 100 mg/m² D1-D5 + Cisplatina 20 mg/m² D1-D5",
+      "farmacos": [
+        {
+          "nome": "Bleomicina",
+          "dose": "30 UI",
+          "via": "EV",
+          "frequencia": "D1,D8,D15"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "20 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        }
+      ],
+      "elegibilidade_protocolo": "Tumor germinativo não-seminomatoso estádio clínico I de alto risco (invasão linfovascular) após orquiectomia.",
+      "elegibilidade": {
+        "criterios": [
+          {
+            "id": "alto_risco_ei_nsgct",
+            "label": "Estádio I de alto risco (invasão linfovascular)",
+            "expr": {
+              "and": [
+                {
+                  "eq": [
+                    "estadio_clinico",
+                    "I"
+                  ]
+                },
+                {
+                  "eq": [
+                    "invasao_linfovascular",
+                    true
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "cenario",
+                "adjuvancia"
+              ]
+            },
+            {
+              "eq": [
+                "histologia",
+                "nao_seminoma"
+              ]
+            },
+            {
+              "ref": "alto_risco_ei_nsgct"
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CULLEN MH et al. Short-course adjuvant chemotherapy in high-risk stage I nonseminomatous germ cell tumors of the testis: a Medical Research Council report. J Clin Oncol. 1996;14(4):1106-1113.",
+        "doi": "10.1200/JCO.1996.14.4.1106",
+        "pmid": null,
+        "estudo": "MRC (Cullen)",
+        "ano": 1996
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↓ recaída em EI de alto risco com BEP adjuvante",
+        "magnitude": "Cullen: taxa de recaída ~2% com BEP x2 (base histórica); esquema atual reduzido a 1 ciclo com eficácia mantida em séries posteriores",
+        "fonte": "10.1200/JCO.1996.14.4.1106"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fibrose pulmonar (bleomicina)",
+          "severidade": "grave",
+          "conduta": "limitar dose cumulativa a 400 UI; monitorar função pulmonar",
+          "fonte": "Bula/ficha técnica: Bleomicina"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina/audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: Etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "testiculo-seminoma-eII-bep-ep",
+      "tumor": "testiculo",
+      "cenario": "localmente-avancado",
+      "subtipo": "Seminoma estádio II (IIA/IIB/IIC)",
+      "nome": "BEP 3 ciclos ou EP 4 ciclos (seminoma EII)",
+      "esquema": "BEP 3 ciclos (Bleomicina 30 UI D1,D8,D15 + Etoposídeo 100 mg/m² D1-D5 + Cisplatina 20 mg/m² D1-D5, a cada 3 semanas) OU EP 4 ciclos",
+      "farmacos": [
+        {
+          "nome": "Bleomicina",
+          "dose": "30 UI",
+          "via": "EV",
+          "frequencia": "D1,D8,D15 (BEP)"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "20 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        }
+      ],
+      "elegibilidade_protocolo": "Seminoma estádio II (IIA/IIB não-bulky, IIB/IIC), como alternativa/complemento à RT.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia",
+                "seminoma"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_clinico",
+                "II"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HONECKER F et al. ESMO Consensus Conference on testicular germ cell cancer: diagnosis, treatment and follow-up. Ann Oncol. 2018;29(8):1658-1686 (base de consenso; BEP/EP com eficácia estabelecida em RCTs fundacionais).",
+        "doi": "10.1093/annonc/mdy217",
+        "pmid": null,
+        "estudo": "ESMO Consensus (Honecker)",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Altas taxas de cura em doença germinativa",
+        "magnitude": "BEP/EP: taxas de cura >90% em seminoma EII; base fundacional (Williams, Einhorn, de Wit)",
+        "fonte": "10.1093/annonc/mdy217"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fibrose pulmonar (bleomicina)",
+          "severidade": "grave",
+          "conduta": "limitar dose cumulativa a 400 UI; monitorar função pulmonar",
+          "fonte": "Bula/ficha técnica: Bleomicina"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina/audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: Etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "testiculo-avancado-baixorisco-bep3-ep4",
+      "tumor": "testiculo",
+      "cenario": "metastatico",
+      "subtipo": "Doença avançada (estádio III) — baixo risco IGCCCG",
+      "nome": "BEP 3 ciclos ou EP 4 ciclos (bom prognóstico)",
+      "esquema": "BEP 3 ciclos ou EP 4 ciclos (Etoposídeo 100 mg/m² D1-D5 + Cisplatina 20 mg/m² D1-D5, a cada 3 semanas)",
+      "farmacos": [
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5 21/21d"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "20 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5 21/21d"
+        },
+        {
+          "nome": "Bleomicina",
+          "dose": "30 UI",
+          "via": "EV",
+          "frequencia": "D1,D8,D15 (BEP)"
+        }
+      ],
+      "elegibilidade_protocolo": "Tumor germinativo avançado (estádio III) de baixo risco/bom prognóstico (classificação IGCCCG).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "cenario",
+                "metastatico"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_clinico",
+                "III"
+              ]
+            },
+            {
+              "eq": [
+                "risco_igcccg",
+                "bom"
+              ]
+            },
+            {
+              "eq": [
+                "linha_tratamento",
+                "primeira"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HONECKER F et al. ESMO Consensus. Ann Oncol. 2018;29(8):1658-1686. (BEP 3 vs EP 4 em bom prognóstico — base fundacional.)",
+        "doi": "10.1093/annonc/mdy217",
+        "pmid": null,
+        "estudo": "ESMO Consensus (Honecker)",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Altas taxas de cura no bom prognóstico",
+        "magnitude": "BEP x3 / EP x4: sobrevida >90% em IGCCCG bom prognóstico",
+        "fonte": "10.1093/annonc/mdy217"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fibrose pulmonar (bleomicina)",
+          "severidade": "grave",
+          "conduta": "limitar dose cumulativa a 400 UI; monitorar função pulmonar",
+          "fonte": "Bula/ficha técnica: Bleomicina"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina/audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: Etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "testiculo-avancado-intalto-bep4-vip4",
+      "tumor": "testiculo",
+      "cenario": "metastatico",
+      "subtipo": "Doença avançada — risco intermediário/alto IGCCCG",
+      "nome": "BEP 4 ciclos (ou VIP 4 ciclos se contraindicação à bleomicina)",
+      "esquema": "BEP 4 ciclos; alternativa VIP 4 ciclos (Etoposídeo 75 mg/m² + Ifosfamida 1.200 mg/m² + Mesna + Cisplatina 20 mg/m², D1-D5, a cada 3 semanas)",
+      "farmacos": [
+        {
+          "nome": "Bleomicina",
+          "dose": "30 UI",
+          "via": "EV",
+          "frequencia": "D1,D8,D15"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m² (BEP) / 75 mg/m² (VIP)",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        },
+        {
+          "nome": "Ifosfamida (VIP)",
+          "dose": "1.200 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "20 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        }
+      ],
+      "elegibilidade_protocolo": "Tumor germinativo avançado de risco intermediário/alto (IGCCCG).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "cenario",
+                "metastatico"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_clinico",
+                "III"
+              ]
+            },
+            {
+              "in": [
+                "risco_igcccg",
+                [
+                  "intermediario",
+                  "alto"
+                ]
+              ]
+            },
+            {
+              "eq": [
+                "linha_tratamento",
+                "primeira"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "NICHOLS CR et al. Randomized comparison of cisplatin and etoposide and either bleomycin or ifosfamide in treatment of advanced disseminated germ cell tumors. J Clin Oncol. 1998;16(4):1287-1293.",
+        "doi": "10.1200/JCO.1998.16.4.1287",
+        "pmid": null,
+        "estudo": "Nichols (ECOG/SWOG)",
+        "ano": 1998
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "BEP x4 padrão; VIP equivalente com toxicidade distinta",
+        "magnitude": "Nichols: VIP e BEP com eficácia comparável; VIP evita bleomicina (útil em contraindicação pulmonar)",
+        "fonte": "10.1200/JCO.1998.16.4.1287"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fibrose pulmonar (bleomicina)",
+          "severidade": "grave",
+          "conduta": "limitar dose cumulativa a 400 UI; monitorar função pulmonar",
+          "fonte": "Bula/ficha técnica: Bleomicina"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina/audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: Etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Cistite hemorrágica (ifosfamida)",
+          "severidade": "grave",
+          "conduta": "Mesna; hidratação",
+          "fonte": "Bula/ficha técnica: Ifosfamida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "testiculo-recidiva-tip-veip",
+      "tumor": "testiculo",
+      "cenario": "metastatico",
+      "subtipo": "Doença recidivada — tratamento de resgate",
+      "nome": "TIP ou VeIP (resgate)",
+      "esquema": "TIP 4 ciclos (Paclitaxel 250 mg/m² D1 infusional 24h + Ifosfamida 1.500 mg/m² D2-D5 + Mesna + Cisplatina 25 mg/m² D2-D5) OU VeIP 4 ciclos",
+      "farmacos": [
+        {
+          "nome": "Paclitaxel",
+          "dose": "250 mg/m²",
+          "via": "EV (24h)",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Ifosfamida",
+          "dose": "1.500 mg/m²",
+          "via": "EV",
+          "frequencia": "D2-D5"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "25 mg/m²",
+          "via": "EV",
+          "frequencia": "D2-D5"
+        }
+      ],
+      "elegibilidade_protocolo": "Tumor germinativo recidivado após quimioterapia de 1ª linha (tratamento de resgate).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "cenario",
+                "metastatico"
+              ]
+            },
+            {
+              "eq": [
+                "linha_tratamento",
+                "recidiva"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HONECKER F et al. ESMO Consensus. Ann Oncol. 2018;29(8):1658-1686 (resgate TIP/VeIP; sem RCT dedicado — recomendação de consenso).",
+        "doi": "10.1093/annonc/mdy217",
+        "pmid": null,
+        "estudo": "ESMO Consensus (Honecker)",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão grave",
+          "severidade": "grave",
+          "conduta": "G-CSF; suporte",
+          "fonte": "Bula/ficha técnica: TIP/VeIP"
+        },
+        {
+          "nome": "Cistite hemorrágica",
+          "severidade": "grave",
+          "conduta": "Mesna",
+          "fonte": "Bula/ficha técnica: Ifosfamida"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de paclitaxel",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        }
+      ]
+    },
+    {
+      "regimen_id": "testiculo-refrataria-paliativo-gemox",
+      "tumor": "testiculo",
+      "cenario": "metastatico",
+      "subtipo": "Doença recidivada refratária — esquemas paliativos",
+      "nome": "GemOx / Gemcitabina+Paclitaxel (paliativo)",
+      "esquema": "GemOx (Gemcitabina 1.000 mg/m² D1,D8 + Oxaliplatina 130 mg/m² D1, 21/21d) ou Gemcitabina+Paclitaxel",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8"
+        },
+        {
+          "nome": "Oxaliplatina",
+          "dose": "130 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Tumor germinativo recidivado refratário a múltiplas linhas de platina (esquemas paliativos).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "cenario",
+                "metastatico"
+              ]
+            },
+            {
+              "eq": [
+                "linha_tratamento",
+                "refrataria"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Estudo-pivô não especificado no protocolo para os esquemas paliativos (base em séries fase II de resgate refratário).",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Gemcitabina, Oxaliplatina"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de oxaliplatina",
+          "fonte": "Bula/ficha técnica: Oxaliplatina"
+        }
+      ]
+    }
+  ]
+}

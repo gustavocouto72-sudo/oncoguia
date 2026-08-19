@@ -1,0 +1,76 @@
+name: "MBE Oncologia — Fábrica de Evidência"
+code: "mbe-oncologia"
+description: >
+  Transforma protocolos institucionais de oncologia em evidência computável, viva e
+  auditável. Extrai cada regime, CONFRONTA de forma adversarial os quatro eixos de
+  avaliação (GRADE, ESMO-MCBS, NCCN Evidence Blocks e critérios de elegibilidade)
+  contra a fonte primária, consolida com selo de confiança e vigia atualizações com
+  frequência. O protocolo deixa de ser um PDF congelado e vira um sistema que aprende.
+icon: "🧬"
+version: "1.0.0"
+created: "2026-07-16"
+mode: "alta-performance"
+
+company: "_opensquad/_memory/company.md"
+preferences: "_opensquad/_memory/preferences.md"
+memory: "_memory/memories.md"
+party: "squad-party.csv"
+
+target_audience: "Oncologistas clínicos e time de MBE do Grupo Orizonti / OncoMed"
+domain: "Oncologia — protocolos de tratamento sistêmico baseados em evidência"
+performance_mode: "alta-performance"
+
+skills:
+  - web_search
+  - web_fetch
+
+data:
+  - pipeline/data/schema-regime.md
+  - pipeline/data/grade-framework.md
+  - pipeline/data/esmo-mcbs-framework.md
+  - pipeline/data/nccn-evidence-blocks.md
+  - pipeline/data/eligibility-extraction.md
+  - pipeline/data/fontes-confiaveis.md
+  - pipeline/data/anti-patterns.md
+  - pipeline/data/exemplo-regime-completo.md
+  - pipeline/data/mbe-grade-certeza.md
+  - pipeline/data/mbe-indirectness.md
+  - pipeline/data/mbe-dano-observacional.md
+  - pipeline/data/mbe-revisao-sistematica.md
+  - pipeline/data/mbe-magnitude-precisao.md
+  - pipeline/data/mbe-aplicabilidade.md
+
+agents:
+  - id: extrator
+    name: "Elisa Extração"
+    icon: "📑"
+    path: agents/extrator.agent.md
+  - id: verificador-evidencia
+    name: "Gael GRADE"
+    icon: "⚖️"
+    path: agents/verificador-evidencia.agent.md
+  - id: verificador-beneficio
+    name: "Bruna Benefício"
+    icon: "📈"
+    path: agents/verificador-beneficio.agent.md
+  - id: verificador-custo
+    name: "Caio Custo"
+    icon: "💰"
+    path: agents/verificador-custo.agent.md
+  - id: verificador-elegibilidade
+    name: "Elton Elegibilidade"
+    icon: "🎯"
+    path: agents/verificador-elegibilidade.agent.md
+  - id: consolidador
+    name: "Consuelo Consolida"
+    icon: "🧾"
+    path: agents/consolidador.agent.md
+  - id: vigilancia
+    name: "Vitor Vigilância"
+    icon: "🛰️"
+    path: agents/vigilancia.agent.md
+
+pipeline:
+  entry: pipeline/pipeline.yaml
+
+output_dir: output/

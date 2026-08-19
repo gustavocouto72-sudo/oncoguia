@@ -1,0 +1,8 @@
+id,displayName,title,icon,execution,path
+extrator,Elisa Extração,Extratora de regimes de protocolo,📑,subagent,./agents/extrator.agent.md
+verificador-evidencia,Gael GRADE,Verificador de qualidade e força da evidência,⚖️,subagent,./agents/verificador-evidencia.agent.md
+verificador-beneficio,Bruna Benefício,Verificadora de magnitude de benefício (ESMO-MCBS),📈,subagent,./agents/verificador-beneficio.agent.md
+verificador-custo,Caio Custo,Verificador de sustentabilidade (NCCN Evidence Blocks),💰,subagent,./agents/verificador-custo.agent.md
+verificador-elegibilidade,Elton Elegibilidade,Verificador de critérios de elegibilidade,🎯,subagent,./agents/verificador-elegibilidade.agent.md
+consolidador,Consuelo Consolida,Consolidadora e curadora de confiança,🧾,subagent,./agents/consolidador.agent.md
+vigilancia,Vitor Vigilância,Sentinela de atualização de evidência,🛰️,subagent,./agents/vigilancia.agent.md

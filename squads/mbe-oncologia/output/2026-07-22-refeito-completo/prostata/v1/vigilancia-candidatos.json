@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "tumor": "prostata",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados (NCT)."
+  },
+  "candidatos": [
+    {
+      "titulo": "VISION — 177Lu-PSMA-617 + padrão vs padrão em mCRPC PSMA+ pós-taxano",
+      "identificador": "NCT03511664",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "regime_afetado": "mCRPC PSMA+ progressão pós-taxano",
+      "relevancia": "Radioligante PSMA melhora SG; pode não estar incorporado ao protocolo.",
+      "acao": "Avaliar incorporação de Lu-177-PSMA."
+    },
+    {
+      "titulo": "TALAPRO-2 — talazoparibe + enzalutamida vs enzalutamida em mCRPC 1ª linha",
+      "identificador": "NCT03395197",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "mCRPC 1ª linha (com/sem alteração de HRR)",
+      "relevancia": "Combinação PARPi + ARPI melhora SLPr na 1ª linha mCRPC.",
+      "acao": "Avaliar em 1ª linha, sobretudo HRR-mutado."
+    }
+  ]
+}

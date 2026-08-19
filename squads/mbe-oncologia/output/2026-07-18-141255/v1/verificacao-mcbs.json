@@ -1,0 +1,618 @@
+{
+  "eixo": "ESMO-MCBS — magnitude do benefício clínico",
+  "gerado_em": "2026-07-18",
+  "verificador": "Bruna Benefício",
+  "metodo": "Re-derivação adversarial a partir do estudo-pivô (HR/IC/ganho absoluto/QoL/toxicidade) e, quando disponível, do scorecard oficial ESMO-MCBS (esmo.org) e da análise sistemática ESMO-MCBS de ADCs (PMC11163648). Formulário curativo = Form 1 (A/B/C); não-curativo = Form 2 (1-5). Estudo de braço único ou surrogate isolado (pCR/PK) => não graduável (n/a). Onde o protocolo não afirmou score, reporta-se o valor re-derivado com marca sem_afirmacao_protocolo e status indeterminado quanto à comparação.",
+  "resumo": {
+    "total": 60,
+    "concorda": 8,
+    "diverge": 2,
+    "indeterminado": 50,
+    "divergencias_relevantes": [
+      "mama-met-hrpos-2l-alpelisibe-nao-incorporado: protocolo afirmou '1'; ESMO-MCBS oficial/publicado = 3 (Form 2b, SLP HR 0,65). O '1' do protocolo reflete decisão institucional por toxicidade/QoL, não a magnitude ESMO-MCBS.",
+      "mama-met-tnbc-3l-sacituzumab-ascent: protocolo afirmou '5'; re-derivação e análise sistemática ESMO-MCBS = 4 (Form 2a, SG HR ~0,48; controle <12m limita teto a 4). '5' não é alcançável neste formulário."
+    ]
+  },
+  "vereditos": [
+    {
+      "regimen_id": "mama-adj-her2neg-act",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Backbone quimioterápico adjuvante (dose-densa AC-T). CALGB 9741 comparou agendamento (dose-densa vs convencional): DFS HR ~0,74, SG HR ~0,69 — há sinal de benefício de sobrevida, porém é comparação de esquema, não intervenção discreta com scorecard ESMO-MCBS. Não graduável de forma limpa; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJMoa021959"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-tc",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Backbone quimioterápico adjuvante (docetaxel+ciclofosfamida). US Oncology 9735: TC superou AC em DFS/OS (DFS HR 0,74; OS HR 0,69 a 7 anos), mas é comparação entre esquemas de QT convencional, sem scorecard ESMO-MCBS discreto. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1200/JCO.2006.06.5391"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-ac",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Backbone quimioterápico adjuvante clássico (doxo+ciclofosfamida). Referência citada é NSABP B-18 (neoadjuvância) com nota do protocolo mencionando B-15 (AC vs CMF, equivalência) — inconsistência de citação. Benefício de QT vs nada estabelecido, mas não graduável em ESMO-MCBS incremental. Sem_afirmacao_protocolo.",
+      "fonte": "NSABP B-18 (J Clin Oncol 1997;15:2483) — DOI não fornecido no protocolo"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-act-docetaxel",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Backbone QT adjuvante (AC→docetaxel). Referência PACS 01 usa epirrubicina→docetaxel (não doxorrubicina) — divergência estudo×esquema já sinalizada na extração. Comparação de esquemas de QT convencional, sem scorecard ESMO-MCBS. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJMoa060099"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Referência-fonte (Sikov/CALGB 40603) é neoadjuvante em TNBC com desfecho pCR — surrogate isolado e cenário divergente do rótulo adjuvante. pCR não é graduável em ESMO-MCBS curativo sem EFS/OS. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1001/jama.2014.13346"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-cmf",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Regime histórico (Bonadonna 1976, CMF vs observação). Benefício de sobrevida estabelecido versus nenhum tratamento, porém anterior à era ESMO-MCBS e sem scorecard; doses ausentes no PDF. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJM197602192940801"
+    },
+    {
+      "regimen_id": "mama-adj-brca-olaparibe",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": "A",
+      "valor_rederivado": "A",
+      "status": "concorda",
+      "justificativa": "OlympiA: iDFS HR 0,58 (IC 99,5% 0,41–0,82) e ganho de SG na 2ª análise interina (SG HR 0,68; IC 98,5% 0,47–0,97; p=0,009). Scorecard oficial ESMO-MCBS (Form 1) confirma grau A. Concorda plenamente.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2105215 ; ESMO scorecard-331-1"
+    },
+    {
+      "regimen_id": "mama-adj-tnbc-capecitabina",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "A",
+      "status": "indeterminado",
+      "justificativa": "CREATE-X: em doença residual pós-neoadjuvante, DFS HR 0,70 e SG HR 0,59; no subgrupo TNBC SG HR 0,52 — ganho de sobrevida robusto em cenário curativo => Form 1 grau A pela magnitude. Protocolo não afirmou score (sem_afirmacao_protocolo); comparação indeterminada.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1612645"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-th",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "APT é estudo de braço único (fase II, sem comparador randomizado) — por regra ESMO-MCBS NÃO graduável (n/a), exatamente o caso do esquema TH/APT. iDFS a 7 anos ~93%, mas sem HR comparativo. Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1406281"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-tp-aphinity",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "B",
+      "status": "indeterminado",
+      "justificativa": "APHINITY: adição de pertuzumab, iDFS HR 0,81 (global) e 0,77 no subgrupo N+; benefício absoluto modesto (~1,7% a 6 anos em N+) e sem ganho de SG na análise de graduação; N0 sem benefício (HR 1,13). Magnitude curativa intermediária => B, não A. Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1703643"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-tdm1-katherine",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": "A",
+      "valor_rederivado": "A",
+      "status": "concorda",
+      "justificativa": "KATHERINE (doença residual pós-neoadjuvante): iDFS HR 0,50 (IC 95% 0,39–0,64), redução absoluta ~11% em recidiva a 3 anos, com ganho de SG confirmado posteriormente. Análise sistemática ESMO-MCBS de ADCs classifica KATHERINE como grau A (Form 1). Concorda.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1814017 ; PMC11163648"
+    },
+    {
+      "regimen_id": "mama-adj-rhpos-abemaciclibe-monarche",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": "A (texto livre)",
+      "valor_rederivado": "A",
+      "status": "concorda",
+      "justificativa": "monarchE: iDFS HR 0,664, ganho absoluto ~6-8% em iDFS a 5 anos; scorecard oficial ESMO atribui grau A no cenário adjuvante alto-risco. Ressalva honesta: ainda sem ganho de SG estatisticamente significativo — o grau A decorre da magnitude de iDFS no formulário curativo (Form 1). Afirmação do protocolo em texto livre confere.",
+      "fonte": "https://doi.org/10.1200/JCO.23.01994 ; ESMO news adjuvant abemaciclib"
+    },
+    {
+      "regimen_id": "mama-adj-ht-tamoxifeno-pre",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Tamoxifeno adjuvante (ATLAS: 10 vs 5 anos) reduz recorrência e mortalidade por câncer de mama — benefício de sobrevida bem estabelecido, porém terapia endócrina fundacional anterior à sistematização ESMO-MCBS e sem scorecard discreto para o comparativo 5-vs-10 anos. Não graduável de forma padronizada; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(12)61963-1"
+    },
+    {
+      "regimen_id": "mama-adj-ht-lhrh-ia-pre",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "SOFT: supressão ovariana + IA/tamoxifeno em pré-menopausa alto risco; benefício absoluto modesto (ganho de DFS de poucos pontos percentuais, dependente de risco). Terapia endócrina fundacional sem scorecard ESMO-MCBS discreto. Não graduável de forma padronizada; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1412379"
+    },
+    {
+      "regimen_id": "mama-adj-ht-ia-pos",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Inibidor de aromatase adjuvante (MA.17: letrozol estendido pós-tamoxifeno) — benefício de DFS estabelecido; terapia endócrina fundacional sem scorecard ESMO-MCBS discreto. Não graduável de forma padronizada; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJMoa032312"
+    },
+    {
+      "regimen_id": "mama-adj-ht-tam-ia-switch-pos",
+      "cenario": "adjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Esquema de switch tamoxifeno→IA sem referência-pivô isolada (bloco de HT agrupado, sem DOI específico). Sem fonte primária própria => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "referência ausente (bloco agrupado ATLAS/SOFT/MA.17)"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-acth",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Referência Buzdar descreve paclitaxel→FEC+trastuzumab (não AC→docetaxel do esquema) e é estudo pequeno com desfecho pCR (surrogate). pCR isolado não é graduável em ESMO-MCBS curativo. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1200/JCO.2005.05.188"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-tch",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Referência BCIRG-006 é adjuvante (TCH vs AC-T; DFS HR ~0,77, SG HR ~0,77) — cenário divergente do rótulo neoadjuvante. Backbone anti-HER2 fundacional; sem scorecard ESMO-MCBS discreto para o esquema neoadjuvante. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJMoa0910383"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-acthp",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "TRYPHAENA é fase II de segurança cardíaca com desfecho pCR (surrogate) e sem braço de sobrevida comparativo graduável. pCR isolado não graduável em ESMO-MCBS. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "TRYPHAENA (Ann Oncol 2013;24:2278) — DOI não fornecido no protocolo"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-tchp",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "NeoSphere é fase II com desfecho primário pCR (surrogate), publicado no Lancet Oncology (citação do protocolo indica NEJM — erro de veículo). pCR isolado não graduável em ESMO-MCBS curativo. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "NeoSphere (Lancet Oncol 2012;13:25) — citação do protocolo incorreta quanto ao veículo"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-thp",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Referência Cortazar 2014 (Lancet) é meta-análise CTNeoBC sobre pCR como endpoint — não é estudo do regime THP e não fornece HR de sobrevida para o esquema. Sem pivô próprio graduável => n/a. Sem_afirmacao_protocolo.",
+      "fonte": "Cortazar P, Lancet 2014;384:164 (meta-análise de pCR, não pivô do regime)"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-phesgo-nao-incorporado",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "FeDeriCa avaliou bioequivalência farmacocinética (PK) e pCR — não mediu DFS/OS. Sem desfecho de sobrevida => não graduável em ESMO-MCBS (n/a). Justificativa do protocolo (não substitui dados de sobrevida) é coerente. Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(20)30539-3"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-pembro-keynote522",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "A",
+      "status": "indeterminado",
+      "justificativa": "KEYNOTE-522: EFS HR 0,63 (IC 95% 0,48–0,82), e na atualização de 2024 ganho de SG estatisticamente significativo (OS HR 0,66; p=0,00517) além de melhora de pCR. Cenário curativo com ganho de EFS e SG => Form 1 grau A pela magnitude. Protocolo não afirmou score (sem_afirmacao_protocolo).",
+      "fonte": "https://doi.org/10.1056/NEJMoa1910549"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-acdd-ct",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Referências são meta-análise EBCTCG de intensidade de dose (benefício de mortalidade de esquemas dose-densos) e BrighTNess (adição de carboplatina/veliparibe, desfecho pCR/EFS). Backbone quimioterápico sem scorecard ESMO-MCBS discreto para este esquema específico. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(18)33137-4"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-tc",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Backbone QT (docetaxel+ciclofosfamida). Referência-fonte é adjuvante (US Oncology 9735); cenário neoadjuvante sem pivô próprio e sem scorecard ESMO-MCBS discreto. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1200/JCO.2006.06.5391"
+    },
+    {
+      "regimen_id": "mama-neo-rhpos-act-acddt",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Backbone QT adjuvante (CALGB 9741) aplicado ao cenário neoadjuvante RH+; comparação de agendamento sem scorecard ESMO-MCBS discreto. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJMoa021959"
+    },
+    {
+      "regimen_id": "mama-neo-rhpos-tc",
+      "cenario": "neoadjuvancia",
+      "formulario": "curativo (A/B/C)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Backbone QT (docetaxel+ciclofosfamida). Referência-fonte adjuvante (US Oncology 9735); sem pivô neoadjuvante próprio e sem scorecard ESMO-MCBS. Não graduável; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1200/JCO.2006.06.5391"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ia-cdk46",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "4 (ribociclibe/abemaciclibe); 3 (palbociclibe)",
+      "status": "indeterminado",
+      "justificativa": "IA+iCDK4/6 1L bundle heterogêneo. MONALEESA-2 (ribociclib): SG 63,9 vs 51,4 m (ganho 12,5 m; HR 0,76) => Form 2a grau 4 pelo ganho absoluto ≥5 m. MONARCH 3 (abemaciclib): SG final HR 0,80 NÃO significativa; grau via SLP => 3. PALOMA-2 (palbociclib): sem ganho de SG (HR 0,96) => grau 3 (SLP HR 0,58). Magnitude varia 3–4 por agente. Protocolo não afirmou score; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1093/annonc/mdy155 ; https://doi.org/10.1016/j.annonc.2024.04.013 ; https://doi.org/10.1200/JGO.18.00173"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-fulvestranto-cdk46",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "4 (ribociclibe/abemaciclibe); 3 (palbociclibe)",
+      "status": "indeterminado",
+      "justificativa": "Fulvestranto+iCDK4/6 bundle. MONALEESA-3 (ribo): SG 53,7 vs 41,5 m (ganho ~12 m; HR 0,72) => grau 4. MONARCH 2 (abema): SG HR 0,757 significativa, ganho 9,4 m => grau 4. PALOMA-3 (palbo): SG HR 0,81 NÃO significativa, SLP HR 0,46 => grau 3. Magnitude 3–4 por agente. Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1016/j.annonc.2021.05.353 ; https://doi.org/10.1200/JCO.2017.73.7585 ; https://doi.org/10.1056/NEJMoa1810527"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ia-abemaciclibe",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "3",
+      "status": "indeterminado",
+      "justificativa": "MONARCH 3 (IA+abemaciclib, 1L): SG final 66,8 vs 53,7 m (ganho 13,1 m) mas HR 0,804 (p=0,0664) NÃO estatisticamente significativa. Sem ganho de SG confirmado, gradua-se por SLP (HR 0,54) => Form 2b grau 3. Não alcança 4. Sem_afirmacao_protocolo. Duplicidade com o bundle IA+iCDK4/6 já sinalizada.",
+      "fonte": "https://doi.org/10.1016/j.annonc.2024.04.013"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ht-isolada",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Hormonioterapia isolada (IA ou fulvestranto) sem referência-pivô no protocolo (referencia null). Sem fonte primária => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-qt-crise-visceral",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Quimioterapia genérica (agente(s) não especificado(s)) para crise visceral, sem referência-pivô. Sem fonte primária => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ribociclibe-crise-visceral",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "3",
+      "status": "indeterminado",
+      "justificativa": "RIGHT Choice (ribociclib+HT vs QT combinada, pré-menopausa agressiva): SLP 24,0 vs 12,3 m (HR 0,54), desfecho primário SLP; SG imatura. Gradua-se por SLP => Form 2b grau 3. Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1200/JCO.24.00144"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-seq-cdk46-nao-incorporado",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2",
+      "status": "indeterminado",
+      "justificativa": "postMONARCH (abema+fulv após progressão a iCDK4/6): SLP HR 0,73, ganho absoluto pequeno (mediana ~0,6 m com separação tardia da curva); MAINTAIN (ribo troca): SLP HR 0,57 ganho ~2,8 m. Benefício de SLP pequeno, SG não estabelecida => Form 2b grau ~2. Coerente com justificativa do protocolo ('magnitude pequena'). Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1200/JCO-24-02086 ; https://doi.org/10.1200/JCO.22.02392"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-capivasertibe-nao-incorporado",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "3",
+      "status": "indeterminado",
+      "justificativa": "CAPItello-291 (capivasertib+fulvestranto): SLP na população geral 7,2 vs 3,6 m (HR 0,60; ganho 3,6 m); SG imatura; QoL indisponível. Desfecho SLP com HR ≤0,65 e ganho ~4 m => Form 2b grau 3 (não superior sem SG/QoL). Coerente com afirmação de ganho de 4,2 m. Sem_afirmacao_protocolo.",
+      "fonte": "CAPItello-291 (N Engl J Med 2023;388:2058) — DOI não fornecido no protocolo"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-alpelisibe-nao-incorporado",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": "1",
+      "valor_rederivado": "3",
+      "status": "diverge",
+      "justificativa": "SOLAR-1 (alpelisib+fulvestranto, PIK3CA mut): SLP 11,0 vs 5,7 m (HR 0,65); SG final NÃO significativa (39,3 vs 31,4 m; HR 0,86; p=0,15). ESMO-MCBS publicado/oficial = 3 (Form 2b, SLP), não 1. O '1' do protocolo reflete decisão institucional por toxicidade elevada (hiperglicemia; interrupções ~70%, descontinuações ~25%) e piora de QoL — legítimo como julgamento clínico, mas NÃO é a magnitude ESMO-MCBS. DIVERGE: re-derivado 3.",
+      "fonte": "SOLAR-1 (Ann Oncol 2021; PRO J Clin Oncol 2021;39:2005) ; ABC5 guidelines (MCBS=3)"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-tdxd-db04",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": "4",
+      "valor_rederivado": "4",
+      "status": "concorda",
+      "justificativa": "DESTINY-Breast04 (T-DXd, HER2-low): SG 23,4 vs 16,8 m (ganho 6,6 m; HR 0,64) e SLP HR 0,50 na coorte HR+. Análise sistemática ESMO-MCBS de ADCs => Form 2a grau 4. Concorda.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2203690 ; PMC11163648"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-tdxd-db06-nao-incorporado",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": "3",
+      "valor_rederivado": "3",
+      "status": "concorda",
+      "justificativa": "DESTINY-Breast06 (T-DXd pós-terapia endócrina, HER2-low/ultralow): SLP 13,2 vs 8,1 m (HR 0,63; ganho ~5,1 m), SG imatura na leitura primária. Desfecho SLP => Form 2b grau 3, sem ultrapassar sem SG madura. Concorda com o afirmado.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2407086"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-capecitabina",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "X-7/7 é ensaio de não-inferioridade de esquema de dose (dose fixa vs padrão de capecitabina), não estudo de magnitude de benefício vs comparador ativo/placebo com SG/SLP superior. Não graduável em ESMO-MCBS (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1200/OA-24-00068"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-paclitaxel",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Referência é meta-análise de agendamento (taxano semanal vs 3/3 semanas); QT paliativa padrão sem scorecard ESMO-MCBS discreto. Não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1016/j.ctrv.2009.10.006"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-eribulina",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2",
+      "status": "indeterminado",
+      "justificativa": "EMBRACE (eribulina vs escolha do médico, ≥2 linhas prévias): SG 13,1 vs 10,6 m (ganho 2,5 m; HR 0,81; IC 0,66–0,99). Ganho absoluto <3 m e HR >0,70 => Form 2a grau 2 (magnitude pequena, coerente com o próprio protocolo). Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(11)60070-6"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-docetaxel",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Monoquimioterapia sem referência-pivô (referencia null). Sem fonte primária => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-vinorelbina-iv",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Monoquimioterapia (vinorelbina IV) sem referência-pivô (referencia null). Sem fonte primária => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-vinorelbina-vo",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Monoquimioterapia (vinorelbina VO) sem referência-pivô (referencia null). Sem fonte primária => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-gencitabina",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Monoquimioterapia (gencitabina) sem referência-pivô (referencia null). Sem fonte primária => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-doxo-lipossomal",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Monoquimioterapia (doxorrubicina lipossomal) sem referência-pivô (referencia null). Sem fonte primária => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-sacituzumab-govitecan",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1",
+      "status": "indeterminado",
+      "justificativa": "TROPiCS-02 (sacituzumab govitecan, HR+/HER2-): SG 14,4 vs 11,2 m (ganho 3,2 m; HR 0,79) e SLP HR 0,66 com ganho absoluto pequeno. Análise sistemática ESMO-MCBS de ADCs => Form 2a grau 1 (magnitude baixa em HR+, ao contrário do TNBC). Protocolo reconhece maior benefício em TNBC. Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.2217/fon-2020-0163 ; PMC11163648"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-1l-thp-cleopatra",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "4",
+      "status": "indeterminado",
+      "justificativa": "CLEOPATRA (T+P+docetaxel, 1L HER2+): SG 57,1 vs 40,8 m (ganho 16,3 m; HR 0,69) e SLP HR 0,62. Ganho de SG ≥5 m com HR ≤0,70 => Form 2a grau 4 (scorecard oficial pertuzumab = 4). Protocolo não afirmou score; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(19)30863-0 ; ESMO scorecard-133-1"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-2l-tdxd-db03",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": "4",
+      "valor_rederivado": "4",
+      "status": "concorda",
+      "justificativa": "DESTINY-Breast03 (T-DXd vs T-DM1, 2L HER2+): SLP mediana 28,8 vs 6,8 m (HR 0,33) e SG HR 0,64 (ganho significativo). Scorecard oficial ESMO-MCBS-342 = 4 (Form 2b por platô de SLP). Concorda.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2115022 ; ESMO scorecard-342-1"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-2l-tdm1-emilia",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": "4",
+      "valor_rederivado": "4",
+      "status": "concorda",
+      "justificativa": "EMILIA (T-DM1 vs capecitabina+lapatinib, 2L HER2+): SG 30,9 vs 25,1 m (ganho 5,8 m; HR 0,68; IC 0,55–0,85), SLP HR 0,65 e atraso na deterioração de QoL. Ganho de SG ≥5 m com HR ≤0,70 => Form 2a grau 4. Concorda. Ressalva honesta: a análise sistemática de ADCs (PMC11163648) derivou 3 por leitura mais restrita — o grau é limítrofe 3/4, mas o ganho absoluto ≥5 m sustenta 4.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(18)30848-9 ; PMC11163648"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-3l-tdm1-th3resa",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "4",
+      "status": "indeterminado",
+      "justificativa": "TH3RESA (T-DM1 vs escolha do médico, ≥3L HER2+): SG 22,7 vs 15,8 m (ganho ~6,9 m; HR 0,68) e SLP HR 0,53. Ganho de SG ≥5 m com HR ≤0,70 => Form 2a grau 4. Protocolo não afirmou score; sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(14)70178-0"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-3l-trastuzumabe-citotoxico",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Referência é estudo real-world (LATAM) observacional, não ensaio randomizado com HR de sobrevida vs comparador. Combinação empírica trastuzumab+citotóxico sem pivô graduável => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1177/11782234251342477"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-pembro-keynote355",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": "4",
+      "valor_rederivado": "4",
+      "status": "concorda",
+      "justificativa": "KEYNOTE-355 (pembrolizumab+QT, CPS≥10, 1L TNBC): SG 23,0 vs 16,1 m (ganho 6,9 m; HR 0,73) e SLP HR 0,66. ESMO-MCBS (v2.0, guideline de mama metastática) = 4 pelo ganho de SG ≥5 m. Concorda.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(20)32531-9 ; ESMO MBC Living Guideline (MCBS 4)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-atezolizumabe-nao-incorporado",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "IMpassion131 (atezolizumab+paclitaxel) foi NEGATIVO — falhou em SLP e SG na ITT e na população PD-L1+; agente retirado voluntariamente para esta indicação. Estudo sem benefício => não graduável em ESMO-MCBS (n/a). Justificativa do protocolo (não incorporado) é coerente. Sem_afirmacao_protocolo.",
+      "fonte": "IMpassion131 (Miles D, Ann Oncol 2021) — DOI ausente no protocolo"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-qt-opcoes",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Lista genérica de opções de QT (NCCN v2.2025), sem estudo-pivô comparativo próprio. Sem fonte primária de magnitude => não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "NCCN Breast Cancer v2.2025 (lista genérica, sem DOI)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-2l-qt-opcoes",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Lista genérica de opções de QT de 2ª linha (NCCN v2.2025), sem estudo-pivô comparativo próprio. Não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "NCCN Breast Cancer v2.2025 (lista genérica, sem DOI)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": "5",
+      "valor_rederivado": "4",
+      "status": "diverge",
+      "justificativa": "ASCENT (sacituzumab govitecan vs escolha do médico, TNBC ≥2L): SG 11,8 vs 6,9 m (ganho 4,9 m; HR 0,48) e SLP 4,8 vs 1,7 m (HR 0,41), com melhora de QoL. Com mediana de SG do controle <12 m, o Form 2a limita o teto a 4 (HR ≤0,65 e ganho ≥3 m). A análise sistemática ESMO-MCBS de ADCs confirma 4 (após bônus de QoL, subiu de 3 para 4). O '5' do protocolo NÃO é alcançável neste formulário. DIVERGE: re-derivado 4.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2028485 ; PMC11163648"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-tdxd-nao-incorporado",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Uso de T-DXd em TNBC (RH- HER2-low) baseia-se em análise exploratória não pré-especificada do DESTINY-Breast04 (subgrupo N~60, HR- HER2-low) — baixa qualidade de evidência, sem desfecho robusto pré-especificado => não graduável neste subgrupo (n/a). Justificativa do protocolo (não incorporado) é coerente. Sem_afirmacao_protocolo.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2203690 (subgrupo exploratório)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-qt-opcoes",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "Lista genérica de opções de QT de 3ª linha (NCCN v2.2025), sem estudo-pivô comparativo próprio. Não graduável (n/a). Sem_afirmacao_protocolo.",
+      "fonte": "NCCN Breast Cancer v2.2025 (lista genérica, sem DOI)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-bevacizumabe-nao-incorporado",
+      "cenario": "metastatico",
+      "formulario": "nao-curativo (5/4/3/2/1)",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "n/a",
+      "status": "indeterminado",
+      "justificativa": "E2100/AVADO/RIBBON-1 (bevacizumab+paclitaxel): ganho de SLP sem ganho de SG e com aumento de toxicidade; aprovação FDA revogada em 2011. Sem benefício de sobrevida sustentado => magnitude ESMO-MCBS baixa e agente retirado; efetivamente não graduável para incorporação (n/a; se graduado por SLP isolada, ~2). Justificativa do protocolo (não incorporado) é coerente. Sem_afirmacao_protocolo.",
+      "fonte": "E2100 (Miller K, N Engl J Med 2007) — DOI ausente no protocolo"
+    }
+  ]
+}

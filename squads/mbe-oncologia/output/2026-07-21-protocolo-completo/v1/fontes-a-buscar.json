@@ -1,0 +1,197 @@
+{
+ "gerado_em": "2026-07-21",
+ "run": "2026-07-21-protocolo-completo",
+ "total_a_buscar": 19,
+ "itens": [
+  {
+   "regimen_id": "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
+   "nome": "Gemcitabina + Docetaxel intravesical (resgate)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "STEINBERG RL et al. Sequential intravesical gemcitabine and docetaxel for the salvage treatment of non-muscle invasive bladder cancer. Bladder Cancer. 2015;1(1):65-72.",
+   "doi": null,
+   "estudo": "Steinberg (série retrospectiva)",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "bexiga"
+  },
+  {
+   "regimen_id": "bexiga-mibc-adj-gc-mvac",
+   "nome": "Gemcitabina + Cisplatina ou MVAC (adjuvante)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "STUDER UE et al. Adjuvant cisplatin chemotherapy following cystectomy for bladder cancer: results of a prospective randomized trial. J Urol. 1994;152(1):81-84.",
+   "doi": null,
+   "estudo": "Studer (subpotente)",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "bexiga"
+  },
+  {
+   "regimen_id": "cp-tireoide-medular-quimio",
+   "nome": "Doxorrubicina / Dacarbazina (medular)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "ORLANDI F et al. Chemotherapy with dacarbazine and 5-fluorouracil in advanced medullary thyroid cancer. Ann Oncol. 1994;5:763-765. (Séries antigas; sem RCT dedicado.)",
+   "doi": null,
+   "estudo": "Orlandi / Nocer (séries)",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "cabeca-pescoco"
+  },
+  {
+   "regimen_id": "cp-tireoide-anaplasico-quimio",
+   "nome": "Doxorrubicina / Paclitaxel / Carbo+Paclitaxel",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "BIBLE KC et al. 2021 American Thyroid Association guidelines for anaplastic thyroid cancer. Thyroid. 2021;31(3):337-386. (Base em séries; extrapolação do CEC de cabeça e pescoço.)",
+   "doi": null,
+   "estudo": "Séries/guidelines (ATA)",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "cabeca-pescoco"
+  },
+  {
+   "regimen_id": "net-altograu-platina-etoposideo",
+   "nome": "Platina + Etoposídeo (alto grau)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Extrapolação do carcinoma de pequenas células de pulmão; protocolo não cita estudo-pivô específico para NEC de alto grau.",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "neuroendocrinos"
+  },
+  {
+   "regimen_id": "penis-locregional-neoadj-tip",
+   "nome": "TIP neoadjuvante (Paclitaxel + Ifosfamida + Cisplatina)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Pagliaro et al. (TIP neoadjuvante, JCO 2010, fase II) — DOI a validar, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "penis"
+  },
+  {
+   "regimen_id": "penis-adj-tip",
+   "nome": "TIP adjuvante (Paclitaxel + Ifosfamida + Cisplatina)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Séries retrospectivas de QT adjuvante em pênis, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "penis"
+  },
+  {
+   "regimen_id": "penis-met-1l-tip",
+   "nome": "TIP (Paclitaxel + Ifosfamida + Cisplatina) — 1ª linha",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Pagliaro/série fase II TIP metastático, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "penis"
+  },
+  {
+   "regimen_id": "penis-met-1l-5fu-cisplatina",
+   "nome": "5-FU + Cisplatina",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Séries fase II 5-FU/cisplatina em pênis, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "penis"
+  },
+  {
+   "regimen_id": "penis-met-1l-tpf",
+   "nome": "TPF (Docetaxel + Cisplatina + 5-FU)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Série fase II TPF em pênis, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "penis"
+  },
+  {
+   "regimen_id": "penis-met-2l-paclitaxel",
+   "nome": "Paclitaxel (agente único)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Estudo fase II paclitaxel 2ª linha em pênis, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "penis"
+  },
+  {
+   "regimen_id": "prostata-variante-agressiva-carbo-taxano",
+   "nome": "Carboplatina + Docetaxel/Paclitaxel",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Estudo-pivô não especificado no protocolo para este esquema (prática/consenso em variantes agressivas).",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "prostata"
+  },
+  {
+   "regimen_id": "prostata-variante-agressiva-cisplatina-etoposideo",
+   "nome": "Cisplatina + Etoposídeo",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Estudo-pivô não especificado (extrapolação do carcinoma de pequenas células).",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "prostata"
+  },
+  {
+   "regimen_id": "prostata-mcrpc-terapia-ossea-zoledronico",
+   "nome": "Ácido Zoledrônico",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Estudo-pivô não especificado no protocolo (uso consolidado de agente ósseo em mCRPC ósseo).",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "prostata"
+  },
+  {
+   "regimen_id": "sclc-retratamento-mesmo-esquema",
+   "nome": "Retratamento com esquema de 1ª linha",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Prática consolidada de retratamento em recidiva sensível (>6 meses); protocolo não cita estudo-pivô dedicado.",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "pulmao-sclc"
+  },
+  {
+   "regimen_id": "testiculo-recidiva-tip-veip",
+   "nome": "TIP ou VeIP (resgate)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "HONECKER F et al. ESMO Consensus. Ann Oncol. 2018;29(8):1658-1686 (resgate TIP/VeIP; sem RCT dedicado — recomendação de consenso).",
+   "doi": "10.1093/annonc/mdy217",
+   "estudo": "ESMO Consensus (Honecker)",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "testiculo"
+  },
+  {
+   "regimen_id": "testiculo-refrataria-paliativo-gemox",
+   "nome": "GemOx / Gemcitabina+Paclitaxel (paliativo)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Estudo-pivô não especificado no protocolo para os esquemas paliativos (base em séries fase II de resgate refratário).",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "testiculo"
+  },
+  {
+   "regimen_id": "biliares-1l-5fu",
+   "nome": "5-Fluorouracil + Leucovorina",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Estudo-pivô específico não citado no protocolo para 5-FU isolado em vias biliares (opção paliativa histórica).",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "vias-biliares"
+  },
+  {
+   "regimen_id": "vulva-avancada-recidivada",
+   "nome": "Esquemas ativos (cisplatina-based, como na neoadjuvância)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Esquemas ativos extrapolados do cenário neoadjuvante; protocolo não cita estudo-pivô dedicado para doença avançada/recidivada.",
+   "doi": null,
+   "estudo": "Extrapolação da neoadjuvância (tumor raro)",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais).",
+   "tumor": "vulva"
+  }
+ ]
+}

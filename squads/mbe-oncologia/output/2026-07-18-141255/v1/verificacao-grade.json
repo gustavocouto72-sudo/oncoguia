@@ -1,0 +1,488 @@
+{
+  "eixo": "GRADE — qualidade da evidência e força da recomendação",
+  "gerado_em": "2026-07-18",
+  "verificador": "Gael GRADE",
+  "nota_metodologica": "O campo afirmado_protocolo.grade é null em TODOS os 60 regimes — o protocolo não afirmou score GRADE (número+letra) para nenhum regime. Logo, não há valor do protocolo contra o qual comparar, e nenhum regime pode receber status 'concorda' ou 'diverge' neste eixo: todos ficam 'indeterminado' (sem_afirmacao_protocolo). Ainda assim, cada regime foi re-derivado do zero pela fonte primária. Distingo dois subtipos de indeterminado na justificativa: (a) sem_afirmacao_protocolo COM valor re-derivado a partir de estudo-pivô rastreável; (b) sem estudo-pivô rastreável (referência null / apenas NCCN / apenas real-world observacional) → não graduável isoladamente, valor_rederivado = null.",
+  "vereditos": [
+    {
+      "regimen_id": "mama-adj-her2neg-act",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. CALGB 9741: RCT fase III desenho 2x2 (~2.005 pacientes N+), dose-densa vs convencional com desfechos duros (SLD e SG a favor da dose-densa, seguimento longo). Aberto, mas endpoints de sobrevida robustos e consistentes com meta-análise EBCTCG. Qualidade alta (A); benefício claro e consistente → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa021959"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-tc",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. US Oncology 9735 (Jones): RCT fase III, N=1.016, TC vs AC, ganho em SLD e SG (seguimento 7 anos), regime não-antraciclínico. Baixo risco de viés relevante para endpoints duros. Qualidade A; benefício consistente → força 1.",
+      "fonte": "https://doi.org/10.1200/JCO.2006.06.5391"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-ac",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + incongruência de citação. A referência é NSABP B-18 (sem DOI), que testou timing neoadjuvante vs adjuvante do AC — NÃO isola a eficácia do AC como regime; a eficácia/equivalência de AC repousa sobre B-15 (AC vs CMF, citado em nota) e EBCTCG. AC é RCT-suportado (qualidade alta), mas rebaixo para B por evidência indireta: o pivô citado não sustenta a afirmação de eficácia do regime. Benefício estabelecido → força 1.",
+      "fonte": "https://pubmed.ncbi.nlm.nih.gov/9215816/ (NSABP B-18, Fisher JCO 1997)"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-act-docetaxel",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + evidência indireta. PACS 01 (Roche): RCT fase III N=1.999, ganho em SLD e SG com docetaxel sequencial — porém o backbone é FEC (epirrubicina), não AC (doxorrubicina) como no esquema listado. RCT de alta qualidade, rebaixado para B por indireção do estudo×esquema (antraciclina distinta). Benefício do taxano sequencial claro → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa060099"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2C",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + indireção grave. Sikov/CALGB 40603: fase II randomizado 2x2 fatorial, N=443, desfecho primário pCR (surrogate), população NEOADJUVANTE TNBC — não adjuvância HER2-negativo como listado. Confirmado: adição de carboplatina elevou pCR (41%→54%) mas sem ganho consolidado de SG/EFS. Fase II + surrogate + cenário/subtipo divergentes → rebaixo forte (C); benefício incerto para o cenário listado → força 2.",
+      "fonte": "https://doi.org/10.1001/jama.2014.13346"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-cmf",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. Bonadonna 1976: ensaio controlado histórico (N=386) com ganho em SLD/SG sustentado em seguimento de décadas; confirmado e amplificado pela meta-análise EBCTCG. Metodologia de alocação antiga, mas efeito grande e reproduzido. Qualidade A; benefício consolidado → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJM197602192940801"
+    },
+    {
+      "regimen_id": "mama-adj-brca-olaparibe",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. OlympiA (Tutt): RCT fase III duplo-cego, N=1.836, iDFS HR ~0,58 (IC estreito) e SG posteriormente significativa (HR ~0,68). Cenário curativo, baixo risco de viés, precisão adequada. Qualidade A; benefício claro em SLD e SG → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2105215"
+    },
+    {
+      "regimen_id": "mama-adj-tnbc-capecitabina",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. CREATE-X (Masuda): RCT fase III aberto, N=910, DFS HR 0,70 e OS HR 0,59 na população geral; benefício mais marcado no subgrupo TNBC (análise de subgrupo). Aberto + benefício direcionado por subgrupo → rebaixo para B. Benefício relevante no subtipo listado → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1612645"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-th",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. NÃO acato '1A de fachada': APT (Tolaney) é estudo de BRAÇO ÚNICO (single-arm), fase II, N=406, SEM comparador randomizado — ponto de partida baixo no GRADE. iDFS em 7 anos ~93% (efeito grande e consistente) permite elevar um nível → B. Ausência de randomização e seleção de baixo risco limitam a força → 2 (condicional/seletiva).",
+      "fonte": "https://doi.org/10.1056/NEJMoa1406281"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-tp-aphinity",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. APHINITY (von Minckwitz): RCT fase III duplo-cego, N=4.805, iDFS HR 0,81 global; benefício concentrado em N+ (HR ~0,77) e AUSENTE em N0 (HR 1,13, conforme nota do protocolo); SG não significativa nas análises. Alta qualidade metodológica, mas magnitude modesta e restrita a subgrupo N+ → rebaixo para B. Benefício real em N+ → força 1 (apenas população N+).",
+      "fonte": "https://doi.org/10.1056/NEJMoa1703643"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-tdm1-katherine",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. KATHERINE (von Minckwitz): RCT fase III aberto, N=1.486, iDFS HR 0,50 (IC estreito) em doença residual pós-neoadjuvante; SG posterior HR ~0,66 significativa. Efeito grande, preciso, cenário curativo. Qualidade A; benefício claro em SLD e SG → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1814017"
+    },
+    {
+      "regimen_id": "mama-adj-rhpos-abemaciclibe-monarche",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo (o PDF menciona ESMO-MCBS A em texto livre, mas GRADE não foi afirmado). monarchE: RCT fase III aberto, N=5.637, iDFS HR ~0,68 (IC 0,599-0,772) sustentado; SG inicialmente imatura, mas em análise madura (2025) HR 0,842 (IC 0,722-0,981; P=0,027) — significativa. Qualidade A; benefício consistente com SG agora positiva → força 1.",
+      "fonte": "https://doi.org/10.1200/JCO.23.01994"
+    },
+    {
+      "regimen_id": "mama-adj-ht-tamoxifeno-pre",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. ATLAS (Davies): RCT fase III de grande porte (~12.894), 10 vs 5 anos de tamoxifeno, redução de recorrência e mortalidade por câncer de mama com seguimento longo. Endpoints duros, efeito consistente. Qualidade A; benefício estabelecido → força 1.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(12)61963-1"
+    },
+    {
+      "regimen_id": "mama-adj-ht-lhrh-ia-pre",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. SOFT (Francis): RCT fase III, N=3.066, supressão ovariana + tamoxifeno/exemestano com benefício em SLD (e SG em alto risco) na população de maior risco, confirmado em análises de longo prazo (SOFT/TEXT). Qualidade A; benefício claro no subgrupo de alto risco (população listada) → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1412379"
+    },
+    {
+      "regimen_id": "mama-adj-ht-ia-pos",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. MA.17 (Goss): RCT fase III duplo-cego, N=5.187, letrozol estendido pós-tamoxifeno com ganho em SLD (desbloqueio precoce por eficácia). O uso de IA em pós-menopausa também é suportado por ATAC e BIG 1-98 (RCTs fase III). Qualidade A; benefício consistente → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa032312"
+    },
+    {
+      "regimen_id": "mama-adj-ht-tam-ia-switch-pos",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência agrupada (ATLAS/SOFT/MA.17) sem DOI específico para a estratégia de switch — não graduável isoladamente a partir do que o protocolo cita. Nota: a estratégia sequencial tamoxifeno→IA tem base própria (IES/Intergroup Exemestane, BIG 1-98) não citada pelo protocolo; sem o pivô correto rastreável, valor re-derivado = null.",
+      "fonte": "N/A — referência agrupada sem DOI isolado no PDF"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-acth",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2C",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + indireção/imprecisão. Buzdar 2005: RCT pequeno (~42 pacientes), interrompido precocemente, desfecho pCR (surrogate). O esquema descrito é AC→docetaxel+trastuzumabe, mas o estudo usou paclitaxel→FEC+trastuzumabe (indireção estudo×esquema). N minúsculo (imprecisão grave) + surrogate + indireção → C; benefício do regime específico incerto por esta fonte → força 2.",
+      "fonte": "https://doi.org/10.1200/JCO.2005.05.188"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-tch",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + indireção de cenário. BCIRG-006 (Slamon): RCT fase III, N=3.222, ganho em SLD e SG com TCH e AC-TH — porém é estudo ADJUVANTE, e o regime está listado sob neoadjuvância (indireção de cenário). RCT de alta qualidade → rebaixo um nível para B pela extrapolação ao cenário neoadjuvante. Benefício do regime consolidado → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa0910383"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-acthp",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. TRYPHAENA: fase II randomizado (estudo de segurança CARDÍACA), N=225, desfecho de eficácia é pCR (surrogate), sem poder para SLD/SG. Confirmado: pCR 57-66% nos três braços, sem sinal de cardiotoxicidade aumentada. Fase II + surrogate → B; sem desfecho duro comparativo → força 2.",
+      "fonte": "https://doi.org/10.1093/annonc/mdt182"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-tchp",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + erro de citação. A referência é NeoSphere (fase II, N=417, pCR surrogate; pCR THP 45,8% vs 29,0%, p=0,014) — que testou THP, NÃO TCHP; e o veículo correto é Lancet Oncology, não NEJM como no PDF. A evidência do braço TCHP provém de TRYPHAENA (fase II). Fase II + surrogate + citação incorreta → B; benefício comparativo não demonstrado com desfecho duro → força 2.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(11)70336-9 (NeoSphere, Lancet Oncol 2012)"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-thp",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2C",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + referência incongruente. A citação Cortazar 2014 (Lancet) é a meta-análise CTNeoBC sobre VALIDAÇÃO do pCR como surrogate — não avalia o regime THP nem sua eficácia. A base real do THP neoadjuvante é NeoSphere (fase II, pCR). Referência não pertinente + evidência subjacente fase II/surrogate → C; benefício não estabelecido por desfecho duro → força 2.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(13)62422-8 (Cortazar CTNeoBC — não avalia THP)"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-phesgo-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. FeDeriCa: RCT fase III de NÃO-INFERIORIDADE, aberto, desfecho primário = Ctrough PK do pertuzumabe (bioequivalência), com pCR total comparável como secundário. NÃO avaliou SLD/SG. Alta qualidade metodológica para o endpoint PK, mas evidência indireta para desfechos clínicos (extrapolação por PK/pCR) → B. Sem demonstração de superioridade clínica → força 2. Alinha com a não-incorporação do protocolo.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(20)30536-2"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-pembro-keynote522",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. KEYNOTE-522 (Schmid): RCT fase III duplo-cego, N=1.174, ganho em pCR E em EFS (HR ~0,63, IC estreito); SG posterior (2024) HR ~0,66 significativa. Desfechos duros consolidados, cenário curativo. Qualidade A; benefício claro em EFS e SG → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1910549"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-acdd-ct",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. Referência principal é a meta-análise de dados individuais EBCTCG (26 RCTs, 37.298 mulheres) — alta qualidade — demonstrando ganho de SLD/SG com intensificação de dose (dose-densa). O componente carboplatina apoia-se em BrighTNess (fase III, pCR/EFS). Meta-análise de RCTs para dose-densa (A) combinada com evidência de surrogate para carbo → rebaixo composto para B. Benefício consistente → força 1.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(18)33137-4"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-tc",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + indireção dupla. US Oncology 9735: RCT fase III de alta qualidade, mas ADJUVANTE e em população não selecionada por subtipo; aqui aplicado a NEOADJUVÂNCIA TNBC (indireção de cenário e de subtipo; TC não é regime neoadjuvante padrão em TNBC). Rebaixo para B por evidência indireta; benefício no cenário listado incerto → força 2.",
+      "fonte": "https://doi.org/10.1200/JCO.2006.06.5391"
+    },
+    {
+      "regimen_id": "mama-neo-rhpos-act-acddt",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + indireção de cenário. CALGB 9741: RCT fase III adjuvante (dose-densa), aplicado aqui à neoadjuvância RH+ (indireção de cenário). Evidência de dose-densa robusta (A), rebaixada para B pela extrapolação de cenário. Benefício da estratégia dose-densa consolidado → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa021959"
+    },
+    {
+      "regimen_id": "mama-neo-rhpos-tc",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + indireção de cenário. US Oncology 9735 (fase III adjuvante) aplicado à neoadjuvância RH+. Alta qualidade do RCT, rebaixado para B pela extrapolação ao cenário neoadjuvante. Eficácia do regime estabelecida → força 1 (ressalva: QT neoadjuvante em RH+ tende a baixa taxa de pCR — questão de eficácia clínica, não de qualidade GRADE).",
+      "fonte": "https://doi.org/10.1200/JCO.2006.06.5391"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ia-cdk46",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. MONALEESA-2 (ribociclibe+letrozol): RCT fase III duplo-cego, N=668, PFS HR 0,57 e SG HR ~0,76 significativa (58 meses). Classe corroborada por MONALEESA-7, MONARCH 3 e PALOMA-2 (consistência entre-ensaios). Qualidade A; benefício em PFS e SG → força 1.",
+      "fonte": "https://doi.org/10.1093/annonc/mdy155"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-fulvestranto-cdk46",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. MONALEESA-3 (ribociclibe+fulvestranto): RCT fase III duplo-cego, N=726, PFS HR ~0,59 e SG HR ~0,72 significativa. Corroborado por MONARCH 2 e PALOMA-3 (fulvestranto+iCDK4/6). Qualidade A; benefício em PFS e SG → força 1.",
+      "fonte": "https://doi.org/10.1016/j.annonc.2021.05.353"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ia-abemaciclibe",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. MONARCH 3 (Goetz, SG final): RCT fase III duplo-cego, N=493, PFS HR 0,54 (robusto), porém SG final HR ~0,804 NÃO atingiu significância estatística no limiar pré-especificado. Alta qualidade, mas SG não significativa neste ensaio específico → rebaixo para B. PFS clara + benefício de classe em SG → força 1.",
+      "fonte": "https://doi.org/10.1016/j.annonc.2024.04.013"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ht-isolada",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência null (citacao/doi/pmid/estudo todos null). Hormonioterapia isolada tem base histórica ampla (ensaios de IA e fulvestranto), mas o protocolo não cita nenhum pivô — não graduável isoladamente a partir do que foi fornecido. valor_rederivado = null.",
+      "fonte": "N/A — referência ausente no PDF"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-qt-crise-visceral",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência null e agente(s) não especificado(s) ('quimioterapia'). Sem estudo próprio nem droga definida → não graduável. valor_rederivado = null.",
+      "fonte": "N/A — referência ausente no PDF"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ribociclibe-crise-visceral",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. RIGHT Choice (Lu): RCT fase II randomizado aberto, N=222, ribociclibe+HT vs QT combinada em doença agressiva; PFS final HR 0,61 (IC 0,43-0,87) significativa. Desenho fase II + abertura → rebaixo para B. Benefício em PFS claro e clinicamente relevante em crise visceral → força 1.",
+      "fonte": "https://doi.org/10.1200/JCO.24.00144"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-seq-cdk46-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. postMONARCH: RCT fase III duplo-cego, N=368, PFS HR 0,73 (IC 0,57-0,95) — IC superior próximo do nulo, magnitude ABSOLUTA pequena (6,0 vs 5,3 meses). MAINTAIN (fase II) é suporte adicional. Imprecisão (IC quase cruzando nulo) → B; benefício marginal → força 2. Alinha com a não-incorporação (magnitude pequena).",
+      "fonte": "https://doi.org/10.1200/JCO-24-02086"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-capivasertibe-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. CAPItello-291 (Turner): RCT fase III duplo-cego, N=708, PFS HR 0,60 (IC 0,51-0,71) global e 0,50 na população AKT-alterada — benefício claro e preciso. SG imatura e QoL indisponível → rebaixo para B. PFS robusta → força 1. Obs.: a não-incorporação do protocolo é por custo-efetividade, não por baixa qualidade da evidência de PFS.",
+      "fonte": "https://pubmed.ncbi.nlm.nih.gov/37256976/ (NEJM 2023;388:2058)"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-alpelisibe-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo (o PDF afirma ESMO-MCBS '1', não GRADE). SOLAR-1: RCT fase III duplo-cego, N=572, na coorte PIK3CA-mutada PFS HR 0,65 significativa; porém SG sem significância e alta descontinuação por toxicidade / piora de QoL. Alta qualidade em PFS, rebaixado para B por SG negativa e toxicidade/QoL. Benefício em PFS → força 1 (com trade-off de toxicidade que justifica não-incorporação).",
+      "fonte": "https://doi.org/10.1200/JCO.20.03108 (SOLAR-1 PRO, JCO 2021)"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-tdxd-db04",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo (PDF afirma ESMO-MCBS 4). DESTINY-Breast04 (Modi): RCT fase III aberto, N=557, PFS HR ~0,50 e SG HR ~0,64 significativa na população HER2-low HR+. Efeito grande e preciso, desfecho duro (SG). Qualidade A; benefício em PFS e SG → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2203690"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-tdxd-db06-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo (PDF afirma ESMO-MCBS 3). DESTINY-Breast06 (Bardia): RCT fase III aberto, N=866, PFS HR 0,62 (IC 0,51-0,74) significativa na população HER2-low; SG imatura na análise primária. Alta qualidade em PFS, rebaixado para B por SG/QoL imaturas. Benefício em PFS claro → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2407086"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-capecitabina",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2C",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. X-7/7 (Khan): RCT pequeno (~153), desfecho primário PFS em 3 meses (surrogate curto), comparando ESQUEMA de dose (fixa 7/7 vs padrão 14/7), não eficácia vs placebo. 3-mês PFS 76% vs 76%, HR 1,01 (IC 0,52-1,94 — muito largo, cruza o nulo); mostra tolerabilidade superior da dose fixa, não benefício de sobrevida. N pequeno + IC largo + surrogate → C; questão de conveniência/toxicidade → força 2. (Capecitabina como droga é estabelecida, mas este pivô é um estudo de posologia.)",
+      "fonte": "https://doi.org/10.1200/OA-24-00068"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-paclitaxel",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. Mauri 2010: meta-análise de RCTs (taxanos semanal vs trissemanal) com ganho de SG a favor do esquema semanal. Meta-análise de ensaios randomizados (base moderada-alta), rebaixada para B por heterogeneidade entre estudos e ausência de RCT-pivô único dedicado. Benefício consistente do esquema semanal → força 1.",
+      "fonte": "https://doi.org/10.1016/j.ctrv.2009.10.006"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-eribulina",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. EMBRACE (Cortes): RCT fase III aberto, N=762, SG HR ~0,81 significativa (13,1 vs 10,6 meses) em doença fortemente pré-tratada. Aberto + magnitude modesta de SG → rebaixo para B. Ganho em desfecho duro (SG), embora pequeno → força 1.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(11)60070-6"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-docetaxel",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência null (todos os campos null). Docetaxel é droga estabelecida, mas o protocolo não fornece estudo-pivô — não graduável isoladamente. valor_rederivado = null.",
+      "fonte": "N/A — referência ausente no PDF"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-vinorelbina-iv",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência null. Sem pivô rastreável para graduar isoladamente. valor_rederivado = null.",
+      "fonte": "N/A — referência ausente no PDF"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-vinorelbina-vo",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência null. Sem pivô rastreável para graduar isoladamente. valor_rederivado = null.",
+      "fonte": "N/A — referência ausente no PDF"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-gencitabina",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência null. Sem pivô rastreável para graduar isoladamente. valor_rederivado = null.",
+      "fonte": "N/A — referência ausente no PDF"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-doxo-lipossomal",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência null. Sem pivô rastreável para graduar isoladamente. valor_rederivado = null.",
+      "fonte": "N/A — referência ausente no PDF"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-sacituzumab-govitecan",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1B",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo + referência subótima. A citação é o artigo de DESENHO/racional do TROPiCS-02 (Future Oncol 2020), não os resultados. Os resultados definitivos (Lancet 2023): RCT fase III aberto, N=543, PFS HR 0,66 e SG HR 0,79 (IC 0,65-0,95) significativa, magnitude modesta (~3,3 meses). Aberto + magnitude modesta → B. Ganho em desfecho duro → força 1.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(23)01245-X (resultados TROPiCS-02, Lancet 2023)"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-1l-thp-cleopatra",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. CLEOPATRA (Swain): RCT fase III duplo-cego, N=808, PFS HR ~0,68 e SG HR ~0,69 com ganho absoluto de SG grande (~16 meses; 57,1 vs 40,8). Baixo risco de viés, efeito grande e preciso. Qualidade A; benefício em PFS e SG → força 1.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(19)30863-0"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-2l-tdxd-db03",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo (PDF afirma ESMO-MCBS 4). DESTINY-Breast03 (Cortés): RCT fase III aberto, N=524, T-DXd vs T-DM1, PFS HR ~0,28 (efeito muito grande) e SG HR ~0,64 significativa. Efeito grande e preciso, desfecho duro. Qualidade A; benefício em PFS e SG → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2115022"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-2l-tdm1-emilia",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo (PDF afirma ESMO-MCBS 4). EMILIA (Verma/Diéras): RCT fase III aberto, N=991, PFS HR ~0,65 e SG HR ~0,68 significativa, com atraso na deterioração de QoL. A flag de DOI/volume refere-se à publicação de SG final (erratas/versões) e não altera a graduação. Qualidade A; benefício em PFS e SG → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1209124 (EMILIA primária) / https://doi.org/10.1016/S1470-2045(17)30313-3 (SG final)"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-3l-tdm1-th3resa",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. TH3RESA (Krop): RCT fase III aberto, N=602, PFS HR ~0,53 e SG HR ~0,68 significativa vs escolha do médico, em ≥3ª linha. Aberto, mas efeito consistente em desfechos duros. Qualidade A; benefício em PFS e SG → força 1.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(14)70178-0"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-3l-trastuzumabe-citotoxico",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2C",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. A referência (Valencia/LATAM) é estudo REAL-WORLD retrospectivo/observacional em instituição pública — ponto de partida baixo no GRADE (C), sem randomização/controle e com risco de viés de seleção/confusão. O conceito de manter trastuzumabe + trocar citotóxico tem base histórica randomizada (ex.: GBG-26), não citada. Como pivô rastreável é observacional → C; benefício não estabelecido por RCT nesta fonte → força 2.",
+      "fonte": "https://doi.org/10.1177/11782234251342477"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-pembro-keynote355",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo (PDF afirma ESMO-MCBS 4). KEYNOTE-355 (Cortes): RCT fase III duplo-cego, N=847, na população CPS≥10 PFS HR ~0,65 e SG HR ~0,73 significativa. Endpoint duro (SG), população biomarcador-definida como na elegibilidade. Qualidade A; benefício em PFS e SG → força 1.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(20)32531-9"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-atezolizumabe-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável (DOI null) para graduar benefício. O estudo nomeado (IMpassion131) é RCT fase III que foi NEGATIVO (sem ganho de PFS/SG de atezolizumabe+paclitaxel, inclusive em PD-L1+), motivando a retirada voluntária pela Roche. Não há benefício a graduar; a evidência de alta qualidade aponta AUSÊNCIA de eficácia — coerente com a não-incorporação. valor_rederivado = null (não graduável como benefício).",
+      "fonte": "N/A — DOI ausente; IMpassion131 (Miles, Ann Oncol 2021) confirmatório negativo"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-qt-opcoes",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência é apenas NCCN v2.2025 (compilação de diretriz, lista de opções de QT), sem estudo-pivô próprio para o conjunto — não graduável isoladamente. valor_rederivado = null.",
+      "fonte": "NCCN Breast Cancer v2.2025 (diretriz, sem pivô isolado)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-2l-qt-opcoes",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência apenas NCCN v2.2025 (lista de opções de QT), sem estudo-pivô próprio — não graduável isoladamente. valor_rederivado = null.",
+      "fonte": "NCCN Breast Cancer v2.2025 (diretriz, sem pivô isolado)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "1A",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo (PDF afirma ESMO-MCBS 5). ASCENT (Bardia): RCT fase III aberto, N=529, PFS HR ~0,41 e SG HR ~0,48 significativa (população sem metástase cerebral) vs escolha do médico. Efeito grande e preciso, desfecho duro. Qualidade A; benefício em PFS, SG e QoL → força 1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2028485"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-tdxd-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": "2C",
+      "status": "indeterminado",
+      "justificativa": "sem_afirmacao_protocolo. Para a população RH-negativa/HER2-low, a evidência vem de análise EXPLORATÓRIA NÃO pré-especificada do DESTINY-Breast04, com apenas ~60 pacientes — imprecisão grave e alto risco de viés de subgrupo. Fonte não-pré-especificada + N minúsculo → C; benefício incerto neste subgrupo → força 2. Coerente com a não-incorporação (baixa qualidade da evidência).",
+      "fonte": "https://doi.org/10.1056/NEJMoa2203690 (subgrupo exploratório TNBC/RH- do DB-04)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-qt-opcoes",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável. Referência apenas NCCN v2.2025 (lista de opções de QT), sem estudo-pivô próprio — não graduável isoladamente. valor_rederivado = null.",
+      "fonte": "NCCN Breast Cancer v2.2025 (diretriz, sem pivô isolado)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-bevacizumabe-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": null,
+      "status": "indeterminado",
+      "justificativa": "sem estudo-pivô rastreável (DOI null). Estudos nomeados (E2100/AVADO/RIBBON-1) são RCTs fase III que mostraram ganho de PFS SEM ganho de SG e com toxicidade relevante (hipertensão, proteinúria, tromboembolismo); o FDA revogou a indicação em 2011. Não há benefício de desfecho duro a graduar; a evidência de alta qualidade aponta ausência de ganho de SG — coerente com a não-incorporação. valor_rederivado = null (não graduável como benefício de SG).",
+      "fonte": "N/A — DOI ausente; E2100 (Miller, NEJM 2007) / AVADO / RIBBON-1"
+    }
+  ]
+}

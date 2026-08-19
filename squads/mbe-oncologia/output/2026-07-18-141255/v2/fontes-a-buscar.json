@@ -1,0 +1,416 @@
+{
+  "meta": {
+    "gerado_em": "2026-07-19",
+    "run_id": "2026-07-18-141255",
+    "run_path": "squads/mbe-oncologia/output/2026-07-18-141255/v1",
+    "fonte": "regimes-consolidados.json",
+    "criterio": "regimes com selo 'incompleto' cuja lacuna é 'grade_sem_estudo_pivo' (falta de estudo-pivô acessível)",
+    "total_itens": 13,
+    "por_caso": {
+      "A": 4,
+      "B": 9
+    },
+    "por_caso_descricao": {
+      "A": "referência citada no protocolo, mas não acessada (paywall/página JS/link quebrado/não tentado)",
+      "B": "não há referência citada — candidato(s) de estudo-pivô propostos, marcados 'a confirmar', ou 'referência a definir'"
+    },
+    "regras": [
+      "Nenhum DOI inventado: DOIs marcados 'confirmado' foram verificados; candidatos incertos vão como 'a confirmar'.",
+      "Onde não há candidato confiável, o item é marcado 'referência a definir' com explicação — sem chute.",
+      "Agrupado por tumor/cenário/subtipo."
+    ],
+    "intake": {
+      "pasta": "squads/mbe-oncologia/data/input/fontes-manuais/",
+      "nomear_por": "regimen_id (ex.: mama-met-hrpos-2l-docetaxel.pdf) OU DOI com '/' -> '_' (ex.: 10.1200_JCO.1999.17.8.2341.pdf)",
+      "mapa_opcional": "squads/mbe-oncologia/data/input/fontes-manuais/fontes-manuais.map.json",
+      "efeito": "Ao re-rodar o squad, a etapa de intake (step-02b) casa cada PDF por regimen_id/DOI e reprocessa APENAS esses regimes, adicionando nova versão em historico_versoes.",
+      "doc": "squads/mbe-oncologia/data/input/fontes-manuais/README.md"
+    }
+  },
+  "grupos": [
+    {
+      "tumor": "mama",
+      "cenario": "adjuvancia",
+      "subtipo": "Hormonioterapia adjuvante — pós-menopausa",
+      "itens": [
+        {
+          "caso": "A",
+          "regimen_id": "mama-adj-ht-tam-ia-switch-pos",
+          "nome": "Tamoxifeno → IA (switch)",
+          "tumor": "mama",
+          "cenario": "adjuvancia",
+          "subtipo": "Hormonioterapia adjuvante — pós-menopausa",
+          "referencias_citadas": [
+            {
+              "estudo": "ATLAS",
+              "citacao": "Davies C, Pan H, Godwin J, et al. Long-term effects of continuing adjuvant tamoxifen to 10 years versus stopping at 5 years after diagnosis of oestrogen receptor-positive breast cancer: ATLAS, a randomised trial. Lancet. 2013;381(9805):805-816.",
+              "doi": "10.1016/S0140-6736(12)61963-1",
+              "pmid": null,
+              "estado_doi": "confirmado",
+              "link": "https://doi.org/10.1016/S0140-6736(12)61963-1"
+            },
+            {
+              "estudo": "SOFT",
+              "citacao": "Francis PA, Regan MM, Fleming GF, et al. Adjuvant ovarian suppression in premenopausal breast cancer. N Engl J Med. 2015;372(5):436-446.",
+              "doi": "10.1056/NEJMoa1412379",
+              "pmid": "25495490",
+              "estado_doi": "confirmado",
+              "link": "https://doi.org/10.1056/NEJMoa1412379"
+            },
+            {
+              "estudo": "MA.17",
+              "citacao": "Goss PE, Ingle JN, Martino S, et al. A randomized trial of letrozole in postmenopausal women after five years of tamoxifen therapy for early-stage breast cancer. N Engl J Med. 2003;349(19):1793-1802.",
+              "doi": "10.1056/NEJMoa032312",
+              "pmid": "14551341",
+              "estado_doi": "confirmado",
+              "link": "https://doi.org/10.1056/NEJMoa032312"
+            }
+          ],
+          "motivo_nao_acesso": "nao_tentado",
+          "motivo_nao_acesso_detalhe": "Referência agrupada do bloco de hormonioterapia adjuvante (ATLAS/SOFT/MA.17) — o PDF não isola um estudo-pivô específico para a estratégia de switch, então nenhum DOI foi rastreado/baixado.",
+          "acao": "baixar os PDFs destes DOIs (ATLAS, SOFT, MA.17)",
+          "notas": "Atenção: as 3 referências citadas NÃO isolam o pivô da estratégia de switch (tamoxifeno→IA). O pivô próprio do switch é IES/BIG 1-98 (ver candidatos). SOFT trata de supressão ovariana em pré-menopausa — pouco aderente ao subtipo pós-menopausa. Ao baixar, priorizar o pivô do switch.",
+          "candidatos": [
+            {
+              "titulo": "A randomized trial of exemestane after two to three years of tamoxifen therapy in postmenopausal women with primary breast cancer (Intergroup Exemestane Study, IES)",
+              "estudo": "IES (Intergroup Exemestane Study)",
+              "autor_ano": "Coombes RC, et al. N Engl J Med. 2004;350(11):1081-1092.",
+              "doi": null,
+              "pmid": null,
+              "ano": 2004,
+              "link": "https://pubmed.ncbi.nlm.nih.gov/?term=Coombes+exemestane+intergroup+2004",
+              "motivo_pivo": "RCT fase III que testou exatamente o switch (tamoxifeno 2-3 anos → exemestano) em pós-menopausa; é o pivô próprio da estratégia sequencial.",
+              "status": "a confirmar"
+            },
+            {
+              "titulo": "BIG 1-98 (letrozol vs tamoxifeno, incluindo braços sequenciais)",
+              "estudo": "BIG 1-98",
+              "autor_ano": "BIG 1-98 Collaborative Group / Regan MM, et al.",
+              "doi": null,
+              "pmid": null,
+              "ano": null,
+              "link": "https://pubmed.ncbi.nlm.nih.gov/?term=BIG+1-98+letrozole+sequential",
+              "motivo_pivo": "Ensaio de referência de terapia endócrina adjuvante com braços sequenciais IA↔tamoxifeno; sustenta a estratégia de switch em pós-menopausa.",
+              "status": "a confirmar"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tumor": "mama",
+      "cenario": "metastatico",
+      "subtipo": "Triplo negativo — 1ª linha (não elegíveis a imunoterapia)",
+      "itens": [
+        {
+          "caso": "A",
+          "regimen_id": "mama-met-tnbc-1l-qt-opcoes",
+          "nome": "Quimioterapia (opções, não elegíveis à 1ª linha com imunoterapia)",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "Triplo negativo — 1ª linha (não elegíveis a imunoterapia)",
+          "referencias_citadas": [
+            {
+              "estudo": "NCCN Breast Cancer v2.2025",
+              "citacao": "NCCN Clinical Practice Guidelines in Oncology: Breast Cancer. Version 2.2025. Disponível em: https://www.nccn.org. Acesso em: jul. 2025.",
+              "doi": null,
+              "pmid": null,
+              "estado_doi": "ausente",
+              "link": "https://www.nccn.org/guidelines/guidelines-detail?category=1&id=1419"
+            }
+          ],
+          "motivo_nao_acesso": "pagina_js",
+          "motivo_nao_acesso_detalhe": "NCCN exige cadastro/login gratuito e serve o PDF por página dinâmica (JS); a diretriz é uma COMPILAÇÃO/lista de opções de QT, não um estudo-pivô isolado — mesmo acessando, não resolve a lacuna de pivô por fármaco.",
+          "acao": "baixar a diretriz NCCN (login gratuito) para rastreabilidade; para fechar o selo, definir o pivô de CADA fármaco da lista (vira Caso B por fármaco)",
+          "notas": "Item de fronteira: tem referência citada (NCCN), mas o pivô por fármaco continua indefinido. Ver Caso B (docetaxel, gencitabina, vinorelbina, doxo lipossomal) para os pivôs por agente.",
+          "candidatos": []
+        }
+      ]
+    },
+    {
+      "tumor": "mama",
+      "cenario": "metastatico",
+      "subtipo": "Triplo negativo — 2ª linha",
+      "itens": [
+        {
+          "caso": "A",
+          "regimen_id": "mama-met-tnbc-2l-qt-opcoes",
+          "nome": "Quimioterapia (opções, 2ª linha)",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "Triplo negativo — 2ª linha",
+          "referencias_citadas": [
+            {
+              "estudo": "NCCN Breast Cancer v2.2025",
+              "citacao": "NCCN Clinical Practice Guidelines in Oncology: Breast Cancer. Version 2.2025. Disponível em: https://www.nccn.org. Acesso em: jul. 2025.",
+              "doi": null,
+              "pmid": null,
+              "estado_doi": "ausente",
+              "link": "https://www.nccn.org/guidelines/guidelines-detail?category=1&id=1419"
+            }
+          ],
+          "motivo_nao_acesso": "pagina_js",
+          "motivo_nao_acesso_detalhe": "NCCN exige cadastro/login gratuito e serve o PDF por página dinâmica (JS); a diretriz é uma COMPILAÇÃO/lista de opções de QT, não um estudo-pivô isolado — mesmo acessando, não resolve a lacuna de pivô por fármaco.",
+          "acao": "baixar a diretriz NCCN (login gratuito) para rastreabilidade; para fechar o selo, definir o pivô de CADA fármaco da lista (vira Caso B por fármaco)",
+          "notas": "Item de fronteira: tem referência citada (NCCN), mas o pivô por fármaco continua indefinido. Ver Caso B (docetaxel, gencitabina, vinorelbina, doxo lipossomal) para os pivôs por agente.",
+          "candidatos": []
+        }
+      ]
+    },
+    {
+      "tumor": "mama",
+      "cenario": "metastatico",
+      "subtipo": "Triplo negativo — 3ª linha e subsequentes",
+      "itens": [
+        {
+          "caso": "A",
+          "regimen_id": "mama-met-tnbc-3l-qt-opcoes",
+          "nome": "Quimioterapia (opções, 3ª linha)",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "Triplo negativo — 3ª linha e subsequentes",
+          "referencias_citadas": [
+            {
+              "estudo": "NCCN Breast Cancer v2.2025",
+              "citacao": "NCCN Clinical Practice Guidelines in Oncology: Breast Cancer. Version 2.2025. Disponível em: https://www.nccn.org. Acesso em: jul. 2025.",
+              "doi": null,
+              "pmid": null,
+              "estado_doi": "ausente",
+              "link": "https://www.nccn.org/guidelines/guidelines-detail?category=1&id=1419"
+            }
+          ],
+          "motivo_nao_acesso": "pagina_js",
+          "motivo_nao_acesso_detalhe": "NCCN exige cadastro/login gratuito e serve o PDF por página dinâmica (JS); a diretriz é uma COMPILAÇÃO/lista de opções de QT, não um estudo-pivô isolado — mesmo acessando, não resolve a lacuna de pivô por fármaco.",
+          "acao": "baixar a diretriz NCCN (login gratuito) para rastreabilidade; para fechar o selo, definir o pivô de CADA fármaco da lista (vira Caso B por fármaco)",
+          "notas": "Item de fronteira: tem referência citada (NCCN), mas o pivô por fármaco continua indefinido. Ver Caso B (docetaxel, gencitabina, vinorelbina, doxo lipossomal) para os pivôs por agente.",
+          "candidatos": []
+        }
+      ]
+    },
+    {
+      "tumor": "mama",
+      "cenario": "metastatico",
+      "subtipo": "HR+ / HER2 negativo — 1ª linha",
+      "itens": [
+        {
+          "caso": "B",
+          "regimen_id": "mama-met-hrpos-1l-ht-isolada",
+          "nome": "Hormonioterapia isolada (não combinada a iCDK4/6)",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "HR+ / HER2 negativo — 1ª linha",
+          "referencia_a_definir": false,
+          "candidatos": [
+            {
+              "titulo": "Fulvestrant 500 mg versus anastrozole 1 mg for hormone receptor-positive advanced breast cancer (FALCON)",
+              "estudo": "FALCON",
+              "autor_ano": "Robertson JFR, et al. Lancet. 2016;388(10063):2997-3005.",
+              "doi": "10.1016/S0140-6736(16)32389-3",
+              "pmid": "27908454",
+              "ano": 2016,
+              "link": "https://doi.org/10.1016/S0140-6736(16)32389-3",
+              "motivo_pivo": "RCT fase III de HT isolada de 1ª linha (fulvestranto vs anastrozol) em HR+ avançado sem HT prévia; pivô moderno da HT isolada.",
+              "status": "a confirmar"
+            },
+            {
+              "titulo": "Anastrozole alone or in combination... / estudos TARGET e North American (anastrozol vs tamoxifeno 1ª linha)",
+              "estudo": "TARGET / North American Anastrozole",
+              "autor_ano": "Bonneterre J / Nabholtz JM, et al. 2000.",
+              "doi": null,
+              "pmid": null,
+              "ano": 2000,
+              "link": "https://pubmed.ncbi.nlm.nih.gov/?term=anastrozole+first-line+advanced+breast+cancer+2000",
+              "motivo_pivo": "Pivôs históricos de IA de 1ª linha na doença avançada; sustentam a HT isolada quando fulvestranto não é a opção.",
+              "status": "a confirmar"
+            }
+          ],
+          "acao": "confirmar o pivô e baixar o PDF",
+          "explicacao": "Protocolo não cita referência. HT isolada tem base ampla; FALCON é o candidato mais limpo para HT isolada de 1ª linha."
+        }
+      ]
+    },
+    {
+      "tumor": "mama",
+      "cenario": "metastatico",
+      "subtipo": "HR+ / HER2 negativo — 1ª linha (crise visceral)",
+      "itens": [
+        {
+          "caso": "B",
+          "regimen_id": "mama-met-hrpos-1l-qt-crise-visceral",
+          "nome": "Quimioterapia (crise visceral)",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "HR+ / HER2 negativo — 1ª linha (crise visceral)",
+          "referencia_a_definir": true,
+          "candidatos": [],
+          "acao": "referência a definir",
+          "explicacao": "Protocolo não cita referência E não especifica o fármaco ('quimioterapia' genérica em crise visceral). Sem droga definida não há estudo-pivô único a buscar. Definir primeiro o(s) agente(s) pretendido(s) com o oncologista; só então buscar o pivô por agente."
+        }
+      ]
+    },
+    {
+      "tumor": "mama",
+      "cenario": "metastatico",
+      "subtipo": "HR+ / HER2 negativo — 2ª linha ou mais",
+      "itens": [
+        {
+          "caso": "B",
+          "regimen_id": "mama-met-hrpos-2l-docetaxel",
+          "nome": "Docetaxel",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "HR+ / HER2 negativo — 2ª linha ou mais",
+          "referencia_a_definir": false,
+          "candidatos": [
+            {
+              "titulo": "Prospective randomized trial of docetaxel versus doxorubicin in patients with metastatic breast cancer (303 Study)",
+              "estudo": "303 Study",
+              "autor_ano": "Chan S, et al. J Clin Oncol. 1999;17(8):2341-2354.",
+              "doi": "10.1200/JCO.1999.17.8.2341",
+              "pmid": "10561296",
+              "ano": 1999,
+              "link": "https://doi.org/10.1200/JCO.1999.17.8.2341",
+              "motivo_pivo": "RCT fase III de docetaxel monoterapia em MBC pré-tratada (pós-alquilante); pivô clássico do docetaxel isolado na doença metastática.",
+              "status": "a confirmar"
+            }
+          ],
+          "acao": "confirmar o pivô e baixar o PDF",
+          "explicacao": "Protocolo não cita referência. Docetaxel é agente estabelecido; o 303 Study é o pivô monoterápico mais citável."
+        },
+        {
+          "caso": "B",
+          "regimen_id": "mama-met-hrpos-2l-vinorelbina-iv",
+          "nome": "Vinorelbina IV",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "HR+ / HER2 negativo — 2ª linha ou mais",
+          "referencia_a_definir": true,
+          "candidatos": [],
+          "acao": "referência a definir",
+          "explicacao": "Protocolo não cita referência. Vinorelbina em MBC baseia-se sobretudo em fase II e uso consagrado; não há RCT fase III único como pivô limpo. Sem candidato confiável — não inventar. Opção: adotar revisão/diretriz como fonte de suporte e assumir selo 'incompleto' explícito por ausência de pivô próprio."
+        },
+        {
+          "caso": "B",
+          "regimen_id": "mama-met-hrpos-2l-vinorelbina-vo",
+          "nome": "Vinorelbina VO",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "HR+ / HER2 negativo — 2ª linha ou mais",
+          "referencia_a_definir": true,
+          "candidatos": [],
+          "acao": "referência a definir",
+          "explicacao": "Mesma situação da vinorelbina IV; a formulação oral tem base de bioequivalência/fase II, sem RCT fase III pivô próprio. Sem candidato confiável — não inventar."
+        },
+        {
+          "caso": "B",
+          "regimen_id": "mama-met-hrpos-2l-gencitabina",
+          "nome": "Gencitabina",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "HR+ / HER2 negativo — 2ª linha ou mais",
+          "referencia_a_definir": true,
+          "candidatos": [],
+          "acao": "referência a definir",
+          "explicacao": "Protocolo não cita referência. Gencitabina EM MONOTERAPIA na MBC apoia-se em fase II; os RCTs fase III relevantes (ex.: gencitabina+paclitaxel) são de COMBINAÇÃO, não do agente isolado — não servem como pivô do regime isolado. Sem candidato confiável para monoterapia — não inventar."
+        },
+        {
+          "caso": "B",
+          "regimen_id": "mama-met-hrpos-2l-doxo-lipossomal",
+          "nome": "Doxorrubicina Lipossomal",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "HR+ / HER2 negativo — 2ª linha ou mais",
+          "referencia_a_definir": false,
+          "candidatos": [
+            {
+              "titulo": "Reduced cardiotoxicity and comparable efficacy in a phase III trial of pegylated liposomal doxorubicin HCl (CAELYX/Doxil) versus conventional doxorubicin for first-line treatment of metastatic breast cancer",
+              "estudo": "CAELYX/Doxil vs doxorrubicina (O'Brien)",
+              "autor_ano": "O'Brien MER, et al. Ann Oncol. 2004;15(3):440-449.",
+              "doi": "10.1093/annonc/mdh097",
+              "pmid": null,
+              "ano": 2004,
+              "link": "https://doi.org/10.1093/annonc/mdh097",
+              "motivo_pivo": "RCT fase III de doxorrubicina lipossomal peguilada vs doxorrubicina convencional em MBC (eficácia comparável, menor cardiotoxicidade); pivô do agente.",
+              "status": "a confirmar"
+            }
+          ],
+          "acao": "confirmar o pivô e baixar o PDF",
+          "explicacao": "Protocolo não cita referência. O'Brien 2004 é o RCT fase III pivô da doxorrubicina lipossomal na MBC."
+        }
+      ]
+    },
+    {
+      "tumor": "mama",
+      "cenario": "metastatico",
+      "subtipo": "Triplo negativo — 1ª linha",
+      "itens": [
+        {
+          "caso": "B",
+          "regimen_id": "mama-met-tnbc-1l-atezolizumabe-nao-incorporado",
+          "nome": "Atezolizumabe — NÃO INCORPORADO",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "Triplo negativo — 1ª linha",
+          "referencia_a_definir": false,
+          "candidatos": [
+            {
+              "titulo": "Primary results from IMpassion131, a double-blind, placebo-controlled, randomised phase III trial of first-line paclitaxel with or without atezolizumab for unresectable locally advanced/metastatic triple-negative breast cancer",
+              "estudo": "IMpassion131",
+              "autor_ano": "Miles D, et al. Ann Oncol. 2021;32(8):994-1004.",
+              "doi": "10.1016/j.annonc.2021.05.801",
+              "pmid": "34219000",
+              "ano": 2021,
+              "link": "https://doi.org/10.1016/j.annonc.2021.05.801",
+              "motivo_pivo": "RCT fase III do atezolizumabe+paclitaxel em TNBC 1ª linha — foi NEGATIVO (sem ganho de PFS/SG, inclusive PD-L1+), motivando a retirada voluntária. É o pivô que documenta a AUSÊNCIA de benefício, coerente com a não-incorporação.",
+              "status": "a confirmar"
+            }
+          ],
+          "acao": "confirmar o pivô e baixar o PDF",
+          "explicacao": "Protocolo nomeia o estudo (IMpassion131) mas não fornece citação/DOI. Baixar sustenta o registro do porquê da não-incorporação (evidência de alta qualidade apontando ausência de eficácia)."
+        }
+      ]
+    },
+    {
+      "tumor": "mama",
+      "cenario": "metastatico",
+      "subtipo": "Triplo negativo / HER2 negativo",
+      "itens": [
+        {
+          "caso": "B",
+          "regimen_id": "mama-met-tnbc-bevacizumabe-nao-incorporado",
+          "nome": "Bevacizumabe — NÃO INCORPORADO",
+          "tumor": "mama",
+          "cenario": "metastatico",
+          "subtipo": "Triplo negativo / HER2 negativo",
+          "referencia_a_definir": false,
+          "candidatos": [
+            {
+              "titulo": "Paclitaxel plus bevacizumab versus paclitaxel alone for metastatic breast cancer (E2100)",
+              "estudo": "E2100",
+              "autor_ano": "Miller K, et al. N Engl J Med. 2007;357(26):2666-2676.",
+              "doi": "10.1056/NEJMoa072113",
+              "pmid": "18160686",
+              "ano": 2007,
+              "link": "https://doi.org/10.1056/NEJMoa072113",
+              "motivo_pivo": "RCT fase III (paclitaxel±bevacizumabe) que mostrou ganho de PFS SEM ganho de SG; base da revogação FDA em 2011. Pivô que documenta ausência de benefício de desfecho duro.",
+              "status": "a confirmar"
+            },
+            {
+              "titulo": "AVADO / RIBBON-1 (bevacizumabe + QT em MBC 1ª linha)",
+              "estudo": "AVADO (Miles 2010, JCO) / RIBBON-1 (Robert 2011, JCO)",
+              "autor_ano": "Miles DW, 2010 / Robert NJ, 2011.",
+              "doi": null,
+              "pmid": null,
+              "ano": 2010,
+              "link": "https://pubmed.ncbi.nlm.nih.gov/?term=AVADO+RIBBON-1+bevacizumab+breast+cancer",
+              "motivo_pivo": "RCTs confirmatórios com o mesmo padrão (ganho de PFS sem SG); reforçam a não-incorporação.",
+              "status": "a confirmar"
+            }
+          ],
+          "acao": "confirmar o pivô e baixar o PDF",
+          "explicacao": "Protocolo nomeia os estudos (E2100/AVADO/RIBBON-1) mas não fornece citação/DOI. E2100 é o pivô mais citável."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,925 @@
+{
+  "meta": {
+    "titulo": "Protocolos — pulmao-sclc (re-extração 2026-07-22)",
+    "tumor": "pulmao-sclc",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 6,
+    "distribuicao_selo": {
+      "re_derivado": 3,
+      "incompleto": 3
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 0,
+      "incongruentes": 0
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "pendente"
+    }
+  },
+  "campos_primitivos": [
+    {
+      "campo": "sclc",
+      "tipo": "boolean",
+      "label": "Sclc",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "doenca_limitada",
+      "tipo": "boolean",
+      "label": "Doenca limitada",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "doenca_extensa",
+      "tipo": "boolean",
+      "label": "Doenca extensa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "segunda_linha",
+      "tipo": "boolean",
+      "label": "Segunda linha",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "intervalo_livre_meses",
+      "tipo": "integer",
+      "label": "Intervalo livre meses",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "sclc-limitada-cisplatina-etoposideo-rt-durvalumab",
+      "tumor": "pulmao-sclc",
+      "cenario": "localmente-avancado",
+      "subtipo": "CPPC doença limitada",
+      "nome": "Cisplatina + Etoposídeo + RT → Durvalumabe de consolidação (ADRIATIC)",
+      "esquema": "Cisplatina 75 mg/m² D1 + Etoposídeo 100 mg/m² D1-D3, 21/21d x4 ciclos, concomitante à RT torácica → Durvalumabe 1.500 mg (ou 20 mg/kg se <30 kg) EV a cada 28 dias por até 24 meses",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d x4"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D3"
+        },
+        {
+          "nome": "Durvalumabe",
+          "dose": "1.500 mg",
+          "via": "EV",
+          "frequencia": "28/28d até 24 meses (consolidação)"
+        }
+      ],
+      "elegibilidade_protocolo": "CPPC de doença limitada; quimiorradioterapia baseada em cisplatina/etoposídeo seguida de consolidação com durvalumabe (início até 42 dias após término da quimiorradiação, sem progressão).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sclc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "doenca_limitada",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CHENG Y, Spigel DR, Cho BC, et al. Durvalumab after chemoradiotherapy in limited-stage small-cell lung cancer (ADRIATIC). N Engl J Med. 2024;391(14):1313-1327.",
+        "doi": "10.1056/NEJMoa2404873",
+        "pmid": null,
+        "estudo": "ADRIATIC",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e SLP com consolidação de durvalumabe",
+        "magnitude": "ADRIATIC: SG 55,9 vs 33,4 meses; HR 0,73",
+        "fonte": "10.1056/NEJMoa2404873"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: platina/etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "ADRIATIC (fase 3): ganho robusto de SG com durvalumabe de consolidação em doença limitada. Novo padrão. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2404873"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo (doença limitada) com ganho expressivo de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2404873"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Durvalumabe de consolidação de custo alto; QT barata. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Durvalumabe caro."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sclc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "doenca_limitada",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ADRIATIC em doença limitada sem progressão pós-quimiorradioterapia.",
+          "justificativa": "Concorda: ADRIATIC em doença limitada sem progressão pós-quimiorradioterapia.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2404873"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "sclc-extensa-cisplatina-etoposideo",
+      "tumor": "pulmao-sclc",
+      "cenario": "metastatico",
+      "subtipo": "CPPC doença extensa — 1ª linha (quimioterapia)",
+      "nome": "Cisplatina + Etoposídeo",
+      "esquema": "Cisplatina 80 mg/m² D1 + Etoposídeo 100 mg/m² D1-D3, a cada 21 dias, 4-6 ciclos",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "80 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D3"
+        }
+      ],
+      "elegibilidade_protocolo": "CPPC de doença extensa, 1ª linha (quimioterapia baseada em platina/etoposídeo).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sclc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "doenca_extensa",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base histórica de platina + etoposídeo como padrão em CPPC de doença extensa (comparadores dos ensaios IMpower133/CASPIAN).",
+        "doi": "10.1056/NEJMoa1809064",
+        "pmid": null,
+        "estudo": "Platina/etoposídeo (braço controle IMpower133/CASPIAN)",
+        "ano": 2018,
+        "primeiro_autor": "Horn"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Padrão histórico de resposta e sobrevida em CPPC extensa",
+        "magnitude": "Platina/etoposídeo: SG ~10 meses (braço controle dos ensaios de imunoterapia)",
+        "fonte": "10.1056/NEJMoa1809064"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: platina/etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Platina/etoposídeo é o padrão histórico de 1ª linha em CPPC extensa (base dos ensaios). Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1809064"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Esquema-âncora histórico; não graduável de forma discreta.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1809064"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Cisplatina/etoposídeo genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sclc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "doenca_extensa",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: platina/etoposídeo padrão em CPPC extensa.",
+          "justificativa": "Concorda: platina/etoposídeo padrão em CPPC extensa.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1809064"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "rotulo_corrigido: primeiro_autor→Horn, ano→2018; DOI 10.1056/NEJMoa1809064 já correto (paper certo), selo inalterado.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "sclc-extensa-io-1l-nao-incluido",
+      "tumor": "pulmao-sclc",
+      "cenario": "metastatico",
+      "subtipo": "CPPC doença extensa — imunoterapia 1ª linha (não incluída)",
+      "nome": "Carbo+Etoposídeo+Durvalumabe (CASPIAN) / +Atezolizumabe (IMpower133) — NÃO incluídos",
+      "esquema": "Carboplatina + Etoposídeo + Durvalumabe (CASPIAN) ou + Atezolizumabe (IMpower133) na 1ª linha da doença extensa — não incluídos",
+      "farmacos": [
+        {
+          "nome": "Carboplatina + Etoposídeo + Durvalumabe/Atezolizumabe",
+          "dose": "conforme estudo",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "CPPC de doença extensa, 1ª linha (protocolo NÃO inclui a adição de imunoterapia: pequena magnitude do benefício, ESMO MCBS 3, tanto para durvalumabe [CASPIAN] quanto atezolizumabe [IMpower133]).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sclc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "doenca_extensa",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global modesta com adição de imunoterapia",
+        "magnitude": "CASPIAN: SG 13,0 vs 10,3 meses (HR 0,75). IMpower133: SG 12,3 vs 10,3 meses (HR 0,70)",
+        "fonte": "10.1056/NEJMoa1809064"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: platina/etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CASPIAN/IMpower133 (fase 3): ganho de SG estatisticamente significativo mas de magnitude modesta (~2-3 meses). Certeza alta, magnitude baixa.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(19)32222-6"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "3",
+          "afirmado_protocolo": "3",
+          "justificativa": "Protocolo afirma ESMO-MCBS 3. Re-derivação: ganho de SG ~2-3 meses (HR 0,70-0,75) → MCBS 3. Concorda.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1809064"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Imunoterapia contínua de custo alto para ganho modesto. Affordability baixa. Base para a não incorporação.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto; não incluído."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "sclc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "doenca_extensa",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda com o MCBS afirmado (3). ATENÇÃO DE COBERTURA: CASPIAN/IMpower133 são o padrão global de 1ª linha em CPPC extensa; a não inclusão mantém a instituição em platina/etoposídeo isolado — decisão de custo, mas diverge do padrão internacional de cuidado. Revisar com dados de custo/acesso.",
+          "justificativa": "Concorda com o MCBS afirmado (3). ATENÇÃO DE COBERTURA: CASPIAN/IMpower133 são o padrão global de 1ª linha em CPPC extensa; a não inclusão mantém a instituição em platina/etoposídeo isolado — decisão de custo, mas diverge do padrão internacional de cuidado. Revisar com dados de custo/acesso.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: MCBS 3 (CASPIAN/IMpower133), decisão de custo",
+          "cobertura: exclui o padrão global de 1ª linha em CPPC extensa — divergência do standard-of-care internacional, revisar",
+          "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: MCBS 3 (CASPIAN/IMpower133), decisão de custo",
+        "cobertura: exclui o padrão global de 1ª linha em CPPC extensa — divergência do standard-of-care internacional, revisar",
+        "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+      ]
+    },
+    {
+      "regimen_id": "sclc-2l-topotecano",
+      "tumor": "pulmao-sclc",
+      "cenario": "metastatico",
+      "subtipo": "CPPC — 2ª linha",
+      "nome": "Topotecano",
+      "esquema": "Topotecano 1,5 mg/m² EV D1-D5, a cada 21 dias, até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Topotecano",
+          "dose": "1,5 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "CPPC em 2ª linha (após progressão à quimioterapia de 1ª linha).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sclc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "O'BRIEN ME et al. Phase III trial comparing topotecan plus best supportive care with best supportive care alone in relapsed small-cell lung cancer. J Clin Oncol. 2006;24(34):5441-5447 (base do topotecano em 2ª linha).",
+        "doi": "10.1200/JCO.2006.06.5821",
+        "pmid": null,
+        "estudo": "O'Brien (topotecano)",
+        "ano": 2006
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida e controle sintomático vs suporte",
+        "magnitude": "Topotecano melhora SG e sintomas vs suporte isolado em recidiva",
+        "fonte": "10.1200/JCO.2006.06.5821"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: platina/etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Topotecano é o padrão de 2ª linha em CPPC (ganho de SG/sintomas vs suporte). Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.2006.06.5821"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Comparador BSC; magnitude modesta. Não graduável de forma discreta.",
+          "fonte": "https://doi.org/10.1200/JCO.2006.06.5821"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Topotecano genérico, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sclc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: topotecano em 2ª linha.",
+          "justificativa": "Concorda: topotecano em 2ª linha.",
+          "fonte": "https://doi.org/10.1200/JCO.2006.06.5821"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "sclc-retratamento-mesmo-esquema",
+      "tumor": "pulmao-sclc",
+      "cenario": "metastatico",
+      "subtipo": "CPPC — recidiva sensível (>6 meses)",
+      "nome": "Retratamento com esquema de 1ª linha",
+      "esquema": "Retratamento com platina/etoposídeo (mesmo esquema da 1ª linha) para pacientes com >6 meses de remissão, sem imunoterapia",
+      "farmacos": [
+        {
+          "nome": "Cisplatina/Carboplatina + Etoposídeo",
+          "dose": "conforme 1ª linha",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "CPPC com recidiva sensível (mais de 6 meses de remissão após 1ª linha): retratar com o mesmo esquema de quimioterapia, sem imunoterapia.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sclc",
+                true
+              ]
+            },
+            {
+              "gt": [
+                "intervalo_livre_meses",
+                6
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Prática consolidada de retratamento em recidiva sensível (>6 meses); protocolo não cita estudo-pivô dedicado.",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: platina/etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "",
+          "afirmado_protocolo": null,
+          "justificativa": "Retratamento em recidiva sensível é prática consolidada, mas o protocolo não cita estudo-pivô dedicado para re-derivar GRADE robusto. Lacuna de fonte primária dedicada.",
+          "fonte": ""
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Sem estudo-pivô dedicado; não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "QT genérica, no SUS. Affordability alta — eixo de evidência incompleto.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "sclc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "intervalo_livre_meses",
+              "operador": ">",
+              "valor": 6
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Prática consolidada; sem estudo-pivô dedicado para confronto.",
+          "justificativa": "Prática consolidada; sem estudo-pivô dedicado para confronto.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "pratica_consolidada: retratamento em recidiva sensível sem estudo-pivô dedicado citado",
+          "doi_nao_reparado: sem match resolvível+congruente para '' (Prática None); mantém incompleto"
+        ],
+        "decisao_revisao": "pendente_oncologista_referencia"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "pratica_consolidada: retratamento em recidiva sensível sem estudo-pivô dedicado citado",
+        "doi_nao_reparado: sem match resolvível+congruente para '' (Prática None); mantém incompleto"
+      ]
+    },
+    {
+      "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
+      "tumor": "pulmao-sclc",
+      "cenario": "metastatico",
+      "subtipo": "CPPC — 2ª linha, tarlatamabe (não incluído)",
+      "nome": "Tarlatamabe (NÃO incluído)",
+      "esquema": "Tarlatamabe (bispecífico DLL3/CD3) em 2ª linha — não incluído",
+      "farmacos": [
+        {
+          "nome": "Tarlatamabe",
+          "dose": "10 mg",
+          "via": "EV",
+          "frequencia": "2/2 sem"
+        }
+      ],
+      "elegibilidade_protocolo": "CPPC em 2ª linha (protocolo NÃO inclui tarlatamabe [DeLLphi-301]: pequena magnitude do benefício, ESMO MCBS 2, baixa qualidade da evidência).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sclc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade em 2ª linha (bispecífico DLL3); magnitude e qualidade de evidência limitadas",
+        "magnitude": "DeLLphi-301/304: respostas objetivas com evidência de menor qualidade; ESMO MCBS 2",
+        "fonte": "10.1056/NEJMoa2502099"
+      },
+      "toxicidades": [
+        {
+          "nome": "Síndrome de liberação de citocinas (CRS)",
+          "severidade": "grave",
+          "conduta": "monitorar; corticoide/tocilizumabe",
+          "fonte": "Bula/ficha técnica: Tarlatamabe"
+        },
+        {
+          "nome": "Neurotoxicidade (ICANS)",
+          "severidade": "grave",
+          "conduta": "monitorar; corticoide",
+          "fonte": "Bula/ficha técnica: Tarlatamabe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2C",
+          "afirmado_protocolo": null,
+          "justificativa": "Protocolo afirma baixa qualidade. Re-derivação: evidência de fase 2/estudos iniciais com magnitude limitada → certeza baixa. Coerente com a não inclusão.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2502099"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": "2",
+          "justificativa": "Protocolo afirma ESMO-MCBS 2. Re-derivação: benefício de magnitude pequena → MCBS 2. Concorda.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2502099"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 5,
+          "afirmado_protocolo": null,
+          "justificativa": "Tarlatamabe (bispecífico) de custo altíssimo com toxicidade (CRS/ICANS). Affordability muito baixa. Sustenta a não inclusão.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo altíssimo; não incluído."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "sclc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: MCBS 2 e baixa qualidade de evidência sustentam a não inclusão.",
+          "justificativa": "Concorda: MCBS 2 e baixa qualidade de evidência sustentam a não inclusão.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: MCBS 2, baixa qualidade de evidência (DeLLphi-301)",
+          "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (CPPC) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incluido: MCBS 2, baixa qualidade de evidência (DeLLphi-301)",
+        "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+      ]
+    }
+  ]
+}

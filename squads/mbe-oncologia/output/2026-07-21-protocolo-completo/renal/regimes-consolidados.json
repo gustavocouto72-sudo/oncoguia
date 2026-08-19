@@ -1,0 +1,1704 @@
+{
+ "meta": {
+  "tumor": "renal",
+  "run_id": "2026-07-21-protocolo-completo",
+  "consolidado_em": "2026-07-21",
+  "consolidador": "Consuelo Consolida (pipeline mbe-oncologia)",
+  "fonte_protocolo": "data/input/Protocolos de Oncologia 2025 1.pdf (cap. genito-urinário, pp. 35-37)",
+  "total_regimes": 10,
+  "distribuicao_selo": {
+   "confirmado": 8,
+   "divergencia": 2,
+   "incompleto": 0
+  },
+  "regra_selo": "divergencia se >=1 eixo diverge do afirmado (precedencia); senao incompleto se lacuna real de fonte (GRADE sem estudo-pivo OU elegibilidade sem criterios computaveis); senao confirmado. Status 'indeterminado' por ausencia de afirmacao do protocolo (campos null) NAO rebaixa para incompleto.",
+  "verificacao_apis": {
+   "data": "2026-07-21",
+   "escopo": "escada de APIs abertas (Crossref/Europe PMC/Unpaywall/OpenAlex/PubMed/ClinicalTrials.gov)",
+   "email_contato": "gustavocouto72@gmail.com"
+  },
+  "revisao_humana": {
+   "status": "pendente",
+   "data": "2026-07-21",
+   "decidido_por": null,
+   "nota": "Lote gerado automaticamente; aguarda checkpoint humano (Step 08). Divergências e incompletos sinalizados."
+  }
+ },
+ "regimes": [
+  {
+   "regimen_id": "renal-adj-pembrolizumab",
+   "tumor": "renal",
+   "cenario": "adjuvancia",
+   "subtipo": "CCRcc ressecado de alto risco de recidiva",
+   "nome": "Pembrolizumab adjuvante",
+   "esquema": "Pembrolizumab 200 mg EV a cada 3 semanas por 1 ano",
+   "farmacos": [
+    {
+     "nome": "Pembrolizumab",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas, 1 ano"
+    }
+   ],
+   "elegibilidade_protocolo": "Carcinoma de células renais claras (CCRcc) completamente ressecado, alto risco (critérios KEYNOTE-564: pT2 grau 4/sarcomatoide N0M0; pT3 qualquer grau N0M0; qualquer pT N+M0; ou M1 sem evidência de doença após ressecção).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ccrcc_alto_risco_resecado",
+      "label": "CCRcc ressecado de alto risco (KEYNOTE-564)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "ressecado_completo",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "alto_risco_recidiva",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "ccrcc_alto_risco_resecado"
+    }
+   },
+   "referencia": {
+    "citacao": "POWLES T, Tomczak P, Park SH, et al. Pembrolizumab versus placebo as post-nephrectomy adjuvant therapy for clear cell renal cell carcinoma (KEYNOTE-564): 30-month follow-up. Lancet Oncol. 2022;23:1133-1144.",
+    "doi": "10.1016/S1470-2045(22)00487-9",
+    "pmid": null,
+    "estudo": "KEYNOTE-564",
+    "ano": 2022
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "A",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida livre de doença e (atualização) ↑ sobrevida global",
+    "magnitude": "KEYNOTE-564: DFS HR 0,63-0,68; atualização de 2024 com ganho de SG",
+    "fonte": "10.1016/S1470-2045(22)00487-9"
+   },
+   "toxicidades": [
+    {
+     "nome": "Eventos imunomediados (tireoidite, colite, hepatite, pneumonite)",
+     "severidade": "grave",
+     "conduta": "corticoide; suspender conforme grau",
+     "fonte": "Bula/ficha técnica: Pembrolizumab"
+    },
+    {
+     "nome": "Fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Pembrolizumab"
+    },
+    {
+     "nome": "Hipotireoidismo",
+     "severidade": "leve",
+     "conduta": "levotiroxina",
+     "fonte": "Bula/ficha técnica: Pembrolizumab"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "KEYNOTE-564 (fase 3, N=994): ganho de DFS e, na atualização de 2024, de SG em CCRcc ressecado de alto risco. Único adjuvante com benefício de SG. Recomendação forte.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(22)00487-9"
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "A",
+     "afirmado_protocolo": "A",
+     "justificativa": "Protocolo afirma ESMO-MCBS A. Re-derivação: cenário adjuvante com DFS e posterior SG positivas → formulário curativo A. Concorda.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(22)00487-9"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Pembrolizumab por 1 ano de alto custo; incorporação SUS limitada para adjuvância renal.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "ressecado_completo",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "alto_risco_recidiva",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: critérios do protocolo replicam a elegibilidade do KEYNOTE-564.",
+     "justificativa": "Concorda: critérios do protocolo replicam a elegibilidade do KEYNOTE-564.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(22)00487-9"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "renal-met-favoravel-pazopanibe",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco favorável, 1ª linha",
+   "nome": "Pazopanibe",
+   "esquema": "Pazopanibe 800 mg VO 1x/dia contínuo",
+   "farmacos": [
+    {
+     "nome": "Pazopanibe",
+     "dose": "800 mg",
+     "via": "VO",
+     "frequencia": "1x/dia"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco favorável, 1ª linha.",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ccrcc_favoravel",
+      "label": "CCRcc metastático risco favorável",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "risco_imdc",
+          "favoravel"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "ccrcc_favoravel"
+    }
+   },
+   "referencia": {
+    "citacao": "MOTZER RJ et al. Pazopanib versus sunitinib in metastatic renal-cell carcinoma (COMPARZ). N Engl J Med. 2013;369(8):722-731.",
+    "doi": "10.1056/NEJMoa1303989",
+    "pmid": null,
+    "estudo": "COMPARZ",
+    "ano": 2013
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Não inferioridade em SLP vs sunitinibe",
+    "magnitude": "COMPARZ: PFS não inferior ao sunitinibe; perfil de toxicidade distinto",
+    "fonte": "10.1056/NEJMoa1303989"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade",
+     "severidade": "grave",
+     "conduta": "monitorar transaminases",
+     "fonte": "Bula/ficha técnica: Pazopanibe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Pazopanibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Pazopanibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "COMPARZ (fase 3, N=1.110): não inferioridade ao sunitinibe. Recomendação forte como TKI de 1ª linha.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1303989"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Estudo de não inferioridade vs sunitinibe (comparador ativo), não vs placebo — ESMO-MCBS não graduável de forma discreta. Sem afirmação do protocolo.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1303989"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 2,
+     "afirmado_protocolo": null,
+     "justificativa": "Pazopanibe genérico disponível; incorporado. Affordability intermediária-alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "TKI no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "=",
+       "valor": "favoravel"
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "disfuncao_hepatica_grave",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: COMPARZ incluiu CCRcc metastático em 1ª linha.",
+     "justificativa": "Concorda: COMPARZ incluiu CCRcc metastático em 1ª linha.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1303989"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "renal-met-favoravel-sunitinibe",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco favorável, 1ª linha",
+   "nome": "Sunitinibe",
+   "esquema": "Sunitinibe 50 mg VO 1x/dia, esquema 4/2 (4 semanas on, 2 off) ou 2/1",
+   "farmacos": [
+    {
+     "nome": "Sunitinibe",
+     "dose": "50 mg",
+     "via": "VO",
+     "frequencia": "4/2 ou 2/1"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco favorável, 1ª linha.",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ccrcc_favoravel",
+      "label": "CCRcc metastático risco favorável",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "risco_imdc",
+          "favoravel"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "ccrcc_favoravel"
+    }
+   },
+   "referencia": {
+    "citacao": "MOTZER RJ et al. Sunitinib versus interferon alfa in metastatic renal-cell carcinoma. N Engl J Med. 2007;356:115-124 (base histórica); COMPARZ como comparador contemporâneo.",
+    "doi": "10.1056/NEJMoa065044",
+    "pmid": null,
+    "estudo": "Sunitinib pivotal / COMPARZ",
+    "ano": 2007
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ SLP vs IFN-α",
+    "magnitude": "Ganho de SLP sobre IFN-α; padrão histórico de TKI de 1ª linha",
+    "fonte": "10.1056/NEJMoa065044"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mucosite/estomatite",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Sunitinibe"
+    },
+    {
+     "nome": "Síndrome mão-pé",
+     "severidade": "moderada",
+     "conduta": "emolientes; ajuste de dose",
+     "fonte": "Bula/ficha técnica: Sunitinibe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Sunitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "Sunitinibe: TKI de referência histórica em 1ª linha (ganho de SLP sobre IFN-α); esquema 2/1 pode reduzir toxicidade. Recomendação forte.",
+     "fonte": "https://doi.org/10.1056/NEJMoa065044"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Comparador ativo (IFN-α) histórico; graduação MCBS discreta não aplicável de forma direta ao esquema atual.",
+     "fonte": "https://doi.org/10.1056/NEJMoa065044"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 2,
+     "afirmado_protocolo": null,
+     "justificativa": "Sunitinibe genérico, incorporado. Affordability intermediária-alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "TKI no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "=",
+       "valor": "favoravel"
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: uso consolidado de TKI em 1ª linha de CCRcc.",
+     "justificativa": "Concorda: uso consolidado de TKI em 1ª linha de CCRcc.",
+     "fonte": "https://doi.org/10.1056/NEJMoa065044"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "renal-met-favoravel-ipilimumabe-nivolumabe",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco favorável, 1ª linha",
+   "nome": "Ipilimumabe + Nivolumabe (risco favorável)",
+   "esquema": "Ipilimumabe 1 mg/kg + Nivolumabe 3 mg/kg EV a cada 3 semanas x4, seguido de Nivolumabe 240 mg 2/2sem ou 480 mg 4/4sem",
+   "farmacos": [
+    {
+     "nome": "Ipilimumabe",
+     "dose": "1 mg/kg",
+     "via": "EV",
+     "frequencia": "3/3 sem x4"
+    },
+    {
+     "nome": "Nivolumabe",
+     "dose": "3 mg/kg → 240/480 mg",
+     "via": "EV",
+     "frequencia": "manutenção 2/2 ou 4/4 sem"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco favorável, 1ª linha (protocolo cita dados de 8 anos do CheckMate 214 e afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ccrcc_favoravel",
+      "label": "CCRcc metastático risco favorável",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "risco_imdc",
+          "favoravel"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "ccrcc_favoravel"
+    }
+   },
+   "referencia": {
+    "citacao": "MOTZER RJ et al. Nivolumab plus ipilimumab versus sunitinib in advanced renal-cell carcinoma (CheckMate 214). N Engl J Med. 2018;378:1277-1290. TANNIR NM et al. 8-year follow-up. Ann Oncol. 2024;35:1026-1038.",
+    "doi": "10.1056/NEJMoa1712126",
+    "pmid": null,
+    "estudo": "CheckMate 214",
+    "ano": 2018
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "SG/SLP/TRO — benefício demonstrado na população de risco intermediário/alto; no risco favorável, sunitinibe foi numericamente superior em SLP/TRO no desfecho primário",
+    "magnitude": "CheckMate 214: no subgrupo favorável, sem ganho de SG estatisticamente demonstrado vs sunitinibe no desfecho primário; separação de curvas no seguimento de 8 anos",
+    "fonte": "10.1056/NEJMoa1712126"
+   },
+   "toxicidades": [
+    {
+     "nome": "Eventos imunomediados graves (colite, hepatite, hipofisite)",
+     "severidade": "grave",
+     "conduta": "corticoide; suspender conforme grau",
+     "fonte": "Bula/ficha técnica: Ipilimumabe/Nivolumabe"
+    },
+    {
+     "nome": "Fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Nivolumabe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1B",
+     "afirmado_protocolo": null,
+     "justificativa": "CheckMate 214 fase 3 robusto, porém o desfecho primário (SG/SLP/TRO) foi na população de risco intermediário/alto; no risco favorável a evidência é de subgrupo exploratório. Certeza rebaixada para B nesse subgrupo.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1712126"
+    },
+    "esmo_mcbs": {
+     "status": "diverge",
+     "valor_rederivado": "2 (subgrupo favorável)",
+     "afirmado_protocolo": "4",
+     "justificativa": "DIVERGÊNCIA. Protocolo afirma ESMO-MCBS 4 no risco favorável. Re-derivação: o benefício de MCBS 4 do CheckMate 214 refere-se à população de risco intermediário/alto (desfecho primário). No subgrupo de risco favorável NÃO houve ganho de SG demonstrado vs sunitinibe no desfecho primário (sunitinibe numericamente melhor em SLP/TRO). Extrapolar MCBS 4 ao favorável superestima o benefício → MCBS ~2 nesse subgrupo.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1712126"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Dupla imunoterapia de custo muito alto; toxicidade imunomediada demanda suporte. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "=",
+       "valor": "favoravel"
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Elegibilidade concorda (CCRcc metastático); a divergência é de magnitude do benefício (MCBS) no subgrupo favorável, onde a superioridade não foi estabelecida.",
+     "justificativa": "Elegibilidade concorda (CCRcc metastático); a divergência é de magnitude do benefício (MCBS) no subgrupo favorável, onde a superioridade não foi estabelecida.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1712126"
+    }
+   },
+   "consolidacao": {
+    "status": "divergencia",
+    "selo_confianca": "divergencia",
+    "eixos_diverge": [
+     "esmo_mcbs"
+    ],
+    "lacunas": [],
+    "flags": [
+     "divergencia_clinica: MCBS 4 afirmado para risco FAVORÁVEL não é sustentado pelo desfecho primário do CheckMate 214 (que foi em risco intermediário/alto)",
+     "divergencia:esmo_mcbs"
+    ],
+    "decisao_revisao": "pendente_oncologista_referencia"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "divergencia_clinica: MCBS 4 afirmado para risco FAVORÁVEL não é sustentado pelo desfecho primário do CheckMate 214 (que foi em risco intermediário/alto)",
+    "divergencia:esmo_mcbs"
+   ]
+  },
+  {
+   "regimen_id": "renal-met-intalto-ipilimumabe-nivolumabe",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Ipilimumabe + Nivolumabe (risco intermediário/alto)",
+   "esquema": "Ipilimumabe 1 mg/kg + Nivolumabe 3 mg/kg EV a cada 3 semanas x4, seguido de Nivolumabe 240 mg 2/2sem ou 480 mg 4/4sem",
+   "farmacos": [
+    {
+     "nome": "Ipilimumabe",
+     "dose": "1 mg/kg",
+     "via": "EV",
+     "frequencia": "3/3 sem x4"
+    },
+    {
+     "nome": "Nivolumabe",
+     "dose": "3 mg/kg → 240/480 mg",
+     "via": "EV",
+     "frequencia": "manutenção"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto (IMDC), 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ccrcc_int_alto",
+      "label": "CCRcc metastático risco intermediário/alto",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        },
+        {
+         "in": [
+          "risco_imdc",
+          [
+           "intermediario",
+           "alto"
+          ]
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "ccrcc_int_alto"
+    }
+   },
+   "referencia": {
+    "citacao": "MOTZER RJ et al. CheckMate 214. N Engl J Med. 2018;378:1277-1290. TANNIR NM et al. Ann Oncol. 2024;35:1026-1038.",
+    "doi": "10.1056/NEJMoa1712126",
+    "pmid": null,
+    "estudo": "CheckMate 214",
+    "ano": 2018
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global",
+    "magnitude": "CheckMate 214 (int/alto risco): SG HR ~0,63-0,68; respostas duráveis no seguimento de 8 anos",
+    "fonte": "10.1056/NEJMoa1712126"
+   },
+   "toxicidades": [
+    {
+     "nome": "Eventos imunomediados graves",
+     "severidade": "grave",
+     "conduta": "corticoide; suspender conforme grau",
+     "fonte": "Bula/ficha técnica: Ipilimumabe/Nivolumabe"
+    },
+    {
+     "nome": "Fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Nivolumabe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "CheckMate 214 fase 3: ganho de SG na população de risco intermediário/alto (desfecho primário). Recomendação forte.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1712126"
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR ~0,65) em doença metastática → MCBS 4. Concorda.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1712126"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Dupla imunoterapia de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: exatamente a população do desfecho primário do CheckMate 214.",
+     "justificativa": "Concorda: exatamente a população do desfecho primário do CheckMate 214.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1712126"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "renal-met-intalto-axitinibe-pembrolizumabe",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ccrcc_int_alto",
+      "label": "CCRcc metastático risco intermediário/alto",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        },
+        {
+         "in": [
+          "risco_imdc",
+          [
+           "intermediario",
+           "alto"
+          ]
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "ccrcc_int_alto"
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "KEYNOTE-426 (fase 3): ganho de SG e SLP vs sunitinibe. Recomendação forte.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "renal-met-intalto-nivolumabe-cabozantinibe",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Nivolumabe + Cabozantinibe",
+   "esquema": "Nivolumabe 240 mg 2/2sem (ou 480 mg 4/4sem) + Cabozantinibe 40 mg VO 1x/dia",
+   "farmacos": [
+    {
+     "nome": "Nivolumabe",
+     "dose": "240/480 mg",
+     "via": "EV",
+     "frequencia": "2/2 ou 4/4 sem"
+    },
+    {
+     "nome": "Cabozantinibe",
+     "dose": "40 mg",
+     "via": "VO",
+     "frequencia": "1x/dia"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 1 e 'baixa magnitude do benefício clínico', discutir individualmente).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ccrcc_int_alto",
+      "label": "CCRcc metastático risco intermediário/alto",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        },
+        {
+         "in": [
+          "risco_imdc",
+          [
+           "intermediario",
+           "alto"
+          ]
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "ccrcc_int_alto"
+    }
+   },
+   "referencia": {
+    "citacao": "CHOUEIRI TK, Powles T, Burotto M, et al. Nivolumab plus cabozantinib versus sunitinib for advanced renal-cell carcinoma (CheckMate 9ER). N Engl J Med. 2021;384:829-841.",
+    "doi": "10.1056/NEJMoa2026982",
+    "pmid": null,
+    "estudo": "CheckMate 9ER",
+    "ano": 2021
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "1",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "CheckMate 9ER: SG HR 0,60 (inicial); SLP HR 0,51; TRO ~dobrada vs sunitinibe",
+    "fonte": "10.1056/NEJMoa2026982"
+   },
+   "toxicidades": [
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Cabozantinibe"
+    },
+    {
+     "nome": "Síndrome mão-pé",
+     "severidade": "moderada",
+     "conduta": "emolientes; ajuste",
+     "fonte": "Bula/ficha técnica: Cabozantinibe"
+    },
+    {
+     "nome": "Eventos imunomediados",
+     "severidade": "grave",
+     "conduta": "corticoide; suspender",
+     "fonte": "Bula/ficha técnica: Nivolumabe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "CheckMate 9ER (fase 3): ganho de SG e SLP vs sunitinibe. Certeza alta.",
+     "fonte": "https://doi.org/10.1056/NEJMoa2026982"
+    },
+    "esmo_mcbs": {
+     "status": "diverge",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "1",
+     "justificativa": "DIVERGÊNCIA. Protocolo afirma ESMO-MCBS 1 ('baixa magnitude'). Re-derivação: CheckMate 9ER mostrou ganho de SG (HR 0,60), SLP (HR 0,51) e duplicação da TRO vs sunitinibe — magnitude ALTA → ESMO-MCBS 4. O valor 1 afirmado subestima o benefício demonstrado.",
+     "fonte": "https://doi.org/10.1056/NEJMoa2026982"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação IO+TKI de custo muito alto. Affordability baixa — este é o argumento sustentável contra o uso preferencial, não a magnitude do benefício.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Elegibilidade concorda; a divergência é de magnitude (MCBS): o protocolo grada 1, a re-derivação grada 4.",
+     "justificativa": "Elegibilidade concorda; a divergência é de magnitude (MCBS): o protocolo grada 1, a re-derivação grada 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa2026982"
+    }
+   },
+   "consolidacao": {
+    "status": "divergencia",
+    "selo_confianca": "divergencia",
+    "eixos_diverge": [
+     "esmo_mcbs"
+    ],
+    "lacunas": [],
+    "flags": [
+     "divergencia_clinica: MCBS 1 afirmado subestima o benefício do CheckMate 9ER (SG HR 0,60) — re-derivado MCBS 4",
+     "divergencia:esmo_mcbs"
+    ],
+    "decisao_revisao": "pendente_oncologista_referencia"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "divergencia_clinica: MCBS 1 afirmado subestima o benefício do CheckMate 9ER (SG HR 0,60) — re-derivado MCBS 4",
+    "divergencia:esmo_mcbs"
+   ]
+  },
+  {
+   "regimen_id": "renal-met-2l-pos-vegfr-nivolumabe",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc metastático — 2ª linha, pós-TKI VEGFR isolado",
+   "nome": "Nivolumabe",
+   "esquema": "Nivolumabe 3 mg/kg EV 2/2sem (ou 480 mg mensal)",
+   "farmacos": [
+    {
+     "nome": "Nivolumabe",
+     "dose": "3 mg/kg ou 480 mg",
+     "via": "EV",
+     "frequencia": "2/2 sem ou mensal"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático em 2ª linha, previamente tratado com inibidor de VEGFR isolado (ex.: sunitinibe, pazopanibe).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ccrcc_2l_pos_vegfr",
+      "label": "CCRcc metastático pós-VEGFR isolado",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "progressao_pos_vegfr",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "ccrcc_2l_pos_vegfr"
+    }
+   },
+   "referencia": {
+    "citacao": "MOTZER RJ et al. Nivolumab versus everolimus in advanced renal cell carcinoma (CheckMate 025): updated results. Cancer. 2020;126(18):4156-4167.",
+    "doi": "10.1002/cncr.33033",
+    "pmid": null,
+    "estudo": "CheckMate 025",
+    "ano": 2020
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global vs everolimo",
+    "magnitude": "CheckMate 025: SG HR 0,73 (25,0 vs 19,6 meses); maiores taxas de resposta",
+    "fonte": "10.1002/cncr.33033"
+   },
+   "toxicidades": [
+    {
+     "nome": "Eventos imunomediados",
+     "severidade": "grave",
+     "conduta": "corticoide; suspender",
+     "fonte": "Bula/ficha técnica: Nivolumabe"
+    },
+    {
+     "nome": "Fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Nivolumabe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "CheckMate 025 (fase 3): ganho de SG vs everolimo em 2ª linha pós-TKI. Recomendação forte.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1510665"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "5",
+     "afirmado_protocolo": null,
+     "justificativa": "Ganho de SG em 2ª linha metastática; CheckMate 025 recebeu MCBS 5 no scorecard ESMO. Sem afirmação do protocolo; re-derivação alta.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1510665"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Nivolumabe de alto custo; monoterapia de 2ª linha. Affordability intermediária-baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "progressao_pos_vegfr",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: CheckMate 025 incluiu CCRcc pós-TKI.",
+     "justificativa": "Concorda: CheckMate 025 incluiu CCRcc pós-TKI.",
+     "fonte": "https://doi.org/10.1002/cncr.33033"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc metastático — 2ª linha, pós-imunoterapia",
+   "nome": "Cabozantinibe",
+   "esquema": "Cabozantinibe 60 mg VO 1x/dia",
+   "farmacos": [
+    {
+     "nome": "Cabozantinibe",
+     "dose": "60 mg",
+     "via": "VO",
+     "frequencia": "1x/dia"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático em 2ª linha após imunoterapia (protocolo afirma ESMO-MCBS 3, questões de custo-efetividade).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ccrcc_2l_pos_io",
+      "label": "CCRcc metastático pós-IO",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "progressao_pos_io",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "ccrcc_2l_pos_io"
+    }
+   },
+   "referencia": {
+    "citacao": "CHOUEIRI TK et al. Cabozantinib versus everolimus in advanced renal-cell carcinoma (METEOR). N Engl J Med. 2015;373:1814-1823 (base de eficácia pós-TKI).",
+    "doi": "10.1056/NEJMoa1510016",
+    "pmid": null,
+    "estudo": "METEOR",
+    "ano": 2015
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "3",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e SLP vs everolimo (METEOR)",
+    "magnitude": "METEOR: SG HR 0,66; SLP HR 0,51",
+    "fonte": "10.1056/NEJMoa1510016"
+   },
+   "toxicidades": [
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Cabozantinibe"
+    },
+    {
+     "nome": "Síndrome mão-pé",
+     "severidade": "moderada",
+     "conduta": "emolientes; ajuste",
+     "fonte": "Bula/ficha técnica: Cabozantinibe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Cabozantinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "Eficácia de cabozantinibe pós-progressão (METEOR fase 3). Recomendação forte em 2ª linha.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1510016"
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "3",
+     "afirmado_protocolo": "3",
+     "justificativa": "Protocolo afirma ESMO-MCBS 3. Re-derivação: ganho de SG (HR 0,66) em 2ª linha → MCBS 3-4; concorda com 3.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1510016"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Cabozantinibe de alto custo. Affordability intermediária.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "progressao_pos_io",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: uso de cabozantinibe pós-progressão.",
+     "justificativa": "Concorda: uso de cabozantinibe pós-progressão.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1510016"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "renal-naoclaras-sunitinibe-pazopanibe",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "Carcinoma renal de não-células claras (papilífero) — pós-IO ou 1ª linha",
+   "nome": "Sunitinibe / Pazopanibe (não-células claras)",
+   "esquema": "Sunitinibe 50 mg VO 4/2 (ou 2/1) ou Pazopanibe 800 mg VO 1x/dia",
+   "farmacos": [
+    {
+     "nome": "Sunitinibe (ou Pazopanibe)",
+     "dose": "50 mg (4/2) / 800 mg",
+     "via": "VO",
+     "frequencia": "contínuo/ciclado"
+    }
+   ],
+   "elegibilidade_protocolo": "Carcinoma renal de não-células claras (histologias papilíferas), risco favorável/intermediário; atividade demonstrada no estudo ASPEN.",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "renal_nao_claras",
+      "label": "Carcinoma renal de não-células claras",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia_ccrcc",
+          false
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "renal_nao_claras"
+    }
+   },
+   "referencia": {
+    "citacao": "ARMSTRONG AJ et al. Everolimus versus sunitinib for patients with metastatic non-clear cell renal cell carcinoma (ASPEN). Lancet Oncol. 2016;17(3):378-388. PAL SK et al. Sunitinib vs cabozantinib/crizotinib/savolitinib in papillary RCC. Lancet. 2021;397:695-703.",
+    "doi": "10.1016/S1470-2045(15)00515-X",
+    "pmid": null,
+    "estudo": "ASPEN / SWOG 1500",
+    "ano": 2016
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ SLP com sunitinibe vs everolimo em não-células claras (ASPEN)",
+    "magnitude": "ASPEN (fase 2): SLP favorável ao sunitinibe; SWOG 1500 sugere cabozantinibe superior ao sunitinibe em papilífero",
+    "fonte": "10.1016/S1470-2045(15)00515-X"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mucosite/estomatite",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Sunitinibe"
+    },
+    {
+     "nome": "Síndrome mão-pé",
+     "severidade": "moderada",
+     "conduta": "emolientes",
+     "fonte": "Bula/ficha técnica: Sunitinibe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Sunitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "2B",
+     "afirmado_protocolo": null,
+     "justificativa": "ASPEN é fase 2 (N pequeno); evidência de menor certeza para não-células claras. Recomendação condicional; SWOG 1500 sugere cabozantinibe como alternativa.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(15)00515-X"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Fase 2 com comparador ativo (everolimo); ESMO-MCBS não graduável de forma discreta.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(15)00515-X"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 2,
+     "afirmado_protocolo": null,
+     "justificativa": "TKIs genéricos disponíveis. Affordability intermediária-alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "TKI no SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": false
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: ASPEN estudou não-células claras metastático.",
+     "justificativa": "Concorda: ASPEN estudou não-células claras metastático.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(15)00515-X"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "evidencia_fase2: base ASPEN é fase 2; certeza moderada"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "evidencia_fase2: base ASPEN é fase 2; certeza moderada"
+   ]
+  }
+ ]
+}

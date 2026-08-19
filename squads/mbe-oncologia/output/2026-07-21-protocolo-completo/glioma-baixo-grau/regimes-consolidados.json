@@ -1,0 +1,671 @@
+{
+ "meta": {
+  "tumor": "glioma-baixo-grau",
+  "run_id": "2026-07-21-protocolo-completo",
+  "consolidado_em": "2026-07-21",
+  "consolidador": "Consuelo Consolida (pipeline mbe-oncologia)",
+  "fonte_protocolo": "data/input/Protocolos de Oncologia 2025 3.pdf (cap. SNC — gliomas difusos de baixo grau e IDH mutado, pp. 146-148)",
+  "total_regimes": 4,
+  "distribuicao_selo": {
+   "confirmado": 4,
+   "divergencia": 0,
+   "incompleto": 0
+  },
+  "regra_selo": "divergencia se >=1 eixo diverge do afirmado (precedencia); senao incompleto se lacuna real de fonte (GRADE sem estudo-pivo OU elegibilidade sem criterios computaveis); senao confirmado. Status 'indeterminado' por ausencia de afirmacao do protocolo (campos null) NAO rebaixa para incompleto.",
+  "verificacao_apis": {
+   "data": "2026-07-21",
+   "escopo": "escada de APIs abertas (Crossref/Europe PMC/Unpaywall/OpenAlex/PubMed/ClinicalTrials.gov)",
+   "email_contato": "gustavocouto72@gmail.com"
+  },
+  "revisao_humana": {
+   "status": "pendente",
+   "data": "2026-07-21",
+   "decidido_por": null,
+   "nota": "Lote gerado automaticamente; aguarda checkpoint humano (Step 08). Divergências e incompletos sinalizados."
+  }
+ },
+ "regimes": [
+  {
+   "regimen_id": "glioma-astrocitoma-idh-g2-oligo-g2-tmz",
+   "tumor": "glioma-baixo-grau",
+   "cenario": "localmente-avancado",
+   "subtipo": "Astrocitoma IDH mutado WHO grau 2 e Oligodendroglioma grau 2 — adjuvante",
+   "nome": "Temozolomida adjuvante (substituto do PCV)",
+   "esquema": "Temozolomida 150-200 mg/m² D1-D5 a cada 28 dias por 12 ciclos, após RT 50,4 Gy/28 frações",
+   "farmacos": [
+    {
+     "nome": "Temozolomida",
+     "dose": "150-200 mg/m²",
+     "via": "VO",
+     "frequencia": "D1-D5 28/28d x12"
+    }
+   ],
+   "elegibilidade_protocolo": "Astrocitoma IDH mutado WHO grau 2 e oligodendroglioma grau 2, idade >40 anos e/ou ressecção incompleta, na indisponibilidade do esquema PCV (lomustina/vincristina/procarbazina).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "glioma_astrocitoma_idh_g2_oligo_g2_tmz",
+      "label": "Astrocitoma IDH mutado WHO grau 2 e Oligodendroglioma grau 2 — adjuvante",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "glioma_baixo_grau"
+         ]
+        },
+        {
+         "eq": [
+          "grau",
+          "2"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "glioma_baixo_grau"
+       ]
+      },
+      {
+       "eq": [
+        "grau",
+        "2"
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "BUCKNER JC et al. Radiation plus procarbazine, CCNU, and vincristine in low-grade glioma (RTOG 9802). N Engl J Med. 2016;374(14):1344-1355.",
+    "doi": "10.1056/NEJMoa1500925",
+    "pmid": null,
+    "estudo": "RTOG 9802",
+    "ano": 2016
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e SLP com quimioterapia adjuvante",
+    "magnitude": "RTOG 9802: RT+PCV com SG e SLP muito superiores à RT isolada (SLP 10 anos 51% vs 21%)",
+    "fonte": "10.1056/NEJMoa1500925"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão (temozolomida)",
+     "severidade": "grave",
+     "conduta": "monitorar hemograma",
+     "fonte": "Bula/ficha técnica: Temozolomida"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "antiemético",
+     "fonte": "Bula/ficha técnica: Temozolomida"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1B",
+     "afirmado_protocolo": null,
+     "justificativa": "RTOG 9802 (fase 3) prova o benefício da QT adjuvante (PCV) à RT em grau 2 de risco. Temozolomida é substituto por indisponibilidade de PCV no Brasil (evidência indireta, aceita por EANO/ASCO). Recomendação moderada a favor.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1500925"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário de prolongamento; ganho de SG (evidência do PCV). Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1500925"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Temozolomida genérica + RT, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "glioma_baixo_grau"
+      },
+      {
+       "campo": "grau",
+       "operador": "=",
+       "valor": "2"
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda com o benefício de QT adjuvante (RTOG 9802). ATENÇÃO: a evidência direta é para PCV; a temozolomida é substituto por indisponibilidade de lomustina/procarbazina no Brasil — evidência INDIRETA, aceita por diretrizes.",
+     "justificativa": "Concorda com o benefício de QT adjuvante (RTOG 9802). ATENÇÃO: a evidência direta é para PCV; a temozolomida é substituto por indisponibilidade de lomustina/procarbazina no Brasil — evidência INDIRETA, aceita por diretrizes.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1500925"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "substituicao_pcv_tmz: evidência direta é para PCV (RTOG 9802); temozolomida é substituto por indisponibilidade no Brasil (evidência indireta)"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (glioma-baixo-grau) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "substituicao_pcv_tmz: evidência direta é para PCV (RTOG 9802); temozolomida é substituto por indisponibilidade no Brasil (evidência indireta)"
+   ]
+  },
+  {
+   "regimen_id": "glioma-astrocitoma-idh-g3-tmz",
+   "tumor": "glioma-baixo-grau",
+   "cenario": "localmente-avancado",
+   "subtipo": "Astrocitoma IDH mutado WHO grau 3 — adjuvante",
+   "nome": "Temozolomida adjuvante (CATNON)",
+   "esquema": "Temozolomida 150-200 mg/m² D1-D5 a cada 28 dias por 12 ciclos, após RT 59,4 Gy/33 frações",
+   "farmacos": [
+    {
+     "nome": "Temozolomida",
+     "dose": "150-200 mg/m²",
+     "via": "VO",
+     "frequencia": "D1-D5 28/28d x12"
+    }
+   ],
+   "elegibilidade_protocolo": "Astrocitoma IDH mutado WHO grau 3 (temozolomida adjuvante por 12 ciclos após RT 59,4 Gy).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "glioma_astrocitoma_idh_g3_tmz",
+      "label": "Astrocitoma IDH mutado WHO grau 3 — adjuvante",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "glioma_baixo_grau"
+         ]
+        },
+        {
+         "eq": [
+          "grau",
+          "3"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "glioma_baixo_grau"
+       ]
+      },
+      {
+       "eq": [
+        "grau",
+        "3"
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "van den BENT MJ et al. Adjuvant and concurrent temozolomide for 1p/19q non-co-deleted anaplastic glioma (CATNON): second interim analysis. Lancet Oncol. 2021;22(6):813-823.",
+    "doi": "10.1016/S1470-2045(21)00090-5",
+    "pmid": null,
+    "estudo": "CATNON",
+    "ano": 2021
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global com temozolomida adjuvante",
+    "magnitude": "CATNON (análise final 10 anos): temozolomida adjuvante melhorou SG (82,3 vs 46,9 meses; HR 0,64); a concomitante não agregou",
+    "fonte": "10.1016/S1470-2045(21)00090-5"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão (temozolomida)",
+     "severidade": "grave",
+     "conduta": "monitorar hemograma",
+     "fonte": "Bula/ficha técnica: Temozolomida"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "antiemético",
+     "fonte": "Bula/ficha técnica: Temozolomida"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "CATNON (fase 3): temozolomida ADJUVANTE (não a concomitante) melhora SG em astrocitoma IDH mutado grau 3. Recomendação forte.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(21)00090-5"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário de prolongamento; ganho de SG. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(21)00090-5"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Temozolomida genérica + RT, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "glioma_baixo_grau"
+      },
+      {
+       "campo": "grau",
+       "operador": "=",
+       "valor": "3"
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: temozolomida adjuvante (CATNON) em astrocitoma IDH mutado grau 3.",
+     "justificativa": "Concorda: temozolomida adjuvante (CATNON) em astrocitoma IDH mutado grau 3.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(21)00090-5"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (glioma-baixo-grau) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "glioma-astrocitoma-idh-g4-tmz",
+   "tumor": "glioma-baixo-grau",
+   "cenario": "localmente-avancado",
+   "subtipo": "Astrocitoma IDH mutado WHO grau 4 — RT + temozolomida",
+   "nome": "RT 60 Gy + Temozolomida (esquema tipo GBM)",
+   "esquema": "RT 60 Gy (1,8-2 Gy/fração) + Temozolomida 75 mg/m²/dia concomitante → Temozolomida adjuvante 150-200 mg/m² D1-D5 a cada 28 dias por 6 ciclos",
+   "farmacos": [
+    {
+     "nome": "Temozolomida (concomitante)",
+     "dose": "75 mg/m²/dia",
+     "via": "VO",
+     "frequencia": "durante RT 60 Gy"
+    },
+    {
+     "nome": "Temozolomida (adjuvante)",
+     "dose": "150-200 mg/m²",
+     "via": "VO",
+     "frequencia": "D1-D5 28/28d x6"
+    }
+   ],
+   "elegibilidade_protocolo": "Astrocitoma IDH mutado WHO grau 4 (antiga classificação de GBM IDH mutado; tratamento padrão tipo GBM em bom PS).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "glioma_astrocitoma_idh_g4_tmz",
+      "label": "Astrocitoma IDH mutado WHO grau 4 — RT + temozolomida",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "glioma_baixo_grau"
+         ]
+        },
+        {
+         "eq": [
+          "grau",
+          "4"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "glioma_baixo_grau"
+       ]
+      },
+      {
+       "eq": [
+        "grau",
+        "4"
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "Extrapolação do esquema Stupp para astrocitoma IDH mutado grau 4 (sem RCT específico; diretrizes EANO/ASCO).",
+    "doi": "10.1016/S1470-2045(09)70025-7",
+    "pmid": null,
+    "estudo": "Extrapolação Stupp (GBM)",
+    "ano": 2009
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Prolongamento da sobrevida (extrapolação do GBM)",
+    "magnitude": "Esquema tipo Stupp; prognóstico mais favorável que GBM IDH selvagem",
+    "fonte": "10.1016/S1470-2045(09)70025-7"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão (temozolomida)",
+     "severidade": "grave",
+     "conduta": "monitorar hemograma",
+     "fonte": "Bula/ficha técnica: Temozolomida"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "antiemético",
+     "fonte": "Bula/ficha técnica: Temozolomida"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1B",
+     "afirmado_protocolo": null,
+     "justificativa": "Astrocitoma grau 4 IDH mutado: sem RCT específico; recomenda-se o esquema padrão do GBM (Stupp), respaldado por EANO/ASCO. Recomendação forte (extrapolação).",
+     "fonte": "https://doi.org/10.1016/S1470-2045(09)70025-7"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário de prolongamento; extrapolação. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(09)70025-7"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Temozolomida genérica + RT, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "glioma_baixo_grau"
+      },
+      {
+       "campo": "grau",
+       "operador": "=",
+       "valor": "4"
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: esquema tipo Stupp em astrocitoma IDH mutado grau 4 (extrapolação, sem RCT específico).",
+     "justificativa": "Concorda: esquema tipo Stupp em astrocitoma IDH mutado grau 4 (extrapolação, sem RCT específico).",
+     "fonte": "https://doi.org/10.1016/S1470-2045(09)70025-7"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "extrapolacao_gbm: sem RCT específico para astrocitoma IDH mutado grau 4; esquema extrapolado do GBM (Stupp)"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (glioma-baixo-grau) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "extrapolacao_gbm: sem RCT específico para astrocitoma IDH mutado grau 4; esquema extrapolado do GBM (Stupp)"
+   ]
+  },
+  {
+   "regimen_id": "glioma-oligodendroglioma-g3-tmz",
+   "tumor": "glioma-baixo-grau",
+   "cenario": "localmente-avancado",
+   "subtipo": "Oligodendroglioma WHO grau 3 — adjuvante (substituto do PCV)",
+   "nome": "Temozolomida adjuvante (substituto do PCV)",
+   "esquema": "Temozolomida 75 mg/m²/dia concomitante à RT 59,4 Gy/33 frações → Temozolomida adjuvante 150-200 mg/m² D1-D5 a cada 28 dias por 12 ciclos",
+   "farmacos": [
+    {
+     "nome": "Temozolomida (concomitante + adjuvante)",
+     "dose": "75 → 150-200 mg/m²",
+     "via": "VO",
+     "frequencia": "durante RT + D1-D5 28/28d x12"
+    }
+   ],
+   "elegibilidade_protocolo": "Oligodendroglioma WHO grau 3 (1p/19q codeletado), na indisponibilidade do PCV (substituto: temozolomida, respaldada por diretrizes).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "glioma_oligodendroglioma_g3_tmz",
+      "label": "Oligodendroglioma WHO grau 3 — adjuvante (substituto do PCV)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "glioma_baixo_grau"
+         ]
+        },
+        {
+         "eq": [
+          "oligodendroglioma_g3",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "glioma_baixo_grau"
+       ]
+      },
+      {
+       "eq": [
+        "oligodendroglioma_g3",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "Base RTOG 9402/EORTC 26951 (PCV superior em oligodendroglioma codeletado). LASSMAN AB, Cloughesy TF. Early results from CODEL. Neuro Oncol. 2021;23(3):347-349.",
+    "doi": "10.1093/neuonc/noab006",
+    "pmid": null,
+    "estudo": "RTOG 9402 / EORTC 26951 / CODEL",
+    "ano": 2021
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida com PCV (evidência direta)",
+    "magnitude": "RTOG 9402/EORTC 26951: PCV+RT com SG muito superior (mediana não alcançada vs 140 meses; HR 0,53). CODEL usa temozolomida no braço controle",
+    "fonte": "10.1093/neuonc/noab006"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão (temozolomida)",
+     "severidade": "grave",
+     "conduta": "monitorar hemograma",
+     "fonte": "Bula/ficha técnica: Temozolomida"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "antiemético",
+     "fonte": "Bula/ficha técnica: Temozolomida"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1B",
+     "afirmado_protocolo": null,
+     "justificativa": "RTOG 9402/EORTC 26951 provam o benefício do PCV em oligodendroglioma codeletado grau 3. Temozolomida é substituto por indisponibilidade do PCV no Brasil (evidência indireta, respaldada por diretrizes). Recomendação moderada a favor.",
+     "fonte": "https://doi.org/10.1093/neuonc/noab006"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário de prolongamento; ganho de SG (evidência do PCV). Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1093/neuonc/noab006"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Temozolomida genérica + RT, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "glioma_baixo_grau"
+      },
+      {
+       "campo": "oligodendroglioma_g3",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda com o benefício de QT adjuvante (RTOG 9402/EORTC 26951). ATENÇÃO: evidência direta é para PCV; temozolomida é substituto por indisponibilidade no Brasil (evidência indireta, possivelmente menos eficaz a longo prazo).",
+     "justificativa": "Concorda com o benefício de QT adjuvante (RTOG 9402/EORTC 26951). ATENÇÃO: evidência direta é para PCV; temozolomida é substituto por indisponibilidade no Brasil (evidência indireta, possivelmente menos eficaz a longo prazo).",
+     "fonte": "https://doi.org/10.1093/neuonc/noab006"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "substituicao_pcv_tmz: evidência direta é para PCV (RTOG 9402/EORTC 26951); temozolomida é substituto por indisponibilidade — possivelmente menos eficaz a longo prazo"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (glioma-baixo-grau) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "substituicao_pcv_tmz: evidência direta é para PCV (RTOG 9402/EORTC 26951); temozolomida é substituto por indisponibilidade — possivelmente menos eficaz a longo prazo"
+   ]
+  }
+ ]
+}

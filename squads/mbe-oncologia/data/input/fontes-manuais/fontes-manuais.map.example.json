@@ -1,0 +1,19 @@
+{
+  "_comentario": "COPIE para 'fontes-manuais.map.json' e edite. Opcional: só é preciso quando o nome do arquivo nao basta para casar o PDF a um regime, quando um PDF cobre varios regimes, ou quando o PDF confirma um candidato que estava 'a confirmar'. Ver README.md.",
+  "arquivos": [
+    {
+      "arquivo": "10.1200_JCO.1999.17.8.2341.pdf",
+      "doi": "10.1200/JCO.1999.17.8.2341",
+      "aplica_a": ["mama-met-hrpos-2l-docetaxel"],
+      "confirma_candidato": true,
+      "nota": "303 Study (Chan 1999) — pivo do docetaxel monoterapico na MBC."
+    },
+    {
+      "arquivo": "impassion131.pdf",
+      "doi": "10.1016/j.annonc.2021.05.801",
+      "aplica_a": ["mama-met-tnbc-1l-atezolizumabe-nao-incorporado"],
+      "confirma_candidato": true,
+      "nota": "IMpassion131 (Miles 2021) — pivo negativo, sustenta a nao-incorporacao."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "tumor": "glioblastoma",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "CeTeG/NOA-09 — lomustina + temozolomida vs temozolomida em GBM MGMT-metilado",
+      "identificador": "NCT01149109",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Combinação melhora SG no MGMT-metilado.",
+      "acao": "Avaliar no subgrupo MGMT-metilado."
+    }
+  ]
+}

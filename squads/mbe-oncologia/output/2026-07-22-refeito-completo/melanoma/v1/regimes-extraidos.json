@@ -1,0 +1,630 @@
+{
+  "meta": {
+    "tumor": "melanoma",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 8
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "melanoma"
+      ]
+    },
+    {
+      "campo": "estadio_iib_iic",
+      "tipo": "boolean",
+      "label": "Estadio iib iic",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "estadio_iii_iv_resecado",
+      "tipo": "boolean",
+      "label": "Estadio iii iv resecado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "braf",
+      "tipo": "enum",
+      "label": "Braf",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "selvagem",
+        "mutado"
+      ]
+    },
+    {
+      "campo": "estadio_iii_resecado",
+      "tipo": "boolean",
+      "label": "Estadio iii resecado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico_favoravel",
+      "tipo": "boolean",
+      "label": "Metastatico favoravel",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastase_snc",
+      "tipo": "boolean",
+      "label": "Metastase snc",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "refratario_ou_contraindicacao_io",
+      "tipo": "boolean",
+      "label": "Refratario ou contraindicacao io",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "melanoma-adj-pembrolizumabe-iib-iic",
+      "tumor": "melanoma",
+      "cenario": "adjuvancia",
+      "subtipo": "Melanoma ressecado estádio IIB/IIC — adjuvante",
+      "nome": "Pembrolizumabe adjuvante (KEYNOTE-716)",
+      "esquema": "Pembrolizumabe 200 mg a cada 3 semanas (ou 400 mg a cada 6 semanas) por 12 meses",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200/400 mg",
+          "via": "EV",
+          "frequencia": "12 meses"
+        }
+      ],
+      "elegibilidade_protocolo": "Melanoma cutâneo ressecado estádio IIB ou IIC, alto risco de recorrência.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "melanoma"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_iib_iic",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "LUKE JJ et al. Pembrolizumab versus placebo as adjuvant therapy in resected stage IIB or IIC melanoma: final analysis of distant metastasis-free survival (KEYNOTE-716). J Clin Oncol. 2024.",
+        "doi": "10.1200/JCO.23.02355",
+        "pmid": null,
+        "estudo": "KEYNOTE-716",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "A",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de metástases à distância",
+        "magnitude": "KEYNOTE-716: redução do risco de metástases à distância (HR 0,64). ESMO-MCBS A",
+        "fonte": "10.1200/JCO.23.02355"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "melanoma-adj-anti-pd1-iii-iv-braf-wt",
+      "tumor": "melanoma",
+      "cenario": "adjuvancia",
+      "subtipo": "Melanoma estádio III/IV ressecado, BRAF selvagem — adjuvante",
+      "nome": "Pembrolizumabe / Nivolumabe (anti-PD1)",
+      "esquema": "Pembrolizumabe 200 mg/3sem (ou 400 mg/6sem) por 12 meses; ou Nivolumabe 3 mg/kg/2sem (ou 480 mg/4sem) por 12 meses",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe ou Nivolumabe",
+          "dose": "conforme agente",
+          "via": "EV",
+          "frequencia": "12 meses"
+        }
+      ],
+      "elegibilidade_protocolo": "Melanoma ressecado estádio III ou IV (AJCC 7ª ed.), BRAF selvagem.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "melanoma"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_iii_iv_resecado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "braf",
+                "selvagem"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Eggermont AMM et al. Adjuvant Pembrolizumab versus Placebo in Resected Stage III Melanoma (KEYNOTE-054). N Engl J Med. 2018. DOI 10.1056/NEJMoa1802357. 2º pivô: Weber J et al. Adjuvant Nivolumab versus Ipilimumab in Resected Stage III/IV Melanoma (CheckMate 238). N Engl J Med. 2017. DOI 10.1056/NEJMoa1709030.",
+        "doi": "10.1056/NEJMoa1802357",
+        "pmid": null,
+        "estudo": "KEYNOTE-054 (pembrolizumabe) / CheckMate 238 (nivolumabe)",
+        "ano": 2018,
+        "pivos": [
+          {
+            "estudo": "KEYNOTE-054",
+            "primeiro_autor": "Eggermont",
+            "ano": 2018,
+            "doi": "10.1056/NEJMoa1802357",
+            "agente": "pembrolizumabe"
+          },
+          {
+            "estudo": "CheckMate 238",
+            "primeiro_autor": "Weber",
+            "ano": 2017,
+            "doi": "10.1056/NEJMoa1709030",
+            "agente": "nivolumabe"
+          }
+        ]
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "A",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de recorrência",
+        "magnitude": "CheckMate 238: RFS HR 0,72 (ESMO-MCBS B); KEYNOTE-054: RFS HR 0,61, ganho absoluto 17% em 5 anos (ESMO-MCBS A)",
+        "fonte": "10.1056/NEJMoa1802357"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "melanoma-adj-dt-braf-mut",
+      "tumor": "melanoma",
+      "cenario": "adjuvancia",
+      "subtipo": "Melanoma estádio III ressecado, BRAF mutado — adjuvante (D+T)",
+      "nome": "Dabrafenibe + Trametinibe (COMBI-AD)",
+      "esquema": "Dabrafenibe 150 mg VO 2x/dia + Trametinibe 2 mg VO/dia por 12 meses",
+      "farmacos": [
+        {
+          "nome": "Dabrafenibe",
+          "dose": "150 mg",
+          "via": "VO",
+          "frequencia": "2x/dia"
+        },
+        {
+          "nome": "Trametinibe",
+          "dose": "2 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Melanoma estádio III ressecado com mutação BRAF V600E/K (protocolo recomenda fortemente anti-PD1; D+T é moderadamente a favor).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "melanoma"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_iii_resecado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "braf",
+                "mutado"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "DUMMER R et al. Five-year analysis of adjuvant dabrafenib plus trametinib in stage III melanoma (COMBI-AD). N Engl J Med. 2020;383(12):1139-1148.",
+        "doi": "10.1056/nejmoa2005493",
+        "pmid": null,
+        "estudo": "COMBI-AD",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "B",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de recorrência e livre de metástases",
+        "magnitude": "COMBI-AD: RFS HR 0,52; DMFS HR 0,56; SG HR 0,80 (sem significância no total). ESMO-MCBS B",
+        "fonte": "10.1056/nejmoa2005493"
+      },
+      "toxicidades": [
+        {
+          "nome": "Pirexia (D+T)",
+          "severidade": "moderada",
+          "conduta": "algoritmo de manejo (COMBI-Aplus); suspender/reduzir",
+          "fonte": "Bula/ficha técnica: Dabrafenibe/Trametinibe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "melanoma-met-1l-ipi-nivo",
+      "tumor": "melanoma",
+      "cenario": "metastatico",
+      "subtipo": "Melanoma metastático — 1ª linha (ipilimumabe + nivolumabe)",
+      "nome": "Ipilimumabe + Nivolumabe (CheckMate 067)",
+      "esquema": "Ipilimumabe 1 mg/kg + Nivolumabe 3 mg/kg a cada 3 semanas x4 (indução) → Nivolumabe 480 mg a cada 4 semanas (manutenção)",
+      "farmacos": [
+        {
+          "nome": "Ipilimumabe",
+          "dose": "1 mg/kg",
+          "via": "EV",
+          "frequencia": "3/3 sem x4"
+        },
+        {
+          "nome": "Nivolumabe",
+          "dose": "3 mg/kg → 480 mg",
+          "via": "EV",
+          "frequencia": "indução + manutenção"
+        }
+      ],
+      "elegibilidade_protocolo": "Melanoma metastático 1ª linha (esquema IPI1/NIVO3 preferencial por menor toxicidade que IPI3/NIVO1, eficácia semelhante).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "melanoma"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "WOLCHOK JD et al. Final, 10-year outcomes with nivolumab plus ipilimumab in advanced melanoma (CheckMate 067). N Engl J Med. 2025;392(1):11-22.",
+        "doi": "10.1056/nejmoa2407417",
+        "pmid": null,
+        "estudo": "CheckMate 067 / CheckMate 511",
+        "ano": 2025
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e livre de progressão duradouras",
+        "magnitude": "CheckMate 067: SG em 10 anos superior à monoterapia; benefício durável, inclusive em LDH elevado",
+        "fonte": "10.1056/nejmoa2407417"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "melanoma-met-1l-anti-pd1-mono",
+      "tumor": "melanoma",
+      "cenario": "metastatico",
+      "subtipo": "Melanoma metastático — 1ª linha, anti-PD1 monoterapia (favorável)",
+      "nome": "Pembrolizumabe / Nivolumabe monoterapia",
+      "esquema": "Pembrolizumabe 200 mg/3sem (ou 400 mg/6sem); ou Nivolumabe 240 mg/2sem (ou 480 mg/4sem)",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe ou Nivolumabe",
+          "dose": "conforme agente",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Melanoma metastático oligometastático, LDH normal, histologia desmoplásica ou após ressecção completa de metástase (características favoráveis, menor urgência terapêutica).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "melanoma"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico_favoravel",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base de anti-PD1 monoterapia em melanoma metastático (CheckMate 067, KEYNOTE-006) — preferível em perfil favorável.",
+        "doi": "10.1056/nejmoa2407417",
+        "pmid": null,
+        "estudo": "CheckMate 067 / KEYNOTE-006",
+        "ano": 2025,
+        "primeiro_autor": "Wolchok"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global com respostas duráveis",
+        "magnitude": "Anti-PD1 mono: SG e respostas duráveis em perfil favorável; ESMO-MCBS 4-5",
+        "fonte": "10.1056/nejmoa2407417"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "rotulo_corrigido: primeiro_autor→Wolchok, ano→2025; DOI 10.1056/nejmoa2407417 já correto (paper certo), selo inalterado.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ]
+    },
+    {
+      "regimen_id": "melanoma-met-snc-ipi-nivo",
+      "tumor": "melanoma",
+      "cenario": "metastatico",
+      "subtipo": "Melanoma metastático com metástase em SNC — ipi+nivo",
+      "nome": "Ipilimumabe 3 + Nivolumabe 1 (CheckMate 204, SNC)",
+      "esquema": "Ipilimumabe 3 mg/kg + Nivolumabe 1 mg/kg a cada 3 semanas x4 → Nivolumabe 480 mg a cada 4 semanas (assintomáticos, sem corticoide ou ≤4 mg dexametasona)",
+      "farmacos": [
+        {
+          "nome": "Ipilimumabe",
+          "dose": "3 mg/kg",
+          "via": "EV",
+          "frequencia": "3/3 sem x4"
+        },
+        {
+          "nome": "Nivolumabe",
+          "dose": "1 mg/kg → 480 mg",
+          "via": "EV",
+          "frequencia": "indução + manutenção"
+        }
+      ],
+      "elegibilidade_protocolo": "Melanoma metastático com metástase em SNC assintomática, bom performance status (0-1), sem corticoide ou até 4 mg/dia de dexametasona (IPI3/NIVO1); D+T se BRAF mutado sintomático.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "melanoma"
+              ]
+            },
+            {
+              "eq": [
+                "metastase_snc",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "TAWBI HA et al. Combined nivolumab and ipilimumab in melanoma metastatic to the brain (CheckMate 204). N Engl J Med. 2018;379(8):722-730.",
+        "doi": "10.1056/NEJMoa1805453",
+        "pmid": null,
+        "estudo": "CheckMate 204",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ resposta intracraniana durável",
+        "magnitude": "CheckMate 204: taxa de resposta clínica intracraniana 57,4%; SLP intracraniana 39,3 meses em assintomáticos",
+        "fonte": "10.1056/NEJMoa1805453"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "melanoma-met-relatlimabe-nao-incorporado",
+      "tumor": "melanoma",
+      "cenario": "metastatico",
+      "subtipo": "Melanoma metastático — relatlimabe + nivolumabe (não incorporado)",
+      "nome": "Relatlimabe + Nivolumabe (NÃO incorporado)",
+      "esquema": "Relatlimabe + nivolumabe (RELATIVITY-047) — fortemente contra",
+      "farmacos": [
+        {
+          "nome": "Relatlimabe + Nivolumabe",
+          "dose": "conforme RELATIVITY-047",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Melanoma metastático (protocolo é FORTEMENTE CONTRA relatlimabe+nivolumabe: RELATIVITY-047 mostrou ganho apenas em SLP [HR 0,75] sem diferença em SG; comparador foi nivolumabe isolado; ESMO-MCBS 3; custo elevado sem benefício superior aos esquemas combinados).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "melanoma"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "TAWBI HA et al. Relatlimab and nivolumab versus nivolumab in untreated advanced melanoma (RELATIVITY-047). N Engl J Med. 2022;386(1):24-34.",
+        "doi": "10.1056/nejmoa2109970",
+        "pmid": null,
+        "estudo": "RELATIVITY-047",
+        "ano": 2022
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP sem ganho de SG",
+        "magnitude": "RELATIVITY-047: SLP HR 0,75; sem diferença significativa em SG. ESMO-MCBS 3",
+        "fonte": "10.1056/nejmoa2109970"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "melanoma-met-quimio-paliativa",
+      "tumor": "melanoma",
+      "cenario": "metastatico",
+      "subtipo": "Melanoma metastático refratário — quimioterapia paliativa",
+      "nome": "Carboplatina + Paclitaxel / Dacarbazina",
+      "esquema": "Carboplatina AUC 5 + Paclitaxel 175 mg/m² a cada 21 dias; ou Dacarbazina 800 mg/m² a cada 21 dias",
+      "farmacos": [
+        {
+          "nome": "Carboplatina + Paclitaxel",
+          "dose": "AUC 5 / 175 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Dacarbazina",
+          "dose": "800 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Melanoma metastático com contraindicação a imunoterapia/terapia alvo, ou refratário a múltiplas linhas, com bom performance status (quimioterapia paliativa, uso restrito).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "melanoma"
+              ]
+            },
+            {
+              "eq": [
+                "refratario_ou_contraindicacao_io",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base de quimioterapia citotóxica paliativa em melanoma refratário (atividade limitada; ver Boutros 2024).",
+        "doi": "10.1016/j.critrevonc.2024.104276",
+        "pmid": null,
+        "estudo": "Boutros (revisão) / prática paliativa",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade paliativa limitada",
+        "magnitude": "Quimioterapia: TRO <15%, benefício transitório, sem impacto em SG",
+        "fonte": "10.1016/j.critrevonc.2024.104276"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ]
+    }
+  ]
+}

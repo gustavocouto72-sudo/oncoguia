@@ -1,0 +1,118 @@
+name: "Pipeline — MBE Oncologia"
+version: "1.0.0"
+created: "2026-07-16"
+squad: "mbe-oncologia"
+
+description: >
+  Do PDF do protocolo à evidência confirmada e vigiada. A extração vira dado
+  estruturado; quatro verificadores re-derivam cada eixo de forma independente e
+  sinalizam divergências; o consolidador aplica o selo de confiança; um checkpoint
+  humano (oncologista) aprova; e a vigilância busca atualizações continuamente.
+  Princípio inegociável: o sistema INFORMA e SINALIZA — a decisão é sempre do médico.
+
+mode: "alta-performance"
+
+steps:
+  - id: step-01
+    name: "Seleção do lote a processar"
+    type: checkpoint
+    file: steps/step-01-input.md
+
+  - id: step-02b
+    name: "Intake de fontes manuais (PDFs) e reprocessamento seletivo"
+    type: agent
+    agent: extrator
+    tasks: [intake-fontes-manuais]
+    file: steps/step-02b-fontes-manuais.md
+    depends_on: step-01
+    condicional: true
+    gatilho: "existe >=1 PDF em data/input/fontes-manuais/ — senao, pular sem efeito"
+    nota: >
+      Aditivo. Reabre APENAS os regimes cujo estudo-pivo chegou como PDF manual, re-deriva o
+      que dependia dele e acrescenta versao (historico_versoes, origem: fonte-manual); os demais
+      regimes ficam intactos. Nao altera o comportamento dos steps 02–10.
+
+  - id: step-02
+    name: "Extração dos regimes"
+    type: agent
+    agent: extrator
+    tasks: [extrair-regimes]
+    file: steps/step-02-extrair.md
+    depends_on: step-01
+
+  - id: step-03
+    name: "Verificação — Qualidade/Força da evidência (GRADE)"
+    type: agent
+    agent: verificador-evidencia
+    tasks: [rederivar-grade]
+    file: steps/step-03-verificar-grade.md
+    depends_on: step-02
+
+  - id: step-04
+    name: "Verificação — Magnitude do benefício (ESMO-MCBS)"
+    type: agent
+    agent: verificador-beneficio
+    tasks: [rederivar-mcbs]
+    file: steps/step-04-verificar-mcbs.md
+    depends_on: step-02
+
+  - id: step-05
+    name: "Verificação — Sustentabilidade (NCCN Evidence Blocks)"
+    type: agent
+    agent: verificador-custo
+    tasks: [rederivar-affordability]
+    file: steps/step-05-verificar-custo.md
+    depends_on: step-02
+
+  - id: step-06
+    name: "Verificação — Critérios de elegibilidade × estudo-pivô"
+    type: agent
+    agent: verificador-elegibilidade
+    tasks: [confrontar-elegibilidade]
+    file: steps/step-06-verificar-elegibilidade.md
+    depends_on: step-02
+
+  - id: step-07
+    name: "Consolidação e selo de confiança"
+    type: agent
+    agent: consolidador
+    tasks: [consolidar]
+    file: steps/step-07-consolidar.md
+    depends_on: [step-03, step-04, step-05, step-06]
+
+  - id: step-08
+    name: "Revisão humana (oncologista)"
+    type: checkpoint
+    file: steps/step-08-revisao-humana.md
+    depends_on: step-07
+
+  - id: step-09
+    name: "Vigilância de atualizações"
+    type: agent
+    agent: vigilancia
+    tasks: [buscar-atualizacoes]
+    file: steps/step-09-vigilancia.md
+    depends_on: step-08
+
+  - id: step-10
+    name: "Triagem dos candidatos a atualização"
+    type: checkpoint
+    file: steps/step-10-triagem-updates.md
+    depends_on: step-09
+
+checkpoints:
+  - step-01   # Qual tumor/lote processar
+  - step-08   # Oncologista revisa divergências antes de publicar
+  - step-10   # Oncologista decide o que entra como atualização
+
+output:
+  artifacts:
+    - output/fontes-manuais-intake.json   # so quando ha PDFs em data/input/fontes-manuais/ (step-02b)
+    - output/regimes-extraidos.json
+    - output/verificacao-grade.json
+    - output/verificacao-mcbs.json
+    - output/verificacao-custo.json
+    - output/verificacao-elegibilidade.json
+    - output/regimes-consolidados.json
+    - output/relatorio-divergencias.md
+    - output/candidatos-atualizacao.json

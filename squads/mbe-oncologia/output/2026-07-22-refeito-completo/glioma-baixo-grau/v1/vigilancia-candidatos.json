@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "tumor": "glioma-baixo-grau",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "INDIGO — vorasidenibe em glioma grau 2 IDH-mutado residual/recorrente",
+      "identificador": "NCT04164901",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Inibidor de IDH prolonga SLP e adia quimio/RT.",
+      "acao": "Avaliar no IDH-mutado."
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "tumor": "vulva",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 2
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "vulva"
+      ]
+    },
+    {
+      "campo": "estadio_iii_iva",
+      "tipo": "boolean",
+      "label": "Estadio iii iva",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "avancada_recidivada",
+      "tipo": "boolean",
+      "label": "Avancada recidivada",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "vulva-neoadj-cisplatina-crt",
+      "tumor": "vulva",
+      "cenario": "localmente-avancado",
+      "subtipo": "Carcinoma de vulva estádio III/IVA — neoadjuvante com quimiorradiação",
+      "nome": "Cisplatina semanal + RT (neoadjuvante)",
+      "esquema": "Cisplatina 40 mg/m² a cada 7 dias concomitante à radioterapia (alternativas: cisplatina+5-FU, cisplatina+gemcitabina, mitomicina+5-FU)",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "40 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal (concomitante à RT)"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma escamoso de vulva localmente avançado estádio III e IVA, tratamento neoadjuvante com quimiorradiação.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "vulva"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_iii_iva",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HOROWITZ NS et al. Phase II trial of cisplatin, gemcitabine, and IMRT for locally advanced vulvar squamous cell carcinoma (NRG Oncology/GOG 279). J Clin Oncol. 2024;42(16):1914-1921. MOORE DH et al. GOG. Int J Radiat Oncol Biol Phys. 1998;42(1):79-85.",
+        "doi": "10.1200/JCO.23.02235",
+        "pmid": null,
+        "estudo": "GOG 279 (Horowitz) / GOG (Moore)",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ resposta patológica completa e ressecabilidade",
+        "magnitude": "GOG 279: altas taxas de resposta patológica completa com cisplatina+gemcitabina+IMRT",
+        "fonte": "10.1200/JCO.23.02235"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "vulva-avancada-recidivada",
+      "tumor": "vulva",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de vulva avançado/recidivado — sistêmico",
+      "nome": "Esquemas ativos (cisplatina-based, como na neoadjuvância)",
+      "esquema": "Cisplatina ± 5-FU/gemcitabina, ou mitomicina+5-FU — esquemas ativos utilizados também na doença avançada/recidivada",
+      "farmacos": [
+        {
+          "nome": "Cisplatina ± 5-FU/Gemcitabina",
+          "dose": "conforme esquema",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de vulva em doença avançada ou recidivada (esquemas ativos descritos no cenário neoadjuvante podem ser utilizados).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "vulva"
+              ]
+            },
+            {
+              "eq": [
+                "avancada_recidivada",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Esquemas ativos extrapolados do cenário neoadjuvante; protocolo não cita estudo-pivô dedicado para doença avançada/recidivada.",
+        "doi": null,
+        "pmid": null,
+        "estudo": "Extrapolação da neoadjuvância (tumor raro)",
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    }
+  ]
+}

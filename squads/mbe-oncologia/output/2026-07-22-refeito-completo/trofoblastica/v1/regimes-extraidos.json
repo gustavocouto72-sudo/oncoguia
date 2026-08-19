@@ -1,0 +1,287 @@
+{
+  "meta": {
+    "tumor": "trofoblastica",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 3
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "ntg"
+      ]
+    },
+    {
+      "campo": "baixo_risco",
+      "tipo": "boolean",
+      "label": "Baixo risco",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "alto_risco",
+      "tipo": "boolean",
+      "label": "Alto risco",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "resistente_emaco",
+      "tipo": "boolean",
+      "label": "Resistente emaco",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "trofo-baixo-risco-metotrexato",
+      "tumor": "trofoblastica",
+      "cenario": "metastatico",
+      "subtipo": "NTG de baixo risco (estádio I, II, III escore <7) — agente único",
+      "nome": "Metotrexato (agente único)",
+      "esquema": "Metotrexato 50 mg IM D1,D3,D5,D7 com resgate de folinato de cálcio 15 mg VO nos dias intercalados (ou 0,4 mg/kg EV D1-D5 sem resgate) + 3 ciclos de consolidação após normalizar beta-HCG",
+      "farmacos": [
+        {
+          "nome": "Metotrexato",
+          "dose": "50 mg (IM) / 0,4 mg/kg (EV)",
+          "via": "IM/EV",
+          "frequencia": "conforme esquema + consolidação"
+        },
+        {
+          "nome": "Folinato de cálcio (resgate)",
+          "dose": "15 mg",
+          "via": "VO",
+          "frequencia": "dias intercalados"
+        }
+      ],
+      "elegibilidade_protocolo": "Neoplasia trofoblástica gestacional de baixo risco (estádio I, II ou III com escore FIGO/OMS <7).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ntg"
+              ]
+            },
+            {
+              "eq": [
+                "baixo_risco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "LI J et al. The efficacy and safety of first-line single-agent chemotherapy regimens in low-risk gestational trophoblastic neoplasia: a network meta-analysis. Gynecol Oncol. 2018;148(2):247-253. LAWRIE TA et al. Cochrane 2016.",
+        "doi": "10.1016/j.ygyno.2017.11.031",
+        "pmid": null,
+        "estudo": "Li (meta-análise)",
+        "ano": 2018,
+        "primeiro_autor": "Li"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Altas taxas de remissão com agente único",
+        "magnitude": "Metotrexato (com/sem resgate): altas taxas de remissão em baixo risco; consolidação reduz recidiva",
+        "fonte": "10.1016/j.ygyno.2017.11.033"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mucosite/hepatotoxicidade (metotrexato)",
+          "severidade": "moderada",
+          "conduta": "resgate com folinato; monitorar",
+          "fonte": "Bula/ficha técnica: Metotrexato"
+        }
+      ],
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1016/j.ygyno.2017.11.033 → 10.1016/j.ygyno.2017.11.031",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ]
+    },
+    {
+      "regimen_id": "trofo-alto-risco-emaco",
+      "tumor": "trofoblastica",
+      "cenario": "metastatico",
+      "subtipo": "NTG de alto risco (estádio II/III escore ≥7 ou IV) — combinação",
+      "nome": "EMA-CO",
+      "esquema": "Etoposídeo 100 mg/m² D1,D2 + Metotrexato 300 mg/m² D1 + Actinomicina D 0,5 mg D1,D2 + Folinato 15 mg + Vincristina 1 mg/m² D8 + Ciclofosfamida 600 mg/m² D8, a cada 14 dias",
+      "farmacos": [
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D2"
+        },
+        {
+          "nome": "Metotrexato",
+          "dose": "300 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Actinomicina D",
+          "dose": "0,5 mg",
+          "via": "EV",
+          "frequencia": "D1,D2"
+        },
+        {
+          "nome": "Vincristina + Ciclofosfamida",
+          "dose": "1 mg/m² / 600 mg/m²",
+          "via": "EV",
+          "frequencia": "D8"
+        }
+      ],
+      "elegibilidade_protocolo": "Neoplasia trofoblástica gestacional de alto risco (estádio II/III com escore ≥7, ou estádio IV — exceto envolvimento de SNC).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ntg"
+              ]
+            },
+            {
+              "eq": [
+                "alto_risco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "DENG L et al. Combination chemotherapy for primary treatment of high-risk gestational trophoblastic tumour. Cochrane Database Syst Rev. 2013;(1):CD005196. JAREEMIT N et al. EMA-CO. Gynecol Oncol. 2023;170:114-122.",
+        "doi": "10.1002/14651858.CD005196.pub4",
+        "pmid": null,
+        "estudo": "Deng (Cochrane) / Jareemit (EMA-CO)",
+        "ano": 2013
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Altas taxas de cura em alto risco",
+        "magnitude": "EMA-CO: altas taxas de remissão/cura em NTG de alto risco (padrão de referência)",
+        "fonte": "10.1002/14651858.CD005196.pub4"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "trofo-resistente-ema-ep",
+      "tumor": "trofoblastica",
+      "cenario": "metastatico",
+      "subtipo": "NTG resistente ao EMA-CO — resgate",
+      "nome": "EMA-EP",
+      "esquema": "Etoposídeo 100 mg/m² D1 + Metotrexato 100 mg/m² bolus + 200 mg/m² D1 + Actinomicina D 0,5 mg D1 + Etoposídeo 100 mg/m² D2 + Actinomicina D 0,5 mg D2 + Etoposídeo 100 mg/m² D8 + Cisplatina 60 mg/m² D8, a cada 14 dias",
+      "farmacos": [
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D2,D8"
+        },
+        {
+          "nome": "Metotrexato",
+          "dose": "100→200 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Actinomicina D",
+          "dose": "0,5 mg",
+          "via": "EV",
+          "frequencia": "D1,D2"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "60 mg/m²",
+          "via": "EV",
+          "frequencia": "D8"
+        }
+      ],
+      "elegibilidade_protocolo": "Neoplasia trofoblástica gestacional resistente ao EMA-CO (resgate).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ntg"
+              ]
+            },
+            {
+              "eq": [
+                "resistente_emaco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MAO Y et al. Relapsed or refractory gestational trophoblastic neoplasia treated with EP-EMA regimen. Int J Gynaecol Obstet. 2007;98(1):44-47. NEWLANDS ES et al. EMA/EP. J Clin Oncol. 2000;18(4):854-859.",
+        "doi": "10.1016/j.ijgo.2007.03.037",
+        "pmid": null,
+        "estudo": "Mao (EMA-EP) / Newlands (EMA-EP)",
+        "ano": 2007
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Resgate em doença resistente",
+        "magnitude": "EMA-EP: altas taxas de resgate em NTG resistente ao EMA-CO",
+        "fonte": "10.1016/j.ijgo.2007.03.037"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    }
+  ]
+}

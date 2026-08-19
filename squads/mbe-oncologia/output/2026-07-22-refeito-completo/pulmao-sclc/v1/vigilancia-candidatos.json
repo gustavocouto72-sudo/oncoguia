@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "tumor": "pulmao-sclc",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados (NCT)."
+  },
+  "candidatos": [
+    {
+      "titulo": "ADRIATIC — durvalumabe de consolidação em SCLC doença limitada pós-quimiorradioterapia",
+      "identificador": "NCT03703297",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "SCLC doença limitada pós-QRT (hoje sem consolidação padrão)",
+      "relevancia": "IO de consolidação melhora SG na doença limitada — novo padrão emergente.",
+      "acao": "Avaliar consolidação com durvalumabe."
+    },
+    {
+      "titulo": "IMforte — lurbinectedina + atezolizumabe de manutenção em SCLC doença extensa",
+      "identificador": "NCT05091567",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "SCLC doença extensa, manutenção",
+      "relevancia": "Manutenção com lurbinectedina+IO melhora desfechos vs IO isolada.",
+      "acao": "Avaliar manutenção."
+    }
+  ]
+}

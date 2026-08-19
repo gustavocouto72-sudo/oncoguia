@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "tumor": "vulva",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "Pembrolizumabe + lenvatinibe em carcinoma vulvar recorrente/metastático",
+      "identificador": "NCT05903833",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "RECRUITING",
+      "relevancia": "IO+TKI em doença avançada rara.",
+      "acao": "Acompanhar; em recrutamento."
+    }
+  ]
+}

@@ -1,0 +1,512 @@
+{
+  "meta": {
+    "titulo": "Protocolos — trofoblastica (re-extração 2026-07-22)",
+    "tumor": "trofoblastica",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 3,
+    "distribuicao_selo": {
+      "re_derivado": 3
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 0,
+      "incongruentes": 0
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "pendente"
+    }
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "ntg"
+      ]
+    },
+    {
+      "campo": "baixo_risco",
+      "tipo": "boolean",
+      "label": "Baixo risco",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "alto_risco",
+      "tipo": "boolean",
+      "label": "Alto risco",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "resistente_emaco",
+      "tipo": "boolean",
+      "label": "Resistente emaco",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "trofo-baixo-risco-metotrexato",
+      "tumor": "trofoblastica",
+      "cenario": "metastatico",
+      "subtipo": "NTG de baixo risco (estádio I, II, III escore <7) — agente único",
+      "nome": "Metotrexato (agente único)",
+      "esquema": "Metotrexato 50 mg IM D1,D3,D5,D7 com resgate de folinato de cálcio 15 mg VO nos dias intercalados (ou 0,4 mg/kg EV D1-D5 sem resgate) + 3 ciclos de consolidação após normalizar beta-HCG",
+      "farmacos": [
+        {
+          "nome": "Metotrexato",
+          "dose": "50 mg (IM) / 0,4 mg/kg (EV)",
+          "via": "IM/EV",
+          "frequencia": "conforme esquema + consolidação"
+        },
+        {
+          "nome": "Folinato de cálcio (resgate)",
+          "dose": "15 mg",
+          "via": "VO",
+          "frequencia": "dias intercalados"
+        }
+      ],
+      "elegibilidade_protocolo": "Neoplasia trofoblástica gestacional de baixo risco (estádio I, II ou III com escore FIGO/OMS <7).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ntg"
+              ]
+            },
+            {
+              "eq": [
+                "baixo_risco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "LI J et al. The efficacy and safety of first-line single-agent chemotherapy regimens in low-risk gestational trophoblastic neoplasia: a network meta-analysis. Gynecol Oncol. 2018;148(2):247-253. LAWRIE TA et al. Cochrane 2016.",
+        "doi": "10.1016/j.ygyno.2017.11.031",
+        "pmid": null,
+        "estudo": "Li (meta-análise)",
+        "ano": 2018,
+        "primeiro_autor": "Li"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Altas taxas de remissão com agente único",
+        "magnitude": "Metotrexato (com/sem resgate): altas taxas de remissão em baixo risco; consolidação reduz recidiva",
+        "fonte": "10.1016/j.ygyno.2017.11.033"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mucosite/hepatotoxicidade (metotrexato)",
+          "severidade": "moderada",
+          "conduta": "resgate com folinato; monitorar",
+          "fonte": "Bula/ficha técnica: Metotrexato"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Meta-análise em rede + Cochrane: metotrexato agente único é padrão de 1ª linha em NTG de baixo risco. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/j.ygyno.2017.11.031"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo com altas taxas de remissão. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1016/j.ygyno.2017.11.031"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Metotrexato genérico, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "ntg"
+            },
+            {
+              "campo": "baixo_risco",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: metotrexato em NTG baixo risco.",
+          "justificativa": "Concorda: metotrexato em NTG baixo risco.",
+          "fonte": "https://doi.org/10.1016/j.ygyno.2017.11.031"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (trofoblastica) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1016/j.ygyno.2017.11.033 → 10.1016/j.ygyno.2017.11.031 (Li (meta-análise), Li 2018; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "trofo-alto-risco-emaco",
+      "tumor": "trofoblastica",
+      "cenario": "metastatico",
+      "subtipo": "NTG de alto risco (estádio II/III escore ≥7 ou IV) — combinação",
+      "nome": "EMA-CO",
+      "esquema": "Etoposídeo 100 mg/m² D1,D2 + Metotrexato 300 mg/m² D1 + Actinomicina D 0,5 mg D1,D2 + Folinato 15 mg + Vincristina 1 mg/m² D8 + Ciclofosfamida 600 mg/m² D8, a cada 14 dias",
+      "farmacos": [
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D2"
+        },
+        {
+          "nome": "Metotrexato",
+          "dose": "300 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Actinomicina D",
+          "dose": "0,5 mg",
+          "via": "EV",
+          "frequencia": "D1,D2"
+        },
+        {
+          "nome": "Vincristina + Ciclofosfamida",
+          "dose": "1 mg/m² / 600 mg/m²",
+          "via": "EV",
+          "frequencia": "D8"
+        }
+      ],
+      "elegibilidade_protocolo": "Neoplasia trofoblástica gestacional de alto risco (estádio II/III com escore ≥7, ou estádio IV — exceto envolvimento de SNC).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ntg"
+              ]
+            },
+            {
+              "eq": [
+                "alto_risco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "DENG L et al. Combination chemotherapy for primary treatment of high-risk gestational trophoblastic tumour. Cochrane Database Syst Rev. 2013;(1):CD005196. JAREEMIT N et al. EMA-CO. Gynecol Oncol. 2023;170:114-122.",
+        "doi": "10.1002/14651858.CD005196.pub4",
+        "pmid": null,
+        "estudo": "Deng (Cochrane) / Jareemit (EMA-CO)",
+        "ano": 2013
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Altas taxas de cura em alto risco",
+        "magnitude": "EMA-CO: altas taxas de remissão/cura em NTG de alto risco (padrão de referência)",
+        "fonte": "10.1002/14651858.CD005196.pub4"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Cochrane + séries: EMA-CO é o padrão de referência em NTG de alto risco. Recomendação forte.",
+          "fonte": "https://doi.org/10.1002/14651858.CD005196.pub4"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo com altas taxas de cura. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1002/14651858.CD005196.pub4"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos, no SUS. Affordability alta (ressalva: actinomicina não disponível no Brasil).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS (ressalva actinomicina)."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "ntg"
+            },
+            {
+              "campo": "alto_risco",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: EMA-CO em NTG alto risco.",
+          "justificativa": "Concorda: EMA-CO em NTG alto risco.",
+          "fonte": "https://doi.org/10.1002/14651858.CD005196.pub4"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "ressalva_disponibilidade: actinomicina D não está mais disponível no Brasil"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (trofoblastica) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "ressalva_disponibilidade: actinomicina D não está mais disponível no Brasil"
+      ]
+    },
+    {
+      "regimen_id": "trofo-resistente-ema-ep",
+      "tumor": "trofoblastica",
+      "cenario": "metastatico",
+      "subtipo": "NTG resistente ao EMA-CO — resgate",
+      "nome": "EMA-EP",
+      "esquema": "Etoposídeo 100 mg/m² D1 + Metotrexato 100 mg/m² bolus + 200 mg/m² D1 + Actinomicina D 0,5 mg D1 + Etoposídeo 100 mg/m² D2 + Actinomicina D 0,5 mg D2 + Etoposídeo 100 mg/m² D8 + Cisplatina 60 mg/m² D8, a cada 14 dias",
+      "farmacos": [
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D2,D8"
+        },
+        {
+          "nome": "Metotrexato",
+          "dose": "100→200 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Actinomicina D",
+          "dose": "0,5 mg",
+          "via": "EV",
+          "frequencia": "D1,D2"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "60 mg/m²",
+          "via": "EV",
+          "frequencia": "D8"
+        }
+      ],
+      "elegibilidade_protocolo": "Neoplasia trofoblástica gestacional resistente ao EMA-CO (resgate).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ntg"
+              ]
+            },
+            {
+              "eq": [
+                "resistente_emaco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MAO Y et al. Relapsed or refractory gestational trophoblastic neoplasia treated with EP-EMA regimen. Int J Gynaecol Obstet. 2007;98(1):44-47. NEWLANDS ES et al. EMA/EP. J Clin Oncol. 2000;18(4):854-859.",
+        "doi": "10.1016/j.ijgo.2007.03.037",
+        "pmid": null,
+        "estudo": "Mao (EMA-EP) / Newlands (EMA-EP)",
+        "ano": 2007
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Resgate em doença resistente",
+        "magnitude": "EMA-EP: altas taxas de resgate em NTG resistente ao EMA-CO",
+        "fonte": "10.1016/j.ijgo.2007.03.037"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2B",
+          "afirmado_protocolo": null,
+          "justificativa": "Séries (Mao/Newlands) fundamentam EMA-EP como resgate em NTG resistente. Recomendação condicional (séries).",
+          "fonte": "https://doi.org/10.1016/j.ijgo.2007.03.037"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário de resgate; séries. Não graduável de forma discreta.",
+          "fonte": "https://doi.org/10.1016/j.ijgo.2007.03.037"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos, no SUS. Affordability alta (ressalva actinomicina).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS (ressalva actinomicina)."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "ntg"
+            },
+            {
+              "campo": "resistente_emaco",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: EMA-EP no resgate.",
+          "justificativa": "Concorda: EMA-EP no resgate.",
+          "fonte": "https://doi.org/10.1016/j.ijgo.2007.03.037"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "ressalva_disponibilidade: actinomicina D não disponível no Brasil"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (trofoblastica) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "ressalva_disponibilidade: actinomicina D não disponível no Brasil"
+      ]
+    }
+  ]
+}

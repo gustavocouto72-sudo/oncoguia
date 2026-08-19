@@ -1,0 +1,423 @@
+{
+  "meta": {
+    "tumor": "vias-biliares",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 5
+  },
+  "campos_primitivos": [
+    {
+      "campo": "sitio",
+      "tipo": "enum",
+      "label": "Sitio",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "vias_biliares"
+      ]
+    },
+    {
+      "campo": "avancado_metastatico",
+      "tipo": "boolean",
+      "label": "Avancado metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "candidato_platina",
+      "tipo": "boolean",
+      "label": "Candidato platina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_gemcis",
+      "tipo": "boolean",
+      "label": "Progressao pos gemcis",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "biliares-1l-gemcitabina-cisplatina",
+      "tumor": "vias-biliares",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de vias biliares avançado/metastático — 1ª linha",
+      "nome": "Gemcitabina + Cisplatina",
+      "esquema": "Cisplatina 25 mg/m² + Gemcitabina 1.000 mg/m² D1 e D8, ciclo de 21 dias",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "25 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        },
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de vias biliares (colangiocarcinoma/vesícula) localmente avançado ou metastático, 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "vias_biliares"
+              ]
+            },
+            {
+              "eq": [
+                "avancado_metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "VALLE J et al. Cisplatin plus gemcitabine versus gemcitabine for biliary tract cancer (ABC-02). N Engl J Med. 2010;362(14):1273-1281. (Protocolo cita Okusaka BJC 2010 como base regional.)",
+        "doi": "10.1056/NEJMoa0908721",
+        "pmid": null,
+        "estudo": "ABC-02",
+        "ano": 2010
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs gemcitabina isolada",
+        "magnitude": "ABC-02: SG 11,7 vs 8,1 meses; HR 0,64",
+        "fonte": "10.1056/NEJMoa0908721"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "biliares-1l-gemcitabina-mono",
+      "tumor": "vias-biliares",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de vias biliares avançado — 1ª linha (alternativa)",
+      "nome": "Gemcitabina (monoterapia)",
+      "esquema": "Gemcitabina 1.000 mg/m² EV semanal por 3 semanas + 1 de descanso",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal x3 + 1 off"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de vias biliares avançado, 1ª linha, em pacientes não candidatos ao doublet (fragilidade/contraindicação à platina).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "vias_biliares"
+              ]
+            },
+            {
+              "eq": [
+                "avancado_metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "candidato_platina",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base histórica de gemcitabina isolada (braço controle do ABC-02 e estudos anteriores).",
+        "doi": "10.1056/NEJMoa0908721",
+        "pmid": null,
+        "estudo": "ABC-02 (braço gemcitabina)",
+        "ano": 2010,
+        "primeiro_autor": "Valle"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade em monoterapia (inferior ao doublet)",
+        "magnitude": "Gemcitabina isolada: SG ~8,1 meses (braço controle ABC-02)",
+        "fonte": "10.1056/NEJMoa0908721"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ],
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "rotulo_corrigido: primeiro_autor→Valle, ano→2010; DOI 10.1056/NEJMoa0908721 já correto (paper certo), selo inalterado.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ]
+    },
+    {
+      "regimen_id": "biliares-1l-5fu",
+      "tumor": "vias-biliares",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de vias biliares avançado — 1ª linha (alternativa fluoropirimidina)",
+      "nome": "5-Fluorouracil + Leucovorina",
+      "esquema": "Leucovorina 20 mg/m² bolus + 5-FU 425 mg/m² bolus D1-D5 a cada 28 dias",
+      "farmacos": [
+        {
+          "nome": "Leucovorina",
+          "dose": "20 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5 28/28d"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "425 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5 28/28d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de vias biliares avançado, alternativa baseada em fluoropirimidina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "vias_biliares"
+              ]
+            },
+            {
+              "eq": [
+                "avancado_metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Estudo-pivô específico não citado no protocolo para 5-FU isolado em vias biliares (opção paliativa histórica).",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: 5-FU"
+        }
+      ]
+    },
+    {
+      "regimen_id": "biliares-2l-folfox",
+      "tumor": "vias-biliares",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de vias biliares avançado — 2ª linha",
+      "nome": "FOLFOX (2ª linha)",
+      "esquema": "Oxaliplatina 85 mg/m² + Leucovorina + 5-FU 400 mg/m² bolus + 2.400 mg/m² 46h, a cada 14 dias (até 12 ciclos)",
+      "farmacos": [
+        {
+          "nome": "Oxaliplatina",
+          "dose": "85 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 14/14d"
+        },
+        {
+          "nome": "5-FU/Leucovorina",
+          "dose": "400/2.400 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de vias biliares avançado em 2ª linha, após progressão a gemcitabina+cisplatina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "vias_biliares"
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_gemcis",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "LAMARCA A et al. Second-line FOLFOX chemotherapy versus active symptom control for advanced biliary tract cancer (ABC-06). Lancet Oncol. 2021;22(5):690-701.",
+        "doi": "10.1016/s1470-2045(21)00027-9",
+        "pmid": null,
+        "estudo": "ABC-06",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global modesta vs controle sintomático",
+        "magnitude": "ABC-06: SG 6,2 vs 5,3 meses; HR 0,69",
+        "fonte": "10.1016/S1470-2045(21)00027-3"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (oxaliplatina)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Oxaliplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "biliares-durvalumab-gemcis-nao-incorporado",
+      "tumor": "vias-biliares",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de vias biliares avançado — imunoterapia 1ª linha (não incorporado)",
+      "nome": "Durvalumabe + Gemcitabina + Cisplatina (NÃO incorporado)",
+      "esquema": "Durvalumabe + gemcitabina + cisplatina — não incorporado pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Durvalumabe",
+          "dose": "1.500 mg",
+          "via": "EV",
+          "frequencia": "associado a gem+cis"
+        },
+        {
+          "nome": "Gemcitabina + Cisplatina",
+          "dose": "conforme ABC-02",
+          "via": "EV",
+          "frequencia": "D1,D8"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de vias biliares avançado, 1ª linha (protocolo NÃO incorpora durvalumabe: ganho marginal de SG ~1,5 mês, sem dados de QoL, ESMO MCBS 2, alta toxicidade financeira).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "vias_biliares"
+              ]
+            },
+            {
+              "eq": [
+                "avancado_metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "OH DY et al. Durvalumab plus gemcitabine and cisplatin in advanced biliary tract cancer (TOPAZ-1): updated overall survival. Lancet Gastroenterol Hepatol. 2024;9(8):694-704.",
+        "doi": "10.1016/S2468-1253(24)00095-5",
+        "pmid": null,
+        "estudo": "TOPAZ-1",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global marginal",
+        "magnitude": "TOPAZ-1: SG 12,9 vs 11,3 meses; HR 0,76 (ganho ~1,5 mês); sem dados de QoL",
+        "fonte": "10.1016/S2468-1253(24)00095-5"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender",
+          "fonte": "Bula/ficha técnica: Durvalumabe"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        }
+      ]
+    }
+  ]
+}

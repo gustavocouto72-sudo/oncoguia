@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "tumor": "esofago-estomago",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "CheckMate 649 — nivolumabe + quimio em 1ª linha de câncer gástrico/JGE avançado",
+      "identificador": "NCT02872116",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO de 1ª linha melhora SG em PD-L1 CPS≥5.",
+      "acao": "Reavaliar 1ª linha metastático."
+    },
+    {
+      "titulo": "KEYNOTE-811 — pembrolizumabe + trastuzumabe + quimio em gástrico HER2+",
+      "identificador": "NCT03615326",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Adiciona IO ao anti-HER2 em HER2+.",
+      "acao": "Reavaliar 1ª linha HER2+."
+    }
+  ]
+}

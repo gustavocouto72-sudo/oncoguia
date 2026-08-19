@@ -1,0 +1,418 @@
+{
+  "meta": {
+    "gerado_em": "2026-07-22",
+    "total": 44
+  },
+  "candidatos": [
+    {
+      "tumor": "mama",
+      "titulo": "DESTINY-Breast09 — T-DXd ± pertuzumabe vs THP (taxano+trastuzumabe+pertuzumabe) em 1ª linha HER2+ MBC",
+      "identificador": "NCT04784715",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "1ª linha HER2+ metastático (hoje THP/CLEOPATRA)",
+      "relevancia": "Pode deslocar o padrão de 1ª linha HER2+ metastático (T-DXd à frente do THP).",
+      "acao": "Reavaliar 1ª linha HER2+ quando publicado; ensaio real verificado."
+    },
+    {
+      "tumor": "mama",
+      "titulo": "DESTINY-Breast06 — T-DXd vs quimioterapia em HR+ HER2-low/ultralow após linha endócrina",
+      "identificador": "NCT04494425",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "HR+ HER2-low metastático pós-endócrino",
+      "relevancia": "Amplia o uso de T-DXd para HER2-low/ultralow mais cedo.",
+      "acao": "Reavaliar quando incorporado."
+    },
+    {
+      "tumor": "mama",
+      "titulo": "NATALEE — ribociclibe + terapia endócrina adjuvante em HR+ de risco alto/intermediário",
+      "identificador": "NCT03701334",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "Adjuvância HR+ de alto risco (hoje monarchE/abemaciclibe para N+)",
+      "relevancia": "Adiciona iCDK4/6 adjuvante a população mais ampla que monarchE.",
+      "acao": "Reavaliar elegibilidade adjuvante."
+    },
+    {
+      "tumor": "mama",
+      "titulo": "INAVO120 — inavolisibe + palbociclibe + fulvestranto em HR+ PIK3CA-mutado",
+      "identificador": "NCT04191499",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "HR+ PIK3CA-mutado metastático",
+      "relevancia": "Nova combinação-alvo em PIK3CA.",
+      "acao": "Avaliar incorporação."
+    },
+    {
+      "tumor": "mama",
+      "titulo": "HER2CLIMB-05 — tucatinibe + trastuzumabe + pertuzumabe em 1ª linha HER2+ (fase III)",
+      "identificador": "PMID 41369677 (JCO 2026, DOI 10.1200/jco-25-02600)",
+      "fonte": "Europe PMC",
+      "status_ensaio": "publicado 2026",
+      "regime_afetado": "Manutenção 1ª linha HER2+ metastático",
+      "relevancia": "Adição de tucatinibe à manutenção HP.",
+      "acao": "Avaliar quando maduro."
+    },
+    {
+      "tumor": "pulmao-nsclc",
+      "titulo": "LAURA — osimertinibe após quimiorradioterapia em CPNPC EGFR+ estágio III irressecável",
+      "identificador": "NCT03521154",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "Estágio III irressecável EGFR+ (hoje durvalumabe/PACIFIC, de benefício incerto em EGFR+)",
+      "relevancia": "Osimertinibe de consolidação melhora SLP em EGFR+ estágio III — o durvalumabe é questionável nesse subgrupo.",
+      "acao": "Reavaliar consolidação em EGFR+ estágio III."
+    },
+    {
+      "tumor": "pulmao-nsclc",
+      "titulo": "MARIPOSA — amivantamabe + lazertinibe vs osimertinibe em 1ª linha EGFR+ avançado",
+      "identificador": "NCT04487080",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "1ª linha EGFR+ metastático (hoje osimertinibe/FLAURA)",
+      "relevancia": "Combinação supera osimertinibe em SLP na 1ª linha EGFR+ (maior toxicidade).",
+      "acao": "Avaliar como opção de 1ª linha EGFR+."
+    },
+    {
+      "tumor": "pulmao-sclc",
+      "titulo": "ADRIATIC — durvalumabe de consolidação em SCLC doença limitada pós-quimiorradioterapia",
+      "identificador": "NCT03703297",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "SCLC doença limitada pós-QRT (hoje sem consolidação padrão)",
+      "relevancia": "IO de consolidação melhora SG na doença limitada — novo padrão emergente.",
+      "acao": "Avaliar consolidação com durvalumabe."
+    },
+    {
+      "tumor": "pulmao-sclc",
+      "titulo": "IMforte — lurbinectedina + atezolizumabe de manutenção em SCLC doença extensa",
+      "identificador": "NCT05091567",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "SCLC doença extensa, manutenção",
+      "relevancia": "Manutenção com lurbinectedina+IO melhora desfechos vs IO isolada.",
+      "acao": "Avaliar manutenção."
+    },
+    {
+      "tumor": "colorretal",
+      "titulo": "CheckMate 8HW — nivolumabe + ipilimumabe vs quimioterapia em CCR metastático dMMR/MSI-H (1ª linha)",
+      "identificador": "NCT04008030",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "1ª linha metastático MSI-H (hoje pembrolizumabe/KEYNOTE-177)",
+      "relevancia": "Dupla IO pode superar mono-IO/quimio em MSI-H metastático.",
+      "acao": "Reavaliar 1ª linha MSI-H."
+    },
+    {
+      "tumor": "colorretal",
+      "titulo": "PRODIGE 90 / FFCD 2204 — dostarlimabe neoadjuvante + RT curta em reto dMMR",
+      "identificador": "NCT06762405",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "RECRUITING",
+      "regime_afetado": "Reto localmente avançado dMMR (hoje quimiorradioterapia)",
+      "relevancia": "IO neoadjuvante pode permitir preservação de órgão em reto dMMR (linha de Cercek).",
+      "acao": "Acompanhar; ainda em recrutamento."
+    },
+    {
+      "tumor": "prostata",
+      "titulo": "VISION — 177Lu-PSMA-617 + padrão vs padrão em mCRPC PSMA+ pós-taxano",
+      "identificador": "NCT03511664",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "regime_afetado": "mCRPC PSMA+ progressão pós-taxano",
+      "relevancia": "Radioligante PSMA melhora SG; pode não estar incorporado ao protocolo.",
+      "acao": "Avaliar incorporação de Lu-177-PSMA."
+    },
+    {
+      "tumor": "prostata",
+      "titulo": "TALAPRO-2 — talazoparibe + enzalutamida vs enzalutamida em mCRPC 1ª linha",
+      "identificador": "NCT03395197",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "mCRPC 1ª linha (com/sem alteração de HRR)",
+      "relevancia": "Combinação PARPi + ARPI melhora SLPr na 1ª linha mCRPC.",
+      "acao": "Avaliar em 1ª linha, sobretudo HRR-mutado."
+    },
+    {
+      "tumor": "testiculo",
+      "titulo": "TIGER — quimioterapia de dose-padrão (TIP) vs alta-dose + transplante autólogo como 1º resgate",
+      "identificador": "NCT02375204",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "testiculo-recidiva-tip-veip",
+      "relevancia": "Se favorecer alta-dose, muda a conduta de 1º resgate em TGC recidivado/refratário (hoje TIP/VeIP convencional).",
+      "acao": "Reavaliar o regime de resgate quando os resultados forem publicados; verificado como ensaio real (NCT), resultados ainda não incorporados ao protocolo."
+    },
+    {
+      "tumor": "esofago-estomago",
+      "titulo": "CheckMate 649 — nivolumabe + quimio em 1ª linha de câncer gástrico/JGE avançado",
+      "identificador": "NCT02872116",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO de 1ª linha melhora SG em PD-L1 CPS≥5.",
+      "acao": "Reavaliar 1ª linha metastático."
+    },
+    {
+      "tumor": "esofago-estomago",
+      "titulo": "KEYNOTE-811 — pembrolizumabe + trastuzumabe + quimio em gástrico HER2+",
+      "identificador": "NCT03615326",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Adiciona IO ao anti-HER2 em HER2+.",
+      "acao": "Reavaliar 1ª linha HER2+."
+    },
+    {
+      "tumor": "cabeca-pescoco",
+      "titulo": "KEYNOTE-689 — pembrolizumabe perioperatório em CEC de cabeça e pescoço ressecável",
+      "identificador": "NCT03765918",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO perioperatória pode entrar no manejo curativo.",
+      "acao": "Acompanhar publicação."
+    },
+    {
+      "tumor": "cabeca-pescoco",
+      "titulo": "KEYNOTE-048 — pembrolizumabe em 1ª linha de CEC recorrente/metastático",
+      "identificador": "NCT02358031",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Padrão de 1ª linha R/M conforme CPS.",
+      "acao": "Confirmar incorporação."
+    },
+    {
+      "tumor": "colo-utero",
+      "titulo": "KEYNOTE-A18 — quimiorradioterapia ± pembrolizumabe em colo de útero localmente avançado",
+      "identificador": "NCT04221945",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO adicionada à QRT melhora desfechos no localmente avançado.",
+      "acao": "Reavaliar QRT de alto risco."
+    },
+    {
+      "tumor": "colo-utero",
+      "titulo": "KEYNOTE-826 — pembrolizumabe + quimio ± bevacizumabe em 1ª linha metastático",
+      "identificador": "NCT03635567",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO de 1ª linha melhora SG em PD-L1+.",
+      "acao": "Reavaliar 1ª linha metastático."
+    },
+    {
+      "tumor": "bexiga",
+      "titulo": "EV-302 — enfortumabe vedotina + pembrolizumabe vs quimio em 1ª linha urotelial avançado",
+      "identificador": "NCT04223856",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Novo padrão de 1ª linha (supera quimio à base de platina).",
+      "acao": "Reavaliar 1ª linha metastático."
+    },
+    {
+      "tumor": "bexiga",
+      "titulo": "CheckMate 274 — nivolumabe adjuvante em urotelial de alto risco pós-cirurgia",
+      "identificador": "NCT02632409",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO adjuvante melhora SLD.",
+      "acao": "Avaliar adjuvância."
+    },
+    {
+      "tumor": "melanoma",
+      "titulo": "RELATIVITY-047 — nivolumabe + relatlimabe vs nivolumabe em melanoma avançado",
+      "identificador": "NCT03470922",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Dupla IO (anti-LAG-3) melhora SLP na 1ª linha.",
+      "acao": "Avaliar 1ª linha avançado."
+    },
+    {
+      "tumor": "melanoma",
+      "titulo": "NADINA — ipilimumabe+nivolumabe neoadjuvante vs nivolumabe adjuvante em estádio III macroscópico",
+      "identificador": "NCT04949113",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO neoadjuvante supera adjuvância no estádio III.",
+      "acao": "Reavaliar sequência neo/adjuvante."
+    },
+    {
+      "tumor": "renal",
+      "titulo": "CheckMate 9ER — nivolumabe + cabozantinibe vs sunitinibe em 1ª linha de CCR",
+      "identificador": "NCT03141177",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Combinação IO+TKI melhora SG na 1ª linha.",
+      "acao": "Reavaliar 1ª linha avançado."
+    },
+    {
+      "tumor": "renal",
+      "titulo": "KEYNOTE-564 — pembrolizumabe adjuvante em CCR de alto risco pós-nefrectomia",
+      "identificador": "NCT03142334",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO adjuvante melhora SLD/SG.",
+      "acao": "Avaliar adjuvância."
+    },
+    {
+      "tumor": "endometrio",
+      "titulo": "RUBY — dostarlimabe + carbo/paclitaxel em endométrio avançado/recorrente",
+      "identificador": "NCT03981796",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO + quimio melhora SLP/SG, sobretudo dMMR.",
+      "acao": "Reavaliar 1ª linha avançado."
+    },
+    {
+      "tumor": "endometrio",
+      "titulo": "DUO-E — durvalumabe ± olaparibe de manutenção após quimio em endométrio avançado",
+      "identificador": "NCT04269200",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Manutenção com IO ± PARPi.",
+      "acao": "Avaliar manutenção."
+    },
+    {
+      "tumor": "ovario",
+      "titulo": "PAOLA-1 — olaparibe + bevacizumabe de manutenção em ovário avançado",
+      "identificador": "NCT02477644",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "PARPi+antiangiogênico de manutenção melhora SLP (HRD+).",
+      "acao": "Reavaliar manutenção HRD+."
+    },
+    {
+      "tumor": "ovario",
+      "titulo": "MIRASOL — mirvetuximabe soravtansina vs quimio em ovário resistente à platina FRα+",
+      "identificador": "NCT04209855",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "ADC anti-FRα melhora SG no resistente à platina.",
+      "acao": "Avaliar resistente à platina FRα+."
+    },
+    {
+      "tumor": "pancreas",
+      "titulo": "NAPOLI-3 — NALIRIFOX vs gemcitabina/nab-paclitaxel em 1ª linha de pâncreas metastático",
+      "identificador": "NCT04083235",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Novo esquema de 1ª linha com ganho de SG.",
+      "acao": "Reavaliar 1ª linha metastático."
+    },
+    {
+      "tumor": "hepatocarcinoma",
+      "titulo": "IMbrave150 — atezolizumabe + bevacizumabe vs sorafenibe em CHC avançado",
+      "identificador": "NCT03434379",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO+antiangiogênico é padrão de 1ª linha.",
+      "acao": "Confirmar 1ª linha avançado."
+    },
+    {
+      "tumor": "hepatocarcinoma",
+      "titulo": "HIMALAYA — tremelimumabe + durvalumabe (STRIDE) em 1ª linha de CHC",
+      "identificador": "NCT03298451",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Dupla IO alternativa de 1ª linha.",
+      "acao": "Avaliar 1ª linha."
+    },
+    {
+      "tumor": "hepatocarcinoma",
+      "titulo": "EMERALD-1 — durvalumabe + TACE em CHC intermediário",
+      "identificador": "NCT03778957",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO + TACE melhora SLP no intermediário.",
+      "acao": "Avaliar estágio intermediário."
+    },
+    {
+      "tumor": "glioblastoma",
+      "titulo": "CeTeG/NOA-09 — lomustina + temozolomida vs temozolomida em GBM MGMT-metilado",
+      "identificador": "NCT01149109",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Combinação melhora SG no MGMT-metilado.",
+      "acao": "Avaliar no subgrupo MGMT-metilado."
+    },
+    {
+      "tumor": "sarcomas",
+      "titulo": "Atezolizumabe ± bevacizumabe em sarcoma alveolar de partes moles (ASPS)",
+      "identificador": "NCT03141684",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO ativa em ASPS (subtipo raro).",
+      "acao": "Avaliar no ASPS."
+    },
+    {
+      "tumor": "neuroendocrinos",
+      "titulo": "NETTER-2 — 177Lu-dotatato em 1ª linha de TNE grau 2/3 bem diferenciado",
+      "identificador": "NCT03972488",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Radioligante em 1ª linha melhora SLP.",
+      "acao": "Reavaliar 1ª linha de alto grau."
+    },
+    {
+      "tumor": "vias-biliares",
+      "titulo": "TOPAZ-1 — durvalumabe + gemcitabina/cisplatina em vias biliares avançado",
+      "identificador": "NCT03875235",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO + quimio é novo padrão de 1ª linha.",
+      "acao": "Reavaliar 1ª linha avançado."
+    },
+    {
+      "tumor": "vias-biliares",
+      "titulo": "KEYNOTE-966 — pembrolizumabe + gemcitabina/cisplatina em vias biliares",
+      "identificador": "NCT04003636",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Confirma benefício de IO + quimio.",
+      "acao": "Reavaliar 1ª linha."
+    },
+    {
+      "tumor": "canal-anal",
+      "titulo": "POD1UM-303/InterAACT2 — carbo/paclitaxel ± retifanlimabe em canal anal avançado",
+      "identificador": "NCT04472429",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO adicionada melhora desfechos no avançado.",
+      "acao": "Reavaliar 1ª linha avançado."
+    },
+    {
+      "tumor": "glioma-baixo-grau",
+      "titulo": "INDIGO — vorasidenibe em glioma grau 2 IDH-mutado residual/recorrente",
+      "identificador": "NCT04164901",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Inibidor de IDH prolonga SLP e adia quimio/RT.",
+      "acao": "Avaliar no IDH-mutado."
+    },
+    {
+      "tumor": "penis",
+      "titulo": "InPACT — ensaio internacional de câncer de pênis avançado (quimio/RT neoadjuvante + linfadenectomia)",
+      "identificador": "NCT02305654",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "RECRUITING",
+      "relevancia": "Define sequência neoadjuvante/cirurgia no avançado.",
+      "acao": "Acompanhar; em recrutamento."
+    },
+    {
+      "tumor": "vulva",
+      "titulo": "Pembrolizumabe + lenvatinibe em carcinoma vulvar recorrente/metastático",
+      "identificador": "NCT05903833",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "RECRUITING",
+      "relevancia": "IO+TKI em doença avançada rara.",
+      "acao": "Acompanhar; em recrutamento."
+    },
+    {
+      "tumor": "trofoblastica",
+      "titulo": "Pembrolizumabe em neoplasia trofoblástica gestacional quimiorresistente",
+      "identificador": "NCT04303884",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "UNKNOWN",
+      "relevancia": "IO como resgate em doença quimiorresistente.",
+      "acao": "Acompanhar; status incerto."
+    }
+  ]
+}

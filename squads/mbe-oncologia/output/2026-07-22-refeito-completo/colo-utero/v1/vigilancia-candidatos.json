@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "tumor": "colo-utero",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "KEYNOTE-A18 — quimiorradioterapia ± pembrolizumabe em colo de útero localmente avançado",
+      "identificador": "NCT04221945",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO adicionada à QRT melhora desfechos no localmente avançado.",
+      "acao": "Reavaliar QRT de alto risco."
+    },
+    {
+      "titulo": "KEYNOTE-826 — pembrolizumabe + quimio ± bevacizumabe em 1ª linha metastático",
+      "identificador": "NCT03635567",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO de 1ª linha melhora SG em PD-L1+.",
+      "acao": "Reavaliar 1ª linha metastático."
+    }
+  ]
+}

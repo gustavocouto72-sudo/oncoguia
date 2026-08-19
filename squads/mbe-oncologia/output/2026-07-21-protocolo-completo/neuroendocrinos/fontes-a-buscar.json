@@ -1,0 +1,17 @@
+{
+ "gerado_em": "2026-07-21",
+ "run": "2026-07-21-protocolo-completo",
+ "tumor": "neuroendocrinos",
+ "total_a_buscar": 1,
+ "itens": [
+  {
+   "regimen_id": "net-altograu-platina-etoposideo",
+   "nome": "Platina + Etoposídeo (alto grau)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Extrapolação do carcinoma de pequenas células de pulmão; protocolo não cita estudo-pivô específico para NEC de alto grau.",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  }
+ ]
+}

@@ -1,0 +1,311 @@
+{
+  "meta": {
+    "tumor": "glioma-baixo-grau",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 4
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "glioma_baixo_grau"
+      ]
+    },
+    {
+      "campo": "grau",
+      "tipo": "enum",
+      "label": "Grau",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "campo": "oligodendroglioma_g3",
+      "tipo": "boolean",
+      "label": "Oligodendroglioma g3",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "glioma-astrocitoma-idh-g2-oligo-g2-tmz",
+      "tumor": "glioma-baixo-grau",
+      "cenario": "localmente-avancado",
+      "subtipo": "Astrocitoma IDH mutado WHO grau 2 e Oligodendroglioma grau 2 — adjuvante",
+      "nome": "Temozolomida adjuvante (substituto do PCV)",
+      "esquema": "Temozolomida 150-200 mg/m² D1-D5 a cada 28 dias por 12 ciclos, após RT 50,4 Gy/28 frações",
+      "farmacos": [
+        {
+          "nome": "Temozolomida",
+          "dose": "150-200 mg/m²",
+          "via": "VO",
+          "frequencia": "D1-D5 28/28d x12"
+        }
+      ],
+      "elegibilidade_protocolo": "Astrocitoma IDH mutado WHO grau 2 e oligodendroglioma grau 2, idade >40 anos e/ou ressecção incompleta, na indisponibilidade do esquema PCV (lomustina/vincristina/procarbazina).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glioma_baixo_grau"
+              ]
+            },
+            {
+              "eq": [
+                "grau",
+                "2"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BUCKNER JC et al. Radiation plus procarbazine, CCNU, and vincristine in low-grade glioma (RTOG 9802). N Engl J Med. 2016;374(14):1344-1355.",
+        "doi": "10.1056/NEJMoa1500925",
+        "pmid": null,
+        "estudo": "RTOG 9802",
+        "ano": 2016
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e SLP com quimioterapia adjuvante",
+        "magnitude": "RTOG 9802: RT+PCV com SG e SLP muito superiores à RT isolada (SLP 10 anos 51% vs 21%)",
+        "fonte": "10.1056/NEJMoa1500925"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão (temozolomida)",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Temozolomida"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Temozolomida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "glioma-astrocitoma-idh-g3-tmz",
+      "tumor": "glioma-baixo-grau",
+      "cenario": "localmente-avancado",
+      "subtipo": "Astrocitoma IDH mutado WHO grau 3 — adjuvante",
+      "nome": "Temozolomida adjuvante (CATNON)",
+      "esquema": "Temozolomida 150-200 mg/m² D1-D5 a cada 28 dias por 12 ciclos, após RT 59,4 Gy/33 frações",
+      "farmacos": [
+        {
+          "nome": "Temozolomida",
+          "dose": "150-200 mg/m²",
+          "via": "VO",
+          "frequencia": "D1-D5 28/28d x12"
+        }
+      ],
+      "elegibilidade_protocolo": "Astrocitoma IDH mutado WHO grau 3 (temozolomida adjuvante por 12 ciclos após RT 59,4 Gy).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glioma_baixo_grau"
+              ]
+            },
+            {
+              "eq": [
+                "grau",
+                "3"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "van den BENT MJ et al. Adjuvant and concurrent temozolomide for 1p/19q non-co-deleted anaplastic glioma (CATNON): second interim analysis. Lancet Oncol. 2021;22(6):813-823.",
+        "doi": "10.1016/S1470-2045(21)00090-5",
+        "pmid": null,
+        "estudo": "CATNON",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global com temozolomida adjuvante",
+        "magnitude": "CATNON (análise final 10 anos): temozolomida adjuvante melhorou SG (82,3 vs 46,9 meses; HR 0,64); a concomitante não agregou",
+        "fonte": "10.1016/S1470-2045(21)00090-5"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão (temozolomida)",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Temozolomida"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Temozolomida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "glioma-astrocitoma-idh-g4-tmz",
+      "tumor": "glioma-baixo-grau",
+      "cenario": "localmente-avancado",
+      "subtipo": "Astrocitoma IDH mutado WHO grau 4 — RT + temozolomida",
+      "nome": "RT 60 Gy + Temozolomida (esquema tipo GBM)",
+      "esquema": "RT 60 Gy (1,8-2 Gy/fração) + Temozolomida 75 mg/m²/dia concomitante → Temozolomida adjuvante 150-200 mg/m² D1-D5 a cada 28 dias por 6 ciclos",
+      "farmacos": [
+        {
+          "nome": "Temozolomida (concomitante)",
+          "dose": "75 mg/m²/dia",
+          "via": "VO",
+          "frequencia": "durante RT 60 Gy"
+        },
+        {
+          "nome": "Temozolomida (adjuvante)",
+          "dose": "150-200 mg/m²",
+          "via": "VO",
+          "frequencia": "D1-D5 28/28d x6"
+        }
+      ],
+      "elegibilidade_protocolo": "Astrocitoma IDH mutado WHO grau 4 (antiga classificação de GBM IDH mutado; tratamento padrão tipo GBM em bom PS).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glioma_baixo_grau"
+              ]
+            },
+            {
+              "eq": [
+                "grau",
+                "4"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Extrapolação do esquema Stupp para astrocitoma IDH mutado grau 4 (sem RCT específico; diretrizes EANO/ASCO).",
+        "doi": "10.1016/S1470-2045(09)70025-7",
+        "pmid": null,
+        "estudo": "Extrapolação Stupp (GBM)",
+        "ano": 2009
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Prolongamento da sobrevida (extrapolação do GBM)",
+        "magnitude": "Esquema tipo Stupp; prognóstico mais favorável que GBM IDH selvagem",
+        "fonte": "10.1016/S1470-2045(09)70025-7"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão (temozolomida)",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Temozolomida"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Temozolomida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "glioma-oligodendroglioma-g3-tmz",
+      "tumor": "glioma-baixo-grau",
+      "cenario": "localmente-avancado",
+      "subtipo": "Oligodendroglioma WHO grau 3 — adjuvante (substituto do PCV)",
+      "nome": "Temozolomida adjuvante (substituto do PCV)",
+      "esquema": "Temozolomida 75 mg/m²/dia concomitante à RT 59,4 Gy/33 frações → Temozolomida adjuvante 150-200 mg/m² D1-D5 a cada 28 dias por 12 ciclos",
+      "farmacos": [
+        {
+          "nome": "Temozolomida (concomitante + adjuvante)",
+          "dose": "75 → 150-200 mg/m²",
+          "via": "VO",
+          "frequencia": "durante RT + D1-D5 28/28d x12"
+        }
+      ],
+      "elegibilidade_protocolo": "Oligodendroglioma WHO grau 3 (1p/19q codeletado), na indisponibilidade do PCV (substituto: temozolomida, respaldada por diretrizes).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glioma_baixo_grau"
+              ]
+            },
+            {
+              "eq": [
+                "oligodendroglioma_g3",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base RTOG 9402/EORTC 26951 (PCV superior em oligodendroglioma codeletado). LASSMAN AB, Cloughesy TF. Early results from CODEL. Neuro Oncol. 2021;23(3):347-349.",
+        "doi": "10.1093/neuonc/noab006",
+        "pmid": null,
+        "estudo": "RTOG 9402 / EORTC 26951 / CODEL",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida com PCV (evidência direta)",
+        "magnitude": "RTOG 9402/EORTC 26951: PCV+RT com SG muito superior (mediana não alcançada vs 140 meses; HR 0,53). CODEL usa temozolomida no braço controle",
+        "fonte": "10.1093/neuonc/noab006"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão (temozolomida)",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Temozolomida"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Temozolomida"
+        }
+      ]
+    }
+  ]
+}

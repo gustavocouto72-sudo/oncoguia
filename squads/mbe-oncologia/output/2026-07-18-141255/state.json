@@ -1,0 +1,33 @@
+{
+  "squad": "mbe-oncologia",
+  "status": "completed",
+  "step": { "current": 10, "total": 10, "label": "concluído" },
+  "agents": [
+    { "id": "extrator", "name": "Elisa Extração", "icon": "📑", "status": "done", "desk": { "col": 1, "row": 1 } },
+    { "id": "verificador-evidencia", "name": "Gael GRADE", "icon": "⚖️", "status": "done", "desk": { "col": 2, "row": 1 } },
+    { "id": "verificador-beneficio", "name": "Bruna Benefício", "icon": "📈", "status": "done", "desk": { "col": 3, "row": 1 } },
+    { "id": "verificador-custo", "name": "Caio Custo", "icon": "💰", "status": "done", "desk": { "col": 1, "row": 2 } },
+    { "id": "verificador-elegibilidade", "name": "Elton Elegibilidade", "icon": "🎯", "status": "done", "desk": { "col": 2, "row": 2 } },
+    { "id": "consolidador", "name": "Consuelo Consolida", "icon": "🧾", "status": "done", "desk": { "col": 3, "row": 2 } },
+    { "id": "vigilancia", "name": "Vitor Vigilância", "icon": "🛰️", "status": "done", "desk": { "col": 1, "row": 3 } }
+  ],
+  "handoff": {
+    "from": "vigilancia",
+    "to": null,
+    "message": "9 candidatos de atualização deixados pendentes; rodada concluída.",
+    "completedAt": "2026-07-18T17:52:00Z"
+  },
+  "reverificacao": {
+    "data": "2026-07-20T00:00:00Z",
+    "versao_saida": "v2",
+    "path": "squads/mbe-oncologia/output/2026-07-18-141255/v2",
+    "escopo": "regimes 'incompleto' do lote de mama, via escada de APIs abertas (ClinicalTrials.gov, Europe PMC, Crossref, Unpaywall, OpenAlex, PubMed)",
+    "convertidos": 13,
+    "para_confirmado": 12,
+    "para_divergencia": 1,
+    "distribuicao_selo_v2": { "confirmado": 36, "divergencia": 6, "incompleto": 18 }
+  },
+  "startedAt": "2026-07-18T17:13:05Z",
+  "updatedAt": "2026-07-20T00:00:00Z",
+  "completedAt": "2026-07-18T17:52:00Z"
+}

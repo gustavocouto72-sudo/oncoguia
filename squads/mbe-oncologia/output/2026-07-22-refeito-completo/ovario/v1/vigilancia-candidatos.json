@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "tumor": "ovario",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "PAOLA-1 — olaparibe + bevacizumabe de manutenção em ovário avançado",
+      "identificador": "NCT02477644",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "PARPi+antiangiogênico de manutenção melhora SLP (HRD+).",
+      "acao": "Reavaliar manutenção HRD+."
+    },
+    {
+      "titulo": "MIRASOL — mirvetuximabe soravtansina vs quimio em ovário resistente à platina FRα+",
+      "identificador": "NCT04209855",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "ADC anti-FRα melhora SG no resistente à platina.",
+      "acao": "Avaliar resistente à platina FRα+."
+    }
+  ]
+}

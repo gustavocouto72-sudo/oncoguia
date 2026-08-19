@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "tumor": "neuroendocrinos",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "NETTER-2 — 177Lu-dotatato em 1ª linha de TNE grau 2/3 bem diferenciado",
+      "identificador": "NCT03972488",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Radioligante em 1ª linha melhora SLP.",
+      "acao": "Reavaliar 1ª linha de alto grau."
+    }
+  ]
+}

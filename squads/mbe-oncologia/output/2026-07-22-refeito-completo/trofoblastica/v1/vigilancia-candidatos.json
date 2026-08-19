@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "tumor": "trofoblastica",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "Pembrolizumabe em neoplasia trofoblástica gestacional quimiorresistente",
+      "identificador": "NCT04303884",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "UNKNOWN",
+      "relevancia": "IO como resgate em doença quimiorresistente.",
+      "acao": "Acompanhar; status incerto."
+    }
+  ]
+}

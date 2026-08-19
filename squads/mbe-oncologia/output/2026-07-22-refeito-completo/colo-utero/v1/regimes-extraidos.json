@@ -1,0 +1,670 @@
+{
+  "meta": {
+    "tumor": "colo-utero",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 8
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "colo_utero"
+      ]
+    },
+    {
+      "campo": "criterios_peters",
+      "tipo": "boolean",
+      "label": "Criterios peters",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "localmente_avancado",
+      "tipo": "boolean",
+      "label": "Localmente avancado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "estadio_iii_iv_locavancado",
+      "tipo": "boolean",
+      "label": "Estadio iii iv locavancado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "pdl1_cps1",
+      "tipo": "boolean",
+      "label": "Pdl1 cps1",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "refratario",
+      "tipo": "boolean",
+      "label": "Refratario",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "io_previa",
+      "tipo": "boolean",
+      "label": "Io previa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_platina",
+      "tipo": "boolean",
+      "label": "Progressao pos platina",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "colo-adj-cisplatina-crt",
+      "tumor": "colo-utero",
+      "cenario": "adjuvancia",
+      "subtipo": "Câncer de colo uterino pós-histerectomia de alto risco (Peters)",
+      "nome": "Cisplatina semanal + RT (adjuvante)",
+      "esquema": "Cisplatina 40 mg/m²/semana EV por 6 semanas concomitante à RT externa, seguido de braquiterapia",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "40 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal x6 (concomitante à RT)"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de colo uterino pós-cirurgia radical com fatores de alto risco (critérios de Peters: linfonodos positivos, acometimento de paramétrios ou margens comprometidas).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "colo_utero"
+              ]
+            },
+            {
+              "eq": [
+                "criterios_peters",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PETERS WA 3rd et al. Concurrent chemotherapy and pelvic radiation therapy compared with pelvic radiation therapy alone as adjuvant therapy after radical surgery in high-risk early-stage cervical cancer. J Clin Oncol. 2000;18(8):1606-1613.",
+        "doi": "10.1200/JCO.2000.18.8.1606",
+        "pmid": null,
+        "estudo": "Peters (SWOG/GOG/RTOG)",
+        "ano": 2000
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e SLP com quimiorradioterapia adjuvante",
+        "magnitude": "Peters: ganho de SG/SLP com adição de cisplatina à RT adjuvante",
+        "fonte": "10.1200/JCO.2000.18.8.1606"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "colo-qrt-induction-interlace",
+      "tumor": "colo-utero",
+      "cenario": "localmente-avancado",
+      "subtipo": "Câncer de colo uterino localmente avançado (IB3/IIA/IIB) — indução + QRT",
+      "nome": "Indução (carbo+paclitaxel) → Cisplatina + RT (INTERLACE)",
+      "esquema": "Carboplatina AUC 2 + paclitaxel 80 mg/m² semanal por 6 semanas (indução) → cisplatina 40 mg/m²/semana + RT por 6 semanas → braquiterapia",
+      "farmacos": [
+        {
+          "nome": "Carboplatina + Paclitaxel (indução)",
+          "dose": "AUC 2 / 80 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal x6"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "40 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal (concomitante à RT)"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de colo uterino localmente avançado estádio IB3/IIA/IIB (quimioterapia de indução seguida de quimiorradioterapia).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "colo_utero"
+              ]
+            },
+            {
+              "eq": [
+                "localmente_avancado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "McCORMACK M et al. Induction chemotherapy followed by standard chemoradiotherapy versus standard chemoradiotherapy alone in locally advanced cervical cancer (GCIG INTERLACE): a phase 3 trial. Lancet. 2024;404(10462):1525-1535.",
+        "doi": "10.1016/S0140-6736(24)01438-7",
+        "pmid": null,
+        "estudo": "INTERLACE",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e sobrevida global",
+        "magnitude": "INTERLACE: SLP 5 anos 73% vs 64% (HR 0,65); SG 80% vs 72% (HR 0,61)",
+        "fonte": "10.1016/S0140-6736(24)01438-7"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "colo-qrt-io-keynote-a18",
+      "tumor": "colo-utero",
+      "cenario": "localmente-avancado",
+      "subtipo": "Câncer de colo uterino localmente avançado (III/IV) — QRT + imunoterapia",
+      "nome": "Pembrolizumabe + Quimiorradiação (KEYNOTE-A18)",
+      "esquema": "Pembrolizumabe 200 mg a cada 3 semanas + quimiorradiação com cisplatina 40 mg/m²/semana por 5 semanas → pembrolizumabe 400 mg a cada 6 semanas x15",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 → 400 mg",
+          "via": "EV",
+          "frequencia": "21d (com QRT) → 6/6 sem x15"
+        },
+        {
+          "nome": "Cisplatina + RT",
+          "dose": "40 mg/m²/semana",
+          "via": "EV",
+          "frequencia": "5 semanas"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de colo uterino localmente avançado de alto risco, estádios III e IV (quimiorradiação + pembrolizumabe).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "colo_utero"
+              ]
+            },
+            {
+              "eq": [
+                "estadio_iii_iv_locavancado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "LORUSSO D et al. Pembrolizumab or placebo with chemoradiotherapy followed by pembrolizumab or placebo for newly diagnosed, high-risk, locally advanced cervical cancer (KEYNOTE-A18). Lancet. 2024;403(10434):1341-1350.",
+        "doi": "10.1016/S0140-6736(24)00317-9",
+        "pmid": null,
+        "estudo": "KEYNOTE-A18 (ENGOT-cx11/GOG-3047)",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e (interina) sobrevida global",
+        "magnitude": "KEYNOTE-A18: SLP 67,8% vs 57,3% (HR 0,70); SG interina 82,6% vs 74,8% (HR 0,67)",
+        "fonte": "10.1016/S0140-6736(24)00317-9"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "colo-met-1l-pembrolizumabe-qt-cps1",
+      "tumor": "colo-utero",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de colo uterino recidivado/metastático PD-L1 CPS≥1 — 1ª linha",
+      "nome": "Pembrolizumabe + Quimioterapia (KEYNOTE-826)",
+      "esquema": "Pembrolizumabe 200 mg a cada 3 semanas (até 35 ciclos) + cisplatina 50 mg/m² (ou carboplatina AUC 5) + paclitaxel 175 mg/m², a cada 3 semanas por até 6 ciclos (± bevacizumabe)",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d (até 35 ciclos)"
+        },
+        {
+          "nome": "Cisplatina/Carboplatina + Paclitaxel",
+          "dose": "50 mg/m² (AUC 5) / 175 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d x6"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de colo uterino persistente/recidivado/metastático com PD-L1 CPS≥1, 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "colo_utero"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_cps1",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MONK BJ et al. First-line pembrolizumab + chemotherapy versus placebo + chemotherapy for persistent, recurrent, or metastatic cervical cancer: final OS (KEYNOTE-826). J Clin Oncol. 2023;41(36):5505-5511.",
+        "doi": "10.1200/JCO.23.00914",
+        "pmid": null,
+        "estudo": "KEYNOTE-826",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "KEYNOTE-826 (CPS≥1): SG 28,6 vs 16,5 meses; HR 0,60",
+        "fonte": "10.1200/JCO.23.00914"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "colo-met-1l-qt-cps-neg",
+      "tumor": "colo-utero",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de colo uterino metastático PD-L1 CPS<1 — 1ª linha (quimioterapia)",
+      "nome": "Paclitaxel + Cisplatina/Carboplatina",
+      "esquema": "Paclitaxel 175 mg/m² + cisplatina 50 mg/m² (ou carboplatina AUC 5) a cada 21 dias; alternativa gemcitabina + cisplatina",
+      "farmacos": [
+        {
+          "nome": "Paclitaxel",
+          "dose": "175 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Cisplatina/Carboplatina",
+          "dose": "50 mg/m² (AUC 5)",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de colo uterino recidivado/metastático com PD-L1 CPS<1, 1ª linha (quimioterapia baseada em platina).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "colo_utero"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_cps1",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base de paclitaxel + platina em colo metastático (GOG-204 e sucessores).",
+        "doi": "10.1200/JCO.2004.04.170",
+        "pmid": null,
+        "estudo": "GOG-169",
+        "ano": 2004,
+        "primeiro_autor": "Moore"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Padrão de 1ª linha em CPS<1",
+        "magnitude": "Paclitaxel + platina é o backbone de 1ª linha em colo metastático",
+        "fonte": "10.1200/JCO.2000.18.8.1606"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ],
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1200/JCO.2000.18.8.1606 → 10.1200/JCO.2004.04.170",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ]
+    },
+    {
+      "regimen_id": "colo-met-cemiplimabe-refrataria",
+      "tumor": "colo-utero",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de colo uterino refratário sem imunoterapia prévia — cemiplimabe",
+      "nome": "Cemiplimabe (EMPOWER-Cervical 1)",
+      "esquema": "Cemiplimabe 350 mg EV D1 a cada 3 semanas por até 2 anos",
+      "farmacos": [
+        {
+          "nome": "Cemiplimabe",
+          "dose": "350 mg",
+          "via": "EV",
+          "frequencia": "21/21d por até 2 anos"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de colo uterino recidivado/metastático refratário à quimioterapia, sem exposição prévia à imunoterapia.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "colo_utero"
+              ]
+            },
+            {
+              "eq": [
+                "refratario",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "io_previa",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "TEWARI KS et al. Survival with cemiplimab in recurrent cervical cancer (EMPOWER-Cervical 1). N Engl J Med. 2022;386(6):544-555.",
+        "doi": "10.1056/NEJMoa2112187",
+        "pmid": null,
+        "estudo": "EMPOWER-Cervical 1 (GOG-3016/ENGOT-cx9)",
+        "ano": 2022
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "5",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs quimioterapia",
+        "magnitude": "EMPOWER-Cervical 1: SG 11,7 vs 8,5 meses; HR 0,67. ESMO-MCBS 5",
+        "fonte": "10.1056/NEJMoa2112187"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "colo-met-bevacizumabe-nao-incluido",
+      "tumor": "colo-utero",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de colo uterino metastático — bevacizumabe (não incluído)",
+      "nome": "Bevacizumabe + QT (GOG-240) — NÃO incluído",
+      "esquema": "Bevacizumabe associado à quimioterapia (paclitaxel+platina) — não incluído",
+      "farmacos": [
+        {
+          "nome": "Bevacizumabe + QT",
+          "dose": "15 mg/kg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de colo uterino metastático (protocolo NÃO inclui bevacizumabe: estudo GOG-240 com 4 braços não estratificado/randomizado para comparar os esquemas de quimioterapia entre si, dificultando isolar o efeito; ESMO-MCBS 3).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "colo_utero"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "TEWARI KS et al. Improved survival with bevacizumab in advanced cervical cancer (GOG-240). N Engl J Med. 2014;370(8):734-743.",
+        "doi": "10.1056/NEJMoa1309748",
+        "pmid": null,
+        "estudo": "GOG-240",
+        "ano": 2014
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "GOG-240: SG 17,0 vs 13,3 meses; HR 0,71. ESMO-MCBS 3",
+        "fonte": "10.1056/NEJMoa1309748"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Fístula/perfuração (bevacizumabe)",
+          "severidade": "grave",
+          "conduta": "monitorar; suspender",
+          "fonte": "Bula/ficha técnica: Bevacizumabe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "colo-met-2l-monoterapia",
+      "tumor": "colo-utero",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de colo uterino metastático — 2ª/3ª linha (monoterapia)",
+      "nome": "Monoterapia (paclitaxel/vinorelbina/irinotecano/gemcitabina/pemetrexede/topotecano)",
+      "esquema": "Agente único conforme perfil de toxicidade e tratamentos prévios (paclitaxel, vinorelbina, ifosfamida, irinotecano, gemcitabina, pemetrexede ou topotecano)",
+      "farmacos": [
+        {
+          "nome": "Agente único",
+          "dose": "conforme agente",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de colo uterino metastático que progrediu a esquema com platina (2ª/3ª linha paliativa).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "colo_utero"
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_platina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "McGUIRE WP et al. Paclitaxel has moderate activity in squamous cervix cancer: GOG study. J Clin Oncol. 1996;14(3):792-795 (e outros estudos de fase II de monoterapia).",
+        "doi": "10.1200/JCO.1996.14.3.792",
+        "pmid": null,
+        "estudo": "GOG (monoterapia)",
+        "ano": 1996
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade paliativa modesta",
+        "magnitude": "Monoterapia com atividade modesta em doença pós-platina",
+        "fonte": "10.1200/JCO.1996.14.3.792"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    }
+  ]
+}

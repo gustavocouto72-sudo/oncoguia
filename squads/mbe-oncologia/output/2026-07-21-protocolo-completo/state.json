@@ -1,0 +1,208 @@
+{
+ "run": "2026-07-21-protocolo-completo",
+ "atualizado_em": "2026-07-21",
+ "modo": "um tumor por lote, sequencial",
+ "tumores_processados": 24,
+ "tumores_total": 24,
+ "total_regimes": 235,
+ "distribuicao_selo_agregada": {
+  "confirmado": 212,
+  "divergencia": 4,
+  "incompleto": 19
+ },
+ "por_tumor": [
+  {
+   "tumor": "prostata",
+   "regimes": 18,
+   "confirmado": 14,
+   "divergencia": 1,
+   "incompleto": 3,
+   "fontes_a_buscar": 3
+  },
+  {
+   "tumor": "renal",
+   "regimes": 10,
+   "confirmado": 8,
+   "divergencia": 2,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "bexiga",
+   "regimes": 20,
+   "confirmado": 18,
+   "divergencia": 0,
+   "incompleto": 2,
+   "fontes_a_buscar": 2
+  },
+  {
+   "tumor": "testiculo",
+   "regimes": 7,
+   "confirmado": 5,
+   "divergencia": 0,
+   "incompleto": 2,
+   "fontes_a_buscar": 2
+  },
+  {
+   "tumor": "penis",
+   "regimes": 6,
+   "confirmado": 0,
+   "divergencia": 0,
+   "incompleto": 6,
+   "fontes_a_buscar": 6
+  },
+  {
+   "tumor": "esofago-estomago",
+   "regimes": 19,
+   "confirmado": 19,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "vias-biliares",
+   "regimes": 5,
+   "confirmado": 4,
+   "divergencia": 0,
+   "incompleto": 1,
+   "fontes_a_buscar": 1
+  },
+  {
+   "tumor": "hepatocarcinoma",
+   "regimes": 7,
+   "confirmado": 6,
+   "divergencia": 1,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "pancreas",
+   "regimes": 8,
+   "confirmado": 8,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "colorretal",
+   "regimes": 13,
+   "confirmado": 13,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "canal-anal",
+   "regimes": 5,
+   "confirmado": 5,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "neuroendocrinos",
+   "regimes": 5,
+   "confirmado": 4,
+   "divergencia": 0,
+   "incompleto": 1,
+   "fontes_a_buscar": 1
+  },
+  {
+   "tumor": "pulmao-nsclc",
+   "regimes": 21,
+   "confirmado": 21,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "pulmao-sclc",
+   "regimes": 6,
+   "confirmado": 5,
+   "divergencia": 0,
+   "incompleto": 1,
+   "fontes_a_buscar": 1
+  },
+  {
+   "tumor": "endometrio",
+   "regimes": 9,
+   "confirmado": 9,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "ovario",
+   "regimes": 13,
+   "confirmado": 13,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "colo-utero",
+   "regimes": 8,
+   "confirmado": 8,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "vulva",
+   "regimes": 2,
+   "confirmado": 1,
+   "divergencia": 0,
+   "incompleto": 1,
+   "fontes_a_buscar": 1
+  },
+  {
+   "tumor": "trofoblastica",
+   "regimes": 3,
+   "confirmado": 3,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "cabeca-pescoco",
+   "regimes": 18,
+   "confirmado": 16,
+   "divergencia": 0,
+   "incompleto": 2,
+   "fontes_a_buscar": 2
+  },
+  {
+   "tumor": "sarcomas",
+   "regimes": 15,
+   "confirmado": 15,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "melanoma",
+   "regimes": 8,
+   "confirmado": 8,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "glioblastoma",
+   "regimes": 5,
+   "confirmado": 5,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  },
+  {
+   "tumor": "glioma-baixo-grau",
+   "regimes": 4,
+   "confirmado": 4,
+   "divergencia": 0,
+   "incompleto": 0,
+   "fontes_a_buscar": 0
+  }
+ ],
+ "restantes": []
+}

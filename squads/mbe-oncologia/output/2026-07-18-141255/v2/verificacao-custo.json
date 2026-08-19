@@ -1,0 +1,548 @@
+{
+  "eixo": "NCCN Evidence Blocks — Affordability (sustentabilidade)",
+  "gerado_em": "2026-07-18",
+  "verificador": "Caio Custo",
+  "nota_metodologica": "Escala 1-5 (5 = maior affordability / menor custo total; 1 = mais caro). Score NCCN Evidence Blocks isolado não é acessível publicamente por regime; re-derivação feita pela composição de custo (aquisição da droga + administração + suporte + manejo de toxicidade) com fontes públicas (CONITEC/PCDT, INCA, estudos-pivô) e estimativa qualitativa transparente. Nenhum número de custo local brasileiro foi inventado — apenas a direção do acesso é sinalizada. Todos os 60 regimes têm afirmado_protocolo.nccn_affordability = null → sem_afirmacao_protocolo → status de comparação 'indeterminado', mas a nota re-derivada é reportada. Onde o protocolo traz justificativa de custo (regimes NÃO INCORPORADOS), ela é confrontada.",
+  "vereditos": [
+    {
+      "regimen_id": "mama-adj-her2neg-act",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Doxorrubicina + ciclofosfamida + paclitaxel, todos genéricos antigos, sem biológico. Administração ambulatorial (infusão simples); suporte com G-CSF apenas na versão dose-densa. Aquisição e manejo de toxicidade baixos. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso relevante no Brasil. Affordability alta coincide com EUA.",
+      "fonte": "NCCN Evidence Blocks Breast Cancer / PCDT Câncer de Mama (MS) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-tc",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Docetaxel + ciclofosfamida genéricos, sem biológico. Administração ambulatorial; principal componente de suporte é o G-CSF profilático (custo incremental modesto). Baixo custo total.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso relevante no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-ac",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Doxorrubicina + ciclofosfamida genéricos; regime de aquisição barata, administração ambulatorial simples, suporte mínimo. Custo total muito baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-act-docetaxel",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "AC seguido de docetaxel — todos genéricos. Sem biológico; administração ambulatorial; suporte com G-CSF é o principal custo adicional. Baixo custo total.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Carboplatina + paclitaxel genéricos, semanal. Sem biológico; administração ambulatorial; pré-medicação padrão do taxano. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-cmf",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Ciclofosfamida + metotrexato + 5-FU — os três fármacos mais baratos e antigos do arsenal. Aquisição mínima; administração ambulatorial/oral parcial. Menor custo total possível entre os regimes de mama.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-brca-olaparibe",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Olaparibe (inibidor de PARP oral de marca) por 1 ano contínuo. Custo de aquisição dominado pela droga de marca oral prolongada; administração/suporte baixos, mas o custo total anual é elevado. Affordability baixa.",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: olaparibe é incorporado ao SUS para câncer de ovário BRCA (Portaria nº 45/2024), mas NÃO para o cenário adjuvante de mama (OlympiA) até a data — acesso restrito à saúde suplementar/judicialização. Barreira de acesso relevante no Brasil apesar de ESMO-MCBS A.",
+      "fonte": "CONITEC (Relatório nº 914 / incorporação ovário 2024; adjuvante mama não incorporado) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-tnbc-capecitabina",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Capecitabina oral genérica (8 ciclos). Sem infusão nem day-clinic; suporte mínimo; principal toxicidade (mão-pé/diarreia) manejável ambulatorialmente. Baixo custo total.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso relevante no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-th",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 3,
+      "status": "indeterminado",
+      "justificativa": "Paclitaxel genérico + trastuzumabe (biológico) por 1 ano. O trastuzumabe domina o custo, mas há biossimilares que reduzem a aquisição; administração ambulatorial. Affordability intermediária — puxada para baixo pelo anticorpo, mitigada pelo biossimilar.",
+      "flag_contexto_br": "Trastuzumabe (incl. biossimilares) é incorporado ao SUS para HER2+ adjuvante — acesso garantido no Brasil, ao contrário de anti-HER2 mais novos.",
+      "fonte": "PCDT Câncer de Mama (MS) / trastuzumabe biossimilar SUS / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-tp-aphinity",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe + pertuzumabe (duplo bloqueio anti-HER2) por 1 ano sobre backbone de QT. A adição do pertuzumabe é o principal driver de custo; administração ambulatorial prolongada. Affordability baixa.",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: pertuzumabe é incorporado ao SUS apenas para mama HER2+ metastática 1ª linha (Portaria nº 57/2017), NÃO para adjuvância (APHINITY). Acesso adjuvante restrito no Brasil.",
+      "fonte": "CONITEC / Portaria nº 57/2017 (metastático) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-tdm1-katherine",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 1,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe emtansina (T-DM1), um conjugado anticorpo-droga (ADC) de marca por 14 ciclos. Aquisição do ADC domina fortemente o custo total; administração ambulatorial EV. Affordability muito baixa (típica de ADC).",
+      "flag_contexto_br": "ACESSO EXISTE NESTE CENÁRIO: T-DM1 foi incorporado ao SUS via PCDT (Portaria Conjunta SAES/SECTICS nº 17, nov/2024) para HER2+ com doença residual pós-neoadjuvante — exatamente o cenário KATHERINE. Custo alto, mas barreira de acesso menor que outros ADC.",
+      "fonte": "PCDT Câncer de Mama (MS, nov/2024) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-rhpos-abemaciclibe-monarche",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Abemaciclibe (iCDK4/6 oral de marca) por 2 anos + terapia endócrina. Custo dominado pela droga oral de marca por período prolongado (2 anos); a TE associada é barata. O próprio protocolo registra em texto livre 'muito acima dos limiares usuais de custo-efetividade' — confirmo: affordability baixa e custo-efetividade desfavorável no cenário adjuvante. Confronta e corrobora a ressalva de custo do protocolo.",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: iCDK4/6 são incorporados ao SUS apenas no cenário AVANÇADO/METASTÁTICO (Portaria nº 73/2021), NÃO na adjuvância (monarchE). Acesso adjuvante restrito no Brasil.",
+      "fonte": "CONITEC (Relatório nº 678 / Portaria nº 73/2021, metastático) / referência secundária de custo-efetividade indiana (Sra 2024) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-ht-tamoxifeno-pre",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Tamoxifeno oral genérico — um dos fármacos oncológicos mais baratos que existem. Sem administração hospitalar, suporte mínimo. Custo total mínimo mesmo por 10 anos.",
+      "flag_contexto_br": "Amplamente disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-ht-lhrh-ia-pre",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 4,
+      "status": "indeterminado",
+      "justificativa": "Análogo LHRH (gosserrelina/leuprolida) + inibidor de aromatase ou tamoxifeno. IA e tamoxifeno são genéricos baratos; o análogo LHRH injetável de depósito é o principal custo (moderado), aplicado ambulatorialmente. Affordability alta, ligeiramente reduzida pelo análogo.",
+      "flag_contexto_br": "Análogos LHRH e IA disponíveis no SUS; sem barreira de acesso relevante no Brasil.",
+      "fonte": "PCDT Câncer de Mama / estudo SOFT / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-ht-ia-pos",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Inibidor de aromatase oral genérico (anastrozol/letrozol/exemestano). Sem administração hospitalar; suporte mínimo (monitorização óssea). Custo total muito baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-adj-ht-tam-ia-switch-pos",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Sequência tamoxifeno → IA, ambos orais genéricos baratos. Sem administração hospitalar; custo total mínimo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-acth",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 3,
+      "status": "indeterminado",
+      "justificativa": "AC + docetaxel (genéricos) + trastuzumabe (biológico, biossimilar disponível) por 1 ano. QT barata; o trastuzumabe é o único driver relevante de custo, mitigado por biossimilar. Affordability intermediária.",
+      "flag_contexto_br": "Trastuzumabe incorporado ao SUS para HER2+ (neo)adjuvante — acesso garantido no Brasil.",
+      "fonte": "PCDT Câncer de Mama / trastuzumabe biossimilar SUS / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-tch",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 3,
+      "status": "indeterminado",
+      "justificativa": "Docetaxel + carboplatina (genéricos) + trastuzumabe (biológico/biossimilar) por 1 ano. QT barata; trastuzumabe é o driver de custo, mitigado por biossimilar. Affordability intermediária.",
+      "flag_contexto_br": "Trastuzumabe incorporado ao SUS para HER2+; sem barreira de acesso ao anticorpo no Brasil.",
+      "fonte": "PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-acthp",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "AC + docetaxel + duplo bloqueio trastuzumabe + pertuzumabe por 1 ano. A adição do pertuzumabe é o principal driver de custo sobre um backbone de QT barata. Affordability baixa.",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: pertuzumabe NÃO é incorporado ao SUS no cenário neoadjuvante (Phesgo/pertuzumabe neoadj rejeitado — Portaria nº 50, out/2024). Acesso restrito no Brasil; trastuzumabe isolado permanece coberto.",
+      "fonte": "CONITEC (Portaria nº 50/2024, não incorporação neoadjuvante) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-tchp",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Docetaxel + carboplatina + trastuzumabe + pertuzumabe por 1 ano. Pertuzumabe domina o custo incremental sobre QT genérica. Affordability baixa.",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: pertuzumabe neoadjuvante NÃO incorporado ao SUS (out/2024). Barreira de acesso ao componente pertuzumabe no Brasil.",
+      "fonte": "CONITEC (Portaria nº 50/2024) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-thp",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Docetaxel + trastuzumabe + pertuzumabe (sem antracíclico/platina) por 1 ano. Backbone de taxano barato; o pertuzumabe é o driver de custo. Affordability baixa.",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: pertuzumabe neoadjuvante NÃO incorporado ao SUS. Acesso restrito no Brasil.",
+      "fonte": "CONITEC (Portaria nº 50/2024) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-phesgo-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "PHESGO = pertuzumabe + trastuzumabe em formulação SC de dose fixa. Composição de custo dominada pelos dois anticorpos de marca; a via SC reduz o tempo de day-clinic (economia de administração), mas não o custo de aquisição. Affordability baixa. CONFRONTO: a justificativa de custo do protocolo ('custo elevado; impacto orçamentário alto; extrapolação de pCR/PK não substitui SG') é procedente e alinhada com a decisão CONITEC.",
+      "flag_contexto_br": "NÃO INCORPORADO ao SUS — CONITEC recomendou não incorporar pertuzumabe+trastuzumabe SC no neoadjuvante (Portaria nº 50, out/2024), por preço elevado e incerteza econômica. Divergência de acesso confirmada.",
+      "fonte": "CONITEC (Relatório 2024; Portaria nº 50/2024) / estudo FeDeriCa / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-pembro-keynote522",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Pembrolizumabe (imunoterapia anti-PD-1 de marca, 17 ciclos totais neo+adj) somado a QT (carbo/paclitaxel/AC genéricos). O pembrolizumabe domina o custo total; a QT é barata. Affordability baixa.",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: pembrolizumabe para TNBC inicial (KEYNOTE-522) NÃO está incorporado ao SUS — em consulta pública CONITEC (CP nº 39/2026), com recomendação inicial CONTRA por incerteza de custo-efetividade e impacto orçamentário. Acesso restrito no Brasil.",
+      "fonte": "CONITEC (CP nº 39/2026, ReSoc 714) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-acdd-ct",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "AC dose-densa → paclitaxel + carboplatina, todos genéricos. O único custo incremental é o G-CSF exigido pela dose-densa. Sem biológico. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso relevante no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-tc",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Docetaxel + ciclofosfamida genéricos + G-CSF de suporte. Sem biológico; administração ambulatorial. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-rhpos-act-acddt",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "AC-T / ACdd-T — doxorrubicina, ciclofosfamida e paclitaxel genéricos; G-CSF apenas na versão dose-densa. Sem biológico. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-neo-rhpos-tc",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Docetaxel + ciclofosfamida genéricos + G-CSF. Sem biológico; administração ambulatorial. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ia-cdk46",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Inibidor de aromatase (genérico barato) + iCDK4/6 de marca (ribociclibe/abemaciclibe/palbociclibe) contínuo até progressão. O iCDK4/6 oral domina completamente o custo total; a TE é irrelevante no custo. Affordability baixa. O texto livre do protocolo ('escolha conforme custo-efetividade e toxicidade') é procedente — as três drogas têm SG semelhante e o custo/tolerabilidade deve guiar a escolha.",
+      "flag_contexto_br": "ACESSO EXISTE: iCDK4/6 (abemaciclibe, palbociclibe, ribociclibe) são incorporados ao SUS para mama HR+/HER2- avançada/metastática (Portaria nº 73/2021). Custo alto, mas barreira de acesso baixa neste cenário — diferente da adjuvância.",
+      "fonte": "CONITEC (Relatório nº 678 / Portaria nº 73/2021) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-fulvestranto-cdk46",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Fulvestranto (injetável de marca, custo moderado) + iCDK4/6 de marca contínuo. O iCDK4/6 domina o custo; o fulvestranto adiciona custo de aquisição/administração IM mensal. Affordability baixa.",
+      "flag_contexto_br": "ACESSO EXISTE: iCDK4/6 incorporados ao SUS para mama HR+/HER2- avançada (Portaria nº 73/2021). Fulvestranto disponível. Barreira de acesso baixa neste cenário metastático.",
+      "fonte": "CONITEC (Portaria nº 73/2021) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ia-abemaciclibe",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "IA genérico + abemaciclibe de marca contínuo (12/12h). Idêntico em composição de custo ao regime IA+iCDK4/6 (opção abemaciclibe): a droga oral de marca domina o custo total. Affordability baixa.",
+      "flag_contexto_br": "ACESSO EXISTE: abemaciclibe incorporado ao SUS para mama HR+/HER2- avançada (Portaria nº 73/2021). Barreira de acesso baixa no cenário metastático.",
+      "fonte": "CONITEC (Portaria nº 73/2021) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ht-isolada",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Hormonioterapia isolada — IA genérico oral ou fulvestranto injetável. Sem iCDK4/6 nem biológico; custo dominado por drogas endócrinas baratas (IA) ou de custo moderado (fulvestranto). Custo total baixo. Nota puxada para 5 pela opção IA; se fulvestranto exclusivo, ~4.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso relevante no Brasil.",
+      "fonte": "PCDT Câncer de Mama / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-qt-crise-visceral",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 4,
+      "status": "indeterminado",
+      "justificativa": "Quimioterapia (agente(s) não especificado(s)) em crise visceral. Fármaco não nomeado impede precisão, mas as opções padrão neste contexto são citotóxicos genéricos (taxano, capecitabina, antraciclina, platina) — todos de baixo custo. Affordability estimada alta; nota condicionada à droga escolhida.",
+      "flag_contexto_br": "QT genérica disponível no SUS; sem barreira de acesso. Sinalização condicional por ausência de fármaco especificado.",
+      "fonte": "estimativa qualitativa (fármaco não especificado no protocolo)"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ribociclibe-crise-visceral",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "IA ou fulvestranto (baratos) + ribociclibe de marca contínuo. O ribociclibe oral domina o custo total. Affordability baixa, ainda que substitua QT em crise visceral (RIGHT Choice).",
+      "flag_contexto_br": "ACESSO EXISTE: ribociclibe incorporado ao SUS para mama HR+/HER2- avançada (Portaria nº 73/2021). Barreira de acesso baixa neste cenário.",
+      "fonte": "CONITEC (Portaria nº 73/2021) / estudo RIGHT Choice / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-seq-cdk46-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Sequenciamento/continuação de iCDK4/6 de marca após progressão (± fulvestranto). Custo dominado por mais uma linha de inibidor de ciclina oral de marca. Affordability baixa. CONFRONTO: a justificativa do protocolo ('ganho em SLP estatisticamente relevante, mas magnitude pequena') sustenta a não incorporação por custo-benefício desfavorável — procedente.",
+      "flag_contexto_br": "NÃO INCORPORADO ao SUS — o sequenciamento de iCDK4/6 (postMONARCH/MAINTAIN) não está coberto; a incorporação de 2021 refere-se ao uso em 1ª linha. Divergência de acesso no Brasil.",
+      "fonte": "CONITEC / estudos postMONARCH e MAINTAIN / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-capivasertibe-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Capivasertibe (inibidor de AKT oral de marca) + fulvestranto. Droga-alvo oral de marca domina o custo total. Affordability baixa. CONFRONTO: a justificativa do protocolo é explicitamente econômica — 'ao preço atual, a adição de capivasertibe ao fulvestranto não é custo-efetiva como 2ª linha' — e é procedente (ganho de 4,2 meses em SLP, SG imatura).",
+      "flag_contexto_br": "NÃO INCORPORADO ao SUS; barreira de acesso relevante no Brasil. Justificativa de custo do protocolo confirmada.",
+      "fonte": "estudo CAPItello-291 / justificativa de custo do protocolo / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-alpelisibe-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Alpelisibe (inibidor de PI3K oral de marca) + fulvestranto. Droga-alvo oral de marca domina o custo; toxicidade (hiperglicemia, rash) adiciona custo de manejo. Affordability baixa. CONFRONTO: aqui a justificativa do protocolo é de toxicidade/qualidade de vida ('alta descontinuação por EA graves'), não primariamente custo — mas o baixo affordability reforça a decisão. ESMO-MCBS 1 afirmado (baixo benefício).",
+      "flag_contexto_br": "NÃO INCORPORADO ao SUS; barreira de acesso no Brasil. Divergência combina baixo affordability + baixo benefício clínico.",
+      "fonte": "estudo SOLAR-1 / justificativa do protocolo / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-tdxd-db04",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 1,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe deruxtecan (T-DXd), ADC de marca, contínuo até progressão. Aquisição do ADC domina fortemente o custo; administração EV ambulatorial + monitorização de pneumonite adicionam custo de suporte. Affordability muito baixa. Contraste com ESMO-MCBS 4 afirmado (alto benefício, alto custo).",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: T-DXd NÃO está incorporado ao SUS (não avaliado/negado pela CONITEC para mama até a data), apesar de registro ANVISA. Barreira de acesso relevante no Brasil.",
+      "fonte": "CONITEC (não incorporado) / estudo DESTINY-Breast04 / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-tdxd-db06-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 1,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe deruxtecan (ADC de marca) em cenário mais precoce (DB06). Mesma composição de custo do DB04: ADC domina o custo total. Affordability muito baixa. CONFRONTO: a não incorporação institucional deste cenário é coerente com ESMO-MCBS 3 (SG imatura) + custo altíssimo.",
+      "flag_contexto_br": "NÃO INCORPORADO institucionalmente neste cenário e sem cobertura SUS (T-DXd não incorporado pela CONITEC). Divergência de acesso no Brasil.",
+      "fonte": "CONITEC (não incorporado) / estudo DESTINY-Breast06 / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-capecitabina",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Capecitabina oral genérica. Sem infusão nem day-clinic; suporte mínimo. Custo total muito baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / estudo X-7/7 / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-paclitaxel",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Paclitaxel genérico (semanal preferencial). Aquisição barata; administração ambulatorial com pré-medicação padrão. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-eribulina",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 3,
+      "status": "indeterminado",
+      "justificativa": "Eribulina — citotóxico de marca (não genérico amplo), monoterapia EV D1/D8. Aquisição mais cara que os taxanos/antraciclinas genéricos, porém sem os custos de biológico/ADC; administração ambulatorial. Affordability intermediária.",
+      "flag_contexto_br": "Eribulina de marca; disponibilidade no SUS mais limitada que a QT genérica clássica — possível barreira de acesso parcial no Brasil (sinalização de direção, sem número).",
+      "fonte": "estudo EMBRACE / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-docetaxel",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Docetaxel genérico em monoterapia. Aquisição barata; administração ambulatorial; suporte padrão de taxano. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "NCCN Evidence Blocks / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-vinorelbina-iv",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Vinorelbina IV genérica, semanal. Aquisição barata; administração ambulatorial simples. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-vinorelbina-vo",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 4,
+      "status": "indeterminado",
+      "justificativa": "Vinorelbina oral. Mesma molécula da IV, mas a formulação oral costuma ter aquisição um pouco mais cara/menos disponível como genérico; em compensação elimina o custo de day-clinic. Affordability alta.",
+      "flag_contexto_br": "Formulação oral pode ter disponibilidade mais restrita no SUS que a IV — sinalização de direção, sem número.",
+      "fonte": "estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-gencitabina",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Gencitabina genérica em monoterapia. Aquisição barata; administração ambulatorial. Custo total baixo.",
+      "flag_contexto_br": "Disponível no SUS; sem barreira de acesso no Brasil.",
+      "fonte": "estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-doxo-lipossomal",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 3,
+      "status": "indeterminado",
+      "justificativa": "Doxorrubicina lipossomal — formulação de custo de aquisição substancialmente maior que a doxorrubicina convencional (embora reduza toxicidade cardíaca, com potencial economia de manejo). Monoterapia EV. Affordability intermediária, abaixo dos citotóxicos genéricos clássicos.",
+      "flag_contexto_br": "Formulação lipossomal com aquisição mais cara e disponibilidade mais restrita no SUS que a doxorrubicina convencional — possível barreira de acesso parcial no Brasil.",
+      "fonte": "estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-sacituzumab-govitecan",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 1,
+      "status": "indeterminado",
+      "justificativa": "Sacituzumabe govitecana — ADC anti-Trop-2 de marca, EV D1/D8. Aquisição do ADC domina o custo total; manejo de neutropenia/diarreia adiciona suporte. Affordability muito baixa.",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: sacituzumabe govitecana tem registro ANVISA (2022) mas NÃO está incorporado ao SUS. Barreira de acesso relevante no Brasil; benefício menor em HR+ que em TNBC.",
+      "fonte": "ANVISA (registro 2022) / CONITEC (não incorporado) / estudo TROPiCS-02 / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-1l-thp-cleopatra",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe + pertuzumabe + docetaxel (depois manutenção com duplo bloqueio ± TE). QT barata; os dois anticorpos, sobretudo o pertuzumabe, dominam o custo total contínuo. Affordability baixa.",
+      "flag_contexto_br": "ACESSO EXISTE NESTE CENÁRIO: pertuzumabe é incorporado ao SUS especificamente para mama HER2+ METASTÁTICA de 1ª linha (Portaria nº 57/2017) — barreira de acesso baixa aqui, ao contrário da (neo)adjuvância.",
+      "fonte": "CONITEC / Portaria nº 57/2017 / estudo CLEOPATRA / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-2l-tdxd-db03",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 1,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe deruxtecan (ADC de marca) contínuo. Aquisição do ADC domina o custo total; monitorização de pneumonite adiciona suporte. Affordability muito baixa. Contraste com ESMO-MCBS 4 afirmado (alto benefício vs T-DM1).",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: T-DXd NÃO incorporado ao SUS (não avaliado/negado CONITEC para mama). Barreira de acesso relevante no Brasil, mesmo sendo padrão de 2ª linha HER2+.",
+      "fonte": "CONITEC (não incorporado) / estudo DESTINY-Breast03 / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-2l-tdm1-emilia",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 1,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe emtansina (T-DM1), ADC de marca, contínuo. Aquisição do ADC domina o custo; administração EV ambulatorial. Affordability muito baixa. ESMO-MCBS 4 afirmado (alto benefício).",
+      "flag_contexto_br": "ACESSO PARCIAL: T-DM1 foi incorporado ao SUS via PCDT (nov/2024) no cenário adjuvante de doença residual (KATHERINE); a cobertura no cenário metastático (EMILIA) é menos clara/mais restrita — possível barreira no Brasil (sinalização de direção).",
+      "fonte": "PCDT Câncer de Mama (MS, nov/2024) / estudo EMILIA / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-3l-tdm1-th3resa",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 1,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe emtansina (T-DM1), ADC de marca, em 3ª linha. Aquisição do ADC domina o custo total. Affordability muito baixa.",
+      "flag_contexto_br": "ACESSO PARCIAL/INCERTO: cobertura SUS do T-DM1 fora do cenário adjuvante KATHERINE é mais restrita — possível barreira de acesso no Brasil neste cenário de 3ª linha metastática.",
+      "fonte": "PCDT Câncer de Mama (MS) / estudo TH3RESA / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-3l-trastuzumabe-citotoxico",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 3,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe (biológico/biossimilar) + um citotóxico genérico (vinorelbina, eribulina, gencitabina ± cisplatina ou capecitabina). O trastuzumabe é o principal custo, mitigado por biossimilar; o parceiro citotóxico é barato (exceto eribulina, um pouco mais cara). Affordability intermediária.",
+      "flag_contexto_br": "Trastuzumabe incorporado ao SUS para HER2+; citotóxicos genéricos disponíveis. Barreira de acesso baixa no Brasil (regime econômico dentro do universo anti-HER2).",
+      "fonte": "PCDT Câncer de Mama / estudo LATAM real-world / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-pembro-keynote355",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Pembrolizumabe (imunoterapia de marca) + QT (paclitaxel ou gencitabina+carboplatina genéricos). O pembrolizumabe domina o custo total; a QT é barata. Affordability baixa. ESMO-MCBS 4 afirmado (alto benefício, alto custo).",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: pembrolizumabe para TNBC metastático (KEYNOTE-355, CPS≥10) NÃO está incorporado ao SUS — objeto de consulta pública CONITEC com recomendação inicial contra. Barreira de acesso relevante no Brasil.",
+      "fonte": "CONITEC (consulta pública) / estudo KEYNOTE-355 / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-atezolizumabe-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Atezolizumabe (imunoterapia anti-PD-L1 de marca) ± paclitaxel. Composição de custo dominada pelo anticorpo de marca. Affordability baixa. CONFRONTO IMPORTANTE: aqui a não incorporação NÃO é primariamente por custo, mas por FALHA DE EFICÁCIA (IMpassion131 negativo; Roche retirou voluntariamente a indicação nos EUA). O baixo affordability é secundário à ausência de benefício comprovado.",
+      "flag_contexto_br": "NÃO INCORPORADO ao SUS — mas o motivo é eficácia não demonstrada (não custo). Divergência de acesso no Brasil alinhada à retirada global da indicação.",
+      "fonte": "estudo IMpassion131 (negativo) / justificativa do protocolo / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-qt-opcoes",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Opções de QT (mono ou combinada): paclitaxel, docetaxel, doxorrubicina lipossomal, eribulina, carboplatina, capecitabina. A maioria é genérica de baixo custo; apenas doxorrubicina lipossomal e eribulina elevam pontualmente o custo. Como conjunto de opções acessíveis, affordability alta.",
+      "flag_contexto_br": "QT genérica disponível no SUS; sem barreira de acesso relevante (ressalva pontual a doxo lipossomal/eribulina). Direção favorável no Brasil.",
+      "fonte": "NCCN Breast Cancer v2.2025 / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-2l-qt-opcoes",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Mesmo painel de QT genérica de 2ª linha (paclitaxel, docetaxel, doxo lipossomal, carboplatina, capecitabina). Predomínio de genéricos baratos; administração ambulatorial. Affordability alta.",
+      "flag_contexto_br": "QT genérica disponível no SUS; sem barreira de acesso relevante no Brasil.",
+      "fonte": "NCCN Breast Cancer v2.2025 / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 1,
+      "status": "indeterminado",
+      "justificativa": "Sacituzumabe govitecana — ADC anti-Trop-2 de marca, EV D1/D8. Aquisição do ADC domina o custo total; suporte para neutropenia/diarreia. Affordability muito baixa. ESMO-MCBS 5 afirmado (máximo benefício, custo máximo).",
+      "flag_contexto_br": "DIVERGÊNCIA DE ACESSO: sacituzumabe govitecana com registro ANVISA mas NÃO incorporado ao SUS. Barreira de acesso relevante no Brasil, apesar de ESMO-MCBS 5 no TNBC.",
+      "fonte": "ANVISA / CONITEC (não incorporado) / estudo ASCENT / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-tdxd-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 1,
+      "status": "indeterminado",
+      "justificativa": "Trastuzumabe deruxtecan (ADC de marca) na população TNBC/RH- HER2-low. Aquisição do ADC domina o custo total. Affordability muito baixa. CONFRONTO: a não incorporação aqui é justificada por QUALIDADE DA EVIDÊNCIA (análise exploratória, N=60 no DB04), não primariamente por custo — porém o affordability muito baixo reforça a barreira.",
+      "flag_contexto_br": "NÃO INCORPORADO ao SUS para RH- HER2-low (evidência frágil) e T-DXd sem incorporação geral pela CONITEC. Barreira de acesso no Brasil.",
+      "fonte": "CONITEC (não incorporado) / estudo DESTINY-Breast04 (subgrupo) / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-qt-opcoes",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 5,
+      "status": "indeterminado",
+      "justificativa": "Painel de QT genérica de 3ª linha (paclitaxel, docetaxel, doxo lipossomal, carboplatina, capecitabina). Predomínio de genéricos de baixo custo. Affordability alta.",
+      "flag_contexto_br": "QT genérica disponível no SUS; sem barreira de acesso relevante no Brasil.",
+      "fonte": "NCCN Breast Cancer v2.2025 / estimativa qualitativa"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-bevacizumabe-nao-incorporado",
+      "afirmado_protocolo": null,
+      "valor_rederivado": 2,
+      "status": "indeterminado",
+      "justificativa": "Bevacizumabe (anti-VEGF de marca, biossimilares emergentes) + paclitaxel. O anticorpo domina o custo incremental. Affordability baixa. CONFRONTO: a não incorporação NÃO é primariamente por custo, mas por ausência de ganho em SG + toxicidade (FDA revogou a indicação em mama em 2011). Custo é fator secundário; o determinante é o benefício clínico insuficiente.",
+      "flag_contexto_br": "NÃO INCORPORADO ao SUS — motivo predominante é eficácia/segurança (sem ganho de SG; revogação FDA 2011), não custo. Divergência de acesso alinhada à retirada global da indicação em mama.",
+      "fonte": "estudos E2100/AVADO/RIBBON-1 / justificativa do protocolo / FDA 2011 / estimativa qualitativa"
+    }
+  ]
+}

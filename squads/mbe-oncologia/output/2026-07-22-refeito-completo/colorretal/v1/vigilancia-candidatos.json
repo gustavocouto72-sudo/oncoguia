@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "tumor": "colorretal",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados (NCT)."
+  },
+  "candidatos": [
+    {
+      "titulo": "CheckMate 8HW — nivolumabe + ipilimumabe vs quimioterapia em CCR metastático dMMR/MSI-H (1ª linha)",
+      "identificador": "NCT04008030",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "1ª linha metastático MSI-H (hoje pembrolizumabe/KEYNOTE-177)",
+      "relevancia": "Dupla IO pode superar mono-IO/quimio em MSI-H metastático.",
+      "acao": "Reavaliar 1ª linha MSI-H."
+    },
+    {
+      "titulo": "PRODIGE 90 / FFCD 2204 — dostarlimabe neoadjuvante + RT curta em reto dMMR",
+      "identificador": "NCT06762405",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "RECRUITING",
+      "regime_afetado": "Reto localmente avançado dMMR (hoje quimiorradioterapia)",
+      "relevancia": "IO neoadjuvante pode permitir preservação de órgão em reto dMMR (linha de Cercek).",
+      "acao": "Acompanhar; ainda em recrutamento."
+    }
+  ]
+}

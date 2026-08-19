@@ -1,0 +1,1698 @@
+{
+  "eixo": "Critérios de elegibilidade × estudo-pivô",
+  "gerado_em": "2026-07-18",
+  "verificador": "Elton Elegibilidade",
+  "metodo": "Re-derivação computável dos critérios de inclusão/exclusão a partir do estudo-pivô (Methods/eligibility via DOI/PMID e registros ClinicalTrials.gov), confrontada com a elegibilidade_protocolo. Amplitude: mais_amplo = protocolo permite paciente que o estudo excluiu (divergência importante); mais_estreito = protocolo exige além do estudo (seguro); equivalente = população idêntica. O sistema informa e sinaliza; a decisão é do médico.",
+  "resumo": {
+    "total": 60,
+    "concorda": 25,
+    "diverge": 3,
+    "indeterminado": 32,
+    "divergencias_criticas_mais_amplo": [
+      "mama-neo-her2pos-ct1c-tch",
+      "mama-met-hrpos-2l-sacituzumab-govitecan",
+      "mama-met-her2pos-3l-tdm1-th3resa"
+    ]
+  },
+  "vereditos": [
+    {
+      "regimen_id": "mama-adj-her2neg-act",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "adjuvante"
+        },
+        {
+          "campo": "node",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "tumor_invasivo",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "operavel",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "sexo",
+          "operador": "=",
+          "valor": "feminino"
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "metastase_distancia",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (campo null). CALGB 9741 (Citron 2003) incluiu mulheres com câncer de mama operável e axila positiva (N+) em cenário adjuvante — critérios agora computáveis a partir do registro/pivô.",
+      "justificativa": "Critérios extraídos do abstract do estudo-pivô CALGB 9741 via Europe PMC (escada de APIs abertas). Sem afirmação de elegibilidade do protocolo a confrontar.",
+      "fonte": "Europe PMC pmid 12668651 (Citron 2003, CALGB 9741)"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-tc",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "adjuvante"
+        },
+        {
+          "campo": "stage",
+          "operador": "in",
+          "valor": [
+            "I",
+            "II",
+            "III"
+          ]
+        },
+        {
+          "campo": "operavel",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "excisao_cirurgica_completa",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "tumor_invasivo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "metastase_distancia",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). US Oncology 9735 (Jones 2006) incluiu estádio I–III operável com excisão cirúrgica completa; critérios agora computáveis.",
+      "justificativa": "Critérios extraídos do abstract do estudo-pivô US Oncology 9735 via Europe PMC (pmid 17135639).",
+      "fonte": "Europe PMC pmid 17135639 (Jones 2006, US Oncology 9735) — DOI 10.1200/JCO.2006.06.5391"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-ac",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null. Referência (NSABP B-18) sem DOI e nota do protocolo cita B-15 divergindo da citação.",
+      "justificativa": "Sem critério afirmado; QT genérica. Sem fonte-pivô rastreável com critérios computáveis.",
+      "fonte": "NSABP B-18 (J Clin Oncol 1997;15:2483) — sem DOI"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-act-docetaxel",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null. Referência PACS 01 descreve epirrubicina→docetaxel (não AC→docetaxel); mismatch estudo×esquema.",
+      "justificativa": "Protocolo não especifica elegibilidade; regime genérico.",
+      "fonte": "https://doi.org/10.1056/NEJMoa060099"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null. Estudo-fonte (CALGB 40603/Sikov) é neoadjuvante em TNBC, mas o regime está listado sob adjuvância HER2 negativo — cenário incongruente.",
+      "justificativa": "Protocolo não especifica elegibilidade e há mismatch de cenário estudo×regime.",
+      "fonte": "https://doi.org/10.1001/jama.2014.13346"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-cmf",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "adjuvante"
+        },
+        {
+          "campo": "node",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "pos_mastectomia_radical",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "operavel",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "metastase_distancia",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). Bonadonna 1976 tratou câncer de mama primário operável com linfonodos axilares positivos após mastectomia radical; critérios agora computáveis.",
+      "justificativa": "Critérios extraídos do abstract do estudo-pivô CMF de Bonadonna via Europe PMC (pmid 1246307).",
+      "fonte": "Europe PMC pmid 1246307 (Bonadonna 1976) — DOI 10.1056/NEJM197602192940801"
+    },
+    {
+      "regimen_id": "mama-adj-brca-olaparibe",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "brca",
+          "operador": "=",
+          "valor": "mutado"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "linhas_previas",
+          "operador": ">=",
+          "valor": "6 ciclos QT (neo)adjuvante com antraciclina e/ou taxano"
+        },
+        {
+          "campo": "criterio_tnbc_adjuvante",
+          "operador": "=",
+          "valor": "tumor >=2cm OU node positivo"
+        },
+        {
+          "campo": "criterio_tnbc_neoadjuvante",
+          "operador": "=",
+          "valor": "doença residual (sem pCR)"
+        },
+        {
+          "campo": "criterio_rhpos_adjuvante",
+          "operador": "=",
+          "valor": ">=4 linfonodos positivos"
+        },
+        {
+          "campo": "criterio_rhpos_neoadjuvante",
+          "operador": "=",
+          "valor": "CPS+EG >=3 (sem pCR)"
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "Nenhuma divergência relevante. O protocolo reproduz FIELMENTE os quatro braços de elegibilidade do OlympiA: TNBC adj (>=2cm ou N+), TNBC neoadj (residual), RH+ adj (>=4 nós), RH+ neoadj (CPS+EG>=3). Ambos exigem HER2-negativo e gBRCA1/2.",
+      "justificativa": "Critérios re-derivados de Methods/eligibility do OlympiA (Tutt 2021), confirmados via busca em fonte primária.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2105215"
+    },
+    {
+      "regimen_id": "mama-adj-tnbc-capecitabina",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "negativo (protocolo restringe a triplo negativo)"
+        },
+        {
+          "campo": "doenca_residual_pos_neoadjuvante",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "mais_estreito",
+      "divergencia_vs_protocolo": "O CREATE-X incluiu TODOS os HER2-negativos com doença residual pós-neoadjuvante (RH+ e triplo negativo), com benefício de SG mais robusto no subgrupo TNBC. O protocolo APERTA a indicação restringindo apenas ao triplo negativo — mais estreito que o estudo (direção segura).",
+      "justificativa": "Critérios re-derivados de eligibility do CREATE-X (Masuda 2017): HER2-negativo, doença residual invasiva pós-QT neoadjuvante com antraciclina/taxano.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1612645"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-th",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "tstage",
+          "operador": "<=",
+          "valor": "3cm"
+        },
+        {
+          "campo": "node",
+          "operador": "=",
+          "valor": "N0"
+        },
+        {
+          "campo": "ecog",
+          "operador": "<=",
+          "valor": 1
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "doenca_cardiaca_significativa",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O protocolo reproduz a população do APT: HER2+, T<=3cm, N0, função cardíaca preservada. Ponto menor: o APT exigia FEVE basal normal quantificada; o protocolo usa apenas 'função cardíaca preservada' (qualitativo) — em teoria isso poderia admitir um paciente com FEVE limítrofe que o estudo excluiria (leve mais_amplo no eixo cardíaco), mas sem impacto material na indicação.",
+      "justificativa": "Critérios re-derivados de eligibility do APT/Tolaney 2015 (N<=3cm, node-negative, HER2+, ECOG 0-1, FEVE basal normal).",
+      "fonte": "https://doi.org/10.1056/NEJMoa1406281"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-tp-aphinity",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "node",
+          "operador": "=",
+          "valor": "N1 (positivo)"
+        },
+        {
+          "campo": "feve",
+          "operador": ">=",
+          "valor": 55
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "insuficiencia_cardiaca_ou_feve_menor_50",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "mais_estreito",
+      "divergencia_vs_protocolo": "O APHINITY incluiu node-positive E node-negative de alto risco (>1cm, ou 0,5-1cm com grau alto/RH-negativo). O protocolo APERTA a indicação para SOMENTE linfonodo positivo (N+), excluindo o N0 de alto risco — decisão correta pela ausência de benefício em N0 (HR 1,13). Mais estreito que o estudo (direção segura). O estudo exigia FEVE basal >=55%, coerente com 'função cardíaca preservada'.",
+      "justificativa": "Critérios re-derivados de eligibility do APHINITY (von Minckwitz 2017): N+ ou N0 de alto risco, FEVE basal >=55%.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1703643"
+    },
+    {
+      "regimen_id": "mama-adj-her2pos-tdm1-katherine",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "terapia_neoadjuvante_com_taxano_e_trastuzumabe",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "doenca_residual_invasiva_pos_cirurgia",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "tstage_node_muito_baixo",
+          "operador": "=",
+          "valor": "T1aN0 e T1bN0 excluídos no estudo"
+        }
+      ],
+      "amplitude": "mais_amplo",
+      "divergencia_vs_protocolo": "Divergência MENOR: o KATHERINE excluiu explicitamente T1aN0 e T1bN0 (T1-4, N0-3, exceto T1aN0/T1bN0) e exigia >=6 ciclos de neoadjuvante com >=9 semanas de taxano + >=9 semanas de trastuzumabe. O protocolo não reproduz a exclusão de T1a/T1bN0 — em tese permite tumores mínimos que o estudo não incluiu. Impacto clínico baixo, mas é um afrouxamento pontual (mais_amplo).",
+      "justificativa": "Critérios re-derivados de eligibility do KATHERINE (von Minckwitz 2019): HER2+, residual invasiva pós taxano+trastuzumabe neoadjuvante, exceto T1aN0/T1bN0.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1814017"
+    },
+    {
+      "regimen_id": "mama-adj-rhpos-abemaciclibe-monarche",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "criterio_alto_risco_A",
+          "operador": "=",
+          "valor": ">=4 linfonodos positivos"
+        },
+        {
+          "campo": "criterio_alto_risco_B",
+          "operador": "=",
+          "valor": "1-3 linfonodos + (grau 3 OU Ki-67 >=20% OU tamanho >=5cm)"
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O protocolo combina corretamente as coortes 1 (>=4 nós; ou 1-3 nós com >=5cm ou grau 3) e 2 (1-3 nós com Ki-67>=20%) do monarchE em uma única regra. População equivalente à indicação aprovada.",
+      "justificativa": "Critérios re-derivados de eligibility do monarchE (Coortes 1 e 2): RH+/HER2-, node-positive de alto risco.",
+      "fonte": "https://doi.org/10.1200/JCO.20.02514"
+    },
+    {
+      "regimen_id": "mama-adj-ht-tamoxifeno-pre",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "menopausa",
+          "operador": "=",
+          "valor": "pre"
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "Critério trivial de posicionamento (pré-menopausa, RH+). O ATLAS avaliou DURAÇÃO estendida (10 vs 5 anos) em população ER+; o tamoxifeno é indicação estabelecida para RH+ pré-menopausa. Sem divergência de população elegível.",
+      "justificativa": "Elegibilidade limitada a status menopausal e RH+; o eixo de amplitude não se aplica de forma crítica. ATLAS (Davies 2013) confirma população ER+.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(12)61963-1"
+    },
+    {
+      "regimen_id": "mama-adj-ht-lhrh-ia-pre",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "menopausa",
+          "operador": "=",
+          "valor": "pre"
+        },
+        {
+          "campo": "risco",
+          "operador": "=",
+          "valor": "alto (candidata a supressão ovariana)"
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O SOFT incluiu pré-menopausadas RH+ (>=10%) que permaneceram pré-menopausadas após QT; o benefício da supressão ovariana + IA/tamoxifeno foi maior em alto risco (jovens <35a, grau 3, N+). O protocolo posiciona corretamente para pré-menopausa de alto risco. Equivalente.",
+      "justificativa": "Critérios re-derivados de eligibility do SOFT (Francis 2015): pré-menopausa, RH+, alto risco.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1412379"
+    },
+    {
+      "regimen_id": "mama-adj-ht-ia-pos",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "menopausa",
+          "operador": "=",
+          "valor": "pos"
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "Critério definicional: inibidor de aromatase EXIGE status pós-menopausa (requisito farmacológico). O MA.17 (letrozol estendido pós-tamoxifeno) confirma população pós-menopausa RH+. Sem divergência de amplitude.",
+      "justificativa": "Elegibilidade determinada por status menopausal (requisito farmacológico do IA) e RH+.",
+      "fonte": "https://doi.org/10.1056/NEJMoa032312"
+    },
+    {
+      "regimen_id": "mama-adj-ht-tam-ia-switch-pos",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Esquema de switch (tamoxifeno→IA) listado sob bloco de referências agrupadas, sem DOI/estudo-pivô isolado. Elegibilidade limitada a 'pós-menopausa'.",
+      "justificativa": "Sem estudo-pivô único rastreável para o esquema de switch; protocolo agrupa referências (ATLAS/SOFT/MA.17).",
+      "fonte": "Referência agrupada — sem DOI específico"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-acth",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "tstage",
+          "operador": "<=",
+          "valor": "cT1c"
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "mais_estreito",
+      "divergencia_vs_protocolo": "O estudo de Buzdar 2005 incluiu câncer de mama HER2+ OPERÁVEL (tipicamente T1-3, N0-1). O protocolo APERTA a indicação para tumores até cT1c — mais estreito. Ressalva: a referência descreve backbone paclitaxel→FEC+trastuzumabe, enquanto o esquema listado é AC→docetaxel+trastuzumabe (mismatch estudo×esquema já sinalizado pela extração).",
+      "justificativa": "Critérios re-derivados de Buzdar 2005 (HER2+ operável). Protocolo restringe por tamanho (cT1c).",
+      "fonte": "https://doi.org/10.1200/JCO.2005.05.188"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-tch",
+      "status": "diverge",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "criterio_estudo_A",
+          "operador": "=",
+          "valor": "node positivo"
+        },
+        {
+          "campo": "criterio_estudo_B",
+          "operador": "=",
+          "valor": "N0 de alto risco"
+        },
+        {
+          "campo": "feve",
+          "operador": ">=",
+          "valor": 50
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "doenca_localmente_avancada_ou_metastatica",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "doenca_cardiaca_previa",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "mais_amplo",
+      "divergencia_vs_protocolo": "DIVERGÊNCIA IMPORTANTE. O BCIRG-006 exigiu HER2+ com linfonodo POSITIVO ou N0 de ALTO RISCO, em cenário ADJUVANTE, FEVE basal >=50%. O protocolo aplica TCH a tumores até cT1c (que podem incluir N0 de baixo risco) em cenário NEOADJUVANTE — população NÃO estudada pelo BCIRG-006 (que não incluiu N0 de baixo risco/tumores mínimos) e cenário distinto (adjuvante vs neoadjuvante). Protocolo permite paciente que o estudo-pivô excluiu.",
+      "justificativa": "Critérios re-derivados de eligibility do BCIRG-006 (Slamon 2011): node-positive ou N0 de alto risco, adjuvante, FEVE>=50%. Cenário e faixa de risco divergem do uso neoadjuvante em cT1c.",
+      "fonte": "https://doi.org/10.1056/NEJMoa0910383"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-acthp",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "criterio_A",
+          "operador": "=",
+          "valor": "tumor >=2cm (cT2-4d)"
+        },
+        {
+          "campo": "criterio_B",
+          "operador": "=",
+          "valor": "node positivo (N+)"
+        },
+        {
+          "campo": "ecog",
+          "operador": "<=",
+          "valor": 1
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "doenca_cardiaca_significativa",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O TRYPHAENA incluiu HER2+ operável, localmente avançado ou inflamatório (T2-4d), ECOG 0-1. O protocolo (tumores >=2cm ou N+, função cardíaca preservada) é essencialmente equivalente à população do estudo.",
+      "justificativa": "Critérios re-derivados de eligibility do TRYPHAENA (Schneeweiss 2013): HER2+ T2-4d, ECOG 0-1.",
+      "fonte": "https://doi.org/10.1093/annonc/mdt182"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-tchp",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "criterio_A",
+          "operador": "=",
+          "valor": "tumor >=2cm"
+        },
+        {
+          "campo": "criterio_B",
+          "operador": "=",
+          "valor": "node positivo (N+)"
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "doenca_cardiaca_significativa",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O NeoSphere incluiu HER2+ operável, localmente avançado ou inflamatório, treatment-naive. O protocolo (>=2cm ou N+, cardíaca preservada) é equivalente. Ressalva: NeoSphere foi publicado no Lancet Oncology (não NEJM, como consta na citação); e o braço TCHP com carboplatina corresponde ao TRYPHAENA — sinalizações de citação já apontadas pela extração.",
+      "justificativa": "Critérios re-derivados de eligibility do NeoSphere (Gianni 2012): HER2+ operável/LA/inflamatório.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(11)70336-9"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-gtct1c-thp",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "A referência citada (Cortazar 2014, Lancet) é a meta-análise CTNeoBC sobre pCR como desfecho — NÃO é um estudo-pivô do regime THP com critérios de elegibilidade próprios. Não é possível re-derivar inclusão/exclusão a partir dela.",
+      "justificativa": "Sem estudo-pivô único do regime THP; referência é meta-análise de endpoint (pCR). Elegibilidade do protocolo (T2N0 ou contraindicação a platina/antraciclinas) não deriva do estudo citado.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(13)62422-8"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-phesgo-nao-incorporado",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "neoadjuvante"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "stage",
+          "operador": "in",
+          "valor": [
+            "II",
+            "IIIA",
+            "IIIB",
+            "IIIC"
+          ]
+        },
+        {
+          "campo": "tumor",
+          "operador": "OR",
+          "valor": [
+            "> 2cm",
+            "node_positivo"
+          ]
+        },
+        {
+          "campo": "ecog",
+          "operador": "<=",
+          "valor": 1
+        },
+        {
+          "campo": "feve",
+          "operador": ">=",
+          "valor": 55
+        },
+        {
+          "campo": "tumor_invasivo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "metastase_distancia",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). FeDeriCa (NCT03493854) incluiu mama HER2+ estádio II–IIIC neoadjuvante, tumor >2 cm ou N+, ECOG ≤1, FEVE ≥55%; critérios agora computáveis.",
+      "justificativa": "Critérios extraídos do eligibilityModule do FeDeriCa via ClinicalTrials.gov API v2.",
+      "fonte": "ClinicalTrials.gov NCT03493854 (FeDeriCa, eligibilityModule)"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-pembro-keynote522",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "negativo (triplo negativo)"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo (triplo negativo)"
+        },
+        {
+          "campo": "criterio_estadio_A",
+          "operador": "=",
+          "valor": "T1c com N1-2"
+        },
+        {
+          "campo": "criterio_estadio_B",
+          "operador": "=",
+          "valor": "T2-4 com N0-2"
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "Correspondência EXATA. O protocolo ('T1c, N1-2, ou T2-4, N0-2') reproduz literalmente o estadiamento de inclusão do KEYNOTE-522 (T1c N1-2 ou T2-4 N0-2, AJCC), TNBC previamente não tratado.",
+      "justificativa": "Critérios re-derivados de eligibility do KEYNOTE-522 (Schmid 2020).",
+      "fonte": "https://doi.org/10.1056/NEJMoa1910549"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-acdd-ct",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "A referência primária é a meta-análise EBCTCG de dose-intensidade (37.298 mulheres, 26 trials) — não fornece critérios de elegibilidade computáveis de um estudo-pivô único. Elegibilidade do protocolo ('>= T1c') é genérica.",
+      "justificativa": "Fonte é meta-análise de dados agregados; sem estudo-pivô único com critérios extraíveis. BrighTNess (secundária) não é a base do esquema ACdd-CT.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(18)33137-4"
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-tc",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "stage",
+          "operador": "in",
+          "valor": [
+            "I",
+            "II",
+            "III"
+          ]
+        },
+        {
+          "campo": "operavel",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "excisao_cirurgica_completa",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "tumor_invasivo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "metastase_distancia",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). O pivô US Oncology 9735 é ADJUVANTE e não específico de triplo-negativo; aplicação ao cenário neoadjuvante-TNBC é extrapolação (indirectness de cenário e subtipo).",
+      "justificativa": "Critérios do estudo-pivô US Oncology 9735 (Europe PMC pmid 17135639). Registrada indirectness: ensaio adjuvante, não-TNBC, usado em regime neoadjuvante TNBC.",
+      "fonte": "Europe PMC pmid 17135639 (Jones 2006, US Oncology 9735)"
+    },
+    {
+      "regimen_id": "mama-neo-rhpos-act-acddt",
+      "status": "diverge",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "adjuvante"
+        },
+        {
+          "campo": "node",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "tumor_invasivo",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "operavel",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "metastase_distancia",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "mais_amplo",
+      "divergencia_vs_protocolo": "CALGB 9741 incluiu APENAS doença axilar-positiva (N+) em cenário ADJUVANTE. O protocolo admite N0 (T3/T4 ou biologia de alto risco: grau 3, Ki-67 alto, RH fraco) e uso NEOADJUVANTE. Protocolo mais amplo que a população do pivô — indicação parcialmente fora da evidência do estudo citado.",
+      "justificativa": "Critérios do estudo-pivô CALGB 9741 (Europe PMC pmid 12668651) confrontados com a elegibilidade declarada no protocolo; protocolo admite N0 e cenário neoadjuvante não estudados no pivô.",
+      "fonte": "Europe PMC pmid 12668651 (Citron 2003, CALGB 9741)"
+    },
+    {
+      "regimen_id": "mama-neo-rhpos-tc",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "stage",
+          "operador": "in",
+          "valor": [
+            "I",
+            "II",
+            "III"
+          ]
+        },
+        {
+          "campo": "operavel",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "excisao_cirurgica_completa",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "tumor_invasivo",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "hr",
+          "operador": "=",
+          "valor": "positivo"
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "metastase_distancia",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo remete a 'mesmos critérios do bloco 2.4' (RH+). O pivô US Oncology 9735 é adjuvante; uso neoadjuvante é extrapolação (indirectness de cenário).",
+      "justificativa": "Critérios do estudo-pivô US Oncology 9735 (Europe PMC pmid 17135639), restringidos a RH+ conforme o protocolo. Indirectness de cenário registrada.",
+      "fonte": "Europe PMC pmid 17135639 (Jones 2006, US Oncology 9735)"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ia-cdk46",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "linha_metastatica",
+          "operador": "=",
+          "valor": "1a linha (sem terapia sistêmica prévia p/ doença avançada)"
+        },
+        {
+          "campo": "intervalo_ia_adjuvante",
+          "operador": ">",
+          "valor": "12 meses do término do IA adjuvante"
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "crise_visceral",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "mais_estreito",
+      "divergencia_vs_protocolo": "O MONALEESA-2 incluiu pós-menopausadas HR+/HER2- em 1a linha, sem terapia prévia para doença avançada, IA-livre >12 meses. O protocolo ADICIONA restrições não presentes no estudo: 'sem crise visceral' (excluída) e janela de recorrência endócrina ('após 2 anos de tamoxifeno' / '12 meses do IA') — logo mais estreito. Pré-menopausa é coberta pelo braço com LHRH (base MONALEESA-7). Direção segura.",
+      "justificativa": "Critérios re-derivados de eligibility do MONALEESA-2 (Hortobagyi 2018): pós-menopausa, HR+/HER2-, 1a linha, IA adjuvante >12 meses.",
+      "fonte": "https://doi.org/10.1093/annonc/mdy155"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-fulvestranto-cdk46",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "avancado_metastatico"
+        },
+        {
+          "campo": "hr",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "menopausa",
+          "operador": "=",
+          "valor": "pos_ou_masculino"
+        },
+        {
+          "campo": "linhas_previas_doenca_avancada",
+          "operador": "<=",
+          "valor": 1
+        },
+        {
+          "campo": "doenca",
+          "operador": "OR",
+          "valor": [
+            "mensuravel_RECIST",
+            "lesao_ossea_litica"
+          ]
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "mais_de_uma_linha_endocrina_avancada",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). MONALEESA-3 (NCT02422615) incluiu mama HR+/HER2- avançada, pós-menopausa, virgem de tratamento ou ≤1 linha endócrina prévia; critérios agora computáveis.",
+      "justificativa": "Critérios extraídos do eligibilityModule do MONALEESA-3 via ClinicalTrials.gov API v2.",
+      "fonte": "ClinicalTrials.gov NCT02422615 (MONALEESA-3, eligibilityModule)"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ia-abemaciclibe",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "linha_metastatica",
+          "operador": "=",
+          "valor": "1a linha (sem terapia sistêmica prévia p/ doença avançada)"
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "crise_visceral",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "icdk46_ou_everolimo_previo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "mais_estreito",
+      "divergencia_vs_protocolo": "O MONARCH 3 incluiu pós-menopausadas HR+/HER2- sem terapia sistêmica prévia em doença avançada, DFI >12 meses do término da endócrina adjuvante, excluindo iCDK4/6/everolimo prévios. O protocolo ADICIONA 'sem crise visceral' e reformula a janela como 'recorrência nos primeiros 2 anos de HT adjuvante' — mais estreito. Item possivelmente redundante com IA+iCDK4/6 (opção abemaciclibe), já sinalizado pela extração.",
+      "justificativa": "Critérios re-derivados de eligibility do MONARCH 3 (Goetz 2024): pós-menopausa, 1a linha, DFI>12m, sem iCDK4/6 prévio.",
+      "fonte": "https://doi.org/10.1016/j.annonc.2024.04.013"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ht-isolada",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Sem referência (DOI/estudo = null). Elegibilidade genérica ('contraindicação à associação com iCDK4/6'). Sem estudo-pivô rastreável.",
+      "justificativa": "Referência ausente; critério clínico genérico não confrontável com fonte primária.",
+      "fonte": "Referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-qt-crise-visceral",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Sem referência. Elegibilidade genérica ('pacientes em crise visceral'); QT sem agente/estudo especificado.",
+      "justificativa": "Referência ausente e regime genérico de QT.",
+      "fonte": "Referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ribociclibe-crise-visceral",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "menopausa",
+          "operador": "=",
+          "valor": "pre/peri"
+        },
+        {
+          "campo": "crise_visceral",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "mais_estreito",
+      "divergencia_vs_protocolo": "O RIGHT Choice incluiu pré/perimenopausadas HR+/HER2- com doença clinicamente AGRESSIVA (metástase visceral sintomática, progressão rápida OU doença não-visceral sintomática) — apenas ~48% tinham crise visceral verdadeira. O protocolo restringe a 'pacientes em crise visceral' — mais estreito que a população do estudo. Direção segura.",
+      "justificativa": "Critérios re-derivados de eligibility do RIGHT Choice (Lu 2024): pré/peri-menopausa, HR+/HER2-, doença agressiva.",
+      "fonte": "https://doi.org/10.1200/JCO.24.00144"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-seq-cdk46-nao-incorporado",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "progressao_pos_icdk46_com_endocrina",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "fulvestranto_ou_qt_previa_para_doenca_avancada",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O postMONARCH incluiu HR+/HER2- com progressão em iCDK4/6 + IA (1a linha) OU recidiva em/após iCDK4/6 + endócrina adjuvante, sem fulvestranto/QT prévios para doença avançada. O protocolo ('progressão após iCDK4/6 na 1a linha com endócrina') é equivalente. Regime NÃO INCORPORADO (magnitude pequena do benefício).",
+      "justificativa": "Critérios re-derivados de eligibility do postMONARCH (Kalinsky 2025).",
+      "fonte": "https://doi.org/10.1200/JCO-24-02086"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-capivasertibe-nao-incorporado",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "metastatico_ou_localmente_avancado"
+        },
+        {
+          "campo": "hr",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "progressao_pos_inibidor_aromatase",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "ecog",
+          "operador": "<=",
+          "valor": 1
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "localmente_avancado_ressecavel_curativo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). CAPItello-291 (NCT04305496) incluiu HR+/HER2- avançado com recidiva/progressão em/pós inibidor de aromatase, ECOG 0–1; critérios agora computáveis.",
+      "justificativa": "Critérios extraídos do eligibilityModule do CAPItello-291 via ClinicalTrials.gov API v2.",
+      "fonte": "ClinicalTrials.gov NCT04305496 (CAPItello-291, eligibilityModule)"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-alpelisibe-nao-incorporado",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null. Regime NÃO INCORPORADO. O SOLAR-1 exige mutação PIK3CA, mas o protocolo não afirma critérios computáveis.",
+      "justificativa": "Protocolo não especifica elegibilidade; status não incorporado.",
+      "fonte": "https://doi.org/10.1200/JCO.20.01139"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-tdxd-db04",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "baixa expressão (IHC 1+ ou IHC 2+/ISH-)"
+        },
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "endocrino_esgotado",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "linhas_previas_qt",
+          "operador": ">=",
+          "valor": 1
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O DESTINY-Breast04 incluiu HER2-low (IHC1+ ou 2+/ISH-), metastático, 1-2 linhas prévias de QT no cenário metastático, e se RH+ refratário/inelegível à endócrina. O protocolo (HER2-low, RH+, endócrina esgotada, >=1 linha de QT) é equivalente. Ponto menor: protocolo diz 'pelo menos 1 linha' (sem teto), enquanto o estudo era 1-2 linhas — leve afrouxamento no limite superior.",
+      "justificativa": "Critérios re-derivados de eligibility do DESTINY-Breast04 (Modi 2022).",
+      "fonte": "https://doi.org/10.1056/NEJMoa2203690"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-tdxd-db06-nao-incorporado",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "baixa expressão (IHC 1+ ou IHC 2+/ISH-)"
+        },
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "qt_previa_paliativa",
+          "operador": "=",
+          "valor": "ausente (sem QT no cenário metastático)"
+        },
+        {
+          "campo": "progressao_pos_icdk46_endocrina",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "mais_estreito",
+      "divergencia_vs_protocolo": "O DESTINY-Breast06 incluiu HER2-low E HER2-ULTRALOW (IHC 0), sem QT prévia no metastático, com progressão após endócrina +/- iCDK4/6. O protocolo restringe a HER2-low (IHC1+/2+ISH-), EXCLUINDO o ultralow que o estudo incluiu — mais estreito. Também adiciona 'alto volume de doença' e reformula a janela adjuvante ('<12 meses' vs '<=24 meses' do estudo). Regime NÃO INCORPORADO neste cenário.",
+      "justificativa": "Critérios re-derivados de eligibility do DESTINY-Breast06 (Bardia 2024): HER2-low/ultralow, sem QT paliativa, pós-endócrina.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2407086"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-capecitabina",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "metastatico"
+        },
+        {
+          "campo": "sexo",
+          "operador": "=",
+          "valor": "feminino"
+        },
+        {
+          "campo": "linhas_previas",
+          "operador": "in",
+          "valor": [
+            "qualquer"
+          ]
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). X-7/7 (Khan 2025) incluiu mulheres com câncer de mama metastático em qualquer linha prévia; critérios agora computáveis.",
+      "justificativa": "Critérios extraídos do abstract (OA) do X-7/7 via Europe PMC (pmid 39917581, PMC11797229).",
+      "fonte": "Europe PMC pmid 39917581 / PMC11797229 (X-7/7) — DOI 10.1200/OA-24-00068"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-paclitaxel",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null. Referência é meta-análise de esquema semanal vs 3/3 semanas — sem critérios de elegibilidade de estudo-pivô único.",
+      "justificativa": "Protocolo não especifica elegibilidade; fonte é meta-análise.",
+      "fonte": "https://doi.org/10.1016/j.ctrv.2009.10.006"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-eribulina",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "linhas_previas_qt_doenca_avancada",
+          "operador": ">=",
+          "valor": 2
+        },
+        {
+          "campo": "antraciclina_previa",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "taxano_previo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O EMBRACE incluiu 2-5 esquemas prévios de QT (com antraciclina e taxano), >=2 para doença localmente recorrente/metastática. O protocolo ('>=2 linhas para doença avançada, incluindo antraciclina e taxano') é equivalente. Ponto menor: protocolo não fixa o teto de 5 linhas do estudo (leve afrouxamento superior, sem relevância clínica).",
+      "justificativa": "Critérios re-derivados de eligibility do EMBRACE (Cortes 2011).",
+      "fonte": "https://doi.org/10.1016/S0140-6736(11)60070-6"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-docetaxel",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null e referência ausente. Sem fonte-pivô rastreável.",
+      "justificativa": "Protocolo não especifica elegibilidade; referência ausente.",
+      "fonte": "Referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-vinorelbina-iv",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null e referência ausente.",
+      "justificativa": "Protocolo não especifica elegibilidade; referência ausente.",
+      "fonte": "Referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-vinorelbina-vo",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null e referência ausente.",
+      "justificativa": "Protocolo não especifica elegibilidade; referência ausente.",
+      "fonte": "Referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-gencitabina",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null e referência ausente.",
+      "justificativa": "Protocolo não especifica elegibilidade; referência ausente.",
+      "fonte": "Referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-doxo-lipossomal",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null e referência ausente.",
+      "justificativa": "Protocolo não especifica elegibilidade; referência ausente.",
+      "fonte": "Referência ausente"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-sacituzumab-govitecan",
+      "status": "diverge",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo"
+        },
+        {
+          "campo": "linhas_previas_qt_metastatica",
+          "operador": "entre",
+          "valor": "2 a 4"
+        },
+        {
+          "campo": "endocrino_previo",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "taxano_previo",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "icdk46_previo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "tdxd_previo",
+          "operador": "=",
+          "valor": "protocolo adiciona (não é critério do TROPiCS-02)"
+        }
+      ],
+      "amplitude": "mais_amplo",
+      "divergencia_vs_protocolo": "DIVERGÊNCIA. O TROPiCS-02 EXIGIU 2-4 linhas de QT no metastático E terapia prévia com endócrina, taxano E iCDK4/6. O protocolo confronta apenas '2 a 4 linhas de QT prévia' e 'sem exposição prévia a TDXd' — OMITE a exigência de iCDK4/6/endócrina/taxano prévios. Assim, o protocolo permite paciente sem iCDK4/6 prévio que o TROPiCS-02 excluiria (mais_amplo). Nota: o protocolo também acrescenta restrição de sequência (sem TDXd prévio) que é mais estreita nesse ponto isolado.",
+      "justificativa": "Critérios re-derivados de eligibility do TROPiCS-02 (Rugo/Lancet 2023): 2-4 linhas de QT metastática + endócrina + taxano + iCDK4/6 prévios.",
+      "fonte": "https://doi.org/10.2217/fon-2020-0163"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-1l-thp-cleopatra",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "linha_metastatica",
+          "operador": "=",
+          "valor": "1a linha"
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "trastuzumabe_adjuvante_intervalo",
+          "operador": "<",
+          "valor": "6 meses do término"
+        }
+      ],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O CLEOPATRA incluiu HER2+ metastático 1a linha, permitindo trastuzumabe (neo)adjuvante prévio se intervalo livre >=6 meses. O protocolo ('sem exposição prévia a trastuzumabe na adjuvância ou finalizada há >6 meses') é equivalente.",
+      "justificativa": "Critérios re-derivados de eligibility do CLEOPATRA (Swain 2020).",
+      "fonte": "https://doi.org/10.1016/S1470-2045(19)30863-0"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-2l-tdxd-db03",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "trastuzumabe_e_taxano_previos",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "criterio_recidiva",
+          "operador": "=",
+          "valor": "progressão em anti-HER2 metastático OU recidiva <=6 meses da (neo)adjuvância"
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "tdm1_previo",
+          "operador": "=",
+          "valor": "excluído no estudo; protocolo não reproduz"
+        }
+      ],
+      "amplitude": "mais_amplo",
+      "divergencia_vs_protocolo": "O DESTINY-Breast03 incluiu HER2+ metastático com trastuzumabe + taxano prévios (progressão no avançado OU recidiva <=6 meses da neo/adjuvância) e EXCLUIU T-DM1 prévio. O protocolo reproduz a inclusão, mas NÃO reproduz a exclusão de T-DM1 prévio — leve afrouxamento (mais_amplo pontual). Como é posicionado em 2a linha, o impacto prático é baixo.",
+      "justificativa": "Critérios re-derivados de eligibility do DESTINY-Breast03 (Cortés 2022).",
+      "fonte": "https://doi.org/10.1056/NEJMoa2115022"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-2l-tdm1-emilia",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "trastuzumabe_e_taxano_previos",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "ecog",
+          "operador": "<=",
+          "valor": 1
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "tdm1_lapatinibe_capecitabina_previos",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O EMILIA incluiu HER2+ avançado previamente tratado com trastuzumabe + taxano; o protocolo (progressão em anti-HER2 combinada a taxano OU recidiva <=6 meses da adjuvância; na indisponibilidade/contraindicação ao TDXd) é equivalente/compatível. Nota da extração sobre DOI/versão da publicação não afeta os critérios de elegibilidade.",
+      "justificativa": "Critérios re-derivados de eligibility do EMILIA (Diéras/Verma): trastuzumabe + taxano prévios, ECOG 0-1, sem T-DM1/lapatinibe/capecitabina prévios.",
+      "fonte": "https://doi.org/10.1056/NEJMoa1209124"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-3l-tdm1-th3resa",
+      "status": "diverge",
+      "criterios_inclusao": [
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "positivo"
+        },
+        {
+          "campo": "trastuzumabe_previo",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "lapatinibe_previo",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "taxano_previo",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "regimes_anti_her2_previos",
+          "operador": ">=",
+          "valor": 2
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "tdm1_previo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "mais_amplo",
+      "divergencia_vs_protocolo": "DIVERGÊNCIA IMPORTANTE. O TH3RESA EXIGIU >=2 regimes anti-HER2 prévios no cenário avançado, incluindo trastuzumabe E lapatinibe E taxano. O protocolo confronta apenas 'HER2+ não exposto previamente ao T-DM1' — OMITE a exigência de trastuzumabe + lapatinibe + taxano/>=2 linhas anti-HER2. Assim, o protocolo permite paciente muito menos tratado que o estudo incluiu (mais_amplo). O único critério comum (sem T-DM1 prévio) coincide com a exclusão do estudo.",
+      "justificativa": "Critérios re-derivados de eligibility do TH3RESA (Krop 2014): HER2+ avançado com trastuzumabe + lapatinibe + taxano prévios.",
+      "fonte": "https://doi.org/10.1016/S1470-2045(14)70178-0"
+    },
+    {
+      "regimen_id": "mama-met-her2pos-3l-trastuzumabe-citotoxico",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null. Referência é estudo de mundo real (LATAM), sem critérios de elegibilidade de estudo-pivô randomizado.",
+      "justificativa": "Protocolo não especifica elegibilidade; fonte é real-world, não estudo-pivô com critérios.",
+      "fonte": "https://doi.org/10.1177/11782234251342477"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-pembro-keynote355",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "negativo (triplo negativo)"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo (triplo negativo)"
+        },
+        {
+          "campo": "pdl1_cps",
+          "operador": ">=",
+          "valor": 10
+        },
+        {
+          "campo": "linha_metastatica",
+          "operador": "=",
+          "valor": "1a linha (sem tratamento prévio no metastático)"
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "intervalo_adjuvante",
+          "operador": "<",
+          "valor": "6 meses do término (recidiva precoce)"
+        }
+      ],
+      "amplitude": "equivalente",
+      "divergencia_vs_protocolo": "O protocolo reproduz a população de benefício do KEYNOTE-355: TNBC, PD-L1 (22C3) CPS >=10, sem tratamento prévio no metastático ou recidiva >=6 meses após adjuvância. Equivalente à indicação aprovada.",
+      "justificativa": "Critérios re-derivados de eligibility/análise do KEYNOTE-355 (Cortes 2020): TNBC 1a linha, CPS>=10.",
+      "fonte": "https://doi.org/10.1016/S0140-6736(20)32531-9"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-atezolizumabe-nao-incorporado",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "localmente_avancado_ou_metastatico"
+        },
+        {
+          "campo": "subtipo",
+          "operador": "=",
+          "valor": "TNBC (ER-, PR-, HER2-)"
+        },
+        {
+          "campo": "linha",
+          "operador": "=",
+          "valor": "1L"
+        },
+        {
+          "campo": "ecog",
+          "operador": "<=",
+          "valor": 1
+        },
+        {
+          "campo": "doenca_mensuravel_RECIST",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "qt_ou_terapia_sistemica_previa_tnbc_avancado",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). IMpassion131 (NCT03125902) incluiu TNBC avançado 1ª linha, elegível a taxano, sem QT prévia para doença avançada; critérios agora computáveis.",
+      "justificativa": "Critérios do eligibilityModule (ClinicalTrials.gov NCT03125902) e abstract (Europe PMC pmid 34219000).",
+      "fonte": "ClinicalTrials.gov NCT03125902 (IMpassion131, eligibilityModule) + Europe PMC pmid 34219000"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-qt-opcoes",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Elegibilidade genérica ('não elegíveis à 1a linha com imunoterapia'). Fonte é diretriz NCCN v2.2025 (lista genérica de QT), sem estudo-pivô único com critérios computáveis.",
+      "justificativa": "Sem estudo-pivô único; referência é diretriz NCCN. Critérios não re-deriváveis.",
+      "fonte": "NCCN Breast Cancer v2.2025 — https://www.nccn.org"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-2l-qt-opcoes",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "elegibilidade_protocolo = null. Fonte é diretriz NCCN v2.2025 (lista genérica de QT).",
+      "justificativa": "Sem estudo-pivô único; referência é diretriz NCCN.",
+      "fonte": "NCCN Breast Cancer v2.2025 — https://www.nccn.org"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "rh",
+          "operador": "=",
+          "valor": "negativo (triplo negativo)"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "negativo (triplo negativo)"
+        },
+        {
+          "campo": "linhas_previas_totais",
+          "operador": ">=",
+          "valor": 2
+        },
+        {
+          "campo": "taxano_previo",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "ecog",
+          "operador": "<=",
+          "valor": 1
+        }
+      ],
+      "criterios_exclusao": [],
+      "amplitude": "mais_estreito",
+      "divergencia_vs_protocolo": "O ASCENT exigiu >=2 esquemas prévios de QT no total, com PELO MENOS 1 no cenário metastático, incluindo um taxano (que podia ser da (neo)adjuvância). O protocolo exige '>=2 linhas no cenário PALIATIVO' — mais restritivo que o estudo (que aceitava só 1 linha metastática + 1 (neo)adjuvante). Direção segura. Critério do taxano coincide.",
+      "justificativa": "Critérios re-derivados de eligibility do ASCENT (Bardia 2021): >=2 QT prévias (>=1 metastática), incluindo taxano, ECOG 0-1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2028485"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-tdxd-nao-incorporado",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "metastatico_ou_irressecavel"
+        },
+        {
+          "campo": "her2",
+          "operador": "=",
+          "valor": "baixo (IHC 1+ ou 2+/ISH-)"
+        },
+        {
+          "campo": "hr",
+          "operador": "in",
+          "valor": [
+            "positivo",
+            "negativo"
+          ]
+        },
+        {
+          "campo": "linhas_qt_previas",
+          "operador": "in",
+          "valor": [
+            1,
+            2
+          ]
+        },
+        {
+          "campo": "progressao_radiologica",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "doenca_mensuravel_RECIST",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "her2_positivo_alguma_vez",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "anti_her2_previo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). DESTINY-Breast04 (NCT03734029) incluiu mama HER2-baixa metastática, 1–2 linhas de QT prévias, nunca HER2+; critérios agora computáveis.",
+      "justificativa": "Critérios extraídos do eligibilityModule do DESTINY-Breast04 via ClinicalTrials.gov API v2.",
+      "fonte": "ClinicalTrials.gov NCT03734029 (DESTINY-Breast04, eligibilityModule)"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-qt-opcoes",
+      "status": "indeterminado",
+      "criterios_inclusao": [],
+      "criterios_exclusao": [],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Elegibilidade genérica ('não elegíveis à 1a linha com imunoterapia'). Fonte é diretriz NCCN v2.2025 (lista genérica de QT), sem estudo-pivô único.",
+      "justificativa": "Sem estudo-pivô único; referência é diretriz NCCN.",
+      "fonte": "NCCN Breast Cancer v2.2025 — https://www.nccn.org"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-bevacizumabe-nao-incorporado",
+      "status": "concorda",
+      "criterios_inclusao": [
+        {
+          "campo": "cenario",
+          "operador": "=",
+          "valor": "localmente_recorrente_irressecavel_ou_metastatico"
+        },
+        {
+          "campo": "her2",
+          "operador": "in",
+          "valor": [
+            "negativo",
+            "positivo_tratado_com_trastuzumabe"
+          ]
+        },
+        {
+          "campo": "ecog",
+          "operador": "<=",
+          "valor": 1
+        },
+        {
+          "campo": "adenocarcinoma_mama",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "criterios_exclusao": [
+        {
+          "campo": "metastase_snc",
+          "operador": "=",
+          "valor": true
+        },
+        {
+          "campo": "her2_3plus_sem_trastuzumabe_previo",
+          "operador": "=",
+          "valor": true
+        }
+      ],
+      "amplitude": "indeterminado",
+      "divergencia_vs_protocolo": "Protocolo não declara elegibilidade (null). E2100 (NCT00028990) incluiu mama localmente recorrente irressecável/metastática, HER2- (ou HER2+ tratado), ECOG 0–1, sem metástase de SNC; critérios agora computáveis.",
+      "justificativa": "Critérios do eligibilityModule (ClinicalTrials.gov NCT00028990) e abstract (Europe PMC pmid 18160686).",
+      "fonte": "ClinicalTrials.gov NCT00028990 (E2100, eligibilityModule) + Europe PMC pmid 18160686"
+    }
+  ],
+  "reverificado_em": "2026-07-20",
+  "nota_reverificacao": "2026-07-20: eixo re-derivado para 13 regimes via escada de APIs abertas (ClinicalTrials.gov eligibilityModule prioritário; Europe PMC como fallback de abstract). Ver meta.reverificacao_apis no consolidado."
+}

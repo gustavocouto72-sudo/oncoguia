@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "tumor": "mama",
+    "gerado_em": "2026-07-18",
+    "vigilancia": "Vitor Vigilância",
+    "janela_busca": "2024-2026",
+    "total_candidatos": 9,
+    "nota_processo": "Varredura priorizou HER2+ adjuvante/metastático, TNBC, HR+ metastático (iCDK4/6, ADCs, PI3K/AKT, SERD oral) e os 5 regimes com selo 'divergencia'. Só viraram candidato achados 2024-2026 que mudam GRADE/ESMO-MCBS/NCCN-affordability/elegibilidade e NÃO estão refletidos no protocolo institucional 2025. As 5 divergências pendentes (elegibilidade/cenário) não foram resolvidas por evidência nova — permanecem para parecer do oncologista, sem candidato de re-derivação. NENHUMA mudança aplicada: candidatos propõem, oncologista dispõe no checkpoint.",
+    "resumo_forca": {
+      "forte": 8,
+      "fraco": 1
+    },
+    "triagem_humana": {
+      "status": "pendente",
+      "data": "2026-07-18",
+      "decidido_por": null,
+      "nota": "Revisor optou por deixar todos os 9 candidatos pendentes para o oncologista de referencia. Nenhuma atualizacao incorporada; nenhuma versao de regime incrementada."
+    }
+  },
+  "candidatos": [
+    {
+      "regimen_id": "mama-met-her2pos-1l-thp-cleopatra",
+      "tipo": "novo RCT",
+      "eixo_afetado": "elegibilidade",
+      "delta_proposto": "DESTINY-Breast09 (fase 3, ASCO 2025): T-DXd + pertuzumabe vs THP (taxano+trastuzumabe+pertuzumabe, o padrão CLEOPATRA) em 1ª linha HER2+ metastático. mPFS 40,7 m vs ~26,9 m (HR ~0,56; redução de 44% do risco de progressão), ORR 85,1% vs 78,6%. Candidato a redefinir o padrão de 1ª linha; considerar registrar como novo esquema/opção 1L HER2+ e reavaliar posição do THP. GRADE do novo esquema tende a 1A.",
+      "fonte": "https://www.asco.org/about-asco/press-center/news-releases/trastuzumab-deruxtecan-pertuzumab-destiny-breast09",
+      "forca_do_sinal": "forte",
+      "data_fonte": "2025",
+      "triagem": {
+        "decisao": "pendente_oncologista_referencia",
+        "decidido_por": null,
+        "data": "2026-07-18"
+      }
+    },
+    {
+      "regimen_id": "mama-neo-tnbc-pembro-keynote522",
+      "tipo": "novo RCT",
+      "eixo_afetado": "esmo_mcbs",
+      "delta_proposto": "Análise final de SG do KEYNOTE-522 (NEJM 2024): SG em 60 meses 86,6% vs 81,7% (HR 0,66; p=0,00150), primeiro ganho de SG estatisticamente significativo com imunoterapia neoadjuvante/adjuvante em TNBC precoce. Reforça o ESMO-MCBS (atualmente 'A' indeterminado) e o GRADE 1A; considerar consolidar MCBS 'A' e elevar status de indeterminado para confirmado no eixo de benefício.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2409932",
+      "forca_do_sinal": "forte",
+      "data_fonte": "2024",
+      "triagem": {
+        "decisao": "pendente_oncologista_referencia",
+        "decidido_por": null,
+        "data": "2026-07-18"
+      }
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ia-cdk46",
+      "tipo": "novo RCT",
+      "eixo_afetado": "elegibilidade",
+      "delta_proposto": "INAVO120 (fase 3): inavolisibe + palbociclibe + fulvestranto em HR+/HER2- PIK3CA-mutado com recidiva durante/≤12 m após ET adjuvante (endócrino-resistente). PFS 15,0 vs 7,3 m e SG final positiva 34,0 vs 27,0 m (ganho 7,0 m); aprovação FDA out/2024. Sinaliza subgrupo PIK3CA-mutado endócrino-resistente que pode migrar de IA+iCDK4/6 para regime PI3K-dirigido em 1L; considerar novo esquema/critério de elegibilidade por PIK3CA.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2501796",
+      "forca_do_sinal": "forte",
+      "data_fonte": "2025",
+      "triagem": {
+        "decisao": "pendente_oncologista_referencia",
+        "decidido_por": null,
+        "data": "2026-07-18"
+      }
+    },
+    {
+      "regimen_id": "mama-adj-rhpos-abemaciclibe-monarche",
+      "tipo": "novo RCT",
+      "eixo_afetado": "elegibilidade",
+      "delta_proposto": "NATALEE (fase 3, 5 anos ESMO 2025): ribociclibe 400 mg + IA adjuvante × 3 anos vs IA em HR+/HER2- estádio II/III de alto risco. iDFS HR 0,716; ganho absoluto iDFS 4,5% em 5 anos, tendência de SG favorável; aprovação FDA 2024. População elegível MAIS AMPLA que monarchE (inclui N0 de alto risco). Candidato a novo esquema adjuvante alternativo/complementar ao abemaciclibe, com critérios de elegibilidade próprios (NATALEE).",
+      "fonte": "https://doi.org/10.1056/NEJMoa2305488",
+      "forca_do_sinal": "forte",
+      "data_fonte": "2025",
+      "triagem": {
+        "decisao": "pendente_oncologista_referencia",
+        "decidido_por": null,
+        "data": "2026-07-18"
+      }
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-seq-cdk46-nao-incorporado",
+      "tipo": "novo RCT",
+      "eixo_afetado": "elegibilidade",
+      "delta_proposto": "EMBER-3 (fase 3, NEJM 2024): imlunestrante (SERD oral) ± abemaciclibe em HR+/HER2- avançado após ET±iCDK4/6. Em ESR1-mutado, PFS superior ao SOC endócrino e SG 34,5 vs 23,1 m (ganho 11,4 m); aprovação FDA set/2025 para ESR1-mutado. Introduz nova CLASSE (SERD oral / alvo ESR1) na 2ª linha endócrina, não representada no protocolo; considerar novo esquema e critério de elegibilidade por mutação ESR1.",
+      "fonte": "https://doi.org/10.1056/NEJMoa2410858",
+      "forca_do_sinal": "forte",
+      "data_fonte": "2024",
+      "triagem": {
+        "decisao": "pendente_oncologista_referencia",
+        "decidido_por": null,
+        "data": "2026-07-18"
+      }
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-sacituzumab-govitecan",
+      "tipo": "novo RCT",
+      "eixo_afetado": "elegibilidade",
+      "delta_proposto": "TROPION-Breast01 (fase 3): datopotamabe deruxtecana (Dato-DXd, ADC anti-TROP2) vs QT em HR+/HER2-baixo/negativo pré-tratado. PFS 6,9 vs 4,9 m (HR 0,63), porém SG FINAL NEGATIVA (18,6 vs 18,3 m; HR 1,01); aprovação FDA jan/2025. Novo ADC 2L HR+ não incorporado; ESMO-MCBS provável baixo por ausência de ganho de SG. Candidato a registrar como opção 2L com ressalva de benefício de SG não demonstrado.",
+      "fonte": "https://www.astrazeneca.com/media-centre/press-releases/2024/datopotamab-deruxtecan-final-overall-survival-results-reported-in-patients-with-metastatic-hr-positive-her2-low-or-negative-breast-cancer-in-tropion-breast01-phase-iii-trial.html",
+      "forca_do_sinal": "forte",
+      "data_fonte": "2025",
+      "triagem": {
+        "decisao": "pendente_oncologista_referencia",
+        "decidido_por": null,
+        "data": "2026-07-18"
+      }
+    },
+    {
+      "regimen_id": "mama-met-hrpos-2l-tdxd-db06-nao-incorporado",
+      "tipo": "diretriz",
+      "eixo_afetado": "elegibilidade",
+      "delta_proposto": "Aprovação FDA (jan/2025) do T-DXd para HR+ HER2-baixo E HER2-ULTRABAIXO metastático após ≥1 linha de terapia endócrina, com base no DESTINY-Breast06 (PFS 13,2 m; redução 36% do risco; ORR 62,6% vs 34,4%). Expande a população-alvo além de HER2-low para HER2-ultralow e antecipa o uso para antes da 1ª QT metastática. Atualiza o critério de elegibilidade do regime hoje marcado 'não incorporado'; reavaliar posição institucional.",
+      "fonte": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-fam-trastuzumab-deruxtecan-nxki-unresectable-or-metastatic-hr-positive-her2-low-or-her2",
+      "forca_do_sinal": "forte",
+      "data_fonte": "2025",
+      "triagem": {
+        "decisao": "pendente_oncologista_referencia",
+        "decidido_por": null,
+        "data": "2026-07-18"
+      }
+    },
+    {
+      "regimen_id": "mama-met-tnbc-1l-pembro-keynote355",
+      "tipo": "novo RCT",
+      "eixo_afetado": "elegibilidade",
+      "delta_proposto": "ASCENT-04/KEYNOTE-D19 (fase 3, ASCO 2025): sacituzumabe govitecana + pembrolizumabe vs QT + pembrolizumabe em 1ª linha TNBC PD-L1+ (CPS≥10). mPFS 11,2 vs 7,8 m (HR 0,65; p<0,001) — primeiro ADC+checkpoint fase 3 em 1L. Candidato a nova opção/algoritmo 1L TNBC PD-L1+ ao lado do padrão KEYNOTE-355; considerar registrar como esquema alternativo e reavaliar elegibilidade por PD-L1.",
+      "fonte": "https://www.asco.org/about-asco/press-center/news-releases/sacituzumab-govitecan-helps-some-patients-with-PD-L1-positive-triple-negative-breast-cancer-live-longer-without-cancer-progression",
+      "forca_do_sinal": "forte",
+      "data_fonte": "2025",
+      "triagem": {
+        "decisao": "pendente_oncologista_referencia",
+        "decidido_por": null,
+        "data": "2026-07-18"
+      }
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-phesgo-nao-incorporado",
+      "tipo": "incorporacao-br",
+      "eixo_afetado": "elegibilidade",
+      "delta_proposto": "CONITEC/SECTICS Consulta Pública nº 48/2024: avaliação de pertuzumabe + trastuzumabe em combinação de dose fixa subcutânea (PHESGO) para tratamento neoadjuvante de câncer de mama HER2+ no SUS. Processo de HTA BR EM CURSO (sem decisão final). Monitorar para eventual atualização do status 'não incorporado' e do critério de elegibilidade caso haja recomendação/incorporação.",
+      "fonte": "https://www.gov.br/participamaisbrasil/consulta-publica-conitec-sectics-n-48-2024-pertuzumabe-e-trastuzumabe",
+      "forca_do_sinal": "fraco",
+      "data_fonte": "2024",
+      "triagem": {
+        "decisao": "pendente_oncologista_referencia",
+        "decidido_por": null,
+        "data": "2026-07-18"
+      }
+    }
+  ]
+}

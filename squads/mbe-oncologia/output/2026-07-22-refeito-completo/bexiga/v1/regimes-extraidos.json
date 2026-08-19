@@ -1,0 +1,1792 @@
+{
+  "meta": {
+    "tumor": "bexiga",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 20
+  },
+  "campos_primitivos": [
+    {
+      "campo": "invasao_muscular",
+      "tipo": "boolean",
+      "label": "Invasao muscular",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "risco",
+      "tipo": "enum",
+      "label": "Risco",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "intermediario",
+        "['intermediario', 'alto']"
+      ]
+    },
+    {
+      "campo": "bcg_unresponsive",
+      "tipo": "boolean",
+      "label": "Bcg unresponsive",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "recusa_ou_inelegivel_cistectomia",
+      "tipo": "boolean",
+      "label": "Recusa ou inelegivel cistectomia",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "elegivel_cisplatina",
+      "tipo": "boolean",
+      "label": "Elegivel cisplatina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "candidato_preservacao",
+      "tipo": "boolean",
+      "label": "Candidato preservacao",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "hidronefrose_extensa",
+      "tipo": "boolean",
+      "label": "Hidronefrose extensa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "elegivel_cistectomia",
+      "tipo": "boolean",
+      "label": "Elegivel cistectomia",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "doenca_autoimune_ativa",
+      "tipo": "boolean",
+      "label": "Doenca autoimune ativa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "alto_risco_pos_cistectomia",
+      "tipo": "boolean",
+      "label": "Alto risco pos cistectomia",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "utuc",
+      "tipo": "boolean",
+      "label": "Utuc",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "pos_nefroureterectomia",
+      "tipo": "boolean",
+      "label": "Pos nefroureterectomia",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "alto_risco",
+      "tipo": "boolean",
+      "label": "Alto risco",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "candidato_io",
+      "tipo": "boolean",
+      "label": "Candidato io",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "neuropatia_grave_ou_dm_descontrolado",
+      "tipo": "boolean",
+      "label": "Neuropatia grave ou dm descontrolado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "sem_progressao_pos_platina",
+      "tipo": "boolean",
+      "label": "Sem progressao pos platina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "inelegivel_platina",
+      "tipo": "boolean",
+      "label": "Inelegivel platina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "pdl1_positivo",
+      "tipo": "boolean",
+      "label": "Pdl1 positivo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_platina",
+      "tipo": "boolean",
+      "label": "Progressao pos platina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "io_previa",
+      "tipo": "boolean",
+      "label": "Io previa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_io",
+      "tipo": "boolean",
+      "label": "Progressao pos io",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ev_previo",
+      "tipo": "boolean",
+      "label": "Ev previo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "alteracao_fgfr",
+      "tipo": "boolean",
+      "label": "Alteracao fgfr",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "bexiga-nmibc-intermediario-gemcitabina-intravesical",
+      "tumor": "bexiga",
+      "cenario": "localizado",
+      "subtipo": "NMIBC de risco intermediário",
+      "nome": "Gemcitabina intravesical (indução + manutenção)",
+      "esquema": "Gemcitabina 2 g em 50 mL SF intravesical semanal x6 (indução) → mensal por 12 meses (manutenção)",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "2 g/50 mL",
+          "via": "intravesical",
+          "frequencia": "semanal x6 + mensal 12m"
+        }
+      ],
+      "elegibilidade_protocolo": "NMIBC de risco intermediário pós-RTU-B.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "risco",
+                "intermediario"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MESSING EM et al. Effect of intravesical instillation of gemcitabine vs saline immediately following resection of NMIBC on tumor recurrence: SWOG S0337. JAMA. 2018;319(18):1880-1888.",
+        "doi": "10.1001/jama.2018.4657",
+        "pmid": null,
+        "estudo": "SWOG S0337",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↓ recorrência tumoral",
+        "magnitude": "S0337: instilação única pós-RTU reduziu recorrência (HR ~0,66). NB: S0337 avaliou instilação ÚNICA, não o esquema de manutenção.",
+        "fonte": "10.1001/jama.2018.4657"
+      },
+      "toxicidades": [
+        {
+          "nome": "Sintomas irritativos vesicais",
+          "severidade": "leve",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Gemcitabina intravesical"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-nmibc-bcg-intravesical",
+      "tumor": "bexiga",
+      "cenario": "localizado",
+      "subtipo": "NMIBC de risco intermediário/alto",
+      "nome": "BCG intravesical (indução + manutenção)",
+      "esquema": "BCG 80 mg intravesical semanal x6 (indução) → manutenção semanal x3 nos meses 3, 6, 12 (por 1 ano)",
+      "farmacos": [
+        {
+          "nome": "BCG (Bacilo Calmette-Guérin)",
+          "dose": "80 mg",
+          "via": "intravesical",
+          "frequencia": "indução x6 + manutenção"
+        }
+      ],
+      "elegibilidade_protocolo": "NMIBC de risco intermediário ou alto pós-RTU-B completa.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                false
+              ]
+            },
+            {
+              "in": [
+                "risco",
+                [
+                  "intermediario",
+                  "alto"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SYLVESTER RJ, van der Meijden APM, Lamm DL. Intravesical bacillus Calmette-Guerin reduces the risk of progression in patients with superficial bladder cancer: a meta-analysis. J Urol. 2002;168(5):1964-1970.",
+        "doi": "10.1097/00005392-200211000-00016",
+        "pmid": null,
+        "estudo": "Meta-análise Sylvester",
+        "ano": 2002,
+        "primeiro_autor": "Sylvester"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↓ progressão para doença músculo-invasiva",
+        "magnitude": "Meta-análise: redução ~27% no risco de progressão com BCG de manutenção",
+        "fonte": "10.1016/S0022-5347(05)64273-3"
+      },
+      "toxicidades": [
+        {
+          "nome": "Cistite/sintomas irritativos",
+          "severidade": "moderada",
+          "conduta": "suporte; adiar instilação",
+          "fonte": "Bula/ficha técnica: BCG"
+        },
+        {
+          "nome": "BCGite/infecção sistêmica",
+          "severidade": "grave",
+          "conduta": "isoniazida; suspender",
+          "fonte": "Bula/ficha técnica: BCG"
+        }
+      ],
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1016/S0022-5347(05)64273-3 → 10.1097/00005392-200211000-00016",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
+      "tumor": "bexiga",
+      "cenario": "localizado",
+      "subtipo": "NMIBC de alto risco irresponsivo ao BCG (não candidato/recusa cistectomia)",
+      "nome": "Gemcitabina + Docetaxel intravesical (resgate)",
+      "esquema": "Gemcitabina 1 g intravesical + Docetaxel 37,5 mg intravesical, 6 instilações semanais → manutenção mensal por 12 meses",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1 g",
+          "via": "intravesical",
+          "frequencia": "semanal x6 + mensal"
+        },
+        {
+          "nome": "Docetaxel",
+          "dose": "37,5 mg",
+          "via": "intravesical",
+          "frequencia": "semanal x6 + mensal"
+        }
+      ],
+      "elegibilidade_protocolo": "NMIBC de alto risco irresponsivo ao BCG, em paciente não candidato ou que recusa cistectomia radical.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "bcg_unresponsive",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "recusa_ou_inelegivel_cistectomia",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "STEINBERG RL et al. Sequential intravesical gemcitabine and docetaxel for the salvage treatment of non-muscle invasive bladder cancer. Bladder Cancer. 2015;1(1):65-72.",
+        "doi": null,
+        "pmid": null,
+        "estudo": "Steinberg (série retrospectiva)",
+        "ano": 2015
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Sintomas irritativos vesicais",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Gemcitabina/Docetaxel intravesical"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-mibc-tmt-cisplatina",
+      "tumor": "bexiga",
+      "cenario": "localmente-avancado",
+      "subtipo": "CIBM — preservação de bexiga (TMT), elegível a platina",
+      "nome": "Quimiorradioterapia com Cisplatina (TMT)",
+      "esquema": "RTU-B máxima + RT com Cisplatina 100 mg/m² a cada 2-3 semanas (ou 35-40 mg/m² semanal durante RT)",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "100 mg/m² (ou 35-40 mg/m² semanal)",
+          "via": "EV",
+          "frequencia": "durante RT"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial invasivo de músculo (CIBM) selecionado para preservação vesical, elegível a cisplatina, inelegível/recusa cistectomia.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cisplatina",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "candidato_preservacao",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "hidronefrose_extensa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "JAMES ND et al. Radiotherapy with or without chemotherapy in muscle-invasive bladder cancer (BC2001). N Engl J Med. 2012;366(16):1477-1488. (Protocolo cita Lancet 2015;386:32-40 — publicação primária é NEJM 2012.)",
+        "doi": "10.1056/NEJMoa1106106",
+        "pmid": null,
+        "estudo": "BC2001",
+        "ano": 2012
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ controle locorregional (redução de recidiva invasiva) com quimiorradioterapia vs RT isolada",
+        "magnitude": "BC2001: melhora do controle locorregional e menor necessidade de cistectomia de salvamento",
+        "fonte": "10.1056/NEJMoa1106106"
+      },
+      "toxicidades": [
+        {
+          "nome": "Cistite/proctite actínica",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Perfil de RT pélvica"
+        },
+        {
+          "nome": "Nefrotoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-mibc-tmt-5fu-mitomicina",
+      "tumor": "bexiga",
+      "cenario": "localmente-avancado",
+      "subtipo": "CIBM — preservação de bexiga (TMT), inelegível a platina",
+      "nome": "Quimiorradioterapia com 5-FU + Mitomicina C",
+      "esquema": "RT + 5-FU 600-700 mg/m²/dia infusão contínua D1-5 (ciclos 1 e 5 da RT) + Mitomicina C 10-15 mg/m² bolus D1",
+      "farmacos": [
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "600-700 mg/m²/dia",
+          "via": "EV contínua",
+          "frequencia": "D1-5 ciclos 1 e 5 da RT"
+        },
+        {
+          "nome": "Mitomicina C",
+          "dose": "10-15 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 (bolus)"
+        }
+      ],
+      "elegibilidade_protocolo": "CIBM candidato a preservação vesical, inelegível/intolerante à cisplatina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cisplatina",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "candidato_preservacao",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "JAMES ND et al. BC2001. N Engl J Med. 2012;366(16):1477-1488 (braço 5-FU/Mitomicina C).",
+        "doi": "10.1056/NEJMoa1106106",
+        "pmid": null,
+        "estudo": "BC2001",
+        "ano": 2012
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ controle locorregional com 5-FU/MMC + RT vs RT isolada",
+        "magnitude": "BC2001: melhora do controle locorregional em 2 anos com quimiorradioterapia 5-FU/MMC",
+        "fonte": "10.1056/NEJMoa1106106"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Mitomicina C"
+        },
+        {
+          "nome": "Mucosite/diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: 5-FU"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-mibc-neoadj-gc-durvalumab",
+      "tumor": "bexiga",
+      "cenario": "neoadjuvancia",
+      "subtipo": "CIBM (T2-T4a N0-N1 M0) elegível a cistectomia — perioperatório",
+      "nome": "Gemcitabina + Cisplatina + Durvalumabe (NIAGARA)",
+      "esquema": "Neoadjuvante: Gemcitabina + Cisplatina + Durvalumabe → cistectomia → Durvalumabe adjuvante",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "70 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        },
+        {
+          "nome": "Durvalumabe",
+          "dose": "1500 mg",
+          "via": "EV",
+          "frequencia": "perioperatório"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial invasivo de músculo (T2-T4a, N0-N1, M0), elegível a cistectomia radical e a cisplatina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cistectomia",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cisplatina",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "POWLES T et al. Perioperative durvalumab with neoadjuvant chemotherapy in operable bladder cancer (NIAGARA). N Engl J Med. 2024;391(19):1773-1786.",
+        "doi": "10.1056/NEJMoa2408154",
+        "pmid": null,
+        "estudo": "NIAGARA",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de eventos e ↑ sobrevida global; ↑ resposta patológica completa",
+        "magnitude": "NIAGARA: EFS HR 0,68; SG HR 0,75; maior pCR com adição de durvalumabe",
+        "fonte": "10.1056/NEJMoa2408154"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Gemcitabina, Cisplatina"
+        },
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Eventos imunomediados (colite, hepatite, pneumonite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-mibc-neoadj-gc",
+      "tumor": "bexiga",
+      "cenario": "neoadjuvancia",
+      "subtipo": "CIBM operável — neoadjuvante (padrão platina)",
+      "nome": "Gemcitabina + Cisplatina (neoadjuvante)",
+      "esquema": "Gemcitabina 1000 mg/m² D1,D8 + Cisplatina 70 mg/m² D1, 21/21d, 3-4 ciclos pré-operatórios",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "70 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "CIBM elegível a cistectomia e cisplatina; neoadjuvância padrão-ouro baseada em platina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cistectomia",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cisplatina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "YIN M et al. Neoadjuvant chemotherapy for muscle-invasive bladder cancer: a systematic review and two-step meta-analysis. Oncologist. 2016;21(6):708-715.",
+        "doi": "10.1634/theoncologist.2015-0440",
+        "pmid": null,
+        "estudo": "Meta-análise Yin",
+        "ano": 2016
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global com QT neoadjuvante baseada em platina",
+        "magnitude": "Meta-análise: ganho absoluto de SG ~5-8% em 5 anos",
+        "fonte": "10.1634/theoncologist.2015-0440"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Gemcitabina, Cisplatina"
+        },
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-mibc-neoadj-mvac-dd",
+      "tumor": "bexiga",
+      "cenario": "neoadjuvancia",
+      "subtipo": "CIBM operável — neoadjuvante (MVAC dose-densa)",
+      "nome": "MVAC dose-densa (neoadjuvante)",
+      "esquema": "Metotrexato 30 mg/m² D1 + Vimblastina 3 mg/m² D2 + Doxorrubicina 30 mg/m² D2 + Cisplatina 70 mg/m² D2, 14/14d com G-CSF",
+      "farmacos": [
+        {
+          "nome": "Metotrexato",
+          "dose": "30 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 14/14d"
+        },
+        {
+          "nome": "Vimblastina",
+          "dose": "3 mg/m²",
+          "via": "EV",
+          "frequencia": "D2"
+        },
+        {
+          "nome": "Doxorrubicina",
+          "dose": "30 mg/m²",
+          "via": "EV",
+          "frequencia": "D2"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "70 mg/m²",
+          "via": "EV",
+          "frequencia": "D2"
+        }
+      ],
+      "elegibilidade_protocolo": "CIBM elegível a cistectomia e cisplatina; alternativa dose-densa ao GC.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cistectomia",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cisplatina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PFISTER C et al. Dose-dense MVAC or GC as perioperative chemotherapy for nonmetastatic MIBC: GETUG-AFU V05 VESPER. J Clin Oncol. 2022;40(18):2013-2022.",
+        "doi": "10.1200/JCO.21.02051",
+        "pmid": null,
+        "estudo": "VESPER (GETUG-AFU V05)",
+        "ano": 2022
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão (tendência de SG) com dd-MVAC neoadjuvante",
+        "magnitude": "VESPER: melhor SLP em 3 anos com dd-MVAC vs GC no subgrupo neoadjuvante",
+        "fonte": "10.1200/JCO.21.02051"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão/neutropenia",
+          "severidade": "grave",
+          "conduta": "G-CSF obrigatório",
+          "fonte": "Bula/ficha técnica: MVAC"
+        },
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "grave",
+          "conduta": "hidratação",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Metotrexato"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-mibc-adj-gc-mvac",
+      "tumor": "bexiga",
+      "cenario": "adjuvancia",
+      "subtipo": "CIBM pós-cistectomia de alto risco não tratado em neoadjuvância",
+      "nome": "Gemcitabina + Cisplatina ou MVAC (adjuvante)",
+      "esquema": "GC ou MVAC por 3-4 ciclos pós-cistectomia (pT3-T4a, N+ ou margens positivas)",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina + Cisplatina (ou MVAC)",
+          "dose": "conforme neoadjuvância",
+          "via": "EV",
+          "frequencia": "3-4 ciclos"
+        }
+      ],
+      "elegibilidade_protocolo": "CIBM pós-cistectomia com alto risco de recorrência (pT3-T4a, N+ ou margens positivas) que não recebeu neoadjuvância e é elegível a cisplatina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "alto_risco_pos_cistectomia",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cisplatina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "STUDER UE et al. Adjuvant cisplatin chemotherapy following cystectomy for bladder cancer: results of a prospective randomized trial. J Urol. 1994;152(1):81-84.",
+        "doi": "10.1016/s0022-5347(17)32822-7",
+        "pmid": null,
+        "estudo": "Studer (subpotente)",
+        "ano": 1994
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Gemcitabina, Cisplatina"
+        },
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-mibc-adj-nivolumabe",
+      "tumor": "bexiga",
+      "cenario": "adjuvancia",
+      "subtipo": "CIBM pós-cistectomia de alto risco (pT3-pT4a ou pN+)",
+      "nome": "Nivolumabe adjuvante",
+      "esquema": "Nivolumabe 240 mg EV a cada 2 semanas por até 1 ano",
+      "farmacos": [
+        {
+          "nome": "Nivolumabe",
+          "dose": "240 mg",
+          "via": "EV",
+          "frequencia": "2/2 sem até 1 ano"
+        }
+      ],
+      "elegibilidade_protocolo": "CIBM pós-cistectomia + linfadenectomia, pT3-pT4a ou pN+, independente de PD-L1; ou doença residual (>pT2) pós-neoadjuvância.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "invasao_muscular",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "alto_risco_pos_cistectomia",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BAJORIN DF et al. Adjuvant nivolumab versus placebo in muscle-invasive urothelial carcinoma (CheckMate 274). N Engl J Med. 2021;384(22):2102-2114. GALSKY MD et al. Expanded efficacy. J Clin Oncol. 2025;43(1):15-21.",
+        "doi": "10.1056/NEJMoa2034442",
+        "pmid": null,
+        "estudo": "CheckMate 274",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "A",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença",
+        "magnitude": "CheckMate 274: DFS HR 0,70 (ITT); benefício maior em PD-L1≥1%",
+        "fonte": "10.1056/NEJMoa2034442"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (colite, hepatite, pneumonite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-utuc-adj-gc",
+      "tumor": "bexiga",
+      "cenario": "adjuvancia",
+      "subtipo": "Carcinoma urotelial do trato superior (UTUC) pós-nefroureterectomia",
+      "nome": "Gemcitabina + Cisplatina (ou Carboplatina) adjuvante — UTUC",
+      "esquema": "Gemcitabina 1000 mg/m² D1,D8 + Cisplatina 70 mg/m² D1 (ou Carboplatina AUC 4,5-5), 21/21d, 4 ciclos",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d x4"
+        },
+        {
+          "nome": "Cisplatina (ou Carboplatina)",
+          "dose": "70 mg/m² (AUC 4,5-5)",
+          "via": "EV",
+          "frequencia": "D1 21/21d x4"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial do trato superior de alto risco pós-nefroureterectomia radical.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "utuc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pos_nefroureterectomia",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "alto_risco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BIRTLE A et al. Adjuvant chemotherapy in upper tract urothelial carcinoma (POUT): a phase 3, open-label, randomised controlled trial. Lancet. 2020;395(10232):1268-1277.",
+        "doi": "10.1016/S0140-6736(20)30415-3",
+        "pmid": null,
+        "estudo": "POUT",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença",
+        "magnitude": "POUT: DFS HR 0,45 (melhora significativa); tendência de melhora em SG",
+        "fonte": "10.1016/S0140-6736(20)30415-3"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Gemcitabina, Cisplatina"
+        },
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-met-1l-enfortumab-pembrolizumabe",
+      "tumor": "bexiga",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma urotelial metastático/irressecável — 1ª linha (candidatos a IO)",
+      "nome": "Enfortumab Vedotin + Pembrolizumabe (EV+P)",
+      "esquema": "Enfortumab Vedotin 1,25 mg/kg D1,D8 + Pembrolizumabe 200 mg D1, ciclos de 21 dias, até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Enfortumab Vedotin",
+          "dose": "1,25 mg/kg",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        },
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial localmente avançado/metastático em 1ª linha, candidato a imunoterapia (independente de elegibilidade a cisplatina).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "candidato_io",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "neuropatia_grave_ou_dm_descontrolado",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e ↑ SLP vs quimioterapia",
+        "magnitude": "EV-302: SG HR 0,47; SLP HR 0,45 vs GC/GCarbo",
+        "fonte": "10.1056/NEJMoa2312117"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hiperglicemia",
+          "severidade": "grave",
+          "conduta": "monitorar glicemia; suspender EV",
+          "fonte": "Bula/ficha técnica: Enfortumab Vedotin"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "grave",
+          "conduta": "ajuste/suspensão de EV",
+          "fonte": "Bula/ficha técnica: Enfortumab Vedotin"
+        },
+        {
+          "nome": "Rash cutâneo (inclusive grave)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender",
+          "fonte": "Bula/ficha técnica: Enfortumab Vedotin"
+        },
+        {
+          "nome": "Eventos imunomediados (colite, hepatite, pneumonite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-met-1l-gc-nivolumabe",
+      "tumor": "bexiga",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma urotelial metastático — 1ª linha (elegível a cisplatina)",
+      "nome": "Gemcitabina + Cisplatina + Nivolumabe (indução + manutenção)",
+      "esquema": "Cisplatina + Gemcitabina + Nivolumabe 360 mg a cada 3 semanas por até 6 ciclos → Nivolumabe manutenção 480 mg a cada 4 semanas por até 2 anos",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "70 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        },
+        {
+          "nome": "Nivolumabe",
+          "dose": "360 → 480 mg",
+          "via": "EV",
+          "frequencia": "indução + manutenção"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial avançado, elegível a cisplatina, em 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cisplatina",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "CheckMate 901: SG HR 0,78 (ganho ~22% relativo) vs GC",
+        "fonte": "10.1056/NEJMoa2309863"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Gemcitabina, Cisplatina"
+        },
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Eventos imunomediados (colite, hepatite, pneumonite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-met-1l-gc-avelumabe-manutencao",
+      "tumor": "bexiga",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma urotelial metastático — manutenção pós-QT de 1ª linha",
+      "nome": "Manutenção com Avelumabe (JAVELIN Bladder 100)",
+      "esquema": "Após GC/GCarbo (resposta ou doença estável): Avelumabe 800 mg EV a cada 2 semanas até progressão",
+      "farmacos": [
+        {
+          "nome": "Avelumabe",
+          "dose": "800 mg",
+          "via": "EV",
+          "frequencia": "2/2 sem (manutenção)"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial avançado sem progressão após quimioterapia de 1ª linha baseada em platina (resposta parcial ou doença estável).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sem_progressao_pos_platina",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "JAVELIN Bladder 100: SG HR 0,69 (21,4 vs 14,3 meses) vs observação",
+        "fonte": "10.1056/NEJMoa2002788"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (colite, hepatite, pneumonite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
+      "tumor": "bexiga",
+      "cenario": "metastatico",
+      "subtipo": "Urotelial metastático — 1ª linha, inelegível a platina, PD-L1+",
+      "nome": "Pembrolizumabe / Atezolizumabe (IO isolada)",
+      "esquema": "Pembrolizumabe 200 mg a cada 3 semanas (ou 400 mg a cada 6 sem); ou Atezolizumabe 1200 mg a cada 3 semanas",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe (ou Atezolizumabe)",
+          "dose": "200/400 mg (1200 mg)",
+          "via": "EV",
+          "frequencia": "3/3 ou 6/6 sem"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial metastático inelegível a platina (cisplatina e carboplatina) e a enfortumab vedotin, com PD-L1 positivo (CPS>10 pembro; PD-L1>5% atezo).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "inelegivel_platina",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_positivo",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Taxa de resposta objetiva durável; SG em população selecionada",
+        "magnitude": "KEYNOTE-052 (fase 2, braço único): TRO ~29%; IMvigor130 confirma atividade",
+        "fonte": "10.1016/S1470-2045(17)30616-2"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (colite, hepatite, pneumonite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-met-1l-gc",
+      "tumor": "bexiga",
+      "cenario": "metastatico",
+      "subtipo": "Urotelial metastático — 1ª linha (não candidato a IO), elegível a cisplatina",
+      "nome": "Gemcitabina + Cisplatina (GC)",
+      "esquema": "Gemcitabina 1000 mg/m² D1,D8 + Cisplatina 70 mg/m² D1, 21/21d, 4-6 ciclos",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "70 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial metastático, elegível a cisplatina, não candidato a imunoterapia.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cisplatina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "SG semelhante ao MVAC com melhor tolerabilidade",
+        "magnitude": "von der Maase: SG comparável ao MVAC, perfil de toxicidade mais favorável",
+        "fonte": "10.1200/JCO.2000.18.17.3068"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Gemcitabina, Cisplatina"
+        },
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-met-1l-gcarbo",
+      "tumor": "bexiga",
+      "cenario": "metastatico",
+      "subtipo": "Urotelial metastático — 1ª linha, inelegível a cisplatina",
+      "nome": "Gemcitabina + Carboplatina (GCarbo)",
+      "esquema": "Gemcitabina 1000 mg/m² D1,D8 + Carboplatina AUC 4,5-5 D1, 21/21d, 4-6 ciclos",
+      "farmacos": [
+        {
+          "nome": "Gemcitabina",
+          "dose": "1000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        },
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 4,5-5",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial metastático inelegível a cisplatina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "elegivel_cisplatina",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade em inelegíveis a cisplatina",
+        "magnitude": "Dogliotti 2005: alternativa à cisplatina em pacientes com clearance reduzido",
+        "fonte": "10.1016/j.eururo.2005.04.031"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Carboplatina, Gemcitabina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-met-2l-pembrolizumabe",
+      "tumor": "bexiga",
+      "cenario": "metastatico",
+      "subtipo": "Urotelial metastático — 2ª linha, sem IO prévia",
+      "nome": "Pembrolizumabe (2ª linha)",
+      "esquema": "Pembrolizumabe 200 mg a cada 3 semanas (ou 400 mg a cada 6 sem) até progressão",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200/400 mg",
+          "via": "EV",
+          "frequencia": "3/3 ou 6/6 sem"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial metastático que progrediu após quimioterapia baseada em platina, sem imunoterapia prévia.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_platina",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "io_previa",
+                false
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs quimioterapia de agente único",
+        "magnitude": "KEYNOTE-045: SG HR 0,73 (10,3 vs 7,4 meses)",
+        "fonte": "10.1093/annonc/mdz127"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (colite, hepatite, pneumonite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-met-3l-enfortumab-vedotin",
+      "tumor": "bexiga",
+      "cenario": "metastatico",
+      "subtipo": "Urotelial metastático — pós-IO e platina (sem EV prévio)",
+      "nome": "Enfortumab Vedotin (monoterapia)",
+      "esquema": "Enfortumab Vedotin 1,25 mg/kg EV D1,D8 (ciclo de 21 dias) até progressão",
+      "farmacos": [
+        {
+          "nome": "Enfortumab Vedotin",
+          "dose": "1,25 mg/kg",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial que recebeu imunoterapia e platina e não recebeu enfortumab vedotin.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_platina",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_io",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "ev_previo",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs quimioterapia",
+        "magnitude": "EV-301: SG HR 0,70 (12,9 vs 8,9 meses)",
+        "fonte": "10.1016/j.annonc.2023.07.007"
+      },
+      "toxicidades": [
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "grave",
+          "conduta": "ajuste/suspensão",
+          "fonte": "Bula/ficha técnica: Enfortumab Vedotin"
+        },
+        {
+          "nome": "Hiperglicemia",
+          "severidade": "grave",
+          "conduta": "monitorar glicemia",
+          "fonte": "Bula/ficha técnica: Enfortumab Vedotin"
+        },
+        {
+          "nome": "Rash cutâneo",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender",
+          "fonte": "Bula/ficha técnica: Enfortumab Vedotin"
+        }
+      ]
+    },
+    {
+      "regimen_id": "bexiga-met-erdafitinibe-fgfr",
+      "tumor": "bexiga",
+      "cenario": "metastatico",
+      "subtipo": "Urotelial metastático — alterações FGFR2/FGFR3",
+      "nome": "Erdafitinibe (alvo FGFR)",
+      "esquema": "Erdafitinibe 8 mg VO 1x/dia, escalonar para 9 mg se fosfato sérico tolerável, até progressão",
+      "farmacos": [
+        {
+          "nome": "Erdafitinibe",
+          "dose": "8-9 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma urotelial metastático com mutações/fusões de FGFR3 ou FGFR2 que progrediram após quimioterapia baseada em platina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "alteracao_fgfr",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_platina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": "Moderada a Alta",
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Taxa de resposta objetiva robusta em população selecionada por biomarcador",
+        "magnitude": "BLC2001 (Loriot): TRO ~40% em urotelial FGFR-alterado",
+        "fonte": "10.1056/NEJMoa1817323"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hiperfosfatemia",
+          "severidade": "moderada",
+          "conduta": "dieta; quelante; ajuste de dose",
+          "fonte": "Bula/ficha técnica: Erdafitinibe"
+        },
+        {
+          "nome": "Estomatite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Erdafitinibe"
+        },
+        {
+          "nome": "Distúrbios oculares (retinopatia serosa central)",
+          "severidade": "grave",
+          "conduta": "avaliação oftalmológica",
+          "fonte": "Bula/ficha técnica: Erdafitinibe"
+        }
+      ]
+    }
+  ]
+}

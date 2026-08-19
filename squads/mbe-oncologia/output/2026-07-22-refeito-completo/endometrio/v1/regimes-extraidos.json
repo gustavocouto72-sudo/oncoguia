@@ -1,0 +1,803 @@
+{
+  "meta": {
+    "tumor": "endometrio",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 9
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "endometrio"
+      ]
+    },
+    {
+      "campo": "alto_risco",
+      "tipo": "boolean",
+      "label": "Alto risco",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "indicacao_rt",
+      "tipo": "boolean",
+      "label": "Indicacao rt",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "avancado_recidivado",
+      "tipo": "boolean",
+      "label": "Avancado recidivado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "msi_alto",
+      "tipo": "boolean",
+      "label": "Msi alto",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "segunda_linha",
+      "tipo": "boolean",
+      "label": "Segunda linha",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "endometrio-adj-carbo-paclitaxel",
+      "tumor": "endometrio",
+      "cenario": "adjuvancia",
+      "subtipo": "Câncer de endométrio de alto risco — quimioterapia adjuvante",
+      "nome": "Carboplatina + Paclitaxel (adjuvante)",
+      "esquema": "Carboplatina AUC 5-6 + Paclitaxel 175 mg/m² a cada 21 dias por 6 ciclos",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 5-6",
+          "via": "EV",
+          "frequencia": "21/21d x6"
+        },
+        {
+          "nome": "Paclitaxel",
+          "dose": "175 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d x6"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de endométrio de alto risco (p53 aberrante com invasão miometrial; seroso/indiferenciado/carcinossarcoma com invasão; todos estádios III ou IVA sem doença residual).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "endometrio"
+              ]
+            },
+            {
+              "eq": [
+                "alto_risco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MILLER DS et al. Carboplatin and paclitaxel for advanced endometrial cancer: GOG0209. J Clin Oncol. 2020;38(33):3841-3850. León-Castillo A et al. PORTEC-3. J Clin Oncol. 2020;38(29):3388-3397.",
+        "doi": "10.1200/JCO.20.01076",
+        "pmid": null,
+        "estudo": "GOG-209 / PORTEC-3",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Padrão de quimioterapia adjuvante/sistêmica em endométrio de alto risco",
+        "magnitude": "GOG-209: carbo+paclitaxel não inferior ao TAP com melhor tolerabilidade; PORTEC-3 confirma benefício em alto risco",
+        "fonte": "10.1200/JCO.20.01076"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "endometrio-adj-crt-cisplatina",
+      "tumor": "endometrio",
+      "cenario": "adjuvancia",
+      "subtipo": "Câncer de endométrio de alto risco — quimiorradioterapia (PORTEC-3)",
+      "nome": "RT + Cisplatina → Carbo+Paclitaxel",
+      "esquema": "RT externa concomitante a cisplatina 50 mg/m² D1,D29 → carboplatina AUC 5 + paclitaxel 175 mg/m² a cada 3 semanas x4 ciclos",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "50 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D29 (concomitante à RT)"
+        },
+        {
+          "nome": "Carboplatina + Paclitaxel",
+          "dose": "AUC 5 / 175 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d x4"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de endométrio de alto risco com indicação de radioterapia (esquema trimodal PORTEC-3).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "endometrio"
+              ]
+            },
+            {
+              "eq": [
+                "alto_risco",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "indicacao_rt",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "León-Castillo A et al. Molecular classification of the PORTEC-3 trial for high-risk endometrial cancer. J Clin Oncol. 2020;38(29):3388-3397.",
+        "doi": "10.1200/JCO.20.00549",
+        "pmid": null,
+        "estudo": "PORTEC-3",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de falha e SG em subgrupos de alto risco (p53abn)",
+        "magnitude": "PORTEC-3: benefício de quimiorradioterapia sobretudo em p53 aberrante/estádio III",
+        "fonte": "10.1200/JCO.20.00549"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "endometrio-met-1l-carbo-paclitaxel",
+      "tumor": "endometrio",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de endométrio avançado/recidivado — 1ª linha paliativa",
+      "nome": "Carboplatina + Paclitaxel",
+      "esquema": "Carboplatina AUC 5 + Paclitaxel 175 mg/m² a cada 3 semanas",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 5",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Paclitaxel",
+          "dose": "175 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de endométrio estádio III irressecável / estádio IV / recidivado, 1ª linha paliativa.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "endometrio"
+              ]
+            },
+            {
+              "eq": [
+                "avancado_recidivado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MILLER DS et al. GOG0209: final overall survival. J Clin Oncol. 2020;38(33):3841-3850.",
+        "doi": "10.1200/JCO.20.01076",
+        "pmid": null,
+        "estudo": "GOG-209",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Padrão de 1ª linha sistêmica",
+        "magnitude": "GOG-209: carbo+paclitaxel não inferior ao TAP, melhor tolerabilidade",
+        "fonte": "10.1200/JCO.20.01076"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "endometrio-met-1l-dostarlimabe-msi",
+      "tumor": "endometrio",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de endométrio avançado/recidivado MSI-H — 1ª linha (dostarlimabe)",
+      "nome": "Dostarlimabe + Carboplatina + Paclitaxel (RUBY, MSI-H)",
+      "esquema": "Dostarlimabe 500 mg + carbo AUC 5-6 + paclitaxel 175 mg/m² a cada 21 dias x6 → dostarlimabe 1.000 mg a cada 6 semanas por até 3 anos",
+      "farmacos": [
+        {
+          "nome": "Dostarlimabe",
+          "dose": "500 → 1.000 mg",
+          "via": "EV",
+          "frequencia": "21/21d x6 → 6/6 sem até 3 anos"
+        },
+        {
+          "nome": "Carboplatina + Paclitaxel",
+          "dose": "AUC 5-6 / 175 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d x6"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de endométrio avançado/recidivado com instabilidade de microssatélites (MSI-H/dMMR), 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "endometrio"
+              ]
+            },
+            {
+              "eq": [
+                "avancado_recidivado",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "msi_alto",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MIRZA MR et al. Dostarlimab for primary advanced or recurrent endometrial cancer (RUBY). N Engl J Med. 2023;388(23):2145-2158.",
+        "doi": "10.1056/NEJMoa2216334",
+        "pmid": null,
+        "estudo": "RUBY",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e sobrevida global (dMMR)",
+        "magnitude": "RUBY (dMMR): ganho expressivo de SLP e SG; ESMO-MCBS 4",
+        "fonte": "10.1056/NEJMoa2216334"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
+      "tumor": "endometrio",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de endométrio avançado MSS — dostarlimabe (não incluído)",
+      "nome": "Dostarlimabe + QT (MSS) — NÃO incluído",
+      "esquema": "Dostarlimabe + carbo + paclitaxel na população MSS (estável de microssatélites) — não incluído",
+      "farmacos": [
+        {
+          "nome": "Dostarlimabe + Carboplatina + Paclitaxel",
+          "dose": "conforme RUBY",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de endométrio avançado com estabilidade de microssatélites (MSS/pMMR) (protocolo NÃO inclui: no subgrupo MMR-proficiente o benefício de SG não atingiu significância estatística — HR 0,79, IC 0,60-1,04, p nominal 0,0493).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "endometrio"
+              ]
+            },
+            {
+              "eq": [
+                "msi_alto",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "POWELL MA et al. Overall survival in patients with endometrial cancer treated with dostarlimab plus carboplatin-paclitaxel in the RUBY trial. Ann Oncol. 2024;35(8):728-738.",
+        "doi": "10.1016/j.annonc.2024.05.546",
+        "pmid": null,
+        "estudo": "RUBY (subgrupo MSS)",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Benefício de SG não significativo no subgrupo MMR-proficiente",
+        "magnitude": "RUBY (MSS): SG HR 0,79 (IC 0,60-1,04), sem significância formal",
+        "fonte": "10.1016/j.annonc.2024.05.546"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "endometrio-met-pembrolizumabe-qt-nao-incluido",
+      "tumor": "endometrio",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de endométrio avançado — pembrolizumabe + QT (não incluído)",
+      "nome": "Pembrolizumabe + QT (NRG-GY018) — NÃO incluído",
+      "esquema": "Pembrolizumabe 200 mg + carbo AUC 5 + paclitaxel 175 mg/m² — não incluído",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe + Carboplatina + Paclitaxel",
+          "dose": "conforme NRG-GY018",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de endométrio avançado (protocolo NÃO inclui pembrolizumabe+QT [NRG-GY018]: dados imaturos quanto ao benefício em SG, ESMO MCBS 3).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "endometrio"
+              ]
+            },
+            {
+              "eq": [
+                "avancado_recidivado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ESKANDER RN et al. Pembrolizumab plus chemotherapy in advanced endometrial cancer (NRG-GY018). N Engl J Med. 2023;388(23):2159-2170.",
+        "doi": "10.1056/NEJMoa2302312",
+        "pmid": null,
+        "estudo": "NRG-GY018 (KEYNOTE-868)",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP; SG imatura",
+        "magnitude": "NRG-GY018: ganho de SLP (dMMR e pMMR); SG imatura no momento da decisão. ESMO-MCBS 3",
+        "fonte": "10.1056/NEJMoa2302312"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "endometrio-met-2l-lenvatinibe-pembrolizumabe",
+      "tumor": "endometrio",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de endométrio avançado MSS — 2ª linha (lenvatinibe+pembrolizumabe)",
+      "nome": "Lenvatinibe + Pembrolizumabe (Study 309/KEYNOTE-775)",
+      "esquema": "Lenvatinibe 20 mg VO/dia + Pembrolizumabe 200 mg EV a cada 3 semanas",
+      "farmacos": [
+        {
+          "nome": "Lenvatinibe",
+          "dose": "20 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        },
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de endométrio avançado com estabilidade de microssatélites (MSS/pMMR), tratamento prévio à base de platina, sem uso prévio de imunoterapia (2ª linha).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "endometrio"
+              ]
+            },
+            {
+              "eq": [
+                "msi_alto",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MAKKER V et al. Lenvatinib plus pembrolizumab for advanced endometrial cancer (Study 309-KEYNOTE-775). N Engl J Med. 2022;386(5):437-448.",
+        "doi": "10.1056/NEJMoa2108330",
+        "pmid": null,
+        "estudo": "Study 309 / KEYNOTE-775",
+        "ano": 2022
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e sobrevida global vs quimioterapia",
+        "magnitude": "KEYNOTE-775: SG 18,3 vs 11,4 meses (todos); benefício em pMMR",
+        "fonte": "10.1056/NEJMoa2108330"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Hipertensão (lenvatinibe)",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Lenvatinibe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "endometrio-met-2l-io-msi-nao-incorporado",
+      "tumor": "endometrio",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de endométrio avançado MSI-H — imunoterapia 2ª linha (não incorporada)",
+      "nome": "Pembrolizumabe (KEYNOTE-158) / Dostarlimabe (GARNET) MSI-H 2L — NÃO incorporados",
+      "esquema": "Pembrolizumabe (KEYNOTE-158) ou dostarlimabe (GARNET) em 2ª linha MSI-H sem imunoterapia prévia — não incorporados",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe (ou Dostarlimabe)",
+          "dose": "200/500 mg",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de endométrio avançado MSI-H, 2ª linha sem imunoterapia prévia (protocolo NÃO incorpora: baixa qualidade da evidência — estudo basket fase II [KEYNOTE-158] ou fase I [GARNET] — e baixa magnitude do benefício, ESMO MCBS 3).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "endometrio"
+              ]
+            },
+            {
+              "eq": [
+                "msi_alto",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "O'MALLEY DM et al. Pembrolizumab in patients with MSI-H advanced endometrial cancer: KEYNOTE-158. J Clin Oncol. 2022;40(7):752-761.",
+        "doi": "10.1200/JCO.21.01874",
+        "pmid": null,
+        "estudo": "KEYNOTE-158 / GARNET",
+        "ano": 2022
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Respostas objetivas duráveis (estudos de menor qualidade)",
+        "magnitude": "KEYNOTE-158/GARNET: TRO durável em MSI-H, mas estudos basket fase II / fase I. ESMO-MCBS 3",
+        "fonte": "10.1200/JCO.21.01874"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ]
+    },
+    {
+      "regimen_id": "endometrio-met-durva-olaparibe-nao-incluido",
+      "tumor": "endometrio",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de endométrio avançado — durvalumabe + olaparibe (não incluído)",
+      "nome": "Durvalumabe + Olaparibe (DUO-E) — NÃO incluído",
+      "esquema": "Carbo+paclitaxel+durvalumabe → manutenção durvalumabe + olaparibe — não incluído",
+      "farmacos": [
+        {
+          "nome": "Durvalumabe + Olaparibe (+ QT)",
+          "dose": "conforme DUO-E",
+          "via": "EV/VO",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de endométrio avançado (protocolo NÃO inclui DUO-E: sem braço comparador que isole o benefício do acréscimo de olaparibe à manutenção com imunoterapia; baixa qualidade da evidência para a questão).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "endometrio"
+              ]
+            },
+            {
+              "eq": [
+                "avancado_recidivado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "OAKNIN A et al. DUO-E: durvalumab + platinum chemotherapy followed by maintenance durvalumab with or without olaparib. ESMO Congress 2023, Abstract LBA34.",
+        "doi": "10.1200/JCO.23.02132",
+        "pmid": null,
+        "estudo": "DUO-E",
+        "ano": 2024,
+        "primeiro_autor": "Westin"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Benefício do acréscimo de olaparibe não isolado por desenho",
+        "magnitude": "DUO-E: sem braço comparador que isole o efeito do olaparibe na manutenção",
+        "fonte": "DUO-E (ESMO 2023)"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Anemia/fadiga (PARP)",
+          "severidade": "moderada",
+          "conduta": "monitorar hemograma; ajuste",
+          "fonte": "Bula/ficha técnica: inibidor de PARP"
+        }
+      ],
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1016/j.annonc.2022.07.659 → 10.1200/JCO.23.02132",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ]
+    }
+  ]
+}

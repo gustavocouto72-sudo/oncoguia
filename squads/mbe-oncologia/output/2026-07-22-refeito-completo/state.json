@@ -1,0 +1,21 @@
+{
+  "run": "2026-07-22-refeito-completo",
+  "objetivo": "Re-executar a fábrica de evidência tumor por tumor, no formato de primitivos, com semântica de selo corrigida (confronto real) + política conservadora + validação de DOI. Substitui o run 2026-07-21 como fonte da app.",
+  "politica_selo": "confirmado só com confronto limpo; esquema/população fora do pivô citado -> re_derivado; fonte diretriz -> elegibilidade re_derivado; sem DOI/pivô -> incompleto; na dúvida, rebaixe. Borderline vai ao oncologista na Revisão (Step 08).",
+  "app_contract_verificado": "campos_primitivos como {tumor:[...]} no consolidado top-level; elegibilidade.regra + criterios avaliados por evalExpr (eq/ne/gt/gte/lt/lte/in/and/or/not/ref). Conversão dos criterios extraídos -> regra validada (sem campos órfãos).",
+  "build_data": "rodar app/build-data.py só AO FINAL, quando o consolidado top-level do run estiver montado com os 25 tumores.",
+  "progresso": {
+    "concluidos": [
+      {"tumor":"testiculo","regimes":7,"selo":{"confirmado":1,"re_derivado":5,"incompleto":1},"vigilancia":1,"metodo":"from-scratch (fontes primárias abertas)"},
+      {"tumor":"mama","regimes":60,"selo":{"confirmado":15,"divergencia":15,"incompleto":20,"re_derivado":10},"vigilancia":5,"metodo":"v2 + elegibilidade computável do run 2026-07-18"},
+      {"tumor":"pulmao-nsclc","regimes":21,"selo":{"confirmado":2,"re_derivado":14,"incompleto":5},"vigilancia":2,"metodo":"conversor (criterios->regra)"},
+      {"tumor":"pulmao-sclc","regimes":6,"selo":{"re_derivado":3,"incompleto":3},"vigilancia":2,"metodo":"conversor"},
+      {"tumor":"colorretal","regimes":13,"selo":{"confirmado":3,"re_derivado":8,"incompleto":2},"vigilancia":2,"metodo":"conversor"},
+      {"tumor":"prostata","regimes":18,"selo":{"confirmado":2,"re_derivado":12,"divergencia":1,"incompleto":3},"vigilancia":2,"metodo":"conversor","aviso":"enum ordinal estadio_t: ordem de opções a revisar"}
+    ],
+    "agregado_6": {"confirmado":23,"divergencia":16,"incompleto":34,"re_derivado":52,"total":125},
+    "pendentes": ["renal","bexiga","penis","esofago-estomago","vias-biliares","hepatocarcinoma","pancreas","canal-anal","neuroendocrinos","endometrio","ovario","colo-utero","vulva","trofoblastica","cabeca-pescoco","sarcomas","melanoma","glioblastoma","glioma-baixo-grau"],
+    "concluidos_n": 6,
+    "total_tumores": 25
+  }
+}

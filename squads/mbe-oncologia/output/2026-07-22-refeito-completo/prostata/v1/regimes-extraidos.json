@@ -1,0 +1,1608 @@
+{
+  "meta": {
+    "tumor": "prostata",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 18
+  },
+  "campos_primitivos": [
+    {
+      "campo": "estadio_t",
+      "tipo": "enum",
+      "label": "Estadio t",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "Tis",
+        "Ta",
+        "T1",
+        "T1a",
+        "T1b",
+        "T1c",
+        "T2",
+        "T2a",
+        "T2b",
+        "T3",
+        "T3a",
+        "T3b",
+        "T4",
+        "T4a",
+        "T4b",
+        "T4c",
+        "T4d"
+      ],
+      "ordinal": {
+        "Tis": 0,
+        "Ta": 0,
+        "T1": 1,
+        "T1a": 1.1,
+        "T1b": 1.2,
+        "T1c": 1.3,
+        "T2": 2,
+        "T2a": 2.1,
+        "T2b": 2.2,
+        "T3": 3,
+        "T3a": 3.1,
+        "T3b": 3.2,
+        "T4": 4,
+        "T4a": 4.1,
+        "T4b": 4.2,
+        "T4c": 4.3,
+        "T4d": 4.4
+      },
+      "estadiamento": "T"
+    },
+    {
+      "campo": "gleason",
+      "tipo": "integer",
+      "label": "Gleason",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "psa",
+      "tipo": "integer",
+      "label": "Psa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastase_distancia",
+      "tipo": "boolean",
+      "label": "Metastase distancia",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "psa_nadir_pos_pr",
+      "tipo": "number",
+      "label": "Psa nadir pos pr",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "sensivel_castracao",
+      "tipo": "boolean",
+      "label": "Sensivel castracao",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "variante_neuroendocrina",
+      "tipo": "boolean",
+      "label": "Variante neuroendocrina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "convulsao_previa",
+      "tipo": "boolean",
+      "label": "Convulsao previa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "candidato_docetaxel",
+      "tipo": "boolean",
+      "label": "Candidato docetaxel",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ecog",
+      "tipo": "integer",
+      "label": "Ecog",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ari_ou_abiraterona_previo",
+      "tipo": "boolean",
+      "label": "Ari ou abiraterona previo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "resistente_castracao",
+      "tipo": "boolean",
+      "label": "Resistente castracao",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "psadt_meses",
+      "tipo": "integer",
+      "label": "Psadt meses",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "quimio_naive",
+      "tipo": "boolean",
+      "label": "Quimio naive",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "assintomatico_ou_pouco_sintomatico",
+      "tipo": "boolean",
+      "label": "Assintomatico ou pouco sintomatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastase_visceral",
+      "tipo": "boolean",
+      "label": "Metastase visceral",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "mutacao_brca",
+      "tipo": "boolean",
+      "label": "Mutacao brca",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_docetaxel",
+      "tipo": "boolean",
+      "label": "Progressao pos docetaxel",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "variante_agressiva",
+      "tipo": "boolean",
+      "label": "Variante agressiva",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "histologia_pequenas_celulas",
+      "tipo": "boolean",
+      "label": "Histologia pequenas celulas",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastase_ossea",
+      "tipo": "boolean",
+      "label": "Metastase ossea",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "prostata-loc-altorisco-ebrt-tda",
+      "tumor": "prostata",
+      "cenario": "localmente-avancado",
+      "subtipo": "Alto / muito alto risco",
+      "nome": "EBRT + TDA (LHRH agonista/antagonista) 18–36 meses",
+      "esquema": "Radioterapia externa (EBRT) + Terapia de Deprivação Androgênica (agonista/antagonista LHRH) concomitante e adjuvante por 18 a 36 meses",
+      "farmacos": [
+        {
+          "nome": "Agonista/antagonista LHRH (leuprolida/gosserrelina/triptorrelina/degarelix)",
+          "dose": "conforme apresentação",
+          "via": "SC/IM",
+          "frequencia": "18–36 meses"
+        }
+      ],
+      "elegibilidade_protocolo": "Alto risco (≥T3a, Gleason ≥8/ISUP 4-5, PSA ≥20 ng/mL) ou muito alto risco (cT3b/cT4, Gleason primário 5, 2-3 critérios de alto risco).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "gte": [
+                "estadio_t",
+                "T3a"
+              ]
+            },
+            {
+              "gte": [
+                "gleason",
+                8
+              ]
+            },
+            {
+              "gte": [
+                "psa",
+                20
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "metastase_distancia",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ROACH M 3rd et al. RTOG 8610. J Clin Oncol. 2008;26(4):585-591. LAWTON CAF et al. RTOG 9202. Int J Radiat Oncol Biol Phys. 2017;98(2):296-303.",
+        "doi": "10.1200/JCO.2007.13.9881",
+        "pmid": null,
+        "estudo": "RTOG 8610 / RTOG 9202",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e câncer-específica com adição de TDA à RT",
+        "magnitude": "RTOG 8610: melhora de SG e mortalidade câncer-específica; RTOG 9202: TDA longa superior à curta em alto risco",
+        "fonte": "10.1200/JCO.2007.13.9881"
+      },
+      "toxicidades": [
+        {
+          "nome": "Sintomas de hipogonadismo/fogachos",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: agonista LHRH"
+        },
+        {
+          "nome": "Perda de massa óssea",
+          "severidade": "moderada",
+          "conduta": "cálcio+vit D; densitometria",
+          "fonte": "Bula/ficha técnica: agonista LHRH"
+        },
+        {
+          "nome": "Eventos cardiovasculares",
+          "severidade": "grave",
+          "conduta": "avaliação cardiológica",
+          "fonte": "Bula/ficha técnica: agonista LHRH"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-rb-rt-salvamento-tda",
+      "tumor": "prostata",
+      "cenario": "localmente-avancado",
+      "subtipo": "Recidiva bioquímica pós-prostatectomia (sem metástase à distância)",
+      "nome": "RT de salvamento (EBRT) + TDA concomitante",
+      "esquema": "Radioterapia de salvamento (EBRT) + Terapia de Deprivação Androgênica concomitante",
+      "farmacos": [
+        {
+          "nome": "Agonista LHRH",
+          "dose": "conforme apresentação",
+          "via": "SC/IM",
+          "frequencia": "concomitante à RT de salvamento"
+        }
+      ],
+      "elegibilidade_protocolo": "Recidiva bioquímica pós-prostatectomia radical (PSA ≥0,2 ng/mL confirmado), sem metástases à distância.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "gte": [
+                "psa_nadir_pos_pr",
+                0.2
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "metastase_distancia",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PARKER CC et al. RADICALS-RT. Lancet. 2020;396(10260):1413-1421. PEARSE M et al. RAVES rationale. BJU Int. 2014;113:7-12.",
+        "doi": "10.1016/S0140-6736(20)31553-1",
+        "pmid": null,
+        "estudo": "RADICALS-RT / RAVES",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "RT de salvamento precoce não inferior à RT adjuvante de rotina, com menos toxicidade",
+        "magnitude": "RADICALS-RT: sem diferença em controle bioquímico; salvamento poupa RT em parte dos pacientes",
+        "fonte": "10.1016/S0140-6736(20)31553-1"
+      },
+      "toxicidades": [
+        {
+          "nome": "Cistite/proctite actínica",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Perfil de RT pélvica"
+        },
+        {
+          "nome": "Sintomas de hipogonadismo (TDA)",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: agonista LHRH"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcspc-abiraterona-prednisona",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Abiraterona + Prednisona",
+      "esquema": "Abiraterona 1.000 mg VO 1x/dia + Prednisona 5 mg VO 1x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Abiraterona",
+          "dose": "1.000 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        },
+        {
+          "nome": "Prednisona",
+          "dose": "5 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "variante_neuroendocrina",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FIZAZI K et al. LATITUDE. N Engl J Med. 2017;377(4):352-360. ATTARD G et al. STAMPEDE meta-analysis. Lancet. 2022;399(10323):447-460.",
+        "doi": "10.1056/NEJMoa1704174",
+        "pmid": null,
+        "estudo": "LATITUDE / STAMPEDE",
+        "ano": 2017
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "LATITUDE: SG HR 0,62; STAMPEDE (M1): SG HR ~0,60",
+        "fonte": "10.1056/NEJMoa1704174"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hipertensão",
+          "severidade": "grave",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        },
+        {
+          "nome": "Hipocalemia",
+          "severidade": "moderada",
+          "conduta": "reposição K",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        },
+        {
+          "nome": "Hepatotoxicidade",
+          "severidade": "grave",
+          "conduta": "monitorar transaminases",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcspc-enzalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Enzalutamida",
+      "esquema": "Enzalutamida 160 mg VO 1x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Enzalutamida",
+          "dose": "160 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "convulsao_previa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ARMSTRONG AJ et al. ARCHES. J Clin Oncol. 2019;37(32):2974-2986. DAVIS ID et al. ENZAMET. N Engl J Med. 2019;381(2):121-131.",
+        "doi": "10.1200/JCO.19.00799",
+        "pmid": null,
+        "estudo": "ARCHES / ENZAMET",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ rPFS e ↑ sobrevida global",
+        "magnitude": "ARCHES: rPFS HR 0,39; ENZAMET: SG HR 0,67",
+        "fonte": "10.1200/JCO.19.00799"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        },
+        {
+          "nome": "Convulsão (rara)",
+          "severidade": "grave",
+          "conduta": "evitar em risco de convulsão",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "monitorar PA",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcspc-apalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Apalutamida",
+      "esquema": "Apalutamida 240 mg VO 1x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Apalutamida",
+          "dose": "240 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CHI KN et al. TITAN. N Engl J Med. 2019;381(1):13-24.",
+        "doi": "10.1056/NEJMoa1903307",
+        "pmid": null,
+        "estudo": "TITAN",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e ↑ rPFS",
+        "magnitude": "TITAN: SG HR 0,67; rPFS HR 0,48",
+        "fonte": "10.1056/NEJMoa1903307"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash cutâneo",
+          "severidade": "moderada",
+          "conduta": "corticoide tópico",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        },
+        {
+          "nome": "Hipotireoidismo",
+          "severidade": "leve",
+          "conduta": "levotiroxina",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcspc-tripla-docetaxel-darolutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Terapia tripla: TDA + Docetaxel + Darolutamida",
+      "esquema": "TDA + Docetaxel 75 mg/m² EV 21/21d (6 ciclos) + Darolutamida 600 mg VO 12/12h contínuo",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias x6"
+        },
+        {
+          "nome": "Darolutamida",
+          "dose": "600 mg",
+          "via": "VO",
+          "frequencia": "12/12h"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "candidato_docetaxel",
+                true
+              ]
+            },
+            {
+              "lte": [
+                "ecog",
+                1
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "ari_ou_abiraterona_previo",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SMITH MR et al. ARASENS. N Engl J Med. 2022;386(12):1132-1142.",
+        "doi": "10.1056/NEJMoa2119115",
+        "pmid": null,
+        "estudo": "ARASENS",
+        "ano": 2022
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "ARASENS: SG HR 0,68 vs docetaxel+TDA",
+        "fonte": "10.1056/NEJMoa2119115"
+      },
+      "toxicidades": [
+        {
+          "nome": "Neutropenia febril",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Darolutamida"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de docetaxel",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcspc-docetaxel",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Docetaxel (quimio-hormonioterapia)",
+      "esquema": "Docetaxel 75 mg/m² EV a cada 21 dias por 6 ciclos, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias x6"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "KYRIAKOPOULOS CE et al. CHAARTED long-term. J Clin Oncol. 2018;36(11):1080-1087.",
+        "doi": "10.1200/JCO.2017.75.3657",
+        "pmid": null,
+        "estudo": "CHAARTED (E3805)",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global (predomínio no alto volume)",
+        "magnitude": "CHAARTED: SG HR 0,72 global; benefício concentrado em alto volume",
+        "fonte": "10.1200/JCO.2017.75.3657"
+      },
+      "toxicidades": [
+        {
+          "nome": "Neutropenia febril",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        },
+        {
+          "nome": "Alopecia",
+          "severidade": "leve",
+          "conduta": null,
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-nmcrpc-enzalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Não-metastático resistente à castração (nmCRPC), PSADT ≤10 meses",
+      "nome": "Enzalutamida",
+      "esquema": "Enzalutamida 160 mg VO 1x/dia contínuo",
+      "farmacos": [
+        {
+          "nome": "Enzalutamida",
+          "dose": "160 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "nmCRPC de alto risco de progressão (PSADT ≤10 meses), sobre TDA contínua.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "lte": [
+                "psadt_meses",
+                10
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "convulsao_previa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HUSSAIN M et al. PROSPER. N Engl J Med. 2018;378(26):2465-2474.",
+        "doi": "10.1056/NEJMoa1800536",
+        "pmid": null,
+        "estudo": "PROSPER",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de metástases",
+        "magnitude": "PROSPER: SLM HR 0,29 (36,6 vs 14,7 meses); SG posteriormente positiva",
+        "fonte": "10.1056/NEJMoa1800536"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "monitorar PA",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-nmcrpc-apalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Não-metastático resistente à castração (nmCRPC), PSADT ≤10 meses",
+      "nome": "Apalutamida",
+      "esquema": "Apalutamida 240 mg VO 1x/dia contínuo",
+      "farmacos": [
+        {
+          "nome": "Apalutamida",
+          "dose": "240 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "nmCRPC de alto risco de progressão (PSADT ≤10 meses), sobre TDA contínua.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "lte": [
+                "psadt_meses",
+                10
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SMITH MR et al. SPARTAN. N Engl J Med. 2018;378(15):1408-1418.",
+        "doi": "10.1056/NEJMoa1715546",
+        "pmid": null,
+        "estudo": "SPARTAN",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de metástases",
+        "magnitude": "SPARTAN: SLM HR 0,28 (40,5 vs 16,2 meses); SG posteriormente positiva",
+        "fonte": "10.1056/NEJMoa1715546"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash cutâneo",
+          "severidade": "moderada",
+          "conduta": "corticoide tópico",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-nmcrpc-darolutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Não-metastático resistente à castração (nmCRPC), PSADT ≤10 meses",
+      "nome": "Darolutamida",
+      "esquema": "Darolutamida 600 mg VO 12/12h contínuo",
+      "farmacos": [
+        {
+          "nome": "Darolutamida",
+          "dose": "600 mg",
+          "via": "VO",
+          "frequencia": "12/12h"
+        }
+      ],
+      "elegibilidade_protocolo": "nmCRPC de alto risco de progressão (PSADT ≤10 meses), sobre TDA contínua.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "lte": [
+                "psadt_meses",
+                10
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FIZAZI K et al. ARAMIS. N Engl J Med. 2019;380(13):1235-1246.",
+        "doi": "10.1056/NEJMoa1815671",
+        "pmid": null,
+        "estudo": "ARAMIS",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de metástases e ↑ sobrevida global",
+        "magnitude": "ARAMIS: SLM HR 0,41 (40,4 vs 18,4 meses); SG HR 0,69",
+        "fonte": "10.1056/NEJMoa1815671"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Darolutamida"
+        },
+        {
+          "nome": "Perfil favorável de SNC",
+          "severidade": "leve",
+          "conduta": null,
+          "fonte": "Bula/ficha técnica: Darolutamida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-abiraterona-prednisona",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático resistente à castração (mCRPC) — 1ª linha",
+      "nome": "Abiraterona + Prednisona",
+      "esquema": "Abiraterona 1.000 mg VO 1x/dia + Prednisona 5 mg VO 2x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Abiraterona",
+          "dose": "1.000 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        },
+        {
+          "nome": "Prednisona",
+          "dose": "5 mg",
+          "via": "VO",
+          "frequencia": "2x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC em 1ª linha; TDA contínua + terapia óssea + reposição Ca/Vit D.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "quimio_naive",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "assintomatico_ou_pouco_sintomatico",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "metastase_visceral",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "RYAN CJ et al. COU-AA-302 final overall survival. Lancet Oncol. 2015;16(2):152-160.",
+        "doi": "10.1016/S1470-2045(14)71205-7",
+        "pmid": null,
+        "estudo": "COU-AA-302",
+        "ano": 2015
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e ↑ rPFS",
+        "magnitude": "COU-AA-302: SG HR 0,81 (34,7 vs 30,3 meses)",
+        "fonte": "10.1016/S1470-2045(14)71205-7"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hipertensão",
+          "severidade": "grave",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        },
+        {
+          "nome": "Hipocalemia",
+          "severidade": "moderada",
+          "conduta": "reposição",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        },
+        {
+          "nome": "Hepatotoxicidade",
+          "severidade": "grave",
+          "conduta": "monitorar transaminases",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-enzalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático resistente à castração (mCRPC) — 1ª linha",
+      "nome": "Enzalutamida",
+      "esquema": "Enzalutamida 160 mg VO 1x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Enzalutamida",
+          "dose": "160 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC em 1ª linha; TDA contínua + terapia óssea + reposição Ca/Vit D.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "quimio_naive",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "convulsao_previa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BEER TM/EVANS CP. PREVAIL. N Engl J Med 2014;371:424-433 / Eur Urol 2016;70(4):675-683.",
+        "doi": "10.1056/NEJMoa1405095",
+        "pmid": null,
+        "estudo": "PREVAIL",
+        "ano": 2014
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e ↑ rPFS",
+        "magnitude": "PREVAIL: SG HR 0,71; rPFS HR 0,19",
+        "fonte": "10.1056/NEJMoa1405095"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "monitorar PA",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-docetaxel-prednisona",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático resistente à castração (mCRPC) — 1ª linha",
+      "nome": "Docetaxel + Prednisona",
+      "esquema": "Docetaxel 75 mg/m² EV D1 21/21d (6 ciclos) + Prednisona 5 mg VO 2x/dia contínuo",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias x6"
+        },
+        {
+          "nome": "Prednisona",
+          "dose": "5 mg",
+          "via": "VO",
+          "frequencia": "2x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC em 1ª linha (opção quimioterápica), sobretudo sintomáticos/alto volume.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BERTHOLD DR et al. TAX 327 updated survival. J Clin Oncol. 2008;26(2):242-245.",
+        "doi": "10.1200/JCO.2007.12.4008",
+        "pmid": null,
+        "estudo": "TAX 327",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs mitoxantrona",
+        "magnitude": "TAX 327: SG HR 0,79 (18,9 vs 16,5 meses)",
+        "fonte": "10.1200/JCO.2007.12.4008"
+      },
+      "toxicidades": [
+        {
+          "nome": "Neutropenia febril",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-parp-nao-incorporado",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "mCRPC com mutação BRCA1/2 (HRR) — inibidores de PARP",
+      "nome": "Olaparibe+Abiraterona / Talazoparibe+Enzalutamida (NÃO incorporado)",
+      "esquema": "Combinações inibidor de PARP + NHA (olaparibe+abiraterona; talazoparibe+enzalutamida) — não incorporadas pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Olaparibe (ou Talazoparibe)",
+          "dose": "conforme estudo",
+          "via": "VO",
+          "frequencia": "contínuo"
+        },
+        {
+          "nome": "Abiraterona (ou Enzalutamida)",
+          "dose": "conforme estudo",
+          "via": "VO",
+          "frequencia": "contínuo"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC com mutação BRCA1/2 (protocolo NÃO incorporou PARP; justificativa: benefício em rPFS sem ganho de SG, ESMO MCBS 2, ICER elevado).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "mutacao_brca",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SAAD F et al. PROpel final OS. Lancet Oncol. 2023;24(10):1094-1108. AGARWAL N et al. TALAPRO-2. Lancet. 2023;402(10398):291-303.",
+        "doi": "10.1016/S1470-2045(23)00382-0",
+        "pmid": null,
+        "estudo": "PROpel / TALAPRO-2",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ rPFS; SG sem ganho estatisticamente robusto na população geral",
+        "magnitude": "PROpel: rPFS HR 0,66; SG final sem significância formal. TALAPRO-2: rPFS positiva.",
+        "fonte": "10.1016/S1470-2045(23)00382-0"
+      },
+      "toxicidades": [
+        {
+          "nome": "Anemia",
+          "severidade": "grave",
+          "conduta": "ajuste/transfusão; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: inibidor de PARP"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: inibidor de PARP"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "mCRPC pós-docetaxel — 2ª linha",
+      "nome": "Cabazitaxel (NÃO incorporado)",
+      "esquema": "Cabazitaxel 20–25 mg/m² EV 21/21d + prednisona — não incorporado pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Cabazitaxel",
+          "dose": "20–25 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias"
+        },
+        {
+          "nome": "Prednisona",
+          "dose": "10 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC pós-docetaxel (NÃO incorporado; justificativa: TROPIC benefício modesto em SG/SLP, ESMO-MCBS 2, alta toxicidade hematológica).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_docetaxel",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "OUDARD S. TROPIC (fase III cabazitaxel). Future Oncol. 2011;7(4):497-506.",
+        "doi": "10.2217/fon.11.23",
+        "pmid": null,
+        "estudo": "TROPIC",
+        "ano": 2011
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global modesta vs mitoxantrona",
+        "magnitude": "TROPIC: SG HR 0,70 (15,1 vs 12,7 meses); ganho ~2,4 meses",
+        "fonte": "10.2217/fon.11.23"
+      },
+      "toxicidades": [
+        {
+          "nome": "Neutropenia (inclusive febril)",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: Cabazitaxel"
+        },
+        {
+          "nome": "Diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Cabazitaxel"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-variante-agressiva-carbo-taxano",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Variante histológica agressiva (anaplásico/pequenas células/neuroendócrino)",
+      "nome": "Carboplatina + Docetaxel/Paclitaxel",
+      "esquema": "Carboplatina AUC 5 + Docetaxel 75 mg/m² EV D1 a cada 3 semanas (ou Paclitaxel)",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 5",
+          "via": "EV",
+          "frequencia": "21/21 dias"
+        },
+        {
+          "nome": "Docetaxel",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias"
+        }
+      ],
+      "elegibilidade_protocolo": "Variantes histológicas agressivas: pequenas células, metástases viscerais exclusivas, lesões líticas, marcadores neuroendócrinos elevados, intervalo <6 meses de resposta à TDA.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "variante_agressiva",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Estudo-pivô não especificado no protocolo para este esquema (prática/consenso em variantes agressivas).",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Carboplatina, Docetaxel"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-variante-agressiva-cisplatina-etoposideo",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Variante histológica agressiva (pequenas células/neuroendócrino)",
+      "nome": "Cisplatina + Etoposídeo",
+      "esquema": "Cisplatina 25 mg/m² D1-D3 + Etoposídeo 120 mg/m² EV D1-D3 a cada 3 semanas",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "25 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D3 21/21 dias"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "120 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D3 21/21 dias"
+        }
+      ],
+      "elegibilidade_protocolo": "Variantes histológicas agressivas (histologia de pequenas células/neuroendócrino).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_pequenas_celulas",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Estudo-pivô não especificado (extrapolação do carcinoma de pequenas células).",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "prostata-mcrpc-terapia-ossea-zoledronico",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "mCRPC com metástases ósseas — prevenção de eventos ósseos",
+      "nome": "Ácido Zoledrônico",
+      "esquema": "Ácido Zoledrônico 4 mg EV D1 a cada 3 meses + Vitamina D e Cálcio",
+      "farmacos": [
+        {
+          "nome": "Ácido Zoledrônico",
+          "dose": "4 mg",
+          "via": "EV",
+          "frequencia": "a cada 3 meses"
+        },
+        {
+          "nome": "Vitamina D",
+          "dose": "1.000–2.000 UI",
+          "via": "VO",
+          "frequencia": "diário"
+        },
+        {
+          "nome": "Cálcio",
+          "dose": "1.000 mg",
+          "via": "VO",
+          "frequencia": "diário"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC com metástases ósseas; manter TDA contínua, associar terapia óssea e reposição Ca/Vit D.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastase_ossea",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Estudo-pivô não especificado no protocolo (uso consolidado de agente ósseo em mCRPC ósseo).",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Osteonecrose de mandíbula",
+          "severidade": "grave",
+          "conduta": "avaliação odontológica prévia",
+          "fonte": "Bula/ficha técnica: Ácido Zoledrônico"
+        },
+        {
+          "nome": "Hipocalcemia",
+          "severidade": "moderada",
+          "conduta": "reposição Ca/Vit D",
+          "fonte": "Bula/ficha técnica: Ácido Zoledrônico"
+        },
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "moderada",
+          "conduta": "ajuste por função renal",
+          "fonte": "Bula/ficha técnica: Ácido Zoledrônico"
+        }
+      ]
+    }
+  ]
+}

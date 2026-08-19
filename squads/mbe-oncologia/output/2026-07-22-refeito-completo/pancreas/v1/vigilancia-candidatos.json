@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "tumor": "pancreas",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "NAPOLI-3 — NALIRIFOX vs gemcitabina/nab-paclitaxel em 1ª linha de pâncreas metastático",
+      "identificador": "NCT04083235",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Novo esquema de 1ª linha com ganho de SG.",
+      "acao": "Reavaliar 1ª linha metastático."
+    }
+  ]
+}

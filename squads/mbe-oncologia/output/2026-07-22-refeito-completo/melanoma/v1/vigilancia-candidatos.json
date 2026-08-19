@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "tumor": "melanoma",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "RELATIVITY-047 — nivolumabe + relatlimabe vs nivolumabe em melanoma avançado",
+      "identificador": "NCT03470922",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Dupla IO (anti-LAG-3) melhora SLP na 1ª linha.",
+      "acao": "Avaliar 1ª linha avançado."
+    },
+    {
+      "titulo": "NADINA — ipilimumabe+nivolumabe neoadjuvante vs nivolumabe adjuvante em estádio III macroscópico",
+      "identificador": "NCT04949113",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO neoadjuvante supera adjuvância no estádio III.",
+      "acao": "Reavaliar sequência neo/adjuvante."
+    }
+  ]
+}

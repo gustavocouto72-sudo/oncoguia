@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "tumor": "penis",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "InPACT — ensaio internacional de câncer de pênis avançado (quimio/RT neoadjuvante + linfadenectomia)",
+      "identificador": "NCT02305654",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "RECRUITING",
+      "relevancia": "Define sequência neoadjuvante/cirurgia no avançado.",
+      "acao": "Acompanhar; em recrutamento."
+    }
+  ]
+}

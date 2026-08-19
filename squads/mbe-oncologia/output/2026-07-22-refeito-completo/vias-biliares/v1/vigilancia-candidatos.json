@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "tumor": "vias-biliares",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "TOPAZ-1 — durvalumabe + gemcitabina/cisplatina em vias biliares avançado",
+      "identificador": "NCT03875235",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO + quimio é novo padrão de 1ª linha.",
+      "acao": "Reavaliar 1ª linha avançado."
+    },
+    {
+      "titulo": "KEYNOTE-966 — pembrolizumabe + gemcitabina/cisplatina em vias biliares",
+      "identificador": "NCT04003636",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Confirma benefício de IO + quimio.",
+      "acao": "Reavaliar 1ª linha."
+    }
+  ]
+}

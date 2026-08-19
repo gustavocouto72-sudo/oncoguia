@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "tumor": "canal-anal",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "POD1UM-303/InterAACT2 — carbo/paclitaxel ± retifanlimabe em canal anal avançado",
+      "identificador": "NCT04472429",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO adicionada melhora desfechos no avançado.",
+      "acao": "Reavaliar 1ª linha avançado."
+    }
+  ]
+}

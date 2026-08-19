@@ -1,0 +1,409 @@
+{
+  "meta": {
+    "tumor": "canal-anal",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 5
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "carcinoma_anal_escamoso"
+      ]
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "paciente_robusto",
+      "tipo": "boolean",
+      "label": "Paciente robusto",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "anal-crt-mitomicina-5fu",
+      "tumor": "canal-anal",
+      "cenario": "localmente-avancado",
+      "subtipo": "Carcinoma de canal/margem anal — quimiorradioterapia definitiva",
+      "nome": "Mitomicina C + 5-FU + RT",
+      "esquema": "5-FU 1.000 mg/m²/dia infusão contínua 96h (D1-4 e D29-32) + Mitomicina C 10 mg/m² bolus D1 e D29 (máx 20 mg/dose), concomitante à RT",
+      "farmacos": [
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "1.000 mg/m²/dia",
+          "via": "EV (96h)",
+          "frequencia": "D1-4, D29-32"
+        },
+        {
+          "nome": "Mitomicina C",
+          "dose": "10 mg/m²",
+          "via": "EV",
+          "frequencia": "D1, D29"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma escamoso de canal/margem anal, quimiorradioterapia definitiva (esquema preferencial: mitomicina sempre que possível, por superioridade no RTOG 98-11).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "carcinoma_anal_escamoso"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "JAMES RD et al. Mitomycin or cisplatin chemoradiation with or without maintenance chemotherapy for treatment of squamous-cell carcinoma of the anus (ACT II). Lancet Oncol. 2013;14(6):516-524. GUNDERSEN LL et al. RTOG 98-11 long-term update. J Clin Oncol. 2012;30(35):4344-4351.",
+        "doi": "10.1016/S1470-2045(13)70086-X",
+        "pmid": null,
+        "estudo": "ACT II / RTOG 98-11",
+        "ano": 2013
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Alta taxa de controle locorregional/cura com preservação de órgão; mitomicina superior à cisplatina em colostomia-free/SLD (RTOG 98-11)",
+        "magnitude": "RTOG 98-11: melhor sobrevida livre de colostomia e SLD com mitomicina vs cisplatina",
+        "fonte": "10.1200/JCO.2012.43.8085"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Toxicidade hematológica (mitomicina)",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Mitomicina C"
+        }
+      ]
+    },
+    {
+      "regimen_id": "anal-crt-cisplatina-5fu",
+      "tumor": "canal-anal",
+      "cenario": "localmente-avancado",
+      "subtipo": "Carcinoma de canal anal — quimiorradioterapia (alternativa)",
+      "nome": "Cisplatina + 5-FU + RT",
+      "esquema": "Cisplatina 75 mg/m² D1 e D29 + 5-FU 1.000 mg/m²/dia infusão contínua 96h (D1-4 e D29-32), concomitante à RT",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "D1, D29"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "1.000 mg/m²/dia",
+          "via": "EV (96h)",
+          "frequencia": "D1-4, D29-32"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma escamoso de canal anal, alternativa de quimiorradioterapia (mitomicina preferida quando possível).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "carcinoma_anal_escamoso"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Gunderson LL et al. Long-Term Update of US GI Intergroup RTOG 98-11 Phase III Trial for Anal Carcinoma (5-FU/mitomicina vs 5-FU/cisplatina). J Clin Oncol. 2012. DOI 10.1200/JCO.2012.43.8085. 2º pivô: ACT II (James 2013).",
+        "doi": "10.1200/JCO.2012.43.8085",
+        "pmid": null,
+        "estudo": "RTOG 98-11 / ACT II",
+        "ano": 2012
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Eficácia em controle locorregional (inferior à mitomicina em colostomia-free no RTOG 98-11)",
+        "magnitude": "ACT II: cisplatina não superior à mitomicina; RTOG 98-11: mitomicina superior",
+        "fonte": "10.1200/JCO.2012.43.8085"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "anal-met-carboplatina-paclitaxel",
+      "tumor": "canal-anal",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma anal metastático — 1ª linha",
+      "nome": "Carboplatina + Paclitaxel (InterAACT)",
+      "esquema": "Paclitaxel 80 mg/m² + Carboplatina AUC 2, semanal (3 semanas on/1 off), ciclos de 28 dias",
+      "farmacos": [
+        {
+          "nome": "Paclitaxel",
+          "dose": "80 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal"
+        },
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 2",
+          "via": "EV",
+          "frequencia": "semanal"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma escamoso de canal anal metastático, 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "carcinoma_anal_escamoso"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "RAO S/RUSTGI AK et al. InterAACT: randomized phase II study of cisplatin plus 5-fluorouracil versus carboplatin plus paclitaxel in advanced anal cancer. J Clin Oncol. 2018;36(15_suppl):5521.",
+        "doi": "10.1093/annonc/mdy424.022",
+        "pmid": null,
+        "estudo": "InterAACT",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Melhor perfil de tolerabilidade e resposta vs cisplatina+5-FU",
+        "magnitude": "InterAACT: carboplatina+paclitaxel com menos toxicidade grave e tendência de melhor SG vs cisplatina+5-FU",
+        "fonte": "InterAACT (JCO 2018)"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        }
+      ]
+    },
+    {
+      "regimen_id": "anal-met-dcf",
+      "tumor": "canal-anal",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma anal metastático — 1ª linha (alternativa intensiva)",
+      "nome": "DCF (Docetaxel + Cisplatina + 5-FU)",
+      "esquema": "Docetaxel 40 mg/m² D1 + Cisplatina 40 mg/m² D1 + 5-FU 2.400 mg/m² infusão 46h, a cada 14 dias",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "40 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 14/14d"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "40 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "2.400 mg/m²",
+          "via": "EV (46h)",
+          "frequencia": "D1"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma escamoso de canal anal metastático/recorrente, paciente robusto (regime intensivo DCF).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "carcinoma_anal_escamoso"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "paciente_robusto",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "KIM S et al. Docetaxel, cisplatin, and fluorouracil chemotherapy for metastatic or unresectable locally recurrent anal squamous cell carcinoma (Epitopes-HPV02): a multicentre, single-arm, phase 2 study. Lancet Oncol. 2018;19(8):1094-1106.",
+        "doi": "10.1016/S1470-2045(18)30321-8",
+        "pmid": null,
+        "estudo": "Epitopes-HPV02",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Altas taxas de resposta e sobrevida em fase 2",
+        "magnitude": "Epitopes-HPV02: TRO alta e SG favorável (regime intensivo)",
+        "fonte": "10.1016/S1470-2045(18)30321-8"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neutropenia febril",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: DCF"
+        }
+      ]
+    },
+    {
+      "regimen_id": "anal-met-nivolumabe-nao-incorporado",
+      "tumor": "canal-anal",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma anal metastático — imunoterapia (não incorporado)",
+      "nome": "Nivolumabe (NÃO incorporado)",
+      "esquema": "Nivolumabe em anal metastático previamente tratado — não incorporação",
+      "farmacos": [
+        {
+          "nome": "Nivolumabe",
+          "dose": "3 mg/kg",
+          "via": "EV",
+          "frequencia": "2/2 sem"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma anal metastático previamente tratado (protocolo NÃO incorpora: NCI9673 é fase 2, braço único, 37 pacientes, TRO 24%, SLP 4,1 meses; fragilidade metodológica).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "carcinoma_anal_escamoso"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MORRIS VK et al. Nivolumab for previously treated unresectable metastatic anal cancer (NCI9673): a multicentre, single-arm, phase 2 study. Lancet Oncol. 2017;18(4):446-453.",
+        "doi": "10.1016/S1470-2045(17)30104-3",
+        "pmid": null,
+        "estudo": "NCI9673",
+        "ano": 2017
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade modesta em fase 2 braço único",
+        "magnitude": "NCI9673: SG 11,5 meses, TRO 24%, SLP 4,1 meses (37 pacientes)",
+        "fonte": "10.1016/S1470-2045(17)30104-3"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender",
+          "fonte": "Bula/ficha técnica: Nivolumabe"
+        }
+      ]
+    }
+  ]
+}

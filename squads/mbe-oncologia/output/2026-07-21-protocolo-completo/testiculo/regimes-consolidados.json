@@ -1,0 +1,1168 @@
+{
+ "meta": {
+  "tumor": "testiculo",
+  "run_id": "2026-07-21-protocolo-completo",
+  "consolidado_em": "2026-07-21",
+  "consolidador": "Consuelo Consolida (pipeline mbe-oncologia)",
+  "fonte_protocolo": "data/input/Protocolos de Oncologia 2025 1.pdf (cap. genito-urinário, pp. 44-47)",
+  "total_regimes": 7,
+  "distribuicao_selo": {
+   "confirmado": 5,
+   "divergencia": 0,
+   "incompleto": 2
+  },
+  "regra_selo": "divergencia se >=1 eixo diverge do afirmado (precedencia); senao incompleto se lacuna real de fonte (GRADE sem estudo-pivo OU elegibilidade sem criterios computaveis); senao confirmado. Status 'indeterminado' por ausencia de afirmacao do protocolo (campos null) NAO rebaixa para incompleto.",
+  "verificacao_apis": {
+   "data": "2026-07-21",
+   "escopo": "escada de APIs abertas (Crossref/Europe PMC/Unpaywall/OpenAlex/PubMed/ClinicalTrials.gov)",
+   "email_contato": "gustavocouto72@gmail.com"
+  },
+  "revisao_humana": {
+   "status": "pendente",
+   "data": "2026-07-21",
+   "decidido_por": null,
+   "nota": "Lote gerado automaticamente; aguarda checkpoint humano (Step 08). Divergências e incompletos sinalizados."
+  }
+ },
+ "regimes": [
+  {
+   "regimen_id": "testiculo-seminoma-eI-carboplatina-adj",
+   "tumor": "testiculo",
+   "cenario": "adjuvancia",
+   "subtipo": "Seminoma estádio clínico I",
+   "nome": "Carboplatina adjuvante (AUC 7)",
+   "esquema": "Carboplatina AUC 7 EV, 1 ou 2 ciclos, após orquiectomia",
+   "farmacos": [
+    {
+     "nome": "Carboplatina",
+     "dose": "AUC 7",
+     "via": "EV",
+     "frequencia": "1-2 ciclos"
+    }
+   ],
+   "elegibilidade_protocolo": "Seminoma estádio clínico I após orquiectomia (alternativa à vigilância ativa e à RT para-aórtica).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "seminoma_eI",
+      "label": "Seminoma estádio clínico I pós-orquiectomia",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia",
+          "seminoma"
+         ]
+        },
+        {
+         "eq": [
+          "estadio",
+          "I"
+         ]
+        },
+        {
+         "eq": [
+          "pos_orquiectomia",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "seminoma_eI"
+    }
+   },
+   "referencia": {
+    "citacao": "OLIVER RTD et al. Radiotherapy versus single-dose carboplatin in adjuvant treatment of stage I seminoma: a randomised trial (MRC TE19/EORTC 30982). Lancet. 2005;366(9482):293-300.",
+    "doi": "10.1016/S0140-6736(05)66984-X",
+    "pmid": null,
+    "estudo": "MRC TE19 / EORTC 30982",
+    "ano": 2005
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Não inferioridade da carboplatina vs RT em sobrevida livre de recidiva",
+    "magnitude": "TE19: taxa de recidiva ~5% com carboplatina AUC7, não inferior à RT, com menor risco de 2º tumor",
+    "fonte": "10.1016/S0140-6736(05)66984-X"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "moderada",
+     "conduta": "monitorar hemograma",
+     "fonte": "Bula/ficha técnica: Carboplatina"
+    },
+    {
+     "nome": "Náusea",
+     "severidade": "leve",
+     "conduta": "antiemético",
+     "fonte": "Bula/ficha técnica: Carboplatina"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "MRC TE19 (fase 3, N=1.477): carboplatina AUC7 não inferior à RT adjuvante, com menos toxicidade tardia. Recomendação forte.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(05)66984-X"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário adjuvante curativo; não inferioridade com melhor perfil de toxicidade. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(05)66984-X"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Carboplatina genérica, dose única/dupla, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia",
+       "operador": "=",
+       "valor": "seminoma"
+      },
+      {
+       "campo": "estadio",
+       "operador": "=",
+       "valor": "I"
+      },
+      {
+       "campo": "pos_orquiectomia",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: TE19 estudou seminoma EI adjuvante.",
+     "justificativa": "Concorda: TE19 estudou seminoma EI adjuvante.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(05)66984-X"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (testículo/tumor germinativo) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "testiculo-nsgct-eI-bep1",
+   "tumor": "testiculo",
+   "cenario": "adjuvancia",
+   "subtipo": "Tumor não-seminomatoso estádio clínico I (alto risco)",
+   "nome": "BEP x1 ciclo (adjuvante)",
+   "esquema": "BEP 1 ciclo após orquiectomia: Bleomicina 30 UI D1,D8,D15 + Etoposídeo 100 mg/m² D1-D5 + Cisplatina 20 mg/m² D1-D5",
+   "farmacos": [
+    {
+     "nome": "Bleomicina",
+     "dose": "30 UI",
+     "via": "EV",
+     "frequencia": "D1,D8,D15"
+    },
+    {
+     "nome": "Etoposídeo",
+     "dose": "100 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D5"
+    },
+    {
+     "nome": "Cisplatina",
+     "dose": "20 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D5"
+    }
+   ],
+   "elegibilidade_protocolo": "Tumor germinativo não-seminomatoso estádio clínico I de alto risco (invasão linfovascular) após orquiectomia.",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "nsgct_eI_altorisco",
+      "label": "NSGCT EI alto risco pós-orquiectomia",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia",
+          "nao-seminomatoso"
+         ]
+        },
+        {
+         "eq": [
+          "estadio",
+          "I"
+         ]
+        },
+        {
+         "eq": [
+          "invasao_linfovascular",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "nsgct_eI_altorisco"
+    }
+   },
+   "referencia": {
+    "citacao": "CULLEN MH et al. Short-course adjuvant chemotherapy in high-risk stage I nonseminomatous germ cell tumors of the testis: a Medical Research Council report. J Clin Oncol. 1996;14(4):1106-1113.",
+    "doi": "10.1200/JCO.1996.14.4.1106",
+    "pmid": null,
+    "estudo": "MRC (Cullen)",
+    "ano": 1996
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↓ recaída em EI de alto risco com BEP adjuvante",
+    "magnitude": "Cullen: taxa de recaída ~2% com BEP x2 (base histórica); esquema atual reduzido a 1 ciclo com eficácia mantida em séries posteriores",
+    "fonte": "10.1200/JCO.1996.14.4.1106"
+   },
+   "toxicidades": [
+    {
+     "nome": "Fibrose pulmonar (bleomicina)",
+     "severidade": "grave",
+     "conduta": "limitar dose cumulativa a 400 UI; monitorar função pulmonar",
+     "fonte": "Bula/ficha técnica: Bleomicina"
+    },
+    {
+     "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+     "severidade": "grave",
+     "conduta": "hidratação; monitorar creatinina/audiometria",
+     "fonte": "Bula/ficha técnica: Cisplatina"
+    },
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: Etoposídeo"
+    },
+    {
+     "nome": "Náusea/vômito",
+     "severidade": "moderada",
+     "conduta": "antiemético",
+     "fonte": "Bula/ficha técnica: Cisplatina"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "MRC (Cullen) + estudos subsequentes (SWENOTECA) fundamentam BEP adjuvante (hoje 1 ciclo) em EI de alto risco. Recomendação forte.",
+     "fonte": "https://doi.org/10.1200/JCO.1996.14.4.1106"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário adjuvante curativo com redução de recaída. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1200/JCO.1996.14.4.1106"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "BEP genérico, barato, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia",
+       "operador": "=",
+       "valor": "nao-seminomatoso"
+      },
+      {
+       "campo": "estadio",
+       "operador": "=",
+       "valor": "I"
+      },
+      {
+       "campo": "invasao_linfovascular",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda com a população de alto risco de Cullen; nota: protocolo/prática atual usa 1 ciclo (Cullen original 2 ciclos).",
+     "justificativa": "Concorda com a população de alto risco de Cullen; nota: protocolo/prática atual usa 1 ciclo (Cullen original 2 ciclos).",
+     "fonte": "https://doi.org/10.1200/JCO.1996.14.4.1106"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "evolucao_esquema: base histórica Cullen usou 2 ciclos; padrão atual é 1 ciclo (SWENOTECA)"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (testículo/tumor germinativo) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "evolucao_esquema: base histórica Cullen usou 2 ciclos; padrão atual é 1 ciclo (SWENOTECA)"
+   ]
+  },
+  {
+   "regimen_id": "testiculo-seminoma-eII-bep-ep",
+   "tumor": "testiculo",
+   "cenario": "localmente-avancado",
+   "subtipo": "Seminoma estádio II (IIA/IIB/IIC)",
+   "nome": "BEP 3 ciclos ou EP 4 ciclos (seminoma EII)",
+   "esquema": "BEP 3 ciclos (Bleomicina 30 UI D1,D8,D15 + Etoposídeo 100 mg/m² D1-D5 + Cisplatina 20 mg/m² D1-D5, a cada 3 semanas) OU EP 4 ciclos",
+   "farmacos": [
+    {
+     "nome": "Bleomicina",
+     "dose": "30 UI",
+     "via": "EV",
+     "frequencia": "D1,D8,D15 (BEP)"
+    },
+    {
+     "nome": "Etoposídeo",
+     "dose": "100 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D5"
+    },
+    {
+     "nome": "Cisplatina",
+     "dose": "20 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D5"
+    }
+   ],
+   "elegibilidade_protocolo": "Seminoma estádio II (IIA/IIB não-bulky, IIB/IIC), como alternativa/complemento à RT.",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "seminoma_eII",
+      "label": "Seminoma estádio II",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "histologia",
+          "seminoma"
+         ]
+        },
+        {
+         "eq": [
+          "estadio",
+          "II"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "seminoma_eII"
+    }
+   },
+   "referencia": {
+    "citacao": "HONECKER F et al. ESMO Consensus Conference on testicular germ cell cancer: diagnosis, treatment and follow-up. Ann Oncol. 2018;29(8):1658-1686 (base de consenso; BEP/EP com eficácia estabelecida em RCTs fundacionais).",
+    "doi": "10.1093/annonc/mdy217",
+    "pmid": null,
+    "estudo": "ESMO Consensus (Honecker)",
+    "ano": 2018
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Altas taxas de cura em doença germinativa",
+    "magnitude": "BEP/EP: taxas de cura >90% em seminoma EII; base fundacional (Williams, Einhorn, de Wit)",
+    "fonte": "10.1093/annonc/mdy217"
+   },
+   "toxicidades": [
+    {
+     "nome": "Fibrose pulmonar (bleomicina)",
+     "severidade": "grave",
+     "conduta": "limitar dose cumulativa a 400 UI; monitorar função pulmonar",
+     "fonte": "Bula/ficha técnica: Bleomicina"
+    },
+    {
+     "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+     "severidade": "grave",
+     "conduta": "hidratação; monitorar creatinina/audiometria",
+     "fonte": "Bula/ficha técnica: Cisplatina"
+    },
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: Etoposídeo"
+    },
+    {
+     "nome": "Náusea/vômito",
+     "severidade": "moderada",
+     "conduta": "antiemético",
+     "fonte": "Bula/ficha técnica: Cisplatina"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "BEP/EP são padrão fundacional (RCTs históricos + consenso ESMO). Altas taxas de cura. Recomendação forte.",
+     "fonte": "https://doi.org/10.1093/annonc/mdy217"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário curativo com altas taxas de cura. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1093/annonc/mdy217"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "BEP/EP genéricos, baratos, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia",
+       "operador": "=",
+       "valor": "seminoma"
+      },
+      {
+       "campo": "estadio",
+       "operador": "=",
+       "valor": "II"
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: BEP/EP em seminoma EII.",
+     "justificativa": "Concorda: BEP/EP em seminoma EII.",
+     "fonte": "https://doi.org/10.1093/annonc/mdy217"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (testículo/tumor germinativo) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "testiculo-avancado-baixorisco-bep3-ep4",
+   "tumor": "testiculo",
+   "cenario": "metastatico",
+   "subtipo": "Doença avançada (estádio III) — baixo risco IGCCCG",
+   "nome": "BEP 3 ciclos ou EP 4 ciclos (bom prognóstico)",
+   "esquema": "BEP 3 ciclos ou EP 4 ciclos (Etoposídeo 100 mg/m² D1-D5 + Cisplatina 20 mg/m² D1-D5, a cada 3 semanas)",
+   "farmacos": [
+    {
+     "nome": "Etoposídeo",
+     "dose": "100 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D5 21/21d"
+    },
+    {
+     "nome": "Cisplatina",
+     "dose": "20 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D5 21/21d"
+    },
+    {
+     "nome": "Bleomicina",
+     "dose": "30 UI",
+     "via": "EV",
+     "frequencia": "D1,D8,D15 (BEP)"
+    }
+   ],
+   "elegibilidade_protocolo": "Tumor germinativo avançado (estádio III) de baixo risco/bom prognóstico (classificação IGCCCG).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "tgc_avancado_bom",
+      "label": "TGC avançado bom prognóstico (IGCCCG)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "estadio",
+          "III"
+         ]
+        },
+        {
+         "eq": [
+          "igcccg",
+          "bom"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "tgc_avancado_bom"
+    }
+   },
+   "referencia": {
+    "citacao": "HONECKER F et al. ESMO Consensus. Ann Oncol. 2018;29(8):1658-1686. (BEP 3 vs EP 4 em bom prognóstico — base fundacional.)",
+    "doi": "10.1093/annonc/mdy217",
+    "pmid": null,
+    "estudo": "ESMO Consensus (Honecker)",
+    "ano": 2018
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Altas taxas de cura no bom prognóstico",
+    "magnitude": "BEP x3 / EP x4: sobrevida >90% em IGCCCG bom prognóstico",
+    "fonte": "10.1093/annonc/mdy217"
+   },
+   "toxicidades": [
+    {
+     "nome": "Fibrose pulmonar (bleomicina)",
+     "severidade": "grave",
+     "conduta": "limitar dose cumulativa a 400 UI; monitorar função pulmonar",
+     "fonte": "Bula/ficha técnica: Bleomicina"
+    },
+    {
+     "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+     "severidade": "grave",
+     "conduta": "hidratação; monitorar creatinina/audiometria",
+     "fonte": "Bula/ficha técnica: Cisplatina"
+    },
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: Etoposídeo"
+    },
+    {
+     "nome": "Náusea/vômito",
+     "severidade": "moderada",
+     "conduta": "antiemético",
+     "fonte": "Bula/ficha técnica: Cisplatina"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "BEP x3 / EP x4 em bom prognóstico: padrão fundacional com altas taxas de cura. Recomendação forte.",
+     "fonte": "https://doi.org/10.1093/annonc/mdy217"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário curativo; altas taxas de cura. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1093/annonc/mdy217"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "BEP/EP genéricos, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "estadio",
+       "operador": "=",
+       "valor": "III"
+      },
+      {
+       "campo": "igcccg",
+       "operador": "=",
+       "valor": "bom"
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: bom prognóstico IGCCCG.",
+     "justificativa": "Concorda: bom prognóstico IGCCCG.",
+     "fonte": "https://doi.org/10.1093/annonc/mdy217"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (testículo/tumor germinativo) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "testiculo-avancado-intalto-bep4-vip4",
+   "tumor": "testiculo",
+   "cenario": "metastatico",
+   "subtipo": "Doença avançada — risco intermediário/alto IGCCCG",
+   "nome": "BEP 4 ciclos (ou VIP 4 ciclos se contraindicação à bleomicina)",
+   "esquema": "BEP 4 ciclos; alternativa VIP 4 ciclos (Etoposídeo 75 mg/m² + Ifosfamida 1.200 mg/m² + Mesna + Cisplatina 20 mg/m², D1-D5, a cada 3 semanas)",
+   "farmacos": [
+    {
+     "nome": "Bleomicina",
+     "dose": "30 UI",
+     "via": "EV",
+     "frequencia": "D1,D8,D15"
+    },
+    {
+     "nome": "Etoposídeo",
+     "dose": "100 mg/m² (BEP) / 75 mg/m² (VIP)",
+     "via": "EV",
+     "frequencia": "D1-D5"
+    },
+    {
+     "nome": "Ifosfamida (VIP)",
+     "dose": "1.200 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D5"
+    },
+    {
+     "nome": "Cisplatina",
+     "dose": "20 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D5"
+    }
+   ],
+   "elegibilidade_protocolo": "Tumor germinativo avançado de risco intermediário/alto (IGCCCG).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "tgc_avancado_intalto",
+      "label": "TGC avançado risco intermediário/alto (IGCCCG)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "estadio",
+          "III"
+         ]
+        },
+        {
+         "in": [
+          "igcccg",
+          [
+           "intermediario",
+           "alto"
+          ]
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "tgc_avancado_intalto"
+    }
+   },
+   "referencia": {
+    "citacao": "NICHOLS CR et al. Randomized comparison of cisplatin and etoposide and either bleomycin or ifosfamide in treatment of advanced disseminated germ cell tumors. J Clin Oncol. 1998;16(4):1287-1293.",
+    "doi": "10.1200/JCO.1998.16.4.1287",
+    "pmid": null,
+    "estudo": "Nichols (ECOG/SWOG)",
+    "ano": 1998
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "BEP x4 padrão; VIP equivalente com toxicidade distinta",
+    "magnitude": "Nichols: VIP e BEP com eficácia comparável; VIP evita bleomicina (útil em contraindicação pulmonar)",
+    "fonte": "10.1200/JCO.1998.16.4.1287"
+   },
+   "toxicidades": [
+    {
+     "nome": "Fibrose pulmonar (bleomicina)",
+     "severidade": "grave",
+     "conduta": "limitar dose cumulativa a 400 UI; monitorar função pulmonar",
+     "fonte": "Bula/ficha técnica: Bleomicina"
+    },
+    {
+     "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+     "severidade": "grave",
+     "conduta": "hidratação; monitorar creatinina/audiometria",
+     "fonte": "Bula/ficha técnica: Cisplatina"
+    },
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: Etoposídeo"
+    },
+    {
+     "nome": "Náusea/vômito",
+     "severidade": "moderada",
+     "conduta": "antiemético",
+     "fonte": "Bula/ficha técnica: Cisplatina"
+    },
+    {
+     "nome": "Cistite hemorrágica (ifosfamida)",
+     "severidade": "grave",
+     "conduta": "Mesna; hidratação",
+     "fonte": "Bula/ficha técnica: Ifosfamida"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "Nichols (fase 3): BEP x4 padrão em prognóstico intermediário/alto; VIP alternativa equivalente. Recomendação forte.",
+     "fonte": "https://doi.org/10.1200/JCO.1998.16.4.1287"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário curativo; altas taxas de cura. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1200/JCO.1998.16.4.1287"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "BEP/VIP genéricos, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "estadio",
+       "operador": "=",
+       "valor": "III"
+      },
+      {
+       "campo": "igcccg",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: risco intermediário/alto IGCCCG.",
+     "justificativa": "Concorda: risco intermediário/alto IGCCCG.",
+     "fonte": "https://doi.org/10.1200/JCO.1998.16.4.1287"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (testículo/tumor germinativo) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "testiculo-recidiva-tip-veip",
+   "tumor": "testiculo",
+   "cenario": "metastatico",
+   "subtipo": "Doença recidivada — tratamento de resgate",
+   "nome": "TIP ou VeIP (resgate)",
+   "esquema": "TIP 4 ciclos (Paclitaxel 250 mg/m² D1 infusional 24h + Ifosfamida 1.500 mg/m² D2-D5 + Mesna + Cisplatina 25 mg/m² D2-D5) OU VeIP 4 ciclos",
+   "farmacos": [
+    {
+     "nome": "Paclitaxel",
+     "dose": "250 mg/m²",
+     "via": "EV (24h)",
+     "frequencia": "D1"
+    },
+    {
+     "nome": "Ifosfamida",
+     "dose": "1.500 mg/m²",
+     "via": "EV",
+     "frequencia": "D2-D5"
+    },
+    {
+     "nome": "Cisplatina",
+     "dose": "25 mg/m²",
+     "via": "EV",
+     "frequencia": "D2-D5"
+    }
+   ],
+   "elegibilidade_protocolo": "Tumor germinativo recidivado após quimioterapia de 1ª linha (tratamento de resgate).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "tgc_recidiva",
+      "label": "TGC recidivado pós-1ª linha",
+      "expr": {
+       "eq": [
+        "recidiva_pos_1l",
+        true
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "tgc_recidiva"
+    }
+   },
+   "referencia": {
+    "citacao": "HONECKER F et al. ESMO Consensus. Ann Oncol. 2018;29(8):1658-1686 (resgate TIP/VeIP; sem RCT dedicado — recomendação de consenso).",
+    "doi": "10.1093/annonc/mdy217",
+    "pmid": null,
+    "estudo": "ESMO Consensus (Honecker)",
+    "ano": 2018
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": null,
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão grave",
+     "severidade": "grave",
+     "conduta": "G-CSF; suporte",
+     "fonte": "Bula/ficha técnica: TIP/VeIP"
+    },
+    {
+     "nome": "Cistite hemorrágica",
+     "severidade": "grave",
+     "conduta": "Mesna",
+     "fonte": "Bula/ficha técnica: Ifosfamida"
+    },
+    {
+     "nome": "Neuropatia periférica",
+     "severidade": "moderada",
+     "conduta": "ajuste de paclitaxel",
+     "fonte": "Bula/ficha técnica: Paclitaxel"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "indeterminado",
+     "valor_rederivado": "",
+     "afirmado_protocolo": null,
+     "justificativa": "Regimes de resgate (TIP/VeIP) baseados em consenso ESMO e séries; sem RCT dedicado com desfecho de sobrevida para re-derivar GRADE robusto. Lacuna de fonte primária de alto nível.",
+     "fonte": ""
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Sem RCT de resgate com desfecho graduável; não graduável.",
+     "fonte": ""
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Fármacos genéricos, no SUS. Affordability alta — eixo de evidência incompleto.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "recidiva_pos_1l",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Regime de resgate baseado em consenso; sem RCT para confronto direto de elegibilidade.",
+     "justificativa": "Regime de resgate baseado em consenso; sem RCT para confronto direto de elegibilidade.",
+     "fonte": "https://doi.org/10.1093/annonc/mdy217"
+    }
+   },
+   "consolidacao": {
+    "status": "incompleto",
+    "selo_confianca": "incompleto",
+    "eixos_diverge": [],
+    "lacunas": [
+     "grade_sem_estudo_pivo"
+    ],
+    "flags": [
+     "evidencia_consenso: TIP/VeIP recomendados por consenso ESMO, sem RCT dedicado"
+    ],
+    "decisao_revisao": "pendente_oncologista_referencia"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (testículo/tumor germinativo) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "evidencia_consenso: TIP/VeIP recomendados por consenso ESMO, sem RCT dedicado"
+   ]
+  },
+  {
+   "regimen_id": "testiculo-refrataria-paliativo-gemox",
+   "tumor": "testiculo",
+   "cenario": "metastatico",
+   "subtipo": "Doença recidivada refratária — esquemas paliativos",
+   "nome": "GemOx / Gemcitabina+Paclitaxel (paliativo)",
+   "esquema": "GemOx (Gemcitabina 1.000 mg/m² D1,D8 + Oxaliplatina 130 mg/m² D1, 21/21d) ou Gemcitabina+Paclitaxel",
+   "farmacos": [
+    {
+     "nome": "Gemcitabina",
+     "dose": "1.000 mg/m²",
+     "via": "EV",
+     "frequencia": "D1,D8"
+    },
+    {
+     "nome": "Oxaliplatina",
+     "dose": "130 mg/m²",
+     "via": "EV",
+     "frequencia": "D1 21/21d"
+    }
+   ],
+   "elegibilidade_protocolo": "Tumor germinativo recidivado refratário a múltiplas linhas de platina (esquemas paliativos).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "tgc_refratario",
+      "label": "TGC refratário multi-tratado",
+      "expr": {
+       "eq": [
+        "refratario_multiplas_linhas",
+        true
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "ref": "tgc_refratario"
+    }
+   },
+   "referencia": {
+    "citacao": "Estudo-pivô não especificado no protocolo para os esquemas paliativos (base em séries fase II de resgate refratário).",
+    "doi": null,
+    "pmid": null,
+    "estudo": null,
+    "ano": null
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": null,
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF; monitorar hemograma",
+     "fonte": "Bula/ficha técnica: Gemcitabina, Oxaliplatina"
+    },
+    {
+     "nome": "Neuropatia periférica",
+     "severidade": "moderada",
+     "conduta": "ajuste de oxaliplatina",
+     "fonte": "Bula/ficha técnica: Oxaliplatina"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "indeterminado",
+     "valor_rederivado": "",
+     "afirmado_protocolo": null,
+     "justificativa": "Esquemas paliativos de resgate refratário sem estudo-pivô citado; base em séries fase II. Sem fonte primária robusta para re-derivar GRADE. Lacuna.",
+     "fonte": ""
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário paliativo refratário sem RCT graduável; não graduável.",
+     "fonte": ""
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Fármacos genéricos, no SUS. Affordability alta — eixo de evidência incompleto.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "refratario_multiplas_linhas",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Sem estudo-pivô citado para confronto.",
+     "justificativa": "Sem estudo-pivô citado para confronto.",
+     "fonte": null
+    }
+   },
+   "consolidacao": {
+    "status": "incompleto",
+    "selo_confianca": "incompleto",
+    "eixos_diverge": [],
+    "lacunas": [
+     "grade_sem_estudo_pivo"
+    ],
+    "flags": [
+     "referencia_ausente: esquemas paliativos sem estudo-pivô citado no protocolo"
+    ],
+    "decisao_revisao": "pendente_oncologista_referencia"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (testículo/tumor germinativo) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "referencia_ausente: esquemas paliativos sem estudo-pivô citado no protocolo"
+   ]
+  }
+ ]
+}

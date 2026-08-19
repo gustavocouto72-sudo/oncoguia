@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "tumor": "sarcomas",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "Atezolizumabe ± bevacizumabe em sarcoma alveolar de partes moles (ASPS)",
+      "identificador": "NCT03141684",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO ativa em ASPS (subtipo raro).",
+      "acao": "Avaliar no ASPS."
+    }
+  ]
+}

@@ -1,0 +1,1075 @@
+{
+  "meta": {
+    "tumor": "ovario",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 13
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "ovario_epitelial",
+        "ovario_estroma_granulosa",
+        "ovario_germinativo"
+      ]
+    },
+    {
+      "campo": "adjuvante",
+      "tipo": "boolean",
+      "label": "Adjuvante",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "neoadjuvante",
+      "tipo": "boolean",
+      "label": "Neoadjuvante",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "primeira_linha",
+      "tipo": "boolean",
+      "label": "Primeira linha",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "mutacao_brca",
+      "tipo": "boolean",
+      "label": "Mutacao brca",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "resposta_platina",
+      "tipo": "boolean",
+      "label": "Resposta platina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "manutencao_1l",
+      "tipo": "boolean",
+      "label": "Manutencao 1l",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "recidiva_platina_sensivel",
+      "tipo": "boolean",
+      "label": "Recidiva platina sensivel",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "recidiva_platina_resistente",
+      "tipo": "boolean",
+      "label": "Recidiva platina resistente",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "sistemico",
+      "tipo": "boolean",
+      "label": "Sistemico",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "ovario-epitelial-adj-carbo-paclitaxel",
+      "tumor": "ovario",
+      "cenario": "adjuvancia",
+      "subtipo": "Câncer de ovário epitelial — quimioterapia adjuvante",
+      "nome": "Carboplatina + Paclitaxel (adjuvante)",
+      "esquema": "Carboplatina AUC 5-6 + Paclitaxel 175 mg/m² a cada 21 dias, 6 ciclos (opção semanal dose-densa)",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 5-6",
+          "via": "EV",
+          "frequencia": "21/21d x6"
+        },
+        {
+          "nome": "Paclitaxel",
+          "dose": "175 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d x6"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de ovário epitelial estádio IA/IB grau III, IC, II, III, ou carcinoma de células claras (adjuvância).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "adjuvante",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ICON1/EORTC-ACTION Investigators. Adjuvant chemotherapy in early-stage ovarian carcinoma. J Natl Cancer Inst. 2003;95(2):105-112. BELL J et al. GOG (3 vs 6 ciclos). Gynecol Oncol. 2006;102(3):432-439.",
+        "doi": "10.1093/jnci/95.2.105",
+        "pmid": null,
+        "estudo": "ICON1 / EORTC-ACTION / GOG-157",
+        "ano": 2003,
+        "primeiro_autor": "Colombo (ICON1)"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e SLP com QT adjuvante",
+        "magnitude": "ICON1/ACTION: ganho de SG/SLP em estádio inicial de risco",
+        "fonte": "10.1093/jnci/95.2.105"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ],
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "rotulo_corrigido: primeiro_autor→Colombo (ICON1), ano→2003; DOI 10.1093/jnci/95.2.105 já correto (paper certo), selo inalterado.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-epitelial-neoadj-carbo-paclitaxel",
+      "tumor": "ovario",
+      "cenario": "neoadjuvancia",
+      "subtipo": "Câncer de ovário epitelial avançado — neoadjuvante",
+      "nome": "Carboplatina + Paclitaxel (neoadjuvante)",
+      "esquema": "Carboplatina AUC 5-6 + Paclitaxel 175 mg/m² a cada 21 dias, 6-8 ciclos, com cirurgia de intervalo após 3º ciclo",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 5-6",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Paclitaxel",
+          "dose": "175 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de ovário epitelial estádio III/IV não passível de citorredução primária ótima (neoadjuvância + cirurgia de intervalo).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "neoadjuvante",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "VERGOTE I et al. Neoadjuvant chemotherapy or primary surgery in stage IIIC or IV ovarian cancer. N Engl J Med. 2010;363(10):943-953. KEHOE S et al. CHORUS. Lancet. 2015;386(9990):249-257.",
+        "doi": "10.1056/NEJMoa0908806",
+        "pmid": null,
+        "estudo": "EORTC 55971 (Vergote) / CHORUS",
+        "ano": 2010
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Não inferioridade em SG vs cirurgia primária, com menor morbidade",
+        "magnitude": "EORTC/CHORUS: SG não inferior à cirurgia primária, com menor morbidade cirúrgica",
+        "fonte": "10.1056/NEJMoa0908806"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-bevacizumabe-1l-nao-incluido",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de ovário avançado — bevacizumabe 1ª linha (não incluído)",
+      "nome": "Bevacizumabe 1ª linha (ICON7/GOG-0218) — NÃO incluído",
+      "esquema": "Bevacizumabe associado à QT e manutenção em 1ª linha — não incluído",
+      "farmacos": [
+        {
+          "nome": "Bevacizumabe",
+          "dose": "15 mg/kg (7,5 mg/kg)",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de ovário avançado, 1ª linha (protocolo NÃO inclui: ICON7/GOG-0218 aumentaram discretamente a SLP sem ganho consistente de SG; benefício limitado a subgrupos; ESMO-MCBS 1 [ICON7] e 3 [GOG-0218]).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "primeira_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Burger RA et al. Incorporation of Bevacizumab in the Primary Treatment of Ovarian Cancer (GOG-0218). N Engl J Med. 2011. DOI 10.1056/NEJMoa1104390. 2º pivô: Perren TJ et al. A Phase 3 Trial of Bevacizumab in Ovarian Cancer (ICON7). N Engl J Med. 2011. DOI 10.1056/NEJMoa1103799.",
+        "doi": "10.1056/NEJMoa1104390",
+        "pmid": null,
+        "estudo": "GOG-0218 / ICON7",
+        "ano": 2011,
+        "pivos": [
+          {
+            "estudo": "GOG-0218",
+            "primeiro_autor": "Burger",
+            "ano": 2011,
+            "doi": "10.1056/NEJMoa1104390"
+          },
+          {
+            "estudo": "ICON7",
+            "primeiro_autor": "Perren",
+            "ano": 2011,
+            "doi": "10.1056/NEJMoa1103799"
+          }
+        ]
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP sem ganho consistente de SG",
+        "magnitude": "ICON7/GOG-0218: ganho de SLP; SG apenas em subgrupos de alto risco. ESMO-MCBS 1/3",
+        "fonte": "10.1056/NEJMoa1104390"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Hipertensão/perfuração intestinal (bevacizumabe)",
+          "severidade": "grave",
+          "conduta": "monitorar",
+          "fonte": "Bula/ficha técnica: Bevacizumabe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-manutencao-olaparibe-brca",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de ovário avançado BRCA+ — manutenção 1ª linha (olaparibe)",
+      "nome": "Olaparibe de manutenção (BRCA+)",
+      "esquema": "Olaparibe 300 mg VO 2x/dia por 2 anos (manutenção após resposta a platina)",
+      "farmacos": [
+        {
+          "nome": "Olaparibe",
+          "dose": "300 mg",
+          "via": "VO",
+          "frequencia": "2x/dia por 2 anos"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma seroso/endometrioide de ovário estádio III/IV com resposta completa/parcial à platina e mutação BRCA1/2 (germinativa ou somática) — manutenção de 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "mutacao_brca",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resposta_platina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "RAY-COQUARD I et al. Olaparib plus bevacizumab first-line maintenance in ovarian cancer: final OS (PAOLA-1). Ann Oncol. 2023;34(8):681-692. (SOLO1: olaparibe isolado em BRCA+.)",
+        "doi": "10.1016/j.annonc.2023.05.005",
+        "pmid": null,
+        "estudo": "SOLO1 / PAOLA-1",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e sobrevida global (BRCA+/HRD+)",
+        "magnitude": "SOLO1: ganho robusto e duradouro de SLP; PAOLA-1: SG em HRD+/BRCA+",
+        "fonte": "10.1016/j.annonc.2023.05.005"
+      },
+      "toxicidades": [
+        {
+          "nome": "Anemia/fadiga (PARP)",
+          "severidade": "moderada",
+          "conduta": "monitorar hemograma; ajuste",
+          "fonte": "Bula/ficha técnica: inibidor de PARP"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-niraparibe-nao-incluido",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de ovário avançado — niraparibe manutenção (não incluído)",
+      "nome": "Niraparibe de manutenção (PRIMA) — NÃO incluído",
+      "esquema": "Niraparibe de manutenção de 1ª linha (incluindo HRD+) — não incluído",
+      "farmacos": [
+        {
+          "nome": "Niraparibe",
+          "dose": "200-300 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de ovário avançado de alto risco (protocolo NÃO inclui niraparibe [PRIMA]: aumentou a SLP em HRD+ mas, na atualização de SG com seguimento de 73,9 meses, não houve benefício; ESMO-MCBS 2).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "manutencao_1l",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "GONZÁLEZ-MARTÍN A et al. Niraparib in patients with newly diagnosed advanced ovarian cancer (PRIMA). N Engl J Med. 2019;381(25):2391-2402.",
+        "doi": "10.1056/NEJMoa1910962",
+        "pmid": null,
+        "estudo": "PRIMA",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP (HRD+) sem ganho de SG na atualização",
+        "magnitude": "PRIMA: SLP HRD+ HR 0,43; SG sem benefício em 73,9 meses. ESMO-MCBS 2",
+        "fonte": "10.1056/NEJMoa1910962"
+      },
+      "toxicidades": [
+        {
+          "nome": "Anemia/fadiga (PARP)",
+          "severidade": "moderada",
+          "conduta": "monitorar hemograma; ajuste",
+          "fonte": "Bula/ficha técnica: inibidor de PARP"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-olaparibe-bevacizumabe-nao-incluido",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de ovário avançado — olaparibe + bevacizumabe (não incluído)",
+      "nome": "Olaparibe + Bevacizumabe manutenção (PAOLA-1) — NÃO incluído",
+      "esquema": "Manutenção com bevacizumabe + olaparibe — não incluído (acréscimo de olaparibe ao bevacizumabe)",
+      "farmacos": [
+        {
+          "nome": "Olaparibe + Bevacizumabe",
+          "dose": "300 mg 2x / 15 mg/kg",
+          "via": "VO/EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de ovário de alto grau III/IV (protocolo NÃO inclui a combinação: PAOLA-1 não tem braço comparador sem bevacizumabe para comprovar a necessidade do PARP associado ao antiangiogênico em BRCAm/HRD; qualidade da evidência questionável, ESMO-MCBS 3).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "manutencao_1l",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "RAY-COQUARD I et al. Olaparib plus bevacizumab first-line maintenance in ovarian cancer: final OS (PAOLA-1/ENGOT-ov25). Ann Oncol. 2023;34(8):681-692.",
+        "doi": "10.1016/j.annonc.2023.05.005",
+        "pmid": null,
+        "estudo": "PAOLA-1",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP em BRCAm/HRD (sem braço sem bevacizumabe para isolar o efeito)",
+        "magnitude": "PAOLA-1: SLP BRCAm HR 0,31; sem comparador que isole o PARP do antiangiogênico. ESMO-MCBS 3",
+        "fonte": "10.1016/j.annonc.2023.05.005"
+      },
+      "toxicidades": [
+        {
+          "nome": "Anemia/fadiga (PARP)",
+          "severidade": "moderada",
+          "conduta": "monitorar hemograma; ajuste",
+          "fonte": "Bula/ficha técnica: inibidor de PARP"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-recidiva-platina-sensivel-doublet",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de ovário recidivado platina-sensível — quimioterapia",
+      "nome": "Doublet de platina (carbo + paclitaxel/PLD/gemcitabina)",
+      "esquema": "Carboplatina AUC 5-6 + paclitaxel (ou doxorrubicina lipossomal peguilada 30 mg/m², ou gemcitabina 750-1.000 mg/m² D1,D8), a cada 21-28 dias",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 5-6",
+          "via": "EV",
+          "frequencia": "21-28d"
+        },
+        {
+          "nome": "Paclitaxel/PLD/Gemcitabina",
+          "dose": "conforme parceiro",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de ovário recidivado platina-sensível (intervalo livre de platina >6 meses), retratamento com doublet de platina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "recidiva_platina_sensivel",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PUJADE-LAURAINE E et al. Pegylated liposomal doxorubicin and carboplatin versus paclitaxel and carboplatin for platinum-sensitive ovarian cancer (CALYPSO). J Clin Oncol. 2010;28(20):3323-3329.",
+        "doi": "10.1200/JCO.2009.25.7519",
+        "pmid": null,
+        "estudo": "CALYPSO / MITO-8",
+        "ano": 2010
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Reindução com platina em doença sensível",
+        "magnitude": "CALYPSO: carbo+PLD com SLP não inferior/superior e melhor perfil vs carbo+paclitaxel",
+        "fonte": "10.1200/JCO.2009.25.7519"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-recidiva-manutencao-olaparibe-brca",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de ovário recidivado platina-sensível BRCA+ — manutenção (olaparibe)",
+      "nome": "Olaparibe de manutenção (SOLO2, recidiva)",
+      "esquema": "Olaparibe 300 mg VO 2x/dia por 2 anos em pacientes BRCA+ sem manutenção prévia com PARP, com resposta à platina",
+      "farmacos": [
+        {
+          "nome": "Olaparibe",
+          "dose": "300 mg",
+          "via": "VO",
+          "frequencia": "2x/dia por 2 anos"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de ovário recidivado platina-sensível com mutação BRCA1/2 que não recebeu manutenção prévia com inibidor de PARP e teve resposta ao último esquema de platina.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "recidiva_platina_sensivel",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "mutacao_brca",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "POVEDA A et al. Olaparib tablets as maintenance therapy in platinum-sensitive relapsed ovarian cancer and a BRCA1/2 mutation (SOLO2/ENGOT-Ov21): final analysis. Lancet Oncol. 2021;22(5):620-631.",
+        "doi": "10.1016/S1470-2045(21)00073-5",
+        "pmid": null,
+        "estudo": "SOLO2/ENGOT-Ov21",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão (tendência de SG)",
+        "magnitude": "SOLO2: SLP 19,1 vs 5,5 meses; benefício mantido a longo prazo",
+        "fonte": "10.1016/S1470-2045(21)00073-5"
+      },
+      "toxicidades": [
+        {
+          "nome": "Anemia/fadiga (PARP)",
+          "severidade": "moderada",
+          "conduta": "monitorar hemograma; ajuste",
+          "fonte": "Bula/ficha técnica: inibidor de PARP"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-carbo-gem-bevacizumabe-nao-incluido",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de ovário recidivado sensível — carbo+gem+bevacizumabe (não incluído)",
+      "nome": "Carboplatina + Gemcitabina + Bevacizumabe (OCEANS) — NÃO incluído",
+      "esquema": "Carboplatina + gemcitabina + bevacizumabe na recidiva sensível — não incluído",
+      "farmacos": [
+        {
+          "nome": "Carboplatina + Gemcitabina + Bevacizumabe",
+          "dose": "conforme OCEANS",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de ovário recidivado platina-sensível (protocolo NÃO inclui: OCEANS trouxe benefício em SLP sem impactar SG; magnitude pouco relevante, ESMO-MCBS 2).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "recidiva_platina_sensivel",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "AGHAJANIAN C et al. Final overall survival and safety analysis of OCEANS. Gynecol Oncol. 2015;139(1):10-16.",
+        "doi": "10.1016/j.ygyno.2015.08.004",
+        "pmid": null,
+        "estudo": "OCEANS",
+        "ano": 2015
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP sem ganho de SG",
+        "magnitude": "OCEANS: ganho de SLP sem impacto em SG. ESMO-MCBS 2",
+        "fonte": "10.1016/j.ygyno.2015.08.004"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-recidiva-platina-resistente-monoterapia",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de ovário recidivado platina-resistente — monoterapia",
+      "nome": "Monoterapia (topotecano / PLD / gemcitabina / docetaxel)",
+      "esquema": "Topotecano, doxorrubicina lipossomal peguilada 40 mg/m², gemcitabina, ou docetaxel — agente único, conforme perfil",
+      "farmacos": [
+        {
+          "nome": "Agente único (topotecano/PLD/gemcitabina/docetaxel)",
+          "dose": "conforme agente",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de ovário recidivado platina-resistente (intervalo livre de platina <6 meses), monoterapia paliativa.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "recidiva_platina_resistente",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FERRANDINA G et al. Gemcitabine vs pegylated liposomal doxorubicin in recurrent ovarian cancer. J Clin Oncol. 2008;26(6):890-896.",
+        "doi": "10.1200/JCO.2007.13.6606",
+        "pmid": null,
+        "estudo": "AURELIA (base) / estudos de monoterapia",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade paliativa em doença resistente",
+        "magnitude": "Monoterapia (PLD/topotecano/gemcitabina) com atividade modesta em doença resistente",
+        "fonte": "10.1200/JCO.2007.13.6606"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-resistente-bevacizumabe-nao-incluido",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Câncer de ovário resistente — bevacizumabe (não incluído)",
+      "nome": "Bevacizumabe + monoterapia (AURELIA) — NÃO incluído",
+      "esquema": "Bevacizumabe associado à quimioterapia em doença platina-resistente — não incluído",
+      "farmacos": [
+        {
+          "nome": "Bevacizumabe + Quimioterapia",
+          "dose": "conforme AURELIA",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de ovário recidivado platina-resistente (protocolo NÃO inclui: AURELIA com ganho de SLP mas benefício clínico pouco relevante em SG, ESMO-MCBS 3).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_epitelial"
+              ]
+            },
+            {
+              "eq": [
+                "recidiva_platina_resistente",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PUJADE-LAURAINE E et al. Bevacizumab combined with chemotherapy for platinum-resistant recurrent ovarian cancer (AURELIA). J Clin Oncol. 2014;32(13):1302-1308.",
+        "doi": "10.1200/JCO.2013.51.4489",
+        "pmid": null,
+        "estudo": "AURELIA",
+        "ano": 2014
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP sem ganho robusto de SG",
+        "magnitude": "AURELIA: ganho de SLP; SG sem benefício robusto. ESMO-MCBS 3",
+        "fonte": "10.1200/JCO.2013.51.4489"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-estroma-granulosa-peb",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Tumor do estroma/cordão sexual (células da granulosa) — sistêmico",
+      "nome": "PEB (Bleomicina + Etoposídeo + Cisplatina)",
+      "esquema": "PEB: Bleomicina 30 U D1,D8 + Etoposídeo 100 mg/m² D1-D5 + Cisplatina 20 mg/m² D1-D5, a cada 21 dias, 3-4 ciclos (ou carbo+paclitaxel)",
+      "farmacos": [
+        {
+          "nome": "Bleomicina",
+          "dose": "30 U",
+          "via": "EV",
+          "frequencia": "D1,D8"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "20 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        }
+      ],
+      "elegibilidade_protocolo": "Tumor de células da granulosa (estroma/cordão sexual) estádio II-IV ou recidivado (adjuvante/avançado).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_estroma_granulosa"
+              ]
+            },
+            {
+              "eq": [
+                "sistemico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HOMESLEY HD et al. Bleomycin, etoposide, and cisplatin combination therapy of ovarian granulosa cell tumors and other stromal malignancies: GOG study. Gynecol Oncol. 1999;72(2):131-137.",
+        "doi": "10.1006/gyno.1998.5304",
+        "pmid": null,
+        "estudo": "GOG (Homesley) — granulosa",
+        "ano": 1999
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade em tumores do estroma/granulosa",
+        "magnitude": "PEB com atividade em granulosa avançado/recidivado (série GOG)",
+        "fonte": "10.1006/gyno.1998.5304"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Fibrose pulmonar (bleomicina)",
+          "severidade": "grave",
+          "conduta": "limitar dose cumulativa; monitorar função pulmonar",
+          "fonte": "Bula/ficha técnica: Bleomicina"
+        }
+      ]
+    },
+    {
+      "regimen_id": "ovario-germinativo-peb",
+      "tumor": "ovario",
+      "cenario": "metastatico",
+      "subtipo": "Tumor de células germinativas do ovário — sistêmico",
+      "nome": "PEB (Bleomicina + Etoposídeo + Cisplatina)",
+      "esquema": "PEB: Bleomicina 30 U D1,D8 + Etoposídeo 100 mg/m² D1-D5 + Cisplatina 20 mg/m² D1-D5, a cada 21 dias, 3-4 ciclos (carboplatina+etoposídeo em disgerminoma)",
+      "farmacos": [
+        {
+          "nome": "Bleomicina",
+          "dose": "30 U",
+          "via": "EV",
+          "frequencia": "D1,D8"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "20 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        }
+      ],
+      "elegibilidade_protocolo": "Tumor de células germinativas do ovário (seio endodérmico, embrionário, coriocarcinoma estádios I-IV; disgerminoma IB-IV; teratoma imaturo grau 2-3).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "ovario_germinativo"
+              ]
+            },
+            {
+              "eq": [
+                "sistemico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "WILLIAMS S et al. Adjuvant therapy of ovarian germ cell tumors with cisplatin, etoposide, and bleomycin: GOG. J Clin Oncol. 1994;12(4):701-706. WILLIAMS SD et al. Carboplatin/etoposide em disgerminoma. Gynecol Oncol. 2004;95:496-499.",
+        "doi": "10.1200/JCO.1994.12.4.701",
+        "pmid": null,
+        "estudo": "GOG (Williams) — germinativo",
+        "ano": 1994
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Altas taxas de cura com PEB",
+        "magnitude": "PEB: altas taxas de cura em tumores germinativos do ovário (análogo ao testículo)",
+        "fonte": "10.1200/JCO.1994.12.4.701"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Neuropatia periférica (paclitaxel)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Náusea/nefrotoxicidade (platina)",
+          "severidade": "moderada",
+          "conduta": "antiemético; hidratação",
+          "fonte": "Bula/ficha técnica: platina"
+        },
+        {
+          "nome": "Fibrose pulmonar (bleomicina)",
+          "severidade": "grave",
+          "conduta": "limitar dose cumulativa",
+          "fonte": "Bula/ficha técnica: Bleomicina"
+        }
+      ]
+    }
+  ]
+}

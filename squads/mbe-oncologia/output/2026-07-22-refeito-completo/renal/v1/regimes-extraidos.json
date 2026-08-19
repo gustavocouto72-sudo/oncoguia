@@ -1,0 +1,924 @@
+{
+  "meta": {
+    "tumor": "renal",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 10
+  },
+  "campos_primitivos": [
+    {
+      "campo": "histologia_ccrcc",
+      "tipo": "boolean",
+      "label": "Histologia ccrcc",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ressecado_completo",
+      "tipo": "boolean",
+      "label": "Ressecado completo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "alto_risco_recidiva",
+      "tipo": "boolean",
+      "label": "Alto risco recidiva",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "doenca_autoimune_ativa",
+      "tipo": "boolean",
+      "label": "Doenca autoimune ativa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "risco_imdc",
+      "tipo": "enum",
+      "label": "Risco imdc",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "favoravel",
+        "['intermediario', 'alto']"
+      ]
+    },
+    {
+      "campo": "disfuncao_hepatica_grave",
+      "tipo": "boolean",
+      "label": "Disfuncao hepatica grave",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_vegfr",
+      "tipo": "boolean",
+      "label": "Progressao pos vegfr",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_io",
+      "tipo": "boolean",
+      "label": "Progressao pos io",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "renal-adj-pembrolizumab",
+      "tumor": "renal",
+      "cenario": "adjuvancia",
+      "subtipo": "CCRcc ressecado de alto risco de recidiva",
+      "nome": "Pembrolizumab adjuvante",
+      "esquema": "Pembrolizumab 200 mg EV a cada 3 semanas por 1 ano",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumab",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "a cada 3 semanas, 1 ano"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de células renais claras (CCRcc) completamente ressecado, alto risco (critérios KEYNOTE-564: pT2 grau 4/sarcomatoide N0M0; pT3 qualquer grau N0M0; qualquer pT N+M0; ou M1 sem evidência de doença após ressecção).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "ressecado_completo",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "alto_risco_recidiva",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "POWLES T, Tomczak P, Park SH, et al. Pembrolizumab versus placebo as post-nephrectomy adjuvant therapy for clear cell renal cell carcinoma (KEYNOTE-564): 30-month follow-up. Lancet Oncol. 2022;23:1133-1144.",
+        "doi": "10.1016/S1470-2045(22)00487-9",
+        "pmid": null,
+        "estudo": "KEYNOTE-564",
+        "ano": 2022
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "A",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença e (atualização) ↑ sobrevida global",
+        "magnitude": "KEYNOTE-564: DFS HR 0,63-0,68; atualização de 2024 com ganho de SG",
+        "fonte": "10.1016/S1470-2045(22)00487-9"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados (tireoidite, colite, hepatite, pneumonite)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: Pembrolizumab"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Pembrolizumab"
+        },
+        {
+          "nome": "Hipotireoidismo",
+          "severidade": "leve",
+          "conduta": "levotiroxina",
+          "fonte": "Bula/ficha técnica: Pembrolizumab"
+        }
+      ]
+    },
+    {
+      "regimen_id": "renal-met-favoravel-pazopanibe",
+      "tumor": "renal",
+      "cenario": "metastatico",
+      "subtipo": "CCRcc avançado/metastático — risco favorável, 1ª linha",
+      "nome": "Pazopanibe",
+      "esquema": "Pazopanibe 800 mg VO 1x/dia contínuo",
+      "farmacos": [
+        {
+          "nome": "Pazopanibe",
+          "dose": "800 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "CCRcc metastático de risco favorável, 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "risco_imdc",
+                "favoravel"
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "disfuncao_hepatica_grave",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MOTZER RJ et al. Pazopanib versus sunitinib in metastatic renal-cell carcinoma (COMPARZ). N Engl J Med. 2013;369(8):722-731.",
+        "doi": "10.1056/NEJMoa1303989",
+        "pmid": null,
+        "estudo": "COMPARZ",
+        "ano": 2013
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Não inferioridade em SLP vs sunitinibe",
+        "magnitude": "COMPARZ: PFS não inferior ao sunitinibe; perfil de toxicidade distinto",
+        "fonte": "10.1056/NEJMoa1303989"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hepatotoxicidade",
+          "severidade": "grave",
+          "conduta": "monitorar transaminases",
+          "fonte": "Bula/ficha técnica: Pazopanibe"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Pazopanibe"
+        },
+        {
+          "nome": "Diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Pazopanibe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "renal-met-favoravel-sunitinibe",
+      "tumor": "renal",
+      "cenario": "metastatico",
+      "subtipo": "CCRcc avançado/metastático — risco favorável, 1ª linha",
+      "nome": "Sunitinibe",
+      "esquema": "Sunitinibe 50 mg VO 1x/dia, esquema 4/2 (4 semanas on, 2 off) ou 2/1",
+      "farmacos": [
+        {
+          "nome": "Sunitinibe",
+          "dose": "50 mg",
+          "via": "VO",
+          "frequencia": "4/2 ou 2/1"
+        }
+      ],
+      "elegibilidade_protocolo": "CCRcc metastático de risco favorável, 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "risco_imdc",
+                "favoravel"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MOTZER RJ et al. Sunitinib versus interferon alfa in metastatic renal-cell carcinoma. N Engl J Med. 2007;356:115-124 (base histórica); COMPARZ como comparador contemporâneo.",
+        "doi": "10.1056/NEJMoa065044",
+        "pmid": null,
+        "estudo": "Sunitinib pivotal / COMPARZ",
+        "ano": 2007
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP vs IFN-α",
+        "magnitude": "Ganho de SLP sobre IFN-α; padrão histórico de TKI de 1ª linha",
+        "fonte": "10.1056/NEJMoa065044"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mucosite/estomatite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Sunitinibe"
+        },
+        {
+          "nome": "Síndrome mão-pé",
+          "severidade": "moderada",
+          "conduta": "emolientes; ajuste de dose",
+          "fonte": "Bula/ficha técnica: Sunitinibe"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Sunitinibe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "renal-met-favoravel-ipilimumabe-nivolumabe",
+      "tumor": "renal",
+      "cenario": "metastatico",
+      "subtipo": "CCRcc avançado/metastático — risco favorável, 1ª linha",
+      "nome": "Ipilimumabe + Nivolumabe (risco favorável)",
+      "esquema": "Ipilimumabe 1 mg/kg + Nivolumabe 3 mg/kg EV a cada 3 semanas x4, seguido de Nivolumabe 240 mg 2/2sem ou 480 mg 4/4sem",
+      "farmacos": [
+        {
+          "nome": "Ipilimumabe",
+          "dose": "1 mg/kg",
+          "via": "EV",
+          "frequencia": "3/3 sem x4"
+        },
+        {
+          "nome": "Nivolumabe",
+          "dose": "3 mg/kg → 240/480 mg",
+          "via": "EV",
+          "frequencia": "manutenção 2/2 ou 4/4 sem"
+        }
+      ],
+      "elegibilidade_protocolo": "CCRcc metastático de risco favorável, 1ª linha (protocolo cita dados de 8 anos do CheckMate 214 e afirma ESMO-MCBS 4).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "risco_imdc",
+                "favoravel"
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MOTZER RJ et al. Nivolumab plus ipilimumab versus sunitinib in advanced renal-cell carcinoma (CheckMate 214). N Engl J Med. 2018;378:1277-1290. TANNIR NM et al. 8-year follow-up. Ann Oncol. 2024;35:1026-1038.",
+        "doi": "10.1056/NEJMoa1712126",
+        "pmid": null,
+        "estudo": "CheckMate 214",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "SG/SLP/TRO — benefício demonstrado na população de risco intermediário/alto; no risco favorável, sunitinibe foi numericamente superior em SLP/TRO no desfecho primário",
+        "magnitude": "CheckMate 214: no subgrupo favorável, sem ganho de SG estatisticamente demonstrado vs sunitinibe no desfecho primário; separação de curvas no seguimento de 8 anos",
+        "fonte": "10.1056/NEJMoa1712126"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados graves (colite, hepatite, hipofisite)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: Ipilimumabe/Nivolumabe"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Nivolumabe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "renal-met-intalto-ipilimumabe-nivolumabe",
+      "tumor": "renal",
+      "cenario": "metastatico",
+      "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+      "nome": "Ipilimumabe + Nivolumabe (risco intermediário/alto)",
+      "esquema": "Ipilimumabe 1 mg/kg + Nivolumabe 3 mg/kg EV a cada 3 semanas x4, seguido de Nivolumabe 240 mg 2/2sem ou 480 mg 4/4sem",
+      "farmacos": [
+        {
+          "nome": "Ipilimumabe",
+          "dose": "1 mg/kg",
+          "via": "EV",
+          "frequencia": "3/3 sem x4"
+        },
+        {
+          "nome": "Nivolumabe",
+          "dose": "3 mg/kg → 240/480 mg",
+          "via": "EV",
+          "frequencia": "manutenção"
+        }
+      ],
+      "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto (IMDC), 1ª linha (protocolo afirma ESMO-MCBS 4).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "in": [
+                "risco_imdc",
+                [
+                  "intermediario",
+                  "alto"
+                ]
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MOTZER RJ et al. CheckMate 214. N Engl J Med. 2018;378:1277-1290. TANNIR NM et al. Ann Oncol. 2024;35:1026-1038.",
+        "doi": "10.1056/NEJMoa1712126",
+        "pmid": null,
+        "estudo": "CheckMate 214",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "CheckMate 214 (int/alto risco): SG HR ~0,63-0,68; respostas duráveis no seguimento de 8 anos",
+        "fonte": "10.1056/NEJMoa1712126"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados graves",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: Ipilimumabe/Nivolumabe"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Nivolumabe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "renal-met-intalto-axitinibe-pembrolizumabe",
+      "tumor": "renal",
+      "cenario": "metastatico",
+      "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+      "nome": "Axitinibe + Pembrolizumabe",
+      "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+      "farmacos": [
+        {
+          "nome": "Axitinibe",
+          "dose": "5 mg",
+          "via": "VO",
+          "frequencia": "2x/dia"
+        },
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "a cada 3 semanas"
+        }
+      ],
+      "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "in": [
+                "risco_imdc",
+                [
+                  "intermediario",
+                  "alto"
+                ]
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+        "doi": "10.1056/NEJMoa1816714",
+        "pmid": null,
+        "estudo": "KEYNOTE-426",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "4",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+        "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+        "fonte": "10.1056/NEJMoa1816714"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hepatotoxicidade (combinada TKI+IO)",
+          "severidade": "grave",
+          "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+          "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Axitinibe"
+        },
+        {
+          "nome": "Diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Axitinibe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "renal-met-intalto-nivolumabe-cabozantinibe",
+      "tumor": "renal",
+      "cenario": "metastatico",
+      "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+      "nome": "Nivolumabe + Cabozantinibe",
+      "esquema": "Nivolumabe 240 mg 2/2sem (ou 480 mg 4/4sem) + Cabozantinibe 40 mg VO 1x/dia",
+      "farmacos": [
+        {
+          "nome": "Nivolumabe",
+          "dose": "240/480 mg",
+          "via": "EV",
+          "frequencia": "2/2 ou 4/4 sem"
+        },
+        {
+          "nome": "Cabozantinibe",
+          "dose": "40 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 1 e 'baixa magnitude do benefício clínico', discutir individualmente).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "in": [
+                "risco_imdc",
+                [
+                  "intermediario",
+                  "alto"
+                ]
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CHOUEIRI TK, Powles T, Burotto M, et al. Nivolumab plus cabozantinib versus sunitinib for advanced renal-cell carcinoma (CheckMate 9ER). N Engl J Med. 2021;384:829-841.",
+        "doi": "10.1056/NEJMoa2026982",
+        "pmid": null,
+        "estudo": "CheckMate 9ER",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "1",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+        "magnitude": "CheckMate 9ER: SG HR 0,60 (inicial); SLP HR 0,51; TRO ~dobrada vs sunitinibe",
+        "fonte": "10.1056/NEJMoa2026982"
+      },
+      "toxicidades": [
+        {
+          "nome": "Diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Cabozantinibe"
+        },
+        {
+          "nome": "Síndrome mão-pé",
+          "severidade": "moderada",
+          "conduta": "emolientes; ajuste",
+          "fonte": "Bula/ficha técnica: Cabozantinibe"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender",
+          "fonte": "Bula/ficha técnica: Nivolumabe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "renal-met-2l-pos-vegfr-nivolumabe",
+      "tumor": "renal",
+      "cenario": "metastatico",
+      "subtipo": "CCRcc metastático — 2ª linha, pós-TKI VEGFR isolado",
+      "nome": "Nivolumabe",
+      "esquema": "Nivolumabe 3 mg/kg EV 2/2sem (ou 480 mg mensal)",
+      "farmacos": [
+        {
+          "nome": "Nivolumabe",
+          "dose": "3 mg/kg ou 480 mg",
+          "via": "EV",
+          "frequencia": "2/2 sem ou mensal"
+        }
+      ],
+      "elegibilidade_protocolo": "CCRcc metastático em 2ª linha, previamente tratado com inibidor de VEGFR isolado (ex.: sunitinibe, pazopanibe).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_vegfr",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "doenca_autoimune_ativa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MOTZER RJ et al. Nivolumab versus everolimus in advanced renal cell carcinoma (CheckMate 025): updated results. Cancer. 2020;126(18):4156-4167.",
+        "doi": "10.1002/cncr.33033",
+        "pmid": null,
+        "estudo": "CheckMate 025",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs everolimo",
+        "magnitude": "CheckMate 025: SG HR 0,73 (25,0 vs 19,6 meses); maiores taxas de resposta",
+        "fonte": "10.1002/cncr.33033"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender",
+          "fonte": "Bula/ficha técnica: Nivolumabe"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Nivolumabe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
+      "tumor": "renal",
+      "cenario": "metastatico",
+      "subtipo": "CCRcc metastático — 2ª linha, pós-imunoterapia",
+      "nome": "Cabozantinibe",
+      "esquema": "Cabozantinibe 60 mg VO 1x/dia",
+      "farmacos": [
+        {
+          "nome": "Cabozantinibe",
+          "dose": "60 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "CCRcc metastático em 2ª linha após imunoterapia (protocolo afirma ESMO-MCBS 3, questões de custo-efetividade).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_io",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CHOUEIRI TK et al. Cabozantinib versus everolimus in advanced renal-cell carcinoma (METEOR). N Engl J Med. 2015;373:1814-1823 (base de eficácia pós-TKI).",
+        "doi": "10.1056/NEJMoa1510016",
+        "pmid": null,
+        "estudo": "METEOR",
+        "ano": 2015
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e SLP vs everolimo (METEOR)",
+        "magnitude": "METEOR: SG HR 0,66; SLP HR 0,51",
+        "fonte": "10.1056/NEJMoa1510016"
+      },
+      "toxicidades": [
+        {
+          "nome": "Diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Cabozantinibe"
+        },
+        {
+          "nome": "Síndrome mão-pé",
+          "severidade": "moderada",
+          "conduta": "emolientes; ajuste",
+          "fonte": "Bula/ficha técnica: Cabozantinibe"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Cabozantinibe"
+        }
+      ]
+    },
+    {
+      "regimen_id": "renal-naoclaras-sunitinibe-pazopanibe",
+      "tumor": "renal",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma renal de não-células claras (papilífero) — pós-IO ou 1ª linha",
+      "nome": "Sunitinibe / Pazopanibe (não-células claras)",
+      "esquema": "Sunitinibe 50 mg VO 4/2 (ou 2/1) ou Pazopanibe 800 mg VO 1x/dia",
+      "farmacos": [
+        {
+          "nome": "Sunitinibe (ou Pazopanibe)",
+          "dose": "50 mg (4/2) / 800 mg",
+          "via": "VO",
+          "frequencia": "contínuo/ciclado"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma renal de não-células claras (histologias papilíferas), risco favorável/intermediário; atividade demonstrada no estudo ASPEN.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_ccrcc",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ARMSTRONG AJ et al. Everolimus versus sunitinib for patients with metastatic non-clear cell renal cell carcinoma (ASPEN). Lancet Oncol. 2016;17(3):378-388. PAL SK et al. Sunitinib vs cabozantinib/crizotinib/savolitinib in papillary RCC. Lancet. 2021;397:695-703.",
+        "doi": "10.1016/S1470-2045(15)00515-X",
+        "pmid": null,
+        "estudo": "ASPEN / SWOG 1500",
+        "ano": 2016
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ SLP com sunitinibe vs everolimo em não-células claras (ASPEN)",
+        "magnitude": "ASPEN (fase 2): SLP favorável ao sunitinibe; SWOG 1500 sugere cabozantinibe superior ao sunitinibe em papilífero",
+        "fonte": "10.1016/S1470-2045(15)00515-X"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mucosite/estomatite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Sunitinibe"
+        },
+        {
+          "nome": "Síndrome mão-pé",
+          "severidade": "moderada",
+          "conduta": "emolientes",
+          "fonte": "Bula/ficha técnica: Sunitinibe"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Sunitinibe"
+        }
+      ]
+    }
+  ]
+}

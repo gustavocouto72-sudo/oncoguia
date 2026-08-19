@@ -1,0 +1,2470 @@
+{
+ "meta": {
+  "tumor": "sarcomas",
+  "run_id": "2026-07-21-protocolo-completo",
+  "consolidado_em": "2026-07-21",
+  "consolidador": "Consuelo Consolida (pipeline mbe-oncologia)",
+  "fonte_protocolo": "data/input/Protocolos de Oncologia 2025 3.pdf (cap. sarcomas de partes moles e ósseos, pp. 118-133)",
+  "total_regimes": 15,
+  "distribuicao_selo": {
+   "confirmado": 15,
+   "divergencia": 0,
+   "incompleto": 0
+  },
+  "regra_selo": "divergencia se >=1 eixo diverge do afirmado (precedencia); senao incompleto se lacuna real de fonte (GRADE sem estudo-pivo OU elegibilidade sem criterios computaveis); senao confirmado. Status 'indeterminado' por ausencia de afirmacao do protocolo (campos null) NAO rebaixa para incompleto.",
+  "verificacao_apis": {
+   "data": "2026-07-21",
+   "escopo": "escada de APIs abertas (Crossref/Europe PMC/Unpaywall/OpenAlex/PubMed/ClinicalTrials.gov)",
+   "email_contato": "gustavocouto72@gmail.com"
+  },
+  "revisao_humana": {
+   "status": "pendente",
+   "data": "2026-07-21",
+   "decidido_por": null,
+   "nota": "Lote gerado automaticamente; aguarda checkpoint humano (Step 08). Divergências e incompletos sinalizados."
+  }
+ },
+ "regimes": [
+  {
+   "regimen_id": "sarcoma-pm-neoadj-doxo-ifosfamida",
+   "tumor": "sarcomas",
+   "cenario": "neoadjuvancia",
+   "subtipo": "Sarcoma de partes moles localizado de alto risco (extremidade/parede) — neoadjuvante",
+   "nome": "Doxorrubicina + Ifosfamida (AI, neoadjuvante)",
+   "esquema": "Doxorrubicina 75 mg/m² D1 + Ifosfamida 3.000 mg/m² D1-D3 + Mesna, a cada 21 dias, 3 ciclos, com G-CSF",
+   "farmacos": [
+    {
+     "nome": "Doxorrubicina",
+     "dose": "75 mg/m²",
+     "via": "EV",
+     "frequencia": "D1 21/21d x3"
+    },
+    {
+     "nome": "Ifosfamida",
+     "dose": "3.000 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D3"
+    }
+   ],
+   "elegibilidade_protocolo": "Sarcoma de partes moles localizado, operável, de extremidade ou parede torácica, com alto risco de recidiva (alto grau, >5 cm, profundo; pr-OS <60% no Sarculator).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_pm_neoadj_doxo_ifosfamida",
+      "label": "Sarcoma de partes moles localizado de alto risco (extremidade/parede) — neoadjuvante",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "sarcoma_partes_moles"
+         ]
+        },
+        {
+         "eq": [
+          "alto_risco",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "sarcoma_partes_moles"
+       ]
+      },
+      {
+       "eq": [
+        "alto_risco",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "GRONCHI A et al. Histotype-tailored neoadjuvant chemotherapy versus standard chemotherapy in high-risk soft-tissue sarcomas (ISG-STS 1001). Lancet Oncol. 2017;18(6):812-822. WOLL PJ et al. EORTC 62931. Lancet Oncol. 2012;13(10):1045-1054.",
+    "doi": "10.1016/S1470-2045(17)30334-0",
+    "pmid": null,
+    "estudo": "ISG-STS 1001",
+    "ano": 2017
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida livre de recorrência e sobrevida global em subgrupos selecionados",
+    "magnitude": "ISG-STS 1001: AI x3 superior a esquemas histotipo-adaptados (benefício absoluto ~25% em SG em 4 anos)",
+    "fonte": "10.1016/S1470-2045(17)30334-0"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1B",
+     "afirmado_protocolo": null,
+     "justificativa": "ISG-STS 1001 (fase 3) + EORTC 62931: AI neoadjuvante com benefício em alto risco selecionado. Recomendação moderada a favor. Protocolo alinha (moderadamente a favor).",
+     "fonte": "https://doi.org/10.1016/S1470-2045(17)30334-0"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "B (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário curativo (neoadjuvante) com benefício em subgrupos. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(17)30334-0"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Doxorrubicina/ifosfamida genéricas; necessidade de G-CSF (≥20% neutropenia febril). Affordability intermediária (NCCN Evidence Blocks 3).",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "sarcoma_partes_moles"
+      },
+      {
+       "campo": "alto_risco",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: AI em alto risco selecionado (Sarculator pr-OS <60%).",
+     "justificativa": "Concorda: AI em alto risco selecionado (Sarculator pr-OS <60%).",
+     "fonte": "https://doi.org/10.1016/S1470-2045(17)30334-0"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "sarcoma-pm-adj-doxo-ifosfamida",
+   "tumor": "sarcomas",
+   "cenario": "adjuvancia",
+   "subtipo": "Sarcoma de partes moles de extremidade ressecado de alto risco — adjuvante",
+   "nome": "Doxorrubicina + Ifosfamida (AI, adjuvante)",
+   "esquema": "Doxorrubicina 75 mg/m² D1 + Ifosfamida 3.000 mg/m² D1-D3 + Mesna, a cada 21 dias, 5 ciclos, com G-CSF",
+   "farmacos": [
+    {
+     "nome": "Doxorrubicina",
+     "dose": "75 mg/m²",
+     "via": "EV",
+     "frequencia": "D1 21/21d x5"
+    },
+    {
+     "nome": "Ifosfamida",
+     "dose": "3.000 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D3"
+    }
+   ],
+   "elegibilidade_protocolo": "Sarcoma de partes moles de extremidade estádio IIB-IV sem metástase (G2/G3, >5 cm) ressecado de alto risco (Sarculator pr-OS <60%).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_pm_adj_doxo_ifosfamida",
+      "label": "Sarcoma de partes moles de extremidade ressecado de alto risco — adjuvante",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "sarcoma_partes_moles"
+         ]
+        },
+        {
+         "eq": [
+          "adjuvante_alto_risco",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "sarcoma_partes_moles"
+       ]
+      },
+      {
+       "eq": [
+        "adjuvante_alto_risco",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "PASQUALI S et al. The impact of chemotherapy on survival of patients with extremity/trunk wall soft tissue sarcoma (EORTC-STBSG 62931). Eur J Cancer. 2019;109:51-60. (Meta-análise: SG HR 0,86.)",
+    "doi": "10.1016/S1470-2045(17)30334-0",
+    "pmid": null,
+    "estudo": "EORTC 62931 / meta STBSG-EORTC / ISG-STS 1001",
+    "ano": 2017
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global modesta em subgrupos de alto risco",
+    "magnitude": "Meta-análise STBSG-EORTC: SG HR 0,86, mais significativo em alto risco",
+    "fonte": "10.1016/S1470-2045(17)30334-0"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1B",
+     "afirmado_protocolo": null,
+     "justificativa": "EORTC 62931 (seguro/viável, sem SG no total) + meta-análise (SG HR 0,86) fundamentam AI adjuvante seletivo em alto risco. Recomendação moderada a favor. Protocolo alinha.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(17)30334-0"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "B (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário adjuvante curativo; benefício modesto em subgrupos. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(17)30334-0"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Genéricos + G-CSF. Affordability intermediária (NCCN 3).",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "sarcoma_partes_moles"
+      },
+      {
+       "campo": "adjuvante_alto_risco",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: AI adjuvante seletivo (alto risco, Sarculator).",
+     "justificativa": "Concorda: AI adjuvante seletivo (alto risco, Sarculator).",
+     "fonte": "https://doi.org/10.1016/S1470-2045(17)30334-0"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "sarcoma-pm-paliativo-1l-doxorrubicina",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Sarcoma de partes moles avançado/metastático — 1ª linha",
+   "nome": "Doxorrubicina (isolada ou + ifosfamida)",
+   "esquema": "Doxorrubicina 75 mg/m² D1 (isolada) ou + ifosfamida (2.000 mg/m² D1-D5) a cada 21 dias, 6 ciclos",
+   "farmacos": [
+    {
+     "nome": "Doxorrubicina",
+     "dose": "75 mg/m²",
+     "via": "EV",
+     "frequencia": "D1 21/21d"
+    },
+    {
+     "nome": "Ifosfamida (opcional)",
+     "dose": "2.000 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D5"
+    }
+   ],
+   "elegibilidade_protocolo": "Sarcoma de partes moles avançado/metastático, 1ª linha paliativa (doxorrubicina isolada ou combinada quando se busca alta taxa de resposta).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_pm_paliativo_1l_doxorrubicina",
+      "label": "Sarcoma de partes moles avançado/metastático — 1ª linha",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "sarcoma_partes_moles"
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "sarcoma_partes_moles"
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "SEDDON B et al. Gemcitabine and docetaxel versus doxorubicin as first-line treatment in advanced soft tissue sarcomas (GeDDiS). Lancet Oncol. 2017;18(10):1397-1410.",
+    "doi": "10.1016/S1470-2045(17)30622-8",
+    "pmid": null,
+    "estudo": "GeDDiS (base 1ª linha)",
+    "ano": 2017
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Doxorrubicina é o padrão de 1ª linha",
+    "magnitude": "GeDDiS: doxorrubicina não inferior a gemcitabina+docetaxel em 1ª linha",
+    "fonte": "10.1016/S1470-2045(17)30622-8"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Cardiotoxicidade (doxorrubicina)",
+     "severidade": "grave",
+     "conduta": "monitorar FEVE; dose cumulativa",
+     "fonte": "Bula/ficha técnica: Doxorrubicina"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "Doxorrubicina é o padrão de 1ª linha (GeDDiS confirma não inferioridade vs gem+docetaxel). Recomendação forte.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(17)30622-8"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Padrão de 1ª linha; não graduável de forma discreta.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(17)30622-8"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Doxorrubicina genérica, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "sarcoma_partes_moles"
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: doxorrubicina 1ª linha.",
+     "justificativa": "Concorda: doxorrubicina 1ª linha.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(17)30622-8"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "sarcoma-pm-paliativo-2l-gem-docetaxel",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Sarcoma de partes moles avançado — 2ª linha (leiomiossarcoma uterino)",
+   "nome": "Gemcitabina + Docetaxel",
+   "esquema": "Gemcitabina 750-900 mg/m² D1,D8 + Docetaxel 75-100 mg/m² D8, a cada 21 dias, 6 ciclos, com G-CSF",
+   "farmacos": [
+    {
+     "nome": "Gemcitabina",
+     "dose": "750-900 mg/m²",
+     "via": "EV",
+     "frequencia": "D1,D8"
+    },
+    {
+     "nome": "Docetaxel",
+     "dose": "75-100 mg/m²",
+     "via": "EV",
+     "frequencia": "D8"
+    }
+   ],
+   "elegibilidade_protocolo": "Sarcoma de partes moles avançado em 2ª linha, com uso individualizado sobretudo em leiomiossarcoma uterino (maior taxa de resposta nesse subgrupo).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_pm_paliativo_2l_gem_docetaxel",
+      "label": "Sarcoma de partes moles avançado — 2ª linha (leiomiossarcoma uterino)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "sarcoma_partes_moles"
+         ]
+        },
+        {
+         "eq": [
+          "segunda_linha",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "sarcoma_partes_moles"
+       ]
+      },
+      {
+       "eq": [
+        "segunda_linha",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "PAUTIER P et al. Randomized phase II study of gemcitabine alone versus gemcitabine and docetaxel in leiomyosarcomas (TAXOGEM). Oncologist. 2012;17(9):1213-1220.",
+    "doi": "10.1634/theoncologist.2011-0467",
+    "pmid": null,
+    "estudo": "TAXOGEM / GeDDiS",
+    "ano": 2012
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Atividade em 2ª linha (LMS uterino)",
+    "magnitude": "TAXOGEM: benefício de gem+docetaxel concentrado no LMS uterino; em LMS não uterino, docetaxel não agregou",
+    "fonte": "10.1634/theoncologist.2011-0467"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1B",
+     "afirmado_protocolo": null,
+     "justificativa": "TAXOGEM/GeDDiS: gem+docetaxel útil em 2ª linha, sobretudo LMS uterino (uso individualizado). Recomendação condicional. Protocolo alinha (fraca/condicional para LMS uterino).",
+     "fonte": "https://doi.org/10.1634/theoncologist.2011-0467"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Comparação entre esquemas ativos; subgrupo. Não graduável de forma discreta.",
+     "fonte": "https://doi.org/10.1634/theoncologist.2011-0467"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Genéricos + G-CSF, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "sarcoma_partes_moles"
+      },
+      {
+       "campo": "segunda_linha",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: gem+docetaxel em 2ª linha, individualizado para LMS uterino.",
+     "justificativa": "Concorda: gem+docetaxel em 2ª linha, individualizado para LMS uterino.",
+     "fonte": "https://doi.org/10.1634/theoncologist.2011-0467"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "sarcoma-pm-eribulina-lipossarcoma",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Sarcoma de partes moles avançado — eribulina (lipossarcoma)",
+   "nome": "Eribulina (lipossarcoma)",
+   "esquema": "Eribulina 1,4 mg/m² D1,D8, a cada 21 dias",
+   "farmacos": [
+    {
+     "nome": "Eribulina",
+     "dose": "1,4 mg/m²",
+     "via": "EV",
+     "frequencia": "D1,D8 21/21d"
+    }
+   ],
+   "elegibilidade_protocolo": "Lipossarcoma avançado previamente tratado (aprovação restrita da FDA a lipossarcoma; NÃO recomendado em leiomiossarcoma).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_pm_eribulina_lipossarcoma",
+      "label": "Sarcoma de partes moles avançado — eribulina (lipossarcoma)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "sarcoma_partes_moles"
+         ]
+        },
+        {
+         "eq": [
+          "lipossarcoma",
+          true
+         ]
+        },
+        {
+         "eq": [
+          "segunda_linha",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "sarcoma_partes_moles"
+       ]
+      },
+      {
+       "eq": [
+        "lipossarcoma",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "segunda_linha",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "SCHÖFFSKI P et al. Eribulin versus dacarbazine in previously treated patients with advanced liposarcoma or leiomyosarcoma (Study 309). Lancet. 2016;387(10028):1629-1637.",
+    "doi": "10.1016/S0140-6736(15)01283-0",
+    "pmid": null,
+    "estudo": "Study 309 (eribulina)",
+    "ano": 2016
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "3",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global (concentrada em lipossarcoma)",
+    "magnitude": "Study 309: SG 13,5 vs 11,5 meses (HR 0,77); benefício maior em lipossarcoma; sem ganho de SLP/QoL; toxicidade significativa",
+    "fonte": "10.1016/S0140-6736(15)01283-0"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "Study 309 (fase 3): ganho de SG concentrado em lipossarcoma; sem benefício consistente em leiomiossarcoma. Recomendação fraca a favor (lipo), contra (leiomio).",
+     "fonte": "https://doi.org/10.1016/S0140-6736(15)01283-0"
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "3",
+     "afirmado_protocolo": "3",
+     "justificativa": "Protocolo cita ESMO-MCBS 3. Re-derivação: ganho de SG limitado em cenário não curativo → MCBS 3. Concorda.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(15)01283-0"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Eribulina de custo alto. Affordability baixa; restrição a lipossarcoma.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo alto."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "sarcoma_partes_moles"
+      },
+      {
+       "campo": "lipossarcoma",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "segunda_linha",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: eribulina restrita a lipossarcoma (fraca a favor); contra em leiomiossarcoma.",
+     "justificativa": "Concorda: eribulina restrita a lipossarcoma (fraca a favor); contra em leiomiossarcoma.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(15)01283-0"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "restrito_lipossarcoma: FDA restringe a lipossarcoma; fortemente contra em leiomiossarcoma"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "restrito_lipossarcoma: FDA restringe a lipossarcoma; fortemente contra em leiomiossarcoma"
+   ]
+  },
+  {
+   "regimen_id": "sarcoma-pm-pazopanibe-nao-incorporado",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Sarcoma de partes moles não lipocítico — pazopanibe (não incorporado)",
+   "nome": "Pazopanibe (NÃO incorporado)",
+   "esquema": "Pazopanibe 800 mg VO/dia em sarcoma não lipocítico — fortemente contra a incorporação",
+   "farmacos": [
+    {
+     "nome": "Pazopanibe",
+     "dose": "800 mg",
+     "via": "VO",
+     "frequencia": "1x/dia"
+    }
+   ],
+   "elegibilidade_protocolo": "Sarcoma de partes moles não lipocítico avançado (protocolo é FORTEMENTE CONTRA: PALETTE mostrou ganho modesto de SLP [4,6 vs 1,6 meses] sem benefício de SG [12,5 vs 10,7 meses]; ESMO-MCBS 2; toxicidade grau ≥3 e custo elevado).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_pm_pazopanibe_nao_incorporado",
+      "label": "Sarcoma de partes moles não lipocítico — pazopanibe (não incorporado)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "sarcoma_partes_moles"
+         ]
+        },
+        {
+         "eq": [
+          "nao_lipocitico",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "sarcoma_partes_moles"
+       ]
+      },
+      {
+       "eq": [
+        "nao_lipocitico",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "van der GRAAF WT et al. Pazopanib for metastatic soft-tissue sarcoma (PALETTE): a phase 3 trial. Lancet. 2012;379(9829):1879-1886.",
+    "doi": "10.1016/S0140-6736(12)60651-5",
+    "pmid": null,
+    "estudo": "PALETTE",
+    "ano": 2012
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "2",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ SLP sem ganho de SG",
+    "magnitude": "PALETTE: SLP 4,6 vs 1,6 meses (HR 0,31); SG 12,5 vs 10,7 meses (HR 0,86, p=0,25). ESMO-MCBS 2",
+    "fonte": "10.1016/S0140-6736(12)60651-5"
+   },
+   "toxicidades": [
+    {
+     "nome": "Fadiga/diarreia/hipertensão (pazopanibe)",
+     "severidade": "moderada",
+     "conduta": "suporte; ajuste",
+     "fonte": "Bula/ficha técnica: Pazopanibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "PALETTE (fase 3): SLP sem SG. Certeza alta; benefício clínico baixo em cenário paliativo. Coerente com fortemente contra.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(12)60651-5"
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "2",
+     "afirmado_protocolo": "2",
+     "justificativa": "Protocolo afirma ESMO-MCBS 2. Re-derivação: SLP sem SG → MCBS 2. Concorda.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(12)60651-5"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Pazopanibe de custo alto sem SG. Affordability baixa. Sustenta a recomendação contra.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Não incorporado (fortemente contra)."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "sarcoma_partes_moles"
+      },
+      {
+       "campo": "nao_lipocitico",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: SLP sem SG e MCBS 2 sustentam a recomendação contra a incorporação sistemática.",
+     "justificativa": "Concorda: SLP sem SG e MCBS 2 sustentam a recomendação contra a incorporação sistemática.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(12)60651-5"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "nao_incorporado: SLP sem SG, MCBS 2 (PALETTE); fortemente contra"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "nao_incorporado: SLP sem SG, MCBS 2 (PALETTE); fortemente contra"
+   ]
+  },
+  {
+   "regimen_id": "sarcoma-kaposi-paclitaxel-pld",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Sarcoma de Kaposi (clássico/HIV) — sistêmico",
+   "nome": "Paclitaxel ou Doxorrubicina lipossomal",
+   "esquema": "Paclitaxel 90 mg/m² a cada 14 dias; ou doxorrubicina lipossomal 20 mg/m² a cada 21 dias, 6 ciclos",
+   "farmacos": [
+    {
+     "nome": "Paclitaxel",
+     "dose": "90 mg/m²",
+     "via": "EV",
+     "frequencia": "14/14d"
+    },
+    {
+     "nome": "Doxorrubicina lipossomal",
+     "dose": "20 mg/m²",
+     "via": "EV",
+     "frequencia": "21/21d"
+    }
+   ],
+   "elegibilidade_protocolo": "Sarcoma de Kaposi clássico ou relacionado ao HIV, formas viscerais ou refratárias ao tratamento local.",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_kaposi_paclitaxel_pld",
+      "label": "Sarcoma de Kaposi (clássico/HIV) — sistêmico",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "sarcoma_kaposi"
+         ]
+        },
+        {
+         "eq": [
+          "sistemico",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "sarcoma_kaposi"
+       ]
+      },
+      {
+       "eq": [
+        "sistemico",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "CIANFROCCA M et al. Randomized trial of paclitaxel versus pegylated liposomal doxorubicin for advanced HIV-associated Kaposi sarcoma. Cancer. 2010;116(16):3969-3977.",
+    "doi": "10.1002/cncr.25362",
+    "pmid": null,
+    "estudo": "Cianfrocca (paclitaxel vs PLD)",
+    "ano": 2010
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Eficácia comparável entre paclitaxel e PLD",
+    "magnitude": "Cianfrocca: paclitaxel e PLD com boa taxa de resposta e controle sintomático",
+    "fonte": "10.1002/cncr.25362"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "Cianfrocca (fase 3) + diretrizes EDF/EADO/EORTC: paclitaxel e PLD são opções válidas em Kaposi visceral/refratário. Recomendação moderada a favor.",
+     "fonte": "https://doi.org/10.1002/cncr.25362"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Comparação entre agentes ativos; não graduável de forma discreta.",
+     "fonte": "https://doi.org/10.1002/cncr.25362"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 2,
+     "afirmado_protocolo": null,
+     "justificativa": "Paclitaxel genérico; PLD intermediário. Affordability intermediária-alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "sarcoma_kaposi"
+      },
+      {
+       "campo": "sistemico",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: paclitaxel/PLD em Kaposi visceral/refratário.",
+     "justificativa": "Concorda: paclitaxel/PLD em Kaposi visceral/refratário.",
+     "fonte": "https://doi.org/10.1002/cncr.25362"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "sarcoma-angiossarcoma-paclitaxel",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Angiossarcoma localmente avançado/metastático — paclitaxel",
+   "nome": "Paclitaxel",
+   "esquema": "Paclitaxel 90 mg/m² a cada 14 dias",
+   "farmacos": [
+    {
+     "nome": "Paclitaxel",
+     "dose": "90 mg/m²",
+     "via": "EV",
+     "frequencia": "14/14d"
+    }
+   ],
+   "elegibilidade_protocolo": "Angiossarcoma localmente avançado ou metastático (sobretudo subtipos cutâneos, de cabeça e pescoço, ou metastáticos).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_angiossarcoma_paclitaxel",
+      "label": "Angiossarcoma localmente avançado/metastático — paclitaxel",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "angiossarcoma"
+         ]
+        },
+        {
+         "eq": [
+          "avancado_metastatico",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "angiossarcoma"
+       ]
+      },
+      {
+       "eq": [
+        "avancado_metastatico",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "CONFORTI F et al. Chemotherapy in patients with localized angiosarcoma of any site: a retrospective European study. Eur J Cancer. 2022;171:183-192.",
+    "doi": "10.1016/j.ejca.2022.04.030",
+    "pmid": null,
+    "estudo": "Conforti (retrospectivo) / NCCN",
+    "ano": 2022
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Atividade de taxanos em angiossarcoma",
+    "magnitude": "Séries retrospectivas: paclitaxel com atividade e regressão tumoral em angiossarcoma (dados retrospectivos)",
+    "fonte": "10.1016/j.ejca.2022.04.030"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "2B",
+     "afirmado_protocolo": null,
+     "justificativa": "Dados retrospectivos (Conforti) + NCCN listam paclitaxel como 1ª escolha em angiossarcoma irressecável/metastático. Recomendação moderada a favor (evidência retrospectiva).",
+     "fonte": "https://doi.org/10.1016/j.ejca.2022.04.030"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Evidência retrospectiva; não graduável de forma discreta.",
+     "fonte": "https://doi.org/10.1016/j.ejca.2022.04.030"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Paclitaxel genérico, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "angiossarcoma"
+      },
+      {
+       "campo": "avancado_metastatico",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: paclitaxel em angiossarcoma.",
+     "justificativa": "Concorda: paclitaxel em angiossarcoma.",
+     "fonte": "https://doi.org/10.1016/j.ejca.2022.04.030"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "sarcoma-dfsp-imatinibe-contra",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Dermatofibrossarcoma protuberante avançado — imatinibe (contra, off-label)",
+   "nome": "Imatinibe (off-label — recomendação contra)",
+   "esquema": "Imatinibe em DFSP localmente avançado/irressecável/metastático — protocolo é fortemente contra (uso off-label)",
+   "farmacos": [
+    {
+     "nome": "Imatinibe",
+     "dose": "400-800 mg",
+     "via": "VO",
+     "frequencia": "1x/dia"
+    }
+   ],
+   "elegibilidade_protocolo": "Dermatofibrossarcoma protuberante (DFSP) localmente avançado/irressecável/metastático (protocolo é FORTEMENTE CONTRA por indicação off-label no Brasil, apesar de ESMO-MCBS 3 e resposta ~50% em fase II).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_dfsp_imatinibe_contra",
+      "label": "Dermatofibrossarcoma protuberante avançado — imatinibe (contra, off-label)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "dfsp"
+         ]
+        },
+        {
+         "eq": [
+          "avancado_irressecavel",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "dfsp"
+       ]
+      },
+      {
+       "eq": [
+        "avancado_irressecavel",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RUTKOWSKI P et al. Imatinib mesylate in advanced dermatofibrosarcoma protuberans: pooled analysis of two phase II trials. J Clin Oncol. 2010;28(10):1772-1779.",
+    "doi": "10.1200/JCO.2009.25.7899",
+    "pmid": null,
+    "estudo": "Rutkowski (imatinibe DFSP, fase II pooled)",
+    "ano": 2010
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "3",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Resposta parcial ~50% (fase II)",
+    "magnitude": "Rutkowski: TRO ~50% e conversão de irressecável a operável; evidência fase II, dados limitados de SG",
+    "fonte": "10.1200/JCO.2009.25.7899"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão (temozolomida)",
+     "severidade": "grave",
+     "conduta": "monitorar hemograma",
+     "fonte": "Bula/ficha técnica: Temozolomida"
+    },
+    {
+     "nome": "Edema/náusea (imatinibe)",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Imatinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "2B",
+     "afirmado_protocolo": null,
+     "justificativa": "Evidência fase II (Rutkowski) com resposta modesta; ESMO-MCBS 3. Protocolo é fortemente contra por indicação off-label no Brasil. A evidência clínica é favorável, mas a decisão é regulatória.",
+     "fonte": "https://doi.org/10.1200/JCO.2009.25.7899"
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "3",
+     "afirmado_protocolo": "3",
+     "justificativa": "Protocolo cita ESMO-MCBS 3 (benefício modesto). Re-derivação: fase II com resposta modesta → MCBS 3. Concorda.",
+     "fonte": "https://doi.org/10.1200/JCO.2009.25.7899"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Imatinibe de custo intermediário; barreira regulatória (off-label para DFSP no Brasil). Affordability intermediária.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Não incorporado (off-label)."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "dfsp"
+      },
+      {
+       "campo": "avancado_irressecavel",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda com MCBS 3; a recomendação contra é REGULATÓRIA (off-label), não por fragilidade do MCBS — a evidência fase II é favorável. Revisar se houver aprovação em bula.",
+     "justificativa": "Concorda com MCBS 3; a recomendação contra é REGULATÓRIA (off-label), não por fragilidade do MCBS — a evidência fase II é favorável. Revisar se houver aprovação em bula.",
+     "fonte": "https://doi.org/10.1200/JCO.2009.25.7899"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "nao_incorporado_regulatorio: off-label no Brasil (DFSP); evidência fase II favorável — reavaliar com aprovação"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "nao_incorporado_regulatorio: off-label no Brasil (DFSP); evidência fase II favorável — reavaliar com aprovação"
+   ]
+  },
+  {
+   "regimen_id": "sarcoma-ntrk-larotrectinibe-nao-incorporado",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Sarcoma com fusão NTRK — larotrectinibe (não incorporado)",
+   "nome": "Larotrectinibe (NÃO incorporado)",
+   "esquema": "Larotrectinibe em sarcoma NTRK-fusão localmente avançado/metastático — não incorporado",
+   "farmacos": [
+    {
+     "nome": "Larotrectinibe",
+     "dose": "100 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    }
+   ],
+   "elegibilidade_protocolo": "Sarcoma com fusão do gene NTRK localmente avançado/metastático (protocolo NÃO incorpora: benefício clínico modesto [ESMO-MCBS 3], sem ganho comprovado de SG, custo muito alto [NCCN 'very expensive', ~R$ 643 mil/QALY], evidência de estudos não randomizados; CONITEC não incorporou ao SUS).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "sarcoma_ntrk_larotrectinibe_nao_incorporado",
+      "label": "Sarcoma com fusão NTRK — larotrectinibe (não incorporado)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "sarcoma_partes_moles"
+         ]
+        },
+        {
+         "eq": [
+          "fusao_ntrk",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "sarcoma_partes_moles"
+       ]
+      },
+      {
+       "eq": [
+        "fusao_ntrk",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "DRILON A et al. Efficacy of larotrectinib in TRK fusion-positive cancers in adults and children. N Engl J Med. 2018;378(8):731-739. (CONITEC 2021: não incorporado.)",
+    "doi": "10.1056/NEJMoa1714448",
+    "pmid": null,
+    "estudo": "Drilon (larotrectinibe basket)",
+    "ano": 2018
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "3",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Resposta objetiva alta em população NTRK+ (estudos não randomizados)",
+    "magnitude": "Larotrectinibe: TRO alta em NTRK+ basket; sem ganho comprovado de SG; evidência não randomizada heterogênea. ESMO-MCBS 3",
+    "fonte": "10.1056/NEJMoa1714448"
+   },
+   "toxicidades": [
+    {
+     "nome": "Tontura/fadiga (larotrectinibe)",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Larotrectinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "2C",
+     "afirmado_protocolo": null,
+     "justificativa": "Larotrectinibe em basket não randomizado, população heterogênea; ESMO-MCBS 3, sem SG comprovada. Coerente com não incorporar (CONITEC 2021).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1714448"
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "3",
+     "afirmado_protocolo": "3",
+     "justificativa": "Protocolo afirma ESMO-MCBS 3. Re-derivação: benefício modesto sem SG, evidência não randomizada → MCBS 3. Concorda.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1714448"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 5,
+     "afirmado_protocolo": null,
+     "justificativa": "Larotrectinibe de custo muito alto (~R$ 643 mil/QALY) + custo do teste NTRK; impacto orçamentário >R$ 1 bi/5 anos. Affordability muito baixa. Sustenta a não incorporação.",
+     "fonte": "CONITEC 2021 / NCCN Evidence Blocks",
+     "flag_contexto_br": "Não incorporado (CONITEC)."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "sarcoma_partes_moles"
+      },
+      {
+       "campo": "fusao_ntrk",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: MCBS 3, ausência de SG e custo altíssimo sustentam a não incorporação. Reavaliar com redução de custo.",
+     "justificativa": "Concorda: MCBS 3, ausência de SG e custo altíssimo sustentam a não incorporação. Reavaliar com redução de custo.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1714448"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "nao_incorporado: MCBS 3, sem SG, custo altíssimo (~R$ 643 mil/QALY); CONITEC não incorporou"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "nao_incorporado: MCBS 3, sem SG, custo altíssimo (~R$ 643 mil/QALY); CONITEC não incorporou"
+   ]
+  },
+  {
+   "regimen_id": "osteossarcoma-neoadj-map",
+   "tumor": "sarcomas",
+   "cenario": "neoadjuvancia",
+   "subtipo": "Osteossarcoma localizado — quimioterapia neoadjuvante (MAP)",
+   "nome": "MAP (Metotrexato alta dose + Doxorrubicina + Cisplatina)",
+   "esquema": "HD-Metotrexato 12 g/m² (resgate leucovorin) + Doxorrubicina 37,5 mg/m² D1,D2 + Cisplatina 60 mg/m² D1,D2, esquema MAP; cirurgia na semana 11-12",
+   "farmacos": [
+    {
+     "nome": "Metotrexato (alta dose)",
+     "dose": "12 g/m²",
+     "via": "EV",
+     "frequencia": "esquema MAP + resgate"
+    },
+    {
+     "nome": "Doxorrubicina",
+     "dose": "37,5 mg/m²",
+     "via": "EV",
+     "frequencia": "D1,D2"
+    },
+    {
+     "nome": "Cisplatina",
+     "dose": "60 mg/m²",
+     "via": "EV",
+     "frequencia": "D1,D2"
+    }
+   ],
+   "elegibilidade_protocolo": "Osteossarcoma localizado em crianças, adolescentes e adultos jovens (fortemente a favor até 25 anos; moderadamente a favor 26-30 anos com função orgânica preservada).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "osteossarcoma_neoadj_map",
+      "label": "Osteossarcoma localizado — quimioterapia neoadjuvante (MAP)",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "osteossarcoma"
+         ]
+        },
+        {
+         "eq": [
+          "neoadjuvante",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "osteossarcoma"
+       ]
+      },
+      {
+       "eq": [
+        "neoadjuvante",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "MARINA NM et al. Comparison of MAPIE versus MAP in patients with a poor response to preoperative chemotherapy for newly diagnosed high-grade osteosarcoma (EURAMOS-1). Lancet Oncol. 2016;17(10):1396-1408.",
+    "doi": "10.1016/S1470-2045(16)30214-5",
+    "pmid": null,
+    "estudo": "EURAMOS-1 / COSS / ISG",
+    "ano": 2016
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Padrão curativo (MAP) com controle de doença",
+    "magnitude": "EURAMOS-1: MAP é o padrão; intensificação (MAPIE) não melhorou desfechos e aumentou toxicidade",
+    "fonte": "10.1016/S1470-2045(16)30214-5"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Nefrotoxicidade (HD-MTX/cisplatina)",
+     "severidade": "grave",
+     "conduta": "hidratação; monitorar níveis de MTX/creatinina",
+     "fonte": "Bula/ficha técnica: Metotrexato/Cisplatina"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "MAP é o padrão curativo em osteossarcoma localizado (COSS/EURAMOS-1/ISG). Recomendação forte até 25 anos (moderada 26-30). Protocolo alinha.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(16)30214-5"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário curativo. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(16)30214-5"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Fármacos genéricos; HD-MTX exige suporte (níveis séricos). Affordability intermediária (NCCN 3).",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "osteossarcoma"
+      },
+      {
+       "campo": "neoadjuvante",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: MAP em osteossarcoma localizado (idade-dependente).",
+     "justificativa": "Concorda: MAP em osteossarcoma localizado (idade-dependente).",
+     "fonte": "https://doi.org/10.1016/S1470-2045(16)30214-5"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "osteossarcoma-adj-doxo-cisplatina",
+   "tumor": "sarcomas",
+   "cenario": "adjuvancia",
+   "subtipo": "Osteossarcoma localizado ressecado sem neoadjuvância — adjuvante",
+   "nome": "Doxorrubicina + Cisplatina (adjuvante)",
+   "esquema": "Doxorrubicina 25 mg/m² D1-D3 + Cisplatina 100 mg/m² D1, a cada 21 dias, 6 ciclos, com G-CSF",
+   "farmacos": [
+    {
+     "nome": "Doxorrubicina",
+     "dose": "25 mg/m²",
+     "via": "EV",
+     "frequencia": "D1-D3 21/21d x6"
+    },
+    {
+     "nome": "Cisplatina",
+     "dose": "100 mg/m²",
+     "via": "EV",
+     "frequencia": "D1"
+    }
+   ],
+   "elegibilidade_protocolo": "Osteossarcoma localizado ressecado que não recebeu quimioterapia neoadjuvante, ou com contraindicação ao HD-MTX (>30 anos).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "osteossarcoma_adj_doxo_cisplatina",
+      "label": "Osteossarcoma localizado ressecado sem neoadjuvância — adjuvante",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "osteossarcoma"
+         ]
+        },
+        {
+         "eq": [
+          "adjuvante",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "osteossarcoma"
+       ]
+      },
+      {
+       "eq": [
+        "adjuvante",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "Base de doxorrubicina + cisplatina adjuvante em osteossarcoma (esquema preferencial quando HD-MTX contraindicado; diretrizes SBOC/ESMO).",
+    "doi": "10.1016/S1470-2045(16)30214-5",
+    "pmid": null,
+    "estudo": "EURAMOS-1 / prática consolidada",
+    "ano": 2016
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Controle da doença (evita metástases precoces)",
+    "magnitude": "QT adjuvante essencial: a maioria dos pacientes só operados evolui com metástases em poucos meses",
+    "fonte": "10.1016/S1470-2045(16)30214-5"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "Doxorrubicina+cisplatina adjuvante é fortemente recomendada quando não houve neoadjuvância/HD-MTX contraindicado. Recomendação forte.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(16)30214-5"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário adjuvante curativo. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(16)30214-5"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 1,
+     "afirmado_protocolo": null,
+     "justificativa": "Genéricos + G-CSF, no SUS. Affordability alta.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "osteossarcoma"
+      },
+      {
+       "campo": "adjuvante",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: doxo+cisplatina adjuvante (sem neoadjuvância/>30 anos).",
+     "justificativa": "Concorda: doxo+cisplatina adjuvante (sem neoadjuvância/>30 anos).",
+     "fonte": "https://doi.org/10.1016/S1470-2045(16)30214-5"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "osteossarcoma-paliativo",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Osteossarcoma metastático/recorrente irressecável — paliativo",
+   "nome": "Ifosfamida+Etoposídeo / Gem+Docetaxel / Topotecano+Ciclofosfamida",
+   "esquema": "Ifosfamida 1.800 mg/m² + Etoposídeo 100 mg/m² D1-D5 (IE); ou gemcitabina+docetaxel; ou topotecano+ciclofosfamida, a cada 21 dias",
+   "farmacos": [
+    {
+     "nome": "Ifosfamida + Etoposídeo (ou alternativas)",
+     "dose": "conforme esquema",
+     "via": "EV",
+     "frequencia": "21/21d"
+    }
+   ],
+   "elegibilidade_protocolo": "Osteossarcoma metastático/recorrente irressecável (quimioterapia paliativa; metástases pulmonares ressecáveis podem seguir intento curativo).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "osteossarcoma_paliativo",
+      "label": "Osteossarcoma metastático/recorrente irressecável — paliativo",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "osteossarcoma"
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "osteossarcoma"
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "SAYLORS RL 3rd et al. Cyclophosphamide plus topotecan in children with recurrent or refractory solid tumors: POG phase II study. J Clin Oncol. 2001;19(15):3463-3469.",
+    "doi": "10.1200/JCO.2001.19.15.3463",
+    "pmid": null,
+    "estudo": "Saylors (topotecano+ciclofosfamida) / prática",
+    "ano": 2001
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Atividade paliativa modesta",
+    "magnitude": "Esquemas de resgate com atividade modesta (estabilização/resposta parcial em minoria)",
+    "fonte": "10.1200/JCO.2001.19.15.3463"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "2B",
+     "afirmado_protocolo": null,
+     "justificativa": "Esquemas de resgate (IE, gem+docetaxel, topotecano+ciclofosfamida) com evidência de fase II e benefício modesto. Recomendação moderada a favor (paliativo). TKIs (regorafenibe/cabozantinibe) off-label não contemplados.",
+     "fonte": "https://doi.org/10.1200/JCO.2001.19.15.3463"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário paliativo; fase II. Não graduável de forma discreta.",
+     "fonte": "https://doi.org/10.1200/JCO.2001.19.15.3463"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Genéricos, no SUS. Affordability intermediária (NCCN 3).",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "osteossarcoma"
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: esquemas de resgate paliativos; TKIs off-label excluídos por custo/regulação.",
+     "justificativa": "Concorda: esquemas de resgate paliativos; TKIs off-label excluídos por custo/regulação.",
+     "fonte": "https://doi.org/10.1200/JCO.2001.19.15.3463"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "tki_excluido: regorafenibe/cabozantinibe off-label não contemplados (Affordability 4)"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "tki_excluido: regorafenibe/cabozantinibe off-label não contemplados (Affordability 4)"
+   ]
+  },
+  {
+   "regimen_id": "ewing-localizado-vdc-ie",
+   "tumor": "sarcomas",
+   "cenario": "neoadjuvancia",
+   "subtipo": "Sarcoma de Ewing localizado — VDC/IE com compressão de intervalo",
+   "nome": "VDC/IE alternado (compressão de intervalo)",
+   "esquema": "VDC (Vincristina 2 mg/m² + Doxorrubicina 37,5 mg/m² D1,D2 + Ciclofosfamida 1.200 mg/m²) alternado com IE (Ifosfamida 1.800 mg/m² + Etoposídeo 100 mg/m² D1-D5), a cada 14 dias (<18 anos) ou 21 dias (≥18 anos), 17 ciclos",
+   "farmacos": [
+    {
+     "nome": "Vincristina + Doxorrubicina + Ciclofosfamida (VDC)",
+     "dose": "conforme esquema",
+     "via": "EV",
+     "frequencia": "alternado 14/21d"
+    },
+    {
+     "nome": "Ifosfamida + Etoposídeo (IE)",
+     "dose": "conforme esquema",
+     "via": "EV",
+     "frequencia": "alternado"
+    }
+   ],
+   "elegibilidade_protocolo": "Sarcoma de Ewing localizado (compressão de intervalo a cada 14 dias em <18 anos; a cada 21 dias em ≥18 anos), incluindo fase neoadjuvante e cirurgia/RT local na 13ª semana.",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ewing_localizado_vdc_ie",
+      "label": "Sarcoma de Ewing localizado — VDC/IE com compressão de intervalo",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "ewing"
+         ]
+        },
+        {
+         "eq": [
+          "localizado",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "ewing"
+       ]
+      },
+      {
+       "eq": [
+        "localizado",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "CASH T et al. Long-term outcomes in patients with localized Ewing sarcoma treated with interval-compressed chemotherapy (AEWS0031). J Clin Oncol. 2023;41(30):4724-4728. GRIER HE et al. INT-0091. N Engl J Med. 2003;348(8):694-701.",
+    "doi": "10.1200/JCO.23.00053",
+    "pmid": null,
+    "estudo": "AEWS0031 / INT-0091",
+    "ano": 2023
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida livre de eventos e sobrevida global",
+    "magnitude": "AEWS0031: EFS 70% vs 61%, SG 76% vs 69% em 10 anos com compressão de intervalo; INT-0091: adição de IE melhora SG (72% vs 61%)",
+    "fonte": "10.1200/JCO.23.00053"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Cardiotoxicidade/cistite hemorrágica",
+     "severidade": "grave",
+     "conduta": "monitorar FEVE; Mesna",
+     "fonte": "Bula/ficha técnica: VDC/IE"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1A",
+     "afirmado_protocolo": null,
+     "justificativa": "AEWS0031/INT-0091 (fase 3): VDC/IE com compressão de intervalo é o padrão em Ewing localizado (<18 anos). Recomendação forte.",
+     "fonte": "https://doi.org/10.1200/JCO.23.00053"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "A (curativo)",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário curativo. Formulário curativo qualitativo.",
+     "fonte": "https://doi.org/10.1200/JCO.23.00053"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Genéricos + G-CSF. Affordability intermediária (NCCN 3).",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "ewing"
+      },
+      {
+       "campo": "localizado",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: VDC/IE com compressão de intervalo em Ewing localizado.",
+     "justificativa": "Concorda: VDC/IE com compressão de intervalo em Ewing localizado.",
+     "fonte": "https://doi.org/10.1200/JCO.23.00053"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": []
+  },
+  {
+   "regimen_id": "ewing-metastatico-vdc-ie",
+   "tumor": "sarcomas",
+   "cenario": "metastatico",
+   "subtipo": "Sarcoma de Ewing metastático — VDC/IE",
+   "nome": "VDC/IE (metastático)",
+   "esquema": "VCA/VDC alternado com IE (mesmos fármacos do localizado); esquemas paliativos de resgate (topotecano+ciclofosfamida, gem+docetaxel) na recidiva",
+   "farmacos": [
+    {
+     "nome": "VDC/IE",
+     "dose": "conforme esquema",
+     "via": "EV",
+     "frequencia": "alternado"
+    }
+   ],
+   "elegibilidade_protocolo": "Sarcoma de Ewing metastático ao diagnóstico (VCA sem IE alternado conforme INT-0099; metástases pulmonares podem seguir intento curativo).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "ewing_metastatico_vdc_ie",
+      "label": "Sarcoma de Ewing metastático — VDC/IE",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "tumor",
+          "ewing"
+         ]
+        },
+        {
+         "eq": [
+          "metastatico",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "tumor",
+        "ewing"
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "GRIER HE et al. Addition of ifosfamide and etoposide to standard chemotherapy for Ewing's sarcoma and PNET of bone. N Engl J Med. 2003;348(8):694-701.",
+    "doi": "10.1056/NEJMoa020890",
+    "pmid": null,
+    "estudo": "INT-0091/INT-0099",
+    "ano": 2003
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "Controle sistêmico; prognóstico reservado",
+    "magnitude": "INT-0091/0099: quimioterapia baseada em VDC/IE; benefício menor em metastático que em localizado",
+    "fonte": "10.1056/NEJMoa020890"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "status": "concorda",
+     "valor_rederivado": "1B",
+     "afirmado_protocolo": null,
+     "justificativa": "VDC/IE em Ewing metastático (INT-0091/0099); esquemas de resgate paliativos na recidiva. Recomendação moderada a favor. TKIs (cabozantinibe) ainda em validação, excluídos.",
+     "fonte": "https://doi.org/10.1056/NEJMoa020890"
+    },
+    "esmo_mcbs": {
+     "status": "indeterminado",
+     "valor_rederivado": "n/a",
+     "afirmado_protocolo": null,
+     "justificativa": "Cenário metastático; benefício variável. Não graduável de forma discreta.",
+     "fonte": "https://doi.org/10.1056/NEJMoa020890"
+    },
+    "nccn_affordability": {
+     "status": "concorda",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Genéricos + G-CSF. Affordability intermediária.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "No SUS."
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "tumor",
+       "operador": "=",
+       "valor": "ewing"
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: VDC/IE em Ewing metastático; TKIs em validação excluídos.",
+     "justificativa": "Concorda: VDC/IE em Ewing metastático; TKIs em validação excluídos.",
+     "fonte": "https://doi.org/10.1056/NEJMoa020890"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "tki_excluido: cabozantinibe ainda em validação, não faz parte do protocolo"
+    ],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao"
+   },
+   "versao": 1,
+   "atualizado_em": null,
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (sarcomas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "tki_excluido: cabozantinibe ainda em validação, não faz parte do protocolo"
+   ]
+  }
+ ]
+}

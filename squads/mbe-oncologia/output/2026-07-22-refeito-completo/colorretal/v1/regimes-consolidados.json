@@ -1,0 +1,2027 @@
+{
+  "meta": {
+    "titulo": "Protocolos — colorretal (re-extração 2026-07-22)",
+    "tumor": "colorretal",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 13,
+    "distribuicao_selo": {
+      "re_derivado": 9,
+      "incompleto": 1,
+      "confirmado": 3
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 1,
+      "incongruentes": 0
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "pendente"
+    }
+  },
+  "campos_primitivos": [
+    {
+      "campo": "sitio",
+      "tipo": "enum",
+      "label": "Sitio",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "reto",
+        "colon"
+      ]
+    },
+    {
+      "campo": "localmente_avancado",
+      "tipo": "boolean",
+      "label": "Localmente avancado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "tnt",
+      "tipo": "boolean",
+      "label": "Tnt",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "alto_risco",
+      "tipo": "boolean",
+      "label": "Alto risco",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "estadio",
+      "tipo": "enum",
+      "label": "Estadio",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "II_alto_risco",
+        "III"
+      ]
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "paciente_robusto",
+      "tipo": "boolean",
+      "label": "Paciente robusto",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ras_wt",
+      "tipo": "boolean",
+      "label": "Ras wt",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "braf_wt",
+      "tipo": "boolean",
+      "label": "Braf wt",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "msi_alto",
+      "tipo": "boolean",
+      "label": "Msi alto",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "refratario_2_linhas",
+      "tipo": "boolean",
+      "label": "Refratario 2 linhas",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "primeira_linha",
+      "tipo": "boolean",
+      "label": "Primeira linha",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "segunda_linha",
+      "tipo": "boolean",
+      "label": "Segunda linha",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "refratario",
+      "tipo": "boolean",
+      "label": "Refratario",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "retal-neoadj-crt-capecitabina",
+      "tumor": "colorretal",
+      "cenario": "neoadjuvancia",
+      "subtipo": "Câncer de reto localmente avançado — quimiorradioterapia neoadjuvante",
+      "nome": "Capecitabina + RT",
+      "esquema": "Capecitabina 1.650 mg/m²/dia durante a radioterapia (D1-D5)",
+      "farmacos": [
+        {
+          "nome": "Capecitabina",
+          "dose": "1.650 mg/m²/dia",
+          "via": "VO",
+          "frequencia": "durante RT"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de reto localmente avançado, quimiorradioterapia neoadjuvante concomitante.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "reto"
+              ]
+            },
+            {
+              "eq": [
+                "localmente_avancado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HOFHEINZ RD et al. Chemoradiotherapy with capecitabine versus fluorouracil for locally advanced rectal cancer. Lancet Oncol. 2012;13(6):579-588.",
+        "doi": "10.1016/S1470-2045(12)70116-X",
+        "pmid": null,
+        "estudo": "Hofheinz (CAO/ARO)",
+        "ano": 2012
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Não inferioridade/superioridade da capecitabina vs 5-FU em quimiorradioterapia",
+        "magnitude": "Capecitabina não inferior (tendência de superioridade em SG) ao 5-FU",
+        "fonte": "10.1016/S1470-2045(12)70116-X"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Hofheinz (fase 3): capecitabina como radiossensibilizante equivalente/superior ao 5-FU. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(12)70116-X"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "B (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário neoadjuvante curativo. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(12)70116-X"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Capecitabina genérica + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sitio",
+              "operador": "=",
+              "valor": "reto"
+            },
+            {
+              "campo": "localmente_avancado",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: capecitabina+RT em reto neoadjuvante.",
+          "justificativa": "Concorda: capecitabina+RT em reto neoadjuvante.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(12)70116-X"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "retal-tnt-folfox-capox",
+      "tumor": "colorretal",
+      "cenario": "neoadjuvancia",
+      "subtipo": "Câncer de reto — terapia neoadjuvante total (TNT), consolidação/indução",
+      "nome": "FOLFOX ou CAPOX (TNT — OPRA)",
+      "esquema": "FOLFOX 8 ciclos (Oxaliplatina 85 + Leucovorina 400 + 5-FU 400 bolus + 2.400 46h, 14/14d) ou CAPOX (Oxaliplatina 130 + Capecitabina 2.000/dia D1-14, 21/21d)",
+      "farmacos": [
+        {
+          "nome": "Oxaliplatina",
+          "dose": "85/130 mg/m²",
+          "via": "EV",
+          "frequencia": "14/21d"
+        },
+        {
+          "nome": "5-FU/Capecitabina",
+          "dose": "conforme esquema",
+          "via": "EV/VO",
+          "frequencia": "14/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de reto localmente avançado, terapia neoadjuvante total (TNT) com objetivo de preservação de órgão / melhor controle sistêmico.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "reto"
+              ]
+            },
+            {
+              "eq": [
+                "tnt",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "VERHEIJ FS et al. Long-term results of organ preservation in patients with rectal adenocarcinoma treated with total neoadjuvant therapy: the randomized phase II OPRA trial. J Clin Oncol. 2024;42(5):500-506.",
+        "doi": "10.1200/JCO.23.01208",
+        "pmid": null,
+        "estudo": "OPRA",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ preservação de órgão (evitar cirurgia radical) mantendo controle da doença",
+        "magnitude": "OPRA: ~50% de preservação de órgão com TNT; SLD preservada",
+        "fonte": "10.1200/JCO.23.01208"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Neuropatia periférica (oxaliplatina)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Oxaliplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "OPRA (fase 2 randomizada) + consenso: TNT permite preservação de órgão com controle mantido. Recomendação forte no contexto de preservação.",
+          "fonte": "https://doi.org/10.1200/JCO.23.01208"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "B (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo de preservação de órgão. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1200/JCO.23.01208"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sitio",
+              "operador": "=",
+              "valor": "reto"
+            },
+            {
+              "campo": "tnt",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: TNT (OPRA) em reto.",
+          "justificativa": "Concorda: TNT (OPRA) em reto.",
+          "fonte": "https://doi.org/10.1200/JCO.23.01208"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "retal-tnt-folfirinox",
+      "tumor": "colorretal",
+      "cenario": "neoadjuvancia",
+      "subtipo": "Câncer de reto localmente avançado — TNT com FOLFIRINOX (PRODIGE 23)",
+      "nome": "FOLFIRINOX (TNT — PRODIGE 23)",
+      "esquema": "mFOLFIRINOX 6 ciclos (Oxaliplatina 85 + Leucovorina 200 + Irinotecano 165 + 5-FU 2.400 46h, 14/14d) antes da quimiorradioterapia",
+      "farmacos": [
+        {
+          "nome": "Oxaliplatina",
+          "dose": "85 mg/m²",
+          "via": "EV",
+          "frequencia": "14/14d"
+        },
+        {
+          "nome": "Irinotecano",
+          "dose": "165 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "5-FU/Leucovorina",
+          "dose": "2.400/200 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de reto localmente avançado de alto risco, TNT com indução por FOLFIRINOX.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "reto"
+              ]
+            },
+            {
+              "eq": [
+                "tnt",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "alto_risco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CONROY T et al. Total neoadjuvant therapy with mFOLFIRINOX versus preoperative chemoradiotherapy in patients with locally advanced rectal cancer: long-term results of the UNICANCER-PRODIGE 23 trial. Ann Oncol. 2024;35(10):873-881.",
+        "doi": "10.1016/j.annonc.2024.06.019",
+        "pmid": null,
+        "estudo": "PRODIGE 23 (UNICANCER)",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença e sobrevida global",
+        "magnitude": "PRODIGE 23: melhora de SLD e SG com TNT-FOLFIRINOX vs quimiorradioterapia padrão",
+        "fonte": "10.1016/j.annonc.2024.06.019"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Neuropatia periférica (oxaliplatina)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Oxaliplatina"
+        },
+        {
+          "nome": "Diarreia (irinotecano)",
+          "severidade": "grave",
+          "conduta": "loperamida; atropina",
+          "fonte": "Bula/ficha técnica: Irinotecano"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "PRODIGE 23 (fase 3): ganho de SLD/SG com TNT-FOLFIRINOX. Recomendação forte em alto risco.",
+          "fonte": "https://doi.org/10.1016/j.annonc.2024.06.019"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1016/j.annonc.2024.06.019"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sitio",
+              "operador": "=",
+              "valor": "reto"
+            },
+            {
+              "campo": "tnt",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "alto_risco",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: PRODIGE 23 em reto de alto risco.",
+          "justificativa": "Concorda: PRODIGE 23 em reto de alto risco.",
+          "fonte": "https://doi.org/10.1016/j.annonc.2024.06.019"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "colon-adj-fluoropirimidina-stageII",
+      "tumor": "colorretal",
+      "cenario": "adjuvancia",
+      "subtipo": "Câncer de cólon estádio II de alto risco — adjuvância",
+      "nome": "Fluoropirimidina (5-FU/LV ou Capecitabina)",
+      "esquema": "Capecitabina 2.000 mg/m²/dia D1-D14, 8 ciclos; ou 5-FU/LV",
+      "farmacos": [
+        {
+          "nome": "Capecitabina (ou 5-FU/LV)",
+          "dose": "2.000 mg/m²/dia",
+          "via": "VO",
+          "frequencia": "D1-D14 x8"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de cólon estádio II de alto risco, adjuvância (monoterapia com fluoropirimidina; considerar duração conforme IDEA).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "colon"
+              ]
+            },
+            {
+              "eq": [
+                "estadio",
+                "II_alto_risco"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "TWELVES C et al. Capecitabine as adjuvant treatment for stage III colon cancer (X-ACT). N Engl J Med. 2005;352(26):2696-2704. IMPACT Investigators. Lancet. 1995;345:939-944.",
+        "doi": "10.1056/nejmoa043116",
+        "pmid": null,
+        "estudo": "X-ACT / IMPACT",
+        "ano": 2005
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença com fluoropirimidina adjuvante",
+        "magnitude": "X-ACT/IMPACT: benefício de fluoropirimidina adjuvante (capecitabina equivalente ao 5-FU/LV)",
+        "fonte": "10.1056/NEJMoa043642"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "X-ACT/IMPACT (fase 3): fluoropirimidina adjuvante com benefício de SLD/SG. Recomendação forte em EII de alto risco.",
+          "fonte": "https://doi.org/10.1056/nejmoa043116"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/nejmoa043116"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Capecitabina/5-FU genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sitio",
+              "operador": "=",
+              "valor": "colon"
+            },
+            {
+              "campo": "estadio",
+              "operador": "=",
+              "valor": "II_alto_risco"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: fluoropirimidina adjuvante em EII de alto risco.",
+          "justificativa": "Concorda: fluoropirimidina adjuvante em EII de alto risco.",
+          "fonte": "https://doi.org/10.1056/nejmoa043116"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "doi_reparado: 10.1056/NEJMoa043642 (404) → 10.1056/nejmoa043116 (200), via Crossref por nome (X-ACT / IMPACT, TWELVES 2005; score 1.0182 vs 2º 0.5)"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-22",
+          "origem": "reparo-doi",
+          "mudanca": "doi_reparado: 10.1056/NEJMoa043642 (404) → 10.1056/nejmoa043116 (200), via Crossref por nome (X-ACT / IMPACT, TWELVES 2005; score 1.0182 vs 2º 0.5)",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "doi_reparado: 10.1056/NEJMoa043642 (404) → 10.1056/nejmoa043116 (200), via Crossref por nome (X-ACT / IMPACT, TWELVES 2005; score 1.0182 vs 2º 0.5)"
+      ]
+    },
+    {
+      "regimen_id": "colon-adj-oxaliplatina-stageIII",
+      "tumor": "colorretal",
+      "cenario": "adjuvancia",
+      "subtipo": "Câncer de cólon estádio III — adjuvância",
+      "nome": "FOLFOX ou CAPOX (adjuvante)",
+      "esquema": "FOLFOX6 (Oxaliplatina 85 + 5-FU/LV, 14/14d, 12 ciclos) ou CAPOX (Oxaliplatina 130 + Capecitabina 2.000/dia, 21/21d, 8 ciclos; considerar 3 meses conforme IDEA)",
+      "farmacos": [
+        {
+          "nome": "Oxaliplatina",
+          "dose": "85/130 mg/m²",
+          "via": "EV",
+          "frequencia": "14/21d"
+        },
+        {
+          "nome": "5-FU/Capecitabina",
+          "dose": "conforme esquema",
+          "via": "EV/VO",
+          "frequencia": "14/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer de cólon estádio III, adjuvância com acréscimo de oxaliplatina (duração 3-6 meses conforme IDEA/risco).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "sitio",
+                "colon"
+              ]
+            },
+            {
+              "eq": [
+                "estadio",
+                "III"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HALLER DG et al. Capecitabine plus oxaliplatin compared with fluorouracil and folinic acid as adjuvant therapy for stage III colon cancer (NO16968). J Clin Oncol. 2011;29(11):1465-1471. YOTHERS G et al. NSABP C-07. J Clin Oncol. 2011;29(28):3768-3774.",
+        "doi": "10.1200/JCO.2010.33.6297",
+        "pmid": null,
+        "estudo": "NO16968 (XELOXA) / MOSAIC / NSABP C-07",
+        "ano": 2011
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de doença e sobrevida global com oxaliplatina",
+        "magnitude": "MOSAIC/NO16968: ganho de SLD/SG com adição de oxaliplatina em EIII",
+        "fonte": "10.1200/JCO.2010.33.6297"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Neuropatia periférica (oxaliplatina)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Oxaliplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "NO16968/MOSAIC/C-07 (fase 3): adição de oxaliplatina melhora SLD/SG em EIII. Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.2010.33.6297"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo com ganho de SG → formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1200/JCO.2010.33.6297"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "sitio",
+              "operador": "=",
+              "valor": "colon"
+            },
+            {
+              "campo": "estadio",
+              "operador": "=",
+              "valor": "III"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: oxaliplatina adjuvante em EIII.",
+          "justificativa": "Concorda: oxaliplatina adjuvante em EIII.",
+          "fonte": "https://doi.org/10.1200/JCO.2010.33.6297"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "crc-met-quimio-doublet",
+      "tumor": "colorretal",
+      "cenario": "metastatico",
+      "subtipo": "Câncer colorretal metastático — quimioterapia (doublets)",
+      "nome": "FOLFOX / FOLFIRI / CAPOX",
+      "esquema": "FOLFOX, FOLFIRI ou CAPOX conforme perfil e linha (backbone de fluoropirimidina + oxaliplatina/irinotecano)",
+      "farmacos": [
+        {
+          "nome": "Fluoropirimidina + Oxaliplatina/Irinotecano",
+          "dose": "conforme esquema",
+          "via": "EV/VO",
+          "frequencia": "14/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer colorretal metastático, quimioterapia de base (doublet) em 1ª/2ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SALTZ LB et al. Irinotecan plus fluorouracil and leucovorin for metastatic colorectal cancer. N Engl J Med. 2000;343(13):905-914. ANDRÉ T et al. FOLFIRI. Eur J Cancer. 1999;35:1343-1347.",
+        "doi": "10.1200/JCO.2000.18.16.2938",
+        "pmid": null,
+        "estudo": "de Gramont (FOLFOX4)",
+        "ano": 2000,
+        "primeiro_autor": "de Gramont"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs 5-FU isolado",
+        "magnitude": "Doublets (oxaliplatina/irinotecano) melhoram SG vs 5-FU; base do tratamento metastático",
+        "fonte": "10.1056/NEJM200009283431302"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Neuropatia periférica (oxaliplatina)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Oxaliplatina"
+        },
+        {
+          "nome": "Diarreia (irinotecano)",
+          "severidade": "grave",
+          "conduta": "loperamida; atropina",
+          "fonte": "Bula/ficha técnica: Irinotecano"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Doublets de fluoropirimidina (FOLFOX/FOLFIRI/CAPOX) são o padrão de quimioterapia metastática (Saltz, Douillard, de Gramont). Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJM200009283431302"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Backbone quimioterápico; não graduável isoladamente.",
+          "fonte": "https://doi.org/10.1056/NEJM200009283431302"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: doublets como base do tratamento metastático.",
+          "justificativa": "Concorda: doublets como base do tratamento metastático.",
+          "fonte": "https://doi.org/10.1200/JCO.2000.18.16.2938"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1200/JCO.1989.7.10.1407 → 10.1200/JCO.2000.18.16.2938 (de Gramont (FOLFOX4), de Gramont 2000; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "crc-met-folfoxiri",
+      "tumor": "colorretal",
+      "cenario": "metastatico",
+      "subtipo": "Câncer colorretal metastático — triplet (FOLFOXIRI)",
+      "nome": "FOLFOXIRI",
+      "esquema": "5-FU 3.200 mg/m² 48h + Oxaliplatina 85 + Irinotecano 165 + Leucovorina, a cada 14 dias (paciente robusto)",
+      "farmacos": [
+        {
+          "nome": "5-FU",
+          "dose": "3.200 mg/m²",
+          "via": "EV (48h)",
+          "frequencia": "14/14d"
+        },
+        {
+          "nome": "Oxaliplatina",
+          "dose": "85 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Irinotecano",
+          "dose": "165 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer colorretal metastático em paciente robusto, buscando maior taxa de resposta (ex.: conversão de metástases).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "paciente_robusto",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base do triplet FOLFOXIRI (estudos TRIBE/Falcone). Referência de doublet como âncora (Saltz NEJM 2000).",
+        "doi": "10.1056/NEJMoa1403108",
+        "pmid": null,
+        "estudo": "TRIBE",
+        "ano": 2014,
+        "primeiro_autor": "Loupakis"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ taxa de resposta e SLP vs doublet (paciente robusto)",
+        "magnitude": "FOLFOXIRI: maior TRO/SLP; benefício de SG em subgrupos (ex.: BRAF mutado)",
+        "fonte": "referência de triplet (TRIBE)"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Neuropatia periférica (oxaliplatina)",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Oxaliplatina"
+        },
+        {
+          "nome": "Diarreia (irinotecano)",
+          "severidade": "grave",
+          "conduta": "loperamida; atropina",
+          "fonte": "Bula/ficha técnica: Irinotecano"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "Triplet FOLFOXIRI (base TRIBE) com maior TRO/SLP em pacientes robustos. Recomendação em cenários selecionados.",
+          "fonte": "referência de triplet"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário de intensificação; não graduável isoladamente.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "paciente_robusto",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: triplet em paciente robusto.",
+          "justificativa": "Concorda: triplet em paciente robusto.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1403108"
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "referencia_ancora: triplet baseado em TRIBE; protocolo lista o esquema sem DOI dedicado"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1056/NEJM200009283431302 → 10.1056/NEJMoa1403108 (TRIBE, Loupakis 2014; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "referencia_ancora: triplet baseado em TRIBE; protocolo lista o esquema sem DOI dedicado"
+      ]
+    },
+    {
+      "regimen_id": "crc-met-anti-egfr",
+      "tumor": "colorretal",
+      "cenario": "metastatico",
+      "subtipo": "Câncer colorretal metastático — anti-EGFR (RAS/BRAF wt, esquerdo)",
+      "nome": "Cetuximabe ou Panitumumabe + FOLFOX/FOLFIRI",
+      "esquema": "Cetuximabe (ataque 400 → 250 mg/m² semanal, ou 500 mg/m² 14/14d) ou Panitumumabe 6 mg/kg 21/21d + quimioterapia",
+      "farmacos": [
+        {
+          "nome": "Cetuximabe (ou Panitumumabe)",
+          "dose": "400→250 mg/m² (6 mg/kg)",
+          "via": "EV",
+          "frequencia": "semanal/14-21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer colorretal metastático RAS e BRAF selvagem (wild-type), preferencialmente cólon esquerdo, associado a FOLFOX/FOLFIRI em 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "ras_wt",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "braf_wt",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "WANG H et al. Comprehensive review of targeted therapy for colorectal cancer. Signal Transduct Target Ther. 2020;5:22. (Base: CRYSTAL, PRIME, FIRE-3.)",
+        "doi": "10.1056/NEJMoa0805019",
+        "pmid": null,
+        "estudo": "CRYSTAL",
+        "ano": 2009,
+        "primeiro_autor": "Van Cutsem"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global em RAS/BRAF wt (esquerdo)",
+        "magnitude": "Anti-EGFR + doublet melhora SG em RAS-wt de cólon esquerdo (CRYSTAL/PRIME/FIRE-3)",
+        "fonte": "10.1038/s41392-020-0116-z"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        },
+        {
+          "nome": "Rash acneiforme",
+          "severidade": "moderada",
+          "conduta": "tetraciclina; corticoide tópico",
+          "fonte": "Bula/ficha técnica: anti-EGFR"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Anti-EGFR + doublet em RAS/BRAF wt (cólon esquerdo) com ganho de SG (CRYSTAL/PRIME/FIRE-3). Recomendação forte nesse subgrupo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0805019"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "3-4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG em subgrupo selecionado por biomarcador → MCBS 3-4. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0805019"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Cetuximabe/panitumumabe de custo alto; considerar farmacoeconomia entre os dois. Affordability intermediária.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "ras_wt",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "braf_wt",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: restrito a RAS/BRAF wt, uso adversarialmente correto do biomarcador.",
+          "justificativa": "Concorda: restrito a RAS/BRAF wt, uso adversarialmente correto do biomarcador.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0805019"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "doi_reparado: 10.1038/s41392-020-0116-z → 10.1056/NEJMoa0805019 (CRYSTAL, Van Cutsem 2009; DOI apontava pro paper errado/404, corrigido via Crossref, autor+ano+tópico validados 200).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "crc-met-pembrolizumabe-msi",
+      "tumor": "colorretal",
+      "cenario": "metastatico",
+      "subtipo": "Câncer colorretal metastático MSI-H/dMMR — 1ª linha",
+      "nome": "Pembrolizumabe (MSI-H)",
+      "esquema": "Pembrolizumabe 200 mg EV a cada 3 semanas",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer colorretal metastático com instabilidade de microssatélites (MSI-H/dMMR), 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "msi_alto",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ANDRÉ T et al. Pembrolizumab versus chemotherapy in microsatellite instability-high or mismatch repair-deficient metastatic colorectal cancer: 5-year follow-up from KEYNOTE-177. Ann Oncol. 2024;35(3):277-284.",
+        "doi": "10.1016/j.annonc.2024.11.012",
+        "pmid": null,
+        "estudo": "KEYNOTE-177",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão e respostas duráveis",
+        "magnitude": "KEYNOTE-177: SLP 16,5 vs 8,2 meses; HR 0,60; respostas duráveis",
+        "fonte": "10.1016/j.annonc.2024.11.012"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender",
+          "fonte": "Bula/ficha técnica: Pembrolizumabe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "KEYNOTE-177 (fase 3): ganho de SLP e respostas duráveis em MSI-H de 1ª linha. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/j.annonc.2024.11.012"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SLP substancial + respostas duráveis em população MSI-H → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1016/j.annonc.2024.11.012"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Pembrolizumabe de custo alto; restrição a MSI-H melhora a razão custo-benefício. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "msi_alto",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: KEYNOTE-177 restringe a MSI-H, uso adversarialmente correto do biomarcador.",
+          "justificativa": "Concorda: KEYNOTE-177 restringe a MSI-H, uso adversarialmente correto do biomarcador.",
+          "fonte": "https://doi.org/10.1016/j.annonc.2024.11.012"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "crc-met-tas-bevacizumab",
+      "tumor": "colorretal",
+      "cenario": "metastatico",
+      "subtipo": "Câncer colorretal metastático refratário — 3ª linha+",
+      "nome": "TAS-102 + Bevacizumabe (SUNLIGHT)",
+      "esquema": "TAS-102 35 mg/m² 2x/dia D1-5 e D8-12 + Bevacizumabe 5 mg/kg D1,D15, ciclos de 28 dias",
+      "farmacos": [
+        {
+          "nome": "Trifluridina/Tipiracil",
+          "dose": "35 mg/m²",
+          "via": "VO",
+          "frequencia": "2x/dia D1-5,D8-12"
+        },
+        {
+          "nome": "Bevacizumabe",
+          "dose": "5 mg/kg",
+          "via": "EV",
+          "frequencia": "D1,D15"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer colorretal metastático refratário (≥2 linhas), boa performance física (ECOG 0-1).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "refratario_2_linhas",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "TABERNERO J et al. Trifluridine/tipiracil plus bevacizumab for third-line treatment of refractory metastatic colorectal cancer (SUNLIGHT). N Engl J Med. 2023;388(18):1657-1667.",
+        "doi": "10.1056/NEJMoa2214963",
+        "pmid": null,
+        "estudo": "SUNLIGHT",
+        "ano": 2023,
+        "primeiro_autor": "Prager"
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs TAS-102 isolado",
+        "magnitude": "SUNLIGHT: SG 10,8 vs 7,5 meses; HR 0,61",
+        "fonte": "10.1056/NEJMoa2214963"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/diarreia/mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: fluoropirimidina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "SUNLIGHT (fase 3): ganho de SG com TAS-102+bevacizumabe em refratários. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2214963"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "3",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,61, ~3,3 meses) em refratário → ESMO-MCBS ~3. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2214963"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "TAS-102 + bevacizumabe de custo intermediário-alto. Affordability intermediária.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo intermediário."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "refratario_2_linhas",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: SUNLIGHT em refratários com boa performance.",
+          "justificativa": "Concorda: SUNLIGHT em refratários com boa performance.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2214963"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-24",
+          "origem": "reparo-doi-integridade",
+          "mudanca": "rotulo_corrigido: primeiro_autor→Prager, ano→2023; DOI 10.1056/NEJMoa2214963 já correto (paper certo), selo inalterado.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "crc-met-bevacizumabe-1l-nao-incorporado",
+      "tumor": "colorretal",
+      "cenario": "metastatico",
+      "subtipo": "Câncer colorretal metastático — bevacizumabe 1ª linha (não incorporado)",
+      "nome": "Bevacizumabe 1ª linha (NÃO incorporado)",
+      "esquema": "Bevacizumabe + doublet em 1ª linha — não incorporação de forma universal",
+      "farmacos": [
+        {
+          "nome": "Bevacizumabe",
+          "dose": "5 mg/kg",
+          "via": "EV",
+          "frequencia": "14/14d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer colorretal metastático, 1ª linha (protocolo NÃO incorpora de forma universal: análise combinada de 7 ensaios com benefício marginal, ESMO nota 1, ICER desfavorável).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "primeira_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HURWITZ HI et al. Efficacy and safety of bevacizumab in metastatic colorectal cancer: pooled analysis from seven randomized controlled trials. Oncologist. 2013;18(9):1004-1012.",
+        "doi": "10.1634/theoncologist.2013-0107",
+        "pmid": null,
+        "estudo": "Hurwitz (pooled) / NO16966",
+        "ano": 2013
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "1",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global marginal",
+        "magnitude": "Pooled: SG 19,8 vs 17,6 meses (ganho marginal). ESMO-MCBS 1 (NO16966)",
+        "fonte": "10.1634/theoncologist.2013-0107"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hipertensão/proteinúria/eventos tromboembólicos",
+          "severidade": "moderada",
+          "conduta": "monitorar",
+          "fonte": "Bula/ficha técnica: Bevacizumabe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Bevacizumabe 1ª linha com benefício estatisticamente significativo mas marginal (pooled). Certeza alta, magnitude baixa.",
+          "fonte": "https://doi.org/10.1634/theoncologist.2013-0107"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "1",
+          "afirmado_protocolo": "1",
+          "justificativa": "Protocolo afirma ESMO-MCBS 1. Re-derivação: ganho marginal de SG (~2 meses) → MCBS 1. Concorda.",
+          "fonte": "https://doi.org/10.1634/theoncologist.2013-0107"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Custo incremental elevado (QALY não justificado) para benefício marginal. Affordability baixa. Sustenta a não incorporação universal.",
+          "fonte": "análise de custo-efetividade (protocolo)",
+          "flag_contexto_br": "Não incorporado universalmente."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "primeira_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: MCBS 1 e ICER desfavorável sustentam a não incorporação universal.",
+          "justificativa": "Concorda: MCBS 1 e ICER desfavorável sustentam a não incorporação universal.",
+          "fonte": "https://doi.org/10.1634/theoncologist.2013-0107"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: MCBS 1 e ICER desfavorável (bevacizumabe 1ª linha)"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: MCBS 1 e ICER desfavorável (bevacizumabe 1ª linha)"
+      ]
+    },
+    {
+      "regimen_id": "crc-met-aflibercepte-nao-incorporado",
+      "tumor": "colorretal",
+      "cenario": "metastatico",
+      "subtipo": "Câncer colorretal metastático — aflibercepte 2ª linha (não incorporado)",
+      "nome": "Aflibercepte + FOLFIRI (NÃO incorporado)",
+      "esquema": "Aflibercepte + FOLFIRI em 2ª linha — não incorporado",
+      "farmacos": [
+        {
+          "nome": "Aflibercepte",
+          "dose": "4 mg/kg",
+          "via": "EV",
+          "frequencia": "14/14d"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer colorretal metastático, 2ª linha associado ao FOLFIRI (protocolo NÃO incorpora: ganho ~1 mês em SG, ESMO nota 1).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "TABERNERO J et al. Aflibercept versus placebo in combination with fluorouracil, leucovorin and irinotecan (VELOUR): prespecified subgroup analyses. Eur J Cancer. 2014;50(2):320-331.",
+        "doi": "10.1016/j.ejca.2013.09.013",
+        "pmid": null,
+        "estudo": "VELOUR",
+        "ano": 2014
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "1",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global pequena",
+        "magnitude": "VELOUR: SG 13,5 vs 12,1 meses (ganho ~1,4 mês). ESMO-MCBS 1",
+        "fonte": "10.1016/j.ejca.2013.09.013"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hipertensão/proteinúria",
+          "severidade": "moderada",
+          "conduta": "monitorar",
+          "fonte": "Bula/ficha técnica: Aflibercepte"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "VELOUR (fase 3): ganho de SG estatisticamente significativo mas pequeno. Certeza alta, magnitude baixa.",
+          "fonte": "https://doi.org/10.1016/j.ejca.2013.09.013"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "1",
+          "afirmado_protocolo": "1",
+          "justificativa": "Protocolo afirma ESMO-MCBS 1. Re-derivação: ganho ~1,4 mês → MCBS 1. Concorda.",
+          "fonte": "https://doi.org/10.1016/j.ejca.2013.09.013"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Aflibercepte de custo alto para benefício pequeno. Affordability baixa. Sustenta a não incorporação.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incorporado."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: MCBS 1 sustenta a não incorporação.",
+          "justificativa": "Concorda: MCBS 1 sustenta a não incorporação.",
+          "fonte": "https://doi.org/10.1016/j.ejca.2013.09.013"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: MCBS 1 (VELOUR, ganho ~1 mês)"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: MCBS 1 (VELOUR, ganho ~1 mês)"
+      ]
+    },
+    {
+      "regimen_id": "crc-met-regorafenibe-nao-incorporado",
+      "tumor": "colorretal",
+      "cenario": "metastatico",
+      "subtipo": "Câncer colorretal metastático — regorafenibe (não incorporado)",
+      "nome": "Regorafenibe (NÃO incorporado)",
+      "esquema": "Regorafenibe 160 mg/dia (3 semanas on/1 off) — não incorporado",
+      "farmacos": [
+        {
+          "nome": "Regorafenibe",
+          "dose": "160 mg",
+          "via": "VO",
+          "frequencia": "3 sem on/1 off"
+        }
+      ],
+      "elegibilidade_protocolo": "Câncer colorretal metastático refratário (protocolo NÃO incorpora: CORRECT com magnitude muito modesta 6,4 vs 5 meses, ESMO nota 1, ICER desfavorável na dose padrão + alta toxicidade).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "refratario",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "GROTHEY A et al. Regorafenib monotherapy for previously treated metastatic colorectal cancer (CORRECT): a phase 3 trial. Lancet. 2013;381(9863):303-312.",
+        "doi": "10.1016/S0140-6736(12)61900-X",
+        "pmid": null,
+        "estudo": "CORRECT",
+        "ano": 2013
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "1",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global modesta vs placebo",
+        "magnitude": "CORRECT: SG 6,4 vs 5,0 meses; HR 0,77. ESMO-MCBS 1",
+        "fonte": "10.1016/S0140-6736(12)61900-X"
+      },
+      "toxicidades": [
+        {
+          "nome": "Síndrome mão-pé/fadiga/hipertensão",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Regorafenibe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CORRECT (fase 3): ganho de SG modesto em refratários. Certeza alta, magnitude baixa.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(12)61900-X"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "1",
+          "afirmado_protocolo": "1",
+          "justificativa": "Protocolo afirma ESMO-MCBS 1. Re-derivação: ganho ~1,4 mês (HR 0,77) → MCBS 1. Concorda.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(12)61900-X"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Regorafenibe de custo alto com ICER desfavorável na dose padrão + alta toxicidade. Affordability baixa. Sustenta a não incorporação.",
+          "fonte": "estimativa qualitativa (Goldstein 2015)",
+          "flag_contexto_br": "Não incorporado."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "refratario",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: MCBS 1 e ICER desfavorável sustentam a não incorporação.",
+          "justificativa": "Concorda: MCBS 1 e ICER desfavorável sustentam a não incorporação.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(12)61900-X"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: MCBS 1 (CORRECT) e ICER desfavorável"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (colorretal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: MCBS 1 (CORRECT) e ICER desfavorável"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+ "gerado_em": "2026-07-21",
+ "run": "2026-07-21-protocolo-completo",
+ "tumor": "vulva",
+ "total_a_buscar": 1,
+ "itens": [
+  {
+   "regimen_id": "vulva-avancada-recidivada",
+   "nome": "Esquemas ativos (cisplatina-based, como na neoadjuvância)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Esquemas ativos extrapolados do cenário neoadjuvante; protocolo não cita estudo-pivô dedicado para doença avançada/recidivada.",
+   "doi": null,
+   "estudo": "Extrapolação da neoadjuvância (tumor raro)",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  }
+ ]
+}

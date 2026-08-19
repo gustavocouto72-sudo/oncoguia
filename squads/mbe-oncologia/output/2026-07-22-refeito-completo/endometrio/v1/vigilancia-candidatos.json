@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "tumor": "endometrio",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "RUBY — dostarlimabe + carbo/paclitaxel em endométrio avançado/recorrente",
+      "identificador": "NCT03981796",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO + quimio melhora SLP/SG, sobretudo dMMR.",
+      "acao": "Reavaliar 1ª linha avançado."
+    },
+    {
+      "titulo": "DUO-E — durvalumabe ± olaparibe de manutenção após quimio em endométrio avançado",
+      "identificador": "NCT04269200",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Manutenção com IO ± PARPi.",
+      "acao": "Avaliar manutenção."
+    }
+  ]
+}

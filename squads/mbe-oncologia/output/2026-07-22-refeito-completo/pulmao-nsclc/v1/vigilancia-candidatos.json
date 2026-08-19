@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "tumor": "pulmao-nsclc",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados (NCT)."
+  },
+  "candidatos": [
+    {
+      "titulo": "LAURA — osimertinibe após quimiorradioterapia em CPNPC EGFR+ estágio III irressecável",
+      "identificador": "NCT03521154",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "Estágio III irressecável EGFR+ (hoje durvalumabe/PACIFIC, de benefício incerto em EGFR+)",
+      "relevancia": "Osimertinibe de consolidação melhora SLP em EGFR+ estágio III — o durvalumabe é questionável nesse subgrupo.",
+      "acao": "Reavaliar consolidação em EGFR+ estágio III."
+    },
+    {
+      "titulo": "MARIPOSA — amivantamabe + lazertinibe vs osimertinibe em 1ª linha EGFR+ avançado",
+      "identificador": "NCT04487080",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "1ª linha EGFR+ metastático (hoje osimertinibe/FLAURA)",
+      "relevancia": "Combinação supera osimertinibe em SLP na 1ª linha EGFR+ (maior toxicidade).",
+      "acao": "Avaliar como opção de 1ª linha EGFR+."
+    }
+  ]
+}

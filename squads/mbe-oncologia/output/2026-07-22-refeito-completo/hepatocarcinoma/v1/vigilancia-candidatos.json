@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "tumor": "hepatocarcinoma",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "IMbrave150 — atezolizumabe + bevacizumabe vs sorafenibe em CHC avançado",
+      "identificador": "NCT03434379",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "IO+antiangiogênico é padrão de 1ª linha.",
+      "acao": "Confirmar 1ª linha avançado."
+    },
+    {
+      "titulo": "HIMALAYA — tremelimumabe + durvalumabe (STRIDE) em 1ª linha de CHC",
+      "identificador": "NCT03298451",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "Dupla IO alternativa de 1ª linha.",
+      "acao": "Avaliar 1ª linha."
+    },
+    {
+      "titulo": "EMERALD-1 — durvalumabe + TACE em CHC intermediário",
+      "identificador": "NCT03778957",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO + TACE melhora SLP no intermediário.",
+      "acao": "Avaliar estágio intermediário."
+    }
+  ]
+}

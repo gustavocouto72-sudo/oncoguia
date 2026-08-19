@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "tumor": "mama",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados (NCT/DOI); evidência recente possivelmente não incorporada ao protocolo."
+  },
+  "candidatos": [
+    {
+      "titulo": "DESTINY-Breast09 — T-DXd ± pertuzumabe vs THP (taxano+trastuzumabe+pertuzumabe) em 1ª linha HER2+ MBC",
+      "identificador": "NCT04784715",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "1ª linha HER2+ metastático (hoje THP/CLEOPATRA)",
+      "relevancia": "Pode deslocar o padrão de 1ª linha HER2+ metastático (T-DXd à frente do THP).",
+      "acao": "Reavaliar 1ª linha HER2+ quando publicado; ensaio real verificado."
+    },
+    {
+      "titulo": "DESTINY-Breast06 — T-DXd vs quimioterapia em HR+ HER2-low/ultralow após linha endócrina",
+      "identificador": "NCT04494425",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "HR+ HER2-low metastático pós-endócrino",
+      "relevancia": "Amplia o uso de T-DXd para HER2-low/ultralow mais cedo.",
+      "acao": "Reavaliar quando incorporado."
+    },
+    {
+      "titulo": "NATALEE — ribociclibe + terapia endócrina adjuvante em HR+ de risco alto/intermediário",
+      "identificador": "NCT03701334",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "Adjuvância HR+ de alto risco (hoje monarchE/abemaciclibe para N+)",
+      "relevancia": "Adiciona iCDK4/6 adjuvante a população mais ampla que monarchE.",
+      "acao": "Reavaliar elegibilidade adjuvante."
+    },
+    {
+      "titulo": "INAVO120 — inavolisibe + palbociclibe + fulvestranto em HR+ PIK3CA-mutado",
+      "identificador": "NCT04191499",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "HR+ PIK3CA-mutado metastático",
+      "relevancia": "Nova combinação-alvo em PIK3CA.",
+      "acao": "Avaliar incorporação."
+    },
+    {
+      "titulo": "HER2CLIMB-05 — tucatinibe + trastuzumabe + pertuzumabe em 1ª linha HER2+ (fase III)",
+      "identificador": "PMID 41369677 (JCO 2026, DOI 10.1200/jco-25-02600)",
+      "fonte": "Europe PMC",
+      "status_ensaio": "publicado 2026",
+      "regime_afetado": "Manutenção 1ª linha HER2+ metastático",
+      "relevancia": "Adição de tucatinibe à manutenção HP.",
+      "acao": "Avaliar quando maduro."
+    }
+  ]
+}

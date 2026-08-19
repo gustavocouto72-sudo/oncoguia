@@ -1,0 +1,1139 @@
+{
+  "meta": {
+    "titulo": "Protocolos — hepatocarcinoma (re-extração 2026-07-22)",
+    "tumor": "hepatocarcinoma",
+    "gerado_em": "2026-07-22",
+    "total_regimes": 7,
+    "distribuicao_selo": {
+      "re_derivado": 5,
+      "incompleto": 1,
+      "divergencia": 1
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 0,
+      "incongruentes": 0
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "pendente"
+    }
+  },
+  "campos_primitivos": [
+    {
+      "campo": "hcc",
+      "tipo": "boolean",
+      "label": "Hcc",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "child_pugh",
+      "tipo": "enum",
+      "label": "Child pugh",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "A"
+      ]
+    },
+    {
+      "campo": "ecog",
+      "tipo": "integer",
+      "label": "Ecog",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "varizes_alto_risco_nao_tratadas",
+      "tipo": "boolean",
+      "label": "Varizes alto risco nao tratadas",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "segunda_linha",
+      "tipo": "boolean",
+      "label": "Segunda linha",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_sorafenibe",
+      "tipo": "boolean",
+      "label": "Progressao pos sorafenibe",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "hcc-1l-atezolizumabe-bevacizumabe",
+      "tumor": "hepatocarcinoma",
+      "cenario": "metastatico",
+      "subtipo": "HCC localmente avançado/metastático — 1ª linha (preferencial)",
+      "nome": "Atezolizumabe + Bevacizumabe (IMBRAVE)",
+      "esquema": "Atezolizumabe 1.200 mg + Bevacizumabe 15 mg/kg EV a cada 21 dias, até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Atezolizumabe",
+          "dose": "1.200 mg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Bevacizumabe",
+          "dose": "15 mg/kg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "HCC localmente avançado ou metastático, não candidato a ressecção/ablação/transplante, Child-Pugh A, ECOG 0-2 (esquema preferencial). Requer endoscopia prévia (risco de sangramento por varizes).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "hcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "child_pugh",
+                "A"
+              ]
+            },
+            {
+              "lte": [
+                "ecog",
+                2
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "varizes_alto_risco_nao_tratadas",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FINN RS et al. Atezolizumab plus bevacizumab in unresectable hepatocellular carcinoma (IMbrave150). N Engl J Med. 2020;382(20):1894-1905.",
+        "doi": "10.1056/NEJMoa1915745",
+        "pmid": null,
+        "estudo": "IMbrave150",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e SLP vs sorafenibe",
+        "magnitude": "IMbrave150: SG HR 0,58 (inicial); SLP HR 0,59",
+        "fonte": "10.1056/NEJMoa1915745"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        },
+        {
+          "nome": "Sangramento (bevacizumabe; varizes esofágicas)",
+          "severidade": "grave",
+          "conduta": "endoscopia prévia; profilaxia de varizes",
+          "fonte": "Bula/ficha técnica: Bevacizumabe"
+        },
+        {
+          "nome": "Hipertensão/proteinúria",
+          "severidade": "moderada",
+          "conduta": "monitorar",
+          "fonte": "Bula/ficha técnica: Bevacizumabe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "IMbrave150 (fase 3): ganho de SG e SLP vs sorafenibe. Padrão preferencial de 1ª linha. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1915745"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,58) em doença avançada → ESMO-MCBS 4. Sem afirmação do protocolo; re-derivação sólida.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1915745"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Atezolizumabe+bevacizumabe de custo alto. Affordability baixa (protocolo prefere por acessibilidade relativa vs STRIDE).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "hcc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "child_pugh",
+              "operador": "=",
+              "valor": "A"
+            },
+            {
+              "campo": "ecog",
+              "operador": "<=",
+              "valor": 2
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "varizes_alto_risco_nao_tratadas",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: IMbrave150 exigiu Child-Pugh A, ECOG 0-1 (protocolo estende a ECOG 0-2).",
+          "justificativa": "Concorda: IMbrave150 exigiu Child-Pugh A, ECOG 0-1 (protocolo estende a ECOG 0-2).",
+          "fonte": "https://doi.org/10.1056/NEJMoa1915745"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (hepatocarcinoma) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "hcc-1l-tremelimumabe-durvalumabe",
+      "tumor": "hepatocarcinoma",
+      "cenario": "metastatico",
+      "subtipo": "HCC localmente avançado/metastático — 1ª linha (restrito)",
+      "nome": "Tremelimumabe + Durvalumabe (STRIDE / HIMALAYA)",
+      "esquema": "Tremelimumabe 300 mg dose única + Durvalumabe 1.500 mg a cada 28 dias, até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Tremelimumabe",
+          "dose": "300 mg (dose única)",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "Durvalumabe",
+          "dose": "1.500 mg",
+          "via": "EV",
+          "frequencia": "28/28d"
+        }
+      ],
+      "elegibilidade_protocolo": "HCC avançado, Child-Pugh A, ECOG 0-2, RESTRITO a pacientes com ótima performance e contraindicação ao IMBRAVE (após discussão em câmara técnica). Protocolo prefere IMBRAVE.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "hcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "child_pugh",
+                "A"
+              ]
+            },
+            {
+              "lte": [
+                "ecog",
+                2
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SANGRO B et al. Four-year overall survival update from the phase III HIMALAYA study of tremelimumab plus durvalumab in unresectable hepatocellular carcinoma. Ann Oncol. 2024;35(5):448-455.",
+        "doi": "10.1016/j.annonc.2024.02.005",
+        "pmid": null,
+        "estudo": "HIMALAYA (STRIDE)",
+        "ano": 2024
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs sorafenibe",
+        "magnitude": "HIMALAYA: SG HR 0,78; benefício mantido em 4 anos",
+        "fonte": "10.1016/j.annonc.2024.02.005"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "HIMALAYA (fase 3): ganho de SG vs sorafenibe. Recomendação forte; protocolo o posiciona como restrito (preferência pelo IMBRAVE por dados indiretos e acessibilidade).",
+          "fonte": "https://doi.org/10.1016/j.annonc.2024.02.005"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,78) em doença avançada → ESMO-MCBS 4. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1016/j.annonc.2024.02.005"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Dupla imunoterapia de custo alto. Affordability baixa; protocolo prefere IMBRAVE por farmacoeconomia.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "hcc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "child_pugh",
+              "operador": "=",
+              "valor": "A"
+            },
+            {
+              "campo": "ecog",
+              "operador": "<=",
+              "valor": 2
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: HIMALAYA em HCC avançado Child-Pugh A. A restrição do protocolo é decisão farmacoeconômica, não de elegibilidade.",
+          "justificativa": "Concorda: HIMALAYA em HCC avançado Child-Pugh A. A restrição do protocolo é decisão farmacoeconômica, não de elegibilidade.",
+          "fonte": "https://doi.org/10.1016/j.annonc.2024.02.005"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "preferencia_farmacoeconomica: protocolo prefere IMBRAVE a STRIDE por dados indiretos e custo"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (hepatocarcinoma) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "preferencia_farmacoeconomica: protocolo prefere IMBRAVE a STRIDE por dados indiretos e custo"
+      ]
+    },
+    {
+      "regimen_id": "hcc-1l-sorafenibe",
+      "tumor": "hepatocarcinoma",
+      "cenario": "metastatico",
+      "subtipo": "HCC avançado — 1ª linha (TKI)",
+      "nome": "Sorafenibe",
+      "esquema": "Sorafenibe 400 mg VO 12/12h até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Sorafenibe",
+          "dose": "400 mg",
+          "via": "VO",
+          "frequencia": "12/12h"
+        }
+      ],
+      "elegibilidade_protocolo": "HCC avançado, Child-Pugh A, ECOG 0-2, 1ª linha (opção TKI, especialmente se contraindicação a imunoterapia/antiangiogênico).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "hcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "child_pugh",
+                "A"
+              ]
+            },
+            {
+              "lte": [
+                "ecog",
+                2
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "LLOVET JM et al. Sorafenib in advanced hepatocellular carcinoma (SHARP). N Engl J Med. 2008;359(4):378-390.",
+        "doi": "10.1056/NEJMoa0708857",
+        "pmid": null,
+        "estudo": "SHARP",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs placebo",
+        "magnitude": "SHARP: SG 10,7 vs 7,9 meses; HR 0,69",
+        "fonte": "10.1056/NEJMoa0708857"
+      },
+      "toxicidades": [
+        {
+          "nome": "Síndrome mão-pé",
+          "severidade": "moderada",
+          "conduta": "emolientes; ajuste de dose",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Diarreia/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "SHARP (fase 3): primeiro TKI a mostrar ganho de SG em HCC avançado. Recomendação forte (opção de 1ª linha).",
+          "fonte": "https://doi.org/10.1056/NEJMoa0708857"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,69, ~2,8 meses) → ESMO-MCBS 4 (HR ≤0,70). Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0708857"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 2,
+          "afirmado_protocolo": null,
+          "justificativa": "Sorafenibe genérico, incorporado ao SUS. Affordability intermediária-alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Sorafenibe no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "hcc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "child_pugh",
+              "operador": "=",
+              "valor": "A"
+            },
+            {
+              "campo": "ecog",
+              "operador": "<=",
+              "valor": 2
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: SHARP em HCC avançado Child-Pugh A.",
+          "justificativa": "Concorda: SHARP em HCC avançado Child-Pugh A.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0708857"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (hepatocarcinoma) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "hcc-1l-lenvatinibe",
+      "tumor": "hepatocarcinoma",
+      "cenario": "metastatico",
+      "subtipo": "HCC avançado — 1ª linha (TKI)",
+      "nome": "Lenvatinibe",
+      "esquema": "Lenvatinibe 12 mg/dia (≥60 kg) ou 8 mg/dia (<60 kg) VO até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Lenvatinibe",
+          "dose": "12 mg (≥60kg) / 8 mg (<60kg)",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "HCC avançado, Child-Pugh A, ECOG 0-2, 1ª linha (opção TKI).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "hcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "child_pugh",
+                "A"
+              ]
+            },
+            {
+              "lte": [
+                "ecog",
+                2
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "KUDO M et al. Lenvatinib versus sorafenib in first-line treatment of patients with unresectable hepatocellular carcinoma (REFLECT). Lancet. 2018;391(10126):1163-1173.",
+        "doi": "10.1016/S0140-6736(18)30207-1",
+        "pmid": null,
+        "estudo": "REFLECT",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Não inferioridade em SG vs sorafenibe",
+        "magnitude": "REFLECT: SG 13,6 vs 12,3 meses; não inferior; maior SLP/TRO",
+        "fonte": "10.1016/S0140-6736(18)30207-1"
+      },
+      "toxicidades": [
+        {
+          "nome": "Síndrome mão-pé",
+          "severidade": "moderada",
+          "conduta": "emolientes; ajuste de dose",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Diarreia/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "REFLECT (fase 3): lenvatinibe não inferior ao sorafenibe, com maior SLP/TRO. Recomendação forte (opção de 1ª linha).",
+          "fonte": "https://doi.org/10.1016/S0140-6736(18)30207-1"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Estudo de não inferioridade vs comparador ativo; não graduável de forma discreta.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(18)30207-1"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Lenvatinibe de custo intermediário-alto. Affordability intermediária.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Acesso variável."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "hcc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "child_pugh",
+              "operador": "=",
+              "valor": "A"
+            },
+            {
+              "campo": "ecog",
+              "operador": "<=",
+              "valor": 2
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: REFLECT em HCC avançado Child-Pugh A.",
+          "justificativa": "Concorda: REFLECT em HCC avançado Child-Pugh A.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(18)30207-1"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (hepatocarcinoma) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "hcc-2l-sorafenibe-lenvatinibe",
+      "tumor": "hepatocarcinoma",
+      "cenario": "metastatico",
+      "subtipo": "HCC avançado — 2ª linha (TKI, se não usado em 1ª)",
+      "nome": "Sorafenibe ou Lenvatinibe (2ª linha)",
+      "esquema": "Sorafenibe 400 mg 12/12h ou Lenvatinibe 12 mg/8 mg/dia (o TKI não utilizado em 1ª linha), mantendo Child-Pugh A e boa performance",
+      "farmacos": [
+        {
+          "nome": "Sorafenibe ou Lenvatinibe",
+          "dose": "conforme 1ª linha",
+          "via": "VO",
+          "frequencia": "contínuo"
+        }
+      ],
+      "elegibilidade_protocolo": "HCC avançado em 2ª linha, Child-Pugh A mantido, boa performance física (o benefício em 2ª linha depende dessas condições).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "hcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "child_pugh",
+                "A"
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Llovet JM et al. Sorafenib in Advanced Hepatocellular Carcinoma (SHARP). N Engl J Med. 2008. DOI 10.1056/NEJMoa0708857. 2º pivô: REFLECT (lenvatinibe, Kudo 2018).",
+        "doi": "10.1056/NEJMoa0708857",
+        "pmid": null,
+        "estudo": "SHARP / REFLECT",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Atividade em 2ª linha (TKI não usado antes)",
+        "magnitude": "Benefício de TKI mantido em pacientes Child-Pugh A com boa performance",
+        "fonte": "10.1056/NEJMoa0708857"
+      },
+      "toxicidades": [
+        {
+          "nome": "Síndrome mão-pé",
+          "severidade": "moderada",
+          "conduta": "emolientes; ajuste de dose",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Diarreia/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "Uso sequencial de TKI (o não utilizado em 1ª linha) em 2ª linha, condicionado a Child-Pugh A/boa performance. Recomendação para esse subgrupo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0708857"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Uso sequencial; não graduável de forma discreta em 2ª linha.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0708857"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 2,
+          "afirmado_protocolo": null,
+          "justificativa": "Sorafenibe genérico no SUS; lenvatinibe intermediário. Affordability intermediária-alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Sorafenibe no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "hcc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "child_pugh",
+              "operador": "=",
+              "valor": "A"
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: uso sequencial de TKI em 2ª linha.",
+          "justificativa": "Concorda: uso sequencial de TKI em 2ª linha.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0708857"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (hepatocarcinoma) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "regimen_id": "hcc-2l-pembrolizumabe-nao-incorporado",
+      "tumor": "hepatocarcinoma",
+      "cenario": "metastatico",
+      "subtipo": "HCC avançado — 2ª linha, imunoterapia (não incorporado)",
+      "nome": "Pembrolizumabe (NÃO incorporado)",
+      "esquema": "Pembrolizumabe 2ª linha — não inclusão pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "HCC avançado, 2ª linha (protocolo NÃO inclui: KEYNOTE-394 com ganho absoluto pequeno e população restrita à Ásia; força 2/condicional, qualidade B).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "hcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": "B (moderada) / força 2",
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global pequena (população asiática)",
+        "magnitude": "KEYNOTE-394 (Ásia): SG 14,6 vs 13,0 meses; HR 0,79. KEYNOTE-240 (global) foi negativo para SG.",
+        "fonte": "KEYNOTE-394 (Qin, J Clin Oncol 2023;41(7):1434-1444) — DOI não validado nesta rodada"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "2B",
+          "afirmado_protocolo": "B (moderada) / força 2",
+          "justificativa": "Protocolo afirma qualidade B / força 2. Re-derivação: KEYNOTE-394 (fase 3, Ásia) com ganho pequeno; KEYNOTE-240 global negativo → certeza moderada, aplicabilidade reduzida, recomendação condicional. Concorda.",
+          "fonte": "referência não recuperada com DOI validado"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "2-3",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho pequeno de SG em população restrita → MCBS baixo (2-3). Sem afirmação MCBS do protocolo.",
+          "fonte": "referência não recuperada"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Pembrolizumabe de custo alto para benefício pequeno em população não representativa. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto; não incorporado."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "hcc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda com a leitura do protocolo: benefício pequeno e aplicabilidade reduzida (Ásia) sustentam a não inclusão.",
+          "justificativa": "Concorda com a leitura do protocolo: benefício pequeno e aplicabilidade reduzida (Ásia) sustentam a não inclusão.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: benefício pequeno + aplicabilidade Ásia (KEYNOTE-394); KEYNOTE-240 global negativo",
+          "doi_nao_validado: buscar DOI do KEYNOTE-394 (Qin JCO 2023)",
+          "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+        ],
+        "decisao_revisao": "auto_confirmado_pendente_publicacao"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (hepatocarcinoma) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: benefício pequeno + aplicabilidade Ásia (KEYNOTE-394); KEYNOTE-240 global negativo",
+        "doi_nao_validado: buscar DOI do KEYNOTE-394 (Qin JCO 2023)",
+        "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+      ]
+    },
+    {
+      "regimen_id": "hcc-2l-regorafenibe-nao-incorporado",
+      "tumor": "hepatocarcinoma",
+      "cenario": "metastatico",
+      "subtipo": "HCC avançado — 2ª linha, pós-sorafenibe (não incorporado)",
+      "nome": "Regorafenibe (NÃO incorporado)",
+      "esquema": "Regorafenibe 160 mg/dia VO (3 semanas on, 1 off) — não inclusão pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Regorafenibe",
+          "dose": "160 mg",
+          "via": "VO",
+          "frequencia": "3 sem on/1 off"
+        }
+      ],
+      "elegibilidade_protocolo": "HCC avançado em 2ª linha após progressão a sorafenibe (protocolo NÃO inclui: afirma 'magnitude muito modesta, 6,4 vs 5 meses, ESMO MCBS 3, ICER desfavorável').",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "hcc",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_sorafenibe",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": null,
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs placebo (pós-sorafenibe)",
+        "magnitude": "RESORCE: SG 10,6 vs 7,8 meses; HR 0,63 (redução de 37% no risco de morte)",
+        "fonte": "10.1016/S0140-6736(16)32453-9"
+      },
+      "toxicidades": [
+        {
+          "nome": "Síndrome mão-pé",
+          "severidade": "moderada",
+          "conduta": "emolientes; ajuste de dose",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Diarreia/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: TKI"
+        },
+        {
+          "nome": "Hepatotoxicidade",
+          "severidade": "grave",
+          "conduta": "monitorar transaminases",
+          "fonte": "Bula/ficha técnica: Regorafenibe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "RESORCE (fase 3): ganho de SG (HR 0,63) em 2ª linha pós-sorafenibe. Certeza alta.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(16)32453-9"
+        },
+        "esmo_mcbs": {
+          "status": "diverge",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": "3",
+          "justificativa": "DIVERGÊNCIA. Protocolo afirma ESMO-MCBS 3 e 'magnitude muito modesta'. Re-derivação: RESORCE tem HR 0,63 (redução de 37% no risco de morte) com ganho de ~2,8 meses — pela regra ESMO-MCBS v1.1 (não-curativo), HR ≤0,65 eleva o escore, alcançando MCBS 4 (o scorecard oficial ESMO grada regorafenibe HCC 2L como 4). A caracterização de 'benefício não expressivo' subestima a magnitude do efeito (embora o argumento de custo-efetividade/ICER para a não incorporação permaneça válido).",
+          "fonte": "https://doi.org/10.1016/S0140-6736(16)32453-9"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Regorafenibe de custo alto com ICER desfavorável na dose padrão + alta toxicidade. Affordability baixa — este é o argumento sustentável para a não incorporação (não a magnitude do benefício).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto; ICER desfavorável."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "hcc",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "progressao_pos_sorafenibe",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Elegibilidade concorda (RESORCE em 2ª linha pós-sorafenibe). A divergência é de magnitude/MCBS: HR 0,63 justifica MCBS 4, não 3; a não incorporação deve apoiar-se no ICER, não em 'benefício não expressivo'.",
+          "justificativa": "Elegibilidade concorda (RESORCE em 2ª linha pós-sorafenibe). A divergência é de magnitude/MCBS: HR 0,63 justifica MCBS 4, não 3; a não incorporação deve apoiar-se no ICER, não em 'benefício não expressivo'.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "divergencia",
+        "selo_confianca": "divergencia",
+        "eixos_diverge": [
+          "esmo_mcbs"
+        ],
+        "lacunas": [],
+        "flags": [
+          "divergencia_clinica: MCBS 3 e 'benefício não expressivo' afirmados subestimam o RESORCE (HR 0,63 → MCBS 4). Não incorporação melhor sustentada por ICER/custo.",
+          "divergencia:esmo_mcbs",
+          "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+        ],
+        "decisao_revisao": "pendente_oncologista_referencia"
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": null,
+      "revisado_em": null,
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (hepatocarcinoma) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "divergencia_clinica: MCBS 3 e 'benefício não expressivo' afirmados subestimam o RESORCE (HR 0,63 → MCBS 4). Não incorporação melhor sustentada por ICER/custo.",
+        "divergencia:esmo_mcbs",
+        "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
+      ]
+    }
+  ]
+}

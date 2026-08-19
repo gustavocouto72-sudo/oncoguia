@@ -1,0 +1,7 @@
+# PDFs de fontes manuais sao privados (copyright) e locais a sua maquina.
+*.pdf
+# Seu mapa real tambem fica local; o exemplo versiona.
+fontes-manuais.map.json
+!fontes-manuais.map.example.json
+!README.md
+!.gitignore

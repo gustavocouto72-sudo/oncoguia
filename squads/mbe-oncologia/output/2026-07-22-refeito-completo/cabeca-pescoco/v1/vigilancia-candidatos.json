@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "tumor": "cabeca-pescoco",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização verificados no ClinicalTrials.gov (NCT real)."
+  },
+  "candidatos": [
+    {
+      "titulo": "KEYNOTE-689 — pembrolizumabe perioperatório em CEC de cabeça e pescoço ressecável",
+      "identificador": "NCT03765918",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "relevancia": "IO perioperatória pode entrar no manejo curativo.",
+      "acao": "Acompanhar publicação."
+    },
+    {
+      "titulo": "KEYNOTE-048 — pembrolizumabe em 1ª linha de CEC recorrente/metastático",
+      "identificador": "NCT02358031",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "COMPLETED",
+      "relevancia": "Padrão de 1ª linha R/M conforme CPS.",
+      "acao": "Confirmar incorporação."
+    }
+  ]
+}

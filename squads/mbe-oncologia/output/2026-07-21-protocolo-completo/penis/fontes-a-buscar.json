@@ -1,0 +1,62 @@
+{
+ "gerado_em": "2026-07-21",
+ "run": "2026-07-21-protocolo-completo",
+ "tumor": "penis",
+ "total_a_buscar": 6,
+ "itens": [
+  {
+   "regimen_id": "penis-locregional-neoadj-tip",
+   "nome": "TIP neoadjuvante (Paclitaxel + Ifosfamida + Cisplatina)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Pagliaro et al. (TIP neoadjuvante, JCO 2010, fase II) — DOI a validar, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  },
+  {
+   "regimen_id": "penis-adj-tip",
+   "nome": "TIP adjuvante (Paclitaxel + Ifosfamida + Cisplatina)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Séries retrospectivas de QT adjuvante em pênis, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  },
+  {
+   "regimen_id": "penis-met-1l-tip",
+   "nome": "TIP (Paclitaxel + Ifosfamida + Cisplatina) — 1ª linha",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Pagliaro/série fase II TIP metastático, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  },
+  {
+   "regimen_id": "penis-met-1l-5fu-cisplatina",
+   "nome": "5-FU + Cisplatina",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Séries fase II 5-FU/cisplatina em pênis, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  },
+  {
+   "regimen_id": "penis-met-1l-tpf",
+   "nome": "TPF (Docetaxel + Cisplatina + 5-FU)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Série fase II TPF em pênis, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  },
+  {
+   "regimen_id": "penis-met-2l-paclitaxel",
+   "nome": "Paclitaxel (agente único)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "MUNEER A et al. Penile cancer: ESMO–EURACAN Clinical Practice Guideline for diagnosis, treatment and follow-up. ESMO Open. 2024;9(7):103481. (Protocolo cita apenas a diretriz; base primária = Estudo fase II paclitaxel 2ª linha em pênis, não recuperada/validada nesta rodada.)",
+   "doi": "10.1016/j.esmoop.2024.103481",
+   "estudo": "ESMO-EURACAN (Muneer) + série fase II",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  }
+ ]
+}

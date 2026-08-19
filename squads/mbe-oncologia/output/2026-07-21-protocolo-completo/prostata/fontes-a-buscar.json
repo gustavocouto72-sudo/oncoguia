@@ -1,0 +1,35 @@
+{
+ "gerado_em": "2026-07-21",
+ "run": "2026-07-21-protocolo-completo",
+ "tumor": "prostata",
+ "total_a_buscar": 3,
+ "itens": [
+  {
+   "regimen_id": "prostata-variante-agressiva-carbo-taxano",
+   "nome": "Carboplatina + Docetaxel/Paclitaxel",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Estudo-pivô não especificado no protocolo para este esquema (prática/consenso em variantes agressivas).",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  },
+  {
+   "regimen_id": "prostata-variante-agressiva-cisplatina-etoposideo",
+   "nome": "Cisplatina + Etoposídeo",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Estudo-pivô não especificado (extrapolação do carcinoma de pequenas células).",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  },
+  {
+   "regimen_id": "prostata-mcrpc-terapia-ossea-zoledronico",
+   "nome": "Ácido Zoledrônico",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "Estudo-pivô não especificado no protocolo (uso consolidado de agente ósseo em mCRPC ósseo).",
+   "doi": null,
+   "estudo": null,
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  }
+ ]
+}

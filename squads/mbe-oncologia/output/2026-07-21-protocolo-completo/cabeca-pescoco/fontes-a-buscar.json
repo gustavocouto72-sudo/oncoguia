@@ -1,0 +1,26 @@
+{
+ "gerado_em": "2026-07-21",
+ "run": "2026-07-21-protocolo-completo",
+ "tumor": "cabeca-pescoco",
+ "total_a_buscar": 2,
+ "itens": [
+  {
+   "regimen_id": "cp-tireoide-medular-quimio",
+   "nome": "Doxorrubicina / Dacarbazina (medular)",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "ORLANDI F et al. Chemotherapy with dacarbazine and 5-fluorouracil in advanced medullary thyroid cancer. Ann Oncol. 1994;5:763-765. (Séries antigas; sem RCT dedicado.)",
+   "doi": null,
+   "estudo": "Orlandi / Nocer (séries)",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  },
+  {
+   "regimen_id": "cp-tireoide-anaplasico-quimio",
+   "nome": "Doxorrubicina / Paclitaxel / Carbo+Paclitaxel",
+   "motivo": "grade_sem_estudo_pivo",
+   "referencia_citada": "BIBLE KC et al. 2021 American Thyroid Association guidelines for anaplastic thyroid cancer. Thyroid. 2021;31(3):337-386. (Base em séries; extrapolação do CEC de cabeça e pescoço.)",
+   "doi": null,
+   "estudo": "Séries/guidelines (ATA)",
+   "acao": "Localizar/baixar íntegra do estudo-pivô (ou definir a referência quando ausente) e reprocessar via Step 02b (fontes-manuais)."
+  }
+ ]
+}

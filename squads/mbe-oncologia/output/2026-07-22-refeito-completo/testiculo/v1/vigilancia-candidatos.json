@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "tumor": "testiculo",
+    "gerado_em": "2026-07-22",
+    "nota": "Candidatos-atualização: evidência mais recente que o protocolo pode não ter incorporado."
+  },
+  "candidatos": [
+    {
+      "titulo": "TIGER — quimioterapia de dose-padrão (TIP) vs alta-dose + transplante autólogo como 1º resgate",
+      "identificador": "NCT02375204",
+      "fonte": "ClinicalTrials.gov",
+      "status_ensaio": "ACTIVE_NOT_RECRUITING",
+      "regime_afetado": "testiculo-recidiva-tip-veip",
+      "relevancia": "Se favorecer alta-dose, muda a conduta de 1º resgate em TGC recidivado/refratário (hoje TIP/VeIP convencional).",
+      "acao": "Reavaliar o regime de resgate quando os resultados forem publicados; verificado como ensaio real (NCT), resultados ainda não incorporados ao protocolo."
+    }
+  ]
+}
