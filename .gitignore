@@ -1,0 +1,40 @@
+# ---- dependências ----
+node_modules/
+
+# ---- segredos ----
+# Nada de credencial no repositório. O .env.example (versionado) documenta as chaves.
+.env
+*.env
+.env.*
+!.env.example
+
+# ---- sessões de navegador (cookies de login vivos) ----
+_opensquad/_browser_profile/
+.playwright-mcp/
+
+# ---- artefatos de build / cache ----
+dist/
+build/
+.vercel/
+.vercel
+.cache/
+*.tsbuildinfo
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# ---- saídas de teste / logs ----
+test-results/
+playwright-report/
+_opensquad/logs/
+*.log
+
+# ---- uploads em runtime ----
+backend/uploads/
+
+# ---- SO / editor ----
+.DS_Store
+.idea/
+*.swp
