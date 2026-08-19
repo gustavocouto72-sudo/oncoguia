@@ -1041,31 +1041,56 @@
           "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
         },
         "elegibilidade": {
-          "status": "indeterminado",
-          "criterios_inclusao": [],
-          "criterios_exclusao": [],
-          "amplitude": "indeterminado",
-          "divergencia_vs_protocolo": "elegibilidade_protocolo = null. Referência PACS 01 descreve epirrubicina→docetaxel (não AC→docetaxel); mismatch estudo×esquema.",
-          "justificativa": "Protocolo não especifica elegibilidade; regime genérico.",
-          "fonte": "https://doi.org/10.1200/JCO.2006.07.3916"
+          "status": "diverge",
+          "amplitude": "mais_amplo",
+          "criterios_inclusao": [
+            {
+              "campo": "linfonodos_pos",
+              "operador": ">=",
+              "valor": 1
+            },
+            {
+              "campo": "cenario",
+              "operador": "=",
+              "valor": "adjuvancia"
+            },
+            {
+              "campo": "doenca",
+              "operador": "=",
+              "valor": "operável"
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "linfonodo_negativo",
+              "operador": "=",
+              "valor": "excluído do PACS 01"
+            }
+          ],
+          "divergencia_vs_protocolo": "O PACS 01 randomizou 1.999 mulheres com câncer de mama operável e linfonodo POSITIVO — node-negative foi excluído. A regra nova tem dois ramos: n_positivo (bate com o estudo) OU alto_risco_tumoral (>2 cm, grau 2-3, Ki-67 >20% ou invasão linfovascular). O segundo ramo admite paciente LINFONODO-NEGATIVO de alto risco, que o PACS 01 não estudou — é extensão clínica do revisor, não achado da fonte. Vale notar que os estudos que o próprio revisor citou (NSABP B-28, CALGB 9344) também são node-positive, ou seja, não cobrem o ramo N0. Mantém-se ainda o mismatch de esquema: PACS 01 é epirrubicina (FEC→docetaxel), o regime é AC (doxorrubicina)→docetaxel.",
+          "justificativa": "Re-derivado da população do FNCLCC PACS 01 (Roché 2006, J Clin Oncol; PMID 17116941): mama operável node-positive, adjuvante. O ramo de alto risco N0 da regra nova extrapola a fonte.",
+          "fonte": "https://doi.org/10.1200/JCO.2006.07.3916",
+          "rederivado_em": "2026-08-18",
+          "rederivado_por": "step-08:verificador-elegibilidade"
         }
       },
       "consolidacao": {
-        "status": "incompleto",
-        "selo_confianca": "incompleto",
-        "eixos_diverge": [],
-        "lacunas": [
-          "elegibilidade_sem_criterios_computaveis"
+        "status": "divergencia",
+        "selo_confianca": "divergencia",
+        "eixos_diverge": [
+          "elegibilidade"
         ],
+        "lacunas": [],
         "flags": [
           "referencia_estudo_vs_esquema: PACS 01 é regime epirrubicina→docetaxel; o esquema descrito usa AC (doxorrubicina)→docetaxel — confrontar correspondência estudo×esquema",
-          "elegibilidade_sem_criterios_computaveis"
+          "elegibilidade:mais_amplo (indicação potencialmente além da evidência)",
+          "divergencia:elegibilidade"
         ],
         "decisao_revisao": "rederivado_aguarda_revisao",
         "correcao": "Criterios elegibilidade:\n1) Envolvimento linfonodal axilar positivo — evidência mais robusta em pacientes node-positive (NSABP B-28, CALGB 9344). \n\n2) Tumores de alto risco: tamanho tumoral aumentado (normamlemnte maior 2cm), alto grau histológico (G2 e G3), alto índice proliferativo (Ki-67 elevado - maior quem 20), invasão linfovascular.",
         "spec_revisor_resultado": "aplicada"
       },
-      "versao": 2,
+      "versao": 3,
       "atualizado_em": "2026-07-22",
       "revisado_por": null,
       "revisado_em": null,
@@ -1093,11 +1118,18 @@
           "data": "2026-08-18",
           "origem": "step-08:ajustar_elegibilidade",
           "nota": "Spec do revisor traduzida para elegibilidade.regra."
+        },
+        {
+          "versao": 3,
+          "data": "2026-08-18",
+          "origem": "step-08:verificador-elegibilidade",
+          "nota": "Eixo elegibilidade re-confrontado contra o estudo-pivô após a spec do revisor; selo re-avaliado pela regra do Step 07."
         }
       ],
       "flags": [
         "referencia_estudo_vs_esquema: PACS 01 é regime epirrubicina→docetaxel; o esquema descrito usa AC (doxorrubicina)→docetaxel — confrontar correspondência estudo×esquema",
-        "elegibilidade_sem_criterios_computaveis"
+        "elegibilidade:mais_amplo (indicação potencialmente além da evidência)",
+        "divergencia:elegibilidade"
       ],
       "elegibilidade": {
         "criterios": [
@@ -1289,34 +1321,53 @@
           "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
         },
         "elegibilidade": {
-          "status": "indeterminado",
-          "criterios_inclusao": [],
+          "status": "diverge",
+          "amplitude": "mais_amplo",
+          "criterios_inclusao": [
+            {
+              "campo": "subtipo",
+              "operador": "=",
+              "valor": "triplo-negativo"
+            },
+            {
+              "campo": "estadio",
+              "operador": "∈",
+              "valor": "II-III"
+            },
+            {
+              "campo": "cenario",
+              "operador": "=",
+              "valor": "neoadjuvancia"
+            }
+          ],
           "criterios_exclusao": [],
-          "amplitude": "indeterminado",
-          "divergencia_vs_protocolo": "elegibilidade_protocolo = null. Estudo-fonte (CALGB 40603/Sikov) é neoadjuvante em TNBC, mas o regime está listado sob adjuvância HER2 negativo — cenário incongruente.",
-          "justificativa": "Protocolo não especifica elegibilidade e há mismatch de cenário estudo×regime.",
-          "fonte": "https://doi.org/10.1200/jco.2014.57.0572"
+          "divergencia_vs_protocolo": "A spec do revisor RESOLVEU o subtipo: a regra agora exige her2=negativo E rh=negativo (triplo-negativo), que é exatamente a população do CALGB 40603. Restam DUAS divergências. (1) CENÁRIO: o CALGB 40603 é NEOADJUVANTE (paclitaxel semanal ×12 → ddAC ×4, com carboplatina randomizada); a regra fixa cenario=adjuvancia — cenário que o estudo não avaliou. (2) ESTÁDIO: o estudo incluiu EC II-III; a regra não restringe estádio e admite EC I. Nas duas frentes o protocolo admite paciente fora da população estudada (mais_amplo). Observação de esquema: no estudo carboplatina+paclitaxel é parte de uma sequência que inclui ddAC, não um regime isolado.",
+          "justificativa": "Re-derivado da população do CALGB 40603 (Sikov 2015, J Clin Oncol; PMID 25092775): TNBC EC II-III, neoadjuvante, N=443, fase II 2×2. Subtipo passou a bater com a regra nova; cenário e estádio seguem divergindo.",
+          "fonte": "https://doi.org/10.1200/jco.2014.57.0572",
+          "rederivado_em": "2026-08-18",
+          "rederivado_por": "step-08:verificador-elegibilidade"
         }
       },
       "consolidacao": {
-        "status": "incompleto",
-        "selo_confianca": "incompleto",
-        "eixos_diverge": [],
-        "lacunas": [
-          "elegibilidade_sem_criterios_computaveis"
+        "status": "divergencia",
+        "selo_confianca": "divergencia",
+        "eixos_diverge": [
+          "elegibilidade"
         ],
+        "lacunas": [],
         "flags": [
           "cenario_referencia: estudo-fonte (Sikov/CALGB 40603) é neoadjuvante em TNBC; regime listado sob adjuvância HER2 negativo — confrontar cenário",
-          "elegibilidade_sem_criterios_computaveis",
           "doi_reparado: 10.1001/jama.2014.13346 (404) → 10.1200/jco.2014.57.0572 (200), via Crossref por nome (CALGB 40603, Sikov 2015; score 1.1878 vs 2º 0.6962)",
-          "elegibilidade_spec_parcial: parte da spec não virou regra crisp"
+          "elegibilidade:mais_amplo (indicação potencialmente além da evidência)",
+          "divergencia:elegibilidade",
+          "citacao_inconsistente_com_doi: texto da citação diz \"JAMA 2015;312(9):915-926\", mas o DOI/PMID resolvem para J Clin Oncol 2015 (Sikov, CALGB 40603) — corrigir via acao corrigir_referencia"
         ],
         "decisao_revisao": "rederivado_aguarda_revisao",
         "correcao": "Carboplatina + paclitaxel adjuvante é usado especificamente no contexto do câncer de mama triplo-negativo (TNBC), um subtipo dentro do grupo HER2-negativo — não é regime padrão para HER2-negativo/HR-positivo. A evidência de benefício em sobrevida vem predominantemente de estudos em TNBC de alto risco (estádio II-III), sendo menos estabelecida ou não indicada para doença luminal HER2-negativa.",
         "spec_revisor_resultado": "aplicada",
         "spec_revisor_nao_computavel": "\"TNBC de alto risco (estádio II-III)\": a parte TNBC virou regra (her2=negativo + rh=negativo). \"Estádio II-III\" NÃO virou regra — mama não tem primitivo de estádio agrupado, e derivá-lo de T/N exigiria o mapa canônico de estadiamento; forçar T≥T2 excluiria T1N1 (IIA), que é EC II. Fica como ressalva."
       },
-      "versao": 2,
+      "versao": 3,
       "atualizado_em": "2026-07-22",
       "revisado_por": null,
       "revisado_em": null,
@@ -1344,13 +1395,20 @@
           "data": "2026-08-18",
           "origem": "step-08:ajustar_elegibilidade",
           "nota": "Spec do revisor traduzida para elegibilidade.regra."
+        },
+        {
+          "versao": 3,
+          "data": "2026-08-18",
+          "origem": "step-08:verificador-elegibilidade",
+          "nota": "Eixo elegibilidade re-confrontado contra o estudo-pivô após a spec do revisor; selo re-avaliado pela regra do Step 07."
         }
       ],
       "flags": [
         "cenario_referencia: estudo-fonte (Sikov/CALGB 40603) é neoadjuvante em TNBC; regime listado sob adjuvância HER2 negativo — confrontar cenário",
-        "elegibilidade_sem_criterios_computaveis",
         "doi_reparado: 10.1001/jama.2014.13346 (404) → 10.1200/jco.2014.57.0572 (200), via Crossref por nome (CALGB 40603, Sikov 2015; score 1.1878 vs 2º 0.6962)",
-        "elegibilidade_spec_parcial: parte da spec não virou regra crisp"
+        "elegibilidade:mais_amplo (indicação potencialmente além da evidência)",
+        "divergencia:elegibilidade",
+        "citacao_inconsistente_com_doi: texto da citação diz \"JAMA 2015;312(9):915-926\", mas o DOI/PMID resolvem para J Clin Oncol 2015 (Sikov, CALGB 40603) — corrigir via acao corrigir_referencia"
       ],
       "elegibilidade": {
         "criterios": [],
@@ -2595,7 +2653,8 @@
           "fonte": "PCDT Câncer de Mama (MS, nov/2024) / estimativa qualitativa"
         },
         "elegibilidade": {
-          "status": "diverge",
+          "status": "concorda",
+          "amplitude": "equivalente",
           "criterios_inclusao": [
             {
               "campo": "her2",
@@ -2603,42 +2662,45 @@
               "valor": "positivo"
             },
             {
-              "campo": "terapia_neoadjuvante_com_taxano_e_trastuzumabe",
+              "campo": "doenca_residual_invasiva_pos_neoadjuvante",
               "operador": "=",
               "valor": true
             },
             {
-              "campo": "doenca_residual_invasiva_pos_cirurgia",
+              "campo": "cenario",
               "operador": "=",
-              "valor": true
+              "valor": "adjuvancia"
             }
           ],
           "criterios_exclusao": [
             {
-              "campo": "tstage_node_muito_baixo",
-              "operador": "=",
-              "valor": "T1aN0 e T1bN0 excluídos no estudo"
+              "campo": "t_n",
+              "operador": "∈",
+              "valor": "T1aN0 e T1bN0 (excluídos no estudo)"
             }
           ],
-          "amplitude": "mais_amplo",
-          "divergencia_vs_protocolo": "Divergência MENOR: o KATHERINE excluiu explicitamente T1aN0 e T1bN0 (T1-4, N0-3, exceto T1aN0/T1bN0) e exigia >=6 ciclos de neoadjuvante com >=9 semanas de taxano + >=9 semanas de trastuzumabe. O protocolo não reproduz a exclusão de T1a/T1bN0 — em tese permite tumores mínimos que o estudo não incluiu. Impacto clínico baixo, mas é um afrouxamento pontual (mais_amplo).",
-          "justificativa": "Critérios re-derivados de eligibility do KATHERINE (von Minckwitz 2019): HER2+, residual invasiva pós taxano+trastuzumabe neoadjuvante, exceto T1aN0/T1bN0.",
-          "fonte": "https://doi.org/10.1056/NEJMoa1814017"
+          "divergencia_vs_protocolo": "RESOLVIDA. A divergência anterior era exatamente a ausência da exclusão de T1a/T1bN0; a spec do revisor a codificou em regra (not(t∈[T1a,T1b] and n=N0)). A regra passa a reproduzir a população do KATHERINE: HER2+ com doença residual invasiva em mama e/ou axila após neoadjuvância, exceto T1aN0/T1bN0. RESSALVA (lacuna, não divergência): o estudo exigiu que a neoadjuvância contivesse TAXANO + TRASTUZUMABE (≥9 semanas de cada); a regra não força esse conteúdo porque mama não tem primitivo de terapia neoadjuvante recebida — e o texto do protocolo também não o afirma, então não há o que confrontar nesse ponto.",
+          "justificativa": "Re-derivado da população do KATHERINE (von Minckwitz 2019, NEJM; PMID 30516102): HER2+ com doença residual invasiva pós-neoadjuvância com taxano ± antraciclina + trastuzumabe, exceto T1aN0/T1bN0. A regra nova confere com os critérios que o protocolo afirma.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1814017",
+          "rederivado_em": "2026-08-18",
+          "rederivado_por": "step-08:verificador-elegibilidade"
         }
       },
       "consolidacao": {
-        "status": "divergencia",
-        "selo_confianca": "divergencia",
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
         "eixos_diverge": [],
-        "lacunas": [],
+        "lacunas": [
+          "elegibilidade_taxano_trastuzumabe_previos_nao_computaveis"
+        ],
         "flags": [
-          "elegibilidade:mais_amplo (indicação potencialmente além da evidência)"
+          "elegibilidade_lacuna: exigência de taxano+trastuzumabe neoadjuvantes do KATHERINE não é computável (sem primitivo)"
         ],
         "decisao_revisao": "rederivado_aguarda_revisao",
         "correcao": "O KATHERINE de fato excluiu tumores T1a/T1bN0 do desenho original, pois esses casos, geralmente não são submetidos a terapia neoadjuvante (T1N0 pequeno é candidato preferencial a cirurgia primária) para depois fazer adjuvancia. Como consequência, não existe população relevante de T1a/T1bN0 com \"doença residual pós-neoadjuvante\" dentro do próprio ensaio. \nENTÃO, Na prática não incluir T1a/T1bN0 (≤1 cm, linfonodo negativo). A via preferencial é cirurgia primária, não neoadjuvância — nesse cenário, o padrão adjuvante de baixo risco é paclitaxel semanal + trastuzumab por 1 ano",
         "spec_revisor_resultado": "aplicada"
       },
-      "versao": 2,
+      "versao": 3,
       "atualizado_em": "2026-07-22",
       "revisado_por": null,
       "revisado_em": null,
@@ -2657,10 +2719,16 @@
           "data": "2026-08-18",
           "origem": "step-08:ajustar_elegibilidade",
           "nota": "Spec do revisor traduzida para elegibilidade.regra."
+        },
+        {
+          "versao": 3,
+          "data": "2026-08-18",
+          "origem": "step-08:verificador-elegibilidade",
+          "nota": "Eixo elegibilidade re-confrontado contra o estudo-pivô após a spec do revisor; selo re-avaliado pela regra do Step 07."
         }
       ],
       "flags": [
-        "elegibilidade:mais_amplo (indicação potencialmente além da evidência)"
+        "elegibilidade_lacuna: exigência de taxano+trastuzumabe neoadjuvantes do KATHERINE não é computável (sem primitivo)"
       ],
       "elegibilidade": {
         "criterios": [
@@ -3855,7 +3923,8 @@
           "elegibilidade:mais_amplo (indicação potencialmente além da evidência)"
         ],
         "decisao_revisao": "rederivado_aguarda_revisao",
-        "correcao": "Referencia errada e antiga: Usar essa referencia: DOI: 10.1016/S1470-2045(18)30570-9\nNa prática, \"AC-TH\" (doxorrubicina/ciclofosfamida seguido de paclitaxel + trastuzumabe) é um esquema clássico e validado na neoadjuvância de câncer de mama HER2-positivo, embora hoje a preferência seja pelo bloqueio duplo (com pertuzumabe) e, cada vez mais, por esquemas sem antraciclina (doxorrubicina)."
+        "correcao": "Referencia errada e antiga: Usar essa referencia: DOI: 10.1016/S1470-2045(18)30570-9\nNa prática, \"AC-TH\" (doxorrubicina/ciclofosfamida seguido de paclitaxel + trastuzumabe) é um esquema clássico e validado na neoadjuvância de câncer de mama HER2-positivo, embora hoje a preferência seja pelo bloqueio duplo (com pertuzumabe) e, cada vez mais, por esquemas sem antraciclina (doxorrubicina).",
+        "nota_revisao": "troca de referência solicitada pelo revisor rebaixou GRADE (2C→C, TRAIN-2 sem desfecho de sobrevida e sem braço de bloqueio simples); referencia_anterior preservada; considerar dupla citação (pivos[]) na re-revisão."
       },
       "versao": 2,
       "atualizado_em": "2026-07-22",
@@ -4131,7 +4200,8 @@
           "elegibilidade:mais_amplo (indicação potencialmente além da evidência)"
         ],
         "decisao_revisao": "rederivado_aguarda_revisao",
-        "correcao": "MESMA JUSTIFICATIVA DO ACTH > Referencia errada e antiga: Usar essa referencia: DOI: 10.1016/S1470-2045(18)30570-9\n\nNa prática, \"TCH\" é um esquema clássico e validado na neoadjuvância de câncer de mama HER2-positivo, por esquemas sem antraciclina (doxorrubicina)."
+        "correcao": "MESMA JUSTIFICATIVA DO ACTH > Referencia errada e antiga: Usar essa referencia: DOI: 10.1016/S1470-2045(18)30570-9\n\nNa prática, \"TCH\" é um esquema clássico e validado na neoadjuvância de câncer de mama HER2-positivo, por esquemas sem antraciclina (doxorrubicina).",
+        "nota_revisao": "troca de referência solicitada pelo revisor rebaixou GRADE (1B→C, TRAIN-2 sem desfecho de sobrevida e sem braço de bloqueio simples); referencia_anterior preservada; considerar dupla citação (pivos[]) na re-revisão."
       },
       "versao": 2,
       "atualizado_em": "2026-07-22",
@@ -5709,32 +5779,57 @@
           "fonte": "NCCN Evidence Blocks / PCDT Câncer de Mama / estimativa qualitativa"
         },
         "elegibilidade": {
-          "status": "indeterminado",
-          "criterios_inclusao": [],
-          "criterios_exclusao": [],
+          "status": "re_derivado",
           "amplitude": "indeterminado",
-          "divergencia_vs_protocolo": "A referência primária é a meta-análise EBCTCG de dose-intensidade (37.298 mulheres, 26 trials) — não fornece critérios de elegibilidade computáveis de um estudo-pivô único. Elegibilidade do protocolo ('>= T1c') é genérica.",
-          "justificativa": "Fonte é meta-análise de dados agregados; sem estudo-pivô único com critérios extraíveis. BrighTNess (secundária) não é a base do esquema ACdd-CT.",
-          "fonte": "https://doi.org/10.1016/S0140-6736(18)33137-4"
+          "criterios_inclusao": [
+            {
+              "campo": "cenario",
+              "operador": "=",
+              "valor": "neoadjuvancia"
+            },
+            {
+              "campo": "subtipo",
+              "operador": "=",
+              "valor": "triplo-negativo"
+            },
+            {
+              "campo": "t",
+              "operador": ">=",
+              "valor": "T1c"
+            },
+            {
+              "campo": "ecog",
+              "operador": "<=",
+              "valor": 1
+            },
+            {
+              "campo": "feve",
+              "operador": ">=",
+              "valor": 50
+            }
+          ],
+          "criterios_exclusao": [],
+          "divergencia_vs_protocolo": "Sem confronto possível — não há divergência a declarar nem concordância a atestar. A referência-pivô é a meta-análise de dose-intensidade do EBCTCG (26 ensaios, 37.298 mulheres): dado agregado, sem população discreta de um ensaio único contra a qual confrontar a regra. Os critérios que a regra ganhou (ECOG 0-1, FEVE ≥50%) vêm da spec do revisor, EXPLICITAMENTE extrapolada por ele do CALGB 9741 — não da fonte citada. Enquanto o pivô for a meta-análise, este eixo não pode subir a concorda.",
+          "justificativa": "Re-derivado a partir da spec do revisor (extrapolada do CALGB 9741) sobre fonte agregada (EBCTCG Gray 2019, Lancet; PMID 30739743). Critérios agora computáveis; amplitude indeterminada por ausência de população discreta no pivô.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(18)33137-4",
+          "rederivado_em": "2026-08-18",
+          "rederivado_por": "step-08:verificador-elegibilidade"
         }
       },
       "consolidacao": {
-        "status": "incompleto",
-        "selo_confianca": "incompleto",
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
         "eixos_diverge": [],
-        "lacunas": [
-          "elegibilidade_sem_criterios_computaveis"
-        ],
+        "lacunas": [],
         "flags": [
-          "elegibilidade_sem_criterios_computaveis",
-          "elegibilidade_spec_parcial: parte da spec não virou regra crisp"
+          "fonte_meta_analise: pivô é meta-análise agregada (EBCTCG) — sem população discreta; elegibilidade nunca concorda"
         ],
         "decisao_revisao": "rederivado_aguarda_revisao",
         "correcao": "Elegibilidade - extrapolada do CALGB 9741: \n1) Estádio: doença invasiva, historicamente linfonodo-positivo (CALGB 9741); em TNBC neoadjuvante, geralmente estádio II-III, mesma população elegível ao KEYNOTE-522.\n2) Status funcional/órgãos: ECOG 0-1, função de medula óssea, hepática e renal adequadas, FEVE preservada dado uso de antraciclina.\n3) Suporte obrigatório com fator de crescimento (G-CSF/filgrastim): essencial no esquema dose-denso pelo maior risco de neutropenia, conforme protocolo original do CALGB 9741",
         "spec_revisor_resultado": "aplicada",
         "spec_revisor_nao_computavel": "Viraram regra: ECOG 0-1 e FEVE preservada (≥50%, limiar já usado no corpus). NÃO viraram regra: \"função de medula óssea, hepática e renal adequadas\" (mama não tem primitivos de hemograma/função hepática; só clcr existe, e a spec não dá corte), \"suporte obrigatório com G-CSF\" (é requisito de administração, não critério do paciente) e \"estádio II-III\" (mesmo motivo do carbo-paclitaxel)."
       },
-      "versao": 2,
+      "versao": 3,
       "atualizado_em": "2026-07-22",
       "revisado_por": null,
       "revisado_em": null,
@@ -5762,11 +5857,16 @@
           "data": "2026-08-18",
           "origem": "step-08:ajustar_elegibilidade",
           "nota": "Spec do revisor traduzida para elegibilidade.regra."
+        },
+        {
+          "versao": 3,
+          "data": "2026-08-18",
+          "origem": "step-08:verificador-elegibilidade",
+          "nota": "Eixo elegibilidade re-confrontado contra o estudo-pivô após a spec do revisor; selo re-avaliado pela regra do Step 07."
         }
       ],
       "flags": [
-        "elegibilidade_sem_criterios_computaveis",
-        "elegibilidade_spec_parcial: parte da spec não virou regra crisp"
+        "fonte_meta_analise: pivô é meta-análise agregada (EBCTCG) — sem população discreta; elegibilidade nunca concorda"
       ],
       "elegibilidade": {
         "criterios": [
@@ -10344,7 +10444,8 @@
           "fonte": "ANVISA (registro 2022) / CONITEC (não incorporado) / estudo TROPiCS-02 / estimativa qualitativa"
         },
         "elegibilidade": {
-          "status": "diverge",
+          "status": "re_derivado",
+          "amplitude": "mais_estreito",
           "criterios_inclusao": [
             {
               "campo": "rh",
@@ -10362,50 +10463,43 @@
               "valor": "2 a 4"
             },
             {
-              "campo": "endocrino_previo",
+              "campo": "exposicao_previa_endocrino",
               "operador": "=",
               "valor": true
             },
             {
-              "campo": "taxano_previo",
+              "campo": "exposicao_previa_taxano",
               "operador": "=",
               "valor": true
             },
             {
-              "campo": "icdk46_previo",
+              "campo": "exposicao_previa_icdk46",
               "operador": "=",
               "valor": true
             }
           ],
-          "criterios_exclusao": [
-            {
-              "campo": "tdxd_previo",
-              "operador": "=",
-              "valor": "protocolo adiciona (não é critério do TROPiCS-02)"
-            }
-          ],
-          "amplitude": "mais_amplo",
-          "divergencia_vs_protocolo": "DIVERGÊNCIA. O TROPiCS-02 EXIGIU 2-4 linhas de QT no metastático E terapia prévia com endócrina, taxano E iCDK4/6. O protocolo confronta apenas '2 a 4 linhas de QT prévia' e 'sem exposição prévia a TDXd' — OMITE a exigência de iCDK4/6/endócrina/taxano prévios. Assim, o protocolo permite paciente sem iCDK4/6 prévio que o TROPiCS-02 excluiria (mais_amplo). Nota: o protocolo também acrescenta restrição de sequência (sem TDXd prévio) que é mais estreita nesse ponto isolado.",
-          "justificativa": "Critérios re-derivados de eligibility do TROPiCS-02 (Rugo/Lancet 2023): 2-4 linhas de QT metastática + endócrina + taxano + iCDK4/6 prévios.",
-          "fonte": "https://doi.org/10.2217/fon-2020-0163"
+          "criterios_exclusao": [],
+          "divergencia_vs_protocolo": "RESOLVIDA no ponto que importava. A divergência anterior era o protocolo omitir a exigência de iCDK4/6 + endócrina + taxano prévios, admitindo paciente que o TROPiCS-02 excluiria (mais_amplo, direção insegura); a spec do revisor codificou os três em regra. O que resta é o protocolo ser MAIS ESTREITO que o estudo num ponto: acrescenta \"sem exposição prévia a T-DXd\", que não é critério do TROPiCS-02 — restrição de sequência do serviço, direção segura. Não sobe a concorda por dois motivos: a restrição extra não tem contrapartida na fonte, e o DOI-pivô registrado é o artigo de DESENHO do estudo (Future Oncol 2020), não a publicação de resultados com a tabela de elegibilidade.",
+          "justificativa": "Re-derivado dos critérios do TROPiCS-02 (HR+/HER2- metastático, 2-4 linhas de QT no metastático, endócrina + taxano + iCDK4/6 prévios). Regra nova cobre todos; protocolo adiciona exclusão de T-DXd prévio.",
+          "fonte": "https://doi.org/10.2217/fon-2020-0163",
+          "rederivado_em": "2026-08-18",
+          "rederivado_por": "step-08:verificador-elegibilidade"
         }
       },
       "consolidacao": {
-        "status": "divergencia",
-        "selo_confianca": "divergencia",
-        "eixos_diverge": [
-          "elegibilidade"
-        ],
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
         "lacunas": [],
         "flags": [
-          "divergencia:elegibilidade",
-          "elegibilidade:mais_amplo (indicação potencialmente além da evidência)"
+          "elegibilidade:mais_estreito (protocolo restringe além do estudo)",
+          "doi_pivo_e_artigo_de_desenho: TROPiCS-02 citado pelo protocolo de desenho (Future Oncol 2020), não pela publicação de resultados"
         ],
         "decisao_revisao": "rederivado_aguarda_revisao",
         "correcao": "colocar exigência de iCDK4/6/endócrina/taxano prévios, tornando o protocolo menos amplo igual o estudo",
         "spec_revisor_resultado": "aplicada"
       },
-      "versao": 2,
+      "versao": 3,
       "atualizado_em": "2026-07-22",
       "revisado_por": null,
       "revisado_em": null,
@@ -10424,11 +10518,17 @@
           "data": "2026-08-18",
           "origem": "step-08:ajustar_elegibilidade",
           "nota": "Spec do revisor traduzida para elegibilidade.regra."
+        },
+        {
+          "versao": 3,
+          "data": "2026-08-18",
+          "origem": "step-08:verificador-elegibilidade",
+          "nota": "Eixo elegibilidade re-confrontado contra o estudo-pivô após a spec do revisor; selo re-avaliado pela regra do Step 07."
         }
       ],
       "flags": [
-        "divergencia:elegibilidade",
-        "elegibilidade:mais_amplo (indicação potencialmente além da evidência)"
+        "elegibilidade:mais_estreito (protocolo restringe além do estudo)",
+        "doi_pivo_e_artigo_de_desenho: TROPiCS-02 citado pelo protocolo de desenho (Future Oncol 2020), não pela publicação de resultados"
       ],
       "elegibilidade": {
         "criterios": [
