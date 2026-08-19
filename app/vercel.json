@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "echo 'Deploy estático: serve data.js já commitado (gerado por build-data.py no dev). NÃO regenerar na Vercel — a pasta squads/ não vai no deploy.'",
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "framework": null
+}

@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OncoGuia — Mesa de Revisão</title>
+<style>
+  :root{
+    --navy:#1F3A5F;--accent:#2E6E8E;--ink:#1c2733;--muted:#6b7a88;--line:#e3e9ef;--bg:#f4f7fa;--card:#fff;
+    --green:#1f9d63;--greenbg:#e7f6ee;--amber:#c98a12;--amberbg:#fdf3df;--red:#c0392b;--redbg:#fbecea;
+    --purple:#6b3fa0;--purplebg:#f3eefb;--blue:#1c5e88;--bluebg:#e4f0fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5}
+  header.top{background:var(--navy);color:#fff;padding:12px 22px;display:flex;align-items:center;justify-content:space-between}
+  header.top .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+  header.top .brand .logo{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#4aa3c4,#2E6E8E);display:flex;align-items:center;justify-content:center;font-size:15px}
+  header.top .demo{font-size:11px;background:#ffffff22;border:1px solid #ffffff44;padding:3px 9px;border-radius:20px;font-weight:600}
+  .wrap{max-width:1080px;margin:0 auto;padding:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+  h2{margin:0 0 4px;font-size:18px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+  .hint{font-size:11px;color:var(--muted);margin-top:4px}
+  code{background:#eef2f7;padding:1px 6px;border-radius:5px;font-size:12px}
+  label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+  .btn{padding:10px 16px;border-radius:9px;border:none;font-weight:700;font-size:13px;cursor:pointer}
+  .btn.primary{background:var(--accent);color:#fff}
+  .btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+  .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-right:6px;white-space:nowrap}
+  .b-grade{background:#e7f6ee;color:#137a49}
+  .b-mcbs{background:#e4f0fa;color:#1c5e88}
+  .b-mcbs.na{background:#eef1f4;color:#6b7a88}
+  .b-seal{background:#eef1f4;color:#5a6b7a}
+  .b-seal.divergencia{background:#fdf3df;color:#9a6a08}
+  .b-seal.incompleto{background:#fbecea;color:#a5281b}
+  .disclaimer{background:#fff8e8;border:1px solid #f0e0b0;color:#7a5c12;font-size:11.5px;border-radius:10px;padding:10px 13px;margin-bottom:16px}
+  .empty{color:var(--muted);text-align:center;padding:26px;font-size:13px}
+  /* barra do revisor + export (sticky) */
+  .rev-bar{position:sticky;top:0;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .rev-bar .who{display:flex;align-items:center;gap:8px}
+  .rev-bar .who input{width:220px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px}
+  .rev-bar .count{font-size:12px;color:var(--muted);font-weight:600}
+  .rev-run{font-size:11px;color:var(--muted)}
+  /* barra de filtros (tumor + tipo) — só apresentação, não altera a classificação */
+  .filterbar{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:16px;background:var(--card)}
+  .filterbar .frow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px}
+  .filterbar .frow:last-child{margin-bottom:0}
+  .filterbar .flabel{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-right:4px;min-width:78px}
+  .chip{font-size:12px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:20px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;line-height:1;transition:background .12s,border-color .12s}
+  .chip:hover{border-color:#c3d0dc}
+  .chip .c{font-size:10px;font-weight:800;background:#eef2f7;color:#41607a;border-radius:20px;padding:1px 7px}
+  .chip.on{background:var(--bluebg);border-color:#cfe2f0;color:var(--blue)}
+  .chip.on .c{background:#fff;color:var(--blue)}
+  .chip.tipo-div.on{background:var(--redbg);border-color:#f0c3bd;color:var(--red)}
+  .chip.tipo-div.on .c{background:#fff;color:var(--red)}
+  .chip.tipo-inc.on{background:var(--amberbg);border-color:#f0dca6;color:#9a6a08}
+  .chip.tipo-inc.on .c{background:#fff;color:#9a6a08}
+  .chip.tipo-inov.on{background:var(--purplebg);border-color:#e2d5f2;color:var(--purple)}
+  .chip.tipo-inov.on .c{background:#fff;color:var(--purple)}
+  .chip.zero{opacity:.45}
+  .chip .hint{font-weight:600;opacity:.75;font-size:11px}
+  .filterbar .clear{margin-left:auto;font-size:11px;font-weight:700;color:var(--accent);background:none;border:none;cursor:pointer;padding:5px 4px}
+  .filterbar .clear[disabled]{color:var(--muted);opacity:.5;cursor:default}
+  .filterbar .visible{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:2px}
+  /* abas das duas filas */
+  nav.queues{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+  nav.queues a{padding:9px 16px;border-radius:9px 9px 0 0;font-weight:700;font-size:13px;cursor:pointer;color:var(--muted);border:1px solid transparent;border-bottom:none;background:#eef2f7;display:flex;align-items:center;gap:8px}
+  nav.queues a.on{background:var(--card);color:var(--navy);border-color:var(--line)}
+  nav.queues a .qc{font-size:11px;font-weight:800;border-radius:20px;padding:1px 9px}
+  nav.queues a.clin .qc{background:var(--redbg);color:var(--red)}
+  nav.queues a.cur .qc{background:var(--amberbg);color:var(--amber)}
+  .queue-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+  .queue-head h3{margin:0;font-size:16px}
+  .queue-head .big{font-size:15px;font-weight:800}
+  .queue-sub{font-size:12px;color:var(--muted);margin-bottom:14px}
+  .panel{display:none}
+  .panel.active{display:block}
+  .group-t{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--accent);margin:18px 0 8px;border-top:1px solid var(--line);padding-top:12px}
+  .group-t .cnt{font-size:11px;font-weight:700;color:var(--muted);background:#eef2f7;border-radius:20px;padding:1px 8px;margin-left:6px;-webkit-text-fill-color:initial}
+  /* cartão de pendência */
+  .pend{border:1px solid var(--line);border-left:4px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px;background:#fff}
+  .pend.div{border-left-color:var(--red)}
+  .pend.inc{border-left-color:var(--amber)}
+  .pend.upd-forte{border-left-color:var(--red)}
+  .pend.upd-fraco{border-left-color:var(--amber)}
+  .pend .p1{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .pend .pn{font-weight:700;font-size:14px}
+  .pend .pmeta{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .eixo{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:3px 8px;border-radius:20px;background:#eef2f7;color:#41607a;white-space:nowrap}
+  .forca{font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px}
+  .forca.forte{background:#e7f6ee;color:#137a49}
+  .forca.fraco{background:#fdf3df;color:#9a6a08}
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+  .vs .box{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fafcfe}
+  .vs .k{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700;margin-bottom:3px}
+  .vs .val{font-size:13px;font-weight:600}
+  .vs .box.reder{background:#f3f8fc;border-color:#cfe2f0}
+  .just{font-size:12px;color:var(--ink);margin:8px 0;line-height:1.55}
+  .pend .fonte{font-size:11px;color:var(--muted);margin-top:4px}
+  .pend .fonte a{color:var(--accent)}
+  .sublbls{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+  .sublbl{font-size:11px;font-weight:700;border-radius:20px;padding:3px 10px;border:1px solid transparent}
+  .sublbl.fonte{background:var(--bluebg);color:var(--blue);border-color:#cfe2f0}
+  .sublbl.criterio{background:var(--purplebg);color:var(--purple);border-color:#e2d5f2}
+  .sublbl small{font-weight:600;opacity:.85}
+  /* ações */
+  .acoes{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+  .acoes .pl{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700;margin-right:2px}
+  .acoes button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer}
+  .acoes button.on.aceitar{background:var(--greenbg);color:#137a49;border-color:#bfe6cf}
+  .acoes button.on.manter{background:#eef2f7;color:#41607a;border-color:#cdd8e2}
+  .acoes button.on.escalar{background:var(--amberbg);color:#9a6a08;border-color:#f0dca6}
+  .acoes button.on.reprocessar_fonte{background:var(--bluebg);color:var(--blue);border-color:#cfe2f0}
+  .acoes button.on.estruturar_criterio{background:var(--purplebg);color:var(--purple);border-color:#e2d5f2}
+  .acoes button.on.adiar{background:#eef2f7;color:#41607a;border-color:#cdd8e2}
+  .cmt{width:100%;margin-top:10px;padding:8px 9px;border:1px solid var(--line);border-radius:8px;font-size:12.5px;font-family:inherit;resize:vertical;min-height:38px}
+  /* bloco "Fonte a buscar" (lista de aquisição do pivô, dentro do cartão de incompleto) */
+  .fab{margin:10px 0 2px;border:1px solid #cfe2f0;background:#f2f8fc;border-radius:10px;padding:11px 13px}
+  .fab .fab-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:7px}
+  .fab .fab-t{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--blue)}
+  .fab .caso{font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px}
+  .fab .caso.a{background:#e4f0fa;color:#1c5e88}
+  .fab .caso.b{background:#f3eefb;color:#6b3fa0}
+  .fab .caso.def{background:#fbecea;color:#a5281b}
+  .fab .ref{font-size:12px;color:var(--ink);margin:5px 0;padding-left:10px;border-left:2px solid #cfe2f0;line-height:1.5}
+  .fab .ref .rmeta{font-size:11px;color:var(--muted);margin-top:2px}
+  .fab .ref .rmeta a{color:var(--accent)}
+  .fab .ref .doi{background:#e7eef5;padding:1px 6px;border-radius:5px;font-size:11px}
+  .fab .aconf{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;color:#9a6a08;background:var(--amberbg);border-radius:20px;padding:1px 7px;margin-left:4px}
+  .fab .conf{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;color:#137a49;background:var(--greenbg);border-radius:20px;padding:1px 7px;margin-left:4px}
+  .fab .acao{font-size:12px;margin-top:7px}
+  .fab .acao b{color:var(--blue)}
+  .fab .why{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+  .fab .intake{margin-top:9px;padding:8px 10px;background:#fff;border:1px dashed #bcd3e4;border-radius:8px;font-size:11.5px;color:var(--ink);line-height:1.55}
+  .fab .intake b{color:var(--blue)}
+  .datasrc{font-size:11px;padding:6px 12px;border-radius:8px;margin-bottom:16px;font-weight:600}
+  .datasrc.ok{background:var(--greenbg);color:#137a49;border:1px solid #bfe6cf}
+  .datasrc.err{background:var(--redbg);color:#a5281b;border:1px solid #f0c3bd}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">✚</span> OncoGuia <span style="font-weight:400;opacity:.7;font-size:12px">· Mesa de Revisão</span></div>
+  <span class="demo">PROTÓTIPO — dados fictícios</span>
+</header>
+
+<div class="wrap">
+  <div id="datasrc"></div>
+  <div id="app"><div class="card"><div class="empty">Carregando pendências do último run…</div></div></div>
+</div>
+
+<script src="config.js"></script>
+<script src="revisao-data.js" onerror="window.__NO_REVISAO=true"></script>
+<script>
+// ============================================================================
+// OncoGuia — Mesa de Revisão (página standalone: app/revisao.html)
+// Reusa a lógica existente (parecer, comentário, export de revisao-decisoes.json)
+// e reorganiza as pendências em DUAS FILAS classificadas automaticamente a partir
+// de campos que já existem no JSON — sem criar categorias novas:
+//   1) Revisão clínica (agora): selo `divergencia` (🔴)  +  candidatos forca `forte`.
+//   2) Curadoria / 2º momento : selo `incompleto`  (🟡)  +  candidatos forca `fraco`.
+// Read-only sobre a saída do squad; decisões só na memória e exportadas (download).
+// ============================================================================
+
+// ---- backend (auth JWT + persistência dos pareceres) ----
+// O token é o mesmo da app principal (login em index.html). Pareceres vão para o
+// banco via POST /revisao/decisoes (perfil revisor); o squad lê GET /revisao/export.
+const API_BASE = window.ONCOGUIA_API_BASE || localStorage.getItem("oncoguia_api") || "http://localhost:3001/api";
+let TOKEN = localStorage.getItem("oncoguia_token") || null;
+let USUARIO = null; try{ USUARIO = JSON.parse(localStorage.getItem("oncoguia_usuario")||"null"); }catch(_){}
+async function api(path, opts={}){
+  const headers = Object.assign({"Content-Type":"application/json"}, opts.headers||{});
+  if(TOKEN) headers["Authorization"] = "Bearer "+TOKEN;
+  let r;
+  try{ r = await fetch(API_BASE+path, Object.assign({}, opts, {headers})); }
+  catch(e){ throw new Error("Backend inacessível em "+API_BASE+" — suba a API: cd backend && npm run start:dev"); }
+  if(r.status===401){ throw new Error("Sessão ausente/expirada — faça login em index.html e volte."); }
+  if(!r.ok){
+    let msg = "Erro "+r.status;
+    try{ const j = await r.json(); msg = Array.isArray(j.message)? j.message.join("; ") : (j.message||msg); }catch(_){}
+    throw new Error(msg);
+  }
+  return r.status===204 ? null : r.json();
+}
+
+// ---- estado (decisões pendentes de envio) ----
+let REV_DECISOES = {};   // pendencia_id -> {acao, comentario}
+let REV_INDEX = {};      // pendencia_id -> contexto (para o envio ao backend)
+let REV_REVISOR = (USUARIO && USUARIO.nome) || "";
+let TABATUAL = "clinica";
+
+// ---- filtros de apresentação (não alteram a classificação nas duas filas) ----
+// Combinam por AND entre facetas e OR dentro de cada faceta. Conjunto vazio = "todos".
+let FILTRO_TUMOR = new Set();   // valores do campo `tumor` dos itens
+let FILTRO_TIPO  = new Set();   // "divergencia" | "incompleto" | "inovacao"
+// As três naturezas pedidas, derivadas do que já existe no JSON:
+//   divergencia (🔴 selo divergencia) · incompleto (🟡 selo incompleto) · inovacao (candidatos da vigilância)
+const TIPOS = [
+  {k:"divergencia", emoji:"🔴", label:"Divergências",    hint:"parecer clínico",       cls:"tipo-div"},
+  {k:"incompleto",  emoji:"🟡", label:"Dados incompletos",hint:"curadoria / fonte",     cls:"tipo-inc"},
+  {k:"inovacao",    emoji:"✨", label:"Inovações",        hint:"vigilância",            cls:"tipo-inov"},
+];
+
+// ---- ações por fila ----
+const CLIN_ACOES = [
+  {id:"aceitar", l:"Aceitar re-derivação"},
+  {id:"manter",  l:"Manter protocolo"},
+  {id:"escalar", l:"Escalar Tumor Board"},
+];
+const CUR_ACOES = [
+  {id:"reprocessar_fonte",  l:"Reprocessar / buscar fonte"},
+  {id:"estruturar_criterio",l:"Estruturar critério"},
+  {id:"adiar",              l:"Adiar"},
+];
+const EIXO_LABEL = {
+  grade:"GRADE — qualidade/força", esmo_mcbs:"ESMO-MCBS — magnitude",
+  nccn_affordability:"Custo — NCCN Affordability", elegibilidade:"Elegibilidade",
+};
+
+// ---- helpers ----
+function revData(){ return window.ONCOGUIA_REVISAO || null; }
+function selo(r){ return (r.consolidacao && r.consolidacao.selo_confianca) || ""; }
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function fmtVal(v){ return (v===null||v===undefined||v==="") ? "—" : String(v); }
+function cap(s){ s=String(s||""); return s.charAt(0).toUpperCase()+s.slice(1); }
+function hojeISO(){ return new Date().toISOString().slice(0,10); }
+function cssEsc(s){ return String(s).replace(/["\\\]]/g,"\\$&"); }
+function fonteLink(f){
+  if(!f) return "";
+  return String(f).split(/\s*;\s*/).map(s=>s.trim()).filter(Boolean)
+    .map(p=>/^https?:\/\//.test(p)?`<a href="${p}" target="_blank" rel="noopener">${p}</a>`:esc(p)).join(" · ");
+}
+// info de um eixo divergente: protocolo × re-derivado (igual ao index.html)
+function eixoInfo(r, eixo){
+  const v = (r.verificacao||{})[eixo] || {};
+  const af = r.afirmado_protocolo||{};
+  const afTop = eixo==="esmo_mcbs"?af.esmo_mcbs : eixo==="grade"?af.grade : eixo==="nccn_affordability"?af.nccn_affordability : null;
+  const afirmado = (v.afirmado_protocolo ?? afTop);
+  if(eixo==="elegibilidade"){
+    return {afirmado:"critério do protocolo", rederivado:(v.amplitude?`elegibilidade ${v.amplitude}`:"critérios re-derivados"),
+      just:(v.divergencia_vs_protocolo||v.justificativa||""), fonte:v.fonte||""};
+  }
+  return {afirmado, rederivado:v.valor_rederivado, just:v.justificativa||"", fonte:v.fonte||""};
+}
+// sub-rótulos dos incompletos, a partir de consolidacao.lacunas (motivo)
+function motivosIncompleto(r){
+  const lac = (r.consolidacao && r.consolidacao.lacunas) || [];
+  const out = [];
+  if(lac.includes("grade_sem_estudo_pivo")) out.push({cls:"fonte", t:"sem estudo-pivô", hint:"buscar fonte"});
+  if(lac.includes("elegibilidade_sem_criterios_computaveis")) out.push({cls:"criterio", t:"critério não computável", hint:"estruturar elegibilidade"});
+  if(!out.length) out.push({cls:"fonte", t:"lacuna de fonte", hint:""});
+  return out;
+}
+
+// ---- "Fonte a buscar": o que adquirir para fechar um incompleto sem estudo-pivô ----
+// Lê o item de fontes-a-buscar.json (indexado por regimen_id em build-review.py) e o
+// renderiza DENTRO do cartão do incompleto, para o oncologista ver na hora o que baixar.
+function fonteBuscar(regimen_id){
+  const d = revData();
+  const idx = d && d.fontes_a_buscar && d.fontes_a_buscar.por_regime;
+  return (idx && idx[regimen_id]) || null;
+}
+function refLinks(o){
+  const parts = [];
+  if(o.doi) parts.push(`DOI: <span class="doi">${esc(o.doi)}</span>`);
+  if(o.pmid) parts.push(`PMID: <span class="doi">${esc(o.pmid)}</span>`);
+  if(o.link) parts.push(`<a href="${esc(o.link)}" target="_blank" rel="noopener">abrir</a>`);
+  return parts.join(" · ");
+}
+function fonteBuscaHtml(regimen_id){
+  const it = fonteBuscar(regimen_id);
+  if(!it) return "";
+  const caso = it.caso;
+  const casoDef = (it.referencia_a_definir === true);
+  const casoCls = casoDef ? "def" : (caso==="A" ? "a" : "b");
+  const casoLbl = casoDef ? "referência a definir" : (caso==="A" ? "Caso A · referência citada, não acessada" : "Caso B · sem referência citada");
+  let body = "";
+
+  // Caso A — referência(s) citada(s) no protocolo, a baixar
+  if(caso==="A" && Array.isArray(it.referencias_citadas)){
+    body += it.referencias_citadas.map(r=>`<div class="ref">${esc(r.citacao)}
+      ${(r.doi||r.pmid||r.link)?`<div class="rmeta">${refLinks(r)}${r.estado_doi==="confirmado"?`<span class="conf">DOI verificado</span>`:""}</div>`:""}</div>`).join("");
+    if(it.motivo_nao_acesso) body += `<div class="why"><b>Não-acesso:</b> <code>${esc(it.motivo_nao_acesso)}</code> — ${esc(it.motivo_nao_acesso_detalhe||"")}</div>`;
+  }
+
+  // Candidatos (Caso B, ou Caso A com pivô próprio ainda "a confirmar")
+  if(Array.isArray(it.candidatos) && it.candidatos.length){
+    body += it.candidatos.map(c=>`<div class="ref">
+      <b>${esc(c.estudo||c.titulo||"candidato")}</b>${c.status?`<span class="aconf">${esc(c.status)}</span>`:""}
+      ${c.titulo && c.estudo ? `<div class="rmeta" style="color:var(--ink)">${esc(c.titulo)}</div>`:""}
+      <div class="rmeta">${esc(c.autor_ano||"")}${(c.doi||c.pmid||c.link)?` · ${refLinks(c)}`:""}</div>
+      ${c.motivo_pivo?`<div class="why"><i>Por que é o pivô:</i> ${esc(c.motivo_pivo)}</div>`:""}
+    </div>`).join("");
+  }
+
+  if(casoDef && it.explicacao) body += `<div class="why">${esc(it.explicacao)}</div>`;
+  else if(caso==="B" && it.explicacao) body += `<div class="why">${esc(it.explicacao)}</div>`;
+  if(it.notas) body += `<div class="why"><b>Nota:</b> ${esc(it.notas)}</div>`;
+
+  const acao = it.acao ? `<div class="acao"><b>Ação:</b> ${esc(it.acao)}</div>` : "";
+
+  // Como entregar o PDF (intake) — só quando há de fato o que baixar
+  const intake = casoDef ? "" : `<div class="intake">
+    <b>Como resolver:</b> baixe o PDF e salve em <code>data/input/fontes-manuais/</code> nomeado como
+    <code>${esc(regimen_id)}.pdf</code> (ou pelo DOI). Ao re-rodar o squad, o passo de intake reprocessa
+    <b>só este regime</b> e o selo é recalculado com o pivô em mãos.</div>`;
+
+  return `<div class="fab">
+    <div class="fab-h"><span class="fab-t">📎 Fonte a buscar</span><span class="caso ${casoCls}">${esc(casoLbl)}</span></div>
+    ${body}${acao}${intake}
+  </div>`;
+}
+
+// ---- classificação automática nas duas filas ----
+function pendencias(){
+  const d = revData();
+  if(!d) return {clinica:[], curadoria:[]};
+  const regs = d.regimes||[], cands = d.candidatos||[];
+  const clinica = [], curadoria = [];
+  // 1) divergências → clínica
+  regs.filter(r=>selo(r)==="divergencia").forEach(r=>{
+    const eixos = (r.consolidacao && r.consolidacao.eixos_diverge) || [];
+    (eixos.length?eixos:["(eixo não identificado)"]).forEach(eixo=>{
+      clinica.push({kind:"div", pid:`div::${r.regimen_id}::${eixo}`, regime:r, eixo});
+    });
+  });
+  // 2) candidatos: forte → clínica ; fraco → curadoria
+  cands.forEach((c,i)=>{
+    const item = {kind:"upd", pid:`upd::${c.regimen_id||"?"}::${i}`, cand:c};
+    if(String(c.forca_do_sinal||"").toLowerCase()==="forte") clinica.push(item);
+    else curadoria.push(item);
+  });
+  // 3) incompletos → curadoria
+  regs.filter(r=>selo(r)==="incompleto").forEach(r=>{
+    curadoria.push({kind:"inc", pid:`inc::${r.regimen_id}`, regime:r});
+  });
+  return {clinica, curadoria};
+}
+
+// ---- derivação de tumor/tipo por item (para os filtros) ----
+function itemTumor(it){
+  if(it.regime) return it.regime.tumor || "";
+  if(it.cand){                       // candidato: pega o tumor do regime referenciado
+    const r = (revData().regimes||[]).find(x=>x.regimen_id===it.cand.regimen_id);
+    return (r && r.tumor) || "";
+  }
+  return "";
+}
+function itemTipo(it){
+  return it.kind==="div" ? "divergencia" : it.kind==="inc" ? "incompleto" : "inovacao";
+}
+function matchFiltro(it){
+  const okT = FILTRO_TUMOR.size===0 || FILTRO_TUMOR.has(itemTumor(it));
+  const okK = FILTRO_TIPO.size===0  || FILTRO_TIPO.has(itemTipo(it));
+  return okT && okK;
+}
+
+// ---- contexto do parecer (REV_INDEX) — centralizado para não depender da renderização ----
+// Assim um item com parecer que fique oculto por um filtro continua sendo salvo corretamente.
+function ctxOf(it, categoria){
+  if(it.kind==="div"){
+    const r = it.regime, info = eixoInfo(r, it.eixo);
+    return {regimen_id:r.regimen_id, tipo:"divergencia", eixo:it.eixo, categoria:"clinica",
+      afirmado:info.afirmado, valor_rederivado:info.rederivado, fonte:info.fonte, delta_proposto:null, forca_do_sinal:null};
+  }
+  if(it.kind==="inc"){
+    const r = it.regime;
+    return {regimen_id:r.regimen_id, tipo:"incompleto", categoria:"curadoria",
+      eixo:((r.consolidacao&&r.consolidacao.lacunas)||[]).join(","),
+      afirmado:null, valor_rederivado:null, fonte:null, delta_proposto:null, forca_do_sinal:null};
+  }
+  const c = it.cand;
+  return {regimen_id:c.regimen_id, tipo:"candidato", categoria, eixo:c.eixo_afetado||null,
+    afirmado:null, valor_rederivado:null, fonte:c.fonte||null, delta_proposto:c.delta_proposto||null, forca_do_sinal:c.forca_do_sinal||null};
+}
+
+// ---- render ----
+const app = ()=>document.getElementById("app");
+
+function boot(){
+  const el = document.getElementById("datasrc");
+  const d = revData();
+  if(!d){
+    el.className = "datasrc err";
+    el.innerHTML = `✖ Nenhuma pendência carregada. Gere o bundle do último run: <code>cd app &amp;&amp; python3 build-review.py</code> e recarregue.`;
+    app().innerHTML = `<div class="card"><h2>Mesa de Revisão</h2><div class="empty">Sem dados. Rode <code>python3 build-review.py</code>.</div></div>`;
+    return;
+  }
+  if(!TOKEN){
+    el.className = "datasrc err";
+    el.innerHTML = `✖ Sem sessão. <a href="index.html">Faça login na app principal</a> e volte — os pareceres são gravados no banco (perfil <b>revisor</b>).`;
+  } else {
+    el.className = "datasrc ok";
+    el.innerHTML = `✔ Pendências do run <code>${esc(d.run_id||"—")}</code> · <span class="hint">${esc(d.run_path||"")}</span>${USUARIO?` · revisor: <b>${esc(USUARIO.nome)}</b>`:""}`;
+  }
+  render();
+}
+
+function render(){
+  const P = pendencias();
+  // pré-indexa TODOS os itens (independe do filtro) para preservar pareceres ocultos
+  REV_INDEX = {};
+  P.clinica.forEach(it=>REV_INDEX[it.pid]=ctxOf(it,"clinica"));
+  P.curadoria.forEach(it=>REV_INDEX[it.pid]=ctxOf(it,"curadoria"));
+
+  const totalRun = P.clinica.length + P.curadoria.length;
+  const Fc = P.clinica.filter(matchFiltro), Fk = P.curadoria.filter(matchFiltro);
+  const nC = Fc.length, nK = Fk.length;
+  const filtrando = FILTRO_TUMOR.size>0 || FILTRO_TIPO.size>0;
+
+  app().innerHTML = `
+  <div class="card">
+    <h2>Mesa de Revisão — duas filas</h2>
+    <div class="sub">As ${totalRun} pendências do run entram em duas filas classificadas automaticamente por <code>consolidacao.selo_confianca</code> e <code>forca_do_sinal</code>. O sistema <b>informa e sinaliza</b>; a decisão é do oncologista. Read-only — nenhum dado de paciente.</div>
+
+    ${renderFiltros(P, nC+nK, totalRun)}
+
+    <div class="rev-bar">
+      <div class="who"><label style="margin:0">Revisor</label>
+        <input id="rev_revisor" placeholder="Nome do responsável" value="${esc(REV_REVISOR)}" oninput="REV_REVISOR=this.value"></div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <span class="count" id="rev_count">${contagemGeral()}</span>
+        <button class="btn primary" onclick="salvar(this)">💾 Salvar pareceres</button>
+        <button class="btn ghost" onclick="baixarExport()" title="Baixa o revisao-decisoes.json do banco (GET /revisao/export). Respeita os filtros ativos (tumor × tipo); sem filtro, baixa o conjunto completo.">⤓ revisao-decisoes.json</button>
+      </div>
+    </div>
+
+    <nav class="queues">
+      <a class="clin ${TABATUAL==='clinica'?'on':''}" onclick="setTab('clinica')">🔴 Revisão clínica (agora) <span class="qc">${nC}</span></a>
+      <a class="cur ${TABATUAL==='curadoria'?'on':''}" onclick="setTab('curadoria')">🟡 Curadoria / 2º momento <span class="qc">${nK}</span></a>
+    </nav>
+
+    <div class="panel ${TABATUAL==='clinica'?'active':''}" id="panel-clinica">
+      <div class="queue-head"><h3>Revisão clínica</h3><span class="big" style="color:var(--red)">${nC}</span></div>
+      <div class="queue-sub">Exige juízo do oncologista: divergências (🔴) e candidatos de atualização com sinal <b>forte</b>. Ações: Aceitar / Manter / Escalar.</div>
+      ${nC? renderClinica(Fc) : `<div class="empty">${filtrando?"Nenhum item clínico para os filtros ativos.":"Nenhum item clínico neste run."}</div>`}
+    </div>
+
+    <div class="panel ${TABATUAL==='curadoria'?'active':''}" id="panel-curadoria">
+      <div class="queue-head"><h3>Curadoria / 2º momento</h3><span class="big" style="color:var(--amber)">${nK}</span></div>
+      <div class="queue-sub">Tarefa de dado, não decisão médica: incompletos (🟡) e candidatos com sinal <b>fraco</b>. Ações: Reprocessar/buscar fonte / Estruturar critério / Adiar. Nos incompletos <b>sem estudo-pivô</b>, o bloco <b>📎 Fonte a buscar</b> mostra exatamente o que baixar (referência/candidato + DOI) e como entregar o PDF.</div>
+      ${nK? renderCuradoria(Fk) : `<div class="empty">${filtrando?"Nenhum item de curadoria para os filtros ativos.":"Nenhum item de curadoria neste run."}</div>`}
+    </div>
+  </div>`;
+}
+
+function setTab(t){ TABATUAL=t;
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  document.getElementById("panel-"+t).classList.add("active");
+  document.querySelectorAll("nav.queues a").forEach(a=>a.classList.remove("on"));
+  document.querySelector("nav.queues a."+(t==="clinica"?"clin":"cur")).classList.add("on");
+}
+
+// ---- barra de filtros (tumor + tipo) ----
+function todosItens(P){ return P.clinica.concat(P.curadoria); }
+// contadores facetados: o contador de uma faceta respeita os filtros da OUTRA faceta
+function contaTumor(P, t){
+  return todosItens(P).filter(it=>itemTumor(it)===t &&
+    (FILTRO_TIPO.size===0 || FILTRO_TIPO.has(itemTipo(it)))).length;
+}
+function contaTipo(P, k){
+  return todosItens(P).filter(it=>itemTipo(it)===k &&
+    (FILTRO_TUMOR.size===0 || FILTRO_TUMOR.has(itemTumor(it)))).length;
+}
+function tumoresDe(P){
+  return [...new Set(todosItens(P).map(itemTumor).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"pt-BR"));
+}
+function renderFiltros(P, visiveis, total){
+  const tumores = tumoresDe(P);
+  const chipsTumor = tumores.map(t=>{
+    const n = contaTumor(P,t), on = FILTRO_TUMOR.has(t);
+    return `<button class="chip ${on?"on":""} ${n?"":"zero"}" onclick="toggleTumor('${cssEsc(t)}')">${esc(cap(t))} <span class="c">${n}</span></button>`;
+  }).join("");
+  const chipsTipo = TIPOS.map(tp=>{
+    const n = contaTipo(P,tp.k), on = FILTRO_TIPO.has(tp.k);
+    return `<button class="chip ${tp.cls} ${on?"on":""} ${n?"":"zero"}" onclick="toggleTipo('${tp.k}')">${tp.emoji} ${esc(tp.label)} <span class="hint">${esc(tp.hint)}</span> <span class="c">${n}</span></button>`;
+  }).join("");
+  const filtrando = FILTRO_TUMOR.size>0 || FILTRO_TIPO.size>0;
+  return `<div class="filterbar">
+    <div class="frow"><span class="flabel">Linha / tumor</span>${chipsTumor||'<span class="hint" style="color:var(--muted)">—</span>'}
+      <button class="clear" onclick="limparFiltros()" ${filtrando?"":"disabled"}>limpar filtros</button></div>
+    <div class="frow"><span class="flabel">Tipo</span>${chipsTipo}</div>
+    <div class="visible">${filtrando?`Mostrando <b>${visiveis}</b> de ${total} pendências (combina tumor × tipo).`:`Mostrando todas as <b>${total}</b> pendências.`}</div>
+  </div>`;
+}
+function toggleTumor(t){ FILTRO_TUMOR.has(t)?FILTRO_TUMOR.delete(t):FILTRO_TUMOR.add(t); render(); }
+function toggleTipo(k){ FILTRO_TIPO.has(k)?FILTRO_TIPO.delete(k):FILTRO_TIPO.add(k); render(); }
+function limparFiltros(){ FILTRO_TUMOR.clear(); FILTRO_TIPO.clear(); render(); }
+
+// ---- fila clínica ----
+function renderClinica(items){
+  const divs = items.filter(i=>i.kind==="div");
+  const upds = items.filter(i=>i.kind==="upd");
+  let html = "";
+  if(divs.length){
+    html += `<div class="group-t">Divergências <span class="cnt">${divs.length}</span></div>`;
+    html += divs.map(cardDivergencia).join("");
+  }
+  if(upds.length){
+    html += `<div class="group-t">Candidatos de atualização — sinal forte <span class="cnt">${upds.length}</span></div>`;
+    html += upds.map(it=>cardCandidato(it,"clinica")).join("");
+  }
+  return html;
+}
+function cardDivergencia(it){
+  const r = it.regime, info = eixoInfo(r, it.eixo);
+  REV_INDEX[it.pid] = ctxOf(it, "clinica");
+  return `<div class="pend div">
+    <div class="p1">
+      <div><div class="pn">${esc(r.nome||r.regimen_id)}</div>
+        <div class="pmeta">${esc(cap(r.cenario))} · ${esc(r.subtipo||"")} · <code style="font-size:10px">${esc(r.regimen_id)}</code></div></div>
+      <span class="eixo">${esc(EIXO_LABEL[it.eixo]||it.eixo)}</span>
+    </div>
+    <div class="vs">
+      <div class="box"><div class="k">O protocolo diz</div><div class="val">${esc(fmtVal(info.afirmado))}</div></div>
+      <div class="box reder"><div class="k">Re-derivado (verificador)</div><div class="val">${esc(fmtVal(info.rederivado))}</div></div>
+    </div>
+    ${info.just?`<div class="just">${esc(info.just)}</div>`:""}
+    ${info.fonte?`<div class="fonte"><b>Fonte:</b> ${fonteLink(info.fonte)}</div>`:""}
+    ${acoesHtml(it.pid, CLIN_ACOES)}
+  </div>`;
+}
+
+// ---- fila curadoria ----
+function renderCuradoria(items){
+  const incs = items.filter(i=>i.kind==="inc");
+  const upds = items.filter(i=>i.kind==="upd");
+  let html = "";
+  if(incs.length){
+    html += `<div class="group-t">Incompletos <span class="cnt">${incs.length}</span></div>`;
+    html += incs.map(cardIncompleto).join("");
+  }
+  if(upds.length){
+    html += `<div class="group-t">Candidatos de atualização — sinal fraco <span class="cnt">${upds.length}</span></div>`;
+    html += upds.map(it=>cardCandidato(it,"curadoria")).join("");
+  }
+  return html;
+}
+function cardIncompleto(it){
+  const r = it.regime;
+  const motivos = motivosIncompleto(r);
+  REV_INDEX[it.pid] = ctxOf(it, "curadoria");
+  const gr=(r.verificacao&&r.verificacao.grade)||{}, mc=(r.verificacao&&r.verificacao.esmo_mcbs)||{};
+  const reder=[gr.valor_rederivado?`GRADE ${gr.valor_rederivado}`:"", mc.valor_rederivado?`MCBS ${mc.valor_rederivado}`:""].filter(Boolean).join(" · ");
+  return `<div class="pend inc">
+    <div class="p1">
+      <div><div class="pn">${esc(r.nome||r.regimen_id)}</div>
+        <div class="pmeta">${esc(cap(r.cenario))} · ${esc(r.subtipo||"")} · <code style="font-size:10px">${esc(r.regimen_id)}</code></div></div>
+      <span class="eixo" style="background:#fdf3df;color:#9a6a08">falta de dado</span>
+    </div>
+    <div class="sublbls">${motivos.map(m=>`<span class="sublbl ${m.cls}">${esc(m.t)}${m.hint?` <small>→ ${esc(m.hint)}</small>`:""}</span>`).join("")}</div>
+    ${fonteBuscaHtml(r.regimen_id)}
+    ${reder?`<div class="just"><span class="hint">Re-derivado onde possível: ${esc(reder)}.</span></div>`:""}
+    ${acoesHtml(it.pid, CUR_ACOES)}
+  </div>`;
+}
+
+// candidato: usado nas duas filas (forte→clínica, fraco→curadoria) com o conjunto de ações da fila
+function cardCandidato(it, categoria){
+  const c = it.cand;
+  const nome = (revData().regimes||[]).find(r=>r.regimen_id===c.regimen_id)?.nome || c.regimen_id || "(regime)";
+  REV_INDEX[it.pid] = ctxOf(it, categoria);
+  const forca=(c.forca_do_sinal||"").toLowerCase();
+  const acoes = categoria==="clinica" ? CLIN_ACOES : CUR_ACOES;
+  return `<div class="pend upd-${forca==='forte'?'forte':'fraco'}">
+    <div class="p1">
+      <div><div class="pn">${esc(nome)}</div>
+        <div class="pmeta">${esc(c.tipo||"atualização")} · <code style="font-size:10px">${esc(c.regimen_id||"?")}</code></div></div>
+      <div style="display:flex;gap:6px;align-items:center">
+        ${c.eixo_afetado?`<span class="eixo">${esc(EIXO_LABEL[c.eixo_afetado]||c.eixo_afetado)}</span>`:""}
+        ${forca?`<span class="forca ${forca==='forte'?'forte':'fraco'}">sinal ${esc(forca)}</span>`:""}
+      </div>
+    </div>
+    ${c.delta_proposto?`<div class="just"><b>Delta proposto:</b> ${esc(c.delta_proposto)}</div>`:""}
+    ${c.fonte?`<div class="fonte"><b>Fonte:</b> ${fonteLink(c.fonte)}${c.data_fonte?` <span class="hint">(${esc(c.data_fonte)})</span>`:""}</div>`:""}
+    ${acoesHtml(it.pid, acoes)}
+  </div>`;
+}
+
+// ---- ações (parecer/curadoria) + comentário; estado inicial refletido de REV_DECISOES ----
+function acoesHtml(pid, acoes){
+  const d = REV_DECISOES[pid] || {};
+  const pidJs = pid.replace(/'/g,"\\'");
+  const btns = acoes.map(a=>`<button class="${d.acao===a.id?('on '+a.id):''}" data-acao="${a.id}" onclick="setAcao('${pidJs}','${a.id}')">${esc(a.l)}</button>`).join("");
+  return `<div class="acoes" data-pid="${esc(pid)}">
+    <span class="pl">Parecer:</span>
+    ${btns}
+    <textarea class="cmt" placeholder="Comentário (opcional)" oninput="setComentario('${pidJs}',this.value)">${esc(d.comentario||"")}</textarea>
+  </div>`;
+}
+// sem re-render (preserva foco do comentário): ajusta classes e contadores no DOM
+function setAcao(pid, acao){
+  const cur = REV_DECISOES[pid] || (REV_DECISOES[pid]={});
+  cur.acao = (cur.acao===acao) ? null : acao; // clicar de novo desmarca
+  const wrap = document.querySelector(`.acoes[data-pid="${cssEsc(pid)}"]`);
+  if(wrap) wrap.querySelectorAll("button").forEach(b=>{
+    const k=b.getAttribute("data-acao");
+    b.className = (cur.acao===k) ? ("on "+k) : "";
+  });
+  atualizarContadores();
+}
+function setComentario(pid, val){ (REV_DECISOES[pid] || (REV_DECISOES[pid]={})).comentario = val; }
+
+// ---- contadores ----
+function decididas(cat){
+  return Object.keys(REV_DECISOES).filter(pid=>{
+    const d = REV_DECISOES[pid]; if(!d || !d.acao) return false;
+    return !cat || (REV_INDEX[pid] && REV_INDEX[pid].categoria===cat);
+  }).length;
+}
+function contagemGeral(){
+  const total = Object.keys(REV_INDEX).length || (pendencias().clinica.length+pendencias().curadoria.length);
+  const feitas = Object.values(REV_DECISOES).filter(d=>d&&d.acao).length;
+  return `${feitas} de ${total} com parecer`;
+}
+function atualizarContadores(){
+  const c = document.getElementById("rev_count"); if(c) c.textContent = contagemGeral();
+}
+
+// ---- persistência: grava os pareceres no banco (fim do download manual) ----
+// A ação da fila de curadoria vira a `decisao` canônica do banco
+// (reprocessar_fonte→reprocessar, estruturar_criterio→estruturar); o id original
+// segue no contexto como `tipo_acao`.
+const DECISAO_CANONICA = {reprocessar_fonte:"reprocessar", estruturar_criterio:"estruturar"};
+async function salvar(btn){
+  const d = revData();
+  const decisoes = [];
+  Object.keys(REV_DECISOES).forEach(pid=>{
+    const dec = REV_DECISOES[pid];
+    if(!dec || !dec.acao) return;
+    const ctx = REV_INDEX[pid] || {};
+    decisoes.push({
+      regimen_id: ctx.regimen_id||"?",
+      pendencia_tipo: ctx.tipo||null,
+      categoria: ctx.categoria || "clinica",
+      decisao: DECISAO_CANONICA[dec.acao] || dec.acao,
+      comentario: dec.comentario||"",
+      contexto: {
+        pendencia_id: pid, eixo: ctx.eixo ?? null,
+        afirmado: ctx.afirmado ?? null, valor_rederivado: ctx.valor_rederivado ?? null,
+        delta_proposto: ctx.delta_proposto ?? null, forca_do_sinal: ctx.forca_do_sinal ?? null,
+        fonte: ctx.fonte ?? null, run_id: (d&&d.run_id)||null, run_path: (d&&d.run_path)||null,
+        tipo_acao: dec.acao, revisor_nome: REV_REVISOR||null,
+      },
+    });
+  });
+  if(!decisoes.length){ alert("Nenhum parecer selecionado ainda. Escolha ao menos uma ação antes de salvar."); return; }
+  if(btn) btn.disabled = true;
+  try{
+    const r = await api("/revisao/decisoes", {method:"POST", body:JSON.stringify({decisoes})});
+    alert(`${r.salvas} parecer(es) gravado(s) no banco.`);
+    REV_DECISOES = {};
+    render();
+  }catch(e){ alert("Falha ao salvar pareceres: "+e.message); }
+  finally{ if(btn) btn.disabled = false; }
+}
+// Baixa o revisao-decisoes.json gerado pelo backend a partir do banco (conferência;
+// o squad lê o mesmo endpoint no Step 08/10).
+// O DOWNLOAD respeita os filtros ativos da página (tumor × tipo). Sem filtro → conjunto
+// completo. Isto afeta só o arquivo baixado para conferência; o squad continua lendo o
+// endpoint /revisao/export (conjunto completo) diretamente — nada muda no squad.
+const TIPO_EXPORT = {divergencia:"divergencia", incompleto:"incompleto", candidato:"inovacao"};
+function tumorDoRegime(regimen_id){
+  const r = (revData().regimes||[]).find(x=>x.regimen_id===regimen_id);
+  return (r && r.tumor) || "";
+}
+function aplicarFiltroExport(out){
+  const filtrando = FILTRO_TUMOR.size>0 || FILTRO_TIPO.size>0;
+  if(!filtrando || !out || !Array.isArray(out.decisoes)) return out;
+  const decisoes = out.decisoes.filter(d=>{
+    const okT = FILTRO_TUMOR.size===0 || FILTRO_TUMOR.has(tumorDoRegime(d.regimen_id));
+    const okK = FILTRO_TIPO.size===0  || FILTRO_TIPO.has(TIPO_EXPORT[d.tipo] || d.tipo);
+    return okT && okK;
+  });
+  return Object.assign({}, out, {
+    meta: Object.assign({}, out.meta, {
+      escopo: "filtrado_na_pagina",
+      filtro_aplicado: {tumor:[...FILTRO_TUMOR], tipo:[...FILTRO_TIPO]},
+      total_decisoes_apos_filtro: decisoes.length,
+      total_decisoes_no_banco: (out.meta && out.meta.total_decisoes) ?? out.decisoes.length,
+    }),
+    decisoes,
+  });
+}
+async function baixarExport(){
+  try{
+    const raw = await api("/revisao/export");
+    const out = aplicarFiltroExport(raw);
+    const filtrando = FILTRO_TUMOR.size>0 || FILTRO_TIPO.size>0;
+    const blob = new Blob([JSON.stringify(out,null,2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href=url; a.download="revisao-decisoes.json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 1500);
+    if(filtrando){
+      const alvo = [
+        FILTRO_TUMOR.size?`tumor: ${[...FILTRO_TUMOR].map(cap).join(", ")}`:"",
+        FILTRO_TIPO.size?`tipo: ${[...FILTRO_TIPO].join(", ")}`:"",
+      ].filter(Boolean).join(" · ");
+      alert(`Exportado o SUBCONJUNTO filtrado (${out.decisoes.length} de ${out.meta.total_decisoes_no_banco} decisões).\nFiltro: ${alvo}.\n\nPara o arquivo completo, limpe os filtros e exporte de novo.`);
+    }
+  }catch(e){ alert("Falha ao exportar: "+e.message); }
+}
+
+boot();
+</script>
+</body>
+</html>

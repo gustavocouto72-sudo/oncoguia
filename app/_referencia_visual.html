@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OncoGuia — Protótipo · Solicitação de quimioterapia baseada em evidência</title>
+<style>
+  :root{
+    --navy:#1F3A5F; --accent:#2E6E8E; --ink:#1c2733; --muted:#6b7a88;
+    --line:#e3e9ef; --bg:#f4f7fa; --card:#ffffff;
+    --green:#1f9d63; --greenbg:#e7f6ee; --amber:#c98a12; --amberbg:#fdf3df; --red:#c0392b; --redbg:#fbecea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5}
+  header.top{background:var(--navy);color:#fff;padding:12px 22px;display:flex;align-items:center;justify-content:space-between}
+  header.top .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px}
+  header.top .brand .logo{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#4aa3c4,#2E6E8E);display:flex;align-items:center;justify-content:center;font-size:15px}
+  header.top .demo{font-size:11px;background:#ffffff22;border:1px solid #ffffff44;padding:3px 9px;border-radius:20px;font-weight:600}
+  .wrap{max-width:1200px;margin:0 auto;padding:18px}
+  .grid{display:grid;grid-template-columns:300px 1fr 340px;gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .card h3{margin:0 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+  .field .val{font-weight:600}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .stepper{display:flex;align-items:center;gap:8px}
+  .stepper button{width:38px;height:36px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:20px;font-weight:700;color:var(--accent);cursor:pointer;line-height:1;flex:none;-webkit-user-select:none;user-select:none}
+  .stepper button:active{background:var(--accent);color:#fff}
+  .stepper .num{flex:1;text-align:center;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+  .seg{display:flex;gap:5px}
+  .seg button{flex:1;height:36px;border:1px solid var(--line);background:#fff;border-radius:8px;font-weight:700;color:var(--muted);cursor:pointer;font-size:13px}
+  .seg button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  select,input[type=number]{width:100%;padding:7px 8px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff;color:var(--ink)}
+  .rangewrap{display:flex;align-items:center;gap:10px}
+  .rangewrap .num{min-width:52px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+  .pat-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .avatar{width:44px;height:44px;border-radius:50%;background:#dfeaf1;color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
+  .pat-head .name{font-weight:700;font-size:15px}
+  .pat-head .sub{color:var(--muted);font-size:12px}
+  .src-mode{display:flex;gap:6px;margin-bottom:14px}
+  .src-mode button{flex:1;font-size:11px;padding:6px 4px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer;color:var(--muted);font-weight:600}
+  .src-mode button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  /* center */
+  .stage h2{margin:0 0 3px;font-size:17px}
+  .stage .crumbs{color:var(--muted);font-size:12px;margin-bottom:14px}
+  .crumbs b{color:var(--accent)}
+  .proto{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;cursor:pointer;transition:.15s;background:#fff;position:relative}
+  .proto:hover{border-color:var(--accent);box-shadow:0 3px 12px #1f3a5f14}
+  .proto.sel{border-color:var(--accent);box-shadow:0 0 0 2px #2e6e8e33}
+  .proto .row1{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .proto .pname{font-weight:700;font-size:15px}
+  .proto .pfull{color:var(--muted);font-size:12px;margin-top:2px}
+  .proto .grade{font-size:11px;color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;letter-spacing:.3px}
+  .badge.g-high{background:#e7f6ee;color:#137a49}
+  .badge.g-mod{background:#eef2f7;color:#41607a}
+  .badge.mcbs-high{background:#e4f0fa;color:#1c5e88;border:1px solid #bcd9ee}
+  .badge.mcbs-mod{background:#fdf3df;color:#9a6a08;border:1px solid #f0dca6}
+  .badge.mcbs-low{background:#f3eef7;color:#6b4a86;border:1px solid #dbc9ea}
+  .badge.mcbs-na{background:#eef1f4;color:#6b7a88;border:1px solid #dbe3ec}
+  .semaphore{display:flex;align-items:center;gap:9px;font-weight:800;font-size:13px;padding:7px 12px;border-radius:30px;white-space:nowrap}
+  .semaphore .dot{width:11px;height:11px;border-radius:50%}
+  .s-green{background:var(--greenbg);color:var(--green)} .s-green .dot{background:var(--green)}
+  .s-amber{background:var(--amberbg);color:var(--amber)} .s-amber .dot{background:var(--amber)}
+  .s-red{background:var(--redbg);color:var(--red)} .s-red .dot{background:var(--red)}
+  .benefit-teaser{margin-top:9px;font-size:12px;background:#f5f9fc;border:1px solid #e1ecf3;border-radius:8px;padding:7px 10px;line-height:1.45}
+  .benefit-teaser b{color:var(--accent)}
+  .study.benefit{background:#f4faf6;border-color:#cfe6d7}
+  .study.benefit .bhead{font-weight:700;color:#137a49;font-size:13px;margin:2px 0 5px}
+  .study .bline{font-size:12px;color:var(--ink);margin-bottom:3px}
+  .mcbsrow{display:flex;align-items:center;gap:12px;margin-top:4px}
+  .mcbsbig{font-size:22px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+  .mcbsbig.mcbs-high{background:#e4f0fa;color:#1c5e88} .mcbsbig.mcbs-mod{background:#fdf3df;color:#9a6a08}
+  .mcbsbig.mcbs-low{background:#f3eef7;color:#6b4a86} .mcbsbig.mcbs-na{background:#eef1f4;color:#6b7a88;font-size:14px}
+  .mcbslabel{font-weight:700;font-size:13px}
+  .mcbslegend{margin-top:9px;font-size:10.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:7px}
+  .toxwrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .toxchip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid transparent;cursor:default}
+  .sev-grave{background:var(--redbg);color:#a5281b;border-color:#f0c3bd}
+  .sev-moderada{background:var(--amberbg);color:#9a6a08;border-color:#f0dca6}
+  .sev-leve{background:#eef2f7;color:#51606e;border-color:#dbe3ec}
+  .sev-baixa{background:var(--greenbg);color:#157a49;border-color:#bfe6cf}
+  .sevlegend{margin-top:9px;font-size:10.5px;color:var(--muted);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .dotleg{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .dotleg.sev-grave{background:var(--red)} .dotleg.sev-moderada{background:var(--amber)} .dotleg.sev-leve{background:#8a99a8} .dotleg.sev-baixa{background:var(--green)}
+  .mini-crit{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:600;display:inline-flex;align-items:center;gap:5px;border:1px solid transparent}
+  .chip.ok{background:var(--greenbg);color:#157a49;border-color:#bfe6cf}
+  .chip.warn{background:var(--amberbg);color:#9a6a08;border-color:#f0dca6}
+  .chip.bad{background:var(--redbg);color:#a5281b;border-color:#f0c3bd}
+  /* right */
+  .ev h3{margin-top:0}
+  .ev .study{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}
+  .ev .study .t{font-weight:700;font-size:13px}
+  .ev .study .j{color:var(--muted);font-size:11px;margin:2px 0 8px}
+  .critrow{display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:6px 0;border-top:1px dashed var(--line)}
+  .critrow:first-of-type{border-top:none}
+  .critrow .ic{flex:none;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;margin-top:1px}
+  .ic.ok{background:var(--green)} .ic.warn{background:var(--amber)} .ic.bad{background:var(--red)}
+  .critrow .txt small{color:var(--muted);display:block}
+  .srclink{font-size:11px;color:var(--accent);text-decoration:none;font-weight:600}
+  .srclink:hover{text-decoration:underline}
+  .actionbar{margin-top:6px;display:flex;gap:10px;align-items:center}
+  .btn{padding:10px 16px;border-radius:9px;border:none;font-weight:700;font-size:13px;cursor:pointer}
+  .btn.primary{background:var(--accent);color:#fff}
+  .btn.primary:disabled{background:#b9c6d0;cursor:not-allowed}
+  .btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+  .note{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5}
+  .verdict-banner{border-radius:10px;padding:11px 14px;font-size:13px;font-weight:600;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
+  .disclaimer{background:#fff8e8;border:1px solid #f0e0b0;color:#7a5c12;font-size:11.5px;border-radius:10px;padding:10px 13px;margin-bottom:16px}
+  @media(max-width:980px){.grid{grid-template-columns:1fr}}
+  /* modal / guia */
+  .overlay{position:fixed;inset:0;background:#0d1b2ab0;display:none;align-items:flex-start;justify-content:center;padding:34px 16px;z-index:50;overflow:auto}
+  .overlay.on{display:flex}
+  .guia{background:#fff;max-width:720px;width:100%;border-radius:14px;box-shadow:0 20px 60px #0008;overflow:hidden}
+  .guia .ghead{background:var(--navy);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;align-items:center}
+  .guia .ghead .gt{font-weight:700;font-size:15px}
+  .guia .ghead .gs{font-size:11px;opacity:.75;margin-top:2px}
+  .guia .ghead .x{cursor:pointer;font-size:20px;opacity:.8;background:none;border:none;color:#fff}
+  .guia .gbody{padding:22px}
+  .guia .switch{display:flex;gap:8px;margin-bottom:18px}
+  .guia .switch button{font-size:12px;font-weight:700;padding:7px 14px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer}
+  .guia .switch button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .grow{display:grid;grid-template-columns:1fr 1fr;gap:2px 18px;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:16px}
+  .gcell{padding:9px 13px;font-size:12.5px}
+  .gcell:nth-child(4n+1),.gcell:nth-child(4n+2){background:#f8fafc}
+  .gcell .k{color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;font-weight:700;margin-bottom:2px}
+  .gcell .v{font-weight:600}
+  .gsec{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);font-weight:700;margin:0 0 8px}
+  .just{border:1px solid #cfe0d6;background:#f3faf5;border-radius:10px;padding:13px 15px;margin-bottom:16px}
+  .just .jline{font-size:12.5px;display:flex;gap:8px;padding:4px 0}
+  .just .jline .b{color:var(--green);font-weight:800}
+  .just.warnj{border-color:#f0dca6;background:#fdf7e9}
+  .just.warnj .b{color:var(--amber)}
+  .attach{display:flex;align-items:center;gap:9px;font-size:12px;border:1px dashed var(--line);border-radius:9px;padding:9px 12px;margin-bottom:9px}
+  .attach . file{font-weight:600}
+  .exbox{border:1px solid #f0c3bd;background:#fbecea;border-radius:10px;padding:12px 14px;font-size:12.5px;margin-bottom:16px}
+  .exbox textarea{width:100%;margin-top:7px;border:1px solid #e0b7b0;border-radius:7px;padding:8px;font-size:12.5px;font-family:inherit;min-height:52px;resize:vertical}
+  .gfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid var(--line);padding-top:16px}
+  .gfoot .status-final{font-size:12px;color:var(--muted)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#14663f;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;font-size:13px;box-shadow:0 8px 24px #0004;display:none;z-index:60}
+  .toast.on{display:block}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">✚</span> OncoGuia <span style="font-weight:400;opacity:.7;font-size:12px">· solicitação de quimioterapia baseada em evidência</span></div>
+  <span class="demo">PROTÓTIPO — dados ilustrativos</span>
+</header>
+
+<div class="wrap">
+  <div class="disclaimer">
+    <b>Protótipo conceitual.</b> Paciente fictícia; notas GRADE, ESMO-MCBS e desfechos são ilustrativos. Ajuste os controles da paciente (FEVE, tumor, linfonodo, ECOG) e veja o semáforo de elegibilidade reagir. Cada protocolo mostra a <b>qualidade da evidência</b> (GRADE) e a <b>magnitude do benefício</b> (ESMO-MCBS). Nada aqui é recomendação clínica.
+  </div>
+
+  <div class="grid">
+    <!-- LEFT: PATIENT -->
+    <div class="card">
+      <h3>Dados da paciente</h3>
+      <div class="src-mode">
+        <button class="on" title="Modo de entrada">Manual</button>
+        <button title="Fase 2">Laudo</button>
+        <button title="Fase 3">API prontuário</button>
+      </div>
+      <div class="pat-head">
+        <div class="avatar">MA</div>
+        <div>
+          <div class="name">Maria A.</div>
+          <div class="sub">54 anos · Câncer de mama</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Estadiamento (T)</label>
+        <select id="tstage">
+          <option value="1">cT1 (≤ 2 cm)</option>
+          <option value="2" selected>cT2 (2–5 cm)</option>
+          <option value="3">cT3 (> 5 cm)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Linfonodo (N)</label>
+        <select id="node">
+          <option value="0">N0 (negativo)</option>
+          <option value="1" selected>N1 (positivo)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>HER2</label>
+        <select id="her2">
+          <option value="pos" selected>Positivo (IHC 3+)</option>
+          <option value="neg">Negativo</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>FEVE — fração de ejeção (%)</label>
+        <div class="stepper">
+          <button type="button" onclick="step('lvef',-5)">−</button>
+          <span class="num" id="lvefv">60%</span>
+          <button type="button" onclick="step('lvef',5)">+</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>ECOG — performance status</label>
+        <div class="seg" id="ecogSeg">
+          <button type="button" data-v="0">0</button>
+          <button type="button" data-v="1" class="on">1</button>
+          <button type="button" data-v="2">2</button>
+          <button type="button" data-v="3">3</button>
+          <button type="button" data-v="4">4</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Clearance de creatinina (mL/min)</label>
+        <div class="stepper">
+          <button type="button" onclick="step('crcl',-5)">−</button>
+          <span class="num" id="crclv">90</span>
+          <button type="button" onclick="step('crcl',5)">+</button>
+        </div>
+      </div>
+      <p class="note">No MVP esses campos são preenchidos à mão. Nas fases seguintes, extraídos de laudo ou puxados do prontuário via FHIR — o resto da tela é igual.</p>
+    </div>
+
+    <!-- CENTER: PROTOCOLS -->
+    <div class="stage">
+      <div class="card" style="margin-bottom:16px">
+        <h2>Protocolos candidatos</h2>
+        <div class="crumbs">Mama · HER2+ · <b id="crumbStage">cT2 N1</b> · adjuvante/neoadjuvante — <span id="protocount">2</span> protocolos com evidência para este cenário</div>
+        <div id="protocols"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: EVIDENCE -->
+    <div class="card ev" id="evPanel">
+      <h3>Evidência & elegibilidade</h3>
+      <div id="evBody"></div>
+      <div class="actionbar">
+        <button class="btn primary" id="genBtn">Gerar solicitação</button>
+        <button class="btn ghost">Ver bula</button>
+      </div>
+      <p class="note" id="genNote"></p>
+    </div>
+  </div>
+</div>
+
+<!-- GUIA MODAL -->
+<div class="overlay" id="overlay">
+  <div class="guia">
+    <div class="ghead">
+      <div>
+        <div class="gt">Guia de solicitação gerada</div>
+        <div class="gs" id="guiaSub">pré-preenchida a partir do prontuário · pronta para envio</div>
+      </div>
+      <button class="x" onclick="closeGuia()">✕</button>
+    </div>
+    <div class="gbody">
+      <div class="switch">
+        <button id="tabSUS" class="on" onclick="setGuia('sus')">APAC · SUS</button>
+        <button id="tabTISS" onclick="setGuia('tiss')">Guia TISS · Suplementar</button>
+      </div>
+
+      <p class="gsec" id="formTitle">APAC — Autorização de Procedimento de Alta Complexidade</p>
+      <div class="grow" id="formGrid"></div>
+
+      <p class="gsec">Justificativa clínica anexada (medicina baseada em evidência)</p>
+      <div class="just" id="justBox"></div>
+
+      <div id="exWrap"></div>
+
+      <p class="gsec">Anexos gerados automaticamente</p>
+      <div class="attach">📄 <span class="file">Checagem_de_elegibilidade.pdf</span> — critérios de inclusão/exclusão × paciente</div>
+      <div class="attach">📄 <span class="file">Evidencias_do_protocolo.pdf</span> — estudos-pivô com referências</div>
+
+      <div class="gfoot">
+        <span class="status-final" id="finalStatus"></span>
+        <div style="display:flex;gap:10px">
+          <button class="btn ghost" onclick="closeGuia()">Voltar</button>
+          <button class="btn primary" id="sendBtn" onclick="sendGuia()">Enviar solicitação</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast">✓ Solicitação enviada e registrada (demo)</div>
+
+<script>
+// ---- state ----
+const S = { tstage:2, node:1, her2:'pos', lvef:60, ecog:1, crcl:90, selected:'tchp' };
+
+// ---- protocols with per-criterion evaluators ----
+// each criterion returns {status:'ok'|'warn'|'bad', label, detail, source}
+const PROTOCOLS = [
+  {
+    id:'tchp', name:'TCHP', full:'Docetaxel + Carboplatina + Trastuzumabe + Pertuzumabe (neoadjuvante)',
+    grade:'high', gradeCode:'1A', gradeText:'Recomendação forte (1) · evidência de alta qualidade (A)',
+    mcbs:{ grade:'A', tier:'high', form:'Formulário 1 · intenção curativa/(neo)adjuvante', label:'Benefício clínico substancial',
+      note:'Escala curativa A–B–C (A = maior benefício). Regime ancorado em trastuzumabe em HER2+ de alto risco.',
+      source:'ESMO-MCBS v1.1 — scorecard mama HER2+ (adjuvante)' },
+    benefit:{
+      head:'↑ resposta patológica completa (pCR)',
+      detail:'pCR ~46% vs ~29% sem pertuzumabe (neoadjuvante) — ganho absoluto ≈ 17 pontos.',
+      survival:'iDFS em 3 anos 94,1% vs 93,2% (adjuvante); benefício maior em axila positiva.',
+      source:'NeoSphere (Lancet Oncol 2012) · APHINITY (NEJM 2017)'
+    },
+    tox:[
+      {name:'Cardiotoxicidade — queda de FEVE', sev:'grave', note:'monitorar FEVE a cada ~3 ciclos'},
+      {name:'Neutropenia / neutropenia febril', sev:'grave'},
+      {name:'Diarreia', sev:'moderada', note:'frequente com pertuzumabe'},
+      {name:'Náusea, alopecia, fadiga', sev:'leve'}
+    ],
+    studies:[
+      {t:'APHINITY (NEJM 2017)', j:'Pertuzumabe adjuvante em HER2+ de alto risco'},
+      {t:'TRYPHAENA (Ann Oncol 2013)', j:'Segurança cardíaca do esquema com pertuzumabe'}
+    ],
+    crits:[
+      { key:'her2', label:'HER2 positivo', eval:s=> s.her2==='pos'
+          ? {status:'ok', detail:'Paciente IHC 3+ — critério de inclusão atendido', source:'APHINITY: só HER2+'}
+          : {status:'bad', detail:'Estudo exige HER2+; paciente HER2 negativo', source:'APHINITY: critério de inclusão'} },
+      { key:'node', label:'Alto risco (N+ ou T grande)', eval:s=> (s.node==1||s.tstage>=2)
+          ? {status:'ok', detail:'N+ ou tumor ≥ cT2 — perfil de benefício do pertuzumabe', source:'APHINITY: maior benefício em N+'}
+          : {status:'warn', detail:'N0 e tumor pequeno — benefício absoluto do pertuzumabe é menor', source:'APHINITY: subgrupo N0 sem benefício claro'} },
+      { key:'lvef', label:'FEVE ≥ 55%', eval:s=> s.lvef>=55
+          ? {status:'ok', detail:'FEVE '+s.lvef+'% — acima do limiar do estudo', source:'TRYPHAENA/APHINITY: FEVE basal ≥ 55%'}
+          : (s.lvef>=50
+             ? {status:'warn', detail:'FEVE '+s.lvef+'% — abaixo do exigido no basal (≥55%); avaliar cardio-oncologia', source:'TRYPHAENA: exclusão se FEVE < 55% basal'}
+             : {status:'bad', detail:'FEVE '+s.lvef+'% — abaixo de 50%; excluído por risco cardíaco', source:'Critério de exclusão cardíaco'}) },
+      { key:'ecog', label:'ECOG 0–1', eval:s=> s.ecog<=1
+          ? {status:'ok', detail:'ECOG '+s.ecog+' — dentro da população do estudo', source:'População ECOG 0–1'}
+          : {status:'bad', detail:'ECOG '+s.ecog+' — fora da população estudada', source:'Critério de exclusão'} },
+      { key:'crcl', label:'Função renal p/ carboplatina', eval:s=> s.crcl>=60
+          ? {status:'ok', detail:'ClCr '+s.crcl+' mL/min — adequado', source:'Carboplatina: dose por AUC'}
+          : (s.crcl>=45
+             ? {status:'warn', detail:'ClCr '+s.crcl+' — reduzido; recalcular AUC / avaliar troca', source:'Ajuste de dose'}
+             : {status:'bad', detail:'ClCr '+s.crcl+' — insuficiente para carboplatina', source:'Contraindicação relativa'}) }
+    ]
+  },
+  {
+    id:'apt', name:'TH (esquema APT)', full:'Paclitaxel + Trastuzumabe (baixo risco, adjuvante)',
+    grade:'mod', gradeCode:'1B', gradeText:'Recomendação forte (1) · evidência de qualidade moderada (B)',
+    mcbs:{ grade:'n/a', tier:'na', form:'Formulário 1 · intenção curativa/adjuvante', label:'Não avaliável pela MCBS',
+      note:'APT é estudo de braço único (fase II); a MCBS exige comparação randomizada (HR), por isso não recebe nota — mesmo sendo evidência aceita na prática.',
+      source:'ESMO-MCBS v1.1 — metodologia' },
+    benefit:{
+      head:'Excelente controle em baixo risco',
+      detail:'DFS em 7 anos ≈ 93% em HER2+ pequeno (≤3 cm) e N0.',
+      survival:'Recorrência à distância rara; regime poupador de antraciclina.',
+      source:'APT trial — Tolaney (NEJM 2015; atualização JCO 2019)'
+    },
+    tox:[
+      {name:'Neuropatia periférica (paclitaxel)', sev:'moderada'},
+      {name:'Reação infusional', sev:'leve'},
+      {name:'Baixa cardiotoxicidade (sem antraciclina)', sev:'baixa'},
+      {name:'Alopecia', sev:'leve'}
+    ],
+    studies:[
+      {t:'APT trial — Tolaney (NEJM 2015)', j:'Paclitaxel+trastuzumabe em HER2+ pequeno, N0'}
+    ],
+    crits:[
+      { key:'her2', label:'HER2 positivo', eval:s=> s.her2==='pos'
+          ? {status:'ok', detail:'HER2+ atendido', source:'APT: só HER2+'}
+          : {status:'bad', detail:'Paciente HER2 negativo', source:'APT: inclusão'} },
+      { key:'tstage', label:'Tumor ≤ 3 cm (cT1)', eval:s=> s.tstage<=1
+          ? {status:'ok', detail:'cT1 — dentro do critério do APT (≤3 cm)', source:'APT: tumor ≤ 3 cm'}
+          : {status:'bad', detail:'Tumor ≥ cT2 (>2–5 cm) — acima do limite do APT; paciente NÃO representada pelo estudo', source:'APT: exclusão se > 3 cm'} },
+      { key:'node', label:'Linfonodo negativo (N0)', eval:s=> s.node==0
+          ? {status:'ok', detail:'N0 — dentro da população do APT', source:'APT: N0 (ou micromet)'}
+          : {status:'bad', detail:'N1 — o APT excluiu axila positiva; evidência não se aplica', source:'APT: exclusão N+'} },
+      { key:'lvef', label:'FEVE adequada', eval:s=> s.lvef>=50
+          ? {status:'ok', detail:'FEVE '+s.lvef+'% — sem antraciclina, exigência menor', source:'APT: esquema poupador de coração'}
+          : {status:'warn', detail:'FEVE '+s.lvef+'% — monitorar; esquema já evita antraciclina', source:'Monitorização cardíaca'} }
+    ]
+  }
+];
+
+// ---- rank status ----
+const RANK={ok:0,warn:1,bad:2};
+function overall(crits){ let w=false; for(const c of crits){ if(c.r.status==='bad') return 'bad'; if(c.r.status==='warn') w=true; } return w?'warn':'ok'; }
+function evalProto(p){ const crits=p.crits.map(c=>({...c, r:c.eval(S)})); return {crits, status:overall(crits)}; }
+
+const SEM={ ok:{cls:'s-green',txt:'Elegível'}, warn:{cls:'s-amber',txt:'Atenção'}, bad:{cls:'s-red',txt:'Inelegível'} };
+const ICO={ok:'✓',warn:'!',bad:'✕'};
+
+function render(){
+  // patient readouts
+  document.getElementById('lvefv').textContent=S.lvef+'%';
+  document.getElementById('crclv').textContent=S.crcl;
+  document.querySelectorAll('#ecogSeg button').forEach(b=>b.classList.toggle('on',+b.dataset.v===S.ecog));
+  document.getElementById('crumbStage').textContent='cT'+S.tstage+' N'+S.node;
+  // protocols
+  const host=document.getElementById('protocols'); host.innerHTML='';
+  let elig=0;
+  PROTOCOLS.forEach(p=>{
+    const e=evalProto(p); if(e.status!=='bad') elig++;
+    const sm=SEM[e.status];
+    const div=document.createElement('div');
+    div.className='proto'+(S.selected===p.id?' sel':'');
+    div.onclick=()=>{S.selected=p.id;render();};
+    const chips=e.crits.map(c=>`<span class="chip ${c.r.status==='ok'?'ok':c.r.status==='warn'?'warn':'bad'}">${ICO[c.r.status]} ${c.label}</span>`).join('');
+    div.innerHTML=`
+      <div class="row1">
+        <div>
+          <div class="pname">${p.name}</div>
+          <div class="pfull">${p.full}</div>
+        </div>
+        <div class="semaphore ${sm.cls}"><span class="dot"></span>${sm.txt}</div>
+      </div>
+      <div class="grade">
+        <span class="badge ${p.grade==='high'?'g-high':'g-mod'}" title="Força da recomendação + qualidade da evidência. ${p.gradeText}">GRADE ${p.gradeCode}</span>
+        <span class="badge mcbs-${p.mcbs.tier}" title="Magnitude do benefício clínico (ESMO-MCBS). ${p.mcbs.note}">ESMO-MCBS ${p.mcbs.grade}</span>
+        <span style="color:var(--muted)">qualidade + magnitude do benefício</span>
+      </div>
+      <div class="benefit-teaser"><b>Esperado:</b> ${p.benefit.head} — <span style="color:var(--muted)">${p.benefit.detail}</span></div>
+      <div class="mini-crit">${chips}</div>`;
+    host.appendChild(div);
+  });
+  document.getElementById('protocount').textContent=PROTOCOLS.length;
+  renderEvidence();
+}
+
+function renderEvidence(){
+  const p=PROTOCOLS.find(x=>x.id===S.selected); const e=evalProto(p);
+  const sm=SEM[e.status];
+  const body=document.getElementById('evBody');
+  const banner=`<div class="verdict-banner ${sm.cls}"><span class="semaphore ${sm.cls}" style="padding:0;background:none"><span class="dot"></span></span>
+     <div><b>${p.name}: ${sm.txt}</b> para esta paciente${e.status==='bad'?' — há critério de exclusão bloqueante':e.status==='warn'?' — revisar pontos de atenção':' — paciente compatível com a população dos estudos'}.</div></div>`;
+  const studies=p.studies.map(s=>`<div class="j" style="margin-bottom:2px">📄 <b style="color:var(--ink)">${s.t}</b> — ${s.j}</div>`).join('');
+  const rows=e.crits.map(c=>`
+    <div class="critrow">
+      <div class="ic ${c.r.status}">${ICO[c.r.status]}</div>
+      <div class="txt"><b>${c.label}</b><small>${c.r.detail}</small>
+        <a class="srclink" href="#" onclick="return false">↳ fonte: ${c.r.source}</a></div>
+    </div>`).join('');
+  const SEVLBL={grave:'grave',moderada:'moderada',leve:'leve',baixa:'baixo'};
+  const tox=p.tox.map(x=>`<span class="toxchip sev-${x.sev}" ${x.note?`title="${x.note}"`:''}>${x.name}${x.note?' •':''}</span>`).join('');
+  const benefit=`<div class="study benefit">
+      <div class="t">O que esperar — resultado principal</div>
+      <div class="bhead">${p.benefit.head}</div>
+      <div class="bline">${p.benefit.detail}</div>
+      <div class="bline">${p.benefit.survival}</div>
+      <a class="srclink" href="#" onclick="return false">↳ fonte: ${p.benefit.source}</a>
+    </div>`;
+  const mcbsBlock=`<div class="study">
+      <div class="t">Magnitude do benefício clínico — ESMO-MCBS</div>
+      <div class="mcbsrow">
+        <span class="mcbsbig mcbs-${p.mcbs.tier}">${p.mcbs.grade}</span>
+        <div><div class="mcbslabel">${p.mcbs.label}</div><div class="j" style="margin:0">${p.mcbs.form}</div></div>
+      </div>
+      <div class="bline" style="margin-top:8px;color:var(--muted)">${p.mcbs.note}</div>
+      <a class="srclink" href="#" onclick="return false">↳ fonte: ${p.mcbs.source}</a>
+      <div class="mcbslegend">Curativo: A · B · C (A/B = substancial) &nbsp;·&nbsp; Paliativo: 5 · 4 · 3 · 2 · 1 (5/4 = substancial)</div>
+    </div>`;
+  const toxBlock=`<div class="study">
+      <div class="t">Principais toxicidades</div>
+      <div class="j">o que vigiar durante o tratamento</div>
+      <div class="toxwrap">${tox}</div>
+      <div class="sevlegend"><span class="dotleg sev-grave"></span>grave <span class="dotleg sev-moderada"></span>moderada <span class="dotleg sev-leve"></span>leve <span class="dotleg sev-baixa"></span>baixo risco · <i>passe o mouse p/ conduta</i></div>
+    </div>`;
+  body.innerHTML = banner +
+    `<div class="study"><div class="t">Estudos que embasam o protocolo</div><div class="j"></div>${studies}</div>` +
+    benefit + mcbsBlock + toxBlock +
+    `<div class="study"><div class="t">Checagem de critérios × esta paciente</div><div class="j">inclusão / exclusão dos estudos acima</div>${rows}</div>`;
+  // action button
+  const btn=document.getElementById('genBtn'); const note=document.getElementById('genNote');
+  if(e.status==='bad'){ btn.disabled=true; btn.textContent='Bloqueado por exclusão';
+    note.innerHTML='O protocolo tem critério de exclusão atendido pela paciente. A solicitação fica bloqueada — o médico pode escolher outro protocolo ou <b>justificar a exceção</b> (registrado na guia).'; }
+  else if(e.status==='warn'){ btn.disabled=false; btn.textContent='Gerar solicitação (com ressalva)';
+    note.innerHTML='Gera a guia (APAC/TISS) já preenchida, anexando os pontos de atenção e as fontes — deixando a solicitação defensável em caso de auditoria.'; }
+  else { btn.disabled=false; btn.textContent='Gerar solicitação';
+    note.innerHTML='Gera a guia (APAC no SUS / TISS na suplementar) já preenchida, com os estudos e a checagem de elegibilidade anexados como justificativa.'; }
+}
+
+// ---- bindings ----
+document.getElementById('tstage').onchange=e=>{S.tstage=+e.target.value;render()};
+document.getElementById('node').onchange=e=>{S.node=+e.target.value;render()};
+document.getElementById('her2').onchange=e=>{S.her2=e.target.value;render()};
+// steppers (FEVE, ClCr) — clicar em vez de arrastar
+const LIMITS={lvef:[35,70],crcl:[15,120]};
+window.step=function(key,delta){
+  const [min,max]=LIMITS[key];
+  S[key]=Math.max(min,Math.min(max,S[key]+delta));
+  render();
+};
+// ECOG — segmento clicável
+document.querySelectorAll('#ecogSeg button').forEach(b=>b.onclick=()=>{
+  S.ecog=+b.dataset.v; render();
+});
+document.querySelectorAll('.src-mode button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.src-mode button').forEach(x=>x.classList.remove('on'));b.classList.add('on')});
+
+// ---- GUIA generation ----
+let guiaMode='sus';
+const TSTAGE_TXT={1:'cT1',2:'cT2',3:'cT3'};
+const CID={ // ilustrativo
+  base:'C50.9', desc:'Neoplasia maligna da mama, não especificada'
+};
+const PROC={
+  sus:{cod:'0304020075', nome:'Quimioterapia neoadjuvante/adjuvante de carcinoma de mama'},
+  tiss:{cod:'—', nome:'Tratamento quimioterápico (antineoplásico)'}
+};
+
+document.getElementById('genBtn').onclick=()=>openGuia();
+
+function openGuia(){
+  const p=PROTOCOLS.find(x=>x.id===S.selected); const e=evalProto(p);
+  if(e.status==='bad'){ /* botão está desabilitado, mas guard */ }
+  buildGuia(p,e);
+  document.getElementById('overlay').classList.add('on');
+}
+function closeGuia(){ document.getElementById('overlay').classList.remove('on'); }
+function setGuia(m){ guiaMode=m;
+  document.getElementById('tabSUS').classList.toggle('on',m==='sus');
+  document.getElementById('tabTISS').classList.toggle('on',m==='tiss');
+  const p=PROTOCOLS.find(x=>x.id===S.selected); buildGuia(p,evalProto(p));
+}
+function cell(k,v){ return `<div class="gcell"><div class="k">${k}</div><div class="v">${v}</div></div>`; }
+
+function buildGuia(p,e){
+  const isSUS=guiaMode==='sus';
+  document.getElementById('formTitle').textContent = isSUS
+    ? 'APAC — Autorização de Procedimento de Alta Complexidade (SUS)'
+    : 'Guia de Solicitação SP/SADT — padrão TISS/ANS (saúde suplementar)';
+  document.getElementById('guiaSub').textContent = isSUS
+    ? 'campos compatíveis com a Portaria SAES/MS 470/2021 · exportação em layout SIA/SUS' : 'exportação em XML no padrão TISS · pronta para a operadora';
+  const proc=isSUS?PROC.sus:PROC.tiss;
+  const grid=[
+    cell('Paciente','Maria A. · 54a · Fem.'),
+    cell(isSUS?'Cartão SUS':'Beneficiária / carteirinha', isSUS?'700•••• •••• 1234':'•••• •••• •••• 5678'),
+    cell('CID-10 principal', CID.base+' — '+CID.desc),
+    cell('Estadiamento', TSTAGE_TXT[S.tstage]+' N'+S.node+' · HER2+'),
+    cell(isSUS?'Procedimento (SIGTAP)':'Procedimento', proc.cod+' — '+proc.nome),
+    cell('Protocolo', p.name+' — '+p.full),
+    cell('FEVE basal', S.lvef+'%'),
+    cell('ECOG · ClCr', S.ecog+' · '+S.crcl+' mL/min'),
+    cell(isSUS?'Estabelecimento (CNES)':'Prestador','Hospital-escola (demo) · CNES 0000000'),
+    cell('Médico solicitante','Dr(a). (você) · CRM 000000'),
+  ].join('');
+  document.getElementById('formGrid').innerHTML=grid;
+
+  // justificativa
+  const oks=e.crits.filter(c=>c.r.status==='ok').length;
+  const warns=e.crits.filter(c=>c.r.status==='warn');
+  const jb=document.getElementById('justBox');
+  jb.className='just'+(e.status==='warn'?' warnj':'');
+  let lines=`<div class="jline"><span class="b">GRADE ${p.gradeCode}</span><span>Protocolo ${p.name}: ${p.gradeText.toLowerCase()}.</span></div>`;
+  lines+=`<div class="jline"><span class="b">MCBS ${p.mcbs.grade}</span><span>Magnitude do benefício clínico (ESMO-MCBS): ${p.mcbs.label.toLowerCase()}.</span></div>`;
+  lines+=`<div class="jline"><span class="b">↑</span><span>Benefício esperado: ${p.benefit.head} — ${p.benefit.detail} (${p.benefit.source}).</span></div>`;
+  lines+=`<div class="jline"><span class="b">✓</span><span>${oks} de ${e.crits.length} critérios de elegibilidade dos estudos-pivô atendidos pela paciente.</span></div>`;
+  p.studies.forEach(s=>{ lines+=`<div class="jline"><span class="b">↳</span><span>${s.t} — ${s.j}</span></div>`; });
+  if(warns.length){ warns.forEach(w=>{ lines+=`<div class="jline"><span class="b">!</span><span>Ponto de atenção — ${w.label}: ${w.r.detail}</span></div>`; }); }
+  jb.innerHTML=lines;
+
+  // exceção (só quando warn — bad não chega aqui pois botão fica bloqueado)
+  const exWrap=document.getElementById('exWrap');
+  if(e.status==='warn'){
+    exWrap.innerHTML=`<p class="gsec">Justificativa de exceção (obrigatória)</p>
+      <div class="exbox">Há ponto(s) de atenção fora da população ideal dos estudos. Registre a justificativa clínica — ela é anexada à guia e fica na trilha de auditoria.
+      <textarea placeholder="Ex.: Benefício esperado supera o risco; paciente acompanhada por cardio-oncologia; FEVE será monitorada a cada ciclo."></textarea></div>`;
+  } else { exWrap.innerHTML=''; }
+
+  document.getElementById('finalStatus').innerHTML = e.status==='warn'
+    ? '⚠ Elegível com ressalva — justificativa anexada'
+    : '✓ Elegível — sem pendências';
+}
+function sendGuia(){
+  closeGuia();
+  const t=document.getElementById('toast'); t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2600);
+}
+
+render();
+</script>
+</body>
+</html>
