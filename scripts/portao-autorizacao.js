@@ -69,18 +69,21 @@ async function ctxLogin(browser, user, senha) {
   await page.fill('#lg_login', user);
   await page.fill('#lg_senha', senha);
   await page.click('#lg_btn');
-  return { ctx, page, errs, alertas };
+  await page.waitForFunction(() => !!localStorage.getItem('oncoguia_token'), null, { timeout: 25000 });
+  const tk = await page.evaluate(() => localStorage.getItem('oncoguia_token'));
+  return { ctx, page, errs, alertas, tk };
 }
 
 (async () => {
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
   let pacienteId = null, avaliacaoPendenteId = null;
-  const tkOnco = await token('oncologista', 'onco123');
+  let tkOnco = null, tkAud = null;
 
   try {
     // ═══ FASE 1 — oncologista abre a solicitação de exceção ═══
     const f1 = await ctxLogin(browser, 'oncologista', 'onco123');
     const page = f1.page;
+    tkOnco = f1.tk;
     await page.waitForSelector('button:has-text("+ Novo paciente")', { timeout: 25000 });
     ok('U1 login oncologista', true);
 
@@ -133,6 +136,7 @@ async function ctxLogin(browser, user, senha) {
     // ═══ FASE 2 — auditor decide ═══
     const f2 = await ctxLogin(browser, 'auditor', 'auditor123');
     const pa = f2.page;
+    tkAud = f2.tk;
     await pa.waitForSelector('#nav a', { timeout: 25000 });
     const abasAud = await pa.evaluate(() => Array.from(document.querySelectorAll('#nav a')).map(a => a.textContent.trim()));
     ok('A1 auditor vê a aba Autorizações', abasAud.some(a => /Autoriza/.test(a)), abasAud.join(','));
@@ -177,7 +181,7 @@ async function ctxLogin(browser, user, senha) {
       `${linhaAprov.autorizacao_estado} · ${linhaAprov.autorizacao_auditor}`);
 
     // ═══ FASE 3 — API: o enforcement que a UI não garante ═══
-    const tkAud = await token('auditor', 'auditor123');
+    // tkOnco/tkAud vêm das sessões da UI acima; só o revisor precisa de um login próprio.
     const tkRev = await token('revisor', 'revisor123');
 
     // ★ a pergunta em aberto: POST DIRETO, sem autorizacao_estado, semáforo elegível.

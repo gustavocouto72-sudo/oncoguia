@@ -51,7 +51,11 @@ class CriarAvaliacaoDto {
   // Solicitação de exceção: 'pendente' quando o médico seleciona um protocolo Inelegível
   // ou Não incorporado (a justificativa vai em detalhe_semaforo.ressalva). Só estes dois
   // valores entram por aqui — 'aprovada'/'negada' são decisão do auditor, em outra rota.
+  // E é só um PEDIDO: o servidor reconfere os dois eixos e pode forçar 'pendente'.
   @IsOptional() @IsIn(['nao_necessaria', 'pendente']) autorizacao_estado?: 'nao_necessaria' | 'pendente';
+  // Retorno que motivou a troca de protocolo (conduta = troca_protocolo). Opcional: a
+  // primeira seleção e a reavaliação avulsa não nascem de retorno nenhum.
+  @IsOptional() @IsInt() retorno_id?: number;
 }
 
 // Leitura = qualquer autenticado. Escrita de avaliação — e, com ela, a abertura de uma

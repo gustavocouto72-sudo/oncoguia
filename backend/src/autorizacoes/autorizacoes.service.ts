@@ -2,6 +2,7 @@ import { BadRequestException, ConflictException, Injectable, NotFoundException }
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Avaliacao, AutorizacaoEstado } from '../database/entities';
+import { PacientesService } from '../pacientes/pacientes.service';
 
 export type FiltroAutorizacao = 'pendentes' | 'decididas' | 'todas';
 
@@ -16,7 +17,10 @@ export interface DecisaoAutorizacao {
 // com uma nova solicitação. Negada não some da trilha: fica com o parecer visível.
 @Injectable()
 export class AutorizacoesService {
-  constructor(@InjectRepository(Avaliacao) private avaliacaoRepo: Repository<Avaliacao>) {}
+  constructor(
+    @InjectRepository(Avaliacao) private avaliacaoRepo: Repository<Avaliacao>,
+    private pacientes: PacientesService,
+  ) {}
 
   async listar(filtro: FiltroAutorizacao = 'pendentes') {
     const estados: AutorizacaoEstado[] =
@@ -71,6 +75,12 @@ export class AutorizacoesService {
       },
     );
     if (!res.affected) throw new ConflictException('Solicitação já decidida por outro auditor');
+    // Aprovada = a avaliação passa a ser o protocolo vigente. O reestadiamento não foi
+    // agendado na criação de propósito (uma solicitação pode ser negada, e o calendário
+    // não deve marcar tratamento que talvez nunca comece) — o relógio começa agora.
+    if (dados.decisao === 'aprovada') {
+      await this.pacientes.agendarReestadiamento(a.paciente_id);
+    }
     const full = await this.avaliacaoRepo.findOne({
       where: { id: avaliacaoId },
       relations: { paciente: true, avaliadoPor: true, autorizacaoAuditor: true },

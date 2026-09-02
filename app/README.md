@@ -20,6 +20,7 @@ pelo squad em `squads/mbe-oncologia/output/regimes-consolidados.json`
 1. **Pacientes** → lista + cadastro (só dados administrativos).
 2. **Página do paciente** → escolhe o tumor e preenche o clínico (formulário **dinâmico por tumor**).
 3. **Protocolos** → semáforo de elegibilidade 🟢🟡🔴 + selos GRADE / ESMO-MCBS / custo + fontes.
+4. **Trilha** → o seguimento depois da escolha: retornos (resposta/toxicidade/conduta), troca de protocolo e lembrete de reestadiamento.
 
 Além do fluxo do paciente, há as abas **Fluxograma** (árvore de decisão) e **Revisão clínica** (camada humana sobre os 295 protocolos) — ver seções abaixo.
 
@@ -60,6 +61,49 @@ ancorado em `regimen_id` + `content_hash` — quando o squad re-roda e o regime 
 4. **Re-rodar o squad entrando no Step 08** (`/opensquad run mbe-oncologia`): os Steps 08/10 reprocessam os regimes com decisão de natureza `dado` (usando a justificativa como correção) e registram os demais pareceres sem publicar.
 
 > Princípio inegociável mantido: nada entra no ar sem decisão humana explícita. A tela só coleta o parecer; o squad é quem aplica.
+
+## Retorno / trilha do paciente (aba "Trilha")
+
+O que acontece **depois** de escolher o protocolo. A antiga aba *Histórico* (só avaliações)
+virou **Trilha**: uma linha do tempo única, com o **tipo visível** em cada item
+(*Seleção de protocolo* · *Retorno* · *Autorização*, quando houver).
+
+**Retorno** é a consulta de seguimento de quem já está em tratamento, e responde três coisas
+sobre o protocolo em curso: o tumor respondeu, o paciente tolerou, e o que se faz agora.
+Como a avaliação, é **append-only e imutável** — não existe editar: correção é registro novo
+(não há rota de UPDATE/DELETE em `retornos`).
+
+- **Regra RECIST — `resposta` só existe com imagem.** Resposta de tumor se mede em exame.
+  Sem reestadiamento naquele retorno, o seletor vem **travado** na tela e a resposta fica
+  `nao_avaliada`; o retorno segue registrando toxicidade e observações. A trava está em
+  **três camadas**, porque a de cima é só conveniência: UI (seletor desabilitado) → DTO
+  (`400`, constraint `RespostaRecist`) → banco (`CHK_retornos_recist`).
+- **Toxicidades** (`{nome, grau}`, CTCAE 1–5): o seletor de nome é alimentado pelas
+  toxicidades **do regime em curso no corpus do squad** — mais a opção **"outra"** com texto
+  livre. O corpus sugere; o médico não fica preso a ele.
+- **Conduta** `mantem` · `troca_protocolo` · `suspende`. Em `troca_protocolo` a app abre a
+  **seleção de protocolos existente** (com semáforo, selos e a seção de não incorporados) e a
+  avaliação escolhida nasce com `retorno_id` — a trilha mostra "motivada pelo retorno de …".
+
+**Lembrete de reestadiamento.** Selecionar protocolo agenda o próximo (**padrão 3 meses**,
+ajustável por paciente); retorno com imagem reagenda **+intervalo** a partir da data
+realizada. Vencido vira **item pendente destacado** na trilha ("Reestadiamento vencido desde
+…") e marca a aba com ⏰. A agenda é o **único ponto mutável** desta feature, de propósito:
+é lembrete, não registro clínico — por isso mora no paciente, não numa tabela append-only.
+
+**Guia SADT.** No item de reestadiamento, *Gerar guia SADT* abre uma guia imprimível (→ PDF
+pelo browser) pré-preenchida com paciente e convênio. A **lista de exames é digitada pelo
+médico na hora** (linhas livres, adicionar/remover). O gancho `examesReestadiamento(tumor)`
+existe e **devolve vazio de propósito** — as listas por tumor virão do oncologista de
+referência na Revisão clínica. Ver `BACKLOG.md`.
+
+**Perfis.** Escrever retorno e mexer na agenda: whitelist **explícita** `['oncologista','admin']`
+(`OncologistaOuAdminGuard` — sem hierarquia, o revisor leva 403 mesmo batendo na URL). Ler a
+trilha: qualquer autenticado.
+
+**API:** `POST/GET /pacientes/:id/retornos` · `GET /pacientes/:id/trilha` ·
+`PATCH /pacientes/:id/reestadiamento`.
+**Portão:** `node scripts/portao-retorno.js` (39 checks, browser isolado + API).
 
 ## Como abrir
 

@@ -2,9 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
-  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, Paciente, SelecaoProtocolo, Semaforo,
+  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, Paciente, Retorno, SelecaoProtocolo, Semaforo,
 } from '../database/entities';
 import { EvidenciaService } from '../evidencia/evidencia.service';
+import { estadoReestadiamento, hojeISO, somarMeses } from '../retornos/retornos.service';
 
 // Payload de uma nova avaliação (reavaliação). data e avaliado_por são do servidor.
 export interface NovaAvaliacao {
@@ -17,6 +18,9 @@ export interface NovaAvaliacao {
   // ou Não incorporado. Só estes dois valores são aceitos na criação — 'aprovada'/'negada'
   // são do auditor, nunca de quem registra a avaliação.
   autorizacao_estado?: Extract<AutorizacaoEstado, 'nao_necessaria' | 'pendente'>;
+  // Retorno que motivou esta avaliação (conduta = troca_protocolo). Fecha o ciclo
+  // retorno → troca: a avaliação nova não fica solta na trilha.
+  retorno_id?: number;
 }
 
 @Injectable()
@@ -25,6 +29,7 @@ export class PacientesService {
     @InjectRepository(Paciente) private pacienteRepo: Repository<Paciente>,
     @InjectRepository(SelecaoProtocolo) private selecaoRepo: Repository<SelecaoProtocolo>,
     @InjectRepository(Avaliacao) private avaliacaoRepo: Repository<Avaliacao>,
+    @InjectRepository(Retorno) private retornoRepo: Repository<Retorno>,
     private evidencia: EvidenciaService,
   ) {}
 
@@ -102,6 +107,8 @@ export class PacientesService {
   // junto, independentemente do ON DELETE do banco (sem FK órfã).
   async remover(id: number) {
     await this.pacienteOr404(id);
+    // retornos antes das avaliações: retornos.avaliacao_id referencia avaliacoes.
+    await this.retornoRepo.delete({ paciente_id: id });
     await this.avaliacaoRepo.delete({ paciente_id: id });
     await this.selecaoRepo.delete({ paciente_id: id });
     await this.pacienteRepo.delete({ id });
@@ -142,6 +149,9 @@ export class PacientesService {
       tumor: p.tumor,
       subtipo: p.subtipo,
       valores_estaveis: p.valores_estaveis || {},
+      // Agenda de reestadiamento com "vencido" já derivado do relógio do SERVIDOR — a app
+      // não decide o que está vencido a partir da data da máquina do usuário.
+      reestadiamento: estadoReestadiamento(p),
       criado_em: p.criado_em,
       criado_por: p.criadoPor
         ? { id: p.criadoPor.id, nome: p.criadoPor.nome, perfil: p.criadoPor.perfil }
@@ -176,7 +186,7 @@ export class PacientesService {
 
   // Cria uma nova avaliação: EMPILHA, nunca sobrescreve. data e avaliado_por do servidor.
   async criarAvaliacao(pacienteId: number, dados: NovaAvaliacao, usuarioId: number) {
-    await this.pacienteOr404(pacienteId);
+    const paciente = await this.pacienteOr404(pacienteId);
     // Solicitação de exceção — decidida NO SERVIDOR, não pela app. A app manda
     // 'pendente' (é o que pinta o botão "Selecionar mesmo assim"), mas os dois eixos que
     // exigem exceção são reconferidos aqui, cada um na sua fonte:
@@ -199,13 +209,35 @@ export class PacientesService {
       semaforo: dados.semaforo,
       detalhe_semaforo: dados.detalhe_semaforo ?? null,
       autorizacao_estado,
+      retorno_id: dados.retorno_id ?? null,
     });
     const salva = await this.avaliacaoRepo.save(nova);
+    // Selecionar protocolo agenda o reestadiamento (padrão 3 meses, ajustável por paciente).
+    // O relógio conta do dia da seleção; um retorno com imagem depois o reancora.
+    // SÓ quando a avaliação já é o protocolo vigente: solicitação de exceção pendente pode
+    // ser negada, e agendar antes marcaria o calendário por um tratamento que talvez nunca
+    // comece. Aprovada, quem agenda é o AutorizacoesService (é ali que ela vira vigente).
+    if (autorizacao_estado === 'nao_necessaria') {
+      await this.agendarReestadiamento(pacienteId, paciente.intervalo_reestadiamento_meses);
+    }
     const full = await this.avaliacaoRepo.findOne({
       where: { id: salva.id },
       relations: { avaliadoPor: true, autorizacaoAuditor: true },
     });
     return this.mapAvaliacao(full);
+  }
+
+  // Agenda o próximo reestadiamento a partir de hoje. Público porque a aprovação de uma
+  // exceção (AutorizacoesService) também precisa dele: é lá que a avaliação vira vigente.
+  async agendarReestadiamento(pacienteId: number, intervaloMeses?: number) {
+    const meses = intervaloMeses
+      ?? (await this.pacienteRepo.findOneBy({ id: pacienteId }))?.intervalo_reestadiamento_meses
+      ?? 3;
+    const proximo = somarMeses(hojeISO(), meses);
+    if (proximo) {
+      await this.pacienteRepo.update({ id: pacienteId }, { proximo_reestadiamento: proximo });
+    }
+    return proximo;
   }
 
   private mapAvaliacao(a: Avaliacao) {
@@ -225,6 +257,7 @@ export class PacientesService {
       autorizacao_auditor: a.autorizacaoAuditor
         ? { id: a.autorizacaoAuditor.id, nome: a.autorizacaoAuditor.nome }
         : null,
+      retorno_id: a.retorno_id ?? null,
       avaliado_por: a.avaliadoPor
         ? { id: a.avaliadoPor.id, nome: a.avaliadoPor.nome, perfil: a.avaliadoPor.perfil }
         : null,
