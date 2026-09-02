@@ -8,7 +8,10 @@ import { Roles, RolesGuard } from '../auth/roles.guard';
 import { UsuariosService } from './usuarios.service';
 import type { Perfil } from '../database/entities';
 
-const PERFIS: Perfil[] = ['oncologista', 'revisor', 'admin'];
+// Perfis atribuíveis na tela de admin. 'auditor' entra aqui como eixo próprio: decide
+// solicitação de exceção (protocolo Inelegível/Não incorporado) e mais nada — não herda
+// nem cede permissão de nenhum outro perfil.
+const PERFIS: Perfil[] = ['oncologista', 'revisor', 'auditor', 'admin'];
 
 // Senha temporária aleatória por usuário (alfabeto sem caracteres ambíguos: 0/O, 1/l/I).
 function gerarSenhaTemporaria(tamanho = 10): string {

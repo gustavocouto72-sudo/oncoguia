@@ -8,6 +8,7 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { SelecoesModule } from './selecoes/selecoes.module';
 import { RevisoesModule } from './revisoes/revisoes.module';
+import { AutorizacoesModule } from './autorizacoes/autorizacoes.module';
 import { EvidenciaModule } from './evidencia/evidencia.module';
 
 @Module({
@@ -21,6 +22,7 @@ import { EvidenciaModule } from './evidencia/evidencia.module';
     PacientesModule,
     SelecoesModule,
     RevisoesModule,
+    AutorizacoesModule,
     EvidenciaModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],

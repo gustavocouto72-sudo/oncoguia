@@ -170,6 +170,7 @@ export class RevisoesService {
           natureza: noHashAtual.natureza ?? null,
           acao: noHashAtual.acao ?? null,
           acao_detalhe: noHashAtual.acao_detalhe ?? null,
+          aplicada_em: noHashAtual.aplicada_em ?? null,
           motivo: noHashAtual.justificativa ?? null,
           content_hash: noHashAtual.content_hash,
         };
@@ -219,14 +220,44 @@ export class RevisoesService {
   // Decisões antigas SEM acao (legado em texto livre) saem com acao=null + triagem_manual=true:
   // o intake propõe um balde lendo o texto e o humano confirma antes de qualquer execução —
   // nada destrutivo/mutante é deduzido de texto livre.
+  // `estado_intake` fecha o ciclo: ter ação não significa que ela já rodou. Os estados são
+  // exclusivos e nesta ordem de precedência (ver legenda_estado_intake):
+  //   aguardando_re_revisao     — hash_atual conhecido e != content_hash: o parecer é de uma
+  //                               versão anterior do regime (inclusive quando foi a própria
+  //                               execução que mudou o regime). Precede tudo: seja o que for
+  //                               que já se aplicou, quem decide sobre a versão nova é o revisor.
+  //   pendente_triagem          — crítica sem acao: ninguém triou ainda.
+  //   triada_aplicada           — acao + aplicada_em: triada com o humano e executada pelo intake.
+  //   triada_pendente_execucao  — acao sem aplicada_em: é a FILA DE TRABALHO real do intake.
+  //   registro                  — aprovado no hash atual: nada a rotear.
+  // hash_atual null (sidecar ausente ou regime fora do consolidado) NÃO vira divergência — não dá
+  // para afirmar que a versão mudou; o estado cai no eixo de triagem e o hash_atual null fala por si.
   // `regimenIds` (opcional) restringe ao subconjunto selecionado na Revisão clínica.
   async exportar(regimenIds?: string[]) {
     const rows = await this.repo.find({ relations: { revisor: true }, order: { criado_em: 'ASC' } });
     const idSet = regimenIds && regimenIds.length ? new Set(regimenIds) : null;
     const selecionadas = idSet ? rows.filter((d) => idSet.has(d.regimen_id)) : rows;
     const hashesAtuais = this.currentHashes();
+    const contagem: Record<string, number> = {
+      aguardando_re_revisao: 0,
+      pendente_triagem: 0,
+      triada_aplicada: 0,
+      triada_pendente_execucao: 0,
+      registro: 0,
+    };
     const decisoes = selecionadas.map((d) => {
       const critico = d.decisao === 'contestado' || d.decisao === 'ajuste_solicitado';
+      const hashAtual = hashesAtuais[d.regimen_id] ?? null;
+      const estadoIntake = hashAtual && hashAtual !== d.content_hash
+        ? 'aguardando_re_revisao'
+        : !critico
+          ? 'registro'
+          : !d.acao
+            ? 'pendente_triagem'
+            : d.aplicada_em
+              ? 'triada_aplicada'
+              : 'triada_pendente_execucao';
+      contagem[estadoIntake]++;
       // reprocessar = a ação re-deriva o dado (corrigir_referencia | ajustar_elegibilidade).
       // refutar/excluir/manter_anotar/outro não reprocessam. Legado (sem acao): mantém a leitura
       // antiga (natureza dado), mas o intake só age após confirmação humana (triagem_manual).
@@ -236,11 +267,14 @@ export class RevisoesService {
       return {
         regimen_id: d.regimen_id,
         content_hash: d.content_hash,
-        hash_atual: hashesAtuais[d.regimen_id] ?? null, // difere do content_hash ⇒ parecer de versão anterior
+        hash_atual: hashAtual, // difere do content_hash ⇒ parecer de versão anterior
         decisao: d.decisao,
         natureza: d.natureza ?? null,
         acao: d.acao ?? null,
         acao_detalhe: d.acao_detalhe ?? null,
+        // Data em que o intake EXECUTOU a ação; null = ainda não executada.
+        aplicada_em: d.aplicada_em ?? null,
+        estado_intake: estadoIntake,
         // Legado sem ação explícita: o intake NÃO roteia automático — propõe balde e pede confirmação.
         triagem_manual: critico && !d.acao,
         eixo: d.eixo ?? null,
@@ -256,6 +290,8 @@ export class RevisoesService {
         exportado_em: new Date().toISOString().slice(0, 10),
         escopo: idSet ? 'selecao' : 'completo',
         total_decisoes: decisoes.length,
+        // Placar do ciclo: o que falta triar, o que falta executar e o que voltou para o revisor.
+        estados_intake: contagem,
         gerado_por: 'OncoGuia — backend (/revisao/export, tabela revisoes)',
         legenda_decisao: {
           aprovado: 'protocolo aprovado pelo revisor naquele content_hash (registro; nada a refazer)',
@@ -270,6 +306,14 @@ export class RevisoesService {
           manter_anotar: 'o dado está certo — anexar a justificativa ao regime como contexto visível e marcar "revisado com ressalva". NÃO muda o dado.',
           outro: 'não se encaixa → fila de triagem manual; NUNCA roteia automático.',
           _seguranca: 'refutar, excluir e corrigir_referencia mudam o corpo publicado: só agir com acao setada explicitamente, NUNCA deduzida do texto livre. Decisões com acao=null (legado) saem com triagem_manual=true — propor balde e confirmar com humano antes de executar.',
+        },
+        legenda_estado_intake: {
+          aguardando_re_revisao: 'o regime mudou depois deste parecer (hash_atual != content_hash) — inclusive quando foi a própria execução da ação que o mudou. O parecer não vale para a versão publicada: quem decide sobre ela é o revisor. Precede os demais estados.',
+          pendente_triagem: 'crítica ainda SEM acao (legado em texto livre): o intake propõe um balde e o humano confirma antes de qualquer execução. É o mesmo conjunto de triagem_manual=true.',
+          triada_aplicada: 'acao confirmada com o humano E já executada pelo intake em aplicada_em — ciclo fechado; nada a refazer.',
+          triada_pendente_execucao: 'acao confirmada mas ainda NÃO executada (aplicada_em null) — é a fila de trabalho real do intake. Tipicamente acao=outro, que nunca roteia automático.',
+          registro: 'aprovado no hash atual: registro do revisor, nada a rotear.',
+          _leitura: 'acao diz PARA ONDE a decisão vai; aplicada_em diz se JÁ FOI. Ter acao não significa executada — só aplicada_em atesta isso.',
         },
         legenda_natureza: {
           dado: 'fonte/DOI/critério não computável errado (classificação; quem decide o destino é a acao)',
@@ -290,6 +334,7 @@ export class RevisoesService {
       natureza: d.natureza,
       acao: d.acao,
       acao_detalhe: d.acao_detalhe,
+      aplicada_em: d.aplicada_em ?? null,
       eixo: d.eixo,
       revisor: d.revisor ? { id: d.revisor.id, nome: d.revisor.nome } : null,
       criado_em: d.criado_em,

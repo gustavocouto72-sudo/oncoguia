@@ -6,6 +6,7 @@ import {
 } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { Roles, RolesGuard } from '../auth/roles.guard';
+import { OncologistaOuAdminGuard } from '../auth/oncologista.guard';
 import { PacientesService } from './pacientes.service';
 import type { Semaforo } from '../database/entities';
 
@@ -47,10 +48,15 @@ class CriarAvaliacaoDto {
   @IsObject() snapshot_campos: Record<string, any>;
   @IsIn(['elegivel', 'atencao', 'inelegivel']) semaforo: Semaforo;
   @IsOptional() @IsObject() detalhe_semaforo?: Record<string, any>;
+  // Solicitação de exceção: 'pendente' quando o médico seleciona um protocolo Inelegível
+  // ou Não incorporado (a justificativa vai em detalhe_semaforo.ressalva). Só estes dois
+  // valores entram por aqui — 'aprovada'/'negada' são decisão do auditor, em outra rota.
+  @IsOptional() @IsIn(['nao_necessaria', 'pendente']) autorizacao_estado?: 'nao_necessaria' | 'pendente';
 }
 
-// Leitura = qualquer autenticado. Escrita de avaliação = oncologista (e acima, pela
-// hierarquia acumulativa do RolesGuard — idêntico ao HelmCare Nurse).
+// Leitura = qualquer autenticado. Escrita de avaliação — e, com ela, a abertura de uma
+// solicitação de exceção — = whitelist EXPLÍCITA ['oncologista','admin']
+// (OncologistaOuAdminGuard), sem hierarquia: quem trata o paciente é quem registra.
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('pacientes')
 export class PacientesController {
@@ -88,7 +94,9 @@ export class PacientesController {
   }
 
   // Nova avaliação (reavaliação): empilha, não sobrescreve. avaliado_por/data do servidor.
-  @Roles('oncologista')
+  // Protocolo Inelegível/Não incorporado nasce com autorizacao_estado='pendente' — é a
+  // solicitação de exceção; não conta como protocolo vigente até um auditor aprovar.
+  @UseGuards(OncologistaOuAdminGuard)
   @Post(':id/avaliacoes')
   criarAvaliacao(
     @Param('id', ParseIntPipe) id: number,

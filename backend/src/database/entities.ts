@@ -2,10 +2,26 @@ import {
   Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, Index,
 } from 'typeorm';
 
-export type Perfil = 'oncologista' | 'revisor' | 'admin';
+// Perfis são WHITELIST, nunca hierarquia: 'auditor' não é "revisor com mais poder" —
+// é um eixo próprio (autoriza exceção de protocolo), e não herda nada de ninguém.
+export type Perfil = 'oncologista' | 'revisor' | 'auditor' | 'admin';
 
 // Semáforo de elegibilidade — mesmo vocabulário do motor evalExpr (elegível/atenção/inelegível).
 export type Semaforo = 'elegivel' | 'atencao' | 'inelegivel';
+
+// SOLICITAÇÃO DE EXCEÇÃO — autorização do auditor para um protocolo fora do padrão.
+// Estende o "Selecionar mesmo assim — exige justificativa": seleção de protocolo
+// Inelegível ou Não incorporado não vira tratamento vigente sozinha; nasce 'pendente'
+// e só passa a valer com decisão de um auditor.
+//   'nao_necessaria' = seleção normal (elegível + incorporado) — vigente na hora;
+//   'pendente'       = solicitação aberta, na fila do auditor — NÃO é vigente;
+//   'aprovada'       = exceção autorizada — passa a ser o protocolo vigente;
+//   'negada'         = exceção recusada — o registro FICA na trilha com o parecer.
+// Decisão é ÚNICA e IMUTÁVEL: nada some, nova tentativa = nova avaliação/solicitação.
+export type AutorizacaoEstado = 'nao_necessaria' | 'pendente' | 'aprovada' | 'negada';
+
+// Estados em que a avaliação CONTA como protocolo vigente do paciente.
+export const AUTORIZACAO_VIGENTE: AutorizacaoEstado[] = ['nao_necessaria', 'aprovada'];
 
 @Entity('usuarios')
 export class Usuario {
@@ -130,6 +146,29 @@ export class Avaliacao {
 
   @Column({ type: 'jsonb', nullable: true })
   detalhe_semaforo: Record<string, any>; // quais regras passaram/falharam
+  // (detalhe_semaforo.ressalva guarda a justificativa do médico ao selecionar fora do
+  //  padrão — é ela que o auditor lê no card da fila de autorizações.)
+
+  // ---- Solicitação de exceção (autorização do auditor) ----
+  // Seleção normal nasce 'nao_necessaria'. Inelegível/Não incorporado nasce 'pendente' e
+  // só vira vigente quando um auditor aprova. Ver AutorizacaoEstado.
+  @Column({ type: 'varchar', length: 20, default: 'nao_necessaria' })
+  autorizacao_estado: AutorizacaoEstado;
+
+  // Parecer do auditor — OBRIGATÓRIO nas duas decisões (aprovar e negar). O médico lê
+  // o desfecho na trilha do paciente; negada permanece visível com este texto.
+  @Column({ type: 'text', nullable: true })
+  autorizacao_parecer: string;
+
+  @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'autorizacao_auditor_id' })
+  autorizacaoAuditor: Usuario;
+
+  @Column({ name: 'autorizacao_auditor_id', nullable: true })
+  autorizacao_auditor_id: number; // do JWT do auditor (servidor)
+
+  @Column({ name: 'autorizacao_decidida_em', type: 'timestamptz', nullable: true })
+  autorizacao_decidida_em: Date; // do servidor
 }
 
 // Linha do tempo de protocolos escolhidos por paciente. dados_clinicos é a
@@ -298,6 +337,13 @@ export class Revisao {
   // Complemento da ação: DOI novo (corrigir_referencia) ou spec da regra (ajustar_elegibilidade).
   @Column({ type: 'text', nullable: true })
   acao_detalhe: string;
+
+  // Quando o intake do squad EXECUTOU essa ação (data do run). null = ainda não executada.
+  // É o que separa "já triado e aplicado" de "fila de trabalho": acao diz PARA ONDE vai,
+  // aplicada_em diz se JÁ FOI. Só faz sentido com acao setada (CHECK no banco) e não é
+  // escrita pelo revisor — quem carimba é o intake, ao fechar o ciclo do parecer.
+  @Column({ type: 'date', nullable: true })
+  aplicada_em: string;
 
   @CreateDateColumn({ name: 'criado_em', type: 'timestamptz' })
   criado_em: Date; // do servidor

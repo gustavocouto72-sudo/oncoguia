@@ -8,7 +8,10 @@ export type { Perfil };
 export const ROLES_KEY = 'roles';
 export const Roles = (...roles: Perfil[]) => SetMetadata(ROLES_KEY, roles);
 
-// Índice maior = mais permissões (herança acumulativa para cima)
+// Índice maior = mais permissões (herança acumulativa para cima).
+// 'auditor' NÃO está aqui de propósito: é um eixo próprio (autoriza exceção de protocolo),
+// não um degrau da escada — quem decide isso é o AuditorOuAdminGuard, por whitelist. Perfil
+// fora desta lista não herda nada e cai no bloqueio explícito abaixo.
 const HIERARQUIA: Perfil[] = ['oncologista', 'revisor', 'admin'];
 
 @Injectable()
@@ -28,7 +31,9 @@ export class RolesGuard implements CanActivate {
     const nivelUsuario = HIERARQUIA.indexOf(user.perfil as Perfil);
     const nivelMinimo = Math.min(...required.map((r) => HIERARQUIA.indexOf(r)));
 
-    if (nivelUsuario < nivelMinimo) {
+    // Perfil fora da hierarquia (auditor): nunca herda por posição — só passa em rota
+    // que o autorize por whitelist explícita.
+    if (nivelUsuario < 0 || nivelUsuario < nivelMinimo) {
       throw new ForbiddenException('Acesso negado: perfil sem permissão');
     }
     return true;

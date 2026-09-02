@@ -25,6 +25,7 @@ async function seed() {
     { nome: 'Administrador', login: 'admin', senha: 'admin123', perfil: 'admin' },
     { nome: 'Dr. Oncologista de Teste', login: 'oncologista', senha: 'onco123', perfil: 'oncologista' },
     { nome: 'Dra. Revisora de Teste', login: 'revisor', senha: 'revisor123', perfil: 'revisor' },
+    { nome: 'Dr. Auditor de Teste', login: 'auditor', senha: 'auditor123', perfil: 'auditor' },
     // 2º revisor: tumor board tem >1 parecerista (valida a visibilidade cruzada de decisões).
     { nome: 'Dr. Revisor Dois', login: 'revisor2', senha: 'revisor123', perfil: 'revisor' },
   ];

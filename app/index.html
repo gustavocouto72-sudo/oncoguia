@@ -1204,7 +1204,7 @@ function clauseLabel(node,primMap,tumor){
 // Espelha o padrão HelmCare: CRUD de usuários via backend (/usuarios, admin-only).
 // A ação padrão na tela é DESATIVAR (preserva a trilha de auditoria); a exclusão
 // física só aparece para usuários já inativos, como exceção.
-const PERFIL_LABEL = { admin:"Administrador", oncologista:"Oncologista", revisor:"Revisor" };
+const PERFIL_LABEL = { admin:"Administrador", oncologista:"Oncologista", revisor:"Revisor", auditor:"Auditor" };
 let ADM_USUARIOS = null;   // null = ainda não carregado do backend
 let ADM_EDIT = null;       // usuário em edição (cópia) ou null
 let ADM_SENHA_TMP = null;  // {login, senha} do último usuário criado
@@ -1265,8 +1265,10 @@ async function admExcluir(id){
     await admCarregar();
   }catch(e){ ADM_ERRO=e.message; render(); }
 }
+// Perfis atribuíveis (espelha a whitelist do backend). "Auditor" decide solicitação de
+// exceção (protocolo Inelegível/Não incorporado) — eixo próprio, não herda nada dos outros.
 function admPerfilOptions(sel){
-  return ["oncologista","revisor","admin"]
+  return ["oncologista","revisor","auditor","admin"]
     .map(p=>`<option value="${p}" ${p===sel?"selected":""}>${PERFIL_LABEL[p]}</option>`).join("");
 }
 function renderAdmin(){
@@ -1406,12 +1408,14 @@ function render(){
   document.body.classList.remove("auth-screen");
   if(view==="admin" && USUARIO.perfil!=="admin") view = "lista"; // bloqueio de acesso direto
   if(view==="revclin" && !["revisor","admin"].includes(USUARIO.perfil)) view = "lista"; // Revisão: só revisor/admin
+  if(view==="autorizacoes" && !["auditor","admin"].includes(USUARIO.perfil)) view = "lista"; // Autorizações: só auditor/admin
   if(view==="simulador" && !["revisor","admin"].includes(USUARIO.perfil)) view = "lista"; // Simulador: só revisor/admin
   renderNav();
   if(view==="login") view = "lista";
   if(view==="admin") return renderAdmin();
   if(view==="senha") return renderSenha();
   if(view==="revclin") return renderRevisaoClinica();
+  if(view==="autorizacoes") return renderAutorizacoes();
   if(view==="simulador") return renderSimulador();
   if(view==="fluxograma") return renderFluxograma();
   if(view==="lista") return renderLista();
@@ -1424,11 +1428,18 @@ function renderNav(){
   const nav = document.getElementById("nav");
   if(!nav) return;
   const isFlow = view==="fluxograma", isAdm = view==="admin", isRevc = view==="revclin", isSim = view==="simulador";
-  const isPac = !isFlow && !isAdm && !isRevc && !isSim && view!=="senha";
+  const isAut = view==="autorizacoes";
+  const isPac = !isFlow && !isAdm && !isRevc && !isSim && !isAut && view!=="senha";
+  // Aba Autorizações: whitelist ['auditor','admin'] — o oncologista não a vê, e o
+  // bloqueio por URL/go() está no render(); o backend recusa com 403 de qualquer forma.
+  const autTab = podeAutorizar()
+    ? `<a class="${isAut?'on':''}" onclick="go('autorizacoes')">Autorizações${AUT_CONTAGEM&&AUT_CONTAGEM.pendentes?`<span class="n hist-n">${AUT_CONTAGEM.pendentes}</span>`:""}</a>`
+    : "";
   nav.innerHTML = `<nav class="tabs">
     <a class="${isPac?'on':''}" onclick="go('lista')">Pacientes</a>
     <a class="${isFlow?'on':''}" onclick="go('fluxograma')">Fluxograma</a>
     ${USUARIO && ["revisor","admin"].includes(USUARIO.perfil) ? `<a class="${isRevc?'on':''}" onclick="go('revclin')">Revisão clínica</a><a class="${isSim?'on':''}" onclick="go('simulador')">Simulador</a>` : ""}
+    ${autTab}
     ${USUARIO && USUARIO.perfil==="admin" ? `<a class="${isAdm?'on':''}" onclick="go('admin')">Admin</a>` : ""}
   </nav>`;
 }
@@ -1448,7 +1459,7 @@ function renderLista(){
           <td><b>${p.nome}</b>${p.identificador?`<div class="hint">reg. ${esc(p.identificador)}</div>`:""}</td>
           <td>${fmtData(p.nasc)}</td>
           <td>${p.tumor? `<span class="pill">${tumorNome(p.tumor)}</span>${p.subtipo?`<div class="hint">${esc(p.subtipo)}</div>`:""}` : `<span class="hint">— não definido —</span>`}</td>
-          <td>${p.ultimo_regimen_id? `${esc(protocoloNome(p.ultimo_regimen_id))}${p.ultima_linha?` <span class="hint">· ${p.ultima_linha}ª linha</span>`:""}` : `<span class="hint">—</span>`}</td>
+          <td>${p.ultimo_regimen_id? `${esc(protocoloNome(p.ultimo_regimen_id))}${p.ultima_linha?` <span class="hint">· ${p.ultima_linha}ª linha</span>`:""}` : `<span class="hint">—</span>`}${p.autorizacoes_pendentes? `<div class="hint" title="Solicitação de exceção aguardando autorização do auditor — o protocolo solicitado ainda não é o vigente">⏳ ${p.autorizacoes_pendentes} exceção(ões) aguardando autorização</div>`:""}</td>
           <td>${p.ultima_avaliacao? fmtDataCurta(p.ultima_avaliacao) : `<span class="hint">—</span>`}</td>
           <td>${p.ultimo_semaforo? semBadge(p.ultimo_semaforo) : `<span class="hint">—</span>`}</td>
         </tr>`).join("")}</tbody></table>` : `<div class="empty">Nenhum paciente cadastrado.</div>`}
@@ -1787,12 +1798,29 @@ function renderSeguimentoResumo(p, detail){
     resumo = `<div class="empty" style="margin-top:12px">Nenhuma avaliação registrada ainda.<br>
       <span class="hint">Inicie a primeira avaliação para calcular o semáforo e registrar o protocolo.</span></div>`;
   }
+  // Solicitações de exceção deste paciente. A pendente é o ponto importante: o protocolo
+  // escolhido NÃO é o vigente enquanto o auditor não decidir. As decididas ficam visíveis
+  // com o parecer (negada não some da trilha).
+  const excecoes = (detail.linha_do_tempo||[]).filter(e=>e.autorizacao_estado && e.autorizacao_estado!=="nao_necessaria");
+  const pend = excecoes.filter(e=>e.autorizacao_estado==="pendente");
+  const decid = excecoes.filter(e=>e.autorizacao_estado!=="pendente").slice(0,3);
+  const linhaExc = e=>{
+    const M = AUT_ESTADO_META[e.autorizacao_estado]||{};
+    return `<div class="aut-pend-item"><span class="aut-selo ${M.cls}" title="${esc(M.tip||"")}">${M.ic} ${M.t}</span>
+      <b>${esc(protocoloNome(e.regimen_id))}</b>${e.linha_tratamento?` · ${e.linha_tratamento}ª linha`:""} · ${fmtDataHora(e.data)}
+      ${e.autorizacao_parecer?`<div class="aut-parecer"><b>Parecer${e.autorizacao_auditor?` (${esc(e.autorizacao_auditor)})`:""}:</b> ${esc(e.autorizacao_parecer)}</div>`:""}</div>`;
+  };
+  const excHtml = (pend.length||decid.length) ? `<div class="aut-pend-aviso">
+      <b>Solicitações de exceção</b>${pend.length?` — ${pend.length} aguardando autorização do auditor; até lá, o protocolo solicitado <b>não é o vigente</b>.`:""}
+      ${pend.map(linhaExc).join("")}${decid.map(linhaExc).join("")}
+      <div class="hint" style="margin-top:8px">Trilha completa na aba <b>Histórico</b>.</div>
+    </div>` : "";
   const podeReav = podeAvaliar();
   const btn = podeReav
     ? `<button class="btn primary" onclick="iniciarReaval(${p.id})">${u?"Reavaliar":"Iniciar primeira avaliação"}</button>`
     : `<span class="hint">Reavaliação disponível para perfil oncologista.</span>`;
   const avisoPrim = temPrim ? "" : `<div class="prim-fallback" style="margin-top:12px">Elegibilidade computável indisponível para ${tumorNome(detail.tumor)} — sem <code>campos_primitivos</code> + regra no dado do squad. A reavaliação registra o protocolo, mas sem recalcular o semáforo automaticamente.</div>`;
-  return `<div class="section-t">Último atendimento</div>${resumo}${avisoPrim}
+  return `<div class="section-t">Último atendimento</div>${resumo}${excHtml}${avisoPrim}
     <div class="row-actions" style="margin-top:16px">${btn}</div>`;
 }
 
@@ -2005,7 +2033,7 @@ function renderReavalProtosWrap(p, detail){
       <div class="rc-selo-line" style="margin:4px 0 2px">${estadoSeloHtml(r.regimen_id)}</div>
       <div class="crit">${chips}</div>
       <div style="margin-top:10px;display:flex;justify-content:flex-end">
-        ${naoInc?`<button class="sel-btn noinc" onclick="gravarAvaliacao(${p.id},'${esc(r.regimen_id)}','${status}',this)">Selecionar mesmo assim — exige justificativa</button>`
+        ${naoInc?`<button class="sel-btn noinc" onclick="gravarAvaliacao(${p.id},'${esc(r.regimen_id)}','${status}',this)" title="Abre uma solicitação de exceção: o protocolo só vira vigente após autorização de um auditor">Selecionar mesmo assim — exige justificativa e autorização</button>`
                :`<button class="sel-btn" onclick="gravarAvaliacao(${p.id},'${esc(r.regimen_id)}','${status}',this)">✓ Selecionar este protocolo</button>`}
       </div>
     </div>`;
@@ -2052,14 +2080,20 @@ async function gravarAvaliacao(pid, rid, status, btn){
   if(ressalvaInc===null) return;
   const ressalva = [ressalvaElig, ressalvaInc].filter(Boolean).join(" · ");
   if(ressalva){ detalhe_semaforo = detalhe_semaforo || {status, crits:[]}; detalhe_semaforo.ressalva = ressalva; }
+  // Solicitação de exceção: Inelegível OU Não incorporado nasce 'pendente' — não conta
+  // como protocolo vigente até um auditor autorizar. Seleção normal: 'nao_necessaria'.
+  const requerAut = (status==="bad") || !!(reg && !incorporacao(reg).incorporado);
   if(btn) btn.disabled = true;
   try{
     await api(`/pacientes/${pid}/avaliacoes`, {method:"POST", body:JSON.stringify({
       regimen_id: rid, linha_tratamento: REAVAL.linha,
       snapshot_campos, semaforo, detalhe_semaforo,
+      autorizacao_estado: requerAut ? "pendente" : "nao_necessaria",
     })});
     REAVAL = null;
-    toast("Avaliação registrada na linha do tempo do paciente.");
+    toast(requerAut
+      ? "Solicitação de exceção registrada — aguardando autorização do auditor."
+      : "Avaliação registrada na linha do tempo do paciente.");
     await carregarPacientes();
     carregarDetalhe(pid);
     if(AVAL_HIST[pid]!=null) carregarAvaliacoes(pid);
@@ -2078,7 +2112,7 @@ function renderHistoricoTab(p){
   // Ordem cronológica (backend já devolve asc); exibe da mais recente para a mais antiga.
   const ordenado = hist.slice().reverse();
   return `
-    <div class="sub" style="margin-top:12px">Linha do tempo persistida no banco (<code>avaliacoes</code>) — <b>imutável e empilhada</b>: cada reavaliação é um registro novo; correção também. Nada é editado ou apagado.</div>
+    <div class="sub" style="margin-top:12px">Linha do tempo persistida no banco (<code>avaliacoes</code>) — <b>imutável e empilhada</b>: cada reavaliação é um registro novo; correção também. Nada é editado ou apagado. Seleção de protocolo Inelegível ou Não incorporado é uma <b>solicitação de exceção</b>: aparece aqui com o seu estado (⏳ aguardando · ✅ autorizada · ⛔ negada) e só conta como protocolo vigente quando autorizada.</div>
     <div class="hist-tl">${ordenado.map(a=>avalEntryHtml(a, p.tumor)).join("")}</div>`;
 }
 function avalEntryHtml(a, tumor){
@@ -2093,6 +2127,7 @@ function avalEntryHtml(a, tumor){
     </div>
     <div class="hm">${a.linha_tratamento?`<b>${a.linha_tratamento}ª linha</b> · `:""}${tumor?esc(tumorNome(tumor)):"—"} · por <b>${esc(quem)}</b></div>
     ${a.detalhe_semaforo&&a.detalhe_semaforo.ressalva?`<div class="hint" style="margin-top:8px;color:var(--amber);font-weight:700">⚠️ ${esc(a.detalhe_semaforo.ressalva)}</div>`:""}
+    ${autorizacaoSeloHtml(a)}
     <div class="hint" style="margin-top:10px;font-weight:700">Snapshot dos campos (congelado)</div>
     <div class="crit" style="margin-top:6px">${snapshotChipsFor(a.snapshot_campos, tumor)}</div>
   </div>`;
@@ -2165,7 +2200,7 @@ function podeAvaliar(){ return !!(USUARIO && (USUARIO.perfil==="oncologista"||US
 function confirmarSeInelegivel(status, crits){
   if(status!=="bad") return "";
   const falhas = (crits||[]).filter(c=>c.status==="bad").map(c=>c.label).join("; ") || "critérios não atendidos";
-  if(!confirm(`Este protocolo está Inelegível para esta paciente — ${falhas}. Confirmar seleção mesmo assim?`)) return null;
+  if(!confirm(`Este protocolo está Inelegível para esta paciente — ${falhas}.\n\nSelecionar mesmo assim abre uma SOLICITAÇÃO DE EXCEÇÃO: o protocolo só passa a ser o vigente depois que um auditor autorizar.\n\nConfirmar?`)) return null;
   return `Selecionado apesar de Inelegível — critérios não atendidos: ${falhas}.`;
 }
 
@@ -2236,7 +2271,8 @@ function confirmarSeNaoIncorporado(r){
   const j = prompt(`Este protocolo NÃO é incorporado pela instituição — motivo: ${inc.motivoLabel}.`
     +(inc.texto?`\n${inc.texto}`:"")
     +(inc.revisor?`\nDecisão de revisão clínica — ${inc.revisor}${inc.data?`, ${inc.data}`:""}.`:"")
-    +`\n\nSelecionar mesmo assim exige justificativa clínica (fica registrada na avaliação):`, "");
+    +`\n\nSelecionar mesmo assim abre uma SOLICITAÇÃO DE EXCEÇÃO — o protocolo só vira vigente após autorização de um auditor.`
+    +`\n\nJustificativa clínica (obrigatória; é ela que o auditor lê):`, "");
   if(j===null) return null;
   if(!String(j).trim()){ alert("Seleção de protocolo não incorporado exige justificativa."); return null; }
   return `Selecionado apesar de NÃO incorporado (${inc.motivoLabel}) — justificativa: ${String(j).trim()}`;
@@ -2280,14 +2316,19 @@ async function selecionarProtocolo(pid, rid, status, btn){
     const detalhe_semaforo = {status,
       crits: crits.map(c=>({label:c.label, status:c.status, detail:c.detail||""}))};
     if(ressalva) detalhe_semaforo.ressalva = ressalva;
+    // Inelegível ou Não incorporado → solicitação de exceção (nasce pendente, não vigente).
+    const requerAut = (status==="bad") || !incorporacao(r).incorporado;
     await api(`/pacientes/${p.id}/avaliacoes`, {method:"POST", body:JSON.stringify({
       regimen_id: r.regimen_id,
       linha_tratamento: (detail && detail.ultima_avaliacao && detail.ultima_avaliacao.linha_tratamento) || 1,
       snapshot_campos: usaPrim(p.tumor) ? clinValues(p.tumor, p.clin) : {...p.clin},
       semaforo: STATUS_TO_SEM[status] || "atencao",
       detalhe_semaforo,
+      autorizacao_estado: requerAut ? "pendente" : "nao_necessaria",
     })});
-    toast("Avaliação registrada na linha do tempo do paciente.");
+    toast(requerAut
+      ? "Solicitação de exceção registrada — aguardando autorização do auditor."
+      : "Avaliação registrada na linha do tempo do paciente.");
     await carregarPacientes();
     carregarDetalhe(p.id);
     if(AVAL_HIST[p.id]!=null) carregarAvaliacoes(p.id);
@@ -2392,7 +2433,7 @@ function renderProtos(p){
     if(apx) appendixItems.push(apx);
     // Não incorporado: sem botão padrão — o link discreto exige justificativa (rastro de auditoria).
     const botao = !comSelecao ? "" : `<div style="margin-top:10px;display:flex;justify-content:flex-end">
-        ${naoInc?`<button class="sel-btn noinc" onclick="selecionarProtocolo(${p.id},'${esc(r.regimen_id)}','${status}',this)">Selecionar mesmo assim — exige justificativa</button>`
+        ${naoInc?`<button class="sel-btn noinc" onclick="selecionarProtocolo(${p.id},'${esc(r.regimen_id)}','${status}',this)" title="Abre uma solicitação de exceção: o protocolo só vira vigente após autorização de um auditor">Selecionar mesmo assim — exige justificativa e autorização</button>`
                :`<button class="sel-btn" onclick="selecionarProtocolo(${p.id},'${esc(r.regimen_id)}','${status}',this)">✓ Selecionar protocolo</button>`}
       </div>`;
     return `<div class="proto" id="${cardId}">
@@ -3781,6 +3822,262 @@ function renderRevisaoClinica(){
 
 // Baixa o corpus do backend (JWT) e deriva tudo que a UI precisa (tumores, formulários,
 // motor de elegibilidade, indicador de fonte). Chamado no boot com sessão válida e no login.
+// ═══════════════════════════════════════════════════════════════════════════
+// SOLICITAÇÃO DE EXCEÇÃO — autorização do auditor
+// Extensão do "Selecionar mesmo assim — exige justificativa": selecionar um protocolo
+// Inelegível ou Não incorporado não passa a valer sozinho. A avaliação nasce
+// autorizacao_estado='pendente', aparece na trilha do paciente com "⏳ Aguardando
+// autorização" e NÃO conta como protocolo vigente até um auditor decidir.
+// Decisão única e IMUTÁVEL, parecer obrigatório nas duas: aprovada → vira vigente;
+// negada → fica na trilha como negada, com o parecer (nada some; nova tentativa é
+// uma nova seleção, logo uma nova solicitação).
+// Acesso: whitelist ['auditor','admin'] — espelha o AuditorOuAdminGuard do backend
+// (a aba escondida é conveniência; o controle de acesso é o 403 do servidor).
+// ═══════════════════════════════════════════════════════════════════════════
+let AUT_LISTA = null;        // null = ainda não carregada do backend
+let AUT_FILTRO = "pendentes"; // pendentes | decididas
+let AUT_CONTAGEM = null;     // {pendentes, aprovadas, negadas} — selo da aba
+let AUT_FORM = {};           // avaliacao_id -> {parecer} (rascunho; digitar NÃO re-renderiza)
+let AUT_BUSY = null;         // id em gravação
+let AUT_ERRO = "";
+
+function podeAutorizar(){ return !!(USUARIO && (USUARIO.perfil==="auditor" || USUARIO.perfil==="admin")); }
+
+// Selo do estado da solicitação — o mesmo vocabulário na fila do auditor e na trilha do médico.
+const AUT_ESTADO_META = {
+  pendente: { ic:"⏳", t:"Aguardando autorização", cls:"pend",
+              tip:"Solicitação de exceção aberta — este protocolo NÃO é o vigente do paciente até um auditor aprovar." },
+  aprovada: { ic:"✅", t:"Exceção autorizada",     cls:"ok",
+              tip:"O auditor autorizou a exceção — este protocolo passou a ser o vigente." },
+  negada:   { ic:"⛔", t:"Exceção negada",         cls:"neg",
+              tip:"O auditor negou a exceção — o registro permanece na trilha (nada é apagado); uma nova tentativa exige nova solicitação." },
+};
+
+// Bloco de estado da autorização para a trilha do paciente (histórico e seguimento).
+// Recebe qualquer objeto com autorizacao_estado / autorizacao_parecer / autorizacao_auditor.
+function autorizacaoSeloHtml(a){
+  const e = a && a.autorizacao_estado;
+  if(!e || e==="nao_necessaria") return "";
+  const M = AUT_ESTADO_META[e]; if(!M) return "";
+  const quem = a.autorizacao_auditor
+    ? (typeof a.autorizacao_auditor==="string" ? a.autorizacao_auditor : a.autorizacao_auditor.nome)
+    : null;
+  const parecer = a.autorizacao_parecer
+    ? `<div class="aut-parecer"><b>Parecer do auditor${quem?` (${esc(quem)})`:""}${a.autorizacao_decidida_em?` · ${fmtDataHora(a.autorizacao_decidida_em)}`:""}:</b> ${esc(a.autorizacao_parecer)}</div>`
+    : "";
+  return `<div class="aut-selo-box ${M.cls}"><span class="aut-selo ${M.cls}" title="${esc(M.tip)}">${M.ic} ${M.t}</span>${parecer}</div>`;
+}
+
+async function carregarAutorizacoes(){
+  AUT_ERRO = "";
+  try{
+    const [lista, cont] = await Promise.all([
+      api(`/autorizacoes?filtro=${AUT_FILTRO}`),
+      api("/autorizacoes/contagem"),
+    ]);
+    AUT_LISTA = lista; AUT_CONTAGEM = cont;
+  }catch(e){ AUT_LISTA = []; AUT_ERRO = e.message; }
+  if(view==="autorizacoes") render();
+}
+function setAutFiltro(f){ if(AUT_FILTRO===f) return; AUT_FILTRO=f; AUT_LISTA=null; render(); }
+// Rascunho do parecer: guarda no estado SEM re-renderizar — digitar não reconstrói a
+// fila (nada de perder foco/cursor a cada tecla). Mesmo padrão de setRevcJust.
+function setAutParecer(id, v){ (AUT_FORM[id]=AUT_FORM[id]||{}).parecer = v; }
+
+// Decisão do auditor. Parecer obrigatório nas DUAS (o backend também recusa com 400);
+// a decisão é única e imutável, por isso a confirmação explícita antes de gravar.
+async function decidirAutorizacao(id, decisao, btn){
+  const parecer = String(((AUT_FORM[id]||{}).parecer)||"").trim();
+  if(!parecer){
+    alert(decisao==="aprovada"
+      ? "Parecer obrigatório: registre por que a exceção está autorizada."
+      : "Parecer obrigatório: registre por que a exceção foi negada.");
+    const el = document.getElementById("aut_par_"+id); if(el) el.focus();
+    return;
+  }
+  const txt = decisao==="aprovada"
+    ? "Autorizar esta exceção? O protocolo passa a ser o vigente do paciente.\n\nA decisão é ÚNICA e IMUTÁVEL."
+    : "Negar esta exceção? O registro fica na trilha do paciente com o seu parecer.\n\nA decisão é ÚNICA e IMUTÁVEL.";
+  if(!confirm(txt)) return;
+  AUT_BUSY = id; if(btn) btn.disabled = true;
+  try{
+    await api(`/autorizacoes/${id}/decidir`, {method:"POST", body:JSON.stringify({decisao, parecer})});
+    delete AUT_FORM[id];
+    toast(decisao==="aprovada" ? "Exceção autorizada — protocolo vigente." : "Exceção negada — registrada na trilha do paciente.");
+    AUT_BUSY = null; AUT_LISTA = null;
+    await carregarPacientes();
+    if(PAC_DETAIL) Object.keys(PAC_DETAIL).forEach(k=>delete PAC_DETAIL[k]);
+    if(AVAL_HIST) Object.keys(AVAL_HIST).forEach(k=>delete AVAL_HIST[k]);
+    await carregarAutorizacoes();
+  }catch(e){
+    AUT_BUSY = null; if(btn) btn.disabled = false;
+    alert("Falha ao registrar a decisão: "+e.message);
+  }
+}
+
+// POR QUE precisa de exceção — os dois eixos, lidos da própria avaliação e do corpus:
+// elegibilidade (critérios que falharam, congelados em detalhe_semaforo) e incorporação
+// (motivo pelo qual a instituição não oferece o protocolo).
+function autPorQue(a){
+  const reg = (REGIMES||[]).find(x=>x.regimen_id===a.regimen_id);
+  const crits = (a.detalhe_semaforo && a.detalhe_semaforo.crits) || [];
+  const falhas = crits.filter(c=>c.status==="bad");
+  const out = [];
+  if(a.semaforo==="inelegivel" || falhas.length){
+    const chips = falhas.length
+      ? falhas.map(c=>`<span class="chip bad" title="${esc(c.detail||"")}">✕ ${esc(c.label)}</span>`).join("")
+      : `<span class="hint">critérios não detalhados neste registro</span>`;
+    out.push(`<div class="aut-why bad"><div class="aut-why-h">⛔ Inelegível — critério(s) que o paciente não atende</div>
+      <div class="crit">${chips}</div></div>`);
+  }
+  const inc = reg ? incorporacao(reg) : {incorporado:true};
+  if(!inc.incorporado){
+    out.push(`<div class="aut-why noinc"><div class="aut-why-h" title="${esc(inc.motivoTip||"")}">🚫 Não incorporado — ${esc(inc.motivoLabel)}</div>
+      ${inc.texto?`<div class="aut-why-txt">${esc(inc.texto)}</div>`:""}
+      ${inc.revisor?`<div class="aut-why-txt">Decisão de revisão clínica — ${esc(inc.revisor)}${inc.data?`, ${esc(String(inc.data))}`:""}.</div>`:""}</div>`);
+  }
+  if(!out.length){
+    out.push(`<div class="aut-why"><span class="hint">Motivo de exceção não identificado no corpus atual (o protocolo pode ter mudado desde a solicitação) — decida pela justificativa do médico e pela evidência abaixo.</span></div>`);
+  }
+  return out.join("");
+}
+
+function autCard(a){
+  const p = a.paciente || {};
+  const reg = (REGIMES||[]).find(x=>x.regimen_id===a.regimen_id);
+  const M = AUT_ESTADO_META[a.estado] || AUT_ESTADO_META.pendente;
+  const just = (a.detalhe_semaforo && a.detalhe_semaforo.ressalva) || "";
+  const decidida = a.estado==="aprovada" || a.estado==="negada";
+  const busy = AUT_BUSY===a.id;
+  const f = AUT_FORM[a.id] || {};
+  const formHtml = decidida ? `
+    <div class="aut-decidida ${a.estado==='aprovada'?'ok':'neg'}">
+      <div class="aut-dec-h">${M.ic} ${M.t}${a.auditor?` · ${esc(a.auditor.nome)}`:""}${a.decidida_em?` · ${fmtDataHora(a.decidida_em)}`:""}</div>
+      <div class="aut-parecer"><b>Parecer:</b> ${esc(a.parecer||"—")}</div>
+      <div class="hint">Decisão única e imutável — uma nova tentativa exige nova solicitação.</div>
+    </div>` : `
+    <div class="aut-form">
+      <label class="aut-lab" for="aut_par_${a.id}">Parecer do auditor <b>(obrigatório nas duas decisões)</b></label>
+      <textarea class="aut-par" id="aut_par_${a.id}" rows="3"
+        placeholder="Por que esta exceção pode (ou não pode) ser autorizada para este paciente."
+        oninput="setAutParecer(${a.id}, this.value)">${esc(f.parecer||"")}</textarea>
+      <div class="aut-acoes">
+        <button class="aut-b ok"  ${busy?"disabled":""} onclick="decidirAutorizacao(${a.id},'aprovada',this)">${busy?"Gravando…":"✓ Aprovar"}</button>
+        <button class="aut-b neg" ${busy?"disabled":""} onclick="decidirAutorizacao(${a.id},'negada',this)">${busy?"Gravando…":"✕ Negar"}</button>
+        <span class="hint">A decisão é única e imutável.</span>
+      </div>
+    </div>`;
+  return `<div class="aut-card ${M.cls}">
+    <div class="aut-card-h">
+      <div>
+        <div class="aut-pac">${esc(p.nome||"—")}</div>
+        <div class="aut-pac-meta">${idade(p.nasc)} · ${p.sexo==="F"?"Feminino":"Masculino"}${p.tumor?` · ${esc(tumorNome(p.tumor))}`:""}${p.subtipo?` · ${esc(p.subtipo)}`:""}${p.identificador?` · reg. ${esc(p.identificador)}`:""}${p.operadora?` · ${esc(p.operadora)}`:""}</div>
+      </div>
+      <div class="aut-selo-wrap"><span class="aut-selo ${M.cls}" title="${esc(M.tip)}">${M.ic} ${M.t}</span></div>
+    </div>
+
+    <div class="aut-proto">
+      <div class="aut-proto-n">${esc(protocoloNome(a.regimen_id))}</div>
+      <div class="aut-proto-e">${esc(regimeEsquema(a.regimen_id))}</div>
+      <div class="aut-proto-m">${a.linha_tratamento?`<b>${a.linha_tratamento}ª linha</b> · `:""}solicitado por <b>${esc(a.solicitante?a.solicitante.nome:"—")}</b> em ${fmtDataHora(a.data)}</div>
+    </div>
+
+    <div class="aut-sec-t">Por que precisa de exceção</div>
+    ${autPorQue(a)}
+
+    <div class="aut-sec-t">Justificativa do médico</div>
+    <div class="aut-just">${just? esc(just) : `<span class="hint">— sem justificativa registrada —</span>`}</div>
+
+    <div class="aut-sec-t">Evidência do protocolo</div>
+    <div class="aut-evid">${reg? revcEvidencia(reg) : `<span class="hint">Protocolo não encontrado no corpus atual (${esc(a.regimen_id)}).</span>`}</div>
+
+    <details class="aut-clin"><summary>Contexto clínico do paciente (snapshot congelado da avaliação)</summary>
+      <div class="crit" style="margin-top:8px">${snapshotChipsFor(a.snapshot_campos, p.tumor)}</div>
+    </details>
+
+    ${formHtml}
+  </div>`;
+}
+
+function renderAutorizacoes(){
+  if(AUT_LISTA===null){
+    carregarAutorizacoes();
+    app().innerHTML = `<div class="card"><h2>Autorizações de exceção</h2><div class="empty">⏳ Carregando fila…</div></div>`;
+    return;
+  }
+  const C = AUT_CONTAGEM || {pendentes:0, aprovadas:0, negadas:0};
+  const cards = AUT_LISTA.map(autCard).join("");
+  const vazio = AUT_FILTRO==="pendentes"
+    ? `<div class="empty">Nenhuma solicitação de exceção aguardando autorização.</div>`
+    : `<div class="empty">Nenhuma solicitação decidida ainda.</div>`;
+  app().innerHTML = `
+  <div class="card">
+    <div class="rev-head"><div><h2>Autorizações de exceção</h2>
+      <div class="sub">Protocolo <b>Inelegível</b> ou <b>Não incorporado</b> selecionado pelo médico não vira tratamento vigente sozinho: entra aqui como solicitação. Aprovar torna o protocolo vigente; negar mantém o registro na trilha do paciente com o seu parecer — <b>nada é apagado</b>, e uma nova tentativa é uma nova solicitação. <b>Parecer obrigatório nas duas decisões</b>; a decisão é única e imutável.</div></div>
+      <div class="rev-run">auditor <b>${esc(USUARIO.nome)}</b></div></div>
+    ${AUT_ERRO?`<div class="login-err">${esc(AUT_ERRO)}</div>`:""}
+    <div class="aut-filtros">
+      <button class="aut-fb ${AUT_FILTRO==='pendentes'?'on':''}" onclick="setAutFiltro('pendentes')">⏳ Pendentes <span class="n">${C.pendentes}</span></button>
+      <button class="aut-fb ${AUT_FILTRO==='decididas'?'on':''}" onclick="setAutFiltro('decididas')">Decididas <span class="n">${C.aprovadas+C.negadas}</span></button>
+      <span class="rc-count">${AUT_LISTA.length} solicitação(ões)${AUT_FILTRO==='decididas'?` · ${C.aprovadas} aprovada(s) · ${C.negadas} negada(s)`:""}</span>
+    </div>
+    ${cards || vazio}
+  </div>`;
+}
+
+// CSS da camada de autorizações (injetado uma vez).
+(function(){ if(document.getElementById("aut-css")) return; const s=document.createElement("style"); s.id="aut-css"; s.textContent=`
+.aut-filtros{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0 16px}
+.aut-fb{padding:7px 14px;border:1px solid var(--border,#e3e6ea);background:#fff;border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;color:#556}
+.aut-fb.on{background:#eef4ff;border-color:#9db8f0;color:#1c46a8}
+.aut-fb .n{display:inline-block;margin-left:6px;background:#eceff3;border-radius:999px;padding:1px 8px;font-size:11px}
+.aut-fb.on .n{background:#d8e5ff}
+.aut-card{border:1px solid var(--border,#e3e6ea);border-left:4px solid #d7dbe0;border-radius:10px;padding:14px 16px;margin-bottom:14px;background:#fff}
+.aut-card.pend{border-left-color:#e0a500}
+.aut-card.ok{border-left-color:#1f9d55}
+.aut-card.neg{border-left-color:#c8331f}
+.aut-card-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.aut-pac{font-weight:800;font-size:15px}
+.aut-pac-meta{font-size:12px;color:#78848f;margin-top:2px}
+.aut-selo{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
+.aut-selo.pend{background:#fdf3df;color:#8a6100}
+.aut-selo.ok{background:#e6f6ec;color:#136c3a}
+.aut-selo.neg{background:#fdecea;color:#932413}
+.aut-proto{margin-top:10px;padding:10px 12px;background:#f7f8fa;border-radius:8px}
+.aut-proto-n{font-weight:700}
+.aut-proto-e{font-size:12px;color:#67727d}
+.aut-proto-m{font-size:12px;color:#67727d;margin-top:6px}
+.aut-sec-t{margin-top:14px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#8797a5}
+.aut-why{margin-top:6px;padding:9px 11px;border-radius:8px;background:#fbfbfc;border:1px solid #ecEFF2}
+.aut-why.bad{background:#fdf1ef;border-color:#f3d4ce}
+.aut-why.noinc{background:#fbf4e6;border-color:#efe0bf}
+.aut-why-h{font-weight:700;font-size:13px}
+.aut-why-txt{font-size:12px;color:#5d6873;margin-top:4px}
+.aut-just{margin-top:6px;padding:10px 12px;border-left:3px solid #9db8f0;background:#f4f7ff;border-radius:0 8px 8px 0;font-size:13px}
+.aut-evid{margin-top:6px}
+.aut-clin{margin-top:12px;font-size:12px}
+.aut-clin summary{cursor:pointer;color:#5d6873;font-weight:600}
+.aut-form{margin-top:14px;padding-top:12px;border-top:1px dashed var(--border,#e3e6ea)}
+.aut-lab{display:block;font-size:12px;color:#5d6873;margin-bottom:5px}
+.aut-par{width:100%;box-sizing:border-box;padding:9px 11px;border:1px solid var(--border,#ccd);border-radius:8px;font:inherit;font-size:13px;resize:vertical}
+.aut-acoes{display:flex;gap:10px;align-items:center;margin-top:10px}
+.aut-b{padding:8px 18px;border-radius:8px;border:1px solid transparent;cursor:pointer;font-weight:700;font-size:13px}
+.aut-b.ok{background:#1f9d55;color:#fff}
+.aut-b.neg{background:#fff;color:#c8331f;border-color:#e6b6ae}
+.aut-b:disabled{opacity:.55;cursor:default}
+.aut-decidida{margin-top:14px;padding:11px 13px;border-radius:8px}
+.aut-decidida.ok{background:#e9f7ee}
+.aut-decidida.neg{background:#fdeeeb}
+.aut-dec-h{font-weight:700;font-size:13px}
+.aut-parecer{font-size:13px;margin-top:5px;white-space:pre-wrap}
+.aut-selo-box{margin-top:8px;padding:8px 10px;border-radius:8px;background:#fbfbfc;border:1px solid #eceff2}
+.aut-selo-box.pend{background:#fdf9ef;border-color:#f0e2c2}
+.aut-selo-box.ok{background:#f2fbf5;border-color:#cfeeda}
+.aut-selo-box.neg{background:#fdf3f1;border-color:#f3d4ce}
+.aut-pend-aviso{margin-top:12px;padding:11px 13px;border-radius:8px;background:#fdf9ef;border:1px solid #f0e2c2;font-size:13px}
+.aut-pend-item{margin-top:7px;font-size:12px;color:#5d6873}
+`; document.head.appendChild(s); })();
+
 async function initEvidencia(){
   const ev = await loadEvidence();
   REGIMES = ev.regimes;
@@ -3843,6 +4140,8 @@ async function initEvidencia(){
       await initEvidencia();
       await carregarPacientes();
       await carregarResumoRevisao();   // estado de revisão clínica p/ sobrepor selos (paciente + revisão)
+      // Fila de exceções: só o selo do menu (auditor/admin) — a lista carrega ao abrir a aba.
+      if(podeAutorizar()){ try{ AUT_CONTAGEM = await api("/autorizacoes/contagem"); }catch(_){} }
       view = "lista";
     }catch(e){ doLogout(); }
   }

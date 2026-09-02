@@ -12,6 +12,9 @@ node_modules/
 _opensquad/_browser_profile/
 .playwright-mcp/
 
+# ---- worktrees do harness (cópias de trabalho, nunca versionadas) ----
+.claude/worktrees/
+
 # ---- artefatos de build / cache ----
 dist/
 build/
