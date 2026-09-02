@@ -4,7 +4,7 @@ import * as path from 'path';
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 import { DataSource } from 'typeorm';
 import * as neon from '@neondatabase/serverless';
-import { Usuario, Paciente, SelecaoProtocolo, Avaliacao, Revisao, FonteSugerida } from './entities';
+import { Usuario, Paciente, SelecaoProtocolo, Avaliacao, Revisao, FonteSugerida, Retorno } from './entities';
 
 const url = process.env.DATABASE_URL || 'postgres://oncoguia:oncoguia123@localhost:5432/oncoguia';
 // Neon: WebSocket na porta 443 — funciona em redes que bloqueiam a 5432
@@ -14,7 +14,7 @@ export const AppDataSource = new DataSource({
   type: 'postgres',
   url,
   driver: isNeon ? neon : undefined,
-  entities: [Usuario, Paciente, SelecaoProtocolo, Avaliacao, Revisao, FonteSugerida],
+  entities: [Usuario, Paciente, SelecaoProtocolo, Avaliacao, Revisao, FonteSugerida, Retorno],
   migrations: [path.join(__dirname, 'migrations', '*.ts')],
   synchronize: false,
   ssl: !isNeon && /supabase|vercel|amazonaws/.test(url)

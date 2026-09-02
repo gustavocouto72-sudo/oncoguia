@@ -47,6 +47,9 @@ class CriarAvaliacaoDto {
   @IsObject() snapshot_campos: Record<string, any>;
   @IsIn(['elegivel', 'atencao', 'inelegivel']) semaforo: Semaforo;
   @IsOptional() @IsObject() detalhe_semaforo?: Record<string, any>;
+  // Retorno que motivou a troca de protocolo (conduta = troca_protocolo). Opcional: a
+  // primeira seleção e a reavaliação avulsa não nascem de retorno nenhum.
+  @IsOptional() @IsInt() retorno_id?: number;
 }
 
 // Leitura = qualquer autenticado. Escrita de avaliação = oncologista (e acima, pela

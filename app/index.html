@@ -334,8 +334,54 @@
   .auth-btn:hover{background:#0096c7}
   .auth-btn:disabled{background:#cbd5e1;cursor:not-allowed;box-shadow:none}
   .auth-err{font-size:12px;font-weight:600;background:#fbecea;color:#a5281b;border-radius:8px;padding:8px 12px;margin-bottom:14px}
+  /* ---- Trilha do paciente (avaliações + retornos + autorizações numa linha só) ---- */
+  .tl-tipo{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:3px 9px;border-radius:20px;border:1px solid transparent;white-space:nowrap}
+  .tl-tipo.aval{background:#eaf2f8;color:#1f4b6e;border-color:#c6dcea}
+  .tl-tipo.ret{background:#f1eefb;color:#4b3a86;border-color:#d6cdf0}
+  .tl-tipo.aut{background:var(--amberbg);color:#9a6a08;border-color:#f0dca6}
+  .hist-entry.ret::before{background:#6b52c4;box-shadow:0 0 0 3px #6b52c426}
+  .hist-entry.pend::before{background:var(--red);box-shadow:0 0 0 3px #c0392b26}
+  .tl-motivado{font-size:11px;color:#4b3a86;background:#f1eefb;border:1px solid #d6cdf0;border-radius:7px;padding:3px 9px;display:inline-block;margin-top:8px}
+  .resp-badge{display:inline-block;font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px;border:1px solid transparent}
+  .resp-badge.rc{background:var(--greenbg);color:#137a49;border-color:#bfe6cf}
+  .resp-badge.rp{background:#e7f6ee;color:#1f7a55;border-color:#c6e6d5}
+  .resp-badge.de{background:#eef2f7;color:#41607a;border-color:#cdd8e2}
+  .resp-badge.pd{background:var(--redbg);color:#a5281b;border-color:#f0c3bd}
+  .resp-badge.na{background:#f4f6f8;color:#8b98a5;border-color:#e0e6ec}
+  .grau-chip{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;display:inline-block;margin:3px 4px 0 0;border:1px solid transparent}
+  .grau-chip.g1,.grau-chip.g2{background:var(--amberbg);color:#9a6a08;border-color:#f0dca6}
+  .grau-chip.g3,.grau-chip.g4,.grau-chip.g5{background:var(--redbg);color:#a5281b;border-color:#f0c3bd}
+  /* ---- Retorno: formulário ---- */
+  .ret-lock{background:#f4f6f8;border:1px dashed #cfd8e0;border-radius:8px;padding:7px 10px;font-size:11.5px;color:#6b7a88;margin-top:4px}
+  .tox-row{display:grid;grid-template-columns:1fr 120px 34px;gap:8px;align-items:end;margin-bottom:8px}
+  .tox-row .rm{height:30px;border:1px solid var(--line);background:#fff;border-radius:8px;color:#a5281b;font-weight:800;cursor:pointer;font-size:15px;line-height:1}
+  .tox-row .outra{grid-column:1/-1}
+  .lnk-add{background:none;border:none;color:var(--accent);font-weight:700;font-size:12px;cursor:pointer;padding:4px 0}
+  /* ---- Reestadiamento: lembrete e item pendente ---- */
+  .reest-ok{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);background:#f6f9fb;border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin-top:12px}
+  .reest-venc{background:var(--redbg);border:1px solid #f0c3bd;border-radius:9px;padding:11px 13px;margin-top:12px}
+  .reest-venc .rv-t{font-weight:800;color:#a5281b;font-size:13px}
+  .reest-venc .rv-s{font-size:11.5px;color:#8a5a53;margin-top:3px}
+  /* ---- Guia SADT (impressa) ---- */
+  .sadt{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 26px}
+  .sadt h3{margin:0 0 2px;font-size:15px;text-transform:uppercase;letter-spacing:.5px}
+  .sadt .sadt-sub{font-size:11px;color:var(--muted);margin-bottom:14px}
+  .sadt .sadt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 14px;margin-bottom:6px}
+  .sadt .sadt-f{border-bottom:1px solid var(--line);padding-bottom:5px;min-width:0}
+  .sadt .sadt-f .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700}
+  .sadt .sadt-f .v{font-size:13px;font-weight:600;overflow-wrap:anywhere}
+  .sadt .sadt-f.w2{grid-column:span 2}
+  .sadt .sadt-f.w4{grid-column:1/-1}
+  .sadt .ex-row{display:grid;grid-template-columns:26px 1fr 34px;gap:8px;align-items:center;margin-bottom:7px}
+  .sadt .ex-row .n{font-size:11px;color:var(--muted);font-weight:700;text-align:right}
+  .sadt .ex-row .rm{height:32px;border:1px solid var(--line);background:#fff;border-radius:8px;color:#a5281b;font-weight:800;cursor:pointer;font-size:15px;line-height:1}
+  .sadt .assina{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+  .sadt .assina div{border-top:1px solid #9aa8b4;padding-top:5px;font-size:11px;color:var(--muted);text-align:center}
   @media print{
     header.top,.disclaimer,#datasrc,nav.tabs,.flow-tumors,.flow-toolbar,.flow-selos,.sub{display:none!important}
+    .sadt-toolbar,.sadt .ex-row .rm,.lnk-add{display:none!important}
+    .sadt{border:none;padding:0}
+    .sadt input{border:none;padding:0;font-size:13px}
     .wrap{max-width:none;padding:0}
     .card{border:none;padding:0;margin:0}
     .flow-root{border:none;background:#fff;padding:0}
@@ -416,13 +462,12 @@ const OPERADORAS = ["Unimed","Bradesco Saúde","SulAmérica","Amil","Hapvida Not
 let patients = [];              // carregados do backend (GET /pacientes)
 let SELECOES_CACHE = {};        // paciente_id -> histórico de seleções (GET /pacientes/:id/selecoes) [legado]
 let PAC_DETAIL = {};            // paciente_id -> GET /pacientes/:id (tumor resolvido + última avaliação + linha do tempo)
-let AVAL_HIST = {};             // paciente_id -> GET /pacientes/:id/avaliacoes (histórico completo, imutável)
 // Reavaliação em curso (rascunho local, ainda não gravado). null quando não está reavaliando.
 // { pid, clin:{campo→valor}, linha, unlocked:Set(campos estáveis destravados p/ correção) }
 let REAVAL = null;
 let view = "login";
 let current = null;
-let pacTab = "dados";           // aba ativa na página do paciente: "dados" | "historico"
+let pacTab = "dados";           // aba ativa na página do paciente: "dados" | "trilha"
 
 async function carregarPacientes(){
   const rows = await api("/pacientes");
@@ -491,6 +536,7 @@ function doLogout(rerender){
   REVC_RESUMO = {}; REVC_RESUMO_OK = false; REVC_DEC = {}; REVC_OPEN = new Set(); REVC_FORM = {}; REVC_SEL = new Set(); REVC_FONTES = {}; REVC_FONTES_OK = false;
   ADM_USUARIOS = null; ADM_EDIT = null; ADM_SENHA_TMP = null; ADM_ERRO = ""; ADM_OK = "";
   SIM = null; // sandbox do simulador não sobrevive à sessão
+  TRILHA = {}; RETORNO = null; SADT = null; // trilha e rascunho de retorno idem
   // A evidência é privada: sai da memória junto com a sessão.
   EVIDENCIA = null; REGIMES = []; TUMORES = []; CAMPOS_POR_TUMOR = {}; DATA_SOURCE = null; DATASRC = null;
   CAMPOS_PRIM_POR_TUMOR = {}; CRIT_EXPR_POR_TUMOR = {}; CRIT_LABEL_POR_TUMOR = {}; HAS_PRIM_FORMAT = false;
@@ -1359,7 +1405,7 @@ async function admRemoverPaciente(id){
   if(!confirm(`Remover o paciente "${p.nome}"?\n\nIsto apaga o cadastro e ${n} avaliação(ões) do seguimento. A ação é irreversível.`)) return;
   try{
     await api(`/pacientes/${id}`, {method:"DELETE"});
-    delete PAC_DETAIL[id]; delete AVAL_HIST[id]; delete SELECOES_CACHE[id];
+    delete PAC_DETAIL[id]; delete TRILHA[id]; delete SELECOES_CACHE[id];
     if(current===id) current=null;
     await carregarPacientes();
     toast("Paciente removido.");
@@ -1416,6 +1462,8 @@ function render(){
   if(view==="fluxograma") return renderFluxograma();
   if(view==="lista") return renderLista();
   if(view==="cadastro") return renderCadastro();
+  if(view==="sadt" && !podeAvaliar()) view = "lista";   // guia SADT: perfil que trata o paciente
+  if(view==="sadt") return SADT ? renderSADT() : renderLista();
   if(view==="paciente") return renderPaciente();
 }
 
@@ -1642,15 +1690,27 @@ async function salvarCadastro(){
   }catch(e){ alert("Falha ao salvar paciente: "+e.message); }
 }
 function abrir(id, tab){
-  current=id; pacTab=tab||"dados"; REAVAL=null; view="paciente"; render();
+  current=id; pacTab=tab||"dados"; REAVAL=null; RETORNO=null; SADT=null; view="paciente"; render();
   carregarDetalhe(id);
 }
+// Uma recarga que chega DEPOIS não pode redesenhar por cima de um rascunho aberto
+// (retorno/reavaliação): o DOM ali tem foco e texto digitado, e um render() no meio da
+// digitação apaga o que a pessoa escreveu. O dado novo fica no cache e entra no próximo
+// render natural. É a mesma família do bug do nome que apagava.
+function podeRedesenhar(id){
+  if(view!=="paciente" || current!==id) return false;
+  if(RETORNO && RETORNO.pid===id) return false;
+  if(REAVAL && REAVAL.pid===id) return false;
+  return true;
+}
 // Carrega o paciente + última avaliação + linha do tempo (GET /pacientes/:id).
+// Devolve a promise: quem grava precisa ESPERAR a recarga antes de seguir (a troca de
+// protocolo, por exemplo, lê PAC_DETAIL logo depois).
 function carregarDetalhe(id){
   delete PAC_DETAIL[id]; // undefined = carregando
-  api(`/pacientes/${id}`)
-    .then(d=>{ PAC_DETAIL[id]=d; seedClinDoSeguimento(id,d); if(view==="paciente"&&current===id) render(); })
-    .catch(()=>{ PAC_DETAIL[id]=null; if(view==="paciente"&&current===id) render(); });
+  return api(`/pacientes/${id}`)
+    .then(d=>{ PAC_DETAIL[id]=d; seedClinDoSeguimento(id,d); if(podeRedesenhar(id)) render(); })
+    .catch(()=>{ PAC_DETAIL[id]=null; if(podeRedesenhar(id)) render(); });
 }
 // Semeia a exploração ao vivo com a realidade do seguimento: último snapshot (ou, na 1ª vez,
 // os valores estáveis do cadastro). A exploração edita uma CÓPIA client-side (p.clin) —
@@ -1667,16 +1727,9 @@ function destravarEstavelExp(pid,k){
   if(!confirm("Destravar este dado biológico? Faça isto apenas em caso de re-biópsia ou correção do dado estável — para registrar a mudança no seguimento, use Reavaliar.")) return;
   (EXP_UNLOCK[pid]=EXP_UNLOCK[pid]||new Set()).add(k); render();
 }
-// Histórico completo e imutável de avaliações (GET /pacientes/:id/avaliacoes).
-function carregarAvaliacoes(id){
-  delete AVAL_HIST[id];
-  api(`/pacientes/${id}/avaliacoes`)
-    .then(rows=>{ AVAL_HIST[id]=rows; if(view==="paciente"&&current===id) render(); })
-    .catch(()=>{ AVAL_HIST[id]=null; if(view==="paciente"&&current===id) render(); });
-}
 function setPacTab(t){
   pacTab = t;
-  if(t==="historico" && AVAL_HIST[current]==null) carregarAvaliacoes(current);
+  if(t==="trilha" && TRILHA[current]==null) carregarTrilha(current);
   render();
 }
 
@@ -1685,7 +1738,12 @@ function renderPaciente(){
   const p = patients.find(x=>x.id===current);
   if(!p){ go("lista"); return; }
   const detail = PAC_DETAIL[p.id];
-  const histCount = p.avaliacoes_total || (detail&&detail.linha_do_tempo?detail.linha_do_tempo.length:0);
+  const t0 = TRILHA[p.id];
+  const histCount = (t0 && t0.itens) ? t0.itens.length
+    : (p.avaliacoes_total || (detail&&detail.linha_do_tempo?detail.linha_do_tempo.length:0));
+  // Reestadiamento vencido é item em aberto: a aba avisa antes de o médico abri-la.
+  const reestVenc = !!((t0 && t0.reestadiamento && t0.reestadiamento.vencido)
+    || (detail && detail.reestadiamento && detail.reestadiamento.vencido));
   const tumorPill = p.tumor
     ? `<span class="pill">${tumorNome(p.tumor)}${p.subtipo?` · ${esc(p.subtipo)}`:""}</span>`
     : `<span class="pill" style="background:#fdf3df;color:#9a6a08">tumor não definido</span>`;
@@ -1695,14 +1753,14 @@ function renderPaciente(){
       <div style="text-align:right;flex:none">${tumorPill}${USUARIO&&(USUARIO.perfil==="oncologista"||USUARIO.perfil==="admin")?`<div style="margin-top:8px"><button class="btn ghost" style="padding:5px 12px" onclick="editarCadastro(${p.id})">✎ Editar dados cadastrais</button></div>`:""}</div>
     </div>
     <nav class="tabs pac-tabs">
-      <a class="${pacTab==='historico'?'':'on'}" onclick="setPacTab('dados')">Seguimento</a>
-      <a class="${pacTab==='historico'?'on':''}" onclick="setPacTab('historico')">Histórico${histCount?`<span class="n hist-n">${histCount}</span>`:""}</a>
+      <a class="${pacTab==='trilha'?'':'on'}" onclick="setPacTab('dados')">Seguimento</a>
+      <a class="${pacTab==='trilha'?'on':''}" onclick="setPacTab('trilha')">Trilha${histCount?`<span class="n hist-n">${histCount}</span>`:""}${reestVenc?` <span title="Reestadiamento vencido">⏰</span>`:""}</a>
     </nav>`;
 
-  if(pacTab==="historico"){
+  if(pacTab==="trilha"){
     app().innerHTML = `
-    <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <a onclick="setPacTab('dados')">${esc(p.nome)}</a> › <b>Histórico</b></div>
-    <div class="card">${headerHtml}${renderHistoricoTab(p)}</div>`;
+    <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <a onclick="setPacTab('dados')">${esc(p.nome)}</a> › <b>Trilha</b></div>
+    <div class="card">${headerHtml}${renderTrilhaTab(p)}</div>`;
     return;
   }
 
@@ -1719,6 +1777,12 @@ function renderPaciente(){
     // Sem tumor persistido (paciente legado ou backend antigo que não gravou o contexto):
     // oferece a exploração client-side (escolher tumor + mudar características + recalcular).
     body = renderExploracaoClient(p, `<div class="prim-fallback">Este paciente ainda não tem tumor definido no cadastro. Explore os protocolos abaixo escolhendo o tumor — ao <b>Selecionar protocolo</b>, a app oferece definir o tumor explorado como contexto do paciente e já registra a avaliação.</div>`);
+  }
+  else if(RETORNO && RETORNO.pid===p.id){
+    app().innerHTML = `
+    <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <b>${esc(p.nome)}</b> › Retorno</div>
+    <div class="card">${headerHtml}${renderRetornoForm(p, detail)}</div>`;
+    return;
   }
   else if(REAVAL && REAVAL.pid===p.id){
     // Página do paciente já com o CONTEXTO TUMORAL RESOLVIDO (sem re-navegar a árvore).
@@ -1791,9 +1855,13 @@ function renderSeguimentoResumo(p, detail){
   const btn = podeReav
     ? `<button class="btn primary" onclick="iniciarReaval(${p.id})">${u?"Reavaliar":"Iniciar primeira avaliação"}</button>`
     : `<span class="hint">Reavaliação disponível para perfil oncologista.</span>`;
+  // Retorno só faz sentido sobre um protocolo em curso — sem avaliação não há sobre o que falar.
+  const btnRet = (podeReav && u)
+    ? `<button class="btn ghost" onclick="iniciarRetorno(${p.id})">＋ Registrar retorno</button>` : "";
   const avisoPrim = temPrim ? "" : `<div class="prim-fallback" style="margin-top:12px">Elegibilidade computável indisponível para ${tumorNome(detail.tumor)} — sem <code>campos_primitivos</code> + regra no dado do squad. A reavaliação registra o protocolo, mas sem recalcular o semáforo automaticamente.</div>`;
   return `<div class="section-t">Último atendimento</div>${resumo}${avisoPrim}
-    <div class="row-actions" style="margin-top:16px">${btn}</div>`;
+    ${reestPendenteHtml(p, detail.reestadiamento)}
+    <div class="row-actions" style="margin-top:16px">${btnRet}${btn}</div>`;
 }
 
 // ---- Fallback client-side: exploração viva de protocolos, INDEPENDENTE do backend ----
@@ -1829,13 +1897,17 @@ function renderExploracaoClient(p, aviso){
 
 // Inicia uma reavaliação: pré-preenche o snapshot da última avaliação (ou, na 1ª vez, os
 // valores estáveis do paciente). Estáveis vêm travados; dinâmicos, editáveis.
-function iniciarReaval(pid){
+// opts.retorno_id / opts.troca: a reavaliação nasceu de um RETORNO com conduta
+// troca_protocolo — a avaliação gravada sai vinculada a ele.
+function iniciarReaval(pid, opts){
   const detail = PAC_DETAIL[pid]; if(!detail) return;
   const base = (detail.ultima_avaliacao && detail.ultima_avaliacao.snapshot_campos)
     ? {...detail.ultima_avaliacao.snapshot_campos}
     : {...(detail.valores_estaveis||{})};
   const linha = (detail.ultima_avaliacao && detail.ultima_avaliacao.linha_tratamento) || 1;
-  REAVAL = {pid, clin:base, linha, unlocked:new Set()};
+  REAVAL = {pid, clin:base, linha, unlocked:new Set(),
+    retorno_id:(opts&&opts.retorno_id)||null, troca:(opts&&opts.troca)||null};
+  RETORNO = null;
   render();
 }
 function cancelarReaval(){ REAVAL=null; render(); }
@@ -1961,7 +2033,8 @@ function renderReavalProtosWrap(p, detail){
   if(atual){
     const res = classificarPrim(atual, tumor, REAVAL.clin);
     statusAtual = res.status; critsAtual = res.crits;
-    mantem = (statusAtual==="ok" && !linhaMudou);
+    // Troca vinda de um retorno: o médico já decidiu trocar — não se oferece continuidade.
+    mantem = (statusAtual==="ok" && !linhaMudou && !REAVAL.troca);
   }
   if(mantem){
     // Continuidade no mesmo protocolo.
@@ -1984,7 +2057,9 @@ function renderReavalProtosWrap(p, detail){
     </div>`;
   }
   // Não mantém → oferece os candidatos (como na primeira seleção).
-  const motivo = linhaMudou
+  const motivo = REAVAL.troca
+    ? `Troca de protocolo motivada pelo retorno de ${fmtData(REAVAL.troca.data_realizada)}${REAVAL.troca.resposta&&REAVAL.troca.resposta!=="nao_avaliada"?` (${(RESPOSTA_META[REAVAL.troca.resposta]||{}).t})`:""}. Selecione o protocolo — a avaliação nova fica vinculada a esse retorno.`
+    : linhaMudou
     ? `Progressão: linha alterada para ${REAVAL.linha}ª. Selecione o protocolo da nova linha.`
     : (atual? `O protocolo atual (${esc(protocoloNome(atual.regimen_id))}) deixou de manter elegibilidade (${SEM[statusAtual]?SEM[statusAtual].t:statusAtual}). Selecione um protocolo.`
             : `Primeira avaliação — selecione o protocolo.`);
@@ -2057,46 +2132,468 @@ async function gravarAvaliacao(pid, rid, status, btn){
     await api(`/pacientes/${pid}/avaliacoes`, {method:"POST", body:JSON.stringify({
       regimen_id: rid, linha_tratamento: REAVAL.linha,
       snapshot_campos, semaforo, detalhe_semaforo,
+      retorno_id: REAVAL.retorno_id || undefined,
     })});
     REAVAL = null;
     toast("Avaliação registrada na linha do tempo do paciente.");
     await carregarPacientes();
-    carregarDetalhe(pid);
-    if(AVAL_HIST[pid]!=null) carregarAvaliacoes(pid);
+    await carregarDetalhe(pid);
+    if(TRILHA[pid]!=null) await carregarTrilha(pid);
     render();
   }catch(e){ alert("Falha ao registrar avaliação: "+e.message); if(btn) btn.disabled=false; }
 }
 
-// ---- Aba "Histórico" — linha do tempo IMUTÁVEL das avaliações (via backend) ----
-function renderHistoricoTab(p){
-  const hist = AVAL_HIST[p.id];
-  if(hist===undefined){ if(AVAL_HIST[p.id]===undefined) carregarAvaliacoes(p.id); return `<div class="empty">⏳ Carregando histórico…</div>`; }
-  if(hist===null) return `<div class="empty">Não foi possível carregar o histórico.<br><br>
-    <button class="btn ghost" onclick="carregarAvaliacoes(${p.id})">Tentar de novo</button></div>`;
-  if(!hist.length) return `<div class="empty">Nenhuma avaliação registrada ainda.<br>
-    <span class="hint">Use <b>Reavaliar</b> na aba Seguimento para registrar a primeira avaliação.</span></div>`;
-  // Ordem cronológica (backend já devolve asc); exibe da mais recente para a mais antiga.
-  const ordenado = hist.slice().reverse();
-  return `
-    <div class="sub" style="margin-top:12px">Linha do tempo persistida no banco (<code>avaliacoes</code>) — <b>imutável e empilhada</b>: cada reavaliação é um registro novo; correção também. Nada é editado ou apagado.</div>
-    <div class="hist-tl">${ordenado.map(a=>avalEntryHtml(a, p.tumor)).join("")}</div>`;
+// ═══ RETORNO / TRILHA DO PACIENTE ═══════════════════════════════════════════
+// O retorno é a consulta de seguimento de quem já está em tratamento: o tumor respondeu?
+// (só com imagem — regra RECIST), tolerou? (toxicidades com grau CTCAE), o que se faz
+// agora? (conduta). Registro IMUTÁVEL e empilhado, como a avaliação: não existe editar —
+// corrigir é registrar outro. A trilha mescla os dois tipos numa linha do tempo só.
+let TRILHA = {};     // pid -> GET /pacientes/:id/trilha
+let RETORNO = null;  // rascunho local do retorno em curso (nada gravado até "Registrar")
+let SADT = null;     // guia SADT em preenchimento {pid, indicacao, exames:[str], obs}
+
+const RESPOSTA_META = {
+  resposta_completa: {t:"Resposta completa", cls:"rc"},
+  resposta_parcial:  {t:"Resposta parcial",  cls:"rp"},
+  doenca_estavel:    {t:"Doença estável",    cls:"de"},
+  progressao:        {t:"Progressão",        cls:"pd"},
+  nao_avaliada:      {t:"Não avaliada",      cls:"na"},
+};
+const CONDUTA_META = {
+  mantem:          {t:"Mantém protocolo", ic:"→"},
+  troca_protocolo: {t:"Troca de protocolo", ic:"⇄"},
+  suspende:        {t:"Suspende tratamento", ic:"■"},
+};
+
+function carregarTrilha(id){
+  delete TRILHA[id];
+  return api(`/pacientes/${id}/trilha`)
+    .then(d=>{ TRILHA[id]=d; if(podeRedesenhar(id)) render(); })
+    .catch(()=>{ TRILHA[id]=null; if(podeRedesenhar(id)) render(); });
 }
-function avalEntryHtml(a, tumor){
-  const quem = a.avaliado_por ? `${a.avaliado_por.nome}${a.avaliado_por.perfil?` (${a.avaliado_por.perfil})`:""}` : "—";
+
+// ---- Aba "Trilha": avaliações + retornos (+ autorizações quando houver) numa linha só ----
+function renderTrilhaTab(p){
+  const t = TRILHA[p.id];
+  if(t===undefined){ carregarTrilha(p.id); return `<div class="empty">⏳ Carregando trilha…</div>`; }
+  if(t===null) return `<div class="empty">Não foi possível carregar a trilha.<br><br>
+    <button class="btn ghost" onclick="carregarTrilha(${p.id})">Tentar de novo</button></div>`;
+  const pend = reestPendenteHtml(p, t.reestadiamento);
+  if(!t.itens.length) return `${pend}<div class="empty">Nada registrado ainda.<br>
+    <span class="hint">Use <b>Reavaliar</b> ou <b>Registrar retorno</b> na aba Seguimento.</span></div>`;
+  // O backend devolve em ordem cronológica; a tela mostra do mais recente para o mais antigo
+  // (mesma direção do resto da app). O item pendente fica no topo: é o que está em aberto.
+  const ordenado = t.itens.slice().reverse();
+  const porId = {}; t.itens.forEach(i=>{ if(i.tipo==="retorno") porId[i.id]=i; });
+  return `
+    <div class="sub" style="margin-top:12px">Linha do tempo única do paciente — <b>seleções de protocolo, retornos e autorizações</b> na mesma sequência, do mais recente para o mais antigo. Tudo <b>imutável e empilhado</b>: correção é registro novo, nada é editado nem apagado.</div>
+    ${pend}
+    <div class="hist-tl">${ordenado.map(i=>trilhaItemHtml(i, p.tumor, porId)).join("")}</div>`;
+}
+
+function trilhaItemHtml(it, tumor, porId){
+  if(it.tipo==="retorno") return retornoEntryHtml(it);
+  if(it.tipo==="autorizacao") return autorizacaoEntryHtml(it);
+  return avalEntryHtml(it, tumor, porId);
+}
+
+// Item de RETORNO na trilha.
+function retornoEntryHtml(it){
+  const quem = it.por ? `${it.por.nome}${it.por.perfil?` (${it.por.perfil})`:""}` : "—";
+  const rm = RESPOSTA_META[it.resposta] || RESPOSTA_META.nao_avaliada;
+  const cm = CONDUTA_META[it.conduta] || {t:it.conduta, ic:"·"};
+  const tox = (it.toxicidades||[]);
+  return `<div class="proto hist-entry ret">
+    <div class="row1">
+      <div>
+        <span class="tl-tipo ret">Retorno</span>
+        <div class="pname" style="margin-top:6px">${it.com_imagem?"Com exame de imagem (reestadiamento)":"Sem exame de imagem"}</div>
+        <div class="pfull">${it.regimen_id?`em ${esc(protocoloNome(it.regimen_id))}`:"sem protocolo de referência"}</div>
+      </div>
+      <div style="text-align:right;flex:none">
+        <span class="resp-badge ${rm.cls}">${esc(rm.t)}</span>
+        <div class="hd" style="margin-top:5px">${fmtData(it.data)}</div>
+      </div>
+    </div>
+    <div class="hm">${cm.ic} <b>${esc(cm.t)}</b>${it.data_agendada?` · agendado para ${fmtData(it.data_agendada)}`:""} · por <b>${esc(quem)}</b>${it.fonte_dados?` · fonte: ${esc(it.fonte_dados)}`:""}</div>
+    ${!it.com_imagem?`<div class="hint" style="margin-top:6px">Resposta não avaliada — sem imagem neste retorno não há como afirmar resposta (RECIST).</div>`:""}
+    <div class="hint" style="margin-top:10px;font-weight:700">Toxicidades (CTCAE)</div>
+    <div class="crit" style="margin-top:4px">${tox.length
+      ? tox.map(x=>`<span class="grau-chip g${esc(String(x.grau))}">${esc(x.nome)} · G${esc(String(x.grau))}</span>`).join("")
+      : `<span class="nao-cap">— nenhuma registrada —</span>`}</div>
+    ${it.observacoes?`<div class="hint" style="margin-top:10px;font-weight:700">Observações</div><div style="font-size:12.5px;white-space:pre-wrap;margin-top:3px">${esc(it.observacoes)}</div>`:""}
+  </div>`;
+}
+
+// Item de AUTORIZAÇÃO. A trilha já sabe desenhá-lo; hoje o backend não emite itens deste
+// tipo (`itens` só traz avaliacao|retorno). Ver o TODO em retornos.service.ts#trilha.
+function autorizacaoEntryHtml(it){
   return `<div class="proto hist-entry">
     <div class="row1">
-      <div><div class="pname">${esc(protocoloNome(a.regimen_id))}</div><div class="pfull">${esc(regimeEsquema(a.regimen_id))}</div></div>
+      <div><span class="tl-tipo aut">Autorização</span>
+        <div class="pname" style="margin-top:6px">${esc(it.titulo||protocoloNome(it.regimen_id||""))}</div></div>
+      <div style="text-align:right;flex:none"><div class="hd">${fmtDataHora(it.data)}</div></div>
+    </div>
+    ${it.estado?`<div class="hm">${esc(it.estado)}</div>`:""}
+  </div>`;
+}
+
+// ---- Lembrete de reestadiamento: vencido vira item pendente destacado ----
+function reestPendenteHtml(p, reest){
+  if(!reest) return "";
+  const podeGerar = podeAvaliar();
+  const btns = `${podeGerar?`<button class="btn ghost" style="padding:5px 12px" onclick="abrirSADT(${p.id})">📄 Gerar guia SADT</button>`:""}
+    ${podeGerar?`<button class="btn ghost" style="padding:5px 12px" onclick="ajustarReestadiamento(${p.id})">Ajustar intervalo</button>`:""}`;
+  if(reest.vencido){
+    return `<div class="reest-venc hist-entry pend" style="position:relative">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+        <div>
+          <div class="rv-t">⏰ Reestadiamento vencido desde ${fmtData(reest.proximo)}</div>
+          <div class="rv-s">${reest.dias_atraso} dia${reest.dias_atraso===1?"":"s"} em atraso · intervalo de ${reest.intervalo_meses} ${reest.intervalo_meses===1?"mês":"meses"}. Item em aberto: registre o retorno com imagem para reagendar.</div>
+        </div>
+        <div style="display:flex;gap:8px;flex:none">${btns}</div>
+      </div>
+    </div>`;
+  }
+  if(!reest.proximo) return `<div class="reest-ok"><span>Sem reestadiamento agendado — a agenda nasce ao selecionar um protocolo.</span><span style="margin-left:auto;display:flex;gap:8px">${btns}</span></div>`;
+  return `<div class="reest-ok"><span>🗓️ Próximo reestadiamento: <b>${fmtData(reest.proximo)}</b> · a cada ${reest.intervalo_meses} ${reest.intervalo_meses===1?"mês":"meses"}</span><span style="margin-left:auto;display:flex;gap:8px">${btns}</span></div>`;
+}
+
+// Ajuste do intervalo (é a única coisa mutável desta feature — agenda é lembrete, não
+// registro clínico). PATCH /pacientes/:id/reestadiamento.
+async function ajustarReestadiamento(pid){
+  const atual = (PAC_DETAIL[pid] && PAC_DETAIL[pid].reestadiamento) || {};
+  const v = prompt("Intervalo de reestadiamento deste paciente, em meses (1 a 24):", String(atual.intervalo_meses||3));
+  if(v===null) return;
+  const n = parseInt(String(v).trim(), 10);
+  if(!(n>=1 && n<=24)){ alert("Informe um número de meses entre 1 e 24."); return; }
+  try{
+    await api(`/pacientes/${pid}/reestadiamento`, {method:"PATCH", body:JSON.stringify({intervalo_meses:n})});
+    toast("Intervalo de reestadiamento atualizado.");
+    await carregarDetalhe(pid);
+    if(TRILHA[pid]!=null) await carregarTrilha(pid);
+    render();
+  }catch(e){ alert("Falha ao ajustar: "+e.message); }
+}
+
+// ---- Formulário de RETORNO ----
+function iniciarRetorno(pid){
+  const detail = PAC_DETAIL[pid]; if(!detail) return;
+  const u = detail.ultima_avaliacao;
+  RETORNO = {
+    pid,
+    avaliacao_id: u ? u.id : null,
+    regimen_id: u ? u.regimen_id : null,
+    data_agendada: "",
+    data_realizada: hojeInput(),
+    com_imagem: false,
+    resposta: "nao_avaliada",
+    tox: [],                 // [{nome, outra, grau}] — nome==="__outra" usa o campo livre
+    conduta: "mantem",
+    fonte_dados: "",
+    observacoes: "",
+  };
+  REAVAL = null;
+  render();
+}
+function cancelarRetorno(){ RETORNO=null; render(); }
+function hojeInput(){ const d=new Date(), p=n=>String(n).padStart(2,"0"); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; }
+
+// Nomes de toxicidade oferecidos: os do REGIME EM CURSO no corpus do squad. O corpus
+// sugere; o médico não fica preso a ele (opção "outra" com texto livre).
+function toxDoRegime(rid){
+  const r = REGIMES.find(x=>x.regimen_id===rid);
+  const lista = (r && Array.isArray(r.toxicidades)) ? r.toxicidades : [];
+  const nomes = lista.map(t=>(typeof t==="string")?t:(t&&(t.nome||t.toxicidade||t.evento))).filter(Boolean);
+  return [...new Set(nomes)];
+}
+
+function renderRetornoForm(p, detail){
+  const R = RETORNO;
+  const u = detail.ultima_avaliacao;
+  return `
+    <div class="section-t" style="display:flex;justify-content:space-between;align-items:center">
+      <span>Registrar retorno</span>
+      <button class="btn ghost" onclick="cancelarRetorno()" style="padding:5px 12px">Cancelar</button>
+    </div>
+    <div class="hint" style="margin-bottom:12px">${u
+      ? `Retorno sobre o protocolo em curso: <b>${esc(protocoloNome(u.regimen_id))}</b>${u.linha_tratamento?` (${u.linha_tratamento}ª linha)`:""}, de ${fmtDataHora(u.data)}.`
+      : `Nenhuma avaliação registrada — o retorno ficará sem protocolo de referência.`} O registro é <b>imutável</b>: correção é um retorno novo.</div>
+
+    <div class="grid2">
+      <div class="field"><label>Data agendada (opcional)</label>
+        <input type="date" id="ret_agendada" value="${esc(R.data_agendada)}" oninput="RETORNO.data_agendada=this.value"></div>
+      <div class="field"><label>Data realizada</label>
+        <input type="date" id="ret_realizada" value="${esc(R.data_realizada)}" oninput="RETORNO.data_realizada=this.value"></div>
+    </div>
+
+    <div class="pf-field full" style="margin-bottom:12px">
+      <label>Houve exame de imagem / reestadiamento neste retorno?</label>
+      <div class="seg" style="max-width:240px">
+        <button id="ret_img_nao" class="${R.com_imagem?'':'on'}" onclick="setRetImagem(false)">Não</button>
+        <button id="ret_img_sim" class="${R.com_imagem?'on':''}" onclick="setRetImagem(true)">Sim</button>
+      </div>
+    </div>
+    <div id="ret-resposta">${renderRetRespostaBloco()}</div>
+
+    <div class="section-t">Toxicidades (CTCAE)</div>
+    <div class="hint" style="margin-bottom:8px">Nomes sugeridos pelas toxicidades do regime em curso no corpus do squad${R.regimen_id?"":" (sem regime de referência: use “outra”)"}. Grau 1 a 5.</div>
+    <div id="ret-tox">${renderRetTox()}</div>
+
+    <div class="section-t">Conduta</div>
+    <div class="seg" style="max-width:420px">
+      ${Object.keys(CONDUTA_META).map(k=>`<button class="${R.conduta===k?'on':''}" onclick="setRetConduta('${k}',this)">${esc(CONDUTA_META[k].t)}</button>`).join("")}
+    </div>
+    <div id="ret-conduta-hint">${retCondutaHintHtml()}</div>
+
+    <div class="field" style="margin-top:16px"><label>Fonte dos dados (opcional)</label>
+      <input id="ret_fonte" placeholder="Ex.: consulta presencial, laudo externo, contato telefônico" value="${esc(R.fonte_dados)}" oninput="RETORNO.fonte_dados=this.value"></div>
+    <div class="field"><label>Observações</label>
+      <textarea id="ret_obs" class="rc-just" placeholder="Evolução, intercorrências, ajustes de dose…" oninput="RETORNO.observacoes=this.value">${esc(R.observacoes)}</textarea></div>
+
+    <div class="row-actions" style="margin-top:8px">
+      <button class="btn primary" id="ret_btn" onclick="gravarRetorno(this)">Registrar retorno</button>
+    </div>`;
+}
+
+// Bloco da resposta — TRAVADO quando não houve imagem (regra RECIST). O DTO do backend
+// devolve 400 se alguém mandar resposta sem imagem; a trava aqui é a conveniência.
+function renderRetRespostaBloco(){
+  const R = RETORNO;
+  if(!R.com_imagem){
+    return `<div class="pf-field full" style="margin-bottom:6px">
+      <label>Resposta (RECIST)</label>
+      <select disabled style="opacity:.65"><option>Não avaliada</option></select>
+      <div class="ret-lock">🔒 Resposta só é avaliável com exame de imagem. Sem reestadiamento neste retorno, o registro guarda toxicidade e observações e a resposta fica <b>não avaliada</b>.</div>
+    </div>`;
+  }
+  return `<div class="pf-field full" style="margin-bottom:6px">
+    <label>Resposta (RECIST)</label>
+    <select id="ret_resposta" onchange="RETORNO.resposta=this.value">
+      ${Object.keys(RESPOSTA_META).map(k=>`<option value="${k}" ${R.resposta===k?'selected':''}>${esc(RESPOSTA_META[k].t)}</option>`).join("")}
+    </select>
+  </div>`;
+}
+// Troca imagem: re-renderiza SÓ o bloco da resposta — o que já foi digitado em
+// observações/fonte/toxicidade não é reconstruído (nem perde foco).
+function setRetImagem(v){
+  RETORNO.com_imagem = !!v;
+  if(!v) RETORNO.resposta = "nao_avaliada";
+  const nao=document.getElementById("ret_img_nao"), sim=document.getElementById("ret_img_sim");
+  if(nao) nao.classList.toggle("on", !v);
+  if(sim) sim.classList.toggle("on", !!v);
+  const host=document.getElementById("ret-resposta"); if(host) host.innerHTML=renderRetRespostaBloco();
+}
+function setRetConduta(k, el){
+  RETORNO.conduta = k;
+  if(el&&el.parentElement) [...el.parentElement.children].forEach(b=>b.classList.toggle("on",b===el));
+  const h=document.getElementById("ret-conduta-hint"); if(h) h.innerHTML=retCondutaHintHtml();
+}
+function retCondutaHintHtml(){
+  if(RETORNO.conduta==="troca_protocolo") return `<div class="hint" style="color:var(--amber);font-weight:700;margin-top:6px">Ao registrar, a app abre a seleção de protocolos (com semáforo) e a avaliação escolhida nasce vinculada a este retorno.</div>`;
+  if(RETORNO.conduta==="suspende") return `<div class="hint" style="margin-top:6px">O tratamento é interrompido; nenhuma avaliação nova é criada.</div>`;
+  return `<div class="hint" style="margin-top:6px">Segue no mesmo protocolo.</div>`;
+}
+
+// Lista de toxicidades. Adicionar/remover linha re-renderiza SÓ este bloco (é clique);
+// digitar no campo livre não re-renderiza nada (bind por oninput no estado).
+function renderRetTox(){
+  const R = RETORNO;
+  const rows = R.tox.map((t,i)=>retToxRowHtml(i,t)).join("");
+  return `${rows||`<div class="hint" style="margin-bottom:6px">Nenhuma toxicidade registrada.</div>`}
+    <button class="lnk-add" onclick="addTox()">+ adicionar toxicidade</button>`;
+}
+function retToxRowHtml(i, t){
+  const nomes = toxDoRegime(RETORNO.regimen_id);
+  const outra = t.nome==="__outra";
+  return `<div class="tox-row">
+    <div class="pf-field"><label>Toxicidade ${i+1}</label>
+      <select onchange="setToxNome(${i},this.value)">
+        <option value="" ${t.nome?"":"selected"}>—</option>
+        ${nomes.map(n=>`<option value="${esc(n)}" ${t.nome===n?'selected':''}>${esc(n)}</option>`).join("")}
+        <option value="__outra" ${outra?'selected':''}>outra (texto livre)</option>
+      </select></div>
+    <div class="pf-field"><label>Grau</label>
+      <select onchange="setToxGrau(${i},this.value)">
+        <option value="" ${t.grau?"":"selected"}>—</option>
+        ${[1,2,3,4,5].map(g=>`<option value="${g}" ${Number(t.grau)===g?'selected':''}>G${g}</option>`).join("")}
+      </select></div>
+    <button class="rm" title="Remover" onclick="rmTox(${i})">×</button>
+    ${outra?`<div class="pf-field outra"><label>Nome da toxicidade</label>
+      <input placeholder="Descreva a toxicidade" value="${esc(t.outra||"")}" oninput="setToxOutra(${i},this.value)"></div>`:""}
+  </div>`;
+}
+function addTox(){ RETORNO.tox.push({nome:"", outra:"", grau:""}); redrawTox(); }
+function rmTox(i){ RETORNO.tox.splice(i,1); redrawTox(); }
+function setToxNome(i,v){ RETORNO.tox[i].nome=v; redrawTox(); } // troca de select: precisa mostrar/esconder o campo livre
+function setToxGrau(i,v){ RETORNO.tox[i].grau=v; }              // select: só estado
+function setToxOutra(i,v){ RETORNO.tox[i].outra=v; }            // TEXTO LIVRE: só estado, sem re-render
+function redrawTox(){ const h=document.getElementById("ret-tox"); if(h) h.innerHTML=renderRetTox(); }
+
+// Grava o retorno (POST /pacientes/:id/retornos). Empilha, nunca sobrescreve.
+async function gravarRetorno(btn){
+  const R = RETORNO; if(!R) return;
+  if(!R.data_realizada){ alert("Informe a data realizada do retorno."); return; }
+  // Toxicidades: resolve o nome (catálogo do regime ou texto livre) e exige o grau.
+  const tox = [];
+  for(const t of R.tox){
+    const nome = (t.nome==="__outra") ? String(t.outra||"").trim() : String(t.nome||"").trim();
+    if(!nome && !t.grau) continue;                       // linha em branco: ignora
+    if(!nome){ alert("Toxicidade sem nome — escolha um nome ou remova a linha."); return; }
+    if(!(Number(t.grau)>=1 && Number(t.grau)<=5)){ alert(`Informe o grau (1 a 5) da toxicidade “${nome}”.`); return; }
+    tox.push({nome, grau: Number(t.grau)});
+  }
+  const body = {
+    avaliacao_id: R.avaliacao_id || undefined,
+    data_agendada: R.data_agendada || undefined,
+    data_realizada: R.data_realizada,
+    com_imagem: !!R.com_imagem,
+    // Sem imagem não manda resposta: a regra RECIST é do backend (400), não da tela.
+    resposta: R.com_imagem ? R.resposta : undefined,
+    toxicidades: tox,
+    conduta: R.conduta,
+    fonte_dados: R.fonte_dados || undefined,
+    observacoes: R.observacoes || undefined,
+  };
+  if(btn) btn.disabled = true;
+  const pid = R.pid, conduta = R.conduta;
+  try{
+    const novo = await api(`/pacientes/${pid}/retornos`, {method:"POST", body:JSON.stringify(body)});
+    RETORNO = null;
+    await carregarPacientes();
+    // Espera de verdade: o passo seguinte (troca de protocolo) lê PAC_DETAIL, e a aba
+    // Trilha precisa do dado já carregado para não piscar "carregando".
+    await carregarDetalhe(pid);
+    await carregarTrilha(pid);
+    if(conduta==="troca_protocolo"){
+      // Fecha o ciclo: abre a seleção de protocolos e amarra a avaliação nova a ESTE retorno.
+      toast("Retorno registrado. Selecione o protocolo da troca.");
+      iniciarReaval(pid, {retorno_id: novo.id, troca: novo});
+    }else{
+      toast("Retorno registrado na trilha do paciente.");
+      pacTab = "trilha";
+      render();
+    }
+  }catch(e){
+    alert("Falha ao registrar retorno: "+e.message);
+    if(btn) btn.disabled = false;
+  }
+}
+
+// ═══ GUIA SADT (reestadiamento) ═════════════════════════════════════════════
+// Guia pré-preenchida com os dados do paciente e do convênio; a LISTA DE EXAMES é digitada
+// pelo médico na hora (linhas livres, adicionar/remover). Imprimível → PDF pelo browser.
+//
+// TODO / PENDÊNCIA: examesReestadiamento(tumor) hoje devolve [] de propósito. As listas de
+// exames por tumor serão definidas pelo ONCOLOGISTA DE REFERÊNCIA na Revisão clínica e só
+// então alimentam este gancho — não são para ser inventadas aqui (seria protocolo escrito à
+// mão, exatamente o que esta app não faz). Registrado no BACKLOG.md.
+function examesReestadiamento(tumor){
+  return [];
+}
+
+function abrirSADT(pid){
+  const d = PAC_DETAIL[pid];
+  const tumor = (d && d.tumor) || null;
+  const sug = examesReestadiamento(tumor);
+  SADT = {
+    pid,
+    indicacao: `Reestadiamento — ${tumor?tumorNome(tumor):"tumor não definido"}${d&&d.subtipo?` (${d.subtipo})`:""}`,
+    exames: sug.length ? sug.slice() : ["", "", ""],
+    obs: "",
+  };
+  view = "sadt"; render();
+}
+function setExameSadt(i,v){ SADT.exames[i]=v; }   // TEXTO LIVRE: só estado, sem re-render
+function addExameSadt(){ SADT.exames.push(""); redrawExames(true); }
+function rmExameSadt(i){ SADT.exames.splice(i,1); redrawExames(false); }
+function redrawExames(focarUltimo){
+  const h=document.getElementById("sadt-exames"); if(!h) return;
+  h.innerHTML = sadtExamesHtml();
+  if(focarUltimo){ const ins=h.querySelectorAll("input"); if(ins.length) ins[ins.length-1].focus(); }
+}
+function sadtExamesHtml(){
+  return SADT.exames.map((e,i)=>`<div class="ex-row">
+    <span class="n">${i+1}.</span>
+    <input value="${esc(e)}" placeholder="Exame solicitado (ex.: TC de tórax e abdome com contraste)" oninput="setExameSadt(${i},this.value)">
+    <button class="rm" title="Remover linha" onclick="rmExameSadt(${i})">×</button>
+  </div>`).join("") + `<button class="lnk-add" onclick="addExameSadt()">+ adicionar exame</button>`;
+}
+function imprimirSADT(){ window.print(); }
+
+function renderSADT(){
+  const pid = SADT.pid;
+  const p = patients.find(x=>x.id===pid) || {};
+  const d = PAC_DETAIL[pid] || {};
+  const f = (k,v,cls)=>`<div class="sadt-f ${cls||""}"><div class="k">${esc(k)}</div><div class="v">${v===""||v==null?"—":esc(String(v))}</div></div>`;
+  app().innerHTML = `
+  <div class="crumbs sadt-toolbar"><a onclick="go('lista')">Pacientes</a> › <a onclick="abrir(${pid},'trilha')">${esc(d.nome||p.nome||"Paciente")}</a> › <b>Guia SADT</b></div>
+  <div class="row-actions sadt-toolbar" style="justify-content:flex-start;margin-bottom:12px">
+    <button class="btn primary" onclick="imprimirSADT()">🖨️ Imprimir / PDF</button>
+    <button class="btn ghost" onclick="abrir(${pid},'trilha')">Voltar à trilha</button>
+  </div>
+  <div class="sadt">
+    <h3>Guia de solicitação — SP/SADT</h3>
+    <div class="sadt-sub">Solicitação de exames para reestadiamento · protótipo conceitual, dados fictícios</div>
+
+    <div class="sadt-grid">
+      ${f("Operadora", d.operadora||p.operadora, "w2")}
+      ${f("Plano", d.plano||p.plano)}
+      ${f("Carteirinha", d.carteirinha)}
+      ${f("Nome do beneficiário", d.nome||p.nome, "w2")}
+      ${f("Data de nascimento", d.nasc?fmtData(d.nasc):"")}
+      ${f("Sexo", (d.sexo||p.sexo)==="F"?"Feminino":"Masculino")}
+      ${f("Registro do hospital", d.identificador)}
+      ${f("Tumor", d.tumor?tumorNome(d.tumor):"")}
+      ${f("Subtipo", d.subtipo, "w2")}
+      ${f("Protocolo em curso", d.ultima_avaliacao?protocoloNome(d.ultima_avaliacao.regimen_id):"", "w2")}
+      ${f("Próximo reestadiamento", d.reestadiamento&&d.reestadiamento.proximo?fmtData(d.reestadiamento.proximo):"")}
+      ${f("Emitida em", fmtData(hojeInput()))}
+    </div>
+
+    <div class="section-t">Indicação clínica</div>
+    <input value="${esc(SADT.indicacao)}" oninput="SADT.indicacao=this.value" placeholder="Indicação clínica">
+
+    <div class="section-t">Exames solicitados</div>
+    <div class="hint sadt-toolbar" style="margin-bottom:8px">Digite os exames desta solicitação. A app não sugere lista por tumor — essa lista virá da Revisão clínica (ver BACKLOG.md).</div>
+    <div id="sadt-exames">${sadtExamesHtml()}</div>
+
+    <div class="section-t">Observações</div>
+    <input value="${esc(SADT.obs)}" oninput="SADT.obs=this.value" placeholder="Observações (opcional)">
+
+    <div class="assina">
+      <div>${esc(USUARIO?USUARIO.nome:"")} — CRM ____________<br>Médico solicitante</div>
+      <div>Data ____ / ____ / ________<br>Assinatura e carimbo</div>
+    </div>
+  </div>`;
+}
+
+// Item de SELEÇÃO DE PROTOCOLO (avaliação) na trilha. `porId` mapeia retorno_id → retorno,
+// para dizer QUAL retorno motivou a troca sem uma segunda ida ao backend.
+function avalEntryHtml(a, tumor, porId){
+  const q = a.por || a.avaliado_por;
+  const quem = q ? `${q.nome}${q.perfil?` (${q.perfil})`:""}` : "—";
+  const mot = (a.retorno_id && porId) ? porId[a.retorno_id] : null;
+  return `<div class="proto hist-entry">
+    <div class="row1">
+      <div>
+        <span class="tl-tipo aval">Seleção de protocolo</span>
+        <div class="pname" style="margin-top:6px">${esc(protocoloNome(a.regimen_id))}</div>
+        <div class="pfull">${esc(regimeEsquema(a.regimen_id))}</div>
+      </div>
       <div style="text-align:right;flex:none">
         ${semBadge(a.semaforo)}
         <div class="hd" style="margin-top:5px">${fmtDataHora(a.data)}</div>
       </div>
     </div>
     <div class="hm">${a.linha_tratamento?`<b>${a.linha_tratamento}ª linha</b> · `:""}${tumor?esc(tumorNome(tumor)):"—"} · por <b>${esc(quem)}</b></div>
+    ${a.retorno_id?`<div class="tl-motivado">⇄ Motivada pelo retorno${mot?` de ${fmtData(mot.data)}`:""}${mot&&mot.resposta&&mot.resposta!=="nao_avaliada"?` — ${esc((RESPOSTA_META[mot.resposta]||{}).t||"")}`:""}</div>`:""}
     ${a.detalhe_semaforo&&a.detalhe_semaforo.ressalva?`<div class="hint" style="margin-top:8px;color:var(--amber);font-weight:700">⚠️ ${esc(a.detalhe_semaforo.ressalva)}</div>`:""}
     <div class="hint" style="margin-top:10px;font-weight:700">Snapshot dos campos (congelado)</div>
     <div class="crit" style="margin-top:6px">${snapshotChipsFor(a.snapshot_campos, tumor)}</div>
   </div>`;
 }
+
 function regimeEsquema(rid){ const r=REGIMES.find(x=>x.regimen_id===rid); return r?(r.esquema||r.subtipo||""):""; }
 // Chips de um snapshot de avaliação (campos_primitivos congelados), rótulos legíveis do squad.
 function snapshotChipsFor(snap, tumor){
@@ -2289,8 +2786,8 @@ async function selecionarProtocolo(pid, rid, status, btn){
     })});
     toast("Avaliação registrada na linha do tempo do paciente.");
     await carregarPacientes();
-    carregarDetalhe(p.id);
-    if(AVAL_HIST[p.id]!=null) carregarAvaliacoes(p.id);
+    await carregarDetalhe(p.id);
+    if(TRILHA[p.id]!=null) await carregarTrilha(p.id);
     render();
   }catch(e){ alert("Falha ao registrar avaliação: "+e.message); }
   finally{ if(btn) btn.disabled = false; }

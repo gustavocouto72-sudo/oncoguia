@@ -78,6 +78,18 @@ export class Paciente {
   @Column({ type: 'jsonb', nullable: true })
   valores_estaveis: Record<string, any>;
 
+  // ---- Agenda de reestadiamento (LEMBRETE, não registro clínico) ----
+  // Diferente de avaliacoes/retornos (append-only), a agenda é ESTADO MUTÁVEL e descartável:
+  // ela só responde "quando é o próximo". O que aconteceu vive nos registros imutáveis; aqui
+  // fica apenas o ponteiro para a frente, reagendado ao selecionar protocolo e a cada retorno
+  // com imagem. Intervalo padrão 3 meses, ajustável por paciente (nem todo tumor reestadia no
+  // mesmo ritmo) — quem ajusta é o oncologista, em PATCH /pacientes/:id/reestadiamento.
+  @Column({ type: 'date', nullable: true })
+  proximo_reestadiamento: string;
+
+  @Column({ type: 'int', default: 3 })
+  intervalo_reestadiamento_meses: number;
+
   @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
   @JoinColumn({ name: 'criado_por' })
   criadoPor: Usuario;
@@ -130,6 +142,13 @@ export class Avaliacao {
 
   @Column({ type: 'jsonb', nullable: true })
   detalhe_semaforo: Record<string, any>; // quais regras passaram/falharam
+
+  // Retorno que MOTIVOU esta avaliação (o retorno cuja conduta foi troca_protocolo). null
+  // nas avaliações que não nasceram de um retorno (primeira seleção, reavaliação avulsa).
+  // É o elo que fecha o ciclo retorno → troca: na trilha a avaliação nova aparece atrelada
+  // ao retorno que a pediu, e não solta no meio da linha do tempo.
+  @Column({ name: 'retorno_id', nullable: true })
+  retorno_id: number;
 }
 
 // Linha do tempo de protocolos escolhidos por paciente. dados_clinicos é a
@@ -298,6 +317,104 @@ export class Revisao {
   // Complemento da ação: DOI novo (corrigir_referencia) ou spec da regra (ajustar_elegibilidade).
   @Column({ type: 'text', nullable: true })
   acao_detalhe: string;
+
+  @CreateDateColumn({ name: 'criado_em', type: 'timestamptz' })
+  criado_em: Date; // do servidor
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RETORNO — a consulta de seguimento do paciente já em tratamento.
+// Append-only e IMUTÁVEL, como Avaliacao: correção é um registro NOVO, nunca UPDATE.
+// Um retorno responde três coisas sobre o protocolo em curso: o tumor respondeu?
+// (só com imagem — regra RECIST abaixo), o paciente tolerou? (toxicidades com grau CTCAE)
+// e o que se faz agora? (conduta).
+//
+// REGRA RECIST (a razão de `resposta` não ser um campo livre): resposta de tumor é medida
+// em imagem. Sem exame de imagem/reestadiamento neste retorno, o médico não tem como
+// afirmar resposta_parcial ou progressão — o retorno registra toxicidade e observações, e
+// a resposta fica 'nao_avaliada'. A UI trava o seletor e o DTO devolve 400 se vier
+// resposta ≠ nao_avaliada com com_imagem=false: as duas travas, porque a segunda é a que
+// vale (a UI é conveniência, não é o controle).
+export type RespostaRetorno =
+  | 'resposta_completa'
+  | 'resposta_parcial'
+  | 'doenca_estavel'
+  | 'progressao'
+  | 'nao_avaliada';
+
+// mantem = segue o mesmo protocolo; troca_protocolo = abre a seleção de protocolos (o fluxo
+// existente, com semáforo) e a avaliação nova nasce vinculada a ESTE retorno
+// (avaliacoes.retorno_id); suspende = interrompe o tratamento.
+export type CondutaRetorno = 'mantem' | 'troca_protocolo' | 'suspende';
+
+// Toxicidade observada: nome + grau CTCAE (1–5). O seletor de NOME vem das toxicidades do
+// regime em curso no corpus do squad (r.toxicidades[].nome) mais a opção "outra" com texto
+// livre — o corpus sugere, o médico não fica preso a ele.
+export interface ToxicidadeRegistrada {
+  nome: string;
+  grau: number; // CTCAE 1–5
+}
+
+@Entity('retornos')
+@Index(['paciente_id', 'data_realizada'])
+export class Retorno {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @ManyToOne(() => Paciente, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'paciente_id' })
+  paciente: Paciente;
+
+  @Column({ name: 'paciente_id' })
+  paciente_id: number;
+
+  // Avaliação (= protocolo em curso) sobre a qual este retorno fala. Sem ela o retorno
+  // ficaria solto: "houve progressão" só diz alguma coisa contra um protocolo.
+  @ManyToOne(() => Avaliacao, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'avaliacao_id' })
+  avaliacao: Avaliacao;
+
+  @Column({ name: 'avaliacao_id', nullable: true })
+  avaliacao_id: number;
+
+  // Congelado do protocolo em curso no momento do retorno — o registro continua legível
+  // mesmo que a avaliação de origem suma (SET NULL) ou que o corpus mude de nome.
+  @Column({ length: 160, nullable: true })
+  regimen_id: string;
+
+  @Column({ type: 'date', nullable: true })
+  data_agendada: string;
+
+  @Column({ type: 'date' })
+  data_realizada: string;
+
+  // Houve exame de imagem/reestadiamento neste retorno? É o que habilita `resposta`.
+  @Column({ type: 'boolean', default: false })
+  com_imagem: boolean;
+
+  @Column({ type: 'varchar', length: 20, default: 'nao_avaliada' })
+  resposta: RespostaRetorno;
+
+  @Column({ type: 'jsonb', nullable: true })
+  toxicidades: ToxicidadeRegistrada[];
+
+  @Column({ type: 'varchar', length: 20 })
+  conduta: CondutaRetorno;
+
+  // De onde veio o dado deste retorno (consulta presencial, laudo externo, telefone…) —
+  // procedência explícita, no mesmo espírito do "confirmado precisa de DOI" do corpus.
+  @Column({ length: 160, nullable: true })
+  fonte_dados: string;
+
+  @Column({ type: 'text', nullable: true })
+  observacoes: string;
+
+  @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'registrado_por' })
+  registradoPor: Usuario;
+
+  @Column({ name: 'registrado_por', nullable: true })
+  registrado_por: number; // do JWT (servidor)
 
   @CreateDateColumn({ name: 'criado_em', type: 'timestamptz' })
   criado_em: Date; // do servidor
