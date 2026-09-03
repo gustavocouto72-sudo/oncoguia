@@ -4973,8 +4973,10 @@ async function decidirAutorizacao(id, decisao, btn){
     toast(decisao==="aprovada" ? "Exceção autorizada — protocolo vigente." : "Exceção negada — registrada na trilha do paciente.");
     AUT_BUSY = null; AUT_LISTA = null;
     await carregarPacientes();
-    if(PAC_DETAIL) Object.keys(PAC_DETAIL).forEach(k=>delete PAC_DETAIL[k]);
-    if(AVAL_HIST) Object.keys(AVAL_HIST).forEach(k=>delete AVAL_HIST[k]);
+    // A decisão muda o vigente do paciente e entra na sua trilha: invalida os dois caches
+    // (detalhe e trilha) — a visão do paciente recarrega sozinha quando for aberta.
+    Object.keys(PAC_DETAIL).forEach(k=>delete PAC_DETAIL[k]);
+    Object.keys(TRILHA).forEach(k=>delete TRILHA[k]);
     await carregarAutorizacoes();
   }catch(e){
     AUT_BUSY = null; if(btn) btn.disabled = false;

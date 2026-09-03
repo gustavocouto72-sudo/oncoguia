@@ -6,6 +6,10 @@
 //    oncologista não enxerga a aba Autorizações (nem forçando a view).
 //  Fase 2 (UI, auditor): fila com o card (paciente, protocolo, justificativa do médico),
 //    parecer digitado com contador de render = 0, aprovação → passa a vigente.
+//  Fase 2b (UI, auditor): o caminho do usuário que escapou — decidir com a VISÃO DO
+//    PACIENTE ABERTA (detalhe + trilha em cache). Foi por aqui que o `AVAL_HIST` órfão
+//    (sobra do rename Histórico→Trilha) alertou "Falha ao registrar a decisão" para uma
+//    decisão já gravada: o erro era no refresh, depois do POST.
 //  Fase 3 (API): o que a UI não pode garantir — enforcement SERVER-SIDE do não-incorporado
 //    (POST direto sem autorizacao_estado nasce pendente do mesmo jeito), estado inicial
 //    não escolhível pelo cliente, decisão única e imutável, parecer obrigatório nas duas
@@ -153,15 +157,20 @@ async function ctxLogin(browser, perfil) {
 
     await pa.click('button:has-text("Aprovar")');
     try {
-      await pa.waitForFunction(id => (AUT_LISTA || []).every(a => a.id !== id), avaliacaoPendenteId, { timeout: 25000 });
+      // Array.isArray é o ponto: sem ele o check passava VAZIO. A decisão zera AUT_LISTA
+      // ANTES de recarregar a fila, então (null || []).every(...) é true e a espera
+      // resolvia mesmo quando o refresh da tela estourava no meio. Exigir a lista de
+      // volta é exigir que carregarAutorizacoes() tenha completado.
+      await pa.waitForFunction(id => Array.isArray(AUT_LISTA) && AUT_LISTA.every(a => a.id !== id),
+        avaliacaoPendenteId, { timeout: 25000 });
     } catch (e) {
-      throw new Error('aprovação não saiu da fila; AUT_ERRO=' + await pa.evaluate(() => AUT_ERRO)
+      throw new Error('aprovação não saiu da fila; AUT_LISTA=' + await pa.evaluate(() => JSON.stringify(AUT_LISTA))
+        + ' | AUT_ERRO=' + await pa.evaluate(() => AUT_ERRO)
         + ' | alertas=' + f2.alertas.join(' ; ') + ' | console=' + f2.errs.join(' ; '));
     }
-    ok('A5 aprovada sai da fila de pendentes', true);
+    ok('A5 aprovada sai da fila de pendentes (com a fila recarregada)', true);
     ok('A5 nenhum alerta de erro na decisão', f2.alertas.length === 0, f2.alertas.join(' ; '));
     ok('A6 console sem erro (fluxo do auditor)', f2.errs.length === 0, f2.errs.join(' | '));
-    await f2.ctx.close();
 
     const depoisAprov = await req('GET', `/pacientes/${pacienteId}`, tkOnco);
     ok('A7 aprovada vira o protocolo VIGENTE do paciente',
@@ -172,6 +181,74 @@ async function ctxLogin(browser, perfil) {
       linhaAprov.autorizacao_estado === 'aprovada' && linhaAprov.autorizacao_parecer === PARECER_TESTE
       && !!linhaAprov.autorizacao_auditor,
       `${linhaAprov.autorizacao_estado} · ${linhaAprov.autorizacao_auditor}`);
+
+    // ═══ FASE 2b — decidir com a VISÃO DO PACIENTE ABERTA (o caminho que escapou) ═══
+    // Em 2026-09-03 o auditor negou uma exceção e levou o alerta "Falha ao registrar a
+    // decisão: AVAL_HIST is not defined" — para uma decisão JÁ GRAVADA no servidor. A
+    // referência órfã (sobra do rename Histórico→Trilha) estourava DEPOIS do POST, ao
+    // invalidar os caches da tela do paciente. A Fase 2 acima não pegou porque decide com
+    // a ficha do paciente nunca aberta e porque a espera passava vazia (ver A5). Aqui o
+    // auditor faz o caminho do usuário: abre o paciente (detalhe + trilha em cache) e só
+    // então decide. O que se afirma é o que o usuário viu quebrar — zero alerta, zero erro
+    // de página, fila de volta e caches realmente invalidados.
+    const seg = await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkOnco, avaliacaoBase(RID_NAO_INC));
+    const idSegunda = seg.body && seg.body.id;
+    ok('B0 segunda solicitação criada para o caminho do paciente', seg.status === 201 && !!idSegunda, String(seg.status));
+
+    // o auditor abre a ficha: detalhe + trilha ficam carregados, como na tela do usuário
+    await pa.evaluate(pid => abrir(pid, 'trilha'), pacienteId);
+    await pa.waitForFunction(pid => !!PAC_DETAIL[pid] && !!TRILHA[pid], pacienteId, { timeout: 25000 });
+    ok('B1 auditor abre a visão do paciente (detalhe + trilha em cache)', true);
+
+    // volta para a fila com o paciente carregado e nega a exceção
+    // AUT_LISTA=null força o refetch da fila (a segunda solicitação nasceu depois do
+    // último carregamento) — é o que o auditor vê ao voltar para a aba com dado novo.
+    await pa.evaluate(() => { AUT_LISTA = null; go('autorizacoes'); });
+    await pa.waitForFunction(id => Array.isArray(AUT_LISTA) && AUT_LISTA.some(a => a.id === id),
+      idSegunda, { timeout: 25000 });
+    const alertasAntes = f2.alertas.length, errsAntes = f2.errs.length;
+    await pa.fill(`#aut_par_${idSegunda}`, PARECER_TESTE);
+    // clique no botão DAQUELE card (pelo onclick), não no primeiro "Negar" da tela
+    const clicouNegar = await pa.evaluate(id => {
+      const b = Array.from(document.querySelectorAll('.aut-card button.neg'))
+        .find(x => (x.getAttribute('onclick') || '').includes(`decidirAutorizacao(${id},`));
+      if (!b) return false;
+      b.click(); return true;
+    }, idSegunda);
+    ok('B1 botão Negar do card da segunda solicitação', clicouNegar);
+    try {
+      await pa.waitForFunction(id => Array.isArray(AUT_LISTA) && AUT_LISTA.every(a => a.id !== id),
+        idSegunda, { timeout: 25000 });
+    } catch (e) {
+      throw new Error('negar com o paciente aberto não completou; AUT_LISTA='
+        + await pa.evaluate(() => JSON.stringify(AUT_LISTA))
+        + ' | alertas=' + f2.alertas.slice(alertasAntes).join(' ; ')
+        + ' | console=' + f2.errs.slice(errsAntes).join(' ; '));
+    }
+    ok('B2 ★ negar com a visão do paciente aberta: NENHUM alerta de erro',
+      f2.alertas.length === alertasAntes, f2.alertas.slice(alertasAntes).join(' ; '));
+    ok('B2 ★ negar com a visão do paciente aberta: console/pageerror limpo',
+      f2.errs.length === errsAntes, f2.errs.slice(errsAntes).join(' | '));
+    // a razão de existir daquele trecho: os caches da tela do paciente saem invalidados
+    // (undefined = recarrega sozinho ao abrir; null seria "falhou ao carregar").
+    const caches = await pa.evaluate(pid => ({ det: PAC_DETAIL[pid], tri: TRILHA[pid] }), pacienteId);
+    ok('B3 decisão invalida os caches do paciente (detalhe e trilha)',
+      caches.det === undefined && caches.tri === undefined, JSON.stringify(caches).slice(0, 90));
+    // e a decisão que o usuário viu "falhar" está mesmo gravada
+    const segGravada = await req('GET', `/pacientes/${pacienteId}`, tkOnco);
+    const segNaTrilha = segGravada.body.linha_do_tempo.find(l => l.id === idSegunda);
+    ok('B4 a decisão negada ficou gravada com o parecer',
+      !!segNaTrilha && segNaTrilha.autorizacao_estado === 'negada'
+      && segNaTrilha.autorizacao_parecer === PARECER_TESTE,
+      segNaTrilha && segNaTrilha.autorizacao_estado);
+    // reabrir a ficha reconstrói tudo sem erro (o refresh que o bug impedia)
+    await pa.evaluate(pid => abrir(pid, 'trilha'), pacienteId);
+    await pa.waitForFunction(pid => !!PAC_DETAIL[pid] && !!TRILHA[pid], pacienteId, { timeout: 25000 });
+    const trilhaTxt = await pa.evaluate(() => document.body.textContent);
+    ok('B5 trilha do paciente recarrega e mostra a decisão do auditor',
+      trilhaTxt.includes(PARECER_TESTE), 'parecer visível na trilha');
+    ok('B6 console sem erro no caminho completo do auditor', f2.errs.length === 0, f2.errs.join(' | '));
+    await f2.ctx.close();
 
     // ═══ FASE 3 — API: o enforcement que a UI não garante ═══
     // tkOnco/tkAud vêm das sessões da UI acima; só o revisor precisa de um login próprio.

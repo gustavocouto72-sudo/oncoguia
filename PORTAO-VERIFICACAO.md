@@ -50,7 +50,7 @@ Rode este portão depois de **todo lote** de mudança (dados ou app). Passou tud
 
 ---
 
-*Automação (adendo 3) — módulo Autorização/exceção:* `node scripts/portao-autorizacao.js` roda o portão da solicitação de exceção (mesmas portas). 44 checks. Os dois marcados **★** são o coração: um `POST /pacientes/:id/avaliacoes` **direto**, sem `autorizacao_estado`, de um protocolo **não incorporado** tem de nascer `pendente` — o servidor relê o corpus e não acredita no cliente. Cobre ainda: pendente/negada nunca viram protocolo vigente, decisão única e imutável (409 na segunda), parecer obrigatório nas duas decisões, **0 re-render** ao digitar o parecer, e a matriz de perfil inteira (o `auditor` é eixo próprio: 403 em avaliação, Revisão, export e usuários). Apaga o paciente de teste no fim.
+*Automação (adendo 3) — módulo Autorização/exceção:* `node scripts/portao-autorizacao.js` roda o portão da solicitação de exceção (mesmas portas). 53 checks. Os dois marcados **★** são o coração: um `POST /pacientes/:id/avaliacoes` **direto**, sem `autorizacao_estado`, de um protocolo **não incorporado** tem de nascer `pendente` — o servidor relê o corpus e não acredita no cliente. Cobre ainda: pendente/negada nunca viram protocolo vigente, decisão única e imutável (409 na segunda), parecer obrigatório nas duas decisões, **0 re-render** ao digitar o parecer, e a matriz de perfil inteira (o `auditor` é eixo próprio: 403 em avaliação, Revisão, export e usuários). Desde 2026-09-03 cobre também a **decisão com a visão do paciente aberta** (fase B, os dois ★ novos): o auditor abre a ficha — detalhe e trilha em cache — e só então nega. Foi o caminho que escapou quando o `AVAL_HIST` órfão (sobra do rename Histórico→Trilha) estourava **depois** do POST e alertava "Falha ao registrar a decisão" para uma decisão já gravada. Junto veio o conserto da espera do A5: ela era `(AUT_LISTA || []).every(...)`, e a decisão zera `AUT_LISTA` **antes** de recarregar a fila — com a lista em `null` a checagem passava **vazia**. Agora exige `Array.isArray`, isto é, exige que o refresh tenha completado. Apaga o paciente de teste no fim.
 
 > **Rodando os portões em sequência:** `POST /auth/login` é limitado a **5 por minuto por IP** (`@Throttle` no AuthController) e o teto global é 60 req/min. Como cada portão agora loga uma vez **por perfil**, encadeá-los estoura a janela. Os scripts tratam isso: `tokenApi()` e `loginNaTela()` (em `scripts/portao-credenciais.js`) **esperam e tentam de novo** no 429, imprimindo `… rate limit no login <perfil>: aguardando Ns`. Um 429 não vira mais FAIL falso — só demora. Qualquer outro status continua sendo erro na hora. Não fique dando `curl` no login para "testar se liberou": cada tentativa reenche a janela.
 
@@ -106,8 +106,16 @@ conta de robô tem de ser reconhecível à primeira vista numa auditoria de aces
   60s enquanto a app, já logada, tinha trocado de tela por baixo dela. Portão que falha
   pelo motivo errado ensina a ignorar portão.
 
-**Estado em 2026-09-03:** `portao-retorno` 86/86 · `portao-autorizacao` 44/44 ·
+**Estado em 2026-09-03:** `portao-retorno` 86/86 · `portao-autorizacao` 53/53 ·
 `portao-b` tudo passou.
+
+> **Lição do check que passava vazio:** `portao-autorizacao` marcou 44/44 sobre um bug que
+> o usuário levava na cara em produção. Não foi falta de check — foi um check cuja
+> asserção era satisfeita pelo próprio estado quebrado (`(null || []).every(...)` é
+> `true`). Quando um portão espera por uma lista que o código sob teste **zera** no meio do
+> caminho, a espera tem de exigir a lista **de volta**, não a ausência dela. Contraprova
+> obrigatória ao endurecer um check: reintroduza o bug e confirme que ele falha — este
+> falhou com a mensagem exata do usuário no diagnóstico.
 
 > **Achado do dia (não corrigido de propósito):** o `forbidNonWhitelisted: true` do
 > `ValidationPipe` de rota em `retornos.controller.ts` é **inerte**. O pipe GLOBAL
