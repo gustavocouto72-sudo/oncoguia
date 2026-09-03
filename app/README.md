@@ -24,6 +24,38 @@ pelo squad em `squads/mbe-oncologia/output/regimes-consolidados.json`
 
 Além do fluxo do paciente, há as abas **Fluxograma** (árvore de decisão) e **Revisão clínica** (camada humana sobre os 295 protocolos) — ver seções abaixo.
 
+### A lista de Pacientes
+É a tela em que o médico decide o que fazer hoje, e as colunas existem para isso:
+
+| Coluna | O que mostra |
+|---|---|
+| **Paciente** | nome + registro |
+| **Idade** | anos completos (`55a`), nascimento embaixo |
+| **Tumor** | tumor + subtipo |
+| **Último protocolo** | protocolo **vigente** + linha + dia da avaliação (`· em dd/mm`), com os selos **NÃO INCORPORADO** e **⏳ aguardando autorização** |
+| **Médico assistente** | **derivado**: quem assinou o evento mais recente (avaliação ou retorno) |
+| **Próximo retorno** | data agendada; vermelho + atraso em dias quando vencida |
+| **Semáforo** | elegibilidade da última avaliação |
+
+Três decisões que não são cosméticas:
+
+- **Médico assistente não é campo de cadastro.** Não existe "médico responsável" a preencher
+  e manter em dia — quem cuida do paciente é quem registrou por último. "Mais recente" usa
+  exatamente o critério da **trilha** (o dia manda; dentro do dia, o instante do registro),
+  para que a lista não chame de atual um evento que a trilha mostra no meio.
+- **Os dois selos respondem a perguntas diferentes.** *NÃO INCORPORADO* é sobre o protocolo
+  (a instituição não o oferece); *⏳ aguardando autorização* é sobre a **última avaliação**
+  estar parada no auditor. Por isso a coluna pode mostrar o protocolo vigente **e** o selo de
+  espera ao mesmo tempo: é o caso real de quem segue no tratamento antigo enquanto uma
+  exceção é decidida. O protocolo exibido é sempre o **vigente** — o solicitado só entra
+  quando autorizado.
+- **A busca não reconstrói o campo.** Digitar reescreve só `#lista-corpo` (filtros + tabela);
+  o `<input>` fica em DOM persistente e mantém valor, foco e cursor — mesmo padrão do
+  cadastro e do formulário de retorno.
+
+Ordem padrão: **atrasados primeiro**, depois próximo retorno mais próximo, sem agenda no fim,
+nome como desempate.
+
 ## Fluxograma (aba "Fluxograma") — árvore de decisão a seguir
 View **read-only**, **independente de paciente**: é o **algoritmo do protocolo em si**, montado a partir dos regimes consolidados (`regimes-consolidados.json`, empacotados do último run em `data.js`). Estrutura da árvore:
 
@@ -101,10 +133,11 @@ só o bloco — o que já foi digitado acima não é reconstruído.
 
 **"Quem não veio".** `pacientes.proximo_retorno` é a agenda (mutável, sobrescrita a cada
 retorno). Data no passado só sobrevive se ninguém registrou consulta desde então — por isso
-**vencido já significa "não veio"**, sem cruzar estado. A lista de Pacientes mostra o badge
-*"Retorno atrasado — previsto DD/MM, há N dias"* e o filtro **⏰ Retornos atrasados**. Quem
-decide "vencido" é o **servidor** (relógio dele), não o relógio da máquina do usuário. Só
-visibilidade para a equipe — nenhuma mensagem é enviada ao paciente.
+**vencido já significa "não veio"**, sem cruzar estado. Na lista de Pacientes isso aparece na
+coluna **Próximo retorno** (data em vermelho + *"⏰ atrasado há Xd"*), no filtro **⏰ Retornos
+atrasados** e na **ordem padrão**, que põe os atrasados no topo. Quem decide "vencido" é o
+**servidor** (relógio dele), não o relógio da máquina do usuário. Só visibilidade para a
+equipe — nenhuma mensagem é enviada ao paciente.
 
 **Lembrete de reestadiamento.** Selecionar protocolo agenda o próximo (**padrão 3 meses**,
 ajustável por paciente); retorno com imagem reagenda **+intervalo** a partir da data

@@ -386,9 +386,14 @@ async function req(metodo, rota, tk, body) {
       heads.join('|'));
 
     let linha = await linhaLista(page, NOME_TESTE);
-    ok('L2 idade em anos com o nascimento completo embaixo',
-      /^\d{1,3}a /.test(linha.cel['Idade']) && linha.cel['Idade'].includes(fmtBR(NASC_TESTE)),
-      linha.cel['Idade']);
+    // A idade esperada é CALCULADA aqui (anos completos até hoje), não cravada: um número
+    // fixo no arquivo passa a mentir no primeiro aniversário do paciente de teste.
+    const anos = (() => {
+      const [y, m, d] = NASC_TESTE.split('-').map(Number), h = new Date();
+      return h.getFullYear() - y - ((h.getMonth() + 1 < m || (h.getMonth() + 1 === m && h.getDate() < d)) ? 1 : 0);
+    })();
+    ok('L2 idade em anos completos, com o nascimento embaixo',
+      linha.cel['Idade'] === `${anos}a${fmtBR(NASC_TESTE)}`, `${linha.cel['Idade']} (esperado ${anos}a)`);
     ok('L3 protocolo traz nome, linha e o dia da última avaliação ("· em dd/mm")',
       linha.cel['Último protocolo'].includes('linha')
       && new RegExp('· em ' + hoje().slice(8) + '/' + hoje().slice(5, 7)).test(linha.cel['Último protocolo']),

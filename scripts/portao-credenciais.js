@@ -71,16 +71,25 @@ async function tokenApi(API, perfil, tentativas = 5) {
   }
 }
 
-// Login pela TELA, com a mesma paciência. A app mostra o erro em `.login-err`; se for o
-// rate limit, espera e tenta de novo — o portão precisa provar o fluxo do usuário, e o
-// usuário também tentaria de novo.
+// Login pela TELA, com a mesma paciência. A tela de login mostra o erro em `.auth-err`
+// (`.login-err` é o estilo das OUTRAS telas — troca de senha, admin); o seletor cobre as
+// duas para não voltar a ficar mudo se a tela mudar de classe. Ficar mudo é o pior modo
+// de falha aqui: sem enxergar o erro, o portão seguia em frente e estourava lá na frente
+// num "botão + Novo paciente não apareceu", que não diz nada sobre a causa.
+// Se for o rate limit, espera e tenta de novo — o portão precisa provar o fluxo do
+// usuário, e o usuário também tentaria de novo.
 async function loginNaTela(page, perfil, tentativas = 5) {
   const { login, senha } = cred(perfil);
   for (let i = 1; ; i++) {
     await page.fill('#lg_login', login);
     await page.fill('#lg_senha', senha);
+    // Apaga o erro da tentativa ANTERIOR antes de submeter. Sem isto a espera abaixo lê o
+    // erro velho — que ainda está na tela, porque o sucesso só troca a tela quando a
+    // sessão termina de carregar — e o portão dorme mais 60s por um 429 que já passou,
+    // enquanto a app, logada, já mudou de tela por baixo dele.
+    await page.evaluate(() => document.querySelectorAll('.auth-err, .login-err').forEach(e => e.remove()));
     await page.click('#lg_btn');
-    const erro = await page.waitForSelector('.login-err', { timeout: 4000 }).catch(() => null);
+    const erro = await page.waitForSelector('.auth-err, .login-err', { timeout: 4000 }).catch(() => null);
     if (!erro) return login;
     const txt = (await erro.textContent()) || '';
     if (!/429|muitas|Too Many|limite/i.test(txt) || i >= tentativas) {

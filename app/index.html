@@ -595,6 +595,7 @@ function doLogout(rerender){
   REVC_RESUMO = {}; REVC_RESUMO_OK = false; REVC_DEC = {}; REVC_OPEN = new Set(); REVC_FORM = {}; REVC_SEL = new Set(); REVC_FONTES = {}; REVC_FONTES_OK = false;
   ADM_USUARIOS = null; ADM_EDIT = null; ADM_SENHA_TMP = null; ADM_ERRO = ""; ADM_OK = "";
   SIM = null; // sandbox do simulador não sobrevive à sessão
+  LISTA_FILTRO = "todos"; LISTA_BUSCA = ""; // a busca da lista é texto sobre paciente: sai com a sessão
   TRILHA = {}; RETORNO = null; SADT = null; // trilha e rascunho de retorno idem
   // A evidência é privada: sai da memória junto com a sessão.
   EVIDENCIA = null; REGIMES = []; TUMORES = []; CAMPOS_POR_TUMOR = {}; DATA_SOURCE = null; DATASRC = null;
@@ -4163,7 +4164,10 @@ function renderSimulador(){
 // =================== utils ===================
 function tumorNome(id){ return TUMORES.find(t=>t.id===id)?.nome || (TUMOR_META[id]?.nome) || id; }
 function fmtData(d){ if(!d) return "—"; const [y,m,dd]=d.split("-"); return `${dd}/${m}/${y}`; }
-function idade(d){ if(!d) return "idade —"; const y=+d.split("-")[0]; return (2026-y)+" anos"; }
+// Idade por extenso (cabeçalho do paciente, fila de autorizações). Mesma conta da
+// coluna Idade da lista — antes daqui saía `2026 - ano`, com o ano CRAVADO no código e
+// sem descontar o aniversário: duas idades diferentes para o mesmo paciente na mesma tela.
+function idade(d){ const a = idadeAnos(d); return a==null ? "idade —" : `${a} anos`; }
 
 // =================== BOOT ===================
 // ---- Camada de Revisão Clínica (inserida) ----
