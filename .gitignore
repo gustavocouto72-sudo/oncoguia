@@ -41,3 +41,9 @@ backend/uploads/
 .DS_Store
 .idea/
 *.swp
+
+# Cache de abstracts da extração de expectativa de uso: ~1,9 MB de texto de abstract de
+# editora, regenerável por fetch_abstracts.py. A proveniência versionada é a citação
+# pontual de cada número usado, em fontes-extraidas.json.
+squads/mbe-oncologia/extracao-expectativa-uso/abstracts.json
+squads/mbe-oncologia/extracao-expectativa-uso/candidatos.json

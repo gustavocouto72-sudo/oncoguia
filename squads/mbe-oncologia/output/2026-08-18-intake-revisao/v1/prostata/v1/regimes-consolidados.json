@@ -386,7 +386,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema declara faixa de 18 a 36 meses de TDA; duração única não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-rb-rt-salvamento-tda",
@@ -524,7 +534,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "TDA concomitante à RT de salvamento, sem duração declarada no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-abiraterona-prednisona",
@@ -685,7 +705,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 33.0,
+        "fonte_doi": "10.1056/NEJMoa1704174",
+        "indeterminado": false,
+        "nota": "rPFS mediana do braço abiraterona (LATITUDE) — sobrevida livre de progressão radiográfica",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-enzalutamida",
@@ -840,7 +870,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-apalutamida",
@@ -981,7 +1021,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "TITAN reporta rPFS em 24 meses (taxa), não mediana",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-tripla-docetaxel-darolutamida",
@@ -1164,7 +1214,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "terapia contínua (darolutamida + TDA) com docetaxel 6 ciclos embutido; pivotal não reporta duração mediana nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-docetaxel",
@@ -1311,7 +1371,17 @@
       "flags": [
         "magnitude_subgrupo: benefício de SG concentrado em doença de alto volume (CHAARTED)",
         "magnitude_subgrupo: benefício de SG concentrado em doença de alto volume (CHAARTED)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos de docetaxel; a TDA de base é contínua e não está contabilizada aqui",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-nmcrpc-enzalutamida",
@@ -1471,7 +1541,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-nmcrpc-apalutamida",
@@ -1617,7 +1697,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-nmcrpc-darolutamida",
@@ -1763,7 +1853,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-1l-abiraterona-prednisona",
@@ -1952,7 +2052,17 @@
       ],
       "flags": [
         "divergencia:elegibilidade"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-1l-enzalutamida",
@@ -2112,7 +2222,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "PREVAIL reporta rPFS em 12 meses (taxa), não mediana",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-1l-docetaxel-prednisona",
@@ -2253,7 +2373,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos de docetaxel; a prednisona contínua e a TDA de base não estão contabilizadas aqui",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-1l-parp-nao-incorporado",
@@ -2409,7 +2539,17 @@
       ],
       "flags": [
         "nao_incorporado: decisão do protocolo confirmada pela re-derivação (MCBS 2, affordability baixa)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
@@ -2565,7 +2705,17 @@
       ],
       "flags": [
         "nao_incorporado: decisão do protocolo confirmada pela re-derivação (MCBS 2, benefício modesto)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-variante-agressiva-carbo-taxano",
@@ -2699,7 +2849,17 @@
       "flags": [
         "referencia_ausente: esquema sem estudo-pivô citado no protocolo",
         "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-variante-agressiva-cisplatina-etoposideo",
@@ -2839,7 +2999,17 @@
       "flags": [
         "referencia_ausente: esquema sem estudo-pivô citado no protocolo",
         "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-terapia-ossea-zoledronico",
@@ -3007,7 +3177,17 @@
       "flags": [
         "suporte: agente ósseo, não terapia antineoplásica com desfecho de sobrevida",
         "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração; terapia óssea de suporte, sem duração declarada",
+        "selo": "estimativa"
+      }
     }
   ]
 }

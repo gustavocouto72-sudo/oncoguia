@@ -1,5 +1,6 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, Index,
+  Entity, PrimaryGeneratedColumn, PrimaryColumn, Column, ManyToOne, JoinColumn,
+  CreateDateColumn, UpdateDateColumn, Index,
 } from 'typeorm';
 
 // Perfis são WHITELIST, nunca hierarquia: 'auditor' não é "revisor com mais poder" —
@@ -498,4 +499,73 @@ export class Retorno {
 
   @CreateDateColumn({ name: 'criado_em', type: 'timestamptz' })
   criado_em: Date; // do servidor
+}
+
+// Postgres devolve `numeric` como STRING (para não perder precisão no caminho do driver).
+// Sem transformer, `custo_ciclo_tabela * ciclos` viraria concatenação de string em vez de
+// multiplicação — o tipo de bug que passa no teste feliz e entrega um total absurdo.
+const dinheiro = {
+  to: (v: number | null) => v,
+  from: (v: string | null) => (v === null || v === undefined ? null : Number(v)),
+};
+
+// CUSTO POR CICLO, POR REGIME — a metade "preço" da expectativa de custo global.
+// (A metade "tempo" é `expectativa_uso`, que vem do corpus do squad e NÃO mora no banco.)
+//
+// Preço DUPLO de propósito: tabela CMED é teto público e negociado é o que a operadora
+// paga de fato. A estimativa sai em FAIXA porque o número exato depende de contrato — dar
+// um valor único aqui seria fingir precisão que não existe.
+//
+// Nível REGIME nesta fase: um custo por protocolo, cadastrado pelo admin. Custo por
+// fármaco+dose (que exige superfície corporal do paciente) espera o módulo BSA — está no
+// backlog, e é por isso que aqui não há coluna de fármaco.
+//
+// Escrita: admin. Leitura: auditor + admin (whitelist explícita no controller).
+@Entity('custos_regime')
+export class CustoRegime {
+  // O regimen_id é a chave: um registro por protocolo, sobrescrito no cadastro.
+  @PrimaryColumn({ length: 160 })
+  regimen_id: string;
+
+  // Teto público (CMED). É o extremo SUPERIOR da faixa.
+  @Column({ type: 'numeric', precision: 12, scale: 2, transformer: dinheiro })
+  custo_ciclo_tabela: number;
+
+  // O que a operadora paga de fato. Extremo INFERIOR da faixa.
+  @Column({ type: 'numeric', precision: 12, scale: 2, transformer: dinheiro })
+  custo_ciclo_negociado: number;
+
+  // Rastro obrigatório dos DOIS preços: nenhum número aparece na tela sem fonte.
+  // Ex.: "CMED 2026-01 (PMVG 18%)" / "Contrato Operadora X, aditivo 2026-03".
+  @Column({ length: 200 })
+  fonte_tabela: string;
+
+  @Column({ length: 200 })
+  fonte_negociado: string;
+
+  // "O preço cadastrado cobre este período, em dias." Existe para o caso que o esquema
+  // não resolve: oral diário contínuo (osimertinibe, sunitinibe, pazopanibe) não tem
+  // intervalo de ciclo NENHUM no texto, então o servidor não consegue converter meses de
+  // tratamento em ciclos e o regime fica sem custo mesmo com preço cadastrado.
+  //
+  // É um dado ADMINISTRATIVO, declarado por quem cadastra o preço — não sai de extração
+  // clínica, e a tela precisa dizer isso. Por que não derivar: derivar exigiria escolher
+  // um intervalo que o esquema não afirma, que é exatamente o chute que este módulo
+  // recusa. Declarar é honesto; adivinhar não.
+  //
+  // null (default) = o preço é por ciclo e o intervalo vem do esquema. Sem valor aqui e
+  // sem periodicidade no esquema, o regime segue sem conversão — nunca há default
+  // silencioso de 30 dias.
+  @Column({ type: 'int', nullable: true })
+  periodo_dias: number | null;
+
+  @UpdateDateColumn({ name: 'atualizado_em', type: 'timestamptz' })
+  atualizado_em: Date; // do servidor
+
+  @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'atualizado_por' })
+  atualizadoPor: Usuario;
+
+  @Column({ name: 'atualizado_por', nullable: true })
+  atualizado_por: number; // do JWT do admin (servidor)
 }

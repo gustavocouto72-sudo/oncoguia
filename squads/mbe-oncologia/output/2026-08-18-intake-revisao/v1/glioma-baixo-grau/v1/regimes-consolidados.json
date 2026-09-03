@@ -187,7 +187,17 @@
       ],
       "flags": [
         "substituicao_pcv_tmz: evidência direta é para PCV (RTOG 9802); temozolomida é substituto por indisponibilidade no Brasil (evidência indireta)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 12,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 48.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "glioma-astrocitoma-idh-g3-tmz",
@@ -322,7 +332,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 12,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 48.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "glioma-astrocitoma-idh-g4-tmz",
@@ -467,7 +487,17 @@
       ],
       "flags": [
         "extrapolacao_gbm: sem RCT específico para astrocitoma IDH mutado grau 4; esquema extrapolado do GBM (Stupp)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 24.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos de temozolomida adjuvante; a fase concomitante à RT não está contabilizada aqui",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "glioma-oligodendroglioma-g3-tmz",
@@ -606,7 +636,17 @@
       ],
       "flags": [
         "substituicao_pcv_tmz: evidência direta é para PCV (RTOG 9402/EORTC 26951); temozolomida é substituto por indisponibilidade — possivelmente menos eficaz a longo prazo"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 12,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 48.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "12 ciclos de temozolomida adjuvante; a fase concomitante à RT não está contabilizada aqui",
+        "selo": "estimativa"
+      }
     }
   ]
 }

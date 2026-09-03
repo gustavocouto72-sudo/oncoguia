@@ -198,7 +198,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 8.0,
+        "fonte_doi": "10.1056/NEJMoa0908721",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço cisplatina+gencitabina (ABC-02)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "biliares-1l-gemcitabina-mono",
@@ -354,7 +364,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 5.0,
+        "fonte_doi": "10.1056/NEJMoa0908721",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço gencitabina isolada (ABC-02)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "biliares-1l-5fu",
@@ -493,7 +513,17 @@
       "flags": [
         "referencia_ausente: 5-FU isolado sem estudo-pivô citado",
         "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "biliares-2l-folfox",
@@ -653,7 +683,17 @@
       ],
       "flags": [
         "doi_reparado: 10.1016/S1470-2045(21)00027-3 (404) → 10.1016/s1470-2045(21)00027-9 (200), via Crossref por nome (ABC-06, LAMARCA 2021; score 1.0022 vs 2º 0.7294)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "FOLFOX por ATÉ 12 ciclos (teto, não duração fixa); pivotal sem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "biliares-durvalumab-gemcis-nao-incorporado",
@@ -804,7 +844,17 @@
       ],
       "flags": [
         "nao_incorporado: MCBS 2 e ganho marginal (~1,5 mês) sustentam a decisão"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     }
   ]
 }

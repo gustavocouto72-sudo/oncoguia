@@ -201,6 +201,99 @@ def resolve_doi(doi, timeout=12):
 SQUAD_DIR = os.path.dirname(os.path.abspath(__file__))
 RUN_ATIVO_FILE = os.path.join(SQUAD_DIR, "RUN_ATIVO")
 
+# ---- [9] expectativa de tempo de uso: leitura do esquema -----------
+# Reimplementa (compacto) a derivação mecânica usada na extração, para o portão
+# poder conferir ciclos/periodicidade contra o TEXTO do esquema em vez de confiar
+# no self-report. Sem acentos: normaliza antes de casar.
+def _sem_acento(s):
+    import unicodedata
+    s = unicodedata.normalize("NFD", (s or "").lower())
+    return "".join(c for c in s if unicodedata.category(c) != "Mn")
+
+_PER_PATS = [
+    (r"a cada (\d+)\s*dias", 1), (r"a cada (\d+)\s*sem(?:anas?)?\b", 7),
+    (r"a cada (\d+)\s*meses", 30), (r"\b(\d+)\s*em\s*\1\s*dias", 1),
+    (r"\b(\d+)/\1\s*d\b", 1), (r"\b(\d+)/\1\s*dias", 1),
+    (r"\b(\d+)/\1\s*sem(?:anas?)?\b", 7), (r"ciclos?\s*de\s*(\d+)\s*dias", 1),
+    (r"mg/(\d+)\s*sem", 7),
+]
+
+def periodicidades_do_esquema(esq):
+    t = _sem_acento(esq)
+    vals = set()
+    for pat, mult in _PER_PATS:
+        for m in re.finditer(pat, t):
+            v = int(m.group(1)) * mult
+            if 1 <= v <= 180:
+                vals.add(v)
+    if re.search(r"\bsemanal(?:mente)?\b", t) or re.search(r"/\s*semana\b", t):
+        vals.add(7)
+    for _, intervalo in dias_listados(esq):
+        vals.add(intervalo)
+    return vals
+
+def dias_listados(esq):
+    """Lista de dias explícitos ('D1, D22, D43' / 'D1 e D29') com intervalo
+    constante -> (nº de aplicações, intervalo em dias). Usado quando o esquema
+    escreve as datas em vez de 'N ciclos a cada X dias'."""
+    t = _sem_acento(esq)
+    out = []
+    for m in re.finditer(r"(d\d+(?:\s*(?:,|e)\s*d\d+)+)", t):
+        dias = sorted({int(x) for x in re.findall(r"d(\d+)", m.group(1))})
+        if len(dias) < 2:
+            continue
+        difs = {dias[i + 1] - dias[i] for i in range(len(dias) - 1)}
+        if len(difs) == 1:
+            out.append((len(dias), difs.pop()))
+    return out
+
+def ciclos_do_esquema(esq):
+    """Todo número que o texto apresenta como contagem de aplicações: 'N ciclo(s)',
+    pontas de faixas, tetos 'ate N ciclos', doses/instilações, e o tamanho de uma
+    lista de dias com intervalo constante."""
+    t = _sem_acento(esq)
+    vals = set()
+    for m in re.finditer(r"(\d+)\s*(?:a|-|–|ou)\s*(\d+)\s*ciclos", t):
+        vals.update({int(m.group(1)), int(m.group(2))})
+    for pat in (r"[x×]\s*(\d+)\s*ciclos?\b", r"\b(\d+)\s*ciclos?\b",
+                r"ate\s*(\d+)\s*ciclos?\b", r"[x×](\d+)\b",
+                r"\b(\d+)\s*(?:instilacoes|doses|aplicacoes|frac[oõ]es)\b"):
+        for m in re.finditer(pat, t):
+            vals.add(int(m.group(1)))
+    for n, _ in dias_listados(esq):
+        vals.add(n)
+    return vals
+
+def semanas_declaradas(esq):
+    """Durações totais declaradas no esquema, em semanas."""
+    t = _sem_acento(esq)
+    out = set()
+    for m in re.finditer(r"(\d+)\s*anos?\b", t):
+        out.add(int(m.group(1)) * 52)
+    for m in re.finditer(r"(\d+)\s*meses\b", t):
+        out.add(round(int(m.group(1)) * 30.44 / 7))
+    for m in re.finditer(r"(\d+)\s*semanas\b", t):
+        out.add(int(m.group(1)))
+    return out
+
+def ciclos_admissiveis(esq, per):
+    """Nº de ciclos que o TEXTO sustenta, dada a periodicidade declarada:
+    contagens escritas, durações declaradas divididas pela periodicidade, e
+    somas de fases (o esquema descreve fase A + fase B na mesma frase).
+    Somar fases é aritmética sobre números do próprio texto — não é chute."""
+    base = set(ciclos_do_esquema(esq))
+    if per:
+        for sem in semanas_declaradas(esq):
+            base.add(round(sem * 7 / per))
+    somas = set(base)
+    partes = sorted(base)
+    for i in range(len(partes)):          # somas de 2 e 3 fases
+        for j in range(i, len(partes)):
+            somas.add(partes[i] + partes[j])
+            for k in range(j, len(partes)):
+                somas.add(partes[i] + partes[j] + partes[k])
+    return base, somas
+
 def run_ativo_rel():
     try:
         with open(RUN_ATIVO_FILE, encoding="utf-8") as fh:
@@ -371,6 +464,76 @@ def main():
                       sorted(set(DUP_DIVERGENTES))))
     elif len(files) > 1:
         print("✓ [8] Agregado e por-tumor idênticos (fonte dupla consistente).")
+
+    # 9) expectativa de tempo de uso (custo global = custo/ciclo x ciclos esperados).
+    #    Todo regime tem o bloco; fixa fecha a aritmética e bate com o TEXTO do
+    #    esquema; até-progressão só é "não indeterminado" se tiver número com
+    #    fonte; e o bloco NÃO pode introduzir referência nova — fonte_doi tem de
+    #    ser o DOI que o regime já cita.
+    exp_bug, sem_bloco = [], []
+    n_fixa = n_fixa_i = n_ap_dur = n_ap_pfs = n_ap_i = 0
+    for r in regimes:
+        rid = get_id(r)
+        b = r.get("expectativa_uso")
+        if not isinstance(b, dict):
+            sem_bloco.append(rid); continue
+        if b.get("selo") != "estimativa":
+            exp_bug.append(f"{rid}: selo '{b.get('selo')}' — todo bloco nasce e fica 'estimativa'")
+        tipo, indet = b.get("tipo"), bool(b.get("indeterminado"))
+        if indet and not b.get("nota"):
+            exp_bug.append(f"{rid}: indeterminado sem nota explicando")
+        if tipo == "fixa":
+            esq = r.get("esquema") or ""
+            c, p, d = b.get("ciclos"), b.get("periodicidade_dias"), b.get("duracao_total_semanas")
+            if p is not None and p not in periodicidades_do_esquema(esq):
+                exp_bug.append(f"{rid}: periodicidade {p}d não sai do esquema")
+            if c is not None:
+                _, adm = ciclos_admissiveis(esq, p)
+                if c not in adm and not any(abs(c - a) <= 1 for a in adm):
+                    exp_bug.append(f"{rid}: ciclos={c} não sai do esquema")
+            if c and p and d is not None and abs(round(c * p / 7, 1) - d) > 0.15:
+                exp_bug.append(f"{rid}: duracao_total_semanas={d} não fecha com {c}x{p}d")
+            if not indet:
+                if not d:
+                    exp_bug.append(f"{rid}: fixa determinada sem duracao_total_semanas")
+                elif not (c and p) and b.get("fonte") != "esquema":
+                    exp_bug.append(f"{rid}: fixa determinada sem ciclos/periodicidade e sem fonte")
+            n_fixa_i += indet; n_fixa += (not indet)
+        elif tipo == "ate_progressao":
+            dur = b.get("duracao_mediana_tratamento_meses")
+            pfs, proxy, doi = b.get("pfs_mediana_meses"), b.get("proxy"), b.get("fonte_doi")
+            if proxy == "pfs" and pfs is None:
+                exp_bug.append(f"{rid}: proxy='pfs' sem pfs_mediana_meses")
+            if proxy not in (None, "pfs"):
+                exp_bug.append(f"{rid}: proxy '{proxy}' fora do vocabulário (null|pfs)")
+            if not indet:
+                if not (dur or pfs):
+                    exp_bug.append(f"{rid}: até-progressão sem duração nem PFS e sem indeterminado")
+                elif not doi:
+                    exp_bug.append(f"{rid}: número reportado sem fonte_doi")
+            if doi:
+                proprio = get_doi(r)
+                if doi != proprio:
+                    exp_bug.append(f"{rid}: fonte_doi {doi} != DOI do regime {proprio} — referência NOVA")
+            if indet: n_ap_i += 1
+            elif proxy == "pfs": n_ap_pfs += 1
+            else: n_ap_dur += 1
+        else:
+            exp_bug.append(f"{rid}: tipo '{tipo}' fora do vocabulário (fixa|ate_progressao)")
+    if sem_bloco:
+        fails.append(("regime sem expectativa_uso", sem_bloco))
+    if exp_bug:
+        fails.append(("expectativa_uso inconsistente", exp_bug))
+    if not sem_bloco and not exp_bug:
+        n = len(regimes)
+        indet = n_fixa_i + n_ap_i
+        print(f"✓ [9] expectativa_uso em {n}/{n} — fixa {n_fixa}, fixa indet {n_fixa_i}, "
+              f"até-progressão c/ duração {n_ap_dur}, c/ proxy PFS {n_ap_pfs}, "
+              f"indet {n_ap_i} ({100*indet//n}% indeterminado).")
+        if indet * 100 // n < 15:
+            warns.append(("placar de expectativa_uso com pouquíssimo indeterminado — "
+                          "abstract raramente reporta duração de tratamento; suspeite de número inventado",
+                          [f"{indet}/{n} indeterminados"]))
 
     # 6) DOIs de confirmado resolvem (opcional, rede)
     if check_dois:

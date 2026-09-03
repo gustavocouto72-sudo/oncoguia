@@ -251,7 +251,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "capecitabina concomitante à RT; duração amarrada ao curso de radioterapia, não declarada em ciclos no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "retal-tnt-folfox-capox",
@@ -398,7 +408,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 8,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas com periodicidades diferentes (FOLFOX 8 ciclos 14/14d ou CAPOX 21/21d); total único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "retal-tnt-folfirinox",
@@ -568,7 +588,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 14,
+        "duracao_total_semanas": 12.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "colon-adj-fluoropirimidina-stageII",
@@ -716,7 +746,17 @@
       ],
       "flags": [
         "doi_reparado: 10.1056/NEJMoa043642 (404) → 10.1056/nejmoa043116 (200), via Crossref por nome (X-ACT / IMPACT, TWELVES 2005; score 1.0182 vs 2º 0.5)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 8,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "8 ciclos de capecitabina declarados sem periodicidade explícita; alternativa 5-FU/LV sem nº de ciclos",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "colon-adj-oxaliplatina-stageIII",
@@ -863,7 +903,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas (FOLFOX 12 ciclos 14/14d ou CAPOX 8 ciclos 21/21d) e menção a 3 meses conforme IDEA; total único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "crc-met-quimio-doublet",
@@ -1009,7 +1059,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 9.0,
+        "fonte_doi": "10.1200/JCO.2000.18.16.2938",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço oxaliplatina+LV5FU2 (de Gramont, FOLFOX4); o esquema admite FOLFIRI/CAPOX",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "crc-met-folfoxiri",
@@ -1182,7 +1242,17 @@
       ],
       "flags": [
         "referencia_ancora: triplet baseado em TRIBE; protocolo lista o esquema sem DOI dedicado"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 12.1,
+        "fonte_doi": "10.1056/NEJMoa1403108",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço experimental FOLFOXIRI+bevacizumabe (TRIBE)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "crc-met-anti-egfr",
@@ -1344,7 +1414,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "crc-met-pembrolizumabe-msi",
@@ -1473,7 +1553,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 16.5,
+        "fonte_doi": "10.1016/j.annonc.2024.11.012",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pembrolizumabe (KEYNOTE-177)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "crc-met-tas-bevacizumab",
@@ -1624,7 +1714,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 5.6,
+        "fonte_doi": "10.1056/NEJMoa2214963",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço TAS-102+bevacizumabe (SUNLIGHT)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "crc-met-bevacizumabe-1l-nao-incorporado",
@@ -1757,7 +1857,17 @@
       ],
       "flags": [
         "nao_incorporado: MCBS 1 e ICER desfavorável (bevacizumabe 1ª linha)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "análise agrupada referenciada relata efeito por subgrupo, sem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "crc-met-aflibercepte-nao-incorporado",
@@ -1890,7 +2000,17 @@
       ],
       "flags": [
         "nao_incorporado: MCBS 1 (VELOUR, ganho ~1 mês)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "crc-met-regorafenibe-nao-incorporado",
@@ -2023,7 +2143,17 @@
       ],
       "flags": [
         "nao_incorporado: MCBS 1 (CORRECT) e ICER desfavorável"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     }
   ]
 }

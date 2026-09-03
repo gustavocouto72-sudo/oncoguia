@@ -1,0 +1,2952 @@
+{
+ "mama-adj-her2neg-act": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas fases (AC ×4 → paclitaxel semanal) e duas alternativas (convencional/dose-densa) — nº total de ciclos e periodicidade não únicos no esquema",
+  "selo": "estimativa"
+ },
+ "mama-adj-her2neg-tc": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 4 a 6 ciclos (3/3 semanas); N único não derivável",
+  "selo": "estimativa"
+ },
+ "mama-adj-her2neg-ac": {
+  "tipo": "fixa",
+  "ciclos": 4,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema declara 4 ciclos mas não declara a periodicidade; intervalo não derivável do texto",
+  "selo": "estimativa"
+ },
+ "mama-adj-her2neg-act-docetaxel": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "AC seguido de docetaxel com duas alternativas (4 ciclos 21/21d ou 12 semanas semanal); total não único",
+  "selo": "estimativa"
+ },
+ "mama-adj-her2neg-carbo-paclitaxel": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 24.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "mama-adj-her2neg-cmf": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas variantes (CMF clássico 28 dias e CMF EV 21 dias) e nº de ciclos não declarado",
+  "selo": "estimativa"
+ },
+ "mama-adj-brca-olaparibe": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": 52,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "mama-adj-tnbc-capecitabina": {
+  "tipo": "fixa",
+  "ciclos": 8,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 24.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "mama-adj-her2pos-th": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "paclitaxel+trastuzumabe 12 semanas seguido de trastuzumabe até 1 ano total; fases com periodicidades diferentes",
+  "selo": "estimativa"
+ },
+ "mama-adj-her2pos-tp-aphinity": {
+  "tipo": "fixa",
+  "ciclos": 17,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 51.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "17 ciclos = 1 ano de trastuzumabe+pertuzumabe 21/21d; a QT associada (TC ou AC-T) não está contabilizada aqui",
+  "selo": "estimativa"
+ },
+ "mama-adj-her2pos-tdm1-katherine": {
+  "tipo": "fixa",
+  "ciclos": 14,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 42.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "mama-adj-rhpos-abemaciclibe-monarche": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": 104,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "mama-adj-ht-tamoxifeno-pre": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema declara faixa de 5 a 10 anos; duração única não derivável",
+  "selo": "estimativa"
+ },
+ "mama-adj-ht-lhrh-ia-pre": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema declara faixa de 5 a 10 anos; duração única não derivável",
+  "selo": "estimativa"
+ },
+ "mama-adj-ht-ia-pos": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema declara faixa de 5 a 10 anos; duração única não derivável",
+  "selo": "estimativa"
+ },
+ "mama-adj-ht-tam-ia-switch-pos": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "switch com faixas (2–3 anos + 2–3 anos, ou 5+5 anos); duração única não derivável",
+  "selo": "estimativa"
+ },
+ "mama-neo-her2pos-ct1c-acth": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "4 ciclos AC + 4 ciclos docetaxel+trastuzumabe, com trastuzumabe até 1 ano; fases somam mas o texto não fecha um total único",
+  "selo": "estimativa"
+ },
+ "mama-neo-her2pos-ct1c-tch": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "6 ciclos de QT + trastuzumabe por 1 ano; periodicidade da QT não declarada no esquema",
+  "selo": "estimativa"
+ },
+ "mama-neo-her2pos-gtct1c-acthp": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "4 ciclos AC + 4 ciclos THP (24 semanas de QT) e anti-HER2 até 1 ano; total único não derivável",
+  "selo": "estimativa"
+ },
+ "mama-neo-her2pos-gtct1c-tchp": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "6 ciclos de QT (18 semanas) mas trastuzumabe+pertuzumabe seguem até 1 ano; total único não derivável",
+  "selo": "estimativa"
+ },
+ "mama-neo-her2pos-gtct1c-thp": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "6 ciclos de QT (18 semanas) mas trastuzumabe+pertuzumabe seguem até 1 ano; total único não derivável",
+  "selo": "estimativa"
+ },
+ "mama-neo-her2pos-phesgo-nao-incorporado": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável",
+  "selo": "estimativa"
+ },
+ "mama-neo-tnbc-pembro-keynote522": {
+  "tipo": "fixa",
+  "ciclos": 17,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 51.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "8 ciclos neoadjuvantes (4+4) + 9 adjuvantes = 17 ciclos de 21 dias, todos com pembrolizumabe",
+  "selo": "estimativa"
+ },
+ "mama-neo-tnbc-acdd-ct": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "ACdd 4 ciclos 14/14d seguido de paclitaxel semanal ×12 + carboplatina com duas periodicidades; total único não derivável",
+  "selo": "estimativa"
+ },
+ "mama-neo-tnbc-tc": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+  "selo": "estimativa"
+ },
+ "mama-neo-rhpos-act-acddt": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas fases e duas alternativas (convencional/dose-densa); total único não derivável",
+  "selo": "estimativa"
+ },
+ "mama-neo-rhpos-tc": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-1l-ia-cdk46": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 25.3,
+  "fonte_doi": "10.1093/annonc/mdy155",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço ribociclibe+letrozol (MONALEESA-2); o esquema admite outros iCDK4/6",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-1l-fulvestranto-cdk46": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-1l-ia-abemaciclibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-1l-ht-isolada": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-1l-qt-crise-visceral": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-1l-ribociclibe-crise-visceral": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 21.8,
+  "fonte_doi": "10.1200/JCO.24.00144",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço ribociclibe+TE (RIGHT Choice)",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-seq-cdk46-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-capivasertibe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 7.2,
+  "fonte_doi": "10.1056/nejmoa2214131",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço capivasertibe+fulvestranto, população geral (CAPItello-291)",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-alpelisibe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-tdxd-db04": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 10.1,
+  "fonte_doi": "10.1056/NEJMoa2203690",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço T-DXd na coorte receptor hormonal positivo (DESTINY-Breast04)",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-tdxd-db06-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 13.2,
+  "fonte_doi": "10.1056/NEJMoa2407086",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço T-DXd na população HER2-low (DESTINY-Breast06)",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-capecitabina": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "X-7/7 reporta PFS por média restrita aos 33 meses (10,1 vs 9,1 meses), não mediana — não usável como proxy declarado",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-paclitaxel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-eribulina": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-docetaxel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-vinorelbina-iv": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-vinorelbina-vo": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-gencitabina": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-doxo-lipossomal": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-hrpos-2l-sacituzumab-govitecan": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-her2pos-1l-thp-cleopatra": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "CLEOPATRA: a publicação referenciada é a análise final de sobrevida global; não traz PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-her2pos-2l-tdxd-db03": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-her2pos-2l-tdm1-emilia": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "EMILIA: publicação referenciada é a análise descritiva final de SG; sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-her2pos-3l-tdm1-th3resa": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 6.2,
+  "fonte_doi": "10.1016/S1470-2045(14)70178-0",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço T-DM1 (TH3RESA)",
+  "selo": "estimativa"
+ },
+ "mama-met-her2pos-3l-trastuzumabe-citotoxico": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "mama-met-tnbc-1l-pembro-keynote355": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 9.7,
+  "fonte_doi": "10.1016/S0140-6736(20)32531-9",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço pembrolizumabe+QT na população CPS≥10 (KEYNOTE-355), que é a indicação do regime",
+  "selo": "estimativa"
+ },
+ "mama-met-tnbc-1l-atezolizumabe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 6.0,
+  "fonte_doi": "10.1016/j.annonc.2021.05.801",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço atezolizumabe+paclitaxel (IMpassion131)",
+  "selo": "estimativa"
+ },
+ "mama-met-tnbc-1l-qt-opcoes": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-tnbc-2l-qt-opcoes": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-tnbc-3l-sacituzumab-ascent": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 5.6,
+  "fonte_doi": "10.1056/NEJMoa2028485",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço sacituzumabe govitecana (ASCENT)",
+  "selo": "estimativa"
+ },
+ "mama-met-tnbc-3l-tdxd-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "DESTINY-Breast04 reporta PFS da coorte RH+ e da população total; não reporta a coorte RH-negativa, que é a deste regime",
+  "selo": "estimativa"
+ },
+ "mama-met-tnbc-3l-qt-opcoes": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "mama-met-tnbc-bevacizumabe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "nsclc-neoadj-nivolumabe-qt": {
+  "tipo": "fixa",
+  "ciclos": 3,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "3 ciclos declarados, periodicidade não declarada no esquema",
+  "selo": "estimativa"
+ },
+ "nsclc-periop-pembrolizumabe-qt": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "4 ciclos neoadjuvantes + pembrolizumabe adjuvante 3/3 semanas por 1 ano; total único não derivável",
+  "selo": "estimativa"
+ },
+ "nsclc-periop-durva-nivo-nao-incluido": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável",
+  "selo": "estimativa"
+ },
+ "nsclc-adj-qt-platina": {
+  "tipo": "fixa",
+  "ciclos": 4,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 12.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "nsclc-adj-osimertinibe-egfr": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": 157,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "nsclc-adj-alectinibe-alk": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": 104,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "nsclc-adj-atezolizumabe-pdl1": {
+  "tipo": "fixa",
+  "ciclos": 17,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 51.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "nº de ciclos derivado da duração declarada no esquema (~52 semanas) dividida pela periodicidade de 21 dias",
+  "selo": "estimativa"
+ },
+ "nsclc-adj-io-estagioI-nao-incluido": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável; regime marcado como não incluído",
+  "selo": "estimativa"
+ },
+ "nsclc-def-crt-durvalumab": {
+  "tipo": "fixa",
+  "ciclos": 24,
+  "periodicidade_dias": 14,
+  "duracao_total_semanas": 48.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "24 ciclos de durvalumabe de consolidação; a quimiorradioterapia prévia não está contabilizada aqui",
+  "selo": "estimativa"
+ },
+ "nsclc-met-io-mono-pdl1alto": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 10.3,
+  "fonte_doi": "10.1056/NEJMoa1606774",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço pembrolizumabe (KEYNOTE-024); o esquema admite atezolizumabe/cemiplimabe",
+  "selo": "estimativa"
+ },
+ "nsclc-met-io-qt-pdl1baixo": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 8.8,
+  "fonte_doi": "10.1056/NEJMoa1801005",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço pembrolizumabe+QT (KEYNOTE-189); inclui indução 4 ciclos + manutenção",
+  "selo": "estimativa"
+ },
+ "nsclc-met-atezo-bev-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 8.3,
+  "fonte_doi": "10.1056/NEJMoa1716948",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço ABCP (IMpower150)",
+  "selo": "estimativa"
+ },
+ "nsclc-met-qt-durva-treme-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "nsclc-met-osimertinibe-egfr": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": 20.7,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": "10.1056/NEJMoa1913662",
+  "indeterminado": false,
+  "nota": "exposição mediana ao osimertinibe na análise de sobrevida global do FLAURA (comparador 11,5 meses) — duração de tratamento reportada, não proxy de PFS",
+  "selo": "estimativa"
+ },
+ "nsclc-met-osi-qt-egfr": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "nsclc-met-amivantamab-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "nsclc-met-papillon-exon20-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 11.4,
+  "fonte_doi": "10.1056/NEJMoa2306441",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço amivantamabe+QT (PAPILLON)",
+  "selo": "estimativa"
+ },
+ "nsclc-met-alectinibe-alk": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "nsclc-met-crizotinibe-ros1": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 19.2,
+  "fonte_doi": "10.1056/NEJMoa1406766",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço único de crizotinibe em ROS1+ (PROFILE 1001)",
+  "selo": "estimativa"
+ },
+ "nsclc-met-2l-io-ou-docetaxel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 2.3,
+  "fonte_doi": "10.1056/NEJMoa1507643",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço nivolumabe (CheckMate 057); o esquema admite outras IO ou docetaxel, com PFS distintas",
+  "selo": "estimativa"
+ },
+ "nsclc-met-2l-nao-incluidos": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "sclc-limitada-cisplatina-etoposideo-rt-durvalumab": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "QT 4 ciclos 21/21d concomitante à RT seguida de durvalumabe 28/28d por ATÉ 24 meses (teto, não duração fixa); total único não derivável",
+  "selo": "estimativa"
+ },
+ "sclc-extensa-cisplatina-etoposideo": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+  "selo": "estimativa"
+ },
+ "sclc-extensa-io-1l-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "sclc-2l-topotecano": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "sclc-retratamento-mesmo-esquema": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração; esquema remete à 1ª linha sem declarar nº de ciclos",
+  "selo": "estimativa"
+ },
+ "sclc-2l-tarlatamabe-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "retal-neoadj-crt-capecitabina": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "capecitabina concomitante à RT; duração amarrada ao curso de radioterapia, não declarada em ciclos no esquema",
+  "selo": "estimativa"
+ },
+ "retal-tnt-folfox-capox": {
+  "tipo": "fixa",
+  "ciclos": 8,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas alternativas com periodicidades diferentes (FOLFOX 8 ciclos 14/14d ou CAPOX 21/21d); total único não derivável",
+  "selo": "estimativa"
+ },
+ "retal-tnt-folfirinox": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 14,
+  "duracao_total_semanas": 12.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "colon-adj-fluoropirimidina-stageII": {
+  "tipo": "fixa",
+  "ciclos": 8,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "8 ciclos de capecitabina declarados sem periodicidade explícita; alternativa 5-FU/LV sem nº de ciclos",
+  "selo": "estimativa"
+ },
+ "colon-adj-oxaliplatina-stageIII": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas alternativas (FOLFOX 12 ciclos 14/14d ou CAPOX 8 ciclos 21/21d) e menção a 3 meses conforme IDEA; total único não derivável",
+  "selo": "estimativa"
+ },
+ "crc-met-quimio-doublet": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 9.0,
+  "fonte_doi": "10.1200/JCO.2000.18.16.2938",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço oxaliplatina+LV5FU2 (de Gramont, FOLFOX4); o esquema admite FOLFIRI/CAPOX",
+  "selo": "estimativa"
+ },
+ "crc-met-folfoxiri": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 12.1,
+  "fonte_doi": "10.1056/NEJMoa1403108",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço experimental FOLFOXIRI+bevacizumabe (TRIBE)",
+  "selo": "estimativa"
+ },
+ "crc-met-anti-egfr": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "crc-met-pembrolizumabe-msi": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 16.5,
+  "fonte_doi": "10.1016/j.annonc.2024.11.012",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço pembrolizumabe (KEYNOTE-177)",
+  "selo": "estimativa"
+ },
+ "crc-met-tas-bevacizumab": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 5.6,
+  "fonte_doi": "10.1056/NEJMoa2214963",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço TAS-102+bevacizumabe (SUNLIGHT)",
+  "selo": "estimativa"
+ },
+ "crc-met-bevacizumabe-1l-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "análise agrupada referenciada relata efeito por subgrupo, sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "crc-met-aflibercepte-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "crc-met-regorafenibe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "prostata-loc-altorisco-ebrt-tda": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema declara faixa de 18 a 36 meses de TDA; duração única não derivável",
+  "selo": "estimativa"
+ },
+ "prostata-rb-rt-salvamento-tda": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "TDA concomitante à RT de salvamento, sem duração declarada no esquema",
+  "selo": "estimativa"
+ },
+ "prostata-mcspc-abiraterona-prednisona": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 33.0,
+  "fonte_doi": "10.1056/NEJMoa1704174",
+  "indeterminado": false,
+  "nota": "rPFS mediana do braço abiraterona (LATITUDE) — sobrevida livre de progressão radiográfica",
+  "selo": "estimativa"
+ },
+ "prostata-mcspc-enzalutamida": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "prostata-mcspc-apalutamida": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "TITAN reporta rPFS em 24 meses (taxa), não mediana",
+  "selo": "estimativa"
+ },
+ "prostata-mcspc-tripla-docetaxel-darolutamida": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "terapia contínua (darolutamida + TDA) com docetaxel 6 ciclos embutido; pivotal não reporta duração mediana nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "prostata-mcspc-docetaxel": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 18.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "6 ciclos de docetaxel; a TDA de base é contínua e não está contabilizada aqui",
+  "selo": "estimativa"
+ },
+ "prostata-nmcrpc-enzalutamida": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "prostata-nmcrpc-apalutamida": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "prostata-nmcrpc-darolutamida": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "prostata-mcrpc-1l-abiraterona-prednisona": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "prostata-mcrpc-1l-enzalutamida": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "PREVAIL reporta rPFS em 12 meses (taxa), não mediana",
+  "selo": "estimativa"
+ },
+ "prostata-mcrpc-1l-docetaxel-prednisona": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 18.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "6 ciclos de docetaxel; a prednisona contínua e a TDA de base não estão contabilizadas aqui",
+  "selo": "estimativa"
+ },
+ "prostata-mcrpc-1l-parp-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "prostata-mcrpc-2l-cabazitaxel-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "prostata-variante-agressiva-carbo-taxano": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "prostata-variante-agressiva-cisplatina-etoposideo": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "prostata-mcrpc-terapia-ossea-zoledronico": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração; terapia óssea de suporte, sem duração declarada",
+  "selo": "estimativa"
+ },
+ "testiculo-seminoma-eI-carboplatina-adj": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê 1 ou 2 ciclos; N único não derivável",
+  "selo": "estimativa"
+ },
+ "testiculo-nsgct-eI-bep1": {
+  "tipo": "fixa",
+  "ciclos": 1,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "1 ciclo único de BEP adjuvante; o esquema não declara periodicidade (irrelevante com ciclo único, mas não derivável do texto)",
+  "selo": "estimativa"
+ },
+ "testiculo-seminoma-eII-bep-ep": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas alternativas com nº distinto (BEP 3 ciclos ou EP 4 ciclos); N único não derivável",
+  "selo": "estimativa"
+ },
+ "testiculo-avancado-baixorisco-bep3-ep4": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas alternativas com nº distinto (BEP 3 ciclos ou EP 4 ciclos); N único não derivável",
+  "selo": "estimativa"
+ },
+ "testiculo-avancado-intalto-bep4-vip4": {
+  "tipo": "fixa",
+  "ciclos": 4,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 12.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "BEP 4 ciclos ou VIP 4 ciclos — as duas alternativas têm o mesmo nº de ciclos e a mesma periodicidade",
+  "selo": "estimativa"
+ },
+ "testiculo-recidiva-tip-veip": {
+  "tipo": "fixa",
+  "ciclos": 4,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "TIP ou VeIP, ambos 4 ciclos, mas o esquema não declara a periodicidade",
+  "selo": "estimativa"
+ },
+ "testiculo-refrataria-paliativo-gemox": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "eso-perioperatorio-flot": {
+  "tipo": "fixa",
+  "ciclos": 8,
+  "periodicidade_dias": 14,
+  "duracao_total_semanas": 16.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "4 ciclos pré + 4 pós-operatórios = 8 ciclos de 14 dias",
+  "selo": "estimativa"
+ },
+ "eso-neoadj-crt-carbo-paclitaxel": {
+  "tipo": "fixa",
+  "ciclos": 5,
+  "periodicidade_dias": 7,
+  "duracao_total_semanas": 5.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "nº de ciclos derivado da duração declarada no esquema (~5 semanas) dividida pela periodicidade de 7 dias",
+  "selo": "estimativa"
+ },
+ "eso-def-crt-cisplatina-5fu": {
+  "tipo": "fixa",
+  "ciclos": 2,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "2 ciclos concomitantes à RT (semanas 1 e 5); esquema não declara periodicidade em dias",
+  "selo": "estimativa"
+ },
+ "gastrico-adj-nivolumabe": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas fases (240 mg 14/14d por 16 semanas → 480 mg 28/28d) com duração total de 1 ano; nº de ciclos único não derivável",
+  "selo": "estimativa"
+ },
+ "gastrico-adj-capox": {
+  "tipo": "fixa",
+  "ciclos": 8,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 24.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "gastrico-adj-crt-5fu-lv": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema trimodal INT0116 sem nº de ciclos nem periodicidade declarados",
+  "selo": "estimativa"
+ },
+ "gastrico-met-1l-cisplatina-5fu": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "periodicidade declarada em faixa (21 a 28 dias) e pivotal sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "gastrico-met-1l-folfox": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 5.8,
+  "fonte_doi": "10.1200/JCO.2007.13.9378",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço FLO (5-FU/leucovorina/oxaliplatina), o mais próximo do FOLFOX no pivotal",
+  "selo": "estimativa"
+ },
+ "gastrico-met-1l-capox": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "o pivotal do regime testa FLO (5-FU infusional), não CAPOX; transportar o número seria trocar o esquema",
+  "selo": "estimativa"
+ },
+ "gastrico-met-2l-paclitaxel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "gastrico-met-2l-irinotecano-folfiri": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "gastrico-met-docetaxel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "gastrico-met-1l-io-qt-cps": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "CheckMate 649 reporta apenas hazard ratio de PFS no abstract, sem mediana",
+  "selo": "estimativa"
+ },
+ "gastrico-met-her2-trastuzumabe-qt": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "gastrico-met-her2-pembro-tras-qt": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 10.0,
+  "fonte_doi": "10.1016/S0140-6736(23)02033-0",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço pembrolizumabe (KEYNOTE-811, 2ª análise interina)",
+  "selo": "estimativa"
+ },
+ "gastrico-met-her2-2l-tdxd": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "DESTINY-Gastric01 lista PFS como desfecho secundário, sem mediana no abstract",
+  "selo": "estimativa"
+ },
+ "gastrico-tas102-nao-rotineiro": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "gastrico-ramucirumabe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "gastrico-zolbetuximabe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 10.61,
+  "fonte_doi": "10.1016/S0140-6736(23)00620-7",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço zolbetuximabe (SPOTLIGHT)",
+  "selo": "estimativa"
+ },
+ "cp-cec-def-cisplatina-crt": {
+  "tipo": "fixa",
+  "ciclos": 3,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 9.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "3 doses de cisplatina (D1, D22, D43) concomitantes à RT — intervalo de 21 dias explícito nos dias declarados",
+  "selo": "estimativa"
+ },
+ "cp-cec-def-cisplatina-semanal": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 7,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "cisplatina semanal durante a RT; nº de semanas não declarado no esquema",
+  "selo": "estimativa"
+ },
+ "cp-cec-def-cetuximabe-rt": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 7,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "cetuximabe semanal durante a RT; nº de semanas não declarado no esquema",
+  "selo": "estimativa"
+ },
+ "cp-cec-inducao-dcf": {
+  "tipo": "fixa",
+  "ciclos": 3,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 9.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "cp-cec-adj-cisplatina-crt": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas alternativas (semanal ou 3 doses D1/D22/D43) e duração amarrada à RT, não declarada",
+  "selo": "estimativa"
+ },
+ "cp-cec-met-1l-pembrolizumabe-qt-cps1": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "QT por ATÉ 6 ciclos (teto) seguida de pembrolizumabe de manutenção; pivotal sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "cp-cec-met-1l-pembrolizumabe-mono-cps": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "cp-cec-met-1l-cetuximabe-cps-neg": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 5.6,
+  "fonte_doi": "10.1056/NEJMoa0802656",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço com cetuximabe (EXTREME); QT por até 6 ciclos + cetuximabe de manutenção",
+  "selo": "estimativa"
+ },
+ "cp-cec-met-2l-nivolumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 2.0,
+  "fonte_doi": "10.1056/NEJMoa1602252",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço nivolumabe (CheckMate 141)",
+  "selo": "estimativa"
+ },
+ "cp-cec-met-2l-nivolumabe-cps-neg-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "CheckMate 141 não reporta a mediana de PFS do subgrupo CPS<1, que é a população deste regime",
+  "selo": "estimativa"
+ },
+ "cp-naso-crt-cisplatina": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas alternativas de periodicidade (21/21d ou semanal) e duração amarrada à RT, não declarada",
+  "selo": "estimativa"
+ },
+ "cp-naso-inducao-cisplatina-gemcitabina": {
+  "tipo": "fixa",
+  "ciclos": 3,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 9.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "3 ciclos de indução; a quimiorradiação subsequente não está contabilizada aqui",
+  "selo": "estimativa"
+ },
+ "cp-naso-met-cisplatina-gemcitabina": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 18.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "6 ciclos de gencitabina+cisplatina paliativos",
+  "selo": "estimativa"
+ },
+ "cp-naso-toripalimabe-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 21.4,
+  "fonte_doi": "10.1001/jama.2023.20181",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço toripalimabe (JUPITER-02)",
+  "selo": "estimativa"
+ },
+ "cp-tireoide-diferenciado-lenvatinibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 18.3,
+  "fonte_doi": "10.1056/NEJMoa1406470",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço lenvatinibe (SELECT)",
+  "selo": "estimativa"
+ },
+ "cp-tireoide-diferenciado-cabozantinibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "COSMIC-311: PFS mediana do braço cabozantinibe não atingida na análise interina",
+  "selo": "estimativa"
+ },
+ "cp-tireoide-medular-quimio": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "cp-tireoide-anaplasico-quimio": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "colo-adj-cisplatina-crt": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 7,
+  "duracao_total_semanas": 6.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "6 doses semanais de cisplatina concomitantes à RT; braquiterapia não contabilizada",
+  "selo": "estimativa"
+ },
+ "colo-qrt-induction-interlace": {
+  "tipo": "fixa",
+  "ciclos": 12,
+  "periodicidade_dias": 7,
+  "duracao_total_semanas": 12.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "6 semanas de indução semanal + 6 semanas de cisplatina semanal com RT = 12 aplicações semanais",
+  "selo": "estimativa"
+ },
+ "colo-qrt-io-keynote-a18": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "quimiorradiação 5 semanas + pembrolizumabe 21/21d nessa fase e depois 400 mg 42/42d ×15; fases com periodicidades distintas, total único não derivável",
+  "selo": "estimativa"
+ },
+ "colo-met-1l-pembrolizumabe-qt-cps1": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pembrolizumabe por ATÉ 35 ciclos (teto) + QT por até 6 ciclos; pivotal sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "colo-met-1l-qt-cps-neg": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 4.8,
+  "fonte_doi": "10.1200/JCO.2004.04.170",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço cisplatina+paclitaxel (GOG-169)",
+  "selo": "estimativa"
+ },
+ "colo-met-cemiplimabe-refrataria": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "cemiplimabe por ATÉ 2 anos (teto, não duração fixa); pivotal sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "colo-met-bevacizumabe-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "colo-met-2l-monoterapia": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "bexiga-nmibc-intermediario-gemcitabina-intravesical": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "indução 6 instilações semanais + manutenção mensal por 12 meses; fases com periodicidades distintas, total único não derivável",
+  "selo": "estimativa"
+ },
+ "bexiga-nmibc-bcg-intravesical": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "indução 6 semanais + manutenção 3 instilações nos meses 3, 6 e 12; total único não derivável",
+  "selo": "estimativa"
+ },
+ "bexiga-nmibc-bcg-unresponsive-gem-docetaxel": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "indução 6 semanais + manutenção mensal por 12 meses; total único não derivável",
+  "selo": "estimativa"
+ },
+ "bexiga-mibc-tmt-cisplatina": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "periodicidade declarada em faixa (2 a 3 semanas) ou semanal durante a RT; não derivável",
+  "selo": "estimativa"
+ },
+ "bexiga-mibc-tmt-5fu-mitomicina": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "5-FU em infusão contínua nos ciclos 1 e 5 da RT; esquema amarrado ao curso de radioterapia, sem nº de ciclos",
+  "selo": "estimativa"
+ },
+ "bexiga-mibc-neoadj-gc-durvalumab": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável (NIAGARA: neoadjuvante + durvalumabe adjuvante, sem nº de ciclos no esquema)",
+  "selo": "estimativa"
+ },
+ "bexiga-mibc-neoadj-gc": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 3 a 4 ciclos; N único não derivável",
+  "selo": "estimativa"
+ },
+ "bexiga-mibc-neoadj-mvac-dd": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 14,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "dd-MVAC 14/14d sem nº de ciclos declarado no esquema",
+  "selo": "estimativa"
+ },
+ "bexiga-mibc-adj-gc-mvac": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 3 a 4 ciclos, sem periodicidade declarada",
+  "selo": "estimativa"
+ },
+ "bexiga-mibc-adj-nivolumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "nivolumabe por ATÉ 1 ano (teto, não duração fixa); pivotal sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "bexiga-utuc-adj-gc": {
+  "tipo": "fixa",
+  "ciclos": 4,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 12.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "bexiga-met-1l-enfortumab-pembrolizumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "bexiga-met-1l-gc-nivolumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "bexiga-met-1l-gc-avelumabe-manutencao": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "bexiga-met-1l-io-isolada-cisplatina-inelegivel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "bexiga-met-1l-gc": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+  "selo": "estimativa"
+ },
+ "bexiga-met-1l-gcarbo": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+  "selo": "estimativa"
+ },
+ "bexiga-met-2l-pembrolizumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "bexiga-met-3l-enfortumab-vedotin": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "bexiga-met-erdafitinibe-fgfr": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "melanoma-adj-pembrolizumabe-iib-iic": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas alternativas de periodicidade (200 mg 21/21d ou 400 mg 42/42d) por 12 meses; nº de ciclos único não derivável",
+  "selo": "estimativa"
+ },
+ "melanoma-adj-anti-pd1-iii-iv-braf-wt": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "quatro alternativas de fármaco/periodicidade por 12 meses; nº de ciclos único não derivável",
+  "selo": "estimativa"
+ },
+ "melanoma-adj-dt-braf-mut": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": 52,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "melanoma-met-1l-ipi-nivo": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "indução ipi+nivo 4 ciclos seguida de nivolumabe de manutenção 28/28d sem teto; pivotal sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "melanoma-met-1l-anti-pd1-mono": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "melanoma-met-snc-ipi-nivo": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "indução 4 ciclos + nivolumabe de manutenção 28/28d sem teto; pivotal sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "melanoma-met-relatlimabe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 10.1,
+  "fonte_doi": "10.1056/nejmoa2109970",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço relatlimabe+nivolumabe (RELATIVITY-047)",
+  "selo": "estimativa"
+ },
+ "melanoma-met-quimio-paliativa": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "renal-adj-pembrolizumab": {
+  "tipo": "fixa",
+  "ciclos": 17,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 51.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "nº de ciclos derivado da duração declarada no esquema (~52 semanas) dividida pela periodicidade de 21 dias",
+  "selo": "estimativa"
+ },
+ "renal-met-favoravel-pazopanibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "renal-met-favoravel-sunitinibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 11.0,
+  "fonte_doi": "10.1056/NEJMoa065044",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço sunitinibe (pivotal sunitinibe vs interferona)",
+  "selo": "estimativa"
+ },
+ "renal-met-favoravel-ipilimumabe-nivolumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "CheckMate 214 reporta a mediana de PFS da população de risco intermediário/alto; não reporta a do subgrupo de risco favorável, que é a deste regime",
+  "selo": "estimativa"
+ },
+ "renal-met-intalto-ipilimumabe-nivolumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 11.6,
+  "fonte_doi": "10.1056/NEJMoa1712126",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço ipilimumabe+nivolumabe na população de risco intermediário/alto (CheckMate 214)",
+  "selo": "estimativa"
+ },
+ "renal-met-intalto-axitinibe-pembrolizumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 15.1,
+  "fonte_doi": "10.1056/NEJMoa1816714",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+  "selo": "estimativa"
+ },
+ "renal-met-intalto-nivolumabe-cabozantinibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 16.6,
+  "fonte_doi": "10.1056/NEJMoa2026982",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço nivolumabe+cabozantinibe (CheckMate 9ER)",
+  "selo": "estimativa"
+ },
+ "renal-met-2l-pos-vegfr-nivolumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "renal-met-2l-pos-io-cabozantinibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 7.4,
+  "fonte_doi": "10.1056/NEJMoa1510016",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço cabozantinibe (METEOR)",
+  "selo": "estimativa"
+ },
+ "renal-naoclaras-sunitinibe-pazopanibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 8.3,
+  "fonte_doi": "10.1016/S1470-2045(15)00515-X",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço sunitinibe em não-células claras (ASPEN); o esquema também admite pazopanibe",
+  "selo": "estimativa"
+ },
+ "endometrio-adj-carbo-paclitaxel": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 18.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "endometrio-adj-crt-cisplatina": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "cisplatina D1/D29 concomitante à RT seguida de 4 ciclos de carbo+paclitaxel; total único não derivável",
+  "selo": "estimativa"
+ },
+ "endometrio-met-1l-carbo-paclitaxel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 13.0,
+  "fonte_doi": "10.1200/JCO.20.01076",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço TC (paclitaxel+carboplatina) no GOG-209",
+  "selo": "estimativa"
+ },
+ "endometrio-met-1l-dostarlimabe-msi": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "6 ciclos de QT + dostarlimabe 42/42d por ATÉ 3 anos (teto); RUBY reporta PFS em 24 meses (taxa), não mediana",
+  "selo": "estimativa"
+ },
+ "endometrio-met-dostarlimabe-mss-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "endometrio-met-pembrolizumabe-qt-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 13.1,
+  "fonte_doi": "10.1056/NEJMoa2302312",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço pembrolizumabe na coorte pMMR (NRG-GY018)",
+  "selo": "estimativa"
+ },
+ "endometrio-met-2l-lenvatinibe-pembrolizumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "endometrio-met-2l-io-msi-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 13.1,
+  "fonte_doi": "10.1200/JCO.21.01874",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço pembrolizumabe em tumores MSI-H (KEYNOTE-158)",
+  "selo": "estimativa"
+ },
+ "endometrio-met-durva-olaparibe-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "ovario-epitelial-adj-carbo-paclitaxel": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 18.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "6 ciclos 21/21d; a opção semanal dose-densa citada no esquema tem outra periodicidade",
+  "selo": "estimativa"
+ },
+ "ovario-epitelial-neoadj-carbo-paclitaxel": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 6 a 8 ciclos; N único não derivável",
+  "selo": "estimativa"
+ },
+ "ovario-bevacizumabe-1l-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 14.1,
+  "fonte_doi": "10.1056/NEJMoa1104390",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço bevacizumabe-throughout (GOG-0218), que corresponde ao uso com manutenção",
+  "selo": "estimativa"
+ },
+ "ovario-manutencao-olaparibe-brca": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": 104,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "manutenção com olaparibe por 2 anos declarados no esquema (teto fixo); uso oral contínuo, custo por período e não por ciclo",
+  "selo": "estimativa"
+ },
+ "ovario-niraparibe-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 13.8,
+  "fonte_doi": "10.1056/NEJMoa1910962",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço niraparibe na população geral (PRIMA)",
+  "selo": "estimativa"
+ },
+ "ovario-olaparibe-bevacizumabe-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "a publicação referenciada é a atualização de 5 anos do PAOLA-1: traz hazard ratio, não PFS mediana",
+  "selo": "estimativa"
+ },
+ "ovario-recidiva-platina-sensivel-doublet": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "CALYPSO reporta duas medianas conforme o parceiro da carboplatina (11,3 meses com PLD vs 9,4 com paclitaxel) e o regime admite ambos — número único não atribuível",
+  "selo": "estimativa"
+ },
+ "ovario-recidiva-manutencao-olaparibe-brca": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": 104,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "manutenção com olaparibe por 2 anos declarados no esquema (teto fixo); uso oral contínuo, custo por período e não por ciclo",
+  "selo": "estimativa"
+ },
+ "ovario-carbo-gem-bevacizumabe-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "ovario-recidiva-platina-resistente-monoterapia": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "o pivotal referenciado não reporta mediana de tempo até progressão nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "ovario-resistente-bevacizumabe-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 6.7,
+  "fonte_doi": "10.1200/JCO.2013.51.4489",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço com bevacizumabe (AURELIA)",
+  "selo": "estimativa"
+ },
+ "ovario-estroma-granulosa-peb": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 3 a 4 ciclos, com alternativa carbo+paclitaxel; N único não derivável",
+  "selo": "estimativa"
+ },
+ "ovario-germinativo-peb": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema prevê faixa de 3 a 4 ciclos, com alternativa carbo+etoposídeo; N único não derivável",
+  "selo": "estimativa"
+ },
+ "pancreas-adj-mfolfirinox": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 14,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "mFOLFIRINOX 14/14d adjuvante sem nº de ciclos declarado no esquema",
+  "selo": "estimativa"
+ },
+ "pancreas-adj-gemcitabina": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "o esquema descreve a estrutura do ciclo (3 semanas on + 1 off), não a duração total do tratamento adjuvante",
+  "selo": "estimativa"
+ },
+ "pancreas-adj-nabpac-gem-nao-incorporado": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável",
+  "selo": "estimativa"
+ },
+ "pancreas-adj-gem-cape-nao-incorporado": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável",
+  "selo": "estimativa"
+ },
+ "pancreas-met-mfolfirinox": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 6.4,
+  "fonte_doi": "10.1056/NEJMoa1011923",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço FOLFIRINOX (PRODIGE 4/ACCORD 11)",
+  "selo": "estimativa"
+ },
+ "pancreas-met-gemcitabina": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "pancreas-met-nabpac-gem-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 5.5,
+  "fonte_doi": "10.1056/NEJMoa1304369",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço nab-paclitaxel+gencitabina (MPACT)",
+  "selo": "estimativa"
+ },
+ "pancreas-met-olaparibe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "hcc-1l-atezolizumabe-bevacizumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 6.8,
+  "fonte_doi": "10.1056/NEJMoa1915745",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço atezolizumabe+bevacizumabe (IMbrave150)",
+  "selo": "estimativa"
+ },
+ "hcc-1l-tremelimumabe-durvalumabe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "hcc-1l-sorafenibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "hcc-1l-lenvatinibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "hcc-2l-sorafenibe-lenvatinibe": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "hcc-2l-pembrolizumabe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "hcc-2l-regorafenibe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "gbm-stupp": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 24.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "6 ciclos de temozolomida adjuvante; a fase concomitante à RT (75 mg/m²/dia) não está contabilizada aqui",
+  "selo": "estimativa"
+ },
+ "gbm-perry": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 24.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "6 ciclos de temozolomida adjuvante; a fase concomitante à RT não está contabilizada aqui",
+  "selo": "estimativa"
+ },
+ "gbm-tmz-mono-frageis": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 24.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "gbm-recorrencia-tmz-carmustina": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duas alternativas distintas (temozolomida dose-densa por 6 meses ou carmustina 56/56d com teto de dose cumulativa); duração única não derivável",
+  "selo": "estimativa"
+ },
+ "gbm-bevacizumabe-contra": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "o pivotal referenciado reporta PFS do braço lomustina+bevacizumabe, não de bevacizumabe isolado, que é o objeto deste regime",
+  "selo": "estimativa"
+ },
+ "sarcoma-pm-neoadj-doxo-ifosfamida": {
+  "tipo": "fixa",
+  "ciclos": 3,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 9.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "sarcoma-pm-adj-doxo-ifosfamida": {
+  "tipo": "fixa",
+  "ciclos": 5,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 15.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "sarcoma-pm-paliativo-1l-doxorrubicina": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 18.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "sarcoma-pm-paliativo-2l-gem-docetaxel": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 18.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "sarcoma-pm-eribulina-lipossarcoma": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "o pivotal (eribulina vs dacarbazina) não reporta PFS mediana no abstract — desfecho primário foi sobrevida global",
+  "selo": "estimativa"
+ },
+ "sarcoma-pm-pazopanibe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 4.6,
+  "fonte_doi": "10.1016/S0140-6736(12)60651-5",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço pazopanibe (PALETTE)",
+  "selo": "estimativa"
+ },
+ "sarcoma-kaposi-paclitaxel-pld": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "o pivotal reporta medianas distintas por braço (paclitaxel 17,5 vs PLD 12,2 meses) e o regime admite ambos — número único não atribuível",
+  "selo": "estimativa"
+ },
+ "sarcoma-angiossarcoma-paclitaxel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "sarcoma-dfsp-imatinibe-contra": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "o pivotal reporta apenas mediana de tempo até progressão (1,7 ano), não PFS mediana",
+  "selo": "estimativa"
+ },
+ "sarcoma-ntrk-larotrectinibe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "osteossarcoma-neoadj-map": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema MAP descrito por fármacos e marco cirúrgico (semana 11-12), sem nº de ciclos nem periodicidade declarados",
+  "selo": "estimativa"
+ },
+ "osteossarcoma-adj-doxo-cisplatina": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": 18.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "osteossarcoma-paliativo": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "ewing-localizado-vdc-ie": {
+  "tipo": "fixa",
+  "ciclos": 17,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "17 ciclos declarados, mas a periodicidade depende da idade (14 dias abaixo de 18 anos, 21 dias a partir de 18); duração total não única",
+  "selo": "estimativa"
+ },
+ "ewing-metastatico-vdc-ie": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "esquema remete ao regime localizado e a alternativas de resgate, sem nº de ciclos próprio",
+  "selo": "estimativa"
+ },
+ "net-baixograu-analogo-somatostatina": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "net-baixograu-lu177-dotatate": {
+  "tipo": "fixa",
+  "ciclos": 4,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "4 ciclos declarados, periodicidade não declarada no esquema",
+  "selo": "estimativa"
+ },
+ "net-baixograu-alvo-nao-incluido": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "net-baixograu-capetem": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 22.7,
+  "fonte_doi": "10.1200/JCO.22.01013",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço capecitabina+temozolomida (E2211)",
+  "selo": "estimativa"
+ },
+ "net-altograu-platina-etoposideo": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "biliares-1l-gemcitabina-cisplatina": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 8.0,
+  "fonte_doi": "10.1056/NEJMoa0908721",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço cisplatina+gencitabina (ABC-02)",
+  "selo": "estimativa"
+ },
+ "biliares-1l-gemcitabina-mono": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": "pfs",
+  "pfs_mediana_meses": 5.0,
+  "fonte_doi": "10.1056/NEJMoa0908721",
+  "indeterminado": false,
+  "nota": "PFS mediana do braço gencitabina isolada (ABC-02)",
+  "selo": "estimativa"
+ },
+ "biliares-1l-5fu": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "biliares-2l-folfox": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "FOLFOX por ATÉ 12 ciclos (teto, não duração fixa); pivotal sem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "biliares-durvalumab-gemcis-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "anal-crt-mitomicina-5fu": {
+  "tipo": "fixa",
+  "ciclos": 2,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 8.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "2 blocos de 5-FU/mitomicina (D1 e D29) concomitantes à RT — intervalo de 28 dias explícito nos dias declarados",
+  "selo": "estimativa"
+ },
+ "anal-crt-cisplatina-5fu": {
+  "tipo": "fixa",
+  "ciclos": 2,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 8.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "2 blocos de cisplatina/5-FU (D1 e D29) concomitantes à RT — intervalo de 28 dias explícito nos dias declarados",
+  "selo": "estimativa"
+ },
+ "anal-met-carboplatina-paclitaxel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "anal-met-dcf": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "o pivotal define PFS em 12 meses como desfecho primário e não reporta PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "anal-met-nivolumabe-nao-incorporado": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+  "selo": "estimativa"
+ },
+ "glioma-astrocitoma-idh-g2-oligo-g2-tmz": {
+  "tipo": "fixa",
+  "ciclos": 12,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 48.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "glioma-astrocitoma-idh-g3-tmz": {
+  "tipo": "fixa",
+  "ciclos": 12,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 48.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": null,
+  "selo": "estimativa"
+ },
+ "glioma-astrocitoma-idh-g4-tmz": {
+  "tipo": "fixa",
+  "ciclos": 6,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 24.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "6 ciclos de temozolomida adjuvante; a fase concomitante à RT não está contabilizada aqui",
+  "selo": "estimativa"
+ },
+ "glioma-oligodendroglioma-g3-tmz": {
+  "tipo": "fixa",
+  "ciclos": 12,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": 48.0,
+  "fonte": "esquema",
+  "indeterminado": false,
+  "nota": "12 ciclos de temozolomida adjuvante; a fase concomitante à RT não está contabilizada aqui",
+  "selo": "estimativa"
+ },
+ "penis-locregional-neoadj-tip": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "periodicidade declarada em faixa (3 a 4 semanas) e nº de ciclos não declarado",
+  "selo": "estimativa"
+ },
+ "penis-adj-tip": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "TIP por ATÉ 4 ciclos (teto, não nº fixo) e sem periodicidade declarada",
+  "selo": "estimativa"
+ },
+ "penis-met-1l-tip": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "TIP 21/21d sem nº de ciclos declarado no esquema",
+  "selo": "estimativa"
+ },
+ "penis-met-1l-5fu-cisplatina": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 28,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "cisplatina+5-FU 28/28d sem nº de ciclos declarado no esquema",
+  "selo": "estimativa"
+ },
+ "penis-met-1l-tpf": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 21,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "TPF 21/21d sem nº de ciclos declarado no esquema",
+  "selo": "estimativa"
+ },
+ "penis-met-2l-paclitaxel": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "o esquema cita sobrevida global média (~23 semanas), não duração de tratamento nem PFS mediana",
+  "selo": "estimativa"
+ },
+ "vulva-neoadj-cisplatina-crt": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 7,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "cisplatina semanal durante a RT; nº de semanas não declarado no esquema",
+  "selo": "estimativa"
+ },
+ "vulva-avancada-recidivada": {
+  "tipo": "ate_progressao",
+  "duracao_mediana_tratamento_meses": null,
+  "proxy": null,
+  "pfs_mediana_meses": null,
+  "fonte_doi": null,
+  "indeterminado": true,
+  "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+  "selo": "estimativa"
+ },
+ "trofo-baixo-risco-metotrexato": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": null,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "duração amarrada à normalização do beta-HCG + 3 ciclos de consolidação; nº total de ciclos depende da resposta, não do esquema",
+  "selo": "estimativa"
+ },
+ "trofo-alto-risco-emaco": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 14,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "EMA-CO 14/14d mantido até normalização do beta-HCG mais consolidação; nº de ciclos não declarado no esquema",
+  "selo": "estimativa"
+ },
+ "trofo-resistente-ema-ep": {
+  "tipo": "fixa",
+  "ciclos": null,
+  "periodicidade_dias": 14,
+  "duracao_total_semanas": null,
+  "fonte": "esquema",
+  "indeterminado": true,
+  "nota": "EMA-EP 14/14d de resgate; nº de ciclos não declarado no esquema",
+  "selo": "estimativa"
+ }
+}

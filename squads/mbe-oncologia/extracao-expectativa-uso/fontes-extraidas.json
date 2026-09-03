@@ -1,0 +1,394 @@
+{
+ "biliares-1l-gemcitabina-cisplatina": {
+  "valor_meses": 8.0,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa0908721",
+  "pmid": "20375404",
+  "frase_do_abstract": "METHODS: We randomly assigned 410 patients with locally advanced or metastatic cholangiocarcinoma, gallbladder cancer, or ampullary cancer to receive either cisplatin (25 mg per square meter of body-surface area) followed by gemcitabine (1000 mg per square meter on days 1 and 8, every 3 weeks for eight cycles) or gemcitabine alone (1000 mg per square meter on days 1, 8, and 15, every 4 weeks for six cycles) for up to 24 weeks.",
+  "nota": "PFS mediana do braço cisplatina+gencitabina (ABC-02)"
+ },
+ "biliares-1l-gemcitabina-mono": {
+  "valor_meses": 5.0,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa0908721",
+  "pmid": "20375404",
+  "frase_do_abstract": "The median progression-free survival was 8.0 months in the cisplatin-gemcitabine group and 5.0 months in the gemcitabine-only group (P<0.001).",
+  "nota": "PFS mediana do braço gencitabina isolada (ABC-02)"
+ },
+ "colo-met-1l-qt-cps-neg": {
+  "valor_meses": 4.8,
+  "tipo": "pfs_mediana",
+  "doi": "10.1200/JCO.2004.04.170",
+  "pmid": "15284262",
+  "frase_do_abstract": "The median PFS was 2.8 and 4.8 months, respectively, for cisplatin versus C+P (P < .001).",
+  "nota": "PFS mediana do braço cisplatina+paclitaxel (GOG-169)"
+ },
+ "cp-cec-met-1l-cetuximabe-cps-neg": {
+  "valor_meses": 5.6,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa0802656",
+  "pmid": "18784101",
+  "frase_do_abstract": "The addition of cetuximab prolonged the median progression-free survival time from 3.3 to 5.6 months (hazard ratio for progression, 0.54;",
+  "nota": "PFS mediana do braço com cetuximabe (EXTREME); QT por até 6 ciclos + cetuximabe de manutenção"
+ },
+ "cp-cec-met-2l-nivolumabe": {
+  "valor_meses": 2.0,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1602252",
+  "pmid": "27718784",
+  "frase_do_abstract": "METHODS: In this randomized, open-label, phase 3 trial, we assigned, in a 2:1 ratio, 361 patients with recurrent squamous-cell carcinoma of the head and neck whose disease had progressed within 6 months after platinum-based chemotherapy to receive nivolumab (at a dose of 3 mg per kilogram of body weight) every 2 weeks or standard, single-agent systemic therapy (methotrexate, docetaxel, or cetuximab).",
+  "nota": "PFS mediana do braço nivolumabe (CheckMate 141)"
+ },
+ "cp-naso-toripalimabe-nao-incluido": {
+  "valor_meses": 21.4,
+  "tipo": "pfs_mediana",
+  "doi": "10.1001/jama.2023.20181",
+  "pmid": "38015220",
+  "frase_do_abstract": "17% female), at the final progression-free survival analysis, toripalimab treatment had a significantly longer progression-free survival than placebo (median, 21.4 vs 8.2 months;",
+  "nota": "PFS mediana do braço toripalimabe (JUPITER-02)"
+ },
+ "cp-tireoide-diferenciado-lenvatinibe": {
+  "valor_meses": 18.3,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1406470",
+  "pmid": "25671254",
+  "frase_do_abstract": "RESULTS: The median progression-free survival was 18.3 months in the lenvatinib group and 3.6 months in the placebo group (hazard ratio for progression or death, 0.21;",
+  "nota": "PFS mediana do braço lenvatinibe (SELECT)"
+ },
+ "crc-met-folfoxiri": {
+  "valor_meses": 12.1,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1403108",
+  "pmid": "25337750",
+  "frase_do_abstract": "RESULTS: The median progression-free survival was 12.1 months in the experimental group, as compared with 9.7 months in the control group (hazard ratio for progression, 0.75;",
+  "nota": "PFS mediana do braço experimental FOLFOXIRI+bevacizumabe (TRIBE)"
+ },
+ "crc-met-pembrolizumabe-msi": {
+  "valor_meses": 16.5,
+  "tipo": "pfs_mediana",
+  "doi": "10.1016/j.annonc.2024.11.012",
+  "pmid": "39631622",
+  "frase_do_abstract": "Median PFS was 16.5 months with pembrolizumab and 8.2 months with chemotherapy (hazard ratio, 0.60;",
+  "nota": "PFS mediana do braço pembrolizumabe (KEYNOTE-177)"
+ },
+ "crc-met-quimio-doublet": {
+  "valor_meses": 9.0,
+  "tipo": "pfs_mediana",
+  "doi": "10.1200/JCO.2000.18.16.2938",
+  "pmid": "10944126",
+  "frase_do_abstract": "RESULTS: Patients allocated to oxaliplatin plus LV5FU2 had significantly longer progression-free survival (median, 9.0 v 6.2 months;",
+  "nota": "PFS mediana do braço oxaliplatina+LV5FU2 (de Gramont, FOLFOX4); o esquema admite FOLFIRI/CAPOX"
+ },
+ "crc-met-tas-bevacizumab": {
+  "valor_meses": 5.6,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa2214963",
+  "pmid": "37133585",
+  "frase_do_abstract": "The median progression-free survival was 5.6 months in the combination group and 2.4 months in the FTD-TPI group (hazard ratio for disease progression or death, 0.44;",
+  "nota": "PFS mediana do braço TAS-102+bevacizumabe (SUNLIGHT)"
+ },
+ "endometrio-met-1l-carbo-paclitaxel": {
+  "valor_meses": 13.0,
+  "tipo": "pfs_mediana",
+  "doi": "10.1200/JCO.20.01076",
+  "pmid": "33078978",
+  "frase_do_abstract": "90% CI, 0.9 to 1.12), and PFS (median, 13 v 14 months;",
+  "nota": "PFS mediana do braço TC (paclitaxel+carboplatina) no GOG-209"
+ },
+ "endometrio-met-2l-io-msi-nao-incorporado": {
+  "valor_meses": 13.1,
+  "tipo": "pfs_mediana",
+  "doi": "10.1200/JCO.21.01874",
+  "pmid": "34990208",
+  "frase_do_abstract": "Median progression-free survival was 13.1 (95% CI, 4.3 to 34.4) months, and median overall survival was not reached (95% CI, 27.2 months to not reached).",
+  "nota": "PFS mediana do braço pembrolizumabe em tumores MSI-H (KEYNOTE-158)"
+ },
+ "endometrio-met-pembrolizumabe-qt-nao-incluido": {
+  "valor_meses": 13.1,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa2302312",
+  "pmid": "36972022",
+  "frase_do_abstract": "In the pMMR cohort, median progression-free survival was 13.1 months with pembrolizumab and 8.7 months with placebo (hazard ratio, 0.54;",
+  "nota": "PFS mediana do braço pembrolizumabe na coorte pMMR (NRG-GY018)"
+ },
+ "gastrico-met-1l-folfox": {
+  "valor_meses": 5.8,
+  "tipo": "pfs_mediana",
+  "doi": "10.1200/JCO.2007.13.9378",
+  "pmid": "18349393",
+  "frase_do_abstract": "There was a trend toward improved median PFS with FLO versus FLP (5.8 v 3.9 months, respectively;",
+  "nota": "PFS mediana do braço FLO (5-FU/leucovorina/oxaliplatina), o mais próximo do FOLFOX no pivotal"
+ },
+ "gastrico-met-her2-pembro-tras-qt": {
+  "valor_meses": 10.0,
+  "tipo": "pfs_mediana",
+  "doi": "10.1016/S0140-6736(23)02033-0",
+  "pmid": "37871604",
+  "frase_do_abstract": "At the second interim analysis (median follow-up 28·3 months [IQR 19·4-34·3] in the pembrolizumab group and 28·5 months [20·1-34·3] in the placebo group), median progression-free survival was 10·0 months (95% CI 8·6-11·7) in the pembrolizumab group versus 8·1 months (7·0-8·5) in the placebo group (hazard ratio [HR] 0·72, 95% CI 0·60-0·87; p=0·0002).",
+  "nota": "PFS mediana do braço pembrolizumabe (KEYNOTE-811, 2ª análise interina)"
+ },
+ "gastrico-zolbetuximabe-nao-incorporado": {
+  "valor_meses": 10.61,
+  "tipo": "pfs_mediana",
+  "doi": "10.1016/S0140-6736(23)00620-7",
+  "pmid": "37068504",
+  "frase_do_abstract": "The median progression-free survival was 10·61 months (95% CI 8·90-12·48) in the zolbetuximab group versus 8·67 months (8·21-10·28) in the placebo group.",
+  "nota": "PFS mediana do braço zolbetuximabe (SPOTLIGHT)"
+ },
+ "hcc-1l-atezolizumabe-bevacizumabe": {
+  "valor_meses": 6.8,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1915745",
+  "pmid": "32402160",
+  "frase_do_abstract": "Median progression-free survival was 6.8 months (95% CI, 5.7 to 8.3) and 4.3 months (95% CI, 4.0 to 5.6) in the respective groups (hazard ratio for disease progression or death, 0.59;",
+  "nota": "PFS mediana do braço atezolizumabe+bevacizumabe (IMbrave150)"
+ },
+ "mama-met-her2pos-3l-tdm1-th3resa": {
+  "valor_meses": 6.2,
+  "tipo": "pfs_mediana",
+  "doi": "10.1016/S1470-2045(14)70178-0",
+  "pmid": "24793816",
+  "frase_do_abstract": "PFS was significantly improved with trastuzumab emtansine compared with physician's choice (median 6·2 months [95% CI 5·59-6·87] vs 3·3 months [2·89-4·14]; stratified hazard ratio [HR] 0·528 [0·422-0·661]; p<0·0001).",
+  "nota": "PFS mediana do braço T-DM1 (TH3RESA)"
+ },
+ "mama-met-hrpos-1l-ia-cdk46": {
+  "valor_meses": 25.3,
+  "tipo": "pfs_mediana",
+  "doi": "10.1093/annonc/mdy155",
+  "pmid": "29718092",
+  "frase_do_abstract": "Median PFS was 25.3 months [95% confidence interval (CI) 23.0-30.3] for ribociclib plus letrozole and 16.0 months (95% CI 13.4-18.2) for placebo plus letrozole (hazard ratio 0.568;",
+  "nota": "PFS mediana do braço ribociclibe+letrozol (MONALEESA-2); o esquema admite outros iCDK4/6"
+ },
+ "mama-met-hrpos-1l-ribociclibe-crise-visceral": {
+  "valor_meses": 21.8,
+  "tipo": "pfs_mediana",
+  "doi": "10.1200/JCO.24.00144",
+  "pmid": "38771995",
+  "frase_do_abstract": "The median PFS was 21.8 months (ribociclib plus ET; [95% CI, 17.4 to 26.7]) and 12.8 months (combination CT; [95% CI, 10.1 to 18.4); hazard ratio, 0.61 [95% CI, 0.43 to 0.87];",
+  "nota": "PFS mediana do braço ribociclibe+TE (RIGHT Choice)"
+ },
+ "mama-met-hrpos-2l-capivasertibe-nao-incorporado": {
+  "valor_meses": 7.2,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/nejmoa2214131",
+  "pmid": "37256976",
+  "frase_do_abstract": "In the overall population, the median progression-free survival was 7.2 months in the capivasertib-fulvestrant group, as compared with 3.6 months in the placebo-fulvestrant group (hazard ratio for progression or death, 0.60;",
+  "nota": "PFS mediana do braço capivasertibe+fulvestranto, população geral (CAPItello-291)"
+ },
+ "mama-met-hrpos-2l-tdxd-db04": {
+  "valor_meses": 10.1,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa2203690",
+  "pmid": "35665782",
+  "frase_do_abstract": "In the hormone receptor-positive cohort, the median progression-free survival was 10.1 months in the trastuzumab deruxtecan group and 5.4 months in the physician's choice group (hazard ratio for disease progression or death, 0.51;",
+  "nota": "PFS mediana do braço T-DXd na coorte receptor hormonal positivo (DESTINY-Breast04)"
+ },
+ "mama-met-hrpos-2l-tdxd-db06-nao-incorporado": {
+  "valor_meses": 13.2,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa2407086",
+  "pmid": "39282896",
+  "frase_do_abstract": "Among the patients with HER2-low disease, the median progression-free survival was 13.2 months (95% confidence interval [CI], 11.4 to 15.2) in the trastuzumab deruxtecan group and 8.1 months (95% CI, 7.0 to 9.0) in the chemotherapy group (hazard ratio for disease progression or death, 0.62;",
+  "nota": "PFS mediana do braço T-DXd na população HER2-low (DESTINY-Breast06)"
+ },
+ "mama-met-tnbc-1l-atezolizumabe-nao-incorporado": {
+  "valor_meses": 6.0,
+  "tipo": "pfs_mediana",
+  "doi": "10.1016/j.annonc.2021.05.801",
+  "pmid": "34219000",
+  "frase_do_abstract": "Miles D(1), Gligorov J(2), André F(3), Cameron D(4), Schneeweiss A(5), Barrios C(6), Xu B(7), Wardley A(8), Kaen D(9), Andrade L(10), Semiglazov V(11), Reinisch M(12), Patel S(13), Patre M(14), Morales L(14), Patel SL(15), Kaul M(13), Barata T(16), O'Shaughnessy J(17);",
+  "nota": "PFS mediana do braço atezolizumabe+paclitaxel (IMpassion131)"
+ },
+ "mama-met-tnbc-1l-pembro-keynote355": {
+  "valor_meses": 9.7,
+  "tipo": "pfs_mediana",
+  "doi": "10.1016/S0140-6736(20)32531-9",
+  "pmid": "33278935",
+  "frase_do_abstract": "Among patients with CPS of 10 or more, median progression-free survival was 9·7 months with pembrolizumab-chemotherapy and 5·6 months with placebo-chemotherapy (hazard ratio [HR] for progression or death, 0·65, 95% CI 0·49-0·86; one-sided p=0·0012 [primary objective met]).",
+  "nota": "PFS mediana do braço pembrolizumabe+QT na população CPS≥10 (KEYNOTE-355), que é a indicação do regime"
+ },
+ "mama-met-tnbc-3l-sacituzumab-ascent": {
+  "valor_meses": 5.6,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa2028485",
+  "pmid": "33882206",
+  "frase_do_abstract": "The median progression-free survival was 5.6 months (95% confidence interval [CI], 4.3 to 6.3;",
+  "nota": "PFS mediana do braço sacituzumabe govitecana (ASCENT)"
+ },
+ "melanoma-met-relatlimabe-nao-incorporado": {
+  "valor_meses": 10.1,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/nejmoa2109970",
+  "pmid": "34986285",
+  "frase_do_abstract": "RESULTS: The median progression-free survival was 10.1 months (95% confidence interval [CI], 6.4 to 15.7) with relatlimab-nivolumab as compared with 4.6 months (95% CI, 3.4 to 5.6) with nivolumab (hazard ratio for progression or death, 0.75 [95% CI, 0.62 to 0.92];",
+  "nota": "PFS mediana do braço relatlimabe+nivolumabe (RELATIVITY-047)"
+ },
+ "net-baixograu-capetem": {
+  "valor_meses": 22.7,
+  "tipo": "pfs_mediana",
+  "doi": "10.1200/JCO.22.01013",
+  "pmid": "36260828",
+  "frase_do_abstract": "At the scheduled interim analysis in January 2018, the median PFS was 14.4 months for temozolomide versus 22.7 months for capecitabine/temozolomide (hazard ratio = 0.58), which was sufficient to reject the null hypothesis for the primary end point (stratified log-rank P = .022).",
+  "nota": "PFS mediana do braço capecitabina+temozolomida (E2211)"
+ },
+ "nsclc-met-2l-io-ou-docetaxel": {
+  "valor_meses": 2.3,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1507643",
+  "pmid": "26412456",
+  "frase_do_abstract": "Although progression-free survival did not favor nivolumab over docetaxel (median, 2.3 months and 4.2 months, respectively), the rate of progression-free survival at 1 year was higher with nivolumab than with docetaxel (19% and 8%, respectively).",
+  "nota": "PFS mediana do braço nivolumabe (CheckMate 057); o esquema admite outras IO ou docetaxel, com PFS distintas"
+ },
+ "nsclc-met-atezo-bev-nao-incluido": {
+  "valor_meses": 8.3,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1716948",
+  "pmid": "29863955",
+  "frase_do_abstract": "The median progression-free survival was longer in the ABCP group than in the BCP group (8.3 months vs.",
+  "nota": "PFS mediana do braço ABCP (IMpower150)"
+ },
+ "nsclc-met-crizotinibe-ros1": {
+  "valor_meses": 19.2,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1406766",
+  "pmid": "25264305",
+  "frase_do_abstract": "Median progression-free survival was 19.2 months (95% CI, 14.4 to not reached), with 25 patients (50%) still in follow-up for progression.",
+  "nota": "PFS mediana do braço único de crizotinibe em ROS1+ (PROFILE 1001)"
+ },
+ "nsclc-met-io-mono-pdl1alto": {
+  "valor_meses": 10.3,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1606774",
+  "pmid": "27718847",
+  "frase_do_abstract": "RESULTS: Median progression-free survival was 10.3 months (95% confidence interval [CI], 6.7 to not reached) in the pembrolizumab group versus 6.0 months (95% CI, 4.2 to 6.2) in the chemotherapy group (hazard ratio for disease progression or death, 0.50;",
+  "nota": "PFS mediana do braço pembrolizumabe (KEYNOTE-024); o esquema admite atezolizumabe/cemiplimabe"
+ },
+ "nsclc-met-io-qt-pdl1baixo": {
+  "valor_meses": 8.8,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1801005",
+  "pmid": "29658856",
+  "frase_do_abstract": "Median progression-free survival was 8.8 months (95% CI, 7.6 to 9.2) in the pembrolizumab-combination group and 4.9 months (95% CI, 4.7 to 5.5) in the placebo-combination group (hazard ratio for disease progression or death, 0.52;",
+  "nota": "PFS mediana do braço pembrolizumabe+QT (KEYNOTE-189); inclui indução 4 ciclos + manutenção"
+ },
+ "nsclc-met-osimertinibe-egfr": {
+  "valor_meses": 20.7,
+  "tipo": "duracao_mediana_tratamento",
+  "doi": "10.1056/NEJMoa1913662",
+  "pmid": "31751012",
+  "frase_do_abstract": "At 3 years, 79 of 279 patients (28%) in the osimertinib group and 26 of 277 (9%) in the comparator group were continuing to receive a trial regimen; the median exposure was 20.7 months and 11.5 months, respectively.",
+  "nota": "exposição mediana ao osimertinibe na análise de sobrevida global do FLAURA (comparador 11,5 meses) — duração de tratamento reportada, não proxy de PFS"
+ },
+ "nsclc-met-papillon-exon20-nao-incluido": {
+  "valor_meses": 11.4,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa2306441",
+  "pmid": "37870976",
+  "frase_do_abstract": "Progression-free survival was significantly longer in the amivantamab-chemotherapy group than in the chemotherapy group (median, 11.4 months and 6.7 months, respectively; hazard ratio for disease progression or death, 0.40;",
+  "nota": "PFS mediana do braço amivantamabe+QT (PAPILLON)"
+ },
+ "ovario-bevacizumabe-1l-nao-incluido": {
+  "valor_meses": 14.1,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1104390",
+  "pmid": "22204724",
+  "frase_do_abstract": "The median progression-free survival was 10.3 months in the control group, 11.2 in the bevacizumab-initiation group, and 14.1 in the bevacizumab-throughout group.",
+  "nota": "PFS mediana do braço bevacizumabe-throughout (GOG-0218), que corresponde ao uso com manutenção"
+ },
+ "ovario-niraparibe-nao-incluido": {
+  "valor_meses": 13.8,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1910962",
+  "pmid": "31562799",
+  "frase_do_abstract": "In the overall population, the corresponding progression-free survival was 13.8 months and 8.2 months (hazard ratio, 0.62;",
+  "nota": "PFS mediana do braço niraparibe na população geral (PRIMA)"
+ },
+ "ovario-resistente-bevacizumabe-nao-incluido": {
+  "valor_meses": 6.7,
+  "tipo": "pfs_mediana",
+  "doi": "10.1200/JCO.2013.51.4489",
+  "pmid": "24637997",
+  "frase_do_abstract": "Median PFS was 3.4 months with chemotherapy alone versus 6.7 months with bevacizumab-containing therapy.",
+  "nota": "PFS mediana do braço com bevacizumabe (AURELIA)"
+ },
+ "pancreas-met-mfolfirinox": {
+  "valor_meses": 6.4,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1011923",
+  "pmid": "21561347",
+  "frase_do_abstract": "Median progression-free survival was 6.4 months in the FOLFIRINOX group and 3.3 months in the gemcitabine group (hazard ratio for disease progression, 0.47;",
+  "nota": "PFS mediana do braço FOLFIRINOX (PRODIGE 4/ACCORD 11)"
+ },
+ "pancreas-met-nabpac-gem-nao-incorporado": {
+  "valor_meses": 5.5,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1304369",
+  "pmid": "24131140",
+  "frase_do_abstract": "The median progression-free survival was 5.5 months in the nab-paclitaxel-gemcitabine group, as compared with 3.7 months in the gemcitabine group (hazard ratio for disease progression or death, 0.69;",
+  "nota": "PFS mediana do braço nab-paclitaxel+gencitabina (MPACT)"
+ },
+ "prostata-mcspc-abiraterona-prednisona": {
+  "valor_meses": 33.0,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1704174",
+  "pmid": "28578607",
+  "frase_do_abstract": "The median length of radiographic progression-free survival was 33.0 months in the abiraterone group and 14.8 months in the placebo group (hazard ratio for disease progression or death, 0.47;",
+  "nota": "rPFS mediana do braço abiraterona (LATITUDE) — sobrevida livre de progressão radiográfica"
+ },
+ "renal-met-2l-pos-io-cabozantinibe": {
+  "valor_meses": 7.4,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1510016",
+  "pmid": "26406150",
+  "frase_do_abstract": "RESULTS: Median progression-free survival was 7.4 months with cabozantinib and 3.8 months with everolimus.",
+  "nota": "PFS mediana do braço cabozantinibe (METEOR)"
+ },
+ "renal-met-favoravel-sunitinibe": {
+  "valor_meses": 11.0,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa065044",
+  "pmid": "17215529",
+  "frase_do_abstract": "RESULTS: The median progression-free survival was significantly longer in the sunitinib group (11 months) than in the interferon alfa group (5 months), corresponding to a hazard ratio of 0.42 (95% confidence interval, 0.32 to 0.54;",
+  "nota": "PFS mediana do braço sunitinibe (pivotal sunitinibe vs interferona)"
+ },
+ "renal-met-intalto-axitinibe-pembrolizumabe": {
+  "valor_meses": 15.1,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1816714",
+  "pmid": "30779529",
+  "frase_do_abstract": "Median progression-free survival was 15.1 months in the pembrolizumab-axitinib group and 11.1 months in the sunitinib group (hazard ratio for disease progression or death, 0.69;",
+  "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)"
+ },
+ "renal-met-intalto-ipilimumabe-nivolumabe": {
+  "valor_meses": 11.6,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa1712126",
+  "pmid": "29562145",
+  "frase_do_abstract": "The median progression-free survival was 11.6 months and 8.4 months, respectively (hazard ratio for disease progression or death, 0.82;",
+  "nota": "PFS mediana do braço ipilimumabe+nivolumabe na população de risco intermediário/alto (CheckMate 214)"
+ },
+ "renal-met-intalto-nivolumabe-cabozantinibe": {
+  "valor_meses": 16.6,
+  "tipo": "pfs_mediana",
+  "doi": "10.1056/NEJMoa2026982",
+  "pmid": "33657295",
+  "frase_do_abstract": "At a median follow-up of 18.1 months for overall survival, the median progression-free survival was 16.6 months (95% confidence interval [CI], 12.5 to 24.9) with nivolumab plus cabozantinib and 8.3 months (95% CI, 7.0 to 9.7) with sunitinib (hazard ratio for disease progression or death, 0.51;",
+  "nota": "PFS mediana do braço nivolumabe+cabozantinibe (CheckMate 9ER)"
+ },
+ "renal-naoclaras-sunitinibe-pazopanibe": {
+  "valor_meses": 8.3,
+  "tipo": "pfs_mediana",
+  "doi": "10.1016/S1470-2045(15)00515-X",
+  "pmid": "26794930",
+  "frase_do_abstract": "Sunitinib significantly increased progression-free survival compared with everolimus (8·3 months [80% CI 5·8-11·4] vs 5·6 months [5·5-6·0]; hazard ratio 1·41 [80% CI 1·03-1·92]; p=0·16), although heterogeneity of the treatment effect was noted on the basis of histological subtypes and prognostic risk groups.",
+  "nota": "PFS mediana do braço sunitinibe em não-células claras (ASPEN); o esquema também admite pazopanibe"
+ },
+ "sarcoma-pm-pazopanibe-nao-incorporado": {
+  "valor_meses": 4.6,
+  "tipo": "pfs_mediana",
+  "doi": "10.1016/S0140-6736(12)60651-5",
+  "pmid": "22595799",
+  "frase_do_abstract": "Median progression-free survival was 4·6 months (95% CI 3·7-4·8) for pazopanib compared with 1·6 months (0·9-1·8) for placebo (hazard ratio [HR] 0·31, 95% CI 0·24-0·40; p<0·0001).",
+  "nota": "PFS mediana do braço pazopanibe (PALETTE)"
+ }
+}

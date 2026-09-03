@@ -1551,6 +1551,7 @@ function render(){
   if(view==="revclin" && !["revisor","admin"].includes(USUARIO.perfil)) view = "lista"; // Revisão: só revisor/admin
   if(view==="autorizacoes" && !["auditor","admin"].includes(USUARIO.perfil)) view = "lista"; // Autorizações: só auditor/admin
   if(view==="simulador" && !["revisor","admin"].includes(USUARIO.perfil)) view = "lista"; // Simulador: só revisor/admin
+  if(view==="custos" && USUARIO.perfil!=="admin") view = "lista"; // Cadastro de preço: só admin (o backend recusa com 403 de qualquer forma)
   renderNav();
   if(view==="login") view = "lista";
   if(view==="admin") return renderAdmin();
@@ -1558,6 +1559,7 @@ function render(){
   if(view==="revclin") return renderRevisaoClinica();
   if(view==="autorizacoes") return renderAutorizacoes();
   if(view==="simulador") return renderSimulador();
+  if(view==="custos") return renderCustos();
   if(view==="fluxograma") return renderFluxograma();
   if(view==="lista") return renderLista();
   if(view==="cadastro") return renderCadastro();
@@ -1572,7 +1574,8 @@ function renderNav(){
   if(!nav) return;
   const isFlow = view==="fluxograma", isAdm = view==="admin", isRevc = view==="revclin", isSim = view==="simulador";
   const isAut = view==="autorizacoes";
-  const isPac = !isFlow && !isAdm && !isRevc && !isSim && !isAut && view!=="senha";
+  const isCst = view==="custos";
+  const isPac = !isFlow && !isAdm && !isRevc && !isSim && !isAut && !isCst && view!=="senha";
   // Aba Autorizações: whitelist ['auditor','admin'] — o oncologista não a vê, e o
   // bloqueio por URL/go() está no render(); o backend recusa com 403 de qualquer forma.
   const autTab = podeAutorizar()
@@ -1583,7 +1586,7 @@ function renderNav(){
     <a class="${isFlow?'on':''}" onclick="go('fluxograma')">Fluxograma</a>
     ${USUARIO && ["revisor","admin"].includes(USUARIO.perfil) ? `<a class="${isRevc?'on':''}" onclick="go('revclin')">Revisão clínica</a><a class="${isSim?'on':''}" onclick="go('simulador')">Simulador</a>` : ""}
     ${autTab}
-    ${USUARIO && USUARIO.perfil==="admin" ? `<a class="${isAdm?'on':''}" onclick="go('admin')">Admin</a>` : ""}
+    ${USUARIO && USUARIO.perfil==="admin" ? `<a class="${isCst?'on':''}" onclick="go('custos')">Custo por ciclo</a><a class="${isAdm?'on':''}" onclick="go('admin')">Admin</a>` : ""}
   </nav>`;
 }
 
@@ -2063,6 +2066,7 @@ function renderSeguimentoResumo(p, detail){
       ${u.detalhe_semaforo&&u.detalhe_semaforo.ressalva?`<div class="hint" style="margin-top:8px;color:var(--amber);font-weight:700">⚠️ ${esc(u.detalhe_semaforo.ressalva)}</div>`:""}
       <div class="hint" style="margin-top:10px;font-weight:700">Fotografia clínica desta avaliação</div>
       <div class="crit" style="margin-top:6px">${snapshotChipsFor(u.snapshot_campos, detail.tumor)}</div>
+      ${custoBlocoHtml(u.regimen_id)}
     </div>`;
   } else {
     resumo = `<div class="empty" style="margin-top:12px">Nenhuma avaliação registrada ainda.<br>
@@ -4908,6 +4912,330 @@ let AUT_FORM = {};           // avaliacao_id -> {parecer} (rascunho; digitar NÃ
 let AUT_BUSY = null;         // id em gravação
 let AUT_ERRO = "";
 
+// =================== EXPECTATIVA DE CUSTO (auditor + admin) ===================
+// Bloco de ESTIMATIVA: custo por ciclo em faixa (tabela CMED x negociado) x ciclos
+// esperados (do bloco expectativa_uso do corpus). Quem calcula é o SERVIDOR — a app não
+// multiplica nada, só desenha o que veio, para não existirem duas aritméticas.
+//
+// Visibilidade: whitelist ['auditor','admin']. Esconder o bloco aqui é CORTESIA — o
+// controle é o guard do /custos, que devolve 403 para oncologista e revisor mesmo que
+// alguém chame a rota na mão. Por isso a app nem pede a estimativa quando o perfil não
+// pode ver: pedir e receber 403 encheria o console de erro sem motivo.
+function podeVerCusto(){ return !!(USUARIO && (USUARIO.perfil==="auditor" || USUARIO.perfil==="admin")); }
+
+let CUSTO_EST = {};        // regimen_id -> estimativa do servidor (ou "carregando")
+let CUSTO_PEND = new Set();// ids já pedidos nesta rodada (evita pedir duas vezes)
+let CUSTO_CARTEIRA = null; // agregado da carteira (null = não carregado)
+let CUSTO_ADM = null;      // lista de preços cadastrados (tela do admin)
+let CUSTO_FORM = {};       // rascunho do formulário de preço, por regimen_id
+let CUSTO_BUSY = null;     // regimen_id sendo gravado
+let CUSTO_ERRO = "";
+let CUSTO_OK = "";
+
+const fmtBRL = v => (typeof v==="number" && isFinite(v))
+  ? v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",minimumFractionDigits:2,maximumFractionDigits:2})
+  : "—";
+
+// Busca em LOTE, com debounce: uma tela com 20 protocolos faz 1 chamada, não 20.
+let _custoTimer = null;
+function pedirEstimativa(rid){
+  if(!rid || !podeVerCusto() || CUSTO_EST[rid] !== undefined || CUSTO_PEND.has(rid)) return;
+  CUSTO_PEND.add(rid);
+  clearTimeout(_custoTimer);
+  _custoTimer = setTimeout(async ()=>{
+    const ids = [...CUSTO_PEND]; CUSTO_PEND.clear();
+    if(!ids.length) return;
+    try{
+      const lista = await api("/custos/estimativas?ids="+encodeURIComponent(ids.join(",")));
+      (lista||[]).forEach(e=>{ CUSTO_EST[e.regimen_id] = e; });
+    }catch(e){
+      // Falha de rede não pode virar "custo zero" na tela: marca cada id com o erro.
+      ids.forEach(id=>{ CUSTO_EST[id] = {regimen_id:id, disponivel:false, motivo:"erro", explicacao:"Falha ao consultar a estimativa: "+e.message, selo:"estimativa"}; });
+    }
+    // NÃO chama render(): a estimativa chega ASSÍNCRONA e um render global aqui
+    // redesenharia a tela por cima do que o usuário está digitando — foi assim que este
+    // bloco quebrou o "0 re-render" do parecer do auditor. Atualiza só os próprios slots.
+    pintarSlotsCusto();
+  }, 30);
+}
+
+// O bloco. Devolve "" para quem não pode ver — e é isso que tira o bloco do DOM do
+// oncologista, inclusive quando ele chega na tela pela URL.
+function custoBlocoHtml(rid){
+  if(!podeVerCusto() || !rid) return "";
+  return `<div class="cst-slot" data-cst-rid="${esc(rid)}">${custoConteudoHtml(rid)}</div>`;
+}
+
+// Repinta só os slots de custo já no DOM. Existe para que a chegada assíncrona da
+// estimativa não precise de render() global — ver pedirEstimativa().
+function pintarSlotsCusto(){
+  document.querySelectorAll("[data-cst-rid]").forEach(el=>{
+    const rid = el.getAttribute("data-cst-rid");
+    if(rid) el.innerHTML = custoConteudoHtml(rid);
+  });
+}
+
+function custoConteudoHtml(rid){
+  const e = CUSTO_EST[rid];
+  if(e === undefined){ pedirEstimativa(rid); return `<div class="cst"><div class="cst-h">Expectativa de uso e custo — <b>ESTIMATIVA</b></div><div class="cst-load">⏳ calculando…</div></div>`; }
+
+  const uso = e.uso || {}, custo = e.custo || {};
+
+  // USO e CUSTO são independentes. Sem tempo derivável não há o que mostrar — aí sim
+  // "sem estimativa". Com tempo derivável e sem preço, o uso aparece igual: o número de
+  // aplicações é dado clínico do corpus e não depende de ninguém ter cadastrado preço.
+  if(!uso.disponivel){
+    return `<div class="cst cst-sem">
+      <div class="cst-h">Expectativa de uso e custo — <b>ESTIMATIVA</b></div>
+      <div class="cst-sem-t">sem estimativa</div>
+      <div class="cst-sem-x">${esc(uso.explicacao||"Motivo não informado pelo servidor.")}</div>
+      ${uso.duracao_meses?`<div class="cst-det">Duração conhecida: ${esc(String(uso.duracao_meses).replace(".",","))} meses — falta o intervalo entre aplicações.</div>`:""}
+      ${uso.origem_detalhe?`<div class="cst-det">${esc(uso.origem_detalhe)}</div>`:""}
+      ${uso.nota_expectativa?`<div class="cst-nota"><b>Nota do tempo de uso:</b> ${esc(uso.nota_expectativa)}</div>`:""}
+    </div>`;
+  }
+
+  // ---- metade USO (sempre que houver tempo derivável) ----
+  const decl = uso.periodicidade_origem === "periodo_declarado";
+  const usoHtml = `
+    <div class="cst-sec">Uso esperado</div>
+    <div class="cst-l"><span>${decl?"Períodos esperados":"Ciclos esperados"}</span><b>${uso.ciclos_esperados}</b> <span class="cst-org">${esc(custoOrigemLabel(uso))}</span></div>
+    ${uso.periodicidade_dias?`<div class="cst-l"><span>Intervalo</span><b>${uso.periodicidade_dias} dias</b> ${decl
+      ? `<span class="cst-org adm" title="Valor administrativo informado por quem cadastrou o preço — não sai do protocolo nem de extração clínica">período declarado no cadastro</span>`
+      : `<span class="cst-org">do esquema</span>`}</div>`:""}
+    ${uso.origem_detalhe?`<div class="cst-det">${esc(uso.origem_detalhe)}</div>`:""}
+    ${uso.aviso?`<div class="cst-aviso">⚠️ ${esc(uso.aviso)}</div>`:""}
+    ${uso.nota_expectativa?`<div class="cst-nota"><b>Nota do tempo de uso:</b> ${esc(uso.nota_expectativa)}</div>`:""}`;
+
+  // ---- metade CUSTO (só quando há preço) ----
+  const c = custo.custo_ciclo || {};
+  const custoHtml = custo.disponivel ? `
+    <div class="cst-sec">Custo</div>
+    <div class="cst-l"><span>${decl?`Preço por ${custo.periodo_dias} dias`:"Custo por ciclo"}</span><b>${fmtBRL(c.min)} – ${fmtBRL(c.max)}</b></div>
+    <div class="cst-fontes">
+      <div><span class="cst-fk">negociado</span> ${esc(c.fonte_min||"—")}</div>
+      <div><span class="cst-fk">tabela</span> ${esc(c.fonte_max||"—")}</div>
+    </div>
+    <div class="cst-tot"><span>Total estimado</span><b>${fmtBRL(custo.total_min)} – ${fmtBRL(custo.total_max)}</b></div>`
+    : `
+    <div class="cst-sec">Custo</div>
+    <div class="cst-semp" title="${esc(custo.explicacao||"")}">sem preço cadastrado</div>`;
+
+  return `<div class="cst">
+    <div class="cst-h">Expectativa de uso e custo — <b>ESTIMATIVA</b></div>
+    ${usoHtml}
+    ${custoHtml}
+  </div>`;
+}
+
+// Origem dos ciclos, sempre visível: o auditor precisa saber se o número veio do esquema
+// (duro) ou de um proxy de PFS (piso otimista).
+const CUSTO_ORIGEM = {
+  esquema:            {t:"nº de ciclos do esquema",              cls:"esq"},
+  proxy_pfs:          {t:"proxy: PFS mediana do pivotal",        cls:"pfs"},
+  duracao_reportada:  {t:"duração mediana reportada no pivotal", cls:"dur"},
+};
+function custoOrigemLabel(uso){ const m = CUSTO_ORIGEM[uso.origem_ciclos]; return m ? m.t : ""; }
+
+// ---- Carteira (área do auditor) ----
+async function carregarCarteira(){
+  try{ CUSTO_CARTEIRA = await api("/custos/carteira"); }
+  catch(e){ CUSTO_CARTEIRA = {erro:e.message}; }
+  // Idem: repinta o próprio slot, sem render() global por cima de um rascunho aberto.
+  const el = document.getElementById("cst-carteira");
+  if(el) el.innerHTML = carteiraConteudoHtml();
+}
+function carteiraHtml(){
+  if(!podeVerCusto()) return "";
+  return `<div id="cst-carteira">${carteiraConteudoHtml()}</div>`;
+}
+function carteiraConteudoHtml(){
+  if(CUSTO_CARTEIRA===null){ carregarCarteira(); return `<div class="cst-cart"><div class="cst-h">Custo total da carteira — <b>ESTIMATIVA</b></div><div class="cst-load">⏳ somando…</div></div>`; }
+  const k = CUSTO_CARTEIRA;
+  if(k.erro) return `<div class="cst-cart"><div class="cst-h">Custo total da carteira</div><div class="cst-sem-x">${esc(k.erro)}</div></div>`;
+  return `<div class="cst-cart">
+    <div class="cst-h">Custo total da carteira — <b>ESTIMATIVA</b></div>
+    <div class="cst-tot"><span>Soma dos protocolos vigentes</span><b>${fmtBRL(k.total_min)} – ${fmtBRL(k.total_max)}</b></div>
+    <div class="cst-cart-m">${k.pacientes_no_calculo} paciente(s) no cálculo${k.pacientes_sem_estimativa?` · <b>${k.pacientes_sem_estimativa} fora</b> (sem estimativa — não entram como zero)`:""}</div>
+    ${k.aviso?`<div class="cst-aviso">⚠️ ${esc(k.aviso)}</div>`:""}
+    ${k.sem_estimativa&&k.sem_estimativa.length?`<details class="cst-fora"><summary>Quem ficou de fora e por quê (${k.sem_estimativa.length})</summary>
+      ${k.sem_estimativa.map(s=>`<div class="cst-fora-l"><b>${esc(s.paciente||("#"+s.paciente_id))}</b> · ${esc(s.regimen_id)} — ${esc(s.explicacao||s.motivo)}</div>`).join("")}
+    </details>`:""}
+  </div>`;
+}
+
+// ---- Cadastro de preço (ADMIN) ----
+// Formulário guarda o rascunho em CUSTO_FORM e NÃO chama render() a cada tecla: digitar
+// preço não pode redesenhar a lista (perde foco, perde cursor, e num campo de dinheiro
+// perde dígito). Mesmo padrão do parecer do auditor.
+function setCustoForm(rid, campo, valor){
+  CUSTO_FORM[rid] = Object.assign({}, CUSTO_FORM[rid], {[campo]: valor});
+}
+function custoFormAtual(rid){
+  const salvo = (CUSTO_ADM||[]).find(c=>c.regimen_id===rid) || {};
+  const f = CUSTO_FORM[rid] || {};
+  return {
+    tabela:    f.tabela    !== undefined ? f.tabela    : (salvo.custo_ciclo_tabela    != null ? String(salvo.custo_ciclo_tabela)    : ""),
+    negociado: f.negociado !== undefined ? f.negociado : (salvo.custo_ciclo_negociado != null ? String(salvo.custo_ciclo_negociado) : ""),
+    ft:        f.ft        !== undefined ? f.ft        : (salvo.fonte_tabela    || ""),
+    fn:        f.fn        !== undefined ? f.fn        : (salvo.fonte_negociado || ""),
+    pd:        f.pd        !== undefined ? f.pd        : (salvo.periodo_dias != null ? String(salvo.periodo_dias) : ""),
+  };
+}
+async function carregarCustosAdm(){
+  try{ CUSTO_ADM = await api("/custos"); CUSTO_COBERTURA = await api("/custos/cobertura"); CUSTO_ERRO=""; }
+  catch(e){ CUSTO_ADM = []; CUSTO_COBERTURA = null; CUSTO_ERRO = e.message; }
+  render();
+}
+let CUSTO_COBERTURA = null;
+
+// Vírgula decimal é como se digita dinheiro em pt-BR; o backend quer número.
+function numeroBR(txt){
+  const t = String(txt==null?"":txt).trim().replace(/\s/g,"").replace(/\./g,"").replace(",",".");
+  if(t==="") return null;
+  const n = Number(t);
+  return isFinite(n) ? n : NaN;
+}
+
+async function salvarCusto(rid, btn){
+  const f = custoFormAtual(rid);
+  const tab = numeroBR(f.tabela), neg = numeroBR(f.negociado);
+  CUSTO_OK = "";
+  if(tab===null || neg===null || isNaN(tab) || isNaN(neg)){ CUSTO_ERRO = "Informe os dois preços (use vírgula para centavos)."; render(); return; }
+  if(!String(f.ft).trim() || !String(f.fn).trim()){ CUSTO_ERRO = "As duas fontes são obrigatórias — nenhum preço aparece na tela sem fonte."; render(); return; }
+  // Campo vazio manda null explícito: "não declarado" e "30 dias" são coisas diferentes,
+  // e o servidor nunca assume a segunda.
+  const pdTxt = String(f.pd==null?"":f.pd).trim();
+  let pd = null;
+  if(pdTxt!==""){
+    pd = Number(pdTxt.replace(",","."));
+    if(!isFinite(pd) || Math.floor(pd)!==pd || pd<1 || pd>365){
+      CUSTO_ERRO = "Período coberto pelo preço: informe um número inteiro de dias entre 1 e 365 (ou deixe vazio)."; render(); return;
+    }
+  }
+  CUSTO_BUSY = rid; CUSTO_ERRO = ""; render();
+  try{
+    await api("/custos/"+encodeURIComponent(rid), {method:"PUT", body: JSON.stringify({
+      custo_ciclo_tabela: Math.round(tab*100)/100,
+      custo_ciclo_negociado: Math.round(neg*100)/100,
+      fonte_tabela: String(f.ft).trim(),
+      fonte_negociado: String(f.fn).trim(),
+      periodo_dias: pd,
+    })});
+    delete CUSTO_FORM[rid];
+    CUSTO_EST = {};          // preço mudou: as estimativas em cache viraram passado
+    CUSTO_CARTEIRA = null;
+    CUSTO_OK = "Preço gravado para "+rid+".";
+  }catch(e){ CUSTO_ERRO = e.message; }
+  CUSTO_BUSY = null;
+  await carregarCustosAdm();
+}
+
+function custoFormHtml(rid, nome, sub){
+  const f = custoFormAtual(rid);
+  const busy = CUSTO_BUSY===rid;
+  return `<div class="cadm-item">
+    <div class="cadm-n">${esc(nome)}</div>
+    ${sub?`<div class="cadm-sub">${esc(sub)}</div>`:""}
+    <div class="cadm-grid">
+      <label>Tabela (CMED)<input type="text" inputmode="decimal" id="cst_tab_${esc(rid)}" value="${esc(f.tabela)}"
+        placeholder="12000,00" oninput="setCustoForm('${esc(rid)}','tabela',this.value)"></label>
+      <label>Negociado<input type="text" inputmode="decimal" id="cst_neg_${esc(rid)}" value="${esc(f.negociado)}"
+        placeholder="9500,00" oninput="setCustoForm('${esc(rid)}','negociado',this.value)"></label>
+      <label>Fonte da tabela<input type="text" id="cst_ft_${esc(rid)}" value="${esc(f.ft)}"
+        placeholder="CMED 2026-01 (PMVG 18%)" oninput="setCustoForm('${esc(rid)}','ft',this.value)"></label>
+      <label>Fonte do negociado<input type="text" id="cst_fn_${esc(rid)}" value="${esc(f.fn)}"
+        placeholder="Contrato Operadora X, aditivo 2026-03" oninput="setCustoForm('${esc(rid)}','fn',this.value)"></label>
+      <label title="Só para protocolo cujo esquema não declara intervalo de ciclo — oral diário contínuo. Deixe vazio quando o preço for por ciclo: aí o intervalo sai do próprio esquema.">Preço cobre quantos dias?
+        <input type="text" inputmode="numeric" id="cst_pd_${esc(rid)}" value="${esc(f.pd)}"
+        placeholder="vazio = preço por ciclo" oninput="setCustoForm('${esc(rid)}','pd',this.value)"></label>
+    </div>
+    <div class="cadm-adm">⚠️ <b>"Preço cobre quantos dias?"</b> é dado <b>administrativo declarado</b>, não extração clínica: use só quando o esquema não tem intervalo (ex.: <i>osimertinibe 80 mg 1x/dia até progressão</i>). Vazio nunca vira 30 por padrão — sem ele o protocolo segue sem conversão em custo.</div>
+    <div class="cadm-acoes">
+      <button class="btn primary" ${busy?"disabled":""} onclick="salvarCusto('${esc(rid)}',this)">${busy?"Gravando…":"Gravar preço"}</button>
+      <span class="hint">Negociado não pode ser maior que a tabela — a faixa sairia invertida.</span>
+    </div>
+  </div>`;
+}
+
+function renderCustos(){
+  if(CUSTO_ADM===null){
+    carregarCustosAdm();
+    app().innerHTML = `<div class="card"><h2>Custo por ciclo</h2><div class="empty">⏳ Carregando…</div></div>`;
+    return;
+  }
+  const cob = CUSTO_COBERTURA || {};
+  const fila = (cob.fila_preco||[]);
+  const cadastrados = (CUSTO_ADM||[]);
+  app().innerHTML = `
+  <div class="card">
+    <div class="rev-head"><div><h2>Custo por ciclo — cadastro</h2>
+      <div class="sub">Preço <b>duplo</b> por protocolo: tabela CMED (teto público) e negociado (o que a operadora paga). A estimativa sai em <b>faixa</b> porque o valor exato depende de contrato. Nesta fase o custo é <b>por regime</b> — por fármaco+dose depende do módulo de superfície corporal (backlog). As duas <b>fontes são obrigatórias</b>: nenhum número aparece na tela sem rastro.</div></div>
+      <div class="rev-run">admin <b>${esc(USUARIO.nome)}</b></div></div>
+    ${CUSTO_ERRO?`<div class="login-err">${esc(CUSTO_ERRO)}</div>`:""}
+    ${CUSTO_OK?`<div class="cadm-ok">${esc(CUSTO_OK)}</div>`:""}
+    <div class="cadm-cob">
+      <span><b>${cob.precos_cadastrados||0}</b> preço(s) cadastrado(s)</span>
+      <span><b>${cob.por_situacao&&cob.por_situacao.com_estimativa||0}</b> protocolo(s) com estimativa completa</span>
+      <span><b>${cob.aguardando_preco||0}</b> aguardando preço</span>
+      <span class="hint">de ${cob.total_regimes||0} no corpus — o resto não tem tempo de uso derivável e <b>não vira estimativa nem com preço</b>.</span>
+    </div>
+
+    <div class="cadm-sec">Aguardando preço <span class="rc-count">${fila.length}</span></div>
+    <div class="hint" style="margin-bottom:10px">Protocolos com o tempo de uso já resolvido — falta só o preço para produzirem estimativa.</div>
+    ${fila.length ? fila.map(r=>custoFormHtml(r.regimen_id, r.nome, `${r.tumor||""} · ${r.ciclos_esperados} ciclos (${(CUSTO_ORIGEM[r.origem_ciclos]||{}).t||r.origem_ciclos})`)).join("")
+                  : `<div class="empty">Nenhum protocolo aguardando preço.</div>`}
+
+    <div class="cadm-sec">Preços cadastrados <span class="rc-count">${cadastrados.length}</span></div>
+    ${cadastrados.length ? cadastrados.map(c=>custoFormHtml(c.regimen_id, protocoloNome(c.regimen_id),
+        `atualizado em ${fmtDataHora(c.atualizado_em)}${c.atualizadoPor?` por ${esc(c.atualizadoPor.nome)}`:""}`)).join("")
+                         : `<div class="empty">Nenhum preço cadastrado ainda.</div>`}
+  </div>`;
+}
+
+// CSS da camada de custo (injetado uma vez).
+(function(){ if(document.getElementById("cst-css")) return; const s=document.createElement("style"); s.id="cst-css"; s.textContent=`
+.cst{margin-top:12px;border:1px solid #d9e2ef;border-left:4px solid #4a6fa5;border-radius:10px;padding:12px 14px;background:#f8fafd}
+.cst-sem{border-left-color:#b8bfc7;background:#fafafb}
+.cst-h{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#4a6fa5;margin-bottom:8px}
+.cst-sem .cst-h{color:#77828d}
+.cst-load{font-size:13px;color:#77828d}
+.cst-sem-t{font-weight:800;font-size:14px;color:#5d6873}
+.cst-sem-x{font-size:12px;color:#67727d;margin-top:4px}
+.cst-l{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13px;padding:3px 0}
+.cst-l>span:first-child{color:#67727d}
+.cst-l b{font-size:14px}
+.cst-org{font-size:11px;color:#7b8794;background:#eef1f5;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.cst-det{font-size:11px;color:#8a949e;margin:2px 0 6px}
+.cst-fontes{margin:2px 0 8px;font-size:11px;color:#77828d;line-height:1.6}
+.cst-fk{display:inline-block;min-width:74px;font-weight:700;color:#5d6873}
+.cst-tot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:8px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:13px}
+.cst-tot>span:first-child{color:#67727d}
+.cst-tot b{font-size:16px;color:#1f3f6e}
+.cst-aviso{margin-top:8px;padding:7px 10px;border-radius:8px;background:#fdf6e3;color:#7a5a00;font-size:12px;font-weight:600}
+.cst-nota{margin-top:7px;font-size:11px;color:#6b7681;line-height:1.5}
+.cst-sec{margin:10px 0 4px;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#8797a5;border-top:1px solid #e6ecf3;padding-top:8px}
+.cst-sec:first-of-type{border-top:0;padding-top:0;margin-top:2px}
+.cst-org.adm{background:#fdf6e3;color:#7a5a00}
+.cst-semp{font-size:13px;color:#77828d;font-style:italic}
+.cst-cart{margin:14px 0 6px;border:1px solid #d9e2ef;border-radius:10px;padding:14px 16px;background:#f8fafd}
+.cst-cart-m{font-size:12px;color:#67727d;margin-top:6px}
+.cst-fora{margin-top:9px;font-size:12px}
+.cst-fora summary{cursor:pointer;color:#5d6873;font-weight:600}
+.cst-fora-l{padding:4px 0;color:#67727d;border-bottom:1px solid #eef1f5}
+.cadm-cob{display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;margin:10px 0 6px;padding:10px 12px;background:#f7f8fa;border-radius:8px;font-size:13px}
+.cadm-sec{margin:20px 0 4px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#8797a5}
+.cadm-item{border:1px solid var(--border,#e3e6ea);border-radius:10px;padding:12px 14px;margin-bottom:12px;background:#fff}
+.cadm-n{font-weight:700}
+.cadm-sub{font-size:12px;color:#77828d;margin-top:2px}
+.cadm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:10px}
+.cadm-grid label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#7b8794}
+.cadm-grid input{width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border,#e3e6ea);border-radius:8px;font-size:13px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink,#222)}
+.cadm-acoes{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.cadm-ok{margin:8px 0;padding:8px 12px;border-radius:8px;background:#e6f6ec;color:#136c3a;font-size:13px;font-weight:600}
+.cadm-adm{margin-top:9px;padding:8px 11px;border-radius:8px;background:#fdf6e3;color:#7a5a00;font-size:11px;line-height:1.6}
+`; document.head.appendChild(s); })();
+
 function podeAutorizar(){ return !!(USUARIO && (USUARIO.perfil==="auditor" || USUARIO.perfil==="admin")); }
 
 // Selo do estado da solicitação — o mesmo vocabulário na fila do auditor e na trilha do médico.
@@ -5051,6 +5379,8 @@ function autCard(a){
       <div class="aut-proto-m">${a.linha_tratamento?`<b>${a.linha_tratamento}ª linha</b> · `:""}solicitado por <b>${esc(a.solicitante?a.solicitante.nome:"—")}</b> em ${fmtDataHora(a.data)}</div>
     </div>
 
+    ${custoBlocoHtml(a.regimen_id)}
+
     <div class="aut-sec-t">Por que precisa de exceção</div>
     ${autPorQue(a)}
 
@@ -5085,6 +5415,7 @@ function renderAutorizacoes(){
       <div class="sub">Protocolo <b>Inelegível</b> ou <b>Não incorporado</b> selecionado pelo médico não vira tratamento vigente sozinho: entra aqui como solicitação. Aprovar torna o protocolo vigente; negar mantém o registro na trilha do paciente com o seu parecer — <b>nada é apagado</b>, e uma nova tentativa é uma nova solicitação. <b>Parecer obrigatório nas duas decisões</b>; a decisão é única e imutável.</div></div>
       <div class="rev-run">auditor <b>${esc(USUARIO.nome)}</b></div></div>
     ${AUT_ERRO?`<div class="login-err">${esc(AUT_ERRO)}</div>`:""}
+    ${carteiraHtml()}
     <div class="aut-filtros">
       <button class="aut-fb ${AUT_FILTRO==='pendentes'?'on':''}" onclick="setAutFiltro('pendentes')">⏳ Pendentes <span class="n">${C.pendentes}</span></button>
       <button class="aut-fb ${AUT_FILTRO==='decididas'?'on':''}" onclick="setAutFiltro('decididas')">Decididas <span class="n">${C.aprovadas+C.negadas}</span></button>

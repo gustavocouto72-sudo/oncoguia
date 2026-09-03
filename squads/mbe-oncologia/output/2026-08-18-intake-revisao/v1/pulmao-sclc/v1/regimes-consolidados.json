@@ -206,7 +206,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "QT 4 ciclos 21/21d concomitante à RT seguida de durvalumabe 28/28d por ATÉ 24 meses (teto, não duração fixa); total único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sclc-extensa-cisplatina-etoposideo",
@@ -357,7 +367,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sclc-extensa-io-1l-nao-incluido",
@@ -506,7 +526,17 @@
         "nao_incluido: MCBS 3 (CASPIAN/IMpower133), decisão de custo",
         "cobertura: exclui o padrão global de 1ª linha em CPPC extensa — divergência do standard-of-care internacional, revisar",
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sclc-2l-topotecano",
@@ -641,7 +671,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sclc-retratamento-mesmo-esquema",
@@ -780,7 +820,17 @@
       "flags": [
         "pratica_consolidada: retratamento em recidiva sensível sem estudo-pivô dedicado citado",
         "doi_nao_reparado: sem match resolvível+congruente para '' (Prática None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração; esquema remete à 1ª linha sem declarar nº de ciclos",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
@@ -921,7 +971,17 @@
       "flags": [
         "nao_incluido: MCBS 2, baixa qualidade de evidência (DeLLphi-301)",
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     }
   ]
 }

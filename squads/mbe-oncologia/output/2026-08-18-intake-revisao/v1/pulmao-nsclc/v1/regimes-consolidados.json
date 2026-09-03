@@ -302,7 +302,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 3,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "3 ciclos declarados, periodicidade não declarada no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-periop-pembrolizumabe-qt",
@@ -449,7 +459,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "4 ciclos neoadjuvantes + pembrolizumabe adjuvante 3/3 semanas por 1 ano; total único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-periop-durva-nivo-nao-incluido",
@@ -583,7 +603,17 @@
       ],
       "flags": [
         "nao_incluido: EFS positivo mas SG imatura (AEGEAN/CheckMate 77T); reavaliar com dados maduros"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-adj-qt-platina",
@@ -724,7 +754,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 4,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 12.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-adj-osimertinibe-egfr",
@@ -863,7 +903,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": 157,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-adj-alectinibe-alk",
@@ -1002,7 +1052,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": 104,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-adj-atezolizumabe-pdl1",
@@ -1131,7 +1191,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 17,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 51.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "nº de ciclos derivado da duração declarada no esquema (~52 semanas) dividida pela periodicidade de 21 dias",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-adj-io-estagioI-nao-incluido",
@@ -1262,7 +1332,17 @@
       "flags": [
         "nao_incluido: sem benefício de imunoterapia adjuvante em estágio I; risco de toxicidade em cenário curativo",
         "doi_incongruente: 5 candidatos resolvíveis para '—' (Base None); topo 0.3 vs 2º 0.2935 sem margem clara — não escolher; mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável; regime marcado como não incluído",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-def-crt-durvalumab",
@@ -1409,7 +1489,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 24,
+        "periodicidade_dias": 14,
+        "duracao_total_semanas": 48.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "24 ciclos de durvalumabe de consolidação; a quimiorradioterapia prévia não está contabilizada aqui",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-io-mono-pdl1alto",
@@ -1549,7 +1639,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 10.3,
+        "fonte_doi": "10.1056/NEJMoa1606774",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pembrolizumabe (KEYNOTE-024); o esquema admite atezolizumabe/cemiplimabe",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-io-qt-pdl1baixo",
@@ -1707,7 +1807,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 8.8,
+        "fonte_doi": "10.1056/NEJMoa1801005",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pembrolizumabe+QT (KEYNOTE-189); inclui indução 4 ciclos + manutenção",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-atezo-bev-nao-incluido",
@@ -1841,7 +1951,17 @@
       ],
       "flags": [
         "nao_incluido: ganho de SG marginal (~1,7 mês) e maior toxicidade (IMpower150)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 8.3,
+        "fonte_doi": "10.1056/NEJMoa1716948",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço ABCP (IMpower150)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-qt-durva-treme-nao-incluido",
@@ -1975,7 +2095,17 @@
       ],
       "flags": [
         "nao_incluido: benefício marginal + toxicidade da dupla imunoterapia (POSEIDON)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-osimertinibe-egfr",
@@ -2104,7 +2234,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": 20.7,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": "10.1056/NEJMoa1913662",
+        "indeterminado": false,
+        "nota": "exposição mediana ao osimertinibe na análise de sobrevida global do FLAURA (comparador 11,5 meses) — duração de tratamento reportada, não proxy de PFS",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-osi-qt-egfr",
@@ -2262,7 +2402,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-amivantamab-nao-incluido",
@@ -2401,7 +2551,17 @@
       ],
       "flags": [
         "nao_incluido: benefício incremental marginal + toxicidade (MARIPOSA/MARIPOSA2, MCBS 2)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
@@ -2548,7 +2708,17 @@
       "flags": [
         "nao_incluido: SG imatura, MCBS 3 (PAPILLON)",
         "cobertura: único alvo para EGFR exon 20; não inclusão deixa subgrupo raro só com QT — revisar com SG madura"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 11.4,
+        "fonte_doi": "10.1056/NEJMoa2306441",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço amivantamabe+QT (PAPILLON)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-alectinibe-alk",
@@ -2677,7 +2847,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-crizotinibe-ros1",
@@ -2806,7 +2986,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 19.2,
+        "fonte_doi": "10.1056/NEJMoa1406766",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço único de crizotinibe em ROS1+ (PROFILE 1001)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-2l-io-ou-docetaxel",
@@ -2958,7 +3148,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 2.3,
+        "fonte_doi": "10.1056/NEJMoa1507643",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço nivolumabe (CheckMate 057); o esquema admite outras IO ou docetaxel, com PFS distintas",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "nsclc-met-2l-nao-incluidos",
@@ -3101,7 +3301,17 @@
       "flags": [
         "nao_incluido: dupla imuno (benefício SLP), ramucirumab+docetaxel (marginal), ADCs (SG imatura/conflitante)",
         "doi_nao_reparado: sem match resolvível+congruente para 'CheckMate 9LA / REVEL / TROPION-Lung / DESTINY-Lung' (Base None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     }
   ]
 }

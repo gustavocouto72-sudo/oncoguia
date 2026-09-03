@@ -249,7 +249,17 @@
       ],
       "flags": [
         "referencia_madura: resultados de longo prazo em Oliver 2011 JCO (PMID 21282539) confirmam a não-inferioridade citada."
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê 1 ou 2 ciclos; N único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "testiculo-nsgct-eI-bep1",
@@ -448,7 +458,17 @@
       ],
       "flags": [
         "indirectness_regime: o pivô citado (Cullen) usou BEP x2; o regime atual é BEP x1. A eficácia de 1 ciclo apoia-se em estudos posteriores (ex.: MRC/EORTC 111, SWENOTECA) não citados — rebaixado a re_derivado (política conservadora); aceitação clínica fica com o revisor."
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 1,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "1 ciclo único de BEP adjuvante; o esquema não declara periodicidade (irrelevante com ciclo único, mas não derivável do texto)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "testiculo-seminoma-eII-bep-ep",
@@ -612,7 +632,17 @@
       ],
       "flags": [
         "fonte_diretriz: referência é o consenso ESMO 2018 (Honecker); confronto de elegibilidade não computável de ensaio discreto."
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas com nº distinto (BEP 3 ciclos ou EP 4 ciclos); N único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "testiculo-avancado-baixorisco-bep3-ep4",
@@ -788,7 +818,17 @@
       ],
       "flags": [
         "fonte_diretriz: referência é o consenso ESMO 2018 (Honecker)."
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas com nº distinto (BEP 3 ciclos ou EP 4 ciclos); N único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "testiculo-avancado-intalto-bep4-vip4",
@@ -982,7 +1022,17 @@
       ],
       "flags": [
         "referencia_mais_estreita_que_indicacao: pivô citado (Nichols) é poor-risk; a indicação inclui risco intermediário (evidência de IGCCCG/outros ensaios não citados)."
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 4,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 12.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "BEP 4 ciclos ou VIP 4 ciclos — as duas alternativas têm o mesmo nº de ciclos e a mesma periodicidade",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "testiculo-recidiva-tip-veip",
@@ -1138,7 +1188,17 @@
       "flags": [
         "fonte_diretriz: consenso ESMO 2018 (Honecker).",
         "candidato_atualizacao: TIGER (NCT02375204) compara resgate convencional (TIP) vs alta-dose+transplante — pode mudar a conduta de 1º resgate (ver vigilância)."
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 4,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "TIP ou VeIP, ambos 4 ciclos, mas o esquema não declara a periodicidade",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "testiculo-refrataria-paliativo-gemox",
@@ -1285,7 +1345,17 @@
       "flags": [
         "sem_estudo_pivo: regime paliativo sem referência primária — evidência indeterminada; buscar séries (Europe PMC/PubMed) em revisão futura.",
         "incompleto_evidencia: GRADE e elegibilidade indeterminados por ausência de fonte."
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     }
   ]
 }
