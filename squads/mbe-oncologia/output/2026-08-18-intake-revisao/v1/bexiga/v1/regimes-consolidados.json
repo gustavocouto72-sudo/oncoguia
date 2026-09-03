@@ -305,7 +305,17 @@
       ],
       "flags": [
         "extrapolacao_esquema: pivô (S0337) testou instilação única; protocolo usa indução+manutenção"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "indução 6 instilações semanais + manutenção mensal por 12 meses; fases com periodicidades distintas, total único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-nmibc-bcg-intravesical",
@@ -456,7 +466,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "indução 6 semanais + manutenção 3 instilações nos meses 3, 6 e 12; total único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
@@ -606,7 +626,17 @@
       "flags": [
         "evidencia_retrospectiva: base é série de centro único, não RCT",
         "doi_incongruente: 6 candidatos resolvíveis para 'Steinberg (série retrospectiva)' (STEINBERG 2015); topo 0.8522 vs 2º 0.8 sem margem clara — não escolher; mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "indução 6 semanais + manutenção mensal por 12 meses; total único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-tmt-cisplatina",
@@ -770,7 +800,17 @@
       ],
       "flags": [
         "referencia_divergente: citação Lancet 2015 no protocolo ≠ publicação primária BC2001 (NEJM 2012, DOI validado)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "periodicidade declarada em faixa (2 a 3 semanas) ou semanal durante a RT; não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-tmt-5fu-mitomicina",
@@ -922,7 +962,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "5-FU em infusão contínua nos ciclos 1 e 5 da RT; esquema amarrado ao curso de radioterapia, sem nº de ciclos",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-neoadj-gc-durvalumab",
@@ -1106,7 +1156,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável (NIAGARA: neoadjuvante + durvalumabe adjuvante, sem nº de ciclos no esquema)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-neoadj-gc",
@@ -1264,7 +1324,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 3 a 4 ciclos; N único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-neoadj-mvac-dd",
@@ -1434,7 +1504,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 14,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "dd-MVAC 14/14d sem nº de ciclos declarado no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-adj-gc-mvac",
@@ -1599,7 +1679,17 @@
       "flags": [
         "evidencia_adjuvante_limitada: ensaios de QT adjuvante subpotentes; preferir neoadjuvância",
         "doi_reparado: (vazio) (vazio) → 10.1016/s0022-5347(17)32822-7 (200), via Crossref por nome (Studer (subpotente), STUDER 1994; score 0.76 vs 2º 0.3051)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 3 a 4 ciclos, sem periodicidade declarada",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-adj-nivolumabe",
@@ -1748,7 +1838,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "nivolumabe por ATÉ 1 ano (teto, não duração fixa); pivotal sem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-utuc-adj-gc",
@@ -1906,7 +2006,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 4,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 12.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-enfortumab-pembrolizumabe",
@@ -2077,7 +2187,17 @@
       ],
       "flags": [
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-gc-nivolumabe",
@@ -2254,7 +2374,17 @@
       ],
       "flags": [
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-gc-avelumabe-manutencao",
@@ -2407,7 +2537,17 @@
       ],
       "flags": [
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
@@ -2571,7 +2711,17 @@
       ],
       "flags": [
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-gc",
@@ -2722,7 +2872,17 @@
       ],
       "flags": [
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-gcarbo",
@@ -2861,7 +3021,17 @@
       ],
       "flags": [
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-met-2l-pembrolizumabe",
@@ -3025,7 +3195,17 @@
       ],
       "flags": [
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-met-3l-enfortumab-vedotin",
@@ -3192,7 +3372,17 @@
       ],
       "flags": [
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "bexiga-met-erdafitinibe-fgfr",
@@ -3348,7 +3538,17 @@
       ],
       "flags": [
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     }
   ]
 }

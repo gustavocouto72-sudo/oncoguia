@@ -235,7 +235,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 6.8,
+        "fonte_doi": "10.1056/NEJMoa1915745",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço atezolizumabe+bevacizumabe (IMbrave150)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "hcc-1l-tremelimumabe-durvalumabe",
@@ -385,7 +395,17 @@
       ],
       "flags": [
         "preferencia_farmacoeconomica: protocolo prefere IMBRAVE a STRIDE por dados indiretos e custo"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "hcc-1l-sorafenibe",
@@ -537,7 +557,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "hcc-1l-lenvatinibe",
@@ -689,7 +719,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "hcc-2l-sorafenibe-lenvatinibe",
@@ -841,7 +881,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "hcc-2l-pembrolizumabe-nao-incorporado",
@@ -978,7 +1028,17 @@
         "nao_incorporado: benefício pequeno + aplicabilidade Ásia (KEYNOTE-394); KEYNOTE-240 global negativo",
         "doi_nao_validado: buscar DOI do KEYNOTE-394 (Qin JCO 2023)",
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "hcc-2l-regorafenibe-nao-incorporado",
@@ -1135,7 +1195,17 @@
         "divergencia_clinica: MCBS 3 e 'benefício não expressivo' afirmados subestimam o RESORCE (HR 0,63 → MCBS 4). Não incorporação melhor sustentada por ICER/custo.",
         "divergencia:esmo_mcbs",
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     }
   ]
 }

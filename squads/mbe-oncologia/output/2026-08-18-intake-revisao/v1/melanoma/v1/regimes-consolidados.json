@@ -213,7 +213,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas de periodicidade (200 mg 21/21d ou 400 mg 42/42d) por 12 meses; nº de ciclos único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "melanoma-adj-anti-pd1-iii-iv-braf-wt",
@@ -369,7 +379,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "quatro alternativas de fármaco/periodicidade por 12 meses; nº de ciclos único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "melanoma-adj-dt-braf-mut",
@@ -515,7 +535,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": 52,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "melanoma-met-1l-ipi-nivo",
@@ -650,7 +680,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "indução ipi+nivo 4 ciclos seguida de nivolumabe de manutenção 28/28d sem teto; pivotal sem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "melanoma-met-1l-anti-pd1-mono",
@@ -789,7 +829,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "melanoma-met-snc-ipi-nivo",
@@ -924,7 +974,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "indução 4 ciclos + nivolumabe de manutenção 28/28d sem teto; pivotal sem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "melanoma-met-relatlimabe-nao-incorporado",
@@ -1057,7 +1117,17 @@
       ],
       "flags": [
         "nao_incorporado: SLP sem SG, MCBS 3, comparador nivolumabe isolado (RELATIVITY-047); fortemente contra"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 10.1,
+        "fonte_doi": "10.1056/nejmoa2109970",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço relatlimabe+nivolumabe (RELATIVITY-047)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "melanoma-met-quimio-paliativa",
@@ -1198,7 +1268,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     }
   ]
 }

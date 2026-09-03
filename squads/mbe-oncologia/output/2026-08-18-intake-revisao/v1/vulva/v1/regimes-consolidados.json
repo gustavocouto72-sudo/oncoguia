@@ -179,7 +179,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 7,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "cisplatina semanal durante a RT; nº de semanas não declarado no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "vulva-avancada-recidivada",
@@ -318,7 +328,17 @@
       "flags": [
         "extrapolacao: esquemas do neoadjuvante aplicados à doença avançada; sem RCT dedicado (tumor raro)",
         "doi_nao_reparado: sem match resolvível+congruente para 'Extrapolação da neoadjuvância (tumor raro)' (Esquemas None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     }
   ]
 }

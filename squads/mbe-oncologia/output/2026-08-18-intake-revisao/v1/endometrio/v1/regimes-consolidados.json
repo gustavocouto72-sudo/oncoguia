@@ -210,7 +210,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "endometrio-adj-crt-cisplatina",
@@ -368,7 +378,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "cisplatina D1/D29 concomitante à RT seguida de 4 ciclos de carbo+paclitaxel; total único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "endometrio-met-1l-carbo-paclitaxel",
@@ -515,7 +535,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 13.0,
+        "fonte_doi": "10.1200/JCO.20.01076",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço TC (paclitaxel+carboplatina) no GOG-209",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "endometrio-met-1l-dostarlimabe-msi",
@@ -679,7 +709,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "6 ciclos de QT + dostarlimabe 42/42d por ATÉ 3 anos (teto); RUBY reporta PFS em 24 meses (taxa), não mediana",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
@@ -830,7 +870,17 @@
       ],
       "flags": [
         "nao_incluido: SG não significativa em MSS (RUBY, HR 0,79 IC cruza 1)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "endometrio-met-pembrolizumabe-qt-nao-incluido",
@@ -981,7 +1031,17 @@
       ],
       "flags": [
         "nao_incluido: SG imatura, MCBS 3 (NRG-GY018)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 13.1,
+        "fonte_doi": "10.1056/NEJMoa2302312",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pembrolizumabe na coorte pMMR (NRG-GY018)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "endometrio-met-2l-lenvatinibe-pembrolizumabe",
@@ -1151,7 +1211,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "endometrio-met-2l-io-msi-nao-incorporado",
@@ -1295,7 +1365,17 @@
       ],
       "flags": [
         "nao_incorporado: evidência fase I/II basket (KEYNOTE-158/GARNET), MCBS 3; MSI coberto em 1ª linha (RUBY)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 13.1,
+        "fonte_doi": "10.1200/JCO.21.01874",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pembrolizumabe em tumores MSI-H (KEYNOTE-158)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "endometrio-met-durva-olaparibe-nao-incluido",
@@ -1473,7 +1553,17 @@
       "flags": [
         "nao_incluido: desenho sem braço comparador isolando o olaparibe (DUO-E)",
         "doi_reparado: (vazio) (vazio) → 10.1016/j.annonc.2022.07.659 (200), via Crossref por nome (DUO-E, OAKNIN 2023; candidato único congruente)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     }
   ]
 }

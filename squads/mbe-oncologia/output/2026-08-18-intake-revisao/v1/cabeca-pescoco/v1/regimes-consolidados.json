@@ -256,7 +256,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 3,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 9.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "3 doses de cisplatina (D1, D22, D43) concomitantes à RT — intervalo de 21 dias explícito nos dias declarados",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-cec-def-cisplatina-semanal",
@@ -397,7 +407,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 7,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "cisplatina semanal durante a RT; nº de semanas não declarado no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-cec-def-cetuximabe-rt",
@@ -532,7 +552,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 7,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "cetuximabe semanal durante a RT; nº de semanas não declarado no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-cec-inducao-dcf",
@@ -691,7 +721,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 3,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 9.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-cec-adj-cisplatina-crt",
@@ -832,7 +872,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas (semanal ou 3 doses D1/D22/D43) e duração amarrada à RT, não declarada",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-cec-met-1l-pembrolizumabe-qt-cps1",
@@ -996,7 +1046,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "QT por ATÉ 6 ciclos (teto) seguida de pembrolizumabe de manutenção; pivotal sem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-cec-met-1l-pembrolizumabe-mono-cps",
@@ -1136,7 +1196,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-cec-met-1l-cetuximabe-cps-neg",
@@ -1306,7 +1376,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 5.6,
+        "fonte_doi": "10.1056/NEJMoa0802656",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço com cetuximabe (EXTREME); QT por até 6 ciclos + cetuximabe de manutenção",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-cec-met-2l-nivolumabe",
@@ -1446,7 +1526,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 2.0,
+        "fonte_doi": "10.1056/NEJMoa1602252",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço nivolumabe (CheckMate 141)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-cec-met-2l-nivolumabe-cps-neg-nao-incorporado",
@@ -1590,7 +1680,17 @@
       ],
       "flags": [
         "nao_incorporado: benefício menor em CPS<1, baixa custo-efetividade"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "CheckMate 141 não reporta a mediana de PFS do subgrupo CPS<1, que é a população deste regime",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-naso-crt-cisplatina",
@@ -1731,7 +1831,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas de periodicidade (21/21d ou semanal) e duração amarrada à RT, não declarada",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-naso-inducao-cisplatina-gemcitabina",
@@ -1878,7 +1988,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 3,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 9.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "3 ciclos de indução; a quimiorradiação subsequente não está contabilizada aqui",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-naso-met-cisplatina-gemcitabina",
@@ -2025,7 +2145,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos de gencitabina+cisplatina paliativos",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-naso-toripalimabe-nao-incluido",
@@ -2187,7 +2317,17 @@
       "flags": [
         "nao_incluido: MCBS 3 (JUPITER-02)",
         "doi_reparado: 10.1001/jama.2023.20181 (404) → 10.1001/jama.2023.20181 (200), via Crossref por nome (JUPITER-02, MAI 2023; score 0.8 vs 2º 0.5932)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 21.4,
+        "fonte_doi": "10.1001/jama.2023.20181",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço toripalimabe (JUPITER-02)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-tireoide-diferenciado-lenvatinibe",
@@ -2316,7 +2456,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 18.3,
+        "fonte_doi": "10.1056/NEJMoa1406470",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço lenvatinibe (SELECT)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-tireoide-diferenciado-cabozantinibe",
@@ -2445,7 +2595,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "COSMIC-311: PFS mediana do braço cabozantinibe não atingida na análise interina",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-tireoide-medular-quimio",
@@ -2593,7 +2753,17 @@
       "flags": [
         "evidencia_series_antigas: quimioterapia em medular sem RCT dedicado; considerar terapias alvo (RET)",
         "doi_reparado: (vazio) (vazio) → 10.1093/oxfordjournals.annonc.a058984 (200), via Crossref por nome (Orlandi / Nocer (séries), ORLANDI None; score 1.1 vs 2º 0.25)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "cp-tireoide-anaplasico-quimio",
@@ -2738,7 +2908,17 @@
       "flags": [
         "evidencia_series_guidelines: quimioterapia em anaplásico sem RCT dedicado; considerar alvo BRAF/NTRK/RET",
         "doi_incongruente: 4 candidatos resolvíveis para 'Séries/guidelines (ATA)' (BIBLE None); topo 0.3424 vs 2º 0.2121 sem margem clara — não escolher; mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     }
   ]
 }

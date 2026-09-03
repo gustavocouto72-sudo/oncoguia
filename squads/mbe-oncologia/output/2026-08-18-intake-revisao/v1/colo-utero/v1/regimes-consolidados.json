@@ -215,7 +215,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 7,
+        "duracao_total_semanas": 6.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 doses semanais de cisplatina concomitantes à RT; braquiterapia não contabilizada",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "colo-qrt-induction-interlace",
@@ -356,7 +366,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 12,
+        "periodicidade_dias": 7,
+        "duracao_total_semanas": 12.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 semanas de indução semanal + 6 semanas de cisplatina semanal com RT = 12 aplicações semanais",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "colo-qrt-io-keynote-a18",
@@ -503,7 +523,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "quimiorradiação 5 semanas + pembrolizumabe 21/21d nessa fase e depois 400 mg 42/42d ×15; fases com periodicidades distintas, total único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "colo-met-1l-pembrolizumabe-qt-cps1",
@@ -661,7 +691,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pembrolizumabe por ATÉ 35 ciclos (teto) + QT por até 6 ciclos; pivotal sem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "colo-met-1l-qt-cps-neg",
@@ -823,7 +863,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 4.8,
+        "fonte_doi": "10.1200/JCO.2004.04.170",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço cisplatina+paclitaxel (GOG-169)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "colo-met-cemiplimabe-refrataria",
@@ -963,7 +1013,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "cemiplimabe por ATÉ 2 anos (teto, não duração fixa); pivotal sem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "colo-met-bevacizumabe-nao-incluido",
@@ -1110,7 +1170,17 @@
       "flags": [
         "nao_incluido: MCBS 3, custo",
         "justificativa_debativel: 'baixa qualidade' subestima o GOG-240 (fase 3 positivo, SG HR 0,71) — apoiar a não inclusão em custo/MCBS"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "colo-met-2l-monoterapia",
@@ -1245,7 +1315,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     }
   ]
 }

@@ -300,7 +300,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 8,
+        "periodicidade_dias": 14,
+        "duracao_total_semanas": 16.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "4 ciclos pré + 4 pós-operatórios = 8 ciclos de 14 dias",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "eso-neoadj-crt-carbo-paclitaxel",
@@ -447,7 +457,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 5,
+        "periodicidade_dias": 7,
+        "duracao_total_semanas": 5.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "nº de ciclos derivado da duração declarada no esquema (~5 semanas) dividida pela periodicidade de 7 dias",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "eso-def-crt-cisplatina-5fu",
@@ -600,7 +620,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 2,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "2 ciclos concomitantes à RT (semanas 1 e 5); esquema não declara periodicidade em dias",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-adj-nivolumabe",
@@ -746,7 +776,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas fases (240 mg 14/14d por 16 semanas → 480 mg 28/28d) com duração total de 1 ano; nº de ciclos único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-adj-capox",
@@ -899,7 +939,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 8,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 24.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-adj-crt-5fu-lv",
@@ -1046,7 +1096,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema trimodal INT0116 sem nº de ciclos nem periodicidade declarados",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-1l-cisplatina-5fu",
@@ -1212,7 +1272,17 @@
       ],
       "flags": [
         "doi_reparado: 10.1023/A:1008208307280 (404) → 10.1093/oxfordjournals.annonc.a010676 (200), via Crossref por nome (Glimelius (QT vs BSC), GLIMELIUS 1997; candidato único congruente)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "periodicidade declarada em faixa (21 a 28 dias) e pivotal sem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-1l-folfox",
@@ -1365,7 +1435,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 5.8,
+        "fonte_doi": "10.1200/JCO.2007.13.9378",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço FLO (5-FU/leucovorina/oxaliplatina), o mais próximo do FOLFOX no pivotal",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-1l-capox",
@@ -1518,7 +1598,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "o pivotal do regime testa FLO (5-FU infusional), não CAPOX; transportar o número seria trocar o esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-2l-paclitaxel",
@@ -1659,7 +1749,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-2l-irinotecano-folfiri",
@@ -1822,7 +1922,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-docetaxel",
@@ -1973,7 +2083,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-1l-io-qt-cps",
@@ -2120,7 +2240,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "CheckMate 649 reporta apenas hazard ratio de PFS no abstract, sem mediana",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-her2-trastuzumabe-qt",
@@ -2279,7 +2409,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-her2-pembro-tras-qt",
@@ -2455,7 +2595,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 10.0,
+        "fonte_doi": "10.1016/S0140-6736(23)02033-0",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pembrolizumabe (KEYNOTE-811, 2ª análise interina)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-met-her2-2l-tdxd",
@@ -2607,7 +2757,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "DESTINY-Gastric01 lista PFS como desfecho secundário, sem mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-tas102-nao-rotineiro",
@@ -2762,7 +2922,17 @@
       ],
       "flags": [
         "nao_incorporado_rotineiro: benefício modesto (MCBS 3), uso excepcional via câmara técnica"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-ramucirumabe-nao-incorporado",
@@ -2901,7 +3071,17 @@
       ],
       "flags": [
         "nao_incorporado: MCBS 1-2 (REGARD/RAINBOW) sustenta a não incorporação"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gastrico-zolbetuximabe-nao-incorporado",
@@ -3063,7 +3243,17 @@
       ],
       "flags": [
         "nao_incorporado: MCBS confirmado (SPOTLIGHT 4/GLOW 2); decisão de custo e heterogeneidade"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 10.61,
+        "fonte_doi": "10.1016/S0140-6736(23)00620-7",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço zolbetuximabe (SPOTLIGHT)",
+        "selo": "estimativa"
+      }
     }
   ]
 }

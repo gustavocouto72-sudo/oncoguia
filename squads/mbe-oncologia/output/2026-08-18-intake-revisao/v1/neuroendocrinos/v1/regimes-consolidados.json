@@ -191,7 +191,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "net-baixograu-lu177-dotatate",
@@ -326,7 +336,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 4,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "4 ciclos declarados, periodicidade não declarada no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "net-baixograu-alvo-nao-incluido",
@@ -456,7 +476,17 @@
       "flags": [
         "nao_incluido: benefício em SLP (substitutivo) sem ganho de SG/QoL",
         "doi_nao_reparado: sem match resolvível+congruente para 'RADIANT / SUN1111' (Base 2011); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "net-baixograu-capetem",
@@ -611,7 +641,17 @@
       ],
       "flags": [
         "ressalva_regulatoria: uso sem aprovação em bula no Brasil — discutir individualmente"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 22.7,
+        "fonte_doi": "10.1200/JCO.22.01013",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço capecitabina+temozolomida (E2211)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "net-altograu-platina-etoposideo",
@@ -745,7 +785,17 @@
       "flags": [
         "extrapolacao: esquema extrapolado do SCLC; protocolo não cita pivô dedicado para NEC de alto grau",
         "doi_nao_reparado: sem match resolvível+congruente para '' (Extrapolação None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     }
   ]
 }

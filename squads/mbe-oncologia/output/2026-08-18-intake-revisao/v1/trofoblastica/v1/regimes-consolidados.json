@@ -194,7 +194,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duração amarrada à normalização do beta-HCG + 3 ciclos de consolidação; nº total de ciclos depende da resposta, não do esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "trofo-alto-risco-emaco",
@@ -351,7 +361,17 @@
       ],
       "flags": [
         "ressalva_disponibilidade: actinomicina D não está mais disponível no Brasil"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 14,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "EMA-CO 14/14d mantido até normalização do beta-HCG mais consolidação; nº de ciclos não declarado no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "trofo-resistente-ema-ep",
@@ -508,7 +528,17 @@
       ],
       "flags": [
         "ressalva_disponibilidade: actinomicina D não disponível no Brasil"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 14,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "EMA-EP 14/14d de resgate; nº de ciclos não declarado no esquema",
+        "selo": "estimativa"
+      }
     }
   ]
 }

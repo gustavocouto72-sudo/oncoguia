@@ -245,7 +245,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos 21/21d; a opção semanal dose-densa citada no esquema tem outra periodicidade",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-epitelial-neoadj-carbo-paclitaxel",
@@ -392,7 +402,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 6 a 8 ciclos; N único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-bevacizumabe-1l-nao-incluido",
@@ -557,7 +577,17 @@
       ],
       "flags": [
         "nao_incluido: SLP sem SG consistente, MCBS 1-3 (ICON7/GOG-0218)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 14.1,
+        "fonte_doi": "10.1056/NEJMoa1104390",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço bevacizumabe-throughout (GOG-0218), que corresponde ao uso com manutenção",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-manutencao-olaparibe-brca",
@@ -697,7 +727,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": 104,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "manutenção com olaparibe por 2 anos declarados no esquema (teto fixo); uso oral contínuo, custo por período e não por ciclo",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-niraparibe-nao-incluido",
@@ -830,7 +870,17 @@
       ],
       "flags": [
         "nao_incluido: SLP sem SG na atualização, MCBS 2 (PRIMA)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 13.8,
+        "fonte_doi": "10.1056/NEJMoa1910962",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço niraparibe na população geral (PRIMA)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-olaparibe-bevacizumabe-nao-incluido",
@@ -963,7 +1013,17 @@
       ],
       "flags": [
         "nao_incluido: desenho não isola PARP+antiangiogênico (PAOLA-1), MCBS 3"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "a publicação referenciada é a atualização de 5 anos do PAOLA-1: traz hazard ratio, não PFS mediana",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-recidiva-platina-sensivel-doublet",
@@ -1110,7 +1170,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "CALYPSO reporta duas medianas conforme o parceiro da carboplatina (11,3 meses com PLD vs 9,4 com paclitaxel) e o regime admite ambos — número único não atribuível",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-recidiva-manutencao-olaparibe-brca",
@@ -1250,7 +1320,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": 104,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "manutenção com olaparibe por 2 anos declarados no esquema (teto fixo); uso oral contínuo, custo por período e não por ciclo",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-carbo-gem-bevacizumabe-nao-incluido",
@@ -1395,7 +1475,17 @@
       ],
       "flags": [
         "nao_incluido: SLP sem SG, MCBS 2 (OCEANS)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-recidiva-platina-resistente-monoterapia",
@@ -1536,7 +1626,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "o pivotal referenciado não reporta mediana de tempo até progressão nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-resistente-bevacizumabe-nao-incluido",
@@ -1681,7 +1781,17 @@
       ],
       "flags": [
         "nao_incluido: SLP sem SG robusta, MCBS 3 (AURELIA)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 6.7,
+        "fonte_doi": "10.1200/JCO.2013.51.4489",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço com bevacizumabe (AURELIA)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-estroma-granulosa-peb",
@@ -1840,7 +1950,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 3 a 4 ciclos, com alternativa carbo+paclitaxel; N único não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ovario-germinativo-peb",
@@ -1999,7 +2119,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 3 a 4 ciclos, com alternativa carbo+etoposídeo; N único não derivável",
+        "selo": "estimativa"
+      }
     }
   ]
 }

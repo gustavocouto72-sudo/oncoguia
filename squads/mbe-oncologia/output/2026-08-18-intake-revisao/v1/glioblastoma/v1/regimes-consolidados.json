@@ -196,7 +196,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 24.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos de temozolomida adjuvante; a fase concomitante à RT (75 mg/m²/dia) não está contabilizada aqui",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gbm-perry",
@@ -337,7 +347,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 24.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos de temozolomida adjuvante; a fase concomitante à RT não está contabilizada aqui",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gbm-tmz-mono-frageis",
@@ -472,7 +492,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 24.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gbm-recorrencia-tmz-carmustina",
@@ -619,7 +649,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas distintas (temozolomida dose-densa por 6 meses ou carmustina 56/56d com teto de dose cumulativa); duração única não derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "gbm-bevacizumabe-contra",
@@ -752,7 +792,17 @@
       ],
       "flags": [
         "nao_incorporado: sem ganho de SG/QoL (EORTC 26101/BELOB); fortemente contra"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "o pivotal referenciado reporta PFS do braço lomustina+bevacizumabe, não de bevacizumabe isolado, que é o objeto deste regime",
+        "selo": "estimativa"
+      }
     }
   ]
 }

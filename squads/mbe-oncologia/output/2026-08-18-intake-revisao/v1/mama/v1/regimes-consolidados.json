@@ -520,6 +520,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas fases (AC ×4 → paclitaxel semanal) e duas alternativas (convencional/dose-densa) — nº total de ciclos e periodicidade não únicos no esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -740,6 +750,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 4 a 6 ciclos (3/3 semanas); N único não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -912,6 +932,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 4,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema declara 4 ciclos mas não declara a periodicidade; intervalo não derivável do texto",
+        "selo": "estimativa"
       }
     },
     {
@@ -1205,6 +1235,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "AC seguido de docetaxel com duas alternativas (4 ciclos 21/21d ou 12 semanas semanal); total não único",
+        "selo": "estimativa"
       }
     },
     {
@@ -1441,6 +1481,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 24.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
       }
     },
     {
@@ -1668,6 +1718,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas variantes (CMF clássico 28 dias e CMF EV 21 dias) e nº de ciclos não declarado",
+        "selo": "estimativa"
       }
     },
     {
@@ -1975,6 +2035,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": 52,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
       }
     },
     {
@@ -2155,6 +2225,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 8,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 24.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
       }
     },
     {
@@ -2369,6 +2449,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "paclitaxel+trastuzumabe 12 semanas seguido de trastuzumabe até 1 ano total; fases com periodicidades diferentes",
+        "selo": "estimativa"
       }
     },
     {
@@ -2568,6 +2658,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 17,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 51.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "17 ciclos = 1 ano de trastuzumabe+pertuzumabe 21/21d; a QT associada (TC ou AC-T) não está contabilizada aqui",
+        "selo": "estimativa"
       }
     },
     {
@@ -2821,6 +2921,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 14,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 42.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
       }
     },
     {
@@ -3076,6 +3186,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": 104,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
       }
     },
     {
@@ -3230,6 +3350,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema declara faixa de 5 a 10 anos; duração única não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -3431,6 +3561,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema declara faixa de 5 a 10 anos; duração única não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -3583,6 +3723,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema declara faixa de 5 a 10 anos; duração única não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -3756,6 +3906,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "switch com faixas (2–3 anos + 2–3 anos, ou 5+5 anos); duração única não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -4039,6 +4199,16 @@
         "estudo": "Buzdar (HER2 neoadjuvante)",
         "ano": 2005,
         "primeiro_autor": "Buzdar"
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "4 ciclos AC + 4 ciclos docetaxel+trastuzumabe, com trastuzumabe até 1 ano; fases somam mas o texto não fecha um total único",
+        "selo": "estimativa"
       }
     },
     {
@@ -4306,6 +4476,16 @@
         "pmid": null,
         "estudo": "BCIRG-006",
         "ano": 2011
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "6 ciclos de QT + trastuzumabe por 1 ano; periodicidade da QT não declarada no esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -4601,6 +4781,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "4 ciclos AC + 4 ciclos THP (24 semanas de QT) e anti-HER2 até 1 ano; total único não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -4897,6 +5087,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "6 ciclos de QT (18 semanas) mas trastuzumabe+pertuzumabe seguem até 1 ano; total único não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -5119,6 +5319,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "6 ciclos de QT (18 semanas) mas trastuzumabe+pertuzumabe seguem até 1 ano; total único não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -5335,6 +5545,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -5663,6 +5883,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 17,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 51.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "8 ciclos neoadjuvantes (4+4) + 9 adjuvantes = 17 ciclos de 21 dias, todos com pembrolizumabe",
+        "selo": "estimativa"
       }
     },
     {
@@ -5968,6 +6198,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "ACdd 4 ciclos 14/14d seguido de paclitaxel semanal ×12 + carboplatina com duas periodicidades; total único não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -6195,6 +6435,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -6502,6 +6752,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas fases e duas alternativas (convencional/dose-densa); total único não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -6798,6 +7058,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema prevê faixa de 4 a 6 ciclos; N único não derivável",
+        "selo": "estimativa"
       }
     },
     {
@@ -7084,6 +7354,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 25.3,
+        "fonte_doi": "10.1093/annonc/mdy155",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço ribociclibe+letrozol (MONALEESA-2); o esquema admite outros iCDK4/6",
+        "selo": "estimativa"
       }
     },
     {
@@ -7344,6 +7624,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -7571,6 +7861,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -7738,6 +8038,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -7875,6 +8185,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -8085,6 +8405,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 21.8,
+        "fonte_doi": "10.1200/JCO.24.00144",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço ribociclibe+TE (RIGHT Choice)",
+        "selo": "estimativa"
       }
     },
     {
@@ -8279,6 +8609,16 @@
         "nota_revisao": "RETIRAR\n\nUma meta-análise de dados reconstruídos de Kaplan-Meier (8 estudos, 1396 pacientes) mostrou que manter CDK4/6i + ET após progressão reduz o risco de progressão em 29% vs. ET isolada (PFS mediana 5,8 vs. 3,7 meses; HR 0,71; IC 95% 0,63-0,81), sem benefício de SG",
         "revisor": "Gustavo Drummond Pinho Ribeiro",
         "data": "2026-08-16"
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -8489,6 +8829,16 @@
         "nota_revisao": "RETIRAR DO PROTOCOLO - ESMO 1/2\n\nganho marginal  ou modesto no tempo de vida ou controle da doença",
         "revisor": "Gustavo Drummond Pinho Ribeiro",
         "data": "2026-08-16"
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 7.2,
+        "fonte_doi": "10.1056/nejmoa2214131",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço capivasertibe+fulvestranto, população geral (CAPItello-291)",
+        "selo": "estimativa"
       }
     },
     {
@@ -8683,6 +9033,16 @@
         "nota_revisao": "RETIRAR DO PROTOCOLO - ESMO 1\n\nganho marginal  ou modesto no tempo de vida ou controle da doença",
         "revisor": "Gustavo Drummond Pinho Ribeiro",
         "data": "2026-08-16"
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -8865,6 +9225,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 10.1,
+        "fonte_doi": "10.1056/NEJMoa2203690",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço T-DXd na coorte receptor hormonal positivo (DESTINY-Breast04)",
+        "selo": "estimativa"
       }
     },
     {
@@ -9055,6 +9425,16 @@
         "nota_revisao": "RETIRAR DO PROTOCOLO - ESMO 3\n\nganho marginal  ou modesto no tempo de vida ou controle da doença",
         "revisor": "Gustavo Drummond Pinho Ribeiro",
         "data": "2026-08-16"
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 13.2,
+        "fonte_doi": "10.1056/NEJMoa2407086",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço T-DXd na população HER2-low (DESTINY-Breast06)",
+        "selo": "estimativa"
       }
     },
     {
@@ -9233,6 +9613,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "X-7/7 reporta PFS por média restrita aos 33 meses (10,1 vs 9,1 meses), não mediana — não usável como proxy declarado",
+        "selo": "estimativa"
       }
     },
     {
@@ -9394,6 +9784,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -9577,6 +9977,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -9743,6 +10153,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -9903,6 +10323,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -10063,6 +10493,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -10223,6 +10663,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -10383,6 +10833,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -10644,6 +11104,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -10864,6 +11334,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "CLEOPATRA: a publicação referenciada é a análise final de sobrevida global; não traz PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -11058,6 +11538,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -11263,6 +11753,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "EMILIA: publicação referenciada é a análise descritiva final de SG; sem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -11453,6 +11953,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 6.2,
+        "fonte_doi": "10.1016/S1470-2045(14)70178-0",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço T-DM1 (TH3RESA)",
+        "selo": "estimativa"
       }
     },
     {
@@ -11699,6 +12209,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     },
     {
@@ -11996,6 +12516,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 9.7,
+        "fonte_doi": "10.1016/S0140-6736(20)32531-9",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pembrolizumabe+QT na população CPS≥10 (KEYNOTE-355), que é a indicação do regime",
+        "selo": "estimativa"
       }
     },
     {
@@ -12203,6 +12733,16 @@
         "nota_revisao": "RETIRAR DO PROTOCOLO - ESMO 2\n\nganho marginal  ou modesto no tempo de vida ou controle da doença",
         "revisor": "Gustavo Drummond Pinho Ribeiro",
         "data": "2026-08-16"
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 6.0,
+        "fonte_doi": "10.1016/j.annonc.2021.05.801",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço atezolizumabe+paclitaxel (IMpassion131)",
+        "selo": "estimativa"
       }
     },
     {
@@ -12489,6 +13029,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -12755,6 +13305,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -12963,6 +13523,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 5.6,
+        "fonte_doi": "10.1056/NEJMoa2028485",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço sacituzumabe govitecana (ASCENT)",
+        "selo": "estimativa"
       }
     },
     {
@@ -13184,6 +13754,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "DESTINY-Breast04 reporta PFS da coorte RH+ e da população total; não reporta a coorte RH-negativa, que é a deste regime",
+        "selo": "estimativa"
       }
     },
     {
@@ -13464,6 +14044,16 @@
             }
           ]
         }
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
       }
     },
     {
@@ -13680,6 +14270,16 @@
         "nota_revisao": "RETIRAR DO PROTOCOLO - ESMO 2\n\nganho marginal  ou modesto no tempo de vida ou controle da doença",
         "revisor": "Gustavo Drummond Pinho Ribeiro",
         "data": "2026-08-16"
+      },
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
       }
     }
   ]

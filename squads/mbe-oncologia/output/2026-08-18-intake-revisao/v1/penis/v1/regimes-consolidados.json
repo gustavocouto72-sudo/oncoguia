@@ -216,7 +216,17 @@
       ],
       "flags": [
         "evidencia_fase2_consenso: base é estudo de fase II (TRO ~50%, ~30% livres de doença após cirurgia); protocolo cita só a diretriz — buscar Pagliaro et al. (TIP neoadjuvante, JCO 2010, fase II) — DOI a validar"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "periodicidade declarada em faixa (3 a 4 semanas) e nº de ciclos não declarado",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "penis-adj-tip",
@@ -371,7 +381,17 @@
       ],
       "flags": [
         "evidencia_fase2_consenso: base é estudos retrospectivos (o próprio protocolo alerta: não recomendar de rotina); protocolo cita só a diretriz — buscar Séries retrospectivas de QT adjuvante em pênis"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "TIP por ATÉ 4 ciclos (teto, não nº fixo) e sem periodicidade declarada",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "penis-met-1l-tip",
@@ -537,7 +557,17 @@
       ],
       "flags": [
         "evidencia_fase2_consenso: base é estudo fase II (TRO ~50%); protocolo cita só a diretriz — buscar Pagliaro/série fase II TIP metastático"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "TIP 21/21d sem nº de ciclos declarado no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "penis-met-1l-5fu-cisplatina",
@@ -686,7 +716,17 @@
       ],
       "flags": [
         "evidencia_fase2_consenso: base é série clássica (SLP ~20 sem, SG ~8 meses); protocolo cita só a diretriz — buscar Séries fase II 5-FU/cisplatina em pênis"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "cisplatina+5-FU 28/28d sem nº de ciclos declarado no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "penis-met-1l-tpf",
@@ -841,7 +881,17 @@
       ],
       "flags": [
         "evidencia_fase2_consenso: base é série de 26 casos (~44% RO, alta toxicidade); protocolo cita só a diretriz — buscar Série fase II TPF em pênis"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "TPF 21/21d sem nº de ciclos declarado no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "penis-met-2l-paclitaxel",
@@ -995,7 +1045,17 @@
       ],
       "flags": [
         "evidencia_fase2_consenso: base é pequeno estudo fase II (SG ~23 semanas); protocolo cita só a diretriz — buscar Estudo fase II paclitaxel 2ª linha em pênis"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "o esquema cita sobrevida global média (~23 semanas), não duração de tratamento nem PFS mediana",
+        "selo": "estimativa"
+      }
     }
   ]
 }

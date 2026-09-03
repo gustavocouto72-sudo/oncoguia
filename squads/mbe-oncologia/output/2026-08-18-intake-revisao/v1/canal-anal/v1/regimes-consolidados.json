@@ -180,7 +180,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 2,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 8.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "2 blocos de 5-FU/mitomicina (D1 e D29) concomitantes à RT — intervalo de 28 dias explícito nos dias declarados",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "anal-crt-cisplatina-5fu",
@@ -316,7 +326,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 2,
+        "periodicidade_dias": 28,
+        "duracao_total_semanas": 8.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "2 blocos de cisplatina/5-FU (D1 e D29) concomitantes à RT — intervalo de 28 dias explícito nos dias declarados",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "anal-met-carboplatina-paclitaxel",
@@ -476,7 +496,17 @@
       ],
       "flags": [
         "doi_reparado: (vazio) (vazio) → 10.1093/annonc/mdy424.022 (200), via Crossref por nome (InterAACT, RAO 2018; score 0.6417 vs 2º 0.1818)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "anal-met-dcf",
@@ -640,7 +670,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "o pivotal define PFS em 12 meses como desfecho primário e não reporta PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "anal-met-nivolumabe-nao-incorporado",
@@ -773,7 +813,17 @@
       ],
       "flags": [
         "nao_incorporado: evidência fase 2 braço único (N=37, NCI9673), fragilidade metodológica"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     }
   ]
 }

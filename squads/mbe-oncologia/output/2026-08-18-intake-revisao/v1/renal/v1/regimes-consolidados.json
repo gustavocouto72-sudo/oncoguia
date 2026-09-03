@@ -248,7 +248,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 17,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 51.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "nº de ciclos derivado da duração declarada no esquema (~52 semanas) dividida pela periodicidade de 21 dias",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "renal-met-favoravel-pazopanibe",
@@ -414,7 +424,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "renal-met-favoravel-sunitinibe",
@@ -566,7 +586,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 11.0,
+        "fonte_doi": "10.1056/NEJMoa065044",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço sunitinibe (pivotal sunitinibe vs interferona)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "renal-met-favoravel-ipilimumabe-nivolumabe",
@@ -740,7 +770,17 @@
       "flags": [
         "divergencia_clinica: MCBS 4 afirmado para risco FAVORÁVEL não é sustentado pelo desfecho primário do CheckMate 214 (que foi em risco intermediário/alto)",
         "divergencia:esmo_mcbs"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "CheckMate 214 reporta a mediana de PFS da população de risco intermediário/alto; não reporta a do subgrupo de risco favorável, que é a deste regime",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "renal-met-intalto-ipilimumabe-nivolumabe",
@@ -912,7 +952,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 11.6,
+        "fonte_doi": "10.1056/NEJMoa1712126",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço ipilimumabe+nivolumabe na população de risco intermediário/alto (CheckMate 214)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "renal-met-intalto-axitinibe-pembrolizumabe",
@@ -1090,7 +1140,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 15.1,
+        "fonte_doi": "10.1056/NEJMoa1816714",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "renal-met-intalto-nivolumabe-cabozantinibe",
@@ -1276,7 +1336,17 @@
       "flags": [
         "divergencia_clinica: MCBS 1 afirmado subestima o benefício do CheckMate 9ER (SG HR 0,60) — re-derivado MCBS 4",
         "divergencia:esmo_mcbs"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 16.6,
+        "fonte_doi": "10.1056/NEJMoa2026982",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço nivolumabe+cabozantinibe (CheckMate 9ER)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "renal-met-2l-pos-vegfr-nivolumabe",
@@ -1436,7 +1506,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
@@ -1588,7 +1668,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 7.4,
+        "fonte_doi": "10.1056/NEJMoa1510016",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço cabozantinibe (METEOR)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "renal-naoclaras-sunitinibe-pazopanibe",
@@ -1733,7 +1823,17 @@
       ],
       "flags": [
         "evidencia_fase2: base ASPEN é fase 2; certeza moderada"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 8.3,
+        "fonte_doi": "10.1016/S1470-2045(15)00515-X",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço sunitinibe em não-células claras (ASPEN); o esquema também admite pazopanibe",
+        "selo": "estimativa"
+      }
     }
   ]
 }

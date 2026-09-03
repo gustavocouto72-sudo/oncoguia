@@ -256,7 +256,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 3,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 9.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-adj-doxo-ifosfamida",
@@ -397,7 +407,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 5,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 15.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-paliativo-1l-doxorrubicina",
@@ -544,7 +564,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-paliativo-2l-gem-docetaxel",
@@ -685,7 +715,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-eribulina-lipossarcoma",
@@ -835,7 +875,17 @@
       ],
       "flags": [
         "restrito_lipossarcoma: FDA restringe a lipossarcoma; fortemente contra em leiomiossarcoma"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "o pivotal (eribulina vs dacarbazina) não reporta PFS mediana no abstract — desfecho primário foi sobrevida global",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-pazopanibe-nao-incorporado",
@@ -968,7 +1018,17 @@
       ],
       "flags": [
         "nao_incorporado: SLP sem SG, MCBS 2 (PALETTE); fortemente contra"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 4.6,
+        "fonte_doi": "10.1016/S0140-6736(12)60651-5",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pazopanibe (PALETTE)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sarcoma-kaposi-paclitaxel-pld",
@@ -1109,7 +1169,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "o pivotal reporta medianas distintas por braço (paclitaxel 17,5 vs PLD 12,2 meses) e o regime admite ambos — número único não atribuível",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sarcoma-angiossarcoma-paclitaxel",
@@ -1244,7 +1314,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sarcoma-dfsp-imatinibe-contra",
@@ -1383,7 +1463,17 @@
       ],
       "flags": [
         "nao_incorporado_regulatorio: off-label no Brasil (DFSP); evidência fase II favorável — reavaliar com aprovação"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "o pivotal reporta apenas mediana de tempo até progressão (1,7 ano), não PFS mediana",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "sarcoma-ntrk-larotrectinibe-nao-incorporado",
@@ -1516,7 +1606,17 @@
       ],
       "flags": [
         "nao_incorporado: MCBS 3, sem SG, custo altíssimo (~R$ 643 mil/QALY); CONITEC não incorporou"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "osteossarcoma-neoadj-map",
@@ -1669,7 +1769,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema MAP descrito por fármacos e marco cirúrgico (semana 11-12), sem nº de ciclos nem periodicidade declarados",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "osteossarcoma-adj-doxo-cisplatina",
@@ -1820,7 +1930,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "osteossarcoma-paliativo",
@@ -1959,7 +2079,17 @@
       ],
       "flags": [
         "tki_excluido: regorafenibe/cabozantinibe off-label não contemplados (Affordability 4)"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ewing-localizado-vdc-ie",
@@ -2106,7 +2236,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 17,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "17 ciclos declarados, mas a periodicidade depende da idade (14 dias abaixo de 18 anos, 21 dias a partir de 18); duração total não única",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "ewing-metastatico-vdc-ie",
@@ -2245,7 +2385,17 @@
       ],
       "flags": [
         "tki_excluido: cabozantinibe ainda em validação, não faz parte do protocolo"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema remete ao regime localizado e a alternativas de resgate, sem nº de ciclos próprio",
+        "selo": "estimativa"
+      }
     }
   ]
 }

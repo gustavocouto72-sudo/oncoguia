@@ -238,7 +238,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 14,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "mFOLFIRINOX 14/14d adjuvante sem nº de ciclos declarado no esquema",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "pancreas-adj-gemcitabina",
@@ -373,7 +383,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "o esquema descreve a estrutura do ciclo (3 semanas on + 1 off), não a duração total do tratamento adjuvante",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "pancreas-adj-nabpac-gem-nao-incorporado",
@@ -511,7 +531,17 @@
         "nao_incorporado: APACT falhou no desfecho primário (DFS); SG exploratória",
         "doi_nao_validado: buscar DOI do APACT (Tempero Lancet Oncol 2023)",
         "doi_nao_reparado: sem match resolvível+congruente para 'APACT' (TEMPERO 2023); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "pancreas-adj-gem-cape-nao-incorporado",
@@ -645,7 +675,17 @@
       ],
       "flags": [
         "nao_incorporado: benefício marginal (~2,3 meses, ESPAC-4) frente ao mFOLFIRINOX"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema descreve a intervenção sem posologia/duração; sem número derivável",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "pancreas-met-mfolfirinox",
@@ -824,7 +864,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 6.4,
+        "fonte_doi": "10.1056/NEJMoa1011923",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço FOLFIRINOX (PRODIGE 4/ACCORD 11)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "pancreas-met-gemcitabina",
@@ -959,7 +1009,17 @@
           "decidido_por": null
         }
       ],
-      "flags": []
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "pancreas-met-nabpac-gem-nao-incorporado",
@@ -1101,7 +1161,17 @@
       "flags": [
         "cobertura: nab-pac+gem é padrão para inelegíveis a FOLFIRINOX (MPACT positivo); não inclusão total pode deixar subgrupo sem opção intermediária — revisar",
         "nao_incorporado_por_preferencia: FOLFIRINOX preferido por custo/eficácia indireta"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 5.5,
+        "fonte_doi": "10.1056/NEJMoa1304369",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço nab-paclitaxel+gencitabina (MPACT)",
+        "selo": "estimativa"
+      }
     },
     {
       "regimen_id": "pancreas-met-olaparibe-nao-incorporado",
@@ -1247,7 +1317,17 @@
       "flags": [
         "nao_incorporado: SLP sem ganho de SG (POLO); MCBS 2",
         "doi_nao_reparado: sem match resolvível+congruente para '' ( None); mantém incompleto"
-      ]
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      }
     }
   ]
 }
