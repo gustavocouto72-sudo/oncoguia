@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Usuario } from '../database/entities';
+import { publico } from '../usuarios/usuarios.service';
 
 @Injectable()
 export class AuthService {
@@ -20,14 +21,16 @@ export class AuthService {
     const payload = { sub: usuario.id, login: usuario.login, perfil: usuario.perfil };
     return {
       access_token: this.jwtService.sign(payload),
-      usuario: { id: usuario.id, nome: usuario.nome, login: usuario.login, perfil: usuario.perfil },
+      // Inclui a identificação profissional: é ela que pré-preenche o bloco do
+      // solicitante na guia TISS sem uma segunda ida ao backend.
+      usuario: publico(usuario),
     };
   }
 
   async perfil(userId: number) {
     const u = await this.usuarioRepo.findOneBy({ id: userId });
     if (!u) throw new UnauthorizedException();
-    return { id: u.id, nome: u.nome, login: u.login, perfil: u.perfil };
+    return publico(u);
   }
 
   async alterarSenha(userId: number, senhaAtual: string, senhaNova: string) {

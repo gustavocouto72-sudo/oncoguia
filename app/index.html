@@ -27,6 +27,7 @@
   input,select{width:100%;padding:8px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff;color:var(--ink)}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .grid4{display:grid;grid-template-columns:1fr 1fr .6fr 1fr;gap:14px}
   .field{margin-bottom:14px}
   .btn{padding:10px 16px;border-radius:9px;border:none;font-weight:700;font-size:13px;cursor:pointer}
   .btn.primary{background:var(--accent);color:#fff}
@@ -362,26 +363,58 @@
   .reest-venc{background:var(--redbg);border:1px solid #f0c3bd;border-radius:9px;padding:11px 13px;margin-top:12px}
   .reest-venc .rv-t{font-weight:800;color:#a5281b;font-size:13px}
   .reest-venc .rv-s{font-size:11.5px;color:#8a5a53;margin-top:3px}
-  /* ---- Guia SADT (impressa) ---- */
-  .sadt{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 26px}
-  .sadt h3{margin:0 0 2px;font-size:15px;text-transform:uppercase;letter-spacing:.5px}
-  .sadt .sadt-sub{font-size:11px;color:var(--muted);margin-bottom:14px}
-  .sadt .sadt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 14px;margin-bottom:6px}
-  .sadt .sadt-f{border-bottom:1px solid var(--line);padding-bottom:5px;min-width:0}
-  .sadt .sadt-f .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700}
-  .sadt .sadt-f .v{font-size:13px;font-weight:600;overflow-wrap:anywhere}
-  .sadt .sadt-f.w2{grid-column:span 2}
-  .sadt .sadt-f.w4{grid-column:1/-1}
-  .sadt .ex-row{display:grid;grid-template-columns:26px 1fr 34px;gap:8px;align-items:center;margin-bottom:7px}
-  .sadt .ex-row .n{font-size:11px;color:var(--muted);font-weight:700;text-align:right}
-  .sadt .ex-row .rm{height:32px;border:1px solid var(--line);background:#fff;border-radius:8px;color:#a5281b;font-weight:800;cursor:pointer;font-size:15px;line-height:1}
-  .sadt .assina{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
-  .sadt .assina div{border-top:1px solid #9aa8b4;padding-top:5px;font-size:11px;color:var(--muted);text-align:center}
+  /* ---- Guia TISS SP/SADT — tela de conferência E impressão, MESMO DOM ---- */
+  /* O que está na tela é literalmente o que sai no papel: nenhuma segunda árvore para
+     divergir. Tudo é dimensionado em `em` a partir de `.tiss`, então a impressão cabe em
+     uma página A4 mudando só a raiz (11px na tela → 7.4pt no papel). */
+  /* A folha tem a LARGURA REAL DE IMPRESSÃO (A4 menos as margens) e o tamanho de fonte
+     do papel, na tela também. O `zoom` só amplia para leitura, sem mexer em proporção:
+     assim, se um texto não cabe no campo impresso, ele já não cabe na conferência. */
+  .tiss-folha{overflow-x:auto;padding-bottom:6px}
+  /* A4 PAISAGEM menos as margens (297-12) — é o formato do formulário oficial. */
+  .tiss{width:285mm;font-size:6pt;zoom:1.65;background:#fff;color:#000;border:1.1px solid #000;font-family:Arial,Helvetica,sans-serif;line-height:1.12}
+  .tiss *{box-sizing:border-box}
+  .tiss .bar{background:#dfe3e6;border-top:1px solid #000;border-bottom:1px solid #000;font-weight:700;font-size:.82em;padding:1.5px 5px}
+  /* Barra com dois rótulos (56 e 57 dividem a mesma faixa no formulário oficial). */
+  .tiss .bar2{display:flex;gap:20px}
+  .tiss .bar2 span:last-child{margin-left:22%}
+  /* Numeração impressa das linhas ("1 -" a "5 -") nos blocos tabulares. */
+  .tiss .c.seq{display:flex;align-items:center;font-size:.8em;font-weight:700}
+  /* Slot de data em série: data + linha de assinatura, lado a lado. */
+  .tiss .serie-in{display:flex;gap:4px;align-items:flex-end}
+  .tiss .serie-in input{flex:0 0 44%}
+  .tiss .serie-in .lin{flex:1;border-bottom:1px solid #000;height:1.35em}
+  .tiss .r{display:grid;border-bottom:1px solid #000;position:relative}
+  .tiss .r.hd .n{white-space:normal}
+  .tiss .r.last{border-bottom:none}
+  .tiss .c{border-right:1px solid #000;padding:1px 3px;min-width:0;overflow:hidden}
+  .tiss .c.end{border-right:none}
+  .tiss .n{display:block;font-size:.68em;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tiss .tt{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:.8em;line-height:1.2;text-transform:uppercase;padding:3px}
+  .tiss .oper{display:flex;align-items:center;font-weight:800;font-size:.95em;padding-top:2px;overflow:hidden}
+  .tiss input,.tiss textarea,.tiss select{display:block;width:100%;border:none;background:#eaf1f8;font:inherit;font-size:1em;font-weight:600;color:#000;padding:1px 2px;border-radius:2px;outline:none;height:1.5em}
+  .tiss textarea{height:auto;resize:none;overflow:hidden;line-height:1.3}
+  .tiss select{padding:0 1px}
+  .tiss input::placeholder,.tiss textarea::placeholder{color:#9fb0c0;font-weight:500}
+  .tiss .sig{height:2.1em}
+  .tiss-nota{font-size:11.5px;color:var(--muted);margin:0 0 12px;line-height:1.55}
+  .tiss-nota b{color:var(--ink)}
+  /* Página NOMEADA: só a guia TISS vira paisagem. As outras telas que alguém imprima
+     (fluxograma, listas) continuam em retrato — @page global as arrastaria junto. */
+  @page{margin:8mm}
+  @page guia{size:A4 landscape;margin:6mm}
+  html.em-guia, html.em-guia body{page:guia}
   @media print{
     header.top,.disclaimer,#datasrc,nav.tabs,.flow-tumors,.flow-toolbar,.flow-selos,.sub{display:none!important}
-    .sadt-toolbar,.sadt .ex-row .rm,.lnk-add{display:none!important}
-    .sadt{border:none;padding:0}
-    .sadt input{border:none;padding:0;font-size:13px}
+    /* Guia TISS: some tudo que é da tela de conferência e o formulário vira papel.
+       Os campos viram texto puro (sem fundo, sem placeholder) — em branco é em branco. */
+    .tiss-toolbar{display:none!important}
+    body{background:#fff}
+    .tiss-folha{overflow:visible;padding:0}
+    .tiss{zoom:1}
+    .tiss input,.tiss textarea,.tiss select{background:transparent!important;-webkit-appearance:none;appearance:none}
+    .tiss input::placeholder,.tiss textarea::placeholder{color:transparent!important}
+    .tiss .r{break-inside:avoid}
     .wrap{max-width:none;padding:0}
     .card{border:none;padding:0;margin:0}
     .flow-root{border:none;background:#fff;padding:0}
@@ -1265,9 +1298,9 @@ async function admCriar(){
   ADM_ERRO=""; ADM_OK=""; ADM_SENHA_TMP=null;
   const g=id=>document.getElementById(id).value;
   try{
-    const r = await api("/usuarios", {method:"POST", body:JSON.stringify({
+    const r = await api("/usuarios", {method:"POST", body:JSON.stringify(Object.assign({
       nome:g("adm_nome").trim(), login:g("adm_login").trim(), perfil:g("adm_perfil"),
-    })});
+    }, admProfissionais("adm")))});
     ADM_SENHA_TMP = { login:r.login, senha:r.senha_temporaria };
     ADM_OK = "Usuário criado com sucesso.";
     await admCarregar();
@@ -1282,10 +1315,10 @@ function admCancelar(){ ADM_EDIT=null; ADM_ERRO=""; ADM_OK=""; render(); }
 async function admSalvar(){
   ADM_ERRO=""; ADM_OK="";
   const g=id=>document.getElementById(id);
-  const payload = {
+  const payload = Object.assign({
     nome:g("adm_e_nome").value.trim(), login:g("adm_e_login").value.trim(),
     perfil:g("adm_e_perfil").value, ativo:g("adm_e_ativo").checked,
-  };
+  }, admProfissionais("adm_e"));
   if(g("adm_e_senha").value) payload.senha = g("adm_e_senha").value;
   try{
     await api(`/usuarios/${ADM_EDIT.id}`, {method:"PATCH", body:JSON.stringify(payload)});
@@ -1313,6 +1346,34 @@ async function admExcluir(id){
 }
 // Perfis atribuíveis (espelha a whitelist do backend). "Auditor" decide solicitação de
 // exceção (protocolo Inelegível/Não incorporado) — eixo próprio, não herda nada dos outros.
+// ---- Identificação profissional (bloco "Profissional Solicitante" da guia TISS SP/SADT) ----
+// Quatro campos OPCIONAIS de cadastro administrativo. Vão sempre no payload, inclusive
+// vazios: string vazia é como se APAGA um CRM digitado errado (o backend converte em null).
+const ADM_PROF = ["conselho","numero_conselho","uf_conselho","cbos"];
+// "CRM 12345/SP" — só com o que existir; sem dado, string vazia (nada de rótulo inventado).
+function conselhoLabel(u){
+  if(!u || (!u.conselho && !u.numero_conselho)) return "";
+  return esc([u.conselho, u.numero_conselho].filter(Boolean).join(" ") + (u.uf_conselho?`/${u.uf_conselho}`:""));
+}
+function admProfissionais(pref){
+  const o = {};
+  for(const k of ADM_PROF){
+    const el = document.getElementById(`${pref}_${k}`);
+    if(el) o[k] = el.value.trim();
+  }
+  if(o.uf_conselho) o.uf_conselho = o.uf_conselho.toUpperCase();
+  return o;
+}
+function admProfissionaisHtml(pref, u){
+  u = u || {};
+  return `<div class="sub" style="margin:14px 0 8px">Identificação profissional — usada para preencher o bloco <b>Profissional Solicitante</b> da guia TISS SP/SADT. Opcional: em branco, a guia sai com esses campos vazios para preenchimento à mão.</div>
+  <div class="grid4">
+    <div class="field"><label>Conselho</label><input id="${pref}_conselho" value="${esc(u.conselho||"")}" placeholder="ex.: CRM"></div>
+    <div class="field"><label>Número no conselho</label><input id="${pref}_numero_conselho" value="${esc(u.numero_conselho||"")}"></div>
+    <div class="field"><label>UF do conselho</label><input id="${pref}_uf_conselho" value="${esc(u.uf_conselho||"")}" maxlength="2" style="text-transform:uppercase"></div>
+    <div class="field"><label>Código CBO</label><input id="${pref}_cbos" value="${esc(u.cbos||"")}"></div>
+  </div>`;
+}
 function admPerfilOptions(sel){
   return ["oncologista","revisor","auditor","admin"]
     .map(p=>`<option value="${p}" ${p===sel?"selected":""}>${PERFIL_LABEL[p]}</option>`).join("");
@@ -1341,6 +1402,7 @@ function renderAdmin(){
       <div class="field"><label>Perfil</label><select id="adm_e_perfil">${admPerfilOptions(ADM_EDIT.perfil)}</select></div>
       <div class="field"><label>Status</label><label style="display:inline-flex;align-items:center;gap:8px;padding:9px 0;cursor:pointer;text-transform:none;letter-spacing:0;font-size:13px;font-weight:600;color:var(--ink)"><input type="checkbox" id="adm_e_ativo" ${ADM_EDIT.ativo?"checked":""} ${ADM_EDIT.id===USUARIO.id?"disabled":""}> Ativo</label></div>
     </div>
+    ${admProfissionaisHtml("adm_e", ADM_EDIT)}
     <div class="row-actions">
       <button class="btn ghost" onclick="admCancelar()">Cancelar</button>
       <button class="btn primary" onclick="admSalvar()">Salvar</button>
@@ -1354,6 +1416,7 @@ function renderAdmin(){
       <div class="field"><label>Login</label><input id="adm_login" placeholder="ex.: maria.souza"></div>
       <div class="field"><label>Perfil</label><select id="adm_perfil">${admPerfilOptions("oncologista")}</select></div>
     </div>
+    ${admProfissionaisHtml("adm", null)}
     <div class="row-actions"><button class="btn primary" onclick="admCriar()">Criar usuário</button></div>
   </div>`;
   const linhas = ADM_USUARIOS.map(u=>`
@@ -1361,6 +1424,7 @@ function renderAdmin(){
       <td><b>${esc(u.nome)}</b>${u.id===USUARIO.id?` <span class="hint">(você)</span>`:""}</td>
       <td>${esc(u.login)}</td>
       <td>${PERFIL_LABEL[u.perfil]||esc(u.perfil)}</td>
+      <td>${conselhoLabel(u) || `<span class="hint">—</span>`}</td>
       <td><span class="adm-status ${u.ativo?"on":"off"}">${u.ativo?"Ativo":"Inativo"}</span></td>
       <td style="text-align:right;white-space:nowrap">
         <button class="btn ghost" onclick="admEditar(${u.id})">Editar</button>
@@ -1389,7 +1453,7 @@ function renderAdmin(){
     <div class="sub">Usuários do OncoGuia · visível apenas para administradores. A ação padrão é <b>desativar</b> (preserva o histórico); exclua apenas em exceções.</div>
     ${msgs}
     ${ADM_USUARIOS.length? `<table>
-      <thead><tr><th>Nome</th><th>Login</th><th>Perfil</th><th>Status</th><th></th></tr></thead>
+      <thead><tr><th>Nome</th><th>Login</th><th>Perfil</th><th>Conselho</th><th>Status</th><th></th></tr></thead>
       <tbody>${linhas}</tbody></table>` : `<div class="empty">Nenhum usuário cadastrado.</div>`}
   </div>
   <div class="card">
@@ -1445,6 +1509,10 @@ async function salvarSenha(){
 const app = ()=>document.getElementById("app");
 function go(v){ view=v; render(); }
 function render(){
+  // Página nomeada da guia TISS (paisagem) marcada na RAIZ, não no elemento: `page:` num
+  // elemento no meio do documento força quebra ao entrar nele, e a guia saía sempre na
+  // 2ª folha, atrás de uma página em branco. Na raiz, o documento inteiro é a página.
+  document.documentElement.classList.toggle("em-guia", view === "sadt");
   const guest = !TOKEN || !USUARIO;
   if(guest){
     // Sem sessão não existe consulta: nem Pacientes, nem Fluxograma, nem Revisão.
@@ -2184,7 +2252,7 @@ async function gravarAvaliacao(pid, rid, status, btn){
 // corrigir é registrar outro. A trilha mescla os dois tipos numa linha do tempo só.
 let TRILHA = {};     // pid -> GET /pacientes/:id/trilha
 let RETORNO = null;  // rascunho local do retorno em curso (nada gravado até "Registrar")
-let SADT = null;     // guia SADT em preenchimento {pid, indicacao, exames:[str], obs}
+let SADT = null;     // guia TISS SP/SADT em preenchimento (documento de saída, nada gravado)
 
 const RESPOSTA_META = {
   resposta_completa: {t:"Resposta completa", cls:"rc"},
@@ -2532,9 +2600,36 @@ async function gravarRetorno(btn){
   }
 }
 
-// ═══ GUIA SADT (reestadiamento) ═════════════════════════════════════════════
-// Guia pré-preenchida com os dados do paciente e do convênio; a LISTA DE EXAMES é digitada
-// pelo médico na hora (linhas livres, adicionar/remover). Imprimível → PDF pelo browser.
+// ═══ GUIA TISS SP/SADT (reestadiamento) ═════════════════════════════════════
+// Guia de Serviço Profissional / Serviço Auxiliar de Diagnóstico e Terapia, no layout
+// oficial: mesmos blocos, mesma numeração de campos, mesma ordem, mesmo formato.
+//
+// FONTE DO LAYOUT: Padrão TISS — Componente de Conteúdo e Estrutura, Novembro/2022,
+// p. 423 (formulário SP/SADT). A numeração NÃO é sequencial nem inventável: o padrão
+// intercala campos fora de ordem (99 Nome Social no bloco do beneficiário, 90 no da
+// solicitação, 91/92 no do atendimento). Está reproduzida campo a campo do documento —
+// ao mexer aqui, confira contra ele, não contra a intuição.
+//
+// DUAS REGRAS GOVERNAM ESTE MÓDULO:
+//
+//  1) É DOCUMENTO DE SAÍDA, NÃO REGISTRO. Nada aqui é gravado, nada aqui altera dado
+//     clínico. A guia lê paciente/protocolo/usuário e imprime; o que aconteceu com o
+//     paciente continua vivendo só nas tabelas append-only (avaliacoes, retornos).
+//
+//  2) O QUE A APP NÃO SABE SAI EM BRANCO. Código TUSS, CID-10, nº de guia, senha de
+//     autorização, CNES, código na operadora: a app não inventa nenhum deles. Campo
+//     vazio é preenchido à mão, como é praxe com formulário TISS — e é por isso que
+//     TODO campo da guia é editável na conferência, não só os que vêm preenchidos.
+//
+// A conferência e a impressão são O MESMO DOM, na largura real do papel (A4 paisagem
+// menos as margens) e no corpo de fonte do papel. Não existe segunda árvore para o
+// print divergir da primeira.
+//
+// Uma diferença consciente em relação ao formulário: o CONVÊNIO/PLANO do paciente é
+// impresso na caixa de identificação do topo (a do "Logo da Empresa"), porque o SP/SADT
+// não tem campo numerado de plano — e deixar de fora um dado que a app conhece e que o
+// médico teria de escrever à mão seria pior do que imprimi-lo onde a operadora se
+// identifica. Nenhum campo NUMERADO foi criado, renomeado ou reordenado.
 //
 // TODO / PENDÊNCIA: examesReestadiamento(tumor) hoje devolve [] de propósito. As listas de
 // exames por tumor serão definidas pelo ONCOLOGISTA DE REFERÊNCIA na Revisão clínica e só
@@ -2544,80 +2639,278 @@ function examesReestadiamento(tumor){
   return [];
 }
 
+// O formulário oficial tem CINCO linhas de procedimento solicitado (1 a 5), numeradas no
+// papel. Não são "linhas de uma lista" que a app possa aumentar: mais de cinco exames é
+// outra guia, como manda o padrão. Por isso não há botão de adicionar.
+const SADT_LINHAS_PROC = 5;
+const SADT_LINHAS_EXEC = 5;   // procedimentos realizados (36-47)
+const SADT_LINHAS_PROF = 4;   // profissionais executantes (48-55)
+const SADT_SLOTS_SERIE = 10;  // datas de procedimentos em série (56/57)
+
 function abrirSADT(pid){
-  const d = PAC_DETAIL[pid];
-  const tumor = (d && d.tumor) || null;
+  const d = PAC_DETAIL[pid] || {};
+  const p = patients.find(x=>x.id===pid) || {};
+  const tumor = d.tumor || null;
+  const rid = d.ultima_avaliacao ? d.ultima_avaliacao.regimen_id : null;
+  const u = USUARIO || {};
+  // Indicação clínica (23): tumor + cenário do protocolo em curso. É texto, e é editável —
+  // a app propõe a frase, o médico responde por ela.
+  const indicacao = "Reestadiamento — " +
+    (tumor ? tumorNome(tumor) : "tumor não definido") +
+    (d.subtipo ? ` (${d.subtipo})` : "") +
+    (rid ? ` em tratamento com ${protocoloNome(rid)}` : "");
   const sug = examesReestadiamento(tumor);
   SADT = {
     pid,
-    indicacao: `Reestadiamento — ${tumor?tumorNome(tumor):"tumor não definido"}${d&&d.subtipo?` (${d.subtipo})`:""}`,
-    exames: sug.length ? sug.slice() : ["", "", ""],
-    obs: "",
+    // identificação do topo (fora dos campos numerados) — ver comentário do cabeçalho
+    operadora: d.operadora || p.operadora || "",
+    plano: d.plano || p.plano || "",
+    // 1-7 cabeçalho: guia, autorização e senha são da operadora; a app não conhece nenhum
+    registro_ans: "", guia_prestador: "", guia_principal: "",
+    data_autorizacao: "", senha: "", validade_senha: "", guia_operadora: "",
+    // 8-12 + 99 beneficiário: carteira e nome do cadastro; o resto em branco
+    ben_carteira: d.carteirinha || "", ben_validade: "", ben_nome_social: "", ben_rn: "",
+    ben_nome: d.nome || p.nome || "",
+    // 13-14 contratado solicitante (dados do serviço, preenchimento manual)
+    sol_codigo: "", sol_nome: "",
+    // 15-19 profissional solicitante: usuário logado + conselho do cadastro (20 = assinatura)
+    prof_nome: u.nome || "", prof_conselho: u.conselho || "",
+    prof_numero: u.numero_conselho || "", prof_uf: u.uf_conselho || "", prof_cbo: u.cbos || "",
+    // 21-23 + 90 solicitação
+    carater: "Eletiva", data_solicitacao: fmtData(hojeInput()), indicacao, cobertura_especial: "",
+    // 24-28 procedimentos solicitados: descrição digitada no fluxo; TUSS opcional ao lado
+    proc: Array.from({length: SADT_LINHAS_PROC}, (_,i)=>({
+      tabela:"", codigo:"", descricao: sug[i] || "", qtd_solic: sug[i] ? "1" : "", qtd_aut:"",
+    })),
+    // 29-31 contratado executante · 32-35 + 91-92 dados do atendimento
+    exec_codigo: "", exec_nome: "", exec_cnes: "",
+    tipo_atendimento: "", indicacao_acidente: "", tipo_consulta: "", motivo_encerramento: "",
+    regime_atendimento: "", saude_ocupacional: "",
+    // 36-47 execução · 48-55 profissionais executantes · 56 datas em série (57 = assinatura)
+    realizados: Array.from({length: SADT_LINHAS_EXEC}, realizadoVazio),
+    executantes: Array.from({length: SADT_LINHAS_PROF}, executanteVazio),
+    serie: Array.from({length: SADT_SLOTS_SERIE}, ()=>({data:""})),
+    // 58 observação · 59-65 totais (66-68 = assinaturas)
+    observacao: "",
+    tot_proc:"", tot_taxas:"", tot_materiais:"", tot_opme:"", tot_medic:"", tot_gases:"", tot_geral:"",
   };
   view = "sadt"; render();
 }
-function setExameSadt(i,v){ SADT.exames[i]=v; }   // TEXTO LIVRE: só estado, sem re-render
-function addExameSadt(){ SADT.exames.push(""); redrawExames(true); }
-function rmExameSadt(i){ SADT.exames.splice(i,1); redrawExames(false); }
-function redrawExames(focarUltimo){
-  const h=document.getElementById("sadt-exames"); if(!h) return;
-  h.innerHTML = sadtExamesHtml();
-  if(focarUltimo){ const ins=h.querySelectorAll("input"); if(ins.length) ins[ins.length-1].focus(); }
+function realizadoVazio(){ return {data:"",hora_ini:"",hora_fim:"",tabela:"",codigo:"",descricao:"",qtd:"",via:"",tec:"",fator:"",vl_unit:"",vl_total:""}; }
+function executanteVazio(){ return {seq:"",grau:"",codigo:"",nome:"",conselho:"",numero:"",uf:"",cbo:""}; }
+
+// TEXTO LIVRE: escrita só no estado, sem re-render (a guia inteira segue esta regra).
+// Os setters recebem o ELEMENTO, não só o valor, porque além de guardar precisam ajustar
+// aquele campo ao conteúdo — ver ajustaCampo().
+function gset(k,el){ SADT[k]=el.value; ajustaCampo(el); }
+function gseta(arr,i,k,el){ SADT[arr][i][k]=el.value; ajustaCampo(el); }
+// Descrição do procedimento (26): ao sair do vazio, adianta "1" na quantidade solicitada
+// (27) — conveniência de formulário, escrita direta no DOM irmão (não é re-render, e não é
+// dado clínico inventado: linha em branco continua saindo inteiramente em branco).
+function gsetDesc(i,el){
+  const antes = SADT.proc[i].descricao;
+  SADT.proc[i].descricao = el.value;
+  ajustaCampo(el);
+  if(!antes && el.value && !SADT.proc[i].qtd_solic){
+    SADT.proc[i].qtd_solic = "1";
+    const q = document.getElementById(`sadt_q_${i}`); if(q) q.value = "1";
+  }
 }
-function sadtExamesHtml(){
-  return SADT.exames.map((e,i)=>`<div class="ex-row">
-    <span class="n">${i+1}.</span>
-    <input value="${esc(e)}" placeholder="Exame solicitado (ex.: TC de tórax e abdome com contraste)" oninput="setExameSadt(${i},this.value)">
-    <button class="rm" title="Remover linha" onclick="rmExameSadt(${i})">×</button>
-  </div>`).join("") + `<button class="lnk-add" onclick="addExameSadt()">+ adicionar exame</button>`;
+
+// A folha é do tamanho do papel, então texto que não cabe no campo é problema REAL de
+// impressão, não de tela. Duas saídas, ambas visíveis já na conferência:
+//   • input   → encolhe a fonte até caber (piso em 62%, senão vira ilegível);
+//   • textarea→ cresce em altura, como cresce a caixa de um formulário.
+// Nada disso re-renderiza: mexe só no style do próprio elemento.
+function ajustaCampo(el){
+  if(!el) return;
+  if(el.tagName === "TEXTAREA"){
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+    return;
+  }
+  if(el.tagName !== "INPUT") return;
+  el.style.fontSize = "";
+  let f = 1;
+  while(f > 0.62 && el.scrollWidth > el.clientWidth + 1){ f -= 0.04; el.style.fontSize = f.toFixed(2) + "em"; }
 }
+function ajustaGuia(){ document.querySelectorAll(".tiss input,.tiss textarea").forEach(ajustaCampo); }
+// Antes de imprimir, reajusta: o usuário pode ter colado texto em qualquer campo.
+window.addEventListener("beforeprint", () => { if(view === "sadt") ajustaGuia(); });
 function imprimirSADT(){ window.print(); }
+
+// ---- montadores de célula/linha da guia -----------------------------------------------
+// `end` no último filho tira a borda direita duplicada; `sig` é caixa de assinatura (papel).
+function tRow(cols, cells, cls){
+  const cs = cells.slice();
+  cs[cs.length-1] = cs[cs.length-1].replace('<div class="c', '<div class="c end');
+  return `<div class="r ${cls||""}" style="grid-template-columns:${cols}">${cs.join("")}</div>`;
+}
+function tRot(num, label){ return `<span class="n">${num?`${num} - `:""}${esc(label)}</span>`; }
+// Campo ligado a uma chave simples de SADT.
+function tF(num, label, key, o){
+  o = o || {};
+  let campo;
+  if(o.tipo==="textarea")
+    campo = `<textarea rows="${o.rows||2}" oninput="gset('${key}',this)">${esc(SADT[key]||"")}</textarea>`;
+  else if(o.tipo==="select")
+    campo = `<select onchange="gset('${key}',this)">${o.opcoes.map(v=>`<option value="${esc(v)}" ${SADT[key]===v?"selected":""}>${esc(v)}</option>`).join("")}</select>`;
+  else
+    campo = `<input value="${esc(SADT[key]||"")}" oninput="gset('${key}',this)">`;
+  return `<div class="c">${tRot(num,label)}${campo}</div>`;
+}
+// Cabeçalho de tabela (só rótulos numerados), célula de linha, célula vazia e assinatura.
+function tHd(cols, labels){
+  return tRow(cols, labels.map(l => l===null
+    ? `<div class="c"></div>`
+    : `<div class="c">${tRot(l[0], l[1])}</div>`), "hd");
+}
+function tCel(arr,i,k,extraId){
+  return `<div class="c"><input ${extraId?`id="${extraId}" `:""}value="${esc(SADT[arr][i][k]||"")}" oninput="gseta('${arr}',${i},'${k}',this)"></div>`;
+}
+function tNum(i){ return `<div class="c seq">${i+1} -</div>`; }
+function tVazia(){ return `<div class="c"></div>`; }
+function tSig(num,label){ return `<div class="c">${tRot(num,label)}<div class="sig"></div></div>`; }
+
+// Larguras de coluna dos blocos tabulares (o "1 -" da esquerda é a numeração impressa).
+const PROC_COLS   = ".55fr 1fr 2.5fr 5.9fr 1.05fr 1.05fr";
+const REALIZ_COLS = ".55fr 1.3fr 1fr 1fr .8fr 1.75fr 3.3fr .8fr .6fr .6fr 1.15fr 1.2fr 1.2fr";
+const PROFEX_COLS = ".8fr .9fr 2.2fr 4.6fr 1.2fr 1.8fr .7fr 1.3fr";
 
 function renderSADT(){
   const pid = SADT.pid;
   const p = patients.find(x=>x.id===pid) || {};
   const d = PAC_DETAIL[pid] || {};
-  const f = (k,v,cls)=>`<div class="sadt-f ${cls||""}"><div class="k">${esc(k)}</div><div class="v">${v===""||v==null?"—":esc(String(v))}</div></div>`;
+  const semConselho = !SADT.prof_conselho && !SADT.prof_numero;
+
   app().innerHTML = `
-  <div class="crumbs sadt-toolbar"><a onclick="go('lista')">Pacientes</a> › <a onclick="abrir(${pid},'trilha')">${esc(d.nome||p.nome||"Paciente")}</a> › <b>Guia SADT</b></div>
-  <div class="row-actions sadt-toolbar" style="justify-content:flex-start;margin-bottom:12px">
-    <button class="btn primary" onclick="imprimirSADT()">🖨️ Imprimir / PDF</button>
+  <div class="crumbs tiss-toolbar"><a onclick="go('lista')">Pacientes</a> › <a onclick="abrir(${pid},'trilha')">${esc(d.nome||p.nome||"Paciente")}</a> › <b>Guia SP/SADT</b></div>
+  <div class="tiss-nota tiss-toolbar">
+    <b>Conferência antes de imprimir.</b> Todos os campos da guia são editáveis — os que a app
+    conhece já vêm preenchidos (paciente, convênio, indicação clínica, exames, solicitante); os
+    demais saem em branco para preenchimento manual. A app <b>não gera</b> código TUSS, código
+    na operadora, número de guia nem senha de autorização. Esta guia é documento de saída: imprimi-la não
+    registra nada na trilha do paciente. Layout e numeração conforme o <b>Padrão TISS</b>
+    (Componente de Conteúdo e Estrutura, nov/2022) — imprime em <b>A4 paisagem</b>.
+    ${semConselho?`<br>⚠️ Seu cadastro não tem conselho/CRM — o bloco do solicitante (16 a 19) sai incompleto. Um administrador preenche em <b>Admin › Editar usuário</b>.`:""}
+  </div>
+  <div class="row-actions tiss-toolbar" style="justify-content:flex-start;margin-bottom:12px">
+    <button class="btn primary" onclick="imprimirSADT()">🖨️ Imprimir guia</button>
     <button class="btn ghost" onclick="abrir(${pid},'trilha')">Voltar à trilha</button>
   </div>
-  <div class="sadt">
-    <h3>Guia de solicitação — SP/SADT</h3>
-    <div class="sadt-sub">Solicitação de exames para reestadiamento · protótipo conceitual, dados fictícios</div>
 
-    <div class="sadt-grid">
-      ${f("Operadora", d.operadora||p.operadora, "w2")}
-      ${f("Plano", d.plano||p.plano)}
-      ${f("Carteirinha", d.carteirinha)}
-      ${f("Nome do beneficiário", d.nome||p.nome, "w2")}
-      ${f("Data de nascimento", d.nasc?fmtData(d.nasc):"")}
-      ${f("Sexo", (d.sexo||p.sexo)==="F"?"Feminino":"Masculino")}
-      ${f("Registro do hospital", d.identificador)}
-      ${f("Tumor", d.tumor?tumorNome(d.tumor):"")}
-      ${f("Subtipo", d.subtipo, "w2")}
-      ${f("Protocolo em curso", d.ultima_avaliacao?protocoloNome(d.ultima_avaliacao.regimen_id):"", "w2")}
-      ${f("Próximo reestadiamento", d.reestadiamento&&d.reestadiamento.proximo?fmtData(d.reestadiamento.proximo):"")}
-      ${f("Emitida em", fmtData(hojeInput()))}
-    </div>
+  <div class="tiss-folha"><div class="tiss">
+    ${tRow("3.4fr 5.2fr 3.4fr", [
+      `<div class="c"><span class="n">Operadora</span><input value="${esc(SADT.operadora)}" oninput="gset('operadora',this)">
+        <span class="n" style="margin-top:1px">Plano</span><input value="${esc(SADT.plano)}" oninput="gset('plano',this)"></div>`,
+      `<div class="c tt">Guia de Serviço Profissional / Serviço Auxiliar de<br>Diagnóstico e Terapia - SP/SADT</div>`,
+      tF(2,"Nº Guia no Prestador","guia_prestador"),
+    ])}
+    ${tRow("2.4fr 3.4fr 6.2fr", [
+      tF(1,"Registro ANS","registro_ans"),
+      tF(3,"Número da Guia Principal","guia_principal"),
+      tVazia(),
+    ])}
+    ${tRow("2.4fr 3.4fr 2.8fr 3.4fr", [
+      tF(4,"Data da Autorização","data_autorizacao"),
+      tF(5,"Senha","senha"),
+      tF(6,"Data de Validade da Senha","validade_senha"),
+      tF(7,"Número da Guia Atribuído pela Operadora","guia_operadora"),
+    ])}
 
-    <div class="section-t">Indicação clínica</div>
-    <input value="${esc(SADT.indicacao)}" oninput="SADT.indicacao=this.value" placeholder="Indicação clínica">
+    <div class="bar">Dados do Beneficiário</div>
+    ${tRow("3fr 1.9fr 5.9fr 1.2fr", [
+      tF(8,"Número da Carteira","ben_carteira"),
+      tF(9,"Validade da Carteira","ben_validade"),
+      tF(99,"Nome Social","ben_nome_social"),
+      tF(12,"Atendimento a RN","ben_rn"),
+    ])}
+    ${tRow("5fr 7fr", [ tF(10,"Nome","ben_nome"), tVazia() ])}
 
-    <div class="section-t">Exames solicitados</div>
-    <div class="hint sadt-toolbar" style="margin-bottom:8px">Digite os exames desta solicitação. A app não sugere lista por tumor — essa lista virá da Revisão clínica (ver BACKLOG.md).</div>
-    <div id="sadt-exames">${sadtExamesHtml()}</div>
+    <div class="bar">Dados do Solicitante</div>
+    ${tRow("3fr 9fr", [
+      tF(13,"Código na Operadora","sol_codigo"),
+      tF(14,"Nome do Contratado","sol_nome"),
+    ])}
+    ${tRow("4fr 1.4fr 2.2fr .8fr 1.4fr 3.2fr", [
+      tF(15,"Nome do Profissional Solicitante","prof_nome"),
+      tF(16,"Conselho Profissional","prof_conselho"),
+      tF(17,"Número no Conselho","prof_numero"),
+      tF(18,"UF","prof_uf"),
+      tF(19,"Código CBO","prof_cbo"),
+      tSig(20,"Assinatura do Profissional Solicitante"),
+    ])}
 
-    <div class="section-t">Observações</div>
-    <input value="${esc(SADT.obs)}" oninput="SADT.obs=this.value" placeholder="Observações (opcional)">
+    <div class="bar">Dados da Solicitação / Procedimentos ou Itens Assistenciais Solicitados</div>
+    ${tRow("1.7fr 1.9fr 6.4fr 2fr", [
+      tF(21,"Caráter do Atendimento","carater",{tipo:"select",opcoes:["","Eletiva","Urgência / Emergência"]}),
+      tF(22,"Data da Solicitação","data_solicitacao"),
+      tF(23,"Indicação Clínica","indicacao",{tipo:"textarea",rows:2}),
+      tF(90,"Indicador de Cobertura Especial","cobertura_especial"),
+    ])}
+    ${tHd(PROC_COLS, [null,[24,"Tabela"],[25,"Código do Procedimento ou Item Assistencial"],[26,"Descrição"],[27,"Qtde. Solic."],[28,"Qtde. Aut."]])}
+    <div id="sadt-proc">${SADT.proc.map((r,i)=>tRow(PROC_COLS, [
+      tNum(i),
+      tCel("proc",i,"tabela"),
+      tCel("proc",i,"codigo"),
+      `<div class="c"><input value="${esc(r.descricao||"")}" oninput="gsetDesc(${i},this)"></div>`,
+      tCel("proc",i,"qtd_solic",`sadt_q_${i}`),
+      tCel("proc",i,"qtd_aut"),
+    ])).join("")}</div>
 
-    <div class="assina">
-      <div>${esc(USUARIO?USUARIO.nome:"")} — CRM ____________<br>Médico solicitante</div>
-      <div>Data ____ / ____ / ________<br>Assinatura e carimbo</div>
-    </div>
-  </div>`;
+    <div class="bar">Dados do Contratado Executante</div>
+    ${tRow("3fr 7fr 2fr", [
+      tF(29,"Código na Operadora","exec_codigo"),
+      tF(30,"Nome do Contratado","exec_nome"),
+      tF(31,"Código CNES","exec_cnes"),
+    ])}
+
+    <div class="bar">Dados do Atendimento</div>
+    ${tRow("1.7fr 3fr 1.8fr 3fr 1.4fr 1.3fr", [
+      tF(32,"Tipo de Atendimento","tipo_atendimento"),
+      tF(33,"Indicação de Acidente (acidente ou doença relacionada)","indicacao_acidente"),
+      tF(34,"Tipo de Consulta","tipo_consulta"),
+      tF(35,"Motivo de Encerramento do Atendimento","motivo_encerramento"),
+      tF(91,"Regime de atendimento","regime_atendimento"),
+      tF(92,"Saúde Ocupacional","saude_ocupacional"),
+    ])}
+
+    <div class="bar">Dados da Execução / Procedimentos e Exames Realizados</div>
+    ${tHd(REALIZ_COLS, [null,[36,"Data"],[37,"Hora Inicial"],[38,"Hora Final"],[39,"Tabela"],[40,"Código do Procedimento"],[41,"Descrição"],[42,"Qtde."],[43,"Via"],[44,"Tec."],[45,"Fator Red./Acresc."],[46,"Valor Unitário (R$)"],[47,"Valor Total (R$)"]])}
+    ${SADT.realizados.map((r,i)=>tRow(REALIZ_COLS, [tNum(i)].concat(
+      ["data","hora_ini","hora_fim","tabela","codigo","descricao","qtd","via","tec","fator","vl_unit","vl_total"].map(k=>tCel("realizados",i,k))))).join("")}
+
+    <div class="bar">Identificação do(s) Profissional(is) Executante(s)</div>
+    ${tHd(PROFEX_COLS, [[48,"Seq. Ref."],[49,"Grau Part."],[50,"Código na Operadora / CPF"],[51,"Nome do Profissional"],[52,"Conselho Profissional"],[53,"Número no Conselho"],[54,"UF"],[55,"Código CBO"]])}
+    ${SADT.executantes.map((r,i)=>tRow(PROFEX_COLS,
+      ["seq","grau","codigo","nome","conselho","numero","uf","cbo"].map(k=>tCel("executantes",i,k)))).join("")}
+
+    <div class="bar bar2"><span>56 - Data de Realização de Procedimentos em Série</span><span>57 - Assinatura do Beneficiário ou Responsável</span></div>
+    ${[0,5].map(base => tRow("1fr 1fr 1fr 1fr 1fr", SADT.serie.slice(base, base+5).map((sl,j)=>{
+      const i = base + j;
+      return `<div class="c serie"><span class="n">${i+1} -</span><div class="serie-in">
+        <input value="${esc(sl.data||"")}" oninput="gseta('serie',${i},'data',this)"><span class="lin"></span></div></div>`;
+    }))).join("")}
+
+    <div class="bar">58 - Observação / Justificativa</div>
+    ${tRow("1fr", [ `<div class="c"><textarea rows="2" oninput="gset('observacao',this)">${esc(SADT.observacao||"")}</textarea></div>` ])}
+
+    ${tRow("1fr 1fr 1fr 1fr 1fr 1fr 1fr", [
+      tF(59,"Total de Procedimentos (R$)","tot_proc"),
+      tF(60,"Total de Taxas e Aluguéis (R$)","tot_taxas"),
+      tF(61,"Total de Materiais (R$)","tot_materiais"),
+      tF(62,"Total de OPME (R$)","tot_opme"),
+      tF(63,"Total de Medicamentos (R$)","tot_medic"),
+      tF(64,"Total de Gases Medicinais (R$)","tot_gases"),
+      tF(65,"Total Geral (R$)","tot_geral"),
+    ])}
+    ${tRow("1fr 1fr 1fr", [
+      tSig(66,"Assinatura do Responsável pela Autorização"),
+      tSig(67,"Assinatura do Beneficiário ou Responsável"),
+      tSig(68,"Assinatura do Contratado"),
+    ], "last")}
+  </div></div>`;
+  ajustaGuia();
 }
 
 // Item de SELEÇÃO DE PROTOCOLO (avaliação) na trilha. `porId` mapeia retorno_id → retorno,

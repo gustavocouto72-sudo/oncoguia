@@ -18,7 +18,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const { chromium } = require(path.join(ROOT, 'node_modules/playwright'));
 require(path.join(ROOT, 'backend/node_modules/dotenv')).config({ path: path.join(ROOT, 'backend/.env'), quiet: true });
-const jwt = require(path.join(ROOT, 'backend/node_modules/jsonwebtoken'));
+const { tokenApi, loginNaTela } = require('./portao-credenciais');
 
 const APP = process.env.PORTAO_APP || 'http://localhost:5173/index.html';
 const API = process.env.PORTAO_API || 'http://localhost:3005/api';
@@ -32,14 +32,9 @@ const RID_INC = 'mama-adj-her2neg-act';
 const R = [];
 const ok = (n, c, x) => { R.push([c, n, x]); console.log((c ? 'PASS' : 'FAIL') + '  ' + n + (x ? '  [' + String(x).slice(0, 160) + ']' : '')); };
 
-async function token(login, senha) {
-  const r = await fetch(`${API}/auth/login`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ login, senha }),
-  });
-  if (!r.ok) throw new Error(`login ${login}: HTTP ${r.status}`);
-  return (await r.json()).access_token;
-}
+// Login de API por PERFIL (nunca por login literal), com espera no 429 — ver
+// scripts/portao-credenciais.js.
+const token = perfil => tokenApi(API, perfil);
 async function req(metodo, rota, tk, body) {
   const r = await fetch(API + rota, {
     method: metodo,
@@ -53,7 +48,7 @@ const avaliacaoBase = (rid, extra) => Object.assign({
   regimen_id: rid, linha_tratamento: 1, snapshot_campos: { teste: true }, semaforo: 'elegivel',
 }, extra || {});
 
-async function ctxLogin(browser, user, senha) {
+async function ctxLogin(browser, perfil) {
   const ctx = await browser.newContext();
   const page = await ctx.newPage();
   const errs = [];
@@ -66,9 +61,7 @@ async function ctxLogin(browser, user, senha) {
   });
   await page.addInitScript(a => { window.ONCOGUIA_API_BASE = a; }, API);
   await page.goto(APP);
-  await page.fill('#lg_login', user);
-  await page.fill('#lg_senha', senha);
-  await page.click('#lg_btn');
+  await loginNaTela(page, perfil);
   await page.waitForFunction(() => !!localStorage.getItem('oncoguia_token'), null, { timeout: 25000 });
   const tk = await page.evaluate(() => localStorage.getItem('oncoguia_token'));
   return { ctx, page, errs, alertas, tk };
@@ -81,7 +74,7 @@ async function ctxLogin(browser, user, senha) {
 
   try {
     // ═══ FASE 1 — oncologista abre a solicitação de exceção ═══
-    const f1 = await ctxLogin(browser, 'oncologista', 'onco123');
+    const f1 = await ctxLogin(browser, 'oncologista');
     const page = f1.page;
     tkOnco = f1.tk;
     await page.waitForSelector('button:has-text("+ Novo paciente")', { timeout: 25000 });
@@ -134,7 +127,7 @@ async function ctxLogin(browser, user, senha) {
     await f1.ctx.close();
 
     // ═══ FASE 2 — auditor decide ═══
-    const f2 = await ctxLogin(browser, 'auditor', 'auditor123');
+    const f2 = await ctxLogin(browser, 'auditor');
     const pa = f2.page;
     tkAud = f2.tk;
     await pa.waitForSelector('#nav a', { timeout: 25000 });
@@ -182,7 +175,7 @@ async function ctxLogin(browser, user, senha) {
 
     // ═══ FASE 3 — API: o enforcement que a UI não garante ═══
     // tkOnco/tkAud vêm das sessões da UI acima; só o revisor precisa de um login próprio.
-    const tkRev = await token('revisor', 'revisor123');
+    const tkRev = await token('revisor');
 
     // ★ a pergunta em aberto: POST DIRETO, sem autorizacao_estado, semáforo elegível.
     const direto = await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkOnco, avaliacaoBase(RID_NAO_INC));
@@ -273,7 +266,8 @@ async function ctxLogin(browser, user, senha) {
   } finally {
     if (pacienteId) {
       try {
-        const admin = jwt.sign({ sub: 1, login: 'admin', perfil: 'admin' }, process.env.JWT_SECRET, { expiresIn: '5m' });
+        // Login de verdade da conta de teste admin (era JWT assinado com sub:1 fixo).
+        const admin = await token('admin');
         const del = await req('DELETE', `/pacientes/${pacienteId}`, admin);
         ok('Z limpeza: paciente de teste removido', del.status === 200 || del.status === 204, String(del.status));
       } catch (e) { ok('Z limpeza: paciente de teste removido', false, e.message); }

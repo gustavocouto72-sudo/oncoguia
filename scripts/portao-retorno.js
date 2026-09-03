@@ -10,10 +10,12 @@
 //  Fase 2 (API): as travas que a UI não pode garantir — RECIST 400, grau fora de 1–5,
 //    ausência de rota de edição (imutabilidade), whitelist de perfil (revisor 403 na
 //    escrita, 200 na leitura).
-//  Limpeza: apaga o paciente de teste (DELETE admin, JWT assinado) — cascata leva retornos.
+//  Limpeza: apaga o paciente de teste (DELETE com a conta de teste admin) — cascata
+//    leva retornos e avaliações.
 //
 // Uso: node scripts/portao-retorno.js   (exige app e API no ar; portas por
-// PORTAO_APP/PORTAO_API, default 5173/3005).
+// PORTAO_APP/PORTAO_API, default 5173/3005). As CREDENCIAIS de teste vêm de .env.local
+// via scripts/portao-credenciais.js — nada de login/senha escrito aqui.
 //
 // Interação com a autorização: retorno pressupõe protocolo VIGENTE. Seleção Inelegível ou
 // Não incorporado nasce como solicitação de exceção 'pendente' e não é vigente até o
@@ -21,8 +23,8 @@
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const { chromium } = require(path.join(ROOT, 'node_modules/playwright'));
-require(path.join(ROOT, 'backend/node_modules/dotenv')).config({ path: path.join(ROOT, 'backend/.env') });
-const jwt = require(path.join(ROOT, 'backend/node_modules/jsonwebtoken'));
+require(path.join(ROOT, 'backend/node_modules/dotenv')).config({ path: path.join(ROOT, 'backend/.env'), quiet: true });
+const { tokenApi, loginNaTela } = require('./portao-credenciais');
 
 const APP = process.env.PORTAO_APP || 'http://localhost:5173/index.html';
 const API = process.env.PORTAO_API || 'http://localhost:3005/api';
@@ -54,14 +56,9 @@ function somarMeses(iso, meses) {
   return `${ano}-${p(mes + 1)}-${p(Math.min(d, ult))}`;
 }
 
-async function token(login, senha) {
-  const r = await fetch(`${API}/auth/login`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ login, senha }),
-  });
-  if (!r.ok) throw new Error(`login ${login}: HTTP ${r.status}`);
-  return (await r.json()).access_token;
-}
+// Login de API por PERFIL (nunca por login literal), com espera no 429 — ver
+// scripts/portao-credenciais.js.
+const token = perfil => tokenApi(API, perfil);
 async function req(metodo, rota, tk, body) {
   const r = await fetch(API + rota, {
     method: metodo,
@@ -86,9 +83,7 @@ async function req(metodo, rota, tk, body) {
   try {
     // ═══ FASE 1 — UI, perfil oncologista ═══
     await page.goto(APP);
-    await page.fill('#lg_login', 'oncologista');
-    await page.fill('#lg_senha', 'onco123');
-    await page.click('#lg_btn');
+    await loginNaTela(page, 'oncologista');
     await page.waitForSelector('button:has-text("+ Novo paciente")', { timeout: 25000 });
     ok('R0 login oncologista', true);
 
@@ -253,7 +248,7 @@ async function req(metodo, rota, tk, body) {
       `proximo=${t3.reestadiamento.proximo} base=${dataRet2}`);
 
     // ---- vencido → item pendente destacado ----
-    const tkOnco = await token('oncologista', 'onco123');
+    const tkOnco = await token('oncologista');
     const vencidoEm = somarMeses(hoje(), -2);
     await req('PATCH', `/pacientes/${pacienteId}/reestadiamento`, tkOnco, { proximo: vencidoEm });
     await page.evaluate(pid => carregarTrilha(pid).then(() => render()), pacienteId);
@@ -263,36 +258,108 @@ async function req(metodo, rota, tk, body) {
     ok('R12 reestadiamento vencido aparece como item pendente destacado',
       txtVenc.includes('vencido desde') && txtVenc.includes(`${vd}/${vm}/${vy}`), txtVenc);
 
-    // ---- guia SADT ----
+    // ---- guia TISS SP/SADT ----
+    // A guia é DOCUMENTO DE SAÍDA: o que se checa aqui é (a) o que a app pré-preenche,
+    // (b) o que ela deliberadamente NÃO preenche, e (c) que a conferência e o papel são a
+    // mesma coisa. Nada aqui pode gravar nada — por isso não há check de persistência.
     await page.click('button:has-text("Gerar guia SADT")');
-    await page.waitForSelector('#sadt-exames input', { timeout: 15000 });
-    const dadosGuia = await page.evaluate(() =>
-      Array.from(document.querySelectorAll('.sadt .sadt-f')).map(f =>
-        [f.querySelector('.k').textContent, f.querySelector('.v').textContent]));
-    const val = k => (dadosGuia.find(d => d[0] === k) || [])[1];
-    ok('R13 guia SADT pré-preenchida com paciente + convênio',
-      val('Nome do beneficiário') === NOME_TESTE && !!val('Operadora') && val('Operadora') !== '—' && val('Tumor') === 'Mama',
-      JSON.stringify(dadosGuia.slice(0, 8)));
+    await page.waitForSelector('#sadt-proc input', { timeout: 15000 });
+    // Lê a guia pelo rótulo numerado do campo, exatamente como um humano confere o papel:
+    // para cada rótulo, o campo que vem DEPOIS dele na mesma célula. Percorrer assim (em
+    // vez de "primeiro rótulo, primeiro input da célula") é o que faz o check enxergar
+    // célula com mais de um campo — e de quebra prova a adjacência rótulo→campo, que é
+    // justamente o que faz um formulário ser legível no papel.
+    const dadosGuia = await page.evaluate(() => {
+      const out = [];
+      document.querySelectorAll('.tiss .c').forEach(c => {
+        const filhos = Array.from(c.children);
+        filhos.forEach((el, i) => {
+          if (!el.classList.contains('n')) return;
+          for (let j = i + 1; j < filhos.length; j++) {
+            if (filhos[j].classList.contains('n')) break;
+            const campo = /^(INPUT|TEXTAREA|SELECT)$/.test(filhos[j].tagName)
+              ? filhos[j] : filhos[j].querySelector('input,textarea,select');
+            if (campo) { out.push([el.textContent.trim(), campo.value]); return; }
+          }
+        });
+      });
+      return out;
+    });
+    const val = rot => (dadosGuia.find(d => d[0] === rot) || [])[1];
+    // O solicitante tem de ser o USUÁRIO LOGADO — comparado com o nome que a sessão
+    // carrega, não com um literal, já que a conta de teste vem do .env.local.
+    const nomeLogado = await page.evaluate(() => USUARIO.nome);
+    ok('R13 guia TISS pré-preenchida: beneficiário, convênio, indicação e solicitante',
+      val('10 - Nome') === NOME_TESTE && !!val('Operadora') && !!val('Plano')
+      && val('15 - Nome do Profissional Solicitante') === nomeLogado
+      && (val('23 - Indicação Clínica') || '').startsWith('Reestadiamento — Mama'),
+      JSON.stringify([val('10 - Nome'), val('Operadora'), val('Plano'), val('15 - Nome do Profissional Solicitante'), val('23 - Indicação Clínica')]));
+    const blocos = await page.evaluate(() => Array.from(document.querySelectorAll('.tiss .bar')).map(b => b.textContent.trim()));
+    ok('R13 blocos oficiais da guia SP/SADT presentes, na ordem',
+      ['Dados do Beneficiário', 'Dados do Solicitante',
+       'Dados da Solicitação / Procedimentos ou Itens Assistenciais Solicitados',
+       'Dados do Contratado Executante', 'Dados do Atendimento',
+       'Dados da Execução / Procedimentos e Exames Realizados',
+       'Identificação do(s) Profissional(is) Executante(s)'].every((b, i, arr) =>
+         blocos.indexOf(b) >= 0 && (i === 0 || blocos.indexOf(b) > blocos.indexOf(arr[i - 1]))),
+      blocos.join(' | '));
+    // O CONTRÁRIO do pré-preenchimento, e igualmente obrigatório: a app não inventa
+    // código TUSS, CID-10, número de guia, senha de autorização nem CNES.
+    const EM_BRANCO = ['1 - Registro ANS', '3 - Número da Guia Principal', '5 - Senha',
+      '7 - Número da Guia Atribuído pela Operadora', '31 - Código CNES', '13 - Código na Operadora'];
+    ok('R13 o que a app não sabe sai EM BRANCO (nº guia, senha, CNES, código na operadora, TUSS)',
+      EM_BRANCO.every(r => val(r) === '')
+      && await page.evaluate(() => SADT.proc.every(pr => pr.codigo === '' && pr.tabela === '')),
+      JSON.stringify(EM_BRANCO.map(r => [r, val(r)])));
+
     // exames digitados na hora, com adicionar/remover linhas e sem re-render
+    // A 1ª célula de cada linha é a numeração impressa ("1 -"), então descrição e
+    // quantidade são a 4ª e a 5ª coluna.
+    const desc = i => `#sadt-proc .r:nth-child(${i}) .c:nth-child(4) input`;
     await page.evaluate(() => { window.__rc2 = 0; const o = window.render; window.render = function () { window.__rc2++; return o.apply(this, arguments); }; });
-    await page.type('#sadt-exames input >> nth=0', 'TC de torax e abdome com contraste', { delay: 12 });
-    await page.type('#sadt-exames input >> nth=1', 'Cintilografia ossea', { delay: 12 });
+    await page.type(desc(1), 'TC de torax e abdome com contraste', { delay: 12 });
+    await page.type(desc(2), 'Cintilografia ossea', { delay: 12 });
     const rc2 = await page.evaluate(() => window.__rc2);
     ok('R14 digitar exames: 0 re-render', rc2 === 0, 'renders=' + rc2);
-    const antesAdd = await page.evaluate(() => document.querySelectorAll('#sadt-exames input').length);
-    await page.click('button:has-text("+ adicionar exame")');
-    const depoisAdd = await page.evaluate(() => document.querySelectorAll('#sadt-exames input').length);
-    await page.click('#sadt-exames .ex-row:last-of-type .rm');
-    const depoisRm = await page.evaluate(() => document.querySelectorAll('#sadt-exames input').length);
-    ok('R14 adicionar/remover linhas de exame', depoisAdd === antesAdd + 1 && depoisRm === antesAdd, `${antesAdd}→${depoisAdd}→${depoisRm}`);
-    const exames = await page.evaluate(() => SADT.exames.filter(Boolean));
-    const naGuia = await page.evaluate(() => Array.from(document.querySelectorAll('#sadt-exames input')).map(i => i.value).filter(Boolean));
-    ok('R14 guia sai com os exames digitados',
-      exames.length === 2 && naGuia.join('|') === exames.join('|'), naGuia.join(' | '));
+    const qtds = await page.evaluate(() => Array.from(document.querySelectorAll('#sadt-proc .r'))
+      .map(r => r.querySelectorAll('.c')[4].querySelector('input').value));
+    ok('R14 quantidade solicitada só aparece na linha preenchida (linha vazia fica vazia)',
+      qtds[0] === '1' && qtds[1] === '1' && qtds[2] === '', JSON.stringify(qtds));
+    // O formulário oficial tem CINCO linhas de procedimento, numeradas no papel — não é
+    // lista que a app possa crescer. Mais de cinco exames é outra guia, como manda o padrão.
+    const nLinhas = await page.evaluate(() => document.querySelectorAll('#sadt-proc .r').length);
+    const semBotaoAdd = await page.evaluate(() => !document.querySelector('.tiss .add-lin'));
+    ok('R14 bloco de procedimentos tem as 5 linhas fixas do formulário oficial',
+      nLinhas === 5 && semBotaoAdd, `linhas=${nLinhas} semBotaoAdd=${semBotaoAdd}`);
+    const exames = await page.evaluate(() => SADT.proc.map(pr => pr.descricao).filter(Boolean));
     ok('R14 gancho examesReestadiamento(tumor) devolve vazio (pendência registrada)',
       await page.evaluate(() => examesReestadiamento('mama').length === 0));
 
-    ok('R15 console sem erro vermelho no fluxo inteiro', errs.length === 0, errs.join(' | '));
+    // ---- conferência × papel: mesma árvore, uma folha só ----
+    // Editar na conferência TEM de refletir na impressão; se um dia alguém montar uma
+    // segunda árvore só para o print, este check quebra — que é o ponto dele.
+    await page.evaluate(() => { const el = document.querySelector('#sadt-proc .r:nth-child(1) .c:nth-child(4) input');
+      el.value = 'RM de cranio com contraste'; el.dispatchEvent(new Event('input', { bubbles: true })); });
+    await page.emulateMedia({ media: 'print' });
+    const impresso = await page.evaluate(() => ({
+      conferencia: getComputedStyle(document.querySelector('.tiss-nota')).display,
+      alturaMm: Math.round(document.querySelector('.tiss').getBoundingClientRect().height / 96 * 25.4),
+      descricoes: Array.from(document.querySelectorAll('#sadt-proc .r'))
+        .map(r => r.querySelectorAll('.c')[3].querySelector('input').value).filter(Boolean),
+      // É a classe na RAIZ que faz valer o `@page guia{size:A4 landscape}`.
+      paisagem: document.documentElement.classList.contains('em-guia'),
+    }));
+    await page.emulateMedia({ media: null });
+    ok('R15 impressão: barra de conferência some do papel e a guia vira paisagem',
+      impresso.conferencia === 'none' && impresso.paisagem === true,
+      `nota=${impresso.conferencia} paisagem=${impresso.paisagem}`);
+    ok('R15 a guia cabe em UMA página A4 paisagem (área útil 198mm)',
+      impresso.alturaMm > 0 && impresso.alturaMm <= 198, impresso.alturaMm + 'mm');
+    ok('R15 o que foi editado na conferência é o que sai impresso',
+      impresso.descricoes[0] === 'RM de cranio com contraste'
+      && impresso.descricoes.length === exames.length, impresso.descricoes.join(' | '));
+
+    ok('R16 console sem erro vermelho no fluxo inteiro', errs.length === 0, errs.join(' | '));
 
     // ═══ FASE 2 — API: as travas que a UI não garante ═══
     const base = { data_realizada: hoje(), conduta: 'mantem' };
@@ -319,7 +386,7 @@ async function req(metodo, rota, tk, body) {
       `PATCH=${rPatch.status} PUT=${rPut.status} DELETE=${rDel.status}`);
 
     // whitelist explícita de perfil
-    const tkRev = await token('revisor', 'revisor123');
+    const tkRev = await token('revisor');
     const revEscreve = await req('POST', `/pacientes/${pacienteId}/retornos`, tkRev,
       Object.assign({}, base, { com_imagem: false }));
     const revLe = await req('GET', `/pacientes/${pacienteId}/trilha`, tkRev);
@@ -341,7 +408,10 @@ async function req(metodo, rota, tk, body) {
     // ---- limpeza: paciente de teste sai (cascata leva retornos e avaliações) ----
     if (pacienteId) {
       try {
-        const admin = jwt.sign({ sub: 1, login: 'admin', perfil: 'admin' }, process.env.JWT_SECRET, { expiresIn: '5m' });
+        // Limpeza com LOGIN de verdade da conta de teste admin. Antes isto assinava um
+        // JWT com o JWT_SECRET e sub:1 fixo — atalho que dependia do segredo do servidor
+        // e presumia que o usuário 1 existia e estava ativo.
+        const admin = await token('admin');
         const del = await req('DELETE', `/pacientes/${pacienteId}`, admin);
         ok('Z limpeza: paciente de teste removido', del.status === 200 || del.status === 204, String(del.status));
       } catch (e) { ok('Z limpeza: paciente de teste removido', false, e.message); }

@@ -1,7 +1,7 @@
 import {
   BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Request, UseGuards,
 } from '@nestjs/common';
-import { IsBoolean, IsIn, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsBoolean, IsIn, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 import { randomInt } from 'crypto';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { Roles, RolesGuard } from '../auth/roles.guard';
@@ -21,13 +21,26 @@ function gerarSenhaTemporaria(tamanho = 10): string {
   return senha;
 }
 
-class CriarUsuarioDto {
+// Identificação profissional do bloco "Profissional Solicitante" da guia TISS SP/SADT.
+// TUDO opcional e aceitando string vazia (= apagar): é cadastro administrativo, e guia
+// com campo em branco é o comportamento correto de um formulário, não um erro.
+// A app NÃO valida se o CRM existe nem inventa CBO — quem responde pelo número é o humano.
+class DadosProfissionaisDto {
+  @IsOptional() @IsString() @MaxLength(20) conselho?: string;
+  @IsOptional() @IsString() @MaxLength(30) numero_conselho?: string;
+  @IsOptional() @IsString()
+  @Matches(/^([A-Za-z]{2})?$/, { message: 'UF do conselho deve ter 2 letras' })
+  uf_conselho?: string;
+  @IsOptional() @IsString() @MaxLength(10) cbos?: string;
+}
+
+class CriarUsuarioDto extends DadosProfissionaisDto {
   @IsString() @IsNotEmpty({ message: 'Nome obrigatório' }) nome: string;
   @IsString() @IsNotEmpty({ message: 'Login obrigatório' }) login: string;
   @IsIn(PERFIS, { message: 'Perfil inválido' }) perfil: Perfil;
 }
 
-class AtualizarUsuarioDto {
+class AtualizarUsuarioDto extends DadosProfissionaisDto {
   @IsOptional() @IsString() nome?: string;
   @IsOptional() @IsString() login?: string;
   @IsOptional() @IsString() @MinLength(6, { message: 'Senha deve ter no mínimo 6 caracteres' }) senha?: string;

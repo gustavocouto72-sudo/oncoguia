@@ -91,11 +91,38 @@ realizada. Vencido vira **item pendente destacado** na trilha ("Reestadiamento v
 …") e marca a aba com ⏰. A agenda é o **único ponto mutável** desta feature, de propósito:
 é lembrete, não registro clínico — por isso mora no paciente, não numa tabela append-only.
 
-**Guia SADT.** No item de reestadiamento, *Gerar guia SADT* abre uma guia imprimível (→ PDF
-pelo browser) pré-preenchida com paciente e convênio. A **lista de exames é digitada pelo
-médico na hora** (linhas livres, adicionar/remover). O gancho `examesReestadiamento(tumor)`
-existe e **devolve vazio de propósito** — as listas por tumor virão do oncologista de
-referência na Revisão clínica. Ver `BACKLOG.md`.
+**Guia TISS SP/SADT.** No item de reestadiamento, *Gerar guia SADT* abre a **Guia de Serviço
+Profissional / SP/SADT no layout oficial** — blocos, ordem e numeração de campos conforme o
+*Padrão TISS — Componente de Conteúdo e Estrutura, nov/2022* (p. 423), inclusive a numeração
+fora de sequência que o padrão usa (99 no beneficiário, 90 na solicitação, 91/92 no
+atendimento) e as **5 linhas fixas** de procedimento solicitado. Imprime em **A4 paisagem**,
+uma página, via `@page guia` (página nomeada: só a guia vira paisagem, as outras telas que
+alguém imprima seguem em retrato).
+
+A tela serve ao mesmo tempo de **conferência** e de **folha**: é o mesmo DOM, na largura real
+do papel e no corpo de fonte do papel, ampliado só para leitura. Não existe segunda árvore
+para o print divergir da primeira. Campo que não cabe encolhe a fonte (input) ou cresce em
+altura (textarea) — e isso aparece já na conferência, porque a folha tem a medida do papel.
+
+*Pré-preenchido com o que a app sabe:* beneficiário (8, 10) e convênio, data da solicitação
+(22), caráter *Eletiva* (21), indicação clínica (23: tumor + protocolo em curso), descrições
+dos procedimentos (26) com quantidade (27), e o bloco do **profissional solicitante** (15–19)
+com o usuário logado + conselho/nº/UF/CBO do cadastro (`Admin › Editar usuário`).
+
+*Deliberadamente em branco:* código TUSS (25), código na operadora (13, 29), CNES (31),
+número de guia e senha de autorização (1–7), e todos os blocos de execução, totais e
+assinaturas. A app **não inventa** nenhum deles — quem digita é o humano, e todo campo é
+editável na conferência.
+
+*Uma diferença consciente:* o **plano** do paciente é impresso na caixa de identificação do
+topo (a do "Logo da Empresa"), porque o SP/SADT não tem campo numerado de plano — e omitir um
+dado que a app conhece obrigaria o médico a escrevê-lo à mão. Nenhum campo **numerado** foi
+criado, renomeado ou reordenado.
+
+A guia é **documento de saída**: imprimi-la não grava nada, não passa pelo backend e não toca
+a trilha do paciente. O gancho `examesReestadiamento(tumor)` existe e **devolve vazio de
+propósito** — as listas por tumor virão do oncologista de referência na Revisão clínica. Ver
+`BACKLOG.md`.
 
 **Perfis.** Escrever retorno e mexer na agenda: whitelist **explícita** `['oncologista','admin']`
 (`OncologistaOuAdminGuard` — sem hierarquia, o revisor leva 403 mesmo batendo na URL). Ler a

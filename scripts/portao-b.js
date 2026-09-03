@@ -3,13 +3,14 @@
 //   digitando (0 re-render), salvar, re-aval ao vivo à direita.
 // Fase 2 revisor: login, Revisão visível, não cria avaliação, parecer digitado
 //   (0 re-render), gravado e atribuído.
-// Fase 3 admin (API, JWT assinado): /revisao/export 200 = acesso admin OK.
+// Fase 3 admin (API): /revisao/export 200 = acesso admin OK.
 // Limpeza: apaga parecer de teste (SQL) e paciente de teste (DELETE admin).
+// Credenciais de teste: .env.local via scripts/portao-credenciais.js — nada fixo aqui.
 const path = require('path');
 const ROOT = require("path").resolve(__dirname, "..");
 const { chromium } = require(path.join(ROOT, 'node_modules/playwright'));
 require(path.join(ROOT, 'backend/node_modules/dotenv')).config({ path: path.join(ROOT, 'backend/.env') });
-const jwt = require(path.join(ROOT, 'backend/node_modules/jsonwebtoken'));
+const { tokenApi, loginNaTela } = require('./portao-credenciais');
 const { neon } = require(path.join(ROOT, 'backend/node_modules/@neondatabase/serverless'));
 
 const APP = 'http://localhost:5173/index.html';
@@ -20,16 +21,14 @@ const JUST_TESTE = 'TESTE PORTAO B - parecer de fumaca, sera apagado em seguida'
 const R = [];
 const ok = (n, c, x) => { R.push([c, n, x]); console.log((c ? 'PASS' : 'FAIL') + '  ' + n + (x ? '  [' + x + ']' : '')); };
 
-async function loginCtx(browser, user, pass) {
+async function loginCtx(browser, perfil) {
   const ctx = await browser.newContext();
   const page = await ctx.newPage();
   const errs = [];
   page.on('console', m => { if (m.type() === 'error') errs.push(m.text().slice(0, 120)); });
   page.on('pageerror', e => errs.push('pageerror: ' + e.message.slice(0, 120)));
   await page.goto(APP);
-  await page.fill('#lg_login', user);
-  await page.fill('#lg_senha', pass);
-  await page.click('#lg_btn');
+  await loginNaTela(page, perfil);
   return { ctx, page, errs };
 }
 
@@ -38,7 +37,7 @@ async function loginCtx(browser, user, pass) {
   let pacienteId = null;
 
   // ============ FASE 1 — oncologista ============
-  const f1 = await loginCtx(browser, 'oncologista', 'onco123');
+  const f1 = await loginCtx(browser, 'oncologista');
   const { page } = f1;
   await page.waitForSelector('button:has-text("+ Novo paciente")', { timeout: 20000 });
   ok('B5.1 login oncologista', true);
@@ -85,7 +84,7 @@ async function loginCtx(browser, user, pass) {
   await f1.ctx.close();
 
   // ============ FASE 2 — revisor ============
-  const f2 = await loginCtx(browser, 'revisor', 'revisor123');
+  const f2 = await loginCtx(browser, 'revisor');
   const p2 = f2.page;
   let revisorOk = true;
   try { await p2.waitForSelector('a:has-text("Revisão clínica")', { timeout: 15000 }); }
@@ -116,14 +115,19 @@ async function loginCtx(browser, user, pass) {
       const d = ds[0] || null;
       return d ? { rev: d.revisor && d.revisor.nome, just: d.justificativa, acao: d.acao } : null;
     }, rid);
-    ok('B5.4 parecer gravado e atribuído', !!parecer && parecer.just === JUST_TESTE && /Revisora/.test(parecer.rev || ''),
+    // "Atribuído" = atribuído a QUEM ESTÁ LOGADO. Comparar com o nome da sessão, não com
+    // um literal da conta de seed: a conta de teste vem do .env.local e pode ter outro nome.
+    const revLogado = await p2.evaluate(() => USUARIO.nome);
+    ok('B5.4 parecer gravado e atribuído', !!parecer && parecer.just === JUST_TESTE && parecer.rev === revLogado,
       parecer ? `${parecer.rev} · ${parecer.acao}` : 'sem parecer');
     ok('B7 console sem erro (revisor)', f2.errs.length === 0, f2.errs.join(' | '));
   }
   await f2.ctx.close();
 
-  // ============ FASE 3 — admin (API com JWT assinado) ============
-  const token = jwt.sign({ sub: 1, login: 'admin', perfil: 'admin' }, process.env.JWT_SECRET, { expiresIn: '15m' });
+  // ============ FASE 3 — admin (API, login de verdade) ============
+  // Era um JWT assinado localmente com o JWT_SECRET e sub:1 fixo. Logar de verdade testa
+  // o caminho que o usuário percorre e não depende do segredo do servidor.
+  const token = await tokenApi(API, 'admin');
   const rExp = await fetch(API + '/revisao/export', { headers: { Authorization: 'Bearer ' + token } });
   ok('B8 admin: /revisao/export responde 200 (acesso total)', rExp.status === 200, 'status=' + rExp.status);
 

@@ -12,9 +12,11 @@ alguém pode fechar; pendência implícita vira dado inventado.
 
 - **Gancho:** `examesReestadiamento(tumor)` em `app/index.html` — hoje `return []`.
 - **Onde aparece:** botão **Gerar guia SADT** no item de reestadiamento da trilha do
-  paciente. Com o gancho vazio, a guia abre com linhas em branco e o médico **digita os
-  exames na hora** (campos livres, adicionar/remover linhas). O fluxo está completo e
-  funcionando assim — a lista por tumor é conveniência, não pré-requisito.
+  paciente — hoje a guia TISS SP/SADT, bloco *Procedimentos ou Itens Assistenciais
+  Solicitados* (campos 24–28). Com o gancho vazio, a guia abre com as **5 linhas do
+  formulário oficial** em branco e o médico **digita os exames na hora** (o código TUSS ao
+  lado é opcional e também digitado). O fluxo está completo e funcionando assim — a lista
+  por tumor é conveniência, não pré-requisito.
 - **O que falta:** as listas de exames por tumor (ex.: mama → TC de tórax/abdome, cintilografia
   óssea…) precisam ser **definidas pelo oncologista de referência na Revisão clínica**, do
   mesmo jeito que o resto da camada clínica: informação assinada por humano, não derivada
@@ -25,7 +27,10 @@ alguém pode fechar; pendência implícita vira dado inventado.
 - **Como fechar quando houver decisão clínica:** persistir as listas na camada de revisão
   (uma decisão por tumor, como os pareceres em `revisoes`), expor no payload que a app já
   carrega e trocar o corpo do gancho pela leitura desse dado. Nenhuma outra parte da guia
-  muda: `abrirSADT()` já usa o retorno do gancho para pré-preencher as linhas.
+  muda: `abrirSADT()` já usa o retorno do gancho para pré-preencher as linhas de
+  `SADT.proc` (descrição + quantidade 1), respeitando o limite de 5 do formulário. **O
+  código TUSS continua fora do gancho** — ele não é decisão clínica e a app não o gera;
+  virá da tabela da operadora ou da mão do humano.
 
 **Portão:** o check `R14 gancho examesReestadiamento(tumor) devolve vazio (pendência
 registrada)` em `scripts/portao-retorno.js` falha no dia em que alguém preencher isso à mão

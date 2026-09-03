@@ -42,6 +42,20 @@ export class Usuario {
 
   @Column({ default: true })
   ativo: boolean;
+
+  // ---- Identificação profissional (bloco "Profissional Solicitante" da guia TISS) ----
+  // Administrativo, não clínico. Opcional: sem preenchimento, a guia imprime em branco.
+  @Column({ length: 20, nullable: true })
+  conselho: string; // ex.: CRM
+
+  @Column({ length: 30, nullable: true })
+  numero_conselho: string;
+
+  @Column({ length: 2, nullable: true })
+  uf_conselho: string;
+
+  @Column({ length: 10, nullable: true })
+  cbos: string; // Código Brasileiro de Ocupações do solicitante
 }
 
 // LGPD: nesta fase os pacientes são FICTÍCIOS (validação). O schema já nasce no
