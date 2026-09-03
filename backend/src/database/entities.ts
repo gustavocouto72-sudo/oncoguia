@@ -543,6 +543,22 @@ export class CustoRegime {
   @Column({ length: 200 })
   fonte_negociado: string;
 
+  // "O preço cadastrado cobre este período, em dias." Existe para o caso que o esquema
+  // não resolve: oral diário contínuo (osimertinibe, sunitinibe, pazopanibe) não tem
+  // intervalo de ciclo NENHUM no texto, então o servidor não consegue converter meses de
+  // tratamento em ciclos e o regime fica sem custo mesmo com preço cadastrado.
+  //
+  // É um dado ADMINISTRATIVO, declarado por quem cadastra o preço — não sai de extração
+  // clínica, e a tela precisa dizer isso. Por que não derivar: derivar exigiria escolher
+  // um intervalo que o esquema não afirma, que é exatamente o chute que este módulo
+  // recusa. Declarar é honesto; adivinhar não.
+  //
+  // null (default) = o preço é por ciclo e o intervalo vem do esquema. Sem valor aqui e
+  // sem periodicidade no esquema, o regime segue sem conversão — nunca há default
+  // silencioso de 30 dias.
+  @Column({ type: 'int', nullable: true })
+  periodo_dias: number | null;
+
   @UpdateDateColumn({ name: 'atualizado_em', type: 'timestamptz' })
   atualizado_em: Date; // do servidor
 

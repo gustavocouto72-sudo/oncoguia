@@ -39,6 +39,9 @@ const EVID = path.join(ROOT, 'backend/data/evidencia.json');
 // Regimes de teste: um FIXA (ciclos do esquema) e um ATE_PROGRESSAO com proxy de PFS.
 const RID_FIXA = 'gbm-stupp';
 const RID_PFS = 'mama-met-hrpos-2l-tdxd-db04';
+// Oral diário contínuo: o esquema NÃO tem intervalo de ciclo. É o caso de prova do
+// período declarado (osimertinibe, 20,7 meses de exposição mediana no FLAURA).
+const RID_ORAL = 'nsclc-met-osimertinibe-egfr';
 const NOME_TESTE = 'Paciente Portao Custo';
 const FONTE_T = 'PORTAO CUSTO - CMED teste';
 const FONTE_N = 'PORTAO CUSTO - contrato teste';
@@ -105,6 +108,9 @@ async function ctxLogin(browser, perfil) {
   const regs = new Map(evid.regimes.map(r => [r.regimen_id, r]));
   let tkOnco, tkRev, tkAud, tkAdm;
   let anteriores = {};   // preços que já existiam, para restaurar
+  // Um regime com tempo derivável e SEM preço — o caso do desacoplamento (mostra uso,
+  // nenhum R$). Escolhido do corpus, não fixo, para não depender de qual preço existe.
+  let RID_SEM_PRECO = null;
   let pacienteId = null; // paciente de teste (criado e apagado pelo portão)
 
   try {
@@ -154,14 +160,16 @@ async function ctxLogin(browser, perfil) {
       const e = (await req('GET', `/custos/estimativa/${rid}`, tkAud)).body;
       const esperado = ciclosEsperadosPortao(regs.get(rid));
       ok(`C4 ${rid}: ciclos do servidor = recálculo do portão sobre evidencia.json`,
-        e.disponivel && e.ciclos_esperados === esperado, `servidor=${e && e.ciclos_esperados} portao=${esperado}`);
+        e.uso.disponivel && e.uso.ciclos_esperados === esperado, `servidor=${e.uso.ciclos_esperados} portao=${esperado}`);
       ok(`C4 ${rid}: total_min = ciclos x negociado`,
-        Math.abs(e.total_min - esperado * neg) < 0.005, `${e.total_min} vs ${esperado * neg}`);
+        Math.abs(e.custo.total_min - esperado * neg) < 0.005, `${e.custo.total_min} vs ${esperado * neg}`);
       ok(`C4 ${rid}: total_max = ciclos x tabela`,
-        Math.abs(e.total_max - esperado * tab) < 0.005, `${e.total_max} vs ${esperado * tab}`);
-      ok(`C4 ${rid}: faixa não sai invertida (min <= max)`, e.total_min <= e.total_max, `${e.total_min} / ${e.total_max}`);
+        Math.abs(e.custo.total_max - esperado * tab) < 0.005, `${e.custo.total_max} vs ${esperado * tab}`);
+      ok(`C4 ${rid}: faixa não sai invertida (min <= max)`, e.custo.total_min <= e.custo.total_max, `${e.custo.total_min} / ${e.custo.total_max}`);
       ok(`C4 ${rid}: selo é 'estimativa' e as duas fontes vieram`,
-        e.selo === 'estimativa' && !!e.custo_ciclo.fonte_min && !!e.custo_ciclo.fonte_max);
+        e.selo === 'estimativa' && !!e.custo.custo_ciclo.fonte_min && !!e.custo.custo_ciclo.fonte_max);
+      ok(`C4 ${rid}: periodicidade veio do ESQUEMA (não do cadastro)`,
+        e.uso.periodicidade_origem === 'esquema', e.uso.periodicidade_origem);
     }
     // ═══ FASE 2b — a SOMA da carteira, com dado de verdade ═══
     // O portão CRIA o próprio paciente e a avaliação. Sem isso a soma agregada nunca é
@@ -206,28 +214,115 @@ async function ctxLogin(browser, perfil) {
         // A rota por paciente responde o mesmo que a linha da carteira.
         const pp = (await req('GET', `/custos/paciente/${pacienteId}`, tkAud)).body;
         ok('C5b /custos/paciente/:id bate com a linha da carteira',
-          pp.regimen_id === RID_FIXA && Math.abs(pp.estimativa.total_min - linha.total_min) < 0.005,
-          `${pp.estimativa && pp.estimativa.total_min} vs ${linha && linha.total_min}`);
+          pp.regimen_id === RID_FIXA && Math.abs(pp.estimativa.custo.total_min - linha.total_min) < 0.005,
+          `${pp.estimativa && pp.estimativa.custo.total_min} vs ${linha && linha.total_min}`);
       }
     }
 
     const ePfs = (await req('GET', `/custos/estimativa/${RID_PFS}`, tkAud)).body;
-    ok('C5 origem dos ciclos declarada como proxy de PFS', ePfs.origem_ciclos === 'proxy_pfs', ePfs.origem_ciclos);
+    ok('C5 origem dos ciclos declarada como proxy de PFS', ePfs.uso.origem_ciclos === 'proxy_pfs', ePfs.uso.origem_ciclos);
     ok('C5 aviso do PFS presente na resposta do servidor',
-      /piso/i.test(ePfs.aviso || ''), ePfs.aviso);
+      /piso/i.test(ePfs.uso.aviso || ''), ePfs.uso.aviso);
 
     // ═══ FASE 3 — indeterminado e cadastro inválido ═══
     // Um regime com tempo indeterminado no corpus: tem de vir "sem estimativa" COM motivo.
     const ridIndet = evid.regimes.find(r => r.expectativa_uso && r.expectativa_uso.indeterminado).regimen_id;
     const eInd = (await req('GET', `/custos/estimativa/${ridIndet}`, tkAud)).body;
-    ok('C6 tempo indeterminado -> disponivel=false com motivo', eInd.disponivel === false && !!eInd.motivo, `${ridIndet}: ${eInd.motivo}`);
+    ok('C6 tempo indeterminado -> uso.disponivel=false com motivo', eInd.uso.disponivel === false && !!eInd.uso.motivo, `${ridIndet}: ${eInd.uso.motivo}`);
     ok('C6 indeterminado NÃO devolve zero nem campo vazio silencioso',
-      eInd.total_min === undefined && eInd.total_max === undefined && !!eInd.explicacao,
-      `total_min=${eInd.total_min} total_max=${eInd.total_max}`);
-    // Oral diário: tempo resolvido mas periodicidade não derivável do esquema.
-    const eOral = (await req('GET', '/custos/estimativa/nsclc-met-osimertinibe-egfr', tkAud)).body;
-    ok('C6 periodicidade não derivável -> sem estimativa (não chuta intervalo)',
-      eOral.disponivel === false && eOral.motivo === 'periodicidade_nao_derivavel', eOral.motivo);
+      eInd.custo.total_min === undefined && eInd.custo.total_max === undefined && !!eInd.uso.explicacao,
+      `total_min=${eInd.custo.total_min} total_max=${eInd.custo.total_max}`);
+    ok('C6 sem uso derivável, o custo diz que falta o USO (não que falta preço)',
+      eInd.custo.motivo === 'sem_uso_derivavel', eInd.custo.motivo);
+
+    // ═══ FASE 3b — ORAL CONTÍNUO: período declarado destrava a conversão ═══
+    // O esquema do osimertinibe ("80 mg VO 1x/dia até progressão/toxicidade") não tem
+    // intervalo de ciclo nenhum. Sem período declarado o servidor NÃO converte; com ele,
+    // converte e diz que o número é administrativo.
+    {
+      const jaTinha = ((await req('GET', '/custos', tkAdm)).body || []).find(c => c.regimen_id === RID_ORAL);
+      if (jaTinha && !anteriores[RID_ORAL]) anteriores[RID_ORAL] = jaTinha;
+
+      // (a) preço SEM periodo_dias: nada de conversão, nada de R$.
+      const semPer = await req('PUT', `/custos/${RID_ORAL}`, tkAdm, {
+        custo_ciclo_tabela: 22000.00, custo_ciclo_negociado: 17500.00,
+        fonte_tabela: FONTE_T, fonte_negociado: FONTE_N,
+      });
+      ok('C13 preço do oral cadastrado sem periodo_dias', semPer.status === 200, 'status=' + semPer.status);
+      const eSem = (await req('GET', `/custos/estimativa/${RID_ORAL}`, tkAud)).body;
+      ok('C13 oral SEM periodo_dias: uso não derivável (não chuta intervalo)',
+        eSem.uso.disponivel === false && eSem.uso.motivo === 'periodicidade_nao_derivavel', eSem.uso.motivo);
+      ok('C13 oral SEM periodo_dias: nenhum total em R$ mesmo com preço cadastrado',
+        eSem.custo.disponivel === false && eSem.custo.total_min === undefined && eSem.custo.total_max === undefined,
+        `custo.disponivel=${eSem.custo.disponivel}`);
+      ok('C13 oral SEM periodo_dias: a duração conhecida é exposta (não some)',
+        typeof eSem.uso.duracao_meses === 'number', 'duracao_meses=' + eSem.uso.duracao_meses);
+
+      // (b) periodo_dias = 30: converte, e a aritmética confere.
+      const comPer = await req('PUT', `/custos/${RID_ORAL}`, tkAdm, {
+        custo_ciclo_tabela: 22000.00, custo_ciclo_negociado: 17500.00,
+        fonte_tabela: FONTE_T, fonte_negociado: FONTE_N, periodo_dias: 30,
+      });
+      ok('C14 preço do oral regravado com periodo_dias=30', comPer.status === 200, 'status=' + comPer.status);
+      const eCom = (await req('GET', `/custos/estimativa/${RID_ORAL}`, tkAud)).body;
+      // Recálculo INDEPENDENTE: 20,7 meses (FLAURA) x 30,4 / 30.
+      const b = regs.get(RID_ORAL).expectativa_uso;
+      const meses = b.duracao_mediana_tratamento_meses;
+      const esperadoOral = Math.max(1, Math.round((meses * 30.4) / 30));
+      ok('C14 oral COM periodo_dias: uso derivável', eCom.uso.disponivel === true, eCom.uso.motivo || '');
+      ok('C14 oral COM periodo_dias: aritmética confere com o recálculo do portão',
+        eCom.uso.ciclos_esperados === esperadoOral,
+        `servidor=${eCom.uso.ciclos_esperados} portao=${esperadoOral} (${meses} x 30.4 / 30)`);
+      ok('C14 origem exibida é "período declarado no cadastro", não o esquema',
+        eCom.uso.periodicidade_origem === 'periodo_declarado' && eCom.uso.periodicidade_dias === 30,
+        `${eCom.uso.periodicidade_origem} / ${eCom.uso.periodicidade_dias}d`);
+      ok('C14 origem do TEMPO continua sendo a duração reportada do pivotal',
+        eCom.uso.origem_ciclos === 'duracao_reportada', eCom.uso.origem_ciclos);
+      ok('C14 total = períodos x preço',
+        Math.abs(eCom.custo.total_min - esperadoOral * 17500) < 0.005 &&
+        Math.abs(eCom.custo.total_max - esperadoOral * 22000) < 0.005,
+        `${eCom.custo.total_min}/${eCom.custo.total_max}`);
+      ok('C14 periodo_dias volta na resposta (a tela precisa dizer "preço por N dias")',
+        eCom.custo.periodo_dias === 30, String(eCom.custo.periodo_dias));
+
+      // (c) periodo_dias fora da faixa é recusado — erro aqui multiplica o custo.
+      const ruim = await req('PUT', `/custos/${RID_ORAL}`, tkAdm, {
+        custo_ciclo_tabela: 100, custo_ciclo_negociado: 50,
+        fonte_tabela: FONTE_T, fonte_negociado: FONTE_N, periodo_dias: 0,
+      });
+      ok('C14 periodo_dias = 0 é recusado (400)', ruim.status === 400, 'status=' + ruim.status);
+      const ruim2 = await req('PUT', `/custos/${RID_ORAL}`, tkAdm, {
+        custo_ciclo_tabela: 100, custo_ciclo_negociado: 50,
+        fonte_tabela: FONTE_T, fonte_negociado: FONTE_N, periodo_dias: 400,
+      });
+      ok('C14 periodo_dias = 400 é recusado (400)', ruim2.status === 400, 'status=' + ruim2.status);
+    }
+
+    // ═══ FASE 3c — USO sem preço: mostra uso, zero R$ ═══
+    // O desacoplamento: tempo derivável e preço ausente tem de render a metade de USO.
+    {
+      const semPreco = evid.regimes.find(r => {
+        const b = r.expectativa_uso;
+        return b && !b.indeterminado && b.tipo === 'fixa' && b.ciclos && b.periodicidade_dias
+          && ![RID_FIXA, RID_PFS, RID_ORAL].includes(r.regimen_id);
+      });
+      const lista = (await req('GET', '/custos', tkAdm)).body || [];
+      const alvoSem = semPreco && !lista.some(c => c.regimen_id === semPreco.regimen_id) ? semPreco : null;
+      RID_SEM_PRECO = alvoSem ? alvoSem.regimen_id : null;
+      if (!alvoSem) {
+        ok('C15 uso sem preço', true, 'nenhum regime fixa sem preço disponível — check vazio');
+      } else {
+        const eSP = (await req('GET', `/custos/estimativa/${alvoSem.regimen_id}`, tkAud)).body;
+        ok('C15 tempo derivável e SEM preço: uso disponível mesmo assim',
+          eSP.uso.disponivel === true && eSP.uso.ciclos_esperados === alvoSem.expectativa_uso.ciclos,
+          `${alvoSem.regimen_id}: ciclos=${eSP.uso.ciclos_esperados}`);
+        ok('C15 sem preço: motivo do custo é "sem_preco_cadastrado" (não "sem uso")',
+          eSP.custo.disponivel === false && eSP.custo.motivo === 'sem_preco_cadastrado', eSP.custo.motivo);
+        ok('C15 sem preço: NENHUM valor em R$ na resposta (nem zero)',
+          eSP.custo.total_min === undefined && eSP.custo.total_max === undefined && eSP.custo.custo_ciclo === undefined,
+          `total_min=${eSP.custo.total_min}`);
+      }
+    }
 
     const invertido = await req('PUT', `/custos/${RID_FIXA}`, tkAdm, {
       custo_ciclo_tabela: 100, custo_ciclo_negociado: 200, fonte_tabela: FONTE_T, fonte_negociado: FONTE_N,
@@ -298,6 +393,33 @@ async function ctxLogin(browser, perfil) {
         const tApp = await page.evaluate(() => (document.getElementById('app') || document.body).innerText);
         ok('C11 nenhum "R$ 0,00" renderizado (indeterminado não vira zero)', !/R\$\s*0,00/.test(tApp),
           (tApp.match(/R\$\s*0,00/g) || []).join(','));
+
+        // Desacoplamento na TELA: protocolo com tempo derivável e SEM preço tem de
+        // mostrar a metade de USO e nenhum R$. Renderiza o bloco isolado e inspeciona —
+        // é o único jeito de provar isso sem depender de qual protocolo o paciente tem.
+        const semPrecoUI = await page.evaluate(async (alvo) => {
+          if (!alvo) return null;
+          const el = document.createElement('div');
+          el.innerHTML = custoBlocoHtml(alvo);
+          document.body.appendChild(el);
+          for (let i = 0; i < 60 && CUSTO_EST[alvo] === undefined; i++) await new Promise(r => setTimeout(r, 100));
+          pintarSlotsCusto();
+          const txt = el.innerText;
+          const e = CUSTO_EST[alvo];
+          el.remove();
+          return { txt, uso: e && e.uso };
+        }, RID_SEM_PRECO);
+        if (semPrecoUI && semPrecoUI.uso) {
+          ok('C11b uso sem preço: bloco mostra "Uso esperado" e o nº de aplicações',
+            /uso esperado/i.test(semPrecoUI.txt) && new RegExp(String(semPrecoUI.uso.ciclos_esperados)).test(semPrecoUI.txt),
+            semPrecoUI.txt.replace(/\s+/g, ' ').slice(0, 130));
+          ok('C11b uso sem preço: diz "sem preço cadastrado" e NÃO mostra R$ nenhum',
+            /sem pre[çc]o/i.test(semPrecoUI.txt) && !/R\$/.test(semPrecoUI.txt),
+            (semPrecoUI.txt.match(/R\$[^\s]*/g) || []).join(','));
+        } else {
+          ok('C11b uso sem preço renderizado na tela', !RID_SEM_PRECO,
+            RID_SEM_PRECO ? 'bloco não renderizou para ' + RID_SEM_PRECO : 'sem regime candidato — check vazio');
+        }
       } else { ok('C11 bloco na ficha (auditor)', true, 'sem paciente com avaliação — check vazio'); }
       ok('C11 sem erro de console no auditor', errs.length === 0, errs.join(' | '));
       await ctx.close();
@@ -307,10 +429,10 @@ async function ctxLogin(browser, perfil) {
     {
       const { ctx, page, errs } = await ctxLogin(browser, 'admin');
       await page.evaluate(() => go('custos'));
-      await page.waitForFunction(() => CUSTO_ADM !== null, null, { timeout: 25000 });
-      await page.waitForTimeout(600);
+      // Espera a LISTA, não a variável: CUSTO_ADM é preenchida pela primeira chamada e a
+      // tela só é pintada quando a segunda (/custos/cobertura) volta.
       const sel = `#cst_tab_${RID_FIXA}`;
-      await page.waitForSelector(sel, { timeout: 15000 });
+      await page.waitForSelector(sel, { timeout: 30000 });
       await page.evaluate(() => { window.__rc = 0; const o = window.render; window.render = function () { window.__rc++; return o.apply(this, arguments); }; });
       await page.click(sel, { clickCount: 3 });
       await page.type(sel, '13450,75', { delay: 12 });
@@ -323,6 +445,19 @@ async function ctxLogin(browser, perfil) {
       ok('C12 digitar PREÇO: 0 re-render da lista', rc === 0, 'renders=' + rc);
       ok('C12 valor digitado no preço sobrevive', v === '13450,75', v);
       ok('C12 valor digitado na FONTE sobrevive', vf === 'CMED 2026-02 portao', vf);
+      // Campo do período — o novo. Mesmo contrato: digitar não pode redesenhar a lista.
+      const selP = `#cst_pd_${RID_ORAL}`;
+      const temCampoP = await page.$(selP);
+      if (temCampoP) {
+        await page.click(selP, { clickCount: 3 });
+        await page.type(selP, '30', { delay: 12 });
+        const rc2 = await page.evaluate(() => window.__rc);
+        const vp = await page.evaluate(s2 => document.querySelector(s2).value, selP);
+        ok('C12 digitar PERÍODO COBERTO: 0 re-render da lista', rc2 === 0, 'renders=' + rc2);
+        ok('C12 valor digitado no período sobrevive', vp === '30', vp);
+      } else {
+        ok('C12 campo de período presente para o oral', false, `${selP} não encontrado na tela do admin`);
+      }
       ok('C12 sem erro de console no admin', errs.length === 0, errs.join(' | '));
       await ctx.close();
     }
@@ -334,12 +469,13 @@ async function ctxLogin(browser, perfil) {
     // identificável pela fonte (não há DELETE na API por desenho).
     try {
       if (!tkAdm) tkAdm = await tokenApi(API, 'admin');
-      for (const rid of [RID_FIXA, RID_PFS]) {
+      for (const rid of [RID_FIXA, RID_PFS, RID_ORAL]) {
         const a = anteriores[rid];
         if (a) {
           await req('PUT', `/custos/${rid}`, tkAdm, {
             custo_ciclo_tabela: Number(a.custo_ciclo_tabela), custo_ciclo_negociado: Number(a.custo_ciclo_negociado),
             fonte_tabela: a.fonte_tabela, fonte_negociado: a.fonte_negociado,
+            periodo_dias: a.periodo_dias == null ? null : Number(a.periodo_dias),
           });
         }
       }

@@ -4977,35 +4977,54 @@ function pintarSlotsCusto(){
 
 function custoConteudoHtml(rid){
   const e = CUSTO_EST[rid];
-  if(e === undefined){ pedirEstimativa(rid); return `<div class="cst"><div class="cst-h">Expectativa de custo — <b>ESTIMATIVA</b></div><div class="cst-load">⏳ calculando…</div></div>`; }
+  if(e === undefined){ pedirEstimativa(rid); return `<div class="cst"><div class="cst-h">Expectativa de uso e custo — <b>ESTIMATIVA</b></div><div class="cst-load">⏳ calculando…</div></div>`; }
 
-  // Sem estimativa: diz POR QUÊ, com as mesmas palavras do servidor. Nunca R$ 0, nunca
-  // campo vazio — "custo desconhecido" e "custo zero" são coisas opostas.
-  if(!e.disponivel){
-    const tempoOk = typeof e.ciclos_esperados === "number";
+  const uso = e.uso || {}, custo = e.custo || {};
+
+  // USO e CUSTO são independentes. Sem tempo derivável não há o que mostrar — aí sim
+  // "sem estimativa". Com tempo derivável e sem preço, o uso aparece igual: o número de
+  // aplicações é dado clínico do corpus e não depende de ninguém ter cadastrado preço.
+  if(!uso.disponivel){
     return `<div class="cst cst-sem">
-      <div class="cst-h">Expectativa de custo — <b>ESTIMATIVA</b></div>
+      <div class="cst-h">Expectativa de uso e custo — <b>ESTIMATIVA</b></div>
       <div class="cst-sem-t">sem estimativa</div>
-      <div class="cst-sem-x">${esc(e.explicacao||"Motivo não informado pelo servidor.")}</div>
-      ${tempoOk?`<div class="cst-l"><span>Ciclos esperados</span><b>${e.ciclos_esperados}</b> <span class="cst-org">${esc(custoOrigemLabel(e))}</span></div>`:""}
-      ${e.origem_detalhe&&!tempoOk?`<div class="cst-det">${esc(e.origem_detalhe)}</div>`:""}
-      ${e.nota_expectativa?`<div class="cst-nota"><b>Nota do tempo de uso:</b> ${esc(e.nota_expectativa)}</div>`:""}
+      <div class="cst-sem-x">${esc(uso.explicacao||"Motivo não informado pelo servidor.")}</div>
+      ${uso.duracao_meses?`<div class="cst-det">Duração conhecida: ${esc(String(uso.duracao_meses).replace(".",","))} meses — falta o intervalo entre aplicações.</div>`:""}
+      ${uso.origem_detalhe?`<div class="cst-det">${esc(uso.origem_detalhe)}</div>`:""}
+      ${uso.nota_expectativa?`<div class="cst-nota"><b>Nota do tempo de uso:</b> ${esc(uso.nota_expectativa)}</div>`:""}
     </div>`;
   }
 
-  const c = e.custo_ciclo || {};
-  return `<div class="cst">
-    <div class="cst-h">Expectativa de custo — <b>ESTIMATIVA</b></div>
-    <div class="cst-l"><span>Custo por ciclo</span><b>${fmtBRL(c.min)} – ${fmtBRL(c.max)}</b></div>
+  // ---- metade USO (sempre que houver tempo derivável) ----
+  const decl = uso.periodicidade_origem === "periodo_declarado";
+  const usoHtml = `
+    <div class="cst-sec">Uso esperado</div>
+    <div class="cst-l"><span>${decl?"Períodos esperados":"Ciclos esperados"}</span><b>${uso.ciclos_esperados}</b> <span class="cst-org">${esc(custoOrigemLabel(uso))}</span></div>
+    ${uso.periodicidade_dias?`<div class="cst-l"><span>Intervalo</span><b>${uso.periodicidade_dias} dias</b> ${decl
+      ? `<span class="cst-org adm" title="Valor administrativo informado por quem cadastrou o preço — não sai do protocolo nem de extração clínica">período declarado no cadastro</span>`
+      : `<span class="cst-org">do esquema</span>`}</div>`:""}
+    ${uso.origem_detalhe?`<div class="cst-det">${esc(uso.origem_detalhe)}</div>`:""}
+    ${uso.aviso?`<div class="cst-aviso">⚠️ ${esc(uso.aviso)}</div>`:""}
+    ${uso.nota_expectativa?`<div class="cst-nota"><b>Nota do tempo de uso:</b> ${esc(uso.nota_expectativa)}</div>`:""}`;
+
+  // ---- metade CUSTO (só quando há preço) ----
+  const c = custo.custo_ciclo || {};
+  const custoHtml = custo.disponivel ? `
+    <div class="cst-sec">Custo</div>
+    <div class="cst-l"><span>${decl?`Preço por ${custo.periodo_dias} dias`:"Custo por ciclo"}</span><b>${fmtBRL(c.min)} – ${fmtBRL(c.max)}</b></div>
     <div class="cst-fontes">
       <div><span class="cst-fk">negociado</span> ${esc(c.fonte_min||"—")}</div>
       <div><span class="cst-fk">tabela</span> ${esc(c.fonte_max||"—")}</div>
     </div>
-    <div class="cst-l"><span>Ciclos esperados</span><b>${e.ciclos_esperados}</b> <span class="cst-org">${esc(custoOrigemLabel(e))}</span></div>
-    ${e.origem_detalhe?`<div class="cst-det">${esc(e.origem_detalhe)}</div>`:""}
-    <div class="cst-tot"><span>Total estimado</span><b>${fmtBRL(e.total_min)} – ${fmtBRL(e.total_max)}</b></div>
-    ${e.aviso?`<div class="cst-aviso">⚠️ ${esc(e.aviso)}</div>`:""}
-    ${e.nota_expectativa?`<div class="cst-nota"><b>Nota do tempo de uso:</b> ${esc(e.nota_expectativa)}</div>`:""}
+    <div class="cst-tot"><span>Total estimado</span><b>${fmtBRL(custo.total_min)} – ${fmtBRL(custo.total_max)}</b></div>`
+    : `
+    <div class="cst-sec">Custo</div>
+    <div class="cst-semp" title="${esc(custo.explicacao||"")}">sem preço cadastrado</div>`;
+
+  return `<div class="cst">
+    <div class="cst-h">Expectativa de uso e custo — <b>ESTIMATIVA</b></div>
+    ${usoHtml}
+    ${custoHtml}
   </div>`;
 }
 
@@ -5016,7 +5035,7 @@ const CUSTO_ORIGEM = {
   proxy_pfs:          {t:"proxy: PFS mediana do pivotal",        cls:"pfs"},
   duracao_reportada:  {t:"duração mediana reportada no pivotal", cls:"dur"},
 };
-function custoOrigemLabel(e){ const m = CUSTO_ORIGEM[e.origem_ciclos]; return m ? m.t : ""; }
+function custoOrigemLabel(uso){ const m = CUSTO_ORIGEM[uso.origem_ciclos]; return m ? m.t : ""; }
 
 // ---- Carteira (área do auditor) ----
 async function carregarCarteira(){
@@ -5060,6 +5079,7 @@ function custoFormAtual(rid){
     negociado: f.negociado !== undefined ? f.negociado : (salvo.custo_ciclo_negociado != null ? String(salvo.custo_ciclo_negociado) : ""),
     ft:        f.ft        !== undefined ? f.ft        : (salvo.fonte_tabela    || ""),
     fn:        f.fn        !== undefined ? f.fn        : (salvo.fonte_negociado || ""),
+    pd:        f.pd        !== undefined ? f.pd        : (salvo.periodo_dias != null ? String(salvo.periodo_dias) : ""),
   };
 }
 async function carregarCustosAdm(){
@@ -5083,6 +5103,16 @@ async function salvarCusto(rid, btn){
   CUSTO_OK = "";
   if(tab===null || neg===null || isNaN(tab) || isNaN(neg)){ CUSTO_ERRO = "Informe os dois preços (use vírgula para centavos)."; render(); return; }
   if(!String(f.ft).trim() || !String(f.fn).trim()){ CUSTO_ERRO = "As duas fontes são obrigatórias — nenhum preço aparece na tela sem fonte."; render(); return; }
+  // Campo vazio manda null explícito: "não declarado" e "30 dias" são coisas diferentes,
+  // e o servidor nunca assume a segunda.
+  const pdTxt = String(f.pd==null?"":f.pd).trim();
+  let pd = null;
+  if(pdTxt!==""){
+    pd = Number(pdTxt.replace(",","."));
+    if(!isFinite(pd) || Math.floor(pd)!==pd || pd<1 || pd>365){
+      CUSTO_ERRO = "Período coberto pelo preço: informe um número inteiro de dias entre 1 e 365 (ou deixe vazio)."; render(); return;
+    }
+  }
   CUSTO_BUSY = rid; CUSTO_ERRO = ""; render();
   try{
     await api("/custos/"+encodeURIComponent(rid), {method:"PUT", body: JSON.stringify({
@@ -5090,6 +5120,7 @@ async function salvarCusto(rid, btn){
       custo_ciclo_negociado: Math.round(neg*100)/100,
       fonte_tabela: String(f.ft).trim(),
       fonte_negociado: String(f.fn).trim(),
+      periodo_dias: pd,
     })});
     delete CUSTO_FORM[rid];
     CUSTO_EST = {};          // preço mudou: as estimativas em cache viraram passado
@@ -5115,7 +5146,11 @@ function custoFormHtml(rid, nome, sub){
         placeholder="CMED 2026-01 (PMVG 18%)" oninput="setCustoForm('${esc(rid)}','ft',this.value)"></label>
       <label>Fonte do negociado<input type="text" id="cst_fn_${esc(rid)}" value="${esc(f.fn)}"
         placeholder="Contrato Operadora X, aditivo 2026-03" oninput="setCustoForm('${esc(rid)}','fn',this.value)"></label>
+      <label title="Só para protocolo cujo esquema não declara intervalo de ciclo — oral diário contínuo. Deixe vazio quando o preço for por ciclo: aí o intervalo sai do próprio esquema.">Preço cobre quantos dias?
+        <input type="text" inputmode="numeric" id="cst_pd_${esc(rid)}" value="${esc(f.pd)}"
+        placeholder="vazio = preço por ciclo" oninput="setCustoForm('${esc(rid)}','pd',this.value)"></label>
     </div>
+    <div class="cadm-adm">⚠️ <b>"Preço cobre quantos dias?"</b> é dado <b>administrativo declarado</b>, não extração clínica: use só quando o esquema não tem intervalo (ex.: <i>osimertinibe 80 mg 1x/dia até progressão</i>). Vazio nunca vira 30 por padrão — sem ele o protocolo segue sem conversão em custo.</div>
     <div class="cadm-acoes">
       <button class="btn primary" ${busy?"disabled":""} onclick="salvarCusto('${esc(rid)}',this)">${busy?"Gravando…":"Gravar preço"}</button>
       <span class="hint">Negociado não pode ser maior que a tabela — a faixa sairia invertida.</span>
@@ -5179,6 +5214,10 @@ function renderCustos(){
 .cst-tot b{font-size:16px;color:#1f3f6e}
 .cst-aviso{margin-top:8px;padding:7px 10px;border-radius:8px;background:#fdf6e3;color:#7a5a00;font-size:12px;font-weight:600}
 .cst-nota{margin-top:7px;font-size:11px;color:#6b7681;line-height:1.5}
+.cst-sec{margin:10px 0 4px;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#8797a5;border-top:1px solid #e6ecf3;padding-top:8px}
+.cst-sec:first-of-type{border-top:0;padding-top:0;margin-top:2px}
+.cst-org.adm{background:#fdf6e3;color:#7a5a00}
+.cst-semp{font-size:13px;color:#77828d;font-style:italic}
 .cst-cart{margin:14px 0 6px;border:1px solid #d9e2ef;border-radius:10px;padding:14px 16px;background:#f8fafd}
 .cst-cart-m{font-size:12px;color:#67727d;margin-top:6px}
 .cst-fora{margin-top:9px;font-size:12px}
@@ -5194,6 +5233,7 @@ function renderCustos(){
 .cadm-grid input{width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border,#e3e6ea);border-radius:8px;font-size:13px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink,#222)}
 .cadm-acoes{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
 .cadm-ok{margin:8px 0;padding:8px 12px;border-radius:8px;background:#e6f6ec;color:#136c3a;font-size:13px;font-weight:600}
+.cadm-adm{margin-top:9px;padding:8px 11px;border-radius:8px;background:#fdf6e3;color:#7a5a00;font-size:11px;line-height:1.6}
 `; document.head.appendChild(s); })();
 
 function podeAutorizar(){ return !!(USUARIO && (USUARIO.perfil==="auditor" || USUARIO.perfil==="admin")); }

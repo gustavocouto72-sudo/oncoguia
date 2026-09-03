@@ -1,7 +1,7 @@
 import {
   Body, Controller, Get, Param, ParseIntPipe, Put, Query, Request, UseGuards, ValidationPipe,
 } from '@nestjs/common';
-import { IsNumber, IsString, Max, MaxLength, Min } from 'class-validator';
+import { IsInt, IsNumber, IsOptional, IsString, Max, MaxLength, Min, ValidateIf } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { AuditorOuAdminGuard } from '../auth/auditor.guard';
 import { AdminGuard } from '../auth/admin.guard';
@@ -23,6 +23,15 @@ class SalvarCustoDto {
 
   @IsString() @MaxLength(200)
   fonte_negociado: string;
+
+  // "O preço cobre quantos dias?" — dado ADMINISTRATIVO, declarado por quem cadastra.
+  // Só é usado quando o esquema não dá o intervalo (oral diário contínuo). Opcional e
+  // nullable: ausente significa "preço por ciclo, intervalo vem do esquema", nunca 30.
+  @IsOptional()
+  @ValidateIf((_, v) => v !== null)
+  @IsInt({ message: 'periodo_dias deve ser um número inteiro de dias' })
+  @Min(1) @Max(365)
+  periodo_dias?: number | null;
 }
 
 // EXPECTATIVA DE CUSTO — visibilidade auditor + admin, por whitelist EXPLÍCITA no
