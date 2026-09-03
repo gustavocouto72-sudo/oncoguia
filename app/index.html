@@ -358,6 +358,32 @@
   .tox-row .rm{height:30px;border:1px solid var(--line);background:#fff;border-radius:8px;color:#a5281b;font-weight:800;cursor:pointer;font-size:15px;line-height:1}
   .tox-row .outra{grid-column:1/-1}
   .lnk-add{background:none;border:none;color:var(--accent);font-weight:700;font-size:12px;cursor:pointer;padding:4px 0}
+  /* ---- Retorno: previsto (read-only), chips do próximo, ⓘ de imutabilidade ---- */
+  .info-i{margin-left:7px;color:var(--muted);font-size:12px;cursor:help;font-weight:700;text-transform:none;letter-spacing:0}
+  .info-i:hover,.info-i:focus{color:var(--accent);outline:none}
+  .ret-previsto{background:#f6f9fb;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:8px 12px;font-size:12.5px;color:var(--ink);margin-bottom:14px}
+  .ret-previsto .atraso{color:#a5281b;font-weight:700}
+  .chips-int{display:flex;flex-wrap:wrap;gap:8px}
+  .chip-int{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer;font-family:inherit}
+  .chip-int:hover{border-color:var(--accent);color:var(--accent)}
+  .chip-int.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .prox-res{margin-top:11px;font-size:13px;color:var(--ink)}
+  .prox-res b{font-size:14px}
+  .prox-res.pend,.prox-res.none{color:var(--muted);font-size:12.5px}
+  /* ---- "Quem não veio": badge de retorno atrasado e filtro da lista ---- */
+  .badge-atraso{display:block;width:fit-content;background:var(--redbg);border:1px solid #f0c3bd;color:#a5281b;border-radius:7px;padding:3px 8px;font-size:10.5px;font-weight:700;margin-top:5px;line-height:1.35}
+  .lista-filtros{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 4px}
+  .lista-filtros button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit}
+  .lista-filtros button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+  .lista-filtros button.atraso.on{background:#a5281b;border-color:#a5281b}
+  .lista-busca{margin:16px 0 2px}
+  .lista-busca input{width:100%;max-width:360px;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:13px;font-family:inherit;color:var(--ink);background:#fff}
+  .lista-busca input:focus{outline:none;border-color:var(--accent)}
+  .lista-busca-n{font-size:11.5px;color:var(--muted);font-weight:600}
+  .lista-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+  .tag-ni{font-size:9.5px;font-weight:800;letter-spacing:.4px;background:#fbecea;color:#a5281b;border:1px solid #f2cdc8;border-radius:5px;padding:2px 6px;white-space:nowrap}
+  .tag-aut{font-size:9.5px;font-weight:800;background:var(--amberbg);color:#8a5d05;border:1px solid #f0dca6;border-radius:5px;padding:2px 6px;white-space:nowrap}
+  .ret-venc{color:#a5281b;font-weight:800}
   /* ---- Reestadiamento: lembrete e item pendente ---- */
   .reest-ok{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);background:#f6f9fb;border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin-top:12px}
   .reest-venc{background:var(--redbg);border:1px solid #f0c3bd;border-radius:9px;padding:11px 13px;margin-top:12px}
@@ -1561,6 +1587,126 @@ function renderNav(){
 }
 
 // ---- Lista ----
+// "Quem não veio": paciente com retorno previsto vencido e nenhum retorno registrado
+// desde então. Quem decide isso é o SERVIDOR (`retorno.vencido`, comparado com o relógio
+// dele) — a app não deriva "atrasado" do relógio da máquina do usuário, que pode estar
+// errado ou em outro fuso. Aqui é só leitura.
+let LISTA_FILTRO = "todos";   // todos | atrasados
+let LISTA_BUSCA = "";         // busca por nome/registro — ESTADO, nunca lido do DOM
+function atrasoDe(p){ return (p.retorno && p.retorno.vencido) ? p.retorno : null; }
+
+// Idade em anos completos. Vem do relógio do navegador de propósito: idade é conta de
+// calendário sem consequência de processo, ao contrário de "vencido" (esse é do servidor).
+function idadeAnos(nasc){
+  if(!nasc) return null;
+  const [y,m,d] = String(nasc).split("-").map(Number);
+  if(!y||!m||!d) return null;
+  const h = new Date();
+  let a = h.getFullYear() - y;
+  if(h.getMonth()+1 < m || (h.getMonth()+1===m && h.getDate() < d)) a--;
+  return (a>=0 && a<140) ? a : null;
+}
+// dd/mm — a lista mostra o dia da última avaliação colado no protocolo ("· em 14/08"),
+// não uma coluna própria: o que interessa é há quanto tempo aquela decisão foi tomada.
+function fmtDiaMes(iso){
+  if(!iso) return "";
+  const d = new Date(iso); if(isNaN(d)) return String(iso);
+  const p = n=>String(n).padStart(2,"0");
+  return `${p(d.getDate())}/${p(d.getMonth()+1)}`;
+}
+// O protocolo vigente é oferecido pela instituição? Mesmo eixo do corpus que o backend usa
+// em EvidenciaService.naoIncorporado — regime fora do corpus não é "não incorporado".
+function regimeNaoIncorporado(regimen_id){
+  if(!regimen_id) return false;
+  const r = REGIMES.find(x=>x.regimen_id===regimen_id);
+  return !!r && !incorporacao(r).incorporado;
+}
+
+// Célula "Último protocolo": nome + linha + dia da avaliação, e os dois selos que mudam a
+// leitura da linha — NÃO INCORPORADO (a instituição não oferece) e ⏳ aguardando
+// autorização (a última avaliação está parada no auditor). O selo de espera aparece mesmo
+// sem protocolo vigente: é o caso do paciente cuja PRIMEIRA seleção foi uma exceção.
+function listaProtoHtml(p){
+  const selos = [];
+  if(regimeNaoIncorporado(p.ultimo_regimen_id))
+    selos.push(`<span class="tag-ni" title="Protocolo avaliado que a instituição NÃO oferece — selecionado por exceção">NÃO INCORPORADO</span>`);
+  if(p.ultima_avaliacao_pendente)
+    selos.push(`<span class="tag-aut" title="A última avaliação é uma solicitação de exceção aguardando autorização do auditor — só vira protocolo vigente se for aprovada">⏳ aguardando autorização</span>`);
+  const selosHtml = selos.length? `<div class="lista-tags">${selos.join("")}</div>` : "";
+  if(!p.ultimo_regimen_id) return `<span class="hint">—</span>${selosHtml}`;
+  const sub = [
+    p.ultima_linha ? `${p.ultima_linha}ª linha` : "",
+    p.ultima_avaliacao ? `· em ${fmtDiaMes(p.ultima_avaliacao)}` : "",
+  ].filter(Boolean).join(" ");
+  return `<b>${esc(protocoloNome(p.ultimo_regimen_id))}</b>${sub?`<div class="hint">${sub}</div>`:""}${selosHtml}`;
+}
+// Célula "Próximo retorno": a data agendada; vencida, vira vermelha com o atraso em dias.
+function listaRetornoHtml(p){
+  const r = p.retorno || {};
+  if(!r.proximo) return `<span class="hint">—</span>`;
+  if(!r.vencido) return fmtData(r.proximo);
+  return `<div class="ret-venc">${fmtData(r.proximo)}</div>`
+    + `<div class="badge-atraso" title="Retorno previsto que não foi realizado — nenhum retorno registrado desde essa data">⏰ atrasado há ${r.dias_atraso}d</div>`;
+}
+
+// Ordem padrão da lista: quem não veio primeiro (é o que exige ação hoje), depois por
+// próximo retorno mais próximo, quem não tem agenda no fim, e nome como desempate. Os
+// atrasados caem naturalmente no topo por data: a agenda deles está no passado.
+function listaOrdenada(rows){
+  const chave = p => (p.retorno && p.retorno.proximo) || null;
+  return rows.slice().sort((a,b)=>{
+    const aa = !!atrasoDe(a), ab = !!atrasoDe(b);
+    if(aa !== ab) return aa ? -1 : 1;
+    const ka = chave(a), kb = chave(b);
+    if(ka && kb && ka !== kb) return ka < kb ? -1 : 1;
+    if(!!ka !== !!kb) return ka ? -1 : 1;
+    return String(a.nome||"").localeCompare(String(b.nome||""), "pt-BR");
+  });
+}
+// Busca por nome OU registro, sem acento e sem caixa.
+function listaBuscada(rows){
+  const q = normTxt(LISTA_BUSCA).trim();
+  if(!q) return rows;
+  return rows.filter(p => normTxt(p.nome).includes(q) || normTxt(p.identificador).includes(q));
+}
+
+// DOM persistente: o campo de busca é renderizado UMA vez por entrada na lista e nunca
+// reconstruído. Digitar reescreve só #lista-corpo (filtros + tabela) — o input mantém
+// valor, foco e posição do cursor. Mesmo padrão do cadastro e do formulário de retorno.
+function setListaBusca(v){ LISTA_BUSCA = v; updateListaCorpo(); }
+function setListaFiltro(v){ LISTA_FILTRO = v; updateListaCorpo(); }
+function updateListaCorpo(){
+  const el = document.getElementById("lista-corpo");
+  if(el) el.innerHTML = listaCorpoHtml(); else render();
+}
+function listaCorpoHtml(){
+  const base = listaBuscada(patients);
+  const atrasados = base.filter(atrasoDe);
+  const lista = listaOrdenada(LISTA_FILTRO==="atrasados" ? atrasados : base);
+  const filtros = `<div class="lista-filtros">
+    <button class="${LISTA_FILTRO==="todos"?"on":""}" onclick="setListaFiltro('todos')">Todos (${base.length})</button>
+    <button class="atraso ${LISTA_FILTRO==="atrasados"?"on":""}" onclick="setListaFiltro('atrasados')">⏰ Retornos atrasados (${atrasados.length})</button>
+    ${LISTA_BUSCA.trim()? `<span class="lista-busca-n">busca “${esc(LISTA_BUSCA.trim())}” · ${base.length} de ${patients.length}</span>`:""}
+  </div>`;
+  const vazio = LISTA_BUSCA.trim()
+    ? `Nenhum paciente para “${esc(LISTA_BUSCA.trim())}”.`
+    : (LISTA_FILTRO==="atrasados"
+        ? `Nenhum paciente com retorno atrasado. <a onclick="setListaFiltro('todos')" style="color:var(--accent);cursor:pointer">Ver todos</a>.`
+        : "Nenhum paciente cadastrado.");
+  return `${patients.length? filtros : ""}
+    ${lista.length? `<table>
+      <thead><tr><th>Paciente</th><th>Idade</th><th>Tumor</th><th>Último protocolo</th><th>Médico assistente</th><th>Próximo retorno</th><th>Semáforo</th></tr></thead>
+      <tbody>${lista.map(p=>`
+        <tr class="clickable" onclick="abrir(${p.id})">
+          <td><b>${esc(p.nome)}</b>${p.identificador?`<div class="hint">reg. ${esc(p.identificador)}</div>`:""}</td>
+          <td>${idadeAnos(p.nasc)!=null? `<b>${idadeAnos(p.nasc)}a</b><div class="hint">${fmtData(p.nasc)}</div>` : `<span class="hint">—</span>`}</td>
+          <td>${p.tumor? `<span class="pill">${tumorNome(p.tumor)}</span>${p.subtipo?`<div class="hint">${esc(p.subtipo)}</div>`:""}` : `<span class="hint">— não definido —</span>`}</td>
+          <td>${listaProtoHtml(p)}</td>
+          <td>${p.medico_assistente? esc(p.medico_assistente.nome) : `<span class="hint">—</span>`}</td>
+          <td>${listaRetornoHtml(p)}</td>
+          <td>${p.ultimo_semaforo? semBadge(p.ultimo_semaforo) : `<span class="hint">—</span>`}</td>
+        </tr>`).join("")}</tbody></table>` : `<div class="empty">${vazio}</div>`}`;
+}
 function renderLista(){
   app().innerHTML = `
   <div class="card">
@@ -1568,17 +1714,8 @@ function renderLista(){
       <div><h2>Pacientes</h2><div class="sub">Hospital Orizonti · beneficiários de saúde suplementar</div></div>
       <button class="btn primary" onclick="novoCadastro()">+ Novo paciente</button>
     </div>
-    ${patients.length? `<table>
-      <thead><tr><th>Paciente</th><th>Nascimento</th><th>Tumor</th><th>Último protocolo</th><th>Última avaliação</th><th>Semáforo</th></tr></thead>
-      <tbody>${patients.map(p=>`
-        <tr class="clickable" onclick="abrir(${p.id})">
-          <td><b>${p.nome}</b>${p.identificador?`<div class="hint">reg. ${esc(p.identificador)}</div>`:""}</td>
-          <td>${fmtData(p.nasc)}</td>
-          <td>${p.tumor? `<span class="pill">${tumorNome(p.tumor)}</span>${p.subtipo?`<div class="hint">${esc(p.subtipo)}</div>`:""}` : `<span class="hint">— não definido —</span>`}</td>
-          <td>${p.ultimo_regimen_id? `${esc(protocoloNome(p.ultimo_regimen_id))}${p.ultima_linha?` <span class="hint">· ${p.ultima_linha}ª linha</span>`:""}` : `<span class="hint">—</span>`}${p.autorizacoes_pendentes? `<div class="hint" title="Solicitação de exceção aguardando autorização do auditor — o protocolo solicitado ainda não é o vigente">⏳ ${p.autorizacoes_pendentes} exceção(ões) aguardando autorização</div>`:""}</td>
-          <td>${p.ultima_avaliacao? fmtDataCurta(p.ultima_avaliacao) : `<span class="hint">—</span>`}</td>
-          <td>${p.ultimo_semaforo? semBadge(p.ultimo_semaforo) : `<span class="hint">—</span>`}</td>
-        </tr>`).join("")}</tbody></table>` : `<div class="empty">Nenhum paciente cadastrado.</div>`}
+    ${patients.length? `<div class="lista-busca"><input id="lista-busca" placeholder="Buscar por nome ou registro…" value="${esc(LISTA_BUSCA)}" oninput="setListaBusca(this.value)" autocomplete="off"></div>`:""}
+    <div id="lista-corpo">${listaCorpoHtml()}</div>
   </div>`;
 }
 
@@ -1956,6 +2093,7 @@ function renderSeguimentoResumo(p, detail){
     ? `<button class="btn ghost" onclick="iniciarRetorno(${p.id})">＋ Registrar retorno</button>` : "";
   const avisoPrim = temPrim ? "" : `<div class="prim-fallback" style="margin-top:12px">Elegibilidade computável indisponível para ${tumorNome(detail.tumor)} — sem <code>campos_primitivos</code> + regra no dado do squad. A reavaliação registra o protocolo, mas sem recalcular o semáforo automaticamente.</div>`;
   return `<div class="section-t">Último atendimento</div>${resumo}${excHtml}${avisoPrim}
+    ${proxRetornoPendenteHtml(p, detail.retorno)}
     ${reestPendenteHtml(p, detail.reestadiamento)}
     <div class="row-actions" style="margin-top:16px">${btnRet}${btn}</div>`;
 }
@@ -2280,7 +2418,7 @@ function renderTrilhaTab(p){
   if(t===undefined){ carregarTrilha(p.id); return `<div class="empty">⏳ Carregando trilha…</div>`; }
   if(t===null) return `<div class="empty">Não foi possível carregar a trilha.<br><br>
     <button class="btn ghost" onclick="carregarTrilha(${p.id})">Tentar de novo</button></div>`;
-  const pend = reestPendenteHtml(p, t.reestadiamento);
+  const pend = proxRetornoPendenteHtml(p, t.retorno) + reestPendenteHtml(p, t.reestadiamento);
   if(!t.itens.length) return `${pend}<div class="empty">Nada registrado ainda.<br>
     <span class="hint">Use <b>Reavaliar</b> ou <b>Registrar retorno</b> na aba Seguimento.</span></div>`;
   // O backend devolve em ordem cronológica; a tela mostra do mais recente para o mais antigo
@@ -2325,7 +2463,7 @@ function retornoEntryHtml(it){
         <div class="hd" style="margin-top:5px">${fmtData(it.data)}</div>
       </div>
     </div>
-    <div class="hm">${cm.ic} <b>${esc(cm.t)}</b>${it.data_agendada?` · agendado para ${fmtData(it.data_agendada)}`:""} · por <b>${esc(quem)}</b>${it.fonte_dados?` · fonte: ${esc(it.fonte_dados)}`:""}</div>
+    <div class="hm">${cm.ic} <b>${esc(cm.t)}</b>${it.data_agendada?` · estava previsto para ${fmtData(it.data_agendada)}`:""} · por <b>${esc(quem)}</b>${it.fonte_dados?` · fonte: ${esc(it.fonte_dados)}`:""}${it.proximo_retorno?` · próximo retorno marcado para <b>${fmtData(it.proximo_retorno)}</b>`:""}</div>
     ${!it.com_imagem?`<div class="hint" style="margin-top:6px">Resposta não avaliada — sem imagem neste retorno não há como afirmar resposta (RECIST).</div>`:""}
     <div class="hint" style="margin-top:10px;font-weight:700">Toxicidades (CTCAE)</div>
     <div class="crit" style="margin-top:4px">${tox.length
@@ -2356,6 +2494,21 @@ function autorizacaoEntryHtml(it){
     <div class="hm">Decisão do auditor <b>${esc(quem)}</b>${it.estado==="negada"?" — o registro permanece na trilha; nova tentativa é uma nova solicitação.":""}</div>
     ${it.parecer?`<div class="hint" style="margin-top:10px;font-weight:700">Parecer</div><div style="font-size:12.5px;white-space:pre-wrap;margin-top:3px">${esc(it.parecer)}</div>`:""}
   </div>`;
+}
+
+// ---- Próximo retorno agendado: item PENDENTE na trilha ----
+// Não é linha de tabela: é a agenda do paciente (estado mutável) desenhada junto da
+// trilha, como já se faz com o reestadiamento. O que aconteceu continua vindo só dos
+// registros imutáveis; isto é o ponteiro para a frente.
+function proxRetornoPendenteHtml(p, ret){
+  if(!ret || !ret.proximo) return "";
+  if(ret.vencido){
+    return `<div class="reest-venc hist-entry pend">
+      <div class="rv-t">⏰ Retorno atrasado — previsto ${fmtData(ret.proximo)}</div>
+      <div class="rv-s">${ret.dias_atraso} dia${ret.dias_atraso===1?"":"s"} sem retorno registrado desde a data prevista. Registre o retorno quando o paciente for atendido — isso reagenda o próximo.</div>
+    </div>`;
+  }
+  return `<div class="reest-ok"><span>🗓️ Próximo retorno agendado: <b>${fmtData(ret.proximo)}</b></span></div>`;
 }
 
 // ---- Lembrete de reestadiamento: vencido vira item pendente destacado ----
@@ -2400,12 +2553,16 @@ async function ajustarReestadiamento(pid){
 function iniciarRetorno(pid){
   const detail = PAC_DETAIL[pid]; if(!detail) return;
   const u = detail.ultima_avaliacao;
+  // Sugestão de intervalo do próximo retorno: o que foi escolhido no ÚLTIMO retorno
+  // ("intervalo do último ciclo"). Sem histórico, nada pré-selecionado — a app não
+  // arbitra ritmo de seguimento; quem escolhe é o médico.
   RETORNO = {
     pid,
     avaliacao_id: u ? u.id : null,
     regimen_id: u ? u.regimen_id : null,
-    data_agendada: "",
     data_realizada: hojeInput(),
+    prox_intervalo: ultimoIntervaloRetorno(pid),
+    prox_data_especifica: "",
     com_imagem: false,
     resposta: "nao_avaliada",
     tox: [],                 // [{nome, outra, grau}] — nome==="__outra" usa o campo livre
@@ -2415,6 +2572,16 @@ function iniciarRetorno(pid){
   };
   REAVAL = null;
   render();
+  // A sugestão de intervalo vem do último retorno, que mora na trilha. Se ela ainda não
+  // foi carregada, busca e preenche DEPOIS — atualizando só o bloco do próximo retorno,
+  // e só se o médico ainda não tiver escolhido nada (nunca sobrepõe escolha humana).
+  if(TRILHA[pid] == null){
+    Promise.resolve(carregarTrilha(pid)).then(()=>{
+      if(!RETORNO || RETORNO.pid!==pid || RETORNO.prox_intervalo) return;
+      const sug = ultimoIntervaloRetorno(pid);
+      if(sug){ RETORNO.prox_intervalo = sug; redrawProxRetorno(); }
+    }).catch(()=>{});
+  }
 }
 function cancelarRetorno(){ RETORNO=null; render(); }
 function hojeInput(){ const d=new Date(), p=n=>String(n).padStart(2,"0"); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; }
@@ -2431,18 +2598,18 @@ function toxDoRegime(rid){
 function renderRetornoForm(p, detail){
   const R = RETORNO;
   const u = detail.ultima_avaliacao;
+  // Agendamento que ORIGINOU este retorno (a agenda vigente do paciente). Só informativo:
+  // marcar data é assunto do PRÓXIMO retorno, no fim do formulário.
+  const prev = (detail.retorno && detail.retorno.proximo) ? detail.retorno : null;
   return `
     <div class="section-t" style="display:flex;justify-content:space-between;align-items:center">
-      <span>Registrar retorno</span>
+      <span>Retorno${u?` — ${esc(protocoloNome(u.regimen_id))}${u.linha_tratamento?` (${u.linha_tratamento}ª linha)`:""}`:""}<span class="info-i" tabindex="0" title="Cada retorno é um registro próprio e definitivo. Corrigir algo depois é registrar um retorno novo — nada é sobrescrito, e a trilha mostra os dois.">ⓘ</span></span>
       <button class="btn ghost" onclick="cancelarRetorno()" style="padding:5px 12px">Cancelar</button>
     </div>
-    <div class="hint" style="margin-bottom:12px">${u
-      ? `Retorno sobre o protocolo em curso: <b>${esc(protocoloNome(u.regimen_id))}</b>${u.linha_tratamento?` (${u.linha_tratamento}ª linha)`:""}, de ${fmtDataHora(u.data)}.`
-      : `Nenhuma avaliação registrada — o retorno ficará sem protocolo de referência.`} O registro é <b>imutável</b>: correção é um retorno novo.</div>
+    ${u?"":`<div class="hint" style="margin-bottom:12px">Nenhuma avaliação registrada — o retorno ficará sem protocolo de referência.</div>`}
+    ${prev?`<div class="ret-previsto">🗓️ Retorno previsto para <b>${fmtData(prev.proximo)}</b>${prev.vencido?` <span class="atraso">· ${prev.dias_atraso} dia${prev.dias_atraso===1?"":"s"} de atraso</span>`:""}</div>`:""}
 
     <div class="grid2">
-      <div class="field"><label>Data agendada (opcional)</label>
-        <input type="date" id="ret_agendada" value="${esc(R.data_agendada)}" oninput="RETORNO.data_agendada=this.value"></div>
       <div class="field"><label>Data realizada</label>
         <input type="date" id="ret_realizada" value="${esc(R.data_realizada)}" oninput="RETORNO.data_realizada=this.value"></div>
     </div>
@@ -2471,9 +2638,80 @@ function renderRetornoForm(p, detail){
     <div class="field"><label>Observações</label>
       <textarea id="ret_obs" class="rc-just" placeholder="Evolução, intercorrências, ajustes de dose…" oninput="RETORNO.observacoes=this.value">${esc(R.observacoes)}</textarea></div>
 
+    <div class="section-t">Próximo retorno</div>
+    <div id="ret-prox">${renderProxRetorno()}</div>
+
     <div class="row-actions" style="margin-top:8px">
       <button class="btn primary" id="ret_btn" onclick="gravarRetorno(this)">Registrar retorno</button>
     </div>`;
+}
+
+// ---- Próximo retorno: chips que calculam a data ----
+// As chaves e o cálculo espelham INTERVALOS_RETORNO/calcularProximoRetorno no backend. A
+// data mostrada aqui é PREVIEW: quem grava a data é o servidor, a partir da chave — a app
+// manda a escolha, não a conta. Se as duas divergirem, quem vale é o servidor.
+const INTERVALO_RETORNO_META = [
+  {k:"3s", t:"3 semanas", dias:21},
+  {k:"1m", t:"1 mês",     meses:1},
+  {k:"2m", t:"2 meses",   meses:2},
+  {k:"3m", t:"3 meses",   meses:3},
+  {k:"especifica", t:"Data específica"},
+  {k:"nenhum", t:"Sem retorno programado"},
+];
+function somarDiasISO(iso, dias){
+  const t = Date.parse(`${iso}T00:00:00Z`); if(isNaN(t)) return null;
+  return new Date(t + dias*86400000).toISOString().slice(0,10);
+}
+function somarMesesISO(iso, meses){
+  const [y,m,d] = String(iso).split("-").map(Number); if(!y||!m||!d) return null;
+  const alvo = m-1+meses, ano = y+Math.floor(alvo/12), mes = ((alvo%12)+12)%12;
+  const ult = new Date(ano, mes+1, 0).getDate(), p = n=>String(n).padStart(2,"0");
+  return `${ano}-${p(mes+1)}-${p(Math.min(d,ult))}`;
+}
+function proxRetornoData(){
+  const R = RETORNO; if(!R || !R.prox_intervalo || R.prox_intervalo==="nenhum") return null;
+  if(R.prox_intervalo==="especifica") return R.prox_data_especifica || null;
+  const op = INTERVALO_RETORNO_META.find(o=>o.k===R.prox_intervalo); if(!op) return null;
+  const base = R.data_realizada || hojeInput();
+  return op.dias!=null ? somarDiasISO(base, op.dias) : somarMesesISO(base, op.meses);
+}
+// Intervalo escolhido no último retorno do paciente ("último ciclo"), ou null.
+function ultimoIntervaloRetorno(pid){
+  const t = TRILHA[pid]; if(!t || !Array.isArray(t.itens)) return null;
+  const rets = t.itens.filter(i=>i.tipo==="retorno" && i.proximo_intervalo);
+  return rets.length ? rets[rets.length-1].proximo_intervalo : null;
+}
+// Troca de chip: re-renderiza SÓ este bloco — o que já foi digitado acima não é
+// reconstruído (nem perde foco).
+function setProxIntervalo(k){
+  RETORNO.prox_intervalo = (RETORNO.prox_intervalo===k) ? null : k;
+  redrawProxRetorno();
+}
+function setProxDataEspecifica(v){ RETORNO.prox_data_especifica = v; redrawProxRetorno(); }
+function redrawProxRetorno(){
+  const el = document.getElementById("ret-prox"); if(el) el.innerHTML = renderProxRetorno();
+}
+function renderProxRetorno(){
+  const R = RETORNO;
+  const data = proxRetornoData();
+  const chips = INTERVALO_RETORNO_META.map(o=>
+    `<button class="chip-int ${R.prox_intervalo===o.k?"on":""}" onclick="setProxIntervalo('${o.k}')">${esc(o.t)}</button>`
+  ).join("");
+  let resultado;
+  if(R.prox_intervalo === "nenhum"){
+    resultado = `<div class="prox-res none">Sem retorno programado — o paciente não entrará na lista de retornos atrasados.</div>`;
+  } else if(data){
+    resultado = `<div class="prox-res">Próximo retorno: <b>${fmtData(data)}</b></div>`;
+  } else if(R.prox_intervalo === "especifica"){
+    resultado = `<div class="prox-res pend">Escolha a data do próximo retorno.</div>`;
+  } else {
+    resultado = `<div class="prox-res pend">Nenhum intervalo escolhido — nada será agendado.</div>`;
+  }
+  return `<div class="hint" style="margin-bottom:8px">Agenda o próximo retorno na trilha do paciente. Contado a partir da <b>data realizada</b> deste retorno.</div>
+    <div class="chips-int">${chips}</div>
+    ${R.prox_intervalo==="especifica"?`<div class="field" style="max-width:220px;margin-top:10px"><label>Data do próximo retorno</label>
+      <input type="date" id="ret_prox_data" value="${esc(R.prox_data_especifica)}" onchange="setProxDataEspecifica(this.value)"></div>`:""}
+    ${resultado}`;
 }
 
 // Bloco da resposta — TRAVADO quando não houve imagem (regra RECIST). O DTO do backend
@@ -2554,6 +2792,9 @@ function redrawTox(){ const h=document.getElementById("ret-tox"); if(h) h.innerH
 async function gravarRetorno(btn){
   const R = RETORNO; if(!R) return;
   if(!R.data_realizada){ alert("Informe a data realizada do retorno."); return; }
+  if(R.prox_intervalo==="especifica" && !R.prox_data_especifica){
+    alert("Escolha a data do próximo retorno — ou selecione outro intervalo."); return;
+  }
   // Toxicidades: resolve o nome (catálogo do regime ou texto livre) e exige o grau.
   const tox = [];
   for(const t of R.tox){
@@ -2565,8 +2806,10 @@ async function gravarRetorno(btn){
   }
   const body = {
     avaliacao_id: R.avaliacao_id || undefined,
-    data_agendada: R.data_agendada || undefined,
     data_realizada: R.data_realizada,
+    // Manda a ESCOLHA; a data quem calcula é o servidor (menos em 'especifica').
+    proximo_intervalo: R.prox_intervalo || undefined,
+    proximo_retorno: (R.prox_intervalo==="especifica" && R.prox_data_especifica) ? R.prox_data_especifica : undefined,
     com_imagem: !!R.com_imagem,
     // Sem imagem não manda resposta: a regra RECIST é do backend (400), não da tela.
     resposta: R.com_imagem ? R.resposta : undefined,
@@ -2648,7 +2891,18 @@ const SADT_LINHAS_PROF = 4;   // profissionais executantes (48-55)
 const SADT_SLOTS_SERIE = 10;  // datas de procedimentos em série (56/57)
 
 function abrirSADT(pid){
-  const d = PAC_DETAIL[pid] || {};
+  // O detalhe do paciente pode ainda estar carregando (a guia é acessível direto da
+  // trilha, e `carregarDetalhe` zera PAC_DETAIL enquanto busca). Emitir a guia nesse
+  // intervalo produziria um documento com a indicação clínica errada — "tumor não
+  // definido" para um paciente que TEM tumor. Guia errada é pior que guia atrasada:
+  // espera o dado chegar e só então abre.
+  if(PAC_DETAIL[pid] == null){
+    Promise.resolve(carregarDetalhe(pid))
+      .then(()=>{ if(PAC_DETAIL[pid]) abrirSADT(pid); })
+      .catch(()=>{});
+    return;
+  }
+  const d = PAC_DETAIL[pid];
   const p = patients.find(x=>x.id===pid) || {};
   const tumor = d.tumor || null;
   const rid = d.ultima_avaliacao ? d.ultima_avaliacao.regimen_id : null;

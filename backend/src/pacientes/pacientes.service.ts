@@ -5,7 +5,7 @@ import {
   AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, Paciente, Retorno, SelecaoProtocolo, Semaforo,
 } from '../database/entities';
 import { EvidenciaService } from '../evidencia/evidencia.service';
-import { estadoReestadiamento, hojeISO, somarMeses } from '../retornos/retornos.service';
+import { diaLocal, estadoReestadiamento, estadoRetorno, hojeISO, somarMeses } from '../retornos/retornos.service';
 
 // Payload de uma nova avaliação (reavaliação). data e avaliado_por são do servidor.
 export interface NovaAvaliacao {
@@ -21,6 +21,37 @@ export interface NovaAvaliacao {
   // Retorno que motivou esta avaliação (conduta = troca_protocolo). Fecha o ciclo
   // retorno → troca: a avaliação nova não fica solta na trilha.
   retorno_id?: number;
+}
+
+// Médico assistente do paciente: o profissional do EVENTO MAIS RECENTE — a última
+// avaliação (qualquer estado de autorização: registrar já é ato clínico) ou o último
+// retorno, o que veio depois. Não há campo "médico responsável" no cadastro, e criar um
+// seria uma segunda verdade para manter em dia: quem cuida do paciente é quem registrou
+// por último.
+//
+// "Depois" é exatamente o critério da TRILHA (RetornosService.trilha), e de propósito —
+// a lista não pode chamar de "mais recente" um evento que a trilha do paciente mostra no
+// meio. São dois níveis: o DIA manda (avaliação é timestamptz, retorno é `date` informado
+// pelo médico e lançável depois — comparar como instante jogaria todo retorno do dia para
+// antes de uma avaliação da tarde); dentro do mesmo dia desempata o INSTANTE em que o
+// registro foi gravado. É isso que faz a troca de protocolo do dia (retorno → avaliação
+// nova, minutos depois) ficar com quem assinou a avaliação, e não o contrário.
+// Devolve null quando o paciente ainda não tem evento algum (recém-cadastrado) — a lista
+// mostra "—" em vez de chutar quem o cadastrou.
+export function medicoAssistente(
+  avaliacao?: Avaliacao | null,
+  retorno?: Retorno | null,
+): { id: number; nome: string } | null {
+  const ea = avaliacao
+    ? { dia: diaLocal(avaliacao.data), inst: new Date(avaliacao.data).getTime(), u: avaliacao.avaliadoPor }
+    : null;
+  const er = retorno
+    ? { dia: retorno.data_realizada, inst: new Date(retorno.criado_em).getTime(), u: retorno.registradoPor }
+    : null;
+  if (!ea) return er?.u ? { id: er.u.id, nome: er.u.nome } : null;
+  if (!er) return ea.u ? { id: ea.u.id, nome: ea.u.nome } : null;
+  const u = (er.dia > ea.dia || (er.dia === ea.dia && er.inst > ea.inst)) ? er.u : ea.u;
+  return u ? { id: u.id, nome: u.nome } : null;
 }
 
 @Injectable()
@@ -61,10 +92,36 @@ export class PacientesService {
       .addSelect('COUNT(*)', 'total')
       .groupBy('a.paciente_id')
       .getRawMany<{ paciente_id: number; total: string }>();
+    // Última avaliação por paciente SEM filtro de vigência — é dela que sai o selo
+    // "⏳ aguardando autorização" da lista. A pergunta aqui é outra: não "qual é o
+    // protocolo do paciente?" (isso é `ultimas`, só vigentes), e sim "a última coisa que
+    // o médico registrou está esperando o auditor?". Uma exceção pendente sobre um
+    // protocolo vigente antigo deixa as duas colunas discordando de propósito: mostra o
+    // vigente E avisa que há decisão parada.
+    const ultimasQuaisquer = await this.avaliacaoRepo
+      .createQueryBuilder('a')
+      .distinctOn(['a.paciente_id'])
+      .leftJoinAndSelect('a.avaliadoPor', 'ua')
+      .orderBy('a.paciente_id', 'ASC')
+      .addOrderBy('a.data', 'DESC')
+      .getMany();
+    // Último retorno por paciente — o outro candidato a "evento mais recente".
+    const ultimosRetornos = await this.retornoRepo
+      .createQueryBuilder('r')
+      .distinctOn(['r.paciente_id'])
+      .leftJoinAndSelect('r.registradoPor', 'ur')
+      .orderBy('r.paciente_id', 'ASC')
+      .addOrderBy('r.data_realizada', 'DESC')
+      .addOrderBy('r.criado_em', 'DESC')
+      .getMany();
+    const ultimaQualquerPorPac = new Map(ultimasQuaisquer.map((a) => [a.paciente_id, a]));
+    const ultimoRetornoPorPac = new Map(ultimosRetornos.map((r) => [r.paciente_id, r]));
     const ultimaPorPac = new Map(ultimas.map((a) => [a.paciente_id, a]));
     const totalPorPac = new Map(totais.map((t) => [Number(t.paciente_id), Number(t.total)]));
     return pacientes.map((p) => {
       const u = ultimaPorPac.get(p.id);
+      const uq = ultimaQualquerPorPac.get(p.id);
+      const ur = ultimoRetornoPorPac.get(p.id);
       return {
         id: p.id,
         nome: p.nome,
@@ -79,7 +136,18 @@ export class PacientesService {
         subtipo: p.subtipo,
         avaliacoes_total: totalPorPac.get(p.id) || 0,
         autorizacoes_pendentes: pendentePorPac.get(p.id) || 0,
+        // "Quem não veio": a lista precisa disto por paciente para o badge e o filtro de
+        // retornos atrasados. Derivado de uma coluna só — ver estadoRetorno().
+        retorno: estadoRetorno(p),
+        // Médico assistente DERIVADO, não cadastrado: é quem assinou o evento mais recente
+        // do paciente (avaliação ou retorno). Não existe campo "médico responsável" no
+        // cadastro, e inventar um criaria uma segunda verdade para manter em dia — quem
+        // está cuidando do paciente é quem registrou por último.
+        medico_assistente: medicoAssistente(uq, ur),
         ultima_avaliacao: u ? u.data : null,
+        // A última avaliação está parada no auditor? Vem da avaliação mais recente
+        // qualquer que seja o estado — não do total de pendências do paciente.
+        ultima_avaliacao_pendente: !!uq && uq.autorizacao_estado === 'pendente',
         ultimo_semaforo: u ? u.semaforo : null,
         ultimo_regimen_id: u ? u.regimen_id : null,
         ultima_linha: u ? u.linha_tratamento : null,
@@ -152,6 +220,7 @@ export class PacientesService {
       // Agenda de reestadiamento com "vencido" já derivado do relógio do SERVIDOR — a app
       // não decide o que está vencido a partir da data da máquina do usuário.
       reestadiamento: estadoReestadiamento(p),
+      retorno: estadoRetorno(p),
       criado_em: p.criado_em,
       criado_por: p.criadoPor
         ? { id: p.criadoPor.id, nome: p.criadoPor.nome, perfil: p.criadoPor.perfil }

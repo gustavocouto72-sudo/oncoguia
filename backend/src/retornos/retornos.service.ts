@@ -14,8 +14,11 @@ import {
 // registrado_por e criado_em são do SERVIDOR — nunca do cliente.
 export interface NovoRetorno {
   avaliacao_id?: number;
-  data_agendada?: string;
   data_realizada: string;
+  // Escolha do médico sobre o próximo retorno. A DATA é sempre calculada pelo servidor
+  // (exceto em 'especifica'): aritmética de calendário no cliente vira divergência.
+  proximo_intervalo?: IntervaloRetorno;
+  proximo_retorno?: string; // só quando proximo_intervalo === 'especifica'
   com_imagem: boolean;
   resposta?: RespostaRetorno;
   toxicidades?: ToxicidadeRegistrada[];
@@ -30,6 +33,41 @@ export interface NovoRetorno {
 export function hojeISO(hoje = new Date()): string {
   const p = (n: number) => String(n).padStart(2, '0');
   return `${hoje.getFullYear()}-${p(hoje.getMonth() + 1)}-${p(hoje.getDate())}`;
+}
+
+// Opções de próximo retorno oferecidas no fim do formulário. A chave é o que fica
+// registrado (e o que sugere o intervalo da próxima vez); a data é derivada dela.
+//   'especifica' → o médico escolhe a data; 'nenhum' → sem retorno programado.
+export const INTERVALOS_RETORNO = {
+  '3s': { rotulo: '3 semanas', dias: 21 },
+  '1m': { rotulo: '1 mês', meses: 1 },
+  '2m': { rotulo: '2 meses', meses: 2 },
+  '3m': { rotulo: '3 meses', meses: 3 },
+  especifica: { rotulo: 'Data específica' },
+  nenhum: { rotulo: 'Sem retorno programado' },
+} as const;
+export type IntervaloRetorno = keyof typeof INTERVALOS_RETORNO;
+export const CHAVES_INTERVALO = Object.keys(INTERVALOS_RETORNO) as IntervaloRetorno[];
+
+// Soma dias a uma data ISO, em UTC (sem horário de verão pelo caminho).
+export function somarDias(iso: string, dias: number): string {
+  const t = Date.parse(`${iso}T00:00:00Z`);
+  if (Number.isNaN(t)) return null;
+  return new Date(t + dias * 86400000).toISOString().slice(0, 10);
+}
+
+// Data do próximo retorno a partir da escolha. `base` é a data REALIZADA deste retorno —
+// o relógio do seguimento conta a partir da consulta que acabou de acontecer, não de hoje
+// (um retorno lançado com atraso não deve empurrar o próximo).
+export function calcularProximoRetorno(
+  base: string,
+  escolha: IntervaloRetorno | undefined,
+  especifica?: string,
+): string | null {
+  if (!escolha || escolha === 'nenhum') return null;
+  if (escolha === 'especifica') return especifica || null;
+  const op = INTERVALOS_RETORNO[escolha] as { dias?: number; meses?: number };
+  return op.dias != null ? somarDias(base, op.dias) : somarMeses(base, op.meses);
 }
 
 // Soma meses a uma data ISO, prendendo no último dia do mês quando o dia não existe no mês
@@ -63,6 +101,22 @@ export function estadoReestadiamento(p: Paciente, hoje = hojeISO()) {
     ? Math.round((Date.parse(`${hoje}T00:00:00Z`) - Date.parse(`${proximo}T00:00:00Z`)) / 86400000)
     : 0;
   return { proximo, intervalo_meses: intervalo, vencido, dias_atraso: dias };
+}
+
+// Estado da agenda de RETORNO: quando é o próximo, se já venceu e há quantos dias.
+// Derivado (não persistido) — o banco guarda só a data; "vencido" depende de hoje.
+//
+// "Vencido" já significa "não veio": a agenda é sobrescrita a cada retorno registrado,
+// então uma data no passado só sobrevive se ninguém registrou consulta desde então. Não
+// existe estado a cruzar — é a mesma coluna respondendo às duas perguntas.
+export function estadoRetorno(p: Paciente, hoje = hojeISO()) {
+  const proximo = p.proximo_retorno || null;
+  if (!proximo) return { proximo: null, vencido: false, dias_atraso: 0 };
+  const vencido = proximo < hoje;
+  const dias = vencido
+    ? Math.round((Date.parse(`${hoje}T00:00:00Z`) - Date.parse(`${proximo}T00:00:00Z`)) / 86400000)
+    : 0;
+  return { proximo, vencido, dias_atraso: dias };
 }
 
 @Injectable()
@@ -110,11 +164,26 @@ export class RetornosService {
       });
     }
 
+    // Próximo retorno: a DATA é sempre do servidor. 'especifica' exige a data; qualquer
+    // outra escolha é calculada a partir da data realizada. Escolha AUSENTE limpa a
+    // agenda — o compromisso que estava marcado acabou de ser cumprido por esta consulta,
+    // e deixá-lo de pé faria o paciente aparecer como "não veio" depois de ter vindo.
+    if (dados.proximo_intervalo === 'especifica' && !dados.proximo_retorno) {
+      throw new BadRequestException('proximo_retorno é obrigatório quando proximo_intervalo é "especifica"');
+    }
+    const proximoRetorno = calcularProximoRetorno(
+      dados.data_realizada, dados.proximo_intervalo, dados.proximo_retorno,
+    );
+
     const novo = this.retornoRepo.create({
       paciente_id: pacienteId,
       avaliacao_id: avaliacao ? avaliacao.id : null,
       regimen_id: avaliacao ? avaliacao.regimen_id : null,
-      data_agendada: dados.data_agendada || null,
+      // Para quando ESTE retorno estava previsto: a agenda vigente agora, não um valor
+      // que o cliente mandou.
+      data_agendada: paciente.proximo_retorno || null,
+      proximo_retorno: proximoRetorno,
+      proximo_intervalo: dados.proximo_intervalo || null,
       data_realizada: dados.data_realizada,
       com_imagem: !!dados.com_imagem,
       resposta,
@@ -126,11 +195,15 @@ export class RetornosService {
     });
     const salvo = await this.retornoRepo.save(novo);
 
-    // Houve reestadiamento neste retorno → o relógio reinicia a partir dele.
+    // A agenda do paciente passa a apontar para o que foi decidido AGORA (inclusive para
+    // null): o retorno que estava previsto foi cumprido por esta consulta.
+    const patch: Partial<Paciente> = { proximo_retorno: proximoRetorno };
+    // Houve reestadiamento neste retorno → o relógio do reestadiamento reinicia a partir dele.
     if (salvo.com_imagem) {
       const proximo = somarMeses(salvo.data_realizada, paciente.intervalo_reestadiamento_meses ?? 3);
-      if (proximo) await this.pacienteRepo.update({ id: pacienteId }, { proximo_reestadiamento: proximo });
+      if (proximo) patch.proximo_reestadiamento = proximo;
     }
+    await this.pacienteRepo.update({ id: pacienteId }, patch);
 
     const full = await this.retornoRepo.findOne({
       where: { id: salvo.id },
@@ -247,6 +320,8 @@ export class RetornosService {
         _dia: r.data_realizada,
         _instante: new Date(r.criado_em).getTime(),
         data_agendada: r.data_agendada,
+        proximo_retorno: r.proximo_retorno,
+        proximo_intervalo: r.proximo_intervalo,
         avaliacao_id: r.avaliacao_id,
         regimen_id: r.regimen_id,
         com_imagem: r.com_imagem,
@@ -270,6 +345,7 @@ export class RetornosService {
     return {
       paciente_id: pacienteId,
       reestadiamento: estadoReestadiamento(p),
+      retorno: estadoRetorno(p),
       itens,
     };
   }
@@ -282,6 +358,8 @@ export class RetornosService {
       regimen_id: r.regimen_id,
       data_agendada: r.data_agendada,
       data_realizada: r.data_realizada,
+      proximo_retorno: r.proximo_retorno,
+      proximo_intervalo: r.proximo_intervalo,
       com_imagem: r.com_imagem,
       resposta: r.resposta,
       toxicidades: r.toxicidades || [],

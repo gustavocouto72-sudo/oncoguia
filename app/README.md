@@ -85,6 +85,27 @@ Como a avaliação, é **append-only e imutável** — não existe editar: corre
   **seleção de protocolos existente** (com semáforo, selos e a seção de não incorporados) e a
   avaliação escolhida nasce com `retorno_id` — a trilha mostra "motivada pelo retorno de …".
 
+**Registrar retorno.** O cabeçalho é só `Retorno — <protocolo> (<linha>)`; a regra de
+imutabilidade continua valendo e virou um **ⓘ com tooltip**, não um parágrafo na tela do
+médico. Não há campo de data agendada no topo — agendar é assunto do PRÓXIMO retorno. Se o
+retorno veio de um agendamento, aparece uma linha **read-only** ("Retorno previsto para
+12/09", com o atraso quando houver); senão, nada. *Data realizada* já vem com hoje.
+
+**Próximo retorno.** No fim do formulário, chips (**3 semanas · 1 mês · 2 meses · 3 meses ·
+data específica · sem retorno programado**) que exibem a data resultante. Ao gravar, isso
+agenda o próximo retorno na trilha do paciente. A app manda a **escolha**; quem calcula e
+grava a data é o servidor (`calcularProximoRetorno`) — aritmética de calendário nos dois
+lados vira divergência. O intervalo do **último ciclo** vem pré-selecionado; sem histórico,
+nada é pré-selecionado (a app não arbitra ritmo de seguimento). Escolher um chip re-renderiza
+só o bloco — o que já foi digitado acima não é reconstruído.
+
+**"Quem não veio".** `pacientes.proximo_retorno` é a agenda (mutável, sobrescrita a cada
+retorno). Data no passado só sobrevive se ninguém registrou consulta desde então — por isso
+**vencido já significa "não veio"**, sem cruzar estado. A lista de Pacientes mostra o badge
+*"Retorno atrasado — previsto DD/MM, há N dias"* e o filtro **⏰ Retornos atrasados**. Quem
+decide "vencido" é o **servidor** (relógio dele), não o relógio da máquina do usuário. Só
+visibilidade para a equipe — nenhuma mensagem é enviada ao paciente.
+
 **Lembrete de reestadiamento.** Selecionar protocolo agenda o próximo (**padrão 3 meses**,
 ajustável por paciente); retorno com imagem reagenda **+intervalo** a partir da data
 realizada. Vencido vira **item pendente destacado** na trilha ("Reestadiamento vencido desde

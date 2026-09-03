@@ -120,6 +120,13 @@ export class Paciente {
   @Column({ type: 'int', default: 3 })
   intervalo_reestadiamento_meses: number;
 
+  // Agenda do PRÓXIMO RETORNO (mesma natureza da de reestadiamento: lembrete mutável,
+  // não registro clínico). Decidida no fim de cada retorno e sobrescrita no seguinte.
+  // Data no passado + nenhum retorno registrado desde então = o paciente não veio.
+  @Index()
+  @Column({ type: 'date', nullable: true })
+  proximo_retorno: string;
+
   @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
   @JoinColumn({ name: 'criado_por' })
   criadoPor: Usuario;
@@ -442,6 +449,8 @@ export class Retorno {
   @Column({ length: 160, nullable: true })
   regimen_id: string;
 
+  // Para quando ESTE retorno estava previsto. Preenchida pelo SERVIDOR a partir da
+  // agenda vigente no momento do registro — não é campo digitável.
   @Column({ type: 'date', nullable: true })
   data_agendada: string;
 
@@ -465,6 +474,17 @@ export class Retorno {
   // procedência explícita, no mesmo espírito do "confirmado precisa de DOI" do corpus.
   @Column({ length: 160, nullable: true })
   fonte_dados: string;
+
+  // O que foi DECIDIDO nesta consulta sobre o próximo retorno — congelado junto com o
+  // resto do registro. A agenda do paciente muda; isto não. `proximo_intervalo` guarda a
+  // ESCOLHA ('3s'|'1m'|'2m'|'3m'|'especifica'|'nenhum'), que é o que sugere o intervalo
+  // do retorno seguinte; subtrair datas para adivinhá-la daria "28 dias" para quem
+  // escolheu "1 mês" em fevereiro.
+  @Column({ type: 'date', nullable: true })
+  proximo_retorno: string;
+
+  @Column({ type: 'varchar', length: 16, nullable: true })
+  proximo_intervalo: string;
 
   @Column({ type: 'text', nullable: true })
   observacoes: string;

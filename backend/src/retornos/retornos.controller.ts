@@ -9,7 +9,8 @@ import {
 } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { OncologistaOuAdminGuard } from '../auth/oncologista.guard';
-import { RetornosService } from './retornos.service';
+import { CHAVES_INTERVALO, RetornosService } from './retornos.service';
+import type { IntervaloRetorno } from './retornos.service';
 import type { CondutaRetorno, RespostaRetorno } from '../database/entities';
 
 const RESPOSTAS: RespostaRetorno[] = [
@@ -52,8 +53,16 @@ class CriarRetornoDto {
   // Protocolo em curso sobre o qual o retorno fala. Omitido = a última avaliação do
   // paciente (o service resolve e valida que a avaliação é dele).
   @IsOptional() @IsInt() avaliacao_id?: number;
-  @IsOptional() @IsISO8601({}, { message: 'data_agendada deve ser uma data ISO (YYYY-MM-DD)' }) data_agendada?: string;
+  // `data_agendada` NÃO entra: para quando este retorno estava previsto é a agenda do
+  // paciente, lida pelo servidor. Com forbidNonWhitelisted, mandá-la é 400 — de propósito.
   @IsISO8601({}, { message: 'data_realizada obrigatória, em ISO (YYYY-MM-DD)' }) data_realizada: string;
+  // Próximo retorno: a ESCOLHA vem do médico, a DATA sai do servidor (salvo 'especifica').
+  @IsOptional() @IsIn(CHAVES_INTERVALO, {
+    message: `proximo_intervalo deve ser um de: ${CHAVES_INTERVALO.join('|')}`,
+  })
+  proximo_intervalo?: IntervaloRetorno;
+  @IsOptional() @IsISO8601({}, { message: 'proximo_retorno deve ser uma data ISO (YYYY-MM-DD)' })
+  proximo_retorno?: string;
   @IsBoolean({ message: 'com_imagem (houve exame de imagem/reestadiamento?) obrigatório' }) com_imagem: boolean;
   // Sem @IsOptional: ele venceria o constraint e deixaria passar sem a checagem RECIST.
   @Validate(RespostaRecist) resposta?: RespostaRetorno;
