@@ -11,6 +11,7 @@ import { RevisoesModule } from './revisoes/revisoes.module';
 import { AutorizacoesModule } from './autorizacoes/autorizacoes.module';
 import { RetornosModule } from './retornos/retornos.module';
 import { EvidenciaModule } from './evidencia/evidencia.module';
+import { CustosModule } from './custos/custos.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { EvidenciaModule } from './evidencia/evidencia.module';
     AutorizacoesModule,
     RetornosModule,
     EvidenciaModule,
+    CustosModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
