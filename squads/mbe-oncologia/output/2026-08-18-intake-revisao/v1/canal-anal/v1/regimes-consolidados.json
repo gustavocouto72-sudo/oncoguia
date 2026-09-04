@@ -190,6 +190,45 @@
         "indeterminado": false,
         "nota": "2 blocos de 5-FU/mitomicina (D1 e D29) concomitantes à RT — intervalo de 28 dias explícito nos dias declarados",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "5-Fluorouracil",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              29,
+              30,
+              31,
+              32
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "Mitomicina C",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              29
+            ],
+            "indeterminado": true,
+            "nota": "dias escritos em contagem corrida do tratamento (D29) e não do ciclo de 28 dias"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "2 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -335,6 +374,45 @@
         "fonte": "esquema",
         "indeterminado": false,
         "nota": "2 blocos de cisplatina/5-FU (D1 e D29) concomitantes à RT — intervalo de 28 dias explícito nos dias declarados",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              29
+            ],
+            "indeterminado": true,
+            "nota": "dias escritos em contagem corrida do tratamento (D29) e não do ciclo de 28 dias"
+          },
+          {
+            "farmaco": "5-Fluorouracil",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              29,
+              30,
+              31,
+              32
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 2 de 2 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -505,6 +583,33 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Paclitaxel",
+            "dose_valor": 80.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "cadência semanal sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -680,6 +785,46 @@
         "indeterminado": true,
         "nota": "o pivotal define PFS em 12 meses como desfecho primário e não reporta PFS mediana no abstract",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Docetaxel",
+            "dose_valor": 40.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 40.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "5-Fluorouracil",
+            "dose_valor": 2400.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "dias do ciclo escritos para parte dos fármacos (Docetaxel, Cisplatina) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina)",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -822,6 +967,24 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Nivolumabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     }

@@ -201,6 +201,33 @@
         "indeterminado": true,
         "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Octreotídeo LAR",
+            "dose_valor": 30.0,
+            "dose_unidade": "mg",
+            "via": "IM",
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Lanreotídeo",
+            "dose_valor": 120.0,
+            "dose_unidade": "mg",
+            "via": "SC",
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Octreotídeo LAR … Lanreotídeo) — somar as doses seria ler escolha como combinação",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -346,6 +373,24 @@
         "indeterminado": true,
         "nota": "4 ciclos declarados, periodicidade não declarada no esquema",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "177Lu-DOTATATE",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -485,6 +530,33 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Everolimo",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Sunitinibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Everolimo … Sunitinibe) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -651,6 +723,54 @@
         "indeterminado": false,
         "nota": "PFS mediana do braço capecitabina+temozolomida (E2211)",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Capecitabina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "indeterminado": true,
+            "nota": "frequência intra-diária declarada (ex.: 12/12h) sobre os dias listados — doses por dia não escritas"
+          },
+          {
+            "farmaco": "Temozolomida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "indeterminado": true,
+            "nota": "frequência intra-diária declarada (ex.: 12/12h) sobre os dias listados — doses por dia não escritas"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "2 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -794,6 +914,42 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Etoposídeo",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Carboplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     }

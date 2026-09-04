@@ -197,6 +197,30 @@
         "indeterminado": false,
         "nota": null,
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Temozolomida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -341,6 +365,30 @@
         "fonte": "esquema",
         "indeterminado": false,
         "nota": null,
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Temozolomida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -497,6 +545,30 @@
         "indeterminado": false,
         "nota": "6 ciclos de temozolomida adjuvante; a fase concomitante à RT não está contabilizada aqui",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Temozolomida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; 1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -645,6 +717,30 @@
         "fonte": "esquema",
         "indeterminado": false,
         "nota": "12 ciclos de temozolomida adjuvante; a fase concomitante à RT não está contabilizada aqui",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Temozolomida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     }

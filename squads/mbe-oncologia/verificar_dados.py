@@ -294,6 +294,46 @@ def ciclos_admissiveis(esq, per):
                 somas.add(partes[i] + partes[j] + partes[k])
     return base, somas
 
+# ---- [10] composição estruturada: leitura independente do esquema --------
+# Mesma disciplina do [9]: o portão RE-LÊ o texto do esquema em vez de confiar no
+# self-report do bloco. Aqui a conferência é pontual e barata — a dose que o item
+# afirma precisa APARECER no texto, na grafia pt-BR que o texto usa. Não é o parser
+# inteiro reimplementado (isso seria copiar a função sob teste); é a pergunta
+# "de onde saiu este número?" respondida contra a fonte.
+UNIDADES_COMPOSICAO = {"mg_m2", "mg_kg", "mg", "g", "g_m2", "mcg", "mcg_kg", "UI", "AUC", "GBq"}
+VIAS_COMPOSICAO = {"EV", "VO", "SC", "IM", "IT", "IP", "intravesical"}
+
+# unidade canônica -> como ela aparece escrita no esquema (já sem acento/minúscula)
+GRAFIA_UNIDADE = {
+    "mg_m2": [r"mg\s*/\s*m2"], "mg_kg": [r"mg\s*/\s*kg"], "mg": [r"mg"],
+    "g_m2": [r"g\s*/\s*m2"], "g": [r"g"], "mcg_kg": [r"mcg\s*/\s*kg"],
+    "mcg": [r"mcg"], "UI": [r"ui", r"u"], "AUC": [r"auc"], "GBq": [r"gbq"],
+}
+
+
+def _num_ptbr(v):
+    """Grafias que o texto pode usar para o mesmo número: 1000 -> '1.000' ou '1000';
+    5.4 -> '5,4'. Devolve os literais a procurar."""
+    if v == int(v):
+        i = int(v)
+        return {f"{i:,}".replace(",", "."), str(i)}
+    t = ("%g" % v).replace(".", ",")
+    return {t}
+
+
+def dose_no_esquema(esq, valor, unidade):
+    """A dose afirmada pelo item aparece no TEXTO do esquema?"""
+    t = _sem_acento((esq or "").replace("\u00b2", "2"))
+    grafias = GRAFIA_UNIDADE.get(unidade, [])
+    for lit in _num_ptbr(valor):
+        n = re.escape(lit)
+        for g in grafias:
+            # número seguido da unidade (o normal) ou unidade seguida do número (AUC)
+            if re.search(n + r"\s*" + g, t) or re.search(g + r"\s*" + n, t):
+                return True
+    return False
+
+
 def run_ativo_rel():
     try:
         with open(RUN_ATIVO_FILE, encoding="utf-8") as fh:
@@ -534,6 +574,100 @@ def main():
             warns.append(("placar de expectativa_uso com pouquíssimo indeterminado — "
                           "abstract raramente reporta duração de tratamento; suspeite de número inventado",
                           [f"{indet}/{n} indeterminados"]))
+
+    # 10) composição estruturada (fármaco/dose/via/dias). É o insumo do módulo de
+    #     RECURSOS: mg por aplicação -> frascos -> R$. Um item errado aqui não vira erro
+    #     na tela, vira um número plausível — por isso o check é afirmativo em quatro
+    #     frentes: cobertura (todo regime tem o bloco), vocabulário FECHADO de unidade e
+    #     via, dias dentro da periodicidade do próprio regime, e a dose realmente escrita
+    #     no texto do esquema.
+    comp_bug, comp_sem_bloco = [], []
+    n_comp = n_itens = n_itens_ok = 0
+    comp_por_tumor = {}
+    for r in regimes:
+        rid = get_id(r)
+        c = r.get("composicao")
+        if not isinstance(c, dict):
+            comp_sem_bloco.append(rid); continue
+        if c.get("selo") != "estimativa":
+            comp_bug.append(f"{rid}: selo '{c.get('selo')}' — todo bloco nasce e fica 'estimativa'")
+        if c.get("fonte") != "esquema":
+            comp_bug.append(f"{rid}: fonte '{c.get('fonte')}' — composição só sai do esquema")
+        itens = c.get("itens")
+        if not isinstance(itens, list):
+            comp_bug.append(f"{rid}: itens não é lista"); continue
+        esq = r.get("esquema") or ""
+        # Periodicidade do regime SÓ do bloco de uso — a que o check [9] já conferiu
+        # contra o texto. Nada de cair na `periodicidades_do_esquema` como reserva:
+        # aquela lê lista de dias como intervalo ("D1,D8,D15" -> 7), e um ciclo de
+        # BEP de 21 dias seria reprovado por um D15 perfeitamente válido. Sem
+        # periodicidade auditada, o check de dias simplesmente não roda.
+        per = (r.get("expectativa_uso") or {}).get("periodicidade_dias")
+        for it in itens:
+            n_itens += 1
+            if not it.get("farmaco"):
+                comp_bug.append(f"{rid}: item sem fármaco")
+            indet = bool(it.get("indeterminado"))
+            v, u = it.get("dose_valor"), it.get("dose_unidade")
+            if indet:
+                if not it.get("nota"):
+                    comp_bug.append(f"{rid}/{it.get('farmaco')}: indeterminado sem nota")
+                if v is not None or u is not None:
+                    comp_bug.append(f"{rid}/{it.get('farmaco')}: indeterminado com dose preenchida")
+            else:
+                n_itens_ok += 1
+                if u not in UNIDADES_COMPOSICAO:
+                    comp_bug.append(f"{rid}/{it.get('farmaco')}: unidade '{u}' fora do vocabulário")
+                elif not isinstance(v, (int, float)) or v <= 0:
+                    comp_bug.append(f"{rid}/{it.get('farmaco')}: dose_valor '{v}' não é número positivo")
+                elif not dose_no_esquema(esq, v, u):
+                    comp_bug.append(f"{rid}/{it.get('farmaco')}: dose {v} {u} NÃO aparece no esquema")
+            via = it.get("via")
+            if via is not None and via not in VIAS_COMPOSICAO:
+                comp_bug.append(f"{rid}/{it.get('farmaco')}: via '{via}' fora do vocabulário")
+            dias = it.get("dias_do_ciclo")
+            if dias is not None:
+                if not isinstance(dias, list) or not dias or sorted(set(dias)) != dias:
+                    comp_bug.append(f"{rid}/{it.get('farmaco')}: dias_do_ciclo malformado ({dias})")
+                # Dia fora do ciclo só é FALHA no item que alguém vai multiplicar por
+                # preço. No item indeterminado ele fica visível de propósito: é a
+                # leitura crua do texto ("D1 e D29"), e é justamente ela que explica
+                # por que o item foi recusado. Se o extrator deixasse esse item passar
+                # como resolvido, ele cairia aqui — que é o ponto do check.
+                elif not indet and per and max(dias) > per:
+                    comp_bug.append(f"{rid}/{it.get('farmaco')}: dia D{max(dias)} fora do ciclo de {per}d")
+        completa = bool(c.get("completa"))
+        if completa == bool(c.get("indeterminado")):
+            comp_bug.append(f"{rid}: completa={completa} e indeterminado={c.get('indeterminado')} — contraditórios")
+        if completa and any(i.get("indeterminado") for i in itens):
+            comp_bug.append(f"{rid}: marcado completo com item indeterminado")
+        if completa and not itens:
+            comp_bug.append(f"{rid}: marcado completo sem nenhum item")
+        if not completa and not c.get("nota"):
+            comp_bug.append(f"{rid}: indeterminado sem nota explicando")
+        n_comp += completa
+        t = get_tumor(r)
+        comp_por_tumor.setdefault(t, [0, 0])
+        comp_por_tumor[t][1] += 1
+        comp_por_tumor[t][0] += completa
+    if comp_sem_bloco:
+        fails.append(("regime sem composicao", comp_sem_bloco))
+    if comp_bug:
+        fails.append(("composicao inconsistente", comp_bug))
+    if not comp_sem_bloco and not comp_bug:
+        n = len(regimes)
+        pct = 100 * (n - n_comp) // n
+        print(f"✓ [10] composicao em {n}/{n} — {n_comp} completas, {n - n_comp} "
+              f"indeterminadas ({pct}%); itens {n_itens}, resolvidos {n_itens_ok}.")
+        print("       por tumor (completas/total): " + " · ".join(
+            f"{t} {a}/{b}" for t, (a, b) in sorted(comp_por_tumor.items())))
+        # Bandeira vermelha simétrica à do [9]: esquema de oncologia é cheio de faixa,
+        # alternativa e uso contínuo. Um placar com pouquíssimo indeterminado significa
+        # que alguém escolheu por conta própria entre "cisplatina OU carboplatina".
+        if pct < 30:
+            warns.append(("placar de composicao com pouquíssimo indeterminado — o texto "
+                          "dos esquemas é cheio de faixa e alternativa; suspeite de "
+                          "escolha feita pelo extrator", [f"{n - n_comp}/{n} indeterminadas"]))
 
     # 6) DOIs de confirmado resolvem (opcional, rede)
     if check_dois:

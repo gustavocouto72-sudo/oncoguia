@@ -266,6 +266,28 @@
         "indeterminado": false,
         "nota": "3 doses de cisplatina (D1, D22, D43) concomitantes à RT — intervalo de 21 dias explícito nos dias declarados",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              22,
+              43
+            ],
+            "indeterminado": true,
+            "nota": "dias escritos em contagem corrida do tratamento (D43) e não do ciclo de 21 dias"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -417,6 +439,24 @@
         "indeterminado": true,
         "nota": "cisplatina semanal durante a RT; nº de semanas não declarado no esquema",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 40.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina)",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -561,6 +601,24 @@
         "fonte": "esquema",
         "indeterminado": true,
         "nota": "cetuximabe semanal durante a RT; nº de semanas não declarado no esquema",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cetuximabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -731,6 +789,61 @@
         "indeterminado": false,
         "nota": null,
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Docetaxel",
+            "dose_valor": 75.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 75.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "5-Fluorouracil",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "G-CSF",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 2 de 4 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -881,6 +994,28 @@
         "fonte": "esquema",
         "indeterminado": true,
         "nota": "duas alternativas (semanal ou 3 doses D1/D22/D43) e duração amarrada à RT, não declarada",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              22,
+              43
+            ],
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -1056,6 +1191,65 @@
         "indeterminado": true,
         "nota": "QT por ATÉ 6 ciclos (teto) seguida de pembrolizumabe de manutenção; pivotal sem PFS mediana no abstract",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Pembrolizumabe",
+            "dose_valor": 200.0,
+            "dose_unidade": "mg",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 100.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": 5.0,
+            "dose_unidade": "AUC",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "5-Fluorouracil",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "Paclitaxel",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Carboplatina; 5-Fluorouracil … Paclitaxel) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 2 de 5 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -1205,6 +1399,24 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Pembrolizumabe",
+            "dose_valor": 200.0,
+            "dose_unidade": "mg",
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": true,
+        "indeterminado": false,
+        "nota": null,
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -1386,6 +1598,49 @@
         "indeterminado": false,
         "nota": "PFS mediana do braço com cetuximabe (EXTREME); QT por até 6 ciclos + cetuximabe de manutenção",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 100.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "5-Fluorouracil",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "Cetuximabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 2 de 3 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -1535,6 +1790,24 @@
         "fonte_doi": "10.1056/NEJMoa1602252",
         "indeterminado": false,
         "nota": "PFS mediana do braço nivolumabe (CheckMate 141)",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Nivolumabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -1690,6 +1963,24 @@
         "indeterminado": true,
         "nota": "CheckMate 141 não reporta a mediana de PFS do subgrupo CPS<1, que é a população deste regime",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Nivolumabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -1840,6 +2131,24 @@
         "fonte": "esquema",
         "indeterminado": true,
         "nota": "duas alternativas de periodicidade (21/21d ou semanal) e duração amarrada à RT, não declarada",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -1998,6 +2307,38 @@
         "indeterminado": false,
         "nota": "3 ciclos de indução; a quimiorradiação subsequente não está contabilizada aqui",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "Gemcitabina",
+            "dose_valor": 1000.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -2154,6 +2495,38 @@
         "fonte": "esquema",
         "indeterminado": false,
         "nota": "6 ciclos de gencitabina+cisplatina paliativos",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 80.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Gemcitabina",
+            "dose_valor": 1000.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina)",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -2327,6 +2700,42 @@
         "indeterminado": false,
         "nota": "PFS mediana do braço toripalimabe (JUPITER-02)",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Toripalimabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Gemcitabina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -2466,6 +2875,24 @@
         "indeterminado": false,
         "nota": "PFS mediana do braço lenvatinibe (SELECT)",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Lenvatinibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -2604,6 +3031,24 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "COSMIC-311: PFS mediana do braço cabozantinibe não atingida na análise interina",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cabozantinibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -2763,6 +3208,41 @@
         "indeterminado": true,
         "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Doxorrubicina",
+            "dose_valor": 60.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Dacarbazina",
+            "dose_valor": 1000.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Doxorrubicina … Dacarbazina) — somar as doses seria ler escolha como combinação",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -2917,6 +3397,42 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Doxorrubicina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          },
+          {
+            "farmaco": "Paclitaxel",
+            "dose_valor": 175.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": 5.0,
+            "dose_unidade": "AUC",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Doxorrubicina … Paclitaxel; Paclitaxel … Carboplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     }

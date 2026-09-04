@@ -245,6 +245,33 @@
         "indeterminado": false,
         "nota": "PFS mediana do braço atezolizumabe+bevacizumabe (IMbrave150)",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Atezolizumabe",
+            "dose_valor": 1200.0,
+            "dose_unidade": "mg",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Bevacizumabe",
+            "dose_valor": 15.0,
+            "dose_unidade": "mg_kg",
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": true,
+        "indeterminado": false,
+        "nota": null,
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -404,6 +431,33 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Tremelimumabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "declarada como dose única no tratamento — não é dose por ciclo, e multiplicar por ciclos inventaria doses"
+          },
+          {
+            "farmaco": "Durvalumabe",
+            "dose_valor": 1500.0,
+            "dose_unidade": "mg",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 2 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -567,6 +621,24 @@
         "indeterminado": true,
         "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Sorafenibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -728,6 +800,24 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Lenvatinibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -891,6 +981,33 @@
         "indeterminado": true,
         "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Sorafenibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          },
+          {
+            "farmaco": "Lenvatinibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Sorafenibe … Lenvatinibe) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -1037,6 +1154,24 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Pembrolizumabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     },
@@ -1204,6 +1339,24 @@
         "fonte_doi": null,
         "indeterminado": true,
         "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Regorafenibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     }

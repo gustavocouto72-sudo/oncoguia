@@ -204,6 +204,44 @@
         "indeterminado": true,
         "nota": "duração amarrada à normalização do beta-HCG + 3 ciclos de consolidação; nº total de ciclos depende da resposta, não do esquema",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Metotrexato",
+            "dose_valor": 50.0,
+            "dose_unidade": "mg",
+            "via": "IM",
+            "dias_do_ciclo": [
+              1,
+              3,
+              5,
+              7
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Leucovorina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -371,6 +409,72 @@
         "indeterminado": true,
         "nota": "EMA-CO 14/14d mantido até normalização do beta-HCG mais consolidação; nº de ciclos não declarado no esquema",
         "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Etoposídeo",
+            "dose_valor": 100.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Metotrexato",
+            "dose_valor": 300.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Actinomicina D",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2
+            ],
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          },
+          {
+            "farmaco": "Vincristina",
+            "dose_valor": 1.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Ciclofosfamida",
+            "dose_valor": 600.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 5 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
       }
     },
     {
@@ -537,6 +641,62 @@
         "fonte": "esquema",
         "indeterminado": true,
         "nota": "EMA-EP 14/14d de resgate; nº de ciclos não declarado no esquema",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Etoposídeo",
+            "dose_valor": 100.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Metotrexato",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          },
+          {
+            "farmaco": "Actinomicina D",
+            "dose_valor": 0.5,
+            "dose_unidade": "mg",
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 60.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 4 itens indeterminados",
+        "fonte": "esquema",
         "selo": "estimativa"
       }
     }
