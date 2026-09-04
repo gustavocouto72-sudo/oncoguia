@@ -3,8 +3,28 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { BancoErrado, exigirBancoDeDev, resumoAlvo } from './database/alvo-banco';
 
 async function bootstrap() {
+  // Trava anti-engano: em dev, só sobe apontado para o branch de DEV do banco.
+  // Fica AQUI, no entrypoint local, e não em api/index.ts — a Vercel entra por lá e
+  // não passa por esta checagem. Antes de qualquer coisa do Nest: se o alvo está
+  // errado, subir e depois avisar já teria aberto conexão com o banco errado.
+  let alvo;
+  try {
+    alvo = exigirBancoDeDev(
+      process.env.DATABASE_URL,
+      process.env.ONCOGUIA_DB_DEV_ENDPOINT,
+      process.env.NODE_ENV,
+    );
+  } catch (e) {
+    if (e instanceof BancoErrado) {
+      console.error('\n' + e.message + '\n');
+      process.exit(1);
+    }
+    throw e;
+  }
+
   const app = await NestFactory.create(AppModule);
 
   app.use(helmet());
@@ -36,5 +56,8 @@ async function bootstrap() {
   const port = process.env.PORT || 3005;
   await app.listen(port);
   console.log(`OncoGuia API rodando em http://localhost:${port}/api`);
+  // Primeira linha útil do log diz sobre QUE BANCO tudo aqui vale — mesmo espírito do
+  // "Corpus:" do portão de dados.
+  if (alvo) console.log(`Banco (dev): ${resumoAlvo(alvo)}`);
 }
 bootstrap();

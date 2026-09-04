@@ -7,6 +7,65 @@ Rode este portão depois de **todo lote** de mudança (dados ou app). Passou tud
 
 ---
 
+## Banco de desenvolvimento separado (regra, não sugestão)
+
+**Teste manual e portões rodam SEMPRE no branch de dev. Produção só recebe deploy e uso
+real.** Nada de teste toca a base que o auditor enxerga.
+
+Por que a regra existe: dev e produção compartilhavam o mesmo banco Neon, e todo teste
+local escrevia em produção. Os portões limpam o que criam (paciente de teste, parecer),
+mas **cadastro feito à mão fora deles não é limpo por ninguém** — foi assim que três
+preços com fonte "TESTE" foram parar em `custos_regime` na base real, em 2026-09-03.
+Foram apagados; a regra abaixo existe para não haver um quarto.
+
+**Como funciona a trava.** É *allowlist*, não denylist: em modo dev (`NODE_ENV` ≠
+`production`) o backend só sobe se a `DATABASE_URL` apontar para **exatamente** o endpoint
+declarado em `ONCOGUIA_DB_DEV_ENDPOINT`. Consequências disso, todas de propósito:
+
+- **esquecer de configurar não libera** — sem a variável, nada sobe e nada roda;
+- recusa também o que ninguém previu (staging, banco de outro projeto, branch antigo
+  recriado com outro id), não só produção;
+- não exige guardar o endpoint de produção em arquivo local — que é justamente o que se
+  quer evitar. A string de produção vive **apenas** nas env vars do projeto na Vercel.
+
+A mensagem de erro **não oferece o endpoint conectado para colar**. Se você está lendo a
+mensagem, ele pode ser o de produção, e declará-lo como dev desligaria a trava exatamente
+no caso que ela existe para pegar. O valor vem do console do Neon, do branch de dev.
+
+Onde cada peça mora:
+
+| peça | arquivo | o que faz |
+|---|---|---|
+| trava de boot | `backend/src/database/alvo-banco.ts` | recusa subir com `exit 1` e instrução |
+| ligação no dev | `backend/src/main.ts` | chama a trava **antes** do Nest — abrir conexão para depois avisar já teria sido tarde |
+| produção | `backend/api/index.ts` | **não** passa pela trava: a Vercel entra por aqui |
+| portões | `scripts/portao-banco.js` | imprime o banco alvo no cabeçalho e aborta se não for o de dev |
+
+**Todo portão abre dizendo o alvo**, mesmo espírito do `Corpus:` do Portão A — a primeira
+linha diz sobre o que o resultado vale:
+
+```
+========================================================================
+= Portão: custo (expectativa de uso e custo)
+= Banco alvo: ep-xxxx (ep-xxxx-pooler.REGIAO.aws.neon.tech) · db=neondb
+========================================================================
+```
+
+Um portão **verde apontado para o banco errado** é um resultado que não vale nada sobre o
+ambiente que se queria testar — o mesmo problema do `!!! ATENÇÃO` do Portão A quando o
+corpus não é o do `RUN_ATIVO`.
+
+**Dados frescos:** o branch dev pode ser recriado a partir do principal no console do Neon
+sempre que quiser (é barato — Neon faz copy-on-write). Ao recriar, o **endpoint muda**:
+atualize `DATABASE_URL` e `ONCOGUIA_DB_DEV_ENDPOINT` em `backend/.env`. Se esquecer, a
+trava avisa em vez de deixar rodar no lugar errado.
+
+**Migrations:** rodam por `migrationsRun: true` no boot, então sobem no branch dev assim
+que o backend local iniciar, e em produção no primeiro boot depois do deploy. Testar a
+migration em dev antes de fazer deploy é o ponto de ter os dois.
+
+---
+
 ## Portão A — DADOS (saída do squad)
 
 0. **Fonte certa (checar PRIMEIRO).** Tudo — app, portão, Mesa — resolve o **mesmo** run a partir da constante única **`RUN_ATIVO`** (`squads/mbe-oncologia/RUN_ATIVO`). O portão imprime `Corpus: <caminho>` no cabeçalho:

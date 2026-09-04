@@ -11,6 +11,7 @@ const ROOT = require("path").resolve(__dirname, "..");
 const { chromium } = require(path.join(ROOT, 'node_modules/playwright'));
 require(path.join(ROOT, 'backend/node_modules/dotenv')).config({ path: path.join(ROOT, 'backend/.env') });
 const { tokenApi, loginNaTela } = require('./portao-credenciais');
+const { exigirBancoDeDev } = require('./portao-banco');
 const { neon } = require(path.join(ROOT, 'backend/node_modules/@neondatabase/serverless'));
 
 const APP = 'http://localhost:5173/index.html';
@@ -33,6 +34,8 @@ async function loginCtx(browser, perfil) {
 }
 
 (async () => {
+  // Primeira linha: sobre QUE BANCO este resultado vale. Aborta se não for o de dev.
+  exigirBancoDeDev('B (fluxos 5–8)');
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
   let pacienteId = null;
 

@@ -31,6 +31,7 @@ const ROOT = path.resolve(__dirname, '..');
 const { chromium } = require(path.join(ROOT, 'node_modules/playwright'));
 require(path.join(ROOT, 'backend/node_modules/dotenv')).config({ path: path.join(ROOT, 'backend/.env'), quiet: true });
 const { tokenApi, loginNaTela } = require('./portao-credenciais');
+const { exigirBancoDeDev } = require('./portao-banco');
 
 const APP = process.env.PORTAO_APP || 'http://localhost:5173/index.html';
 const API = process.env.PORTAO_API || 'http://localhost:3005/api';
@@ -103,6 +104,8 @@ async function ctxLogin(browser, perfil) {
 }
 
 (async () => {
+  // Primeira linha: sobre QUE BANCO este resultado vale. Aborta se não for o de dev.
+  exigirBancoDeDev('custo (expectativa de uso e custo)');
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
   const evid = JSON.parse(fs.readFileSync(EVID, 'utf-8'));
   const regs = new Map(evid.regimes.map(r => [r.regimen_id, r]));
