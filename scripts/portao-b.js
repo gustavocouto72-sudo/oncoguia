@@ -39,6 +39,11 @@ async function loginCtx(browser, perfil) {
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
   let pacienteId = null;
 
+  // try/finally: a limpeza ficava no fim do caminho feliz, então QUALQUER check que
+  // estourasse antes dela deixava o paciente e os pareceres de teste para trás — e a
+  // rodada seguinte encontrava o banco sujo. O portão devolve o banco como encontrou
+  // SEMPRE, inclusive quando falha (aliás, principalmente quando falha).
+  try {
   // ============ FASE 1 — oncologista ============
   const f1 = await loginCtx(browser, 'oncologista');
   const { page } = f1;
@@ -134,17 +139,38 @@ async function loginCtx(browser, perfil) {
   const rExp = await fetch(API + '/revisao/export', { headers: { Authorization: 'Bearer ' + token } });
   ok('B8 admin: /revisao/export responde 200 (acesso total)', rExp.status === 200, 'status=' + rExp.status);
 
-  // ============ LIMPEZA ============
-  const sql = neon(process.env.DATABASE_URL);
-  const del = await sql`DELETE FROM revisoes WHERE justificativa LIKE ${'TESTE PORTAO B%'} RETURNING id`;
-  console.log('limpeza: pareceres de teste apagados =', del.length);
-  if (pacienteId) {
-    const rDel = await fetch(`${API}/pacientes/${pacienteId}`, { method: 'DELETE', headers: { Authorization: 'Bearer ' + token } });
-    console.log('limpeza: paciente de teste', pacienteId, '→', rDel.status);
+  } catch (e) {
+    // A exceção vira um CHECK FALHO, e não some.
+    //
+    // Sem este catch o portão ficava VERDE ao estourar: o `finally` abaixo chama
+    // process.exit(fails ? 1 : 0), e como uma exceção não é um check registrado,
+    // `fails` dava 0 — o exit(0) acontecia antes de a exceção chegar ao .catch() do
+    // final do arquivo. Portão que passa quando quebra é pior que portão nenhum, e é o
+    // mesmo modo de falha do "check que passava vazio" já registrado no
+    // PORTAO-VERIFICACAO.md.
+    ok('EXCEÇÃO no portão', false, e && e.message ? e.message.slice(0, 200) : String(e));
+  } finally {
+    // ============ LIMPEZA — roda mesmo se um check acima estourou ============
+    // Apaga o que ESTE portão criou: pareceres pelo prefixo de teste e o paciente
+    // (cascata leva avaliações, retornos e seleções). Nada de "restaurar": aqui o
+    // portão só cria, então devolver como encontrou é apagar.
+    try {
+      const admin = await tokenApi(API, 'admin');
+      const sql = neon(process.env.DATABASE_URL);
+      const del = await sql`DELETE FROM revisoes WHERE justificativa LIKE ${'TESTE PORTAO B%'} RETURNING id`;
+      console.log('limpeza: pareceres de teste apagados =', del.length);
+      if (pacienteId) {
+        const rDel = await fetch(`${API}/pacientes/${pacienteId}`, { method: 'DELETE', headers: { Authorization: 'Bearer ' + admin } });
+        console.log('limpeza: paciente de teste', pacienteId, '→', rDel.status);
+      }
+    } catch (e) {
+      // Limpeza que falha não pode mascarar o resultado dos checks — avisa alto e deixa
+      // o veredito dos checks decidir o exit code.
+      console.error('LIMPEZA FALHOU (banco pode ter ficado sujo): ' + e.message);
+    }
+    await browser.close();
+    const fails = R.filter(r => !r[0]).length;
+    console.log(fails ? `\n${fails} FALHA(S) NO PORTÃO B` : '\nPORTÃO B: TUDO PASSOU');
+    process.exit(fails ? 1 : 0);
   }
-
-  await browser.close();
-  const fails = R.filter(r => !r[0]).length;
-  console.log(fails ? `\n${fails} FALHA(S) NO PORTÃO B` : '\nPORTÃO B: TUDO PASSOU');
-  process.exit(fails ? 1 : 0);
 })().catch(e => { console.error('ERRO no script:', e); process.exit(2); });

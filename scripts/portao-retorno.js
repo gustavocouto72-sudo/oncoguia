@@ -708,6 +708,11 @@ async function req(metodo, rota, tk, body) {
     ok('EXCEÇÃO no portão', false, e.message);
     try { await page.screenshot({ path: path.join(ROOT, 'portao-retorno-erro.png') }); } catch (_) { }
   } finally {
+    // Regra dos portões: devolver o banco como encontrou, SEMPRE. Aqui o portão só
+    // CRIA (paciente e, sobre ele, avaliações/retornos/seleções), nunca altera registro
+    // preexistente — então devolver como encontrou é apagar, e o DELETE do paciente
+    // basta: as três tabelas filhas têm ON DELETE CASCADE. Está no finally de propósito:
+    // check que estoura no meio não pode deixar resíduo para a rodada seguinte.
     // ---- limpeza: paciente de teste sai (cascata leva retornos e avaliações) ----
     if (pacienteId) {
       try {

@@ -55,6 +55,35 @@ Um portão **verde apontado para o banco errado** é um resultado que não vale 
 ambiente que se queria testar — o mesmo problema do `!!! ATENÇÃO` do Portão A quando o
 corpus não é o do `RUN_ATIVO`.
 
+**Regra da limpeza: o portão devolve o banco como encontrou, SEMPRE.** Duas metades, e a
+segunda faltava:
+
+- registro que **já existia** e o portão alterou → **restaura** o valor original;
+- registro que o **portão criou** → **apaga**.
+
+Só a primeira estava implementada no portão de custo, então cada rodada deixava três
+preços de teste para trás. Preço não tem rota DELETE na API (desenho: preço se corrige,
+não se apaga), então a remoção vai por SQL — mesmo caminho que o portão B já usava para
+pareceres. Paciente sai por `DELETE /pacientes/:id`, e a cascata leva avaliações, retornos
+e seleções.
+
+O "sempre" inclui **quando o portão falha** — aliás, principalmente aí. A limpeza mora no
+`finally`; se ficar no fim do caminho feliz, o check que estoura no meio deixa resíduo
+para a rodada seguinte encontrar.
+
+> **Cuidado ao mover limpeza para o `finally`:** o `finally` roda ANTES de a exceção
+> chegar ao `.catch()` do fim do arquivo. Se ele chamar `process.exit(fails ? 1 : 0)` e a
+> exceção não tiver sido registrada como check falho, `fails` dá 0 e **o portão sai verde
+> tendo quebrado**. Aconteceu no portão B na primeira versão desta mudança. O padrão certo
+> é `try { … } catch (e) { ok('EXCEÇÃO no portão', false, e.message) } finally { limpeza;
+> veredito }` — que é o que os quatro fazem agora. Mesma família do "check que passava
+> vazio": o modo de falha perigoso não é o portão vermelho, é o verde mentiroso.
+
+**Como se prova que a limpeza funciona:** rodar o portão **duas vezes seguidas** e olhar a
+linha de limpeza da segunda. `restaurados=0` significa que não havia nada para restaurar —
+isto é, a primeira rodada devolveu o banco vazio. Se a segunda rodada mostrar
+`restaurados>0`, a limpeza da primeira não apagou o que criou.
+
 **Dados frescos:** o branch dev pode ser recriado a partir do principal no console do Neon
 sempre que quiser (é barato — Neon faz copy-on-write). Ao recriar, o **endpoint muda**:
 atualize `DATABASE_URL` e `ONCOGUIA_DB_DEV_ENDPOINT` em `backend/.env`. Se esquecer, a

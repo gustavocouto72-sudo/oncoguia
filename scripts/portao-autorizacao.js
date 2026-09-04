@@ -344,6 +344,11 @@ async function ctxLogin(browser, perfil) {
   } catch (e) {
     ok('EXCEÇÃO no portão', false, e.message);
   } finally {
+    // Regra dos portões: devolver o banco como encontrou, SEMPRE. Aqui o portão só
+    // CRIA (paciente e, sobre ele, avaliações/retornos/seleções), nunca altera registro
+    // preexistente — então devolver como encontrou é apagar, e o DELETE do paciente
+    // basta: as três tabelas filhas têm ON DELETE CASCADE. Está no finally de propósito:
+    // check que estoura no meio não pode deixar resíduo para a rodada seguinte.
     if (pacienteId) {
       try {
         // Login de verdade da conta de teste admin (era JWT assinado com sub:1 fixo).

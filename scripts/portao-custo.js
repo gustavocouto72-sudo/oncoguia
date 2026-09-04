@@ -29,6 +29,7 @@ const path = require('path');
 const fs = require('fs');
 const ROOT = path.resolve(__dirname, '..');
 const { chromium } = require(path.join(ROOT, 'node_modules/playwright'));
+const { neon } = require(path.join(ROOT, 'backend/node_modules/@neondatabase/serverless'));
 require(path.join(ROOT, 'backend/node_modules/dotenv')).config({ path: path.join(ROOT, 'backend/.env'), quiet: true });
 const { tokenApi, loginNaTela } = require('./portao-credenciais');
 const { exigirBancoDeDev } = require('./portao-banco');
@@ -110,7 +111,10 @@ async function ctxLogin(browser, perfil) {
   const evid = JSON.parse(fs.readFileSync(EVID, 'utf-8'));
   const regs = new Map(evid.regimes.map(r => [r.regimen_id, r]));
   let tkOnco, tkRev, tkAud, tkAdm;
-  let anteriores = {};   // preços que já existiam, para restaurar
+  // regimen_id -> linha que existia ANTES do portão, ou null se não existia nenhuma.
+  // A distinção é o ponto: linha que existia se RESTAURA, linha que o portão criou se
+  // APAGA. Guardar só as que existiam (como era antes) deixava as criadas para trás.
+  const anteriores = {};
   // Um regime com tempo derivável e SEM preço — o caso do desacoplamento (mostra uso,
   // nenhum R$). Escolhido do corpus, não fixo, para não depender de qual preço existe.
   let RID_SEM_PRECO = null;
@@ -143,12 +147,17 @@ async function ctxLogin(browser, perfil) {
     const audEscreve = await req('PUT', `/custos/${RID_FIXA}`, tkAud, { custo_ciclo_tabela: 1, custo_ciclo_negociado: 1, fonte_tabela: 'x', fonte_negociado: 'y' });
     ok('C2 auditor NÃO cadastra preço (403) — leitura e escrita são whitelists diferentes', audEscreve.status === 403, 'status=' + audEscreve.status);
 
+    // Antes de QUALQUER escrita de preço, registra como o banco estava. Chamar duas
+    // vezes para o mesmo regime não sobrescreve: o primeiro registro é o estado real
+    // de partida, os seguintes já veriam o que o próprio portão escreveu.
+    const lembrarPreco = async (rid) => {
+      if (rid in anteriores) return;
+      const lista = (await req('GET', '/custos', tkAdm)).body || [];
+      anteriores[rid] = lista.find(c => c.regimen_id === rid) || null;
+    };
+
     // ═══ FASE 2 — cadastro e aritmética contra o JSON de origem ═══
-    for (const rid of [RID_FIXA, RID_PFS]) {
-      const atual = await req('GET', '/custos', tkAdm);
-      const achou = (atual.body || []).find(c => c.regimen_id === rid);
-      if (achou) anteriores[rid] = achou;
-    }
+    for (const rid of [RID_FIXA, RID_PFS]) await lembrarPreco(rid);
     const PRECOS = { [RID_FIXA]: [12000.00, 9500.00], [RID_PFS]: [28000.00, 21000.00] };
     for (const rid of [RID_FIXA, RID_PFS]) {
       const [tab, neg] = PRECOS[rid];
@@ -243,8 +252,7 @@ async function ctxLogin(browser, perfil) {
     // intervalo de ciclo nenhum. Sem período declarado o servidor NÃO converte; com ele,
     // converte e diz que o número é administrativo.
     {
-      const jaTinha = ((await req('GET', '/custos', tkAdm)).body || []).find(c => c.regimen_id === RID_ORAL);
-      if (jaTinha && !anteriores[RID_ORAL]) anteriores[RID_ORAL] = jaTinha;
+      await lembrarPreco(RID_ORAL);
 
       // (a) preço SEM periodo_dias: nada de conversão, nada de R$.
       const semPer = await req('PUT', `/custos/${RID_ORAL}`, tkAdm, {
@@ -468,21 +476,35 @@ async function ctxLogin(browser, perfil) {
   } catch (e) {
     ok('portão executou sem exceção', false, e.message);
   } finally {
-    // ---- limpeza: restaura o que existia; o que o portão criou fica com preço de teste
-    // identificável pela fonte (não há DELETE na API por desenho).
+    // ---- limpeza: devolve o banco como encontrou ----
+    // A regra é essa, e ela tem duas metades: preço que JÁ EXISTIA volta ao valor
+    // original; preço que o PORTÃO CRIOU é apagado. Só a primeira metade existia, e por
+    // isso cada rodada deixava três preços de teste para trás — o mesmo resíduo que
+    // sujou produção antes de dev e produção serem separados.
+    // O DELETE vai por SQL porque a API não expõe rota de remoção de preço (desenho:
+    // preço se corrige, não se apaga). Mesmo caminho que o portão B usa para pareceres.
     try {
       if (!tkAdm) tkAdm = await tokenApi(API, 'admin');
-      for (const rid of [RID_FIXA, RID_PFS, RID_ORAL]) {
-        const a = anteriores[rid];
+      let restaurados = 0, apagados = 0;
+      const criados = [];
+      for (const [rid, a] of Object.entries(anteriores)) {
         if (a) {
           await req('PUT', `/custos/${rid}`, tkAdm, {
             custo_ciclo_tabela: Number(a.custo_ciclo_tabela), custo_ciclo_negociado: Number(a.custo_ciclo_negociado),
             fonte_tabela: a.fonte_tabela, fonte_negociado: a.fonte_negociado,
             periodo_dias: a.periodo_dias == null ? null : Number(a.periodo_dias),
           });
+          restaurados++;
+        } else {
+          criados.push(rid);
         }
       }
-      console.log('  limpeza: preços anteriores restaurados (' + Object.keys(anteriores).length + ')');
+      if (criados.length) {
+        const sql = neon(process.env.DATABASE_URL);
+        const del = await sql.query('DELETE FROM custos_regime WHERE regimen_id = ANY($1) RETURNING regimen_id', [criados]);
+        apagados = del.length;
+      }
+      console.log(`  limpeza: preços restaurados=${restaurados} apagados=${apagados}`);
       if (pacienteId) {
         const del = await req('DELETE', `/pacientes/${pacienteId}`, tkAdm);
         console.log('  limpeza: paciente de teste removido (status ' + del.status + ')');
