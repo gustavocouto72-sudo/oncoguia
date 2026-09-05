@@ -289,6 +289,39 @@ idêntica) ·
 > exatamente por isso que precisava de conserto: portão que falha pelo motivo errado
 > ensina a ignorar portão.
 
+> **Lição do vazamento do `GET /pacientes` (2026-09-04):** ao testar a matriz do perfil
+> **gestor** por API direta, `GET /pacientes` e `GET /revisoes/resumo` devolveram **200**
+> — com nome, carteirinha e tumor de todos os pacientes — para o perfil que por desenho
+> não vê nada clínico. Os controllers diziam *"leitura = qualquer autenticado"*, e isso
+> era verdade: enquanto todo perfil autenticado fosse clínico.
+>
+> **A regra que fica: whitelist explícita SEMPRE, leitura incluída.** "Qualquer
+> autenticado" é uma promessa sobre os perfis de **hoje**, e o próximo perfil a nascer a
+> quebra em silêncio — sem erro, sem log, sem ninguém perceber. A correção não foi listar
+> quem NÃO pode (blacklist envelhece do mesmo jeito: o perfil seguinte nasceria vendo
+> tudo de novo) — foi `LeituraClinicaGuard`, a lista literal de quem pode.
+>
+> **É a terceira ocorrência da mesma família**, e por isso vira regra e não anedota:
+> 1. **perfis hierárquicos** — `RolesGuard` derivava permissão da posição na escada, e o
+>    revisor passava em rota de oncologista. Resolvido com guards de whitelist por eixo
+>    (`OncologistaOuAdminGuard`, `RevisorOuAdminGuard`, `AuditorOuAdminGuard`).
+> 2. **não incorporado via POST direto** — a app escondia o caminho, mas o servidor
+>    aceitava `autorizacao_estado` vindo do cliente: o protocolo nascia vigente sem
+>    passar pelo auditor. Resolvido decidindo o estado **no servidor**.
+> 3. **leitura clínica para o gestor** — este.
+>
+> As três têm a mesma forma: *a permissão estava implícita em alguma outra coisa* (a
+> posição na hierarquia, a tela, o conjunto de perfis existentes) em vez de escrita.
+>
+> **Check permanente:** todo endpoint novo entra na matriz de perfil do portão com as
+> **DUAS pontas** testadas — **API direta** e **tela** —, e a matriz inclui
+> obrigatoriamente os perfis que **NÃO** devem acessar. Testar só quem pode prova que a
+> funcionalidade existe, não que ela está protegida; e testar só na tela prova que o
+> botão sumiu, não que a rota recusa. O `portao-recursos` faz as duas direções: o gestor
+> leva 403 em 13 rotas clínicas, e oncologista/revisor/auditor levam 403 em todas as de
+> recursos — mais o teste **afirmativo** de que o nome do paciente não aparece na
+> resposta, na tela nem dentro do `.xlsx`.
+
 > **Lição do check que passava vazio:** `portao-autorizacao` marcou 44/44 sobre um bug que
 > o usuário levava na cara em produção. Não foi falta de check — foi um check cuja
 > asserção era satisfeita pelo próprio estado quebrado (`(null || []).every(...)` é
