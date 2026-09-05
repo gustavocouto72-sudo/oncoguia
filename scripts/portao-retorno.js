@@ -469,13 +469,20 @@ async function req(metodo, rota, tk, body) {
       Array.from(document.querySelectorAll('tbody tr')).some(r => r.textContent.includes(n)), NOME_TESTE));
 
     // ---- registrar o retorno limpa o atraso ----
-    await page.evaluate(async (pid) => {
+    // O DIA vem do Node (hoje(), LOCAL) e entra como argumento — não de
+    // `new Date().toISOString()` dentro do navegador, que é UTC. O backend deriva o dia
+    // com getters locais (hojeISO), e entre 21h e a meia-noite os dois divergem: com o
+    // UTC aqui, este retorno nascia com data_realizada de AMANHÃ e dois checks caíam por
+    // um motivo que não está no código sob teste — L6 esperava a agenda 3 meses à frente
+    // de hoje e recebia a de amanhã, e L5 via este retorno como "mais recente" que o do
+    // admin gravado depois. Portão que falha por causa do relógio ensina a ignorar portão.
+    await page.evaluate(async ({ pid, dia }) => {
       await api(`/pacientes/${pid}/retornos`, { method: 'POST', body: JSON.stringify({
-        data_realizada: new Date().toISOString().slice(0, 10), com_imagem: false, conduta: 'mantem',
+        data_realizada: dia, com_imagem: false, conduta: 'mantem',
         proximo_intervalo: '3m',
       }) });
       await carregarPacientes(); render();
-    }, pacienteId);
+    }, { pid: pacienteId, dia: hoje() });
     ok('L6 registrar o retorno tira o paciente da lista de atrasados',
       await page.evaluate(n => {
         const p = patients.find(x => x.nome === n);

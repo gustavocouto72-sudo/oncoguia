@@ -581,9 +581,11 @@ async function doLogin(){
     localStorage.setItem("oncoguia_usuario", JSON.stringify(USUARIO));
     REVC_RESUMO = {}; REVC_RESUMO_OK = false; REVC_DEC = {}; REVC_SEL = new Set(); REVC_FONTES = {}; REVC_FONTES_OK = false; // estado de revisão recarrega como o novo usuário
     await initEvidencia();           // corpus de protocolos: só chega com JWT válido
-    await carregarPacientes();
-    await carregarResumoRevisao();
-    renderUserbox(); view = "lista"; render();
+    if(podeVerClinico()){
+      await carregarPacientes();
+      await carregarResumoRevisao();
+    }
+    renderUserbox(); view = podeVerClinico() ? "lista" : "recursos"; render();
   }catch(e){
     renderLogin(e.message || "Falha no login");
   }finally{
@@ -1552,14 +1554,22 @@ function render(){
   if(view==="autorizacoes" && !["auditor","admin"].includes(USUARIO.perfil)) view = "lista"; // Autorizações: só auditor/admin
   if(view==="simulador" && !["revisor","admin"].includes(USUARIO.perfil)) view = "lista"; // Simulador: só revisor/admin
   if(view==="custos" && USUARIO.perfil!=="admin") view = "lista"; // Cadastro de preço: só admin (o backend recusa com 403 de qualquer forma)
+  if(view==="recursos" && !podeVerRecursos()) view = "lista";      // Recursos: gestor/admin
+  if(view==="insumos" && USUARIO.perfil!=="admin") view = "lista"; // Cadastro de insumo: só admin
+  // O GESTOR não tem "lista": ele não vê paciente. Toda rota clínica cai em Recursos —
+  // inclusive o fallback `view="lista"` das linhas acima, e inclusive quem chegou aqui
+  // digitando a URL. O backend devolve 403 de qualquer forma; isto evita a tela em branco.
+  if(!podeVerClinico()) view = podeVerRecursos() && view!=="insumos" && view!=="senha" ? "recursos" : view;
   renderNav();
-  if(view==="login") view = "lista";
+  if(view==="login") view = podeVerClinico() ? "lista" : "recursos";
   if(view==="admin") return renderAdmin();
   if(view==="senha") return renderSenha();
   if(view==="revclin") return renderRevisaoClinica();
   if(view==="autorizacoes") return renderAutorizacoes();
   if(view==="simulador") return renderSimulador();
   if(view==="custos") return renderCustos();
+  if(view==="recursos") return renderRecursos();
+  if(view==="insumos") return renderInsumos();
   if(view==="fluxograma") return renderFluxograma();
   if(view==="lista") return renderLista();
   if(view==="cadastro") return renderCadastro();
@@ -1575,18 +1585,24 @@ function renderNav(){
   const isFlow = view==="fluxograma", isAdm = view==="admin", isRevc = view==="revclin", isSim = view==="simulador";
   const isAut = view==="autorizacoes";
   const isCst = view==="custos";
-  const isPac = !isFlow && !isAdm && !isRevc && !isSim && !isAut && !isCst && view!=="senha";
+  const isRec = view==="recursos", isIns = view==="insumos";
+  const isPac = !isFlow && !isAdm && !isRevc && !isSim && !isAut && !isCst && !isRec && !isIns && view!=="senha";
   // Aba Autorizações: whitelist ['auditor','admin'] — o oncologista não a vê, e o
   // bloqueio por URL/go() está no render(); o backend recusa com 403 de qualquer forma.
   const autTab = podeAutorizar()
     ? `<a class="${isAut?'on':''}" onclick="go('autorizacoes')">Autorizações${AUT_CONTAGEM&&AUT_CONTAGEM.pendentes?`<span class="n hist-n">${AUT_CONTAGEM.pendentes}</span>`:""}</a>`
     : "";
+  // Aba Recursos: whitelist ['gestor','admin']. O gestor NÃO recebe Pacientes nem
+  // Fluxograma — não é aba escondida por conveniência, é o perfil inteiro dele.
+  const recTab = podeVerRecursos()
+    ? `<a class="${isRec?'on':''}" onclick="go('recursos')">Recursos</a>` : "";
   nav.innerHTML = `<nav class="tabs">
-    <a class="${isPac?'on':''}" onclick="go('lista')">Pacientes</a>
-    <a class="${isFlow?'on':''}" onclick="go('fluxograma')">Fluxograma</a>
+    ${podeVerClinico() ? `<a class="${isPac?'on':''}" onclick="go('lista')">Pacientes</a>
+    <a class="${isFlow?'on':''}" onclick="go('fluxograma')">Fluxograma</a>` : ""}
     ${USUARIO && ["revisor","admin"].includes(USUARIO.perfil) ? `<a class="${isRevc?'on':''}" onclick="go('revclin')">Revisão clínica</a><a class="${isSim?'on':''}" onclick="go('simulador')">Simulador</a>` : ""}
     ${autTab}
-    ${USUARIO && USUARIO.perfil==="admin" ? `<a class="${isCst?'on':''}" onclick="go('custos')">Custo por ciclo</a><a class="${isAdm?'on':''}" onclick="go('admin')">Admin</a>` : ""}
+    ${recTab}
+    ${USUARIO && USUARIO.perfil==="admin" ? `<a class="${isCst?'on':''}" onclick="go('custos')">Custo por ciclo</a><a class="${isIns?'on':''}" onclick="go('insumos')">Insumos</a><a class="${isAdm?'on':''}" onclick="go('admin')">Admin</a>` : ""}
   </nav>`;
 }
 
@@ -1758,6 +1774,15 @@ function updateCadOnco(){
 function renderCadastro(){
   if(!CADASTRO) CADASTRO = {nome:"", ident:"", nasc:"", sexo:"F", cidade:"", oper:OPERADORAS[0], plano:"", cart:"", tumor:null, sysOpen:null, clin:{}, subtipo:""};
   const edit = !!CADASTRO.editId;
+  // Medidas ficam FORA do bloco só-de-cadastro: peso e altura mudam com o tempo, e a tela
+  // de edição é justamente onde se corrigem. Se aparecessem só no cadastro novo, o PATCH
+  // da edição mandaria null e APAGARIA as medidas do paciente sem ninguém pedir.
+  const medidasHtml = `
+    <div class="grid3">
+      <div class="field"><label>Peso (kg)</label><input id="f_peso" inputmode="decimal" placeholder="opcional — ex.: 72,5" value="${esc(CADASTRO.peso||"")}" oninput="CADASTRO.peso=this.value"></div>
+      <div class="field"><label>Altura (cm)</label><input id="f_altura" inputmode="decimal" placeholder="opcional — ex.: 168" value="${esc(CADASTRO.altura||"")}" oninput="CADASTRO.altura=this.value"></div>
+      <div class="field"><label>&nbsp;</label><div class="hint" style="padding-top:8px">Opcionais. Refinam a dose calculada no módulo de recursos (mg/m² usa a superfície de Mosteller, que exige as duas; mg/kg usa o peso). Sem elas o cálculo usa o <b>paciente-padrão declarado</b> — e a tela de recursos diz que está usando o padrão.</div></div>
+    </div>`;
   const adminHtml = edit ? "" : `
     <div class="grid3">
       <div class="field"><label>Data de nascimento</label><input id="f_nasc" type="date" value="${esc(CADASTRO.nasc||"")}" oninput="CADASTRO.nasc=this.value"></div>
@@ -1781,6 +1806,7 @@ function renderCadastro(){
       <div class="field"><label>Identificador (registro do hospital)</label><input id="f_ident" placeholder="Ex.: 2026-004821" value="${esc(CADASTRO.ident||"")}" oninput="CADASTRO.ident=this.value"></div>
     </div>
     ${adminHtml}
+    ${medidasHtml}
 
     <div class="section-t">Tumor do paciente</div>
     <div id="cad-onco">${cadOncoHtml()}</div>
@@ -1805,6 +1831,10 @@ function editarCadastro(pid){
     nome: src.nome||"", ident: src.identificador||"",
     tumor: src.tumor||null, sysOpen: undefined, subtipo: src.subtipo||"",
     clin: {...((d&&d.valores_estaveis)||{})},
+    // Pré-preenchidas do DETALHE (a listagem não traz medidas). Vírgula decimal, que é
+    // como se digita aqui — e é o que numeroBR() lê de volta na hora de gravar.
+    peso: src.peso_kg != null ? String(src.peso_kg).replace(".", ",") : "",
+    altura: src.altura_cm != null ? String(src.altura_cm).replace(".", ",") : "",
     temEstaveis: !!d, // sem o detalhe carregado, não sobrescreve valores_estaveis às cegas
   };
   go('cadastro');
@@ -1877,6 +1907,17 @@ async function salvarCadastro(){
       if(v!==undefined && v!==null && v!=="") valores_estaveis[s.campo]=v;
     });
   }
+  // Medida vazia manda null explícito: "não informado" e "zero" são coisas diferentes, e
+  // uma medida digitada errada tem de poder ser APAGADA, não só sobrescrita.
+  const medida = (txt, casas) => {
+    const n = numeroBR(txt);
+    if(n===null) return null;
+    if(isNaN(n)) return NaN;
+    const f = Math.pow(10, casas);
+    return Math.round(n*f)/f;
+  };
+  const peso = medida(CADASTRO.peso, 2), altura = medida(CADASTRO.altura, 1);
+  if(isNaN(peso) || isNaN(altura)){ alert("Peso e altura precisam ser números (use vírgula para decimais) — ou deixe em branco."); return; }
   try{
     if(CADASTRO.editId){
       // Edição cadastral: PATCH só do que esta tela corrige (nome, identificador,
@@ -1888,6 +1929,10 @@ async function salvarCadastro(){
         sistema: tumor? sistemaDeTumor(tumor) : null, tumor,
         subtipo:(CADASTRO.subtipo||"").trim()||null,
       };
+      // Mesma cautela dos valores_estaveis: sem o detalhe carregado a tela não conhece as
+      // medidas atuais, e mandar null aqui as apagaria às cegas. Com o detalhe, manda —
+      // inclusive null, que é como se APAGA uma medida digitada errada.
+      if(CADASTRO.temEstaveis){ payload.peso_kg = peso; payload.altura_cm = altura; }
       if(CADASTRO.temEstaveis || Object.keys(valores_estaveis).length) payload.valores_estaveis = valores_estaveis;
       await api(`/pacientes/${pid}`, {method:"PATCH", body:JSON.stringify(payload)});
       CADASTRO=null;
@@ -1901,6 +1946,7 @@ async function salvarCadastro(){
       cidade:CADASTRO.cidade||"—", operadora:CADASTRO.oper||OPERADORAS[0], plano:CADASTRO.plano||"—", carteirinha:CADASTRO.cart||"—",
       identificador:(CADASTRO.ident||"").trim()||null,
       sistema: tumor? sistemaDeTumor(tumor) : null, tumor, subtipo:(CADASTRO.subtipo||"").trim()||null,
+      peso_kg: peso, altura_cm: altura,
       valores_estaveis,
     })});
     CADASTRO=null;
@@ -2067,6 +2113,7 @@ function renderSeguimentoResumo(p, detail){
       <div class="hint" style="margin-top:10px;font-weight:700">Fotografia clínica desta avaliação</div>
       <div class="crit" style="margin-top:6px">${snapshotChipsFor(u.snapshot_campos, detail.tumor)}</div>
       ${custoBlocoHtml(u.regimen_id)}
+      ${recursoBlocoHtml(p && p.id)}
     </div>`;
   } else {
     resumo = `<div class="empty" style="margin-top:12px">Nenhuma avaliação registrada ainda.<br>
@@ -4923,6 +4970,13 @@ let AUT_ERRO = "";
 // pode ver: pedir e receber 403 encheria o console de erro sem motivo.
 function podeVerCusto(){ return !!(USUARIO && (USUARIO.perfil==="auditor" || USUARIO.perfil==="admin")); }
 
+// GESTÃO DE RECURSOS — whitelist ['gestor','admin'], espelhando o GestorOuAdminGuard.
+// E o inverso: o GESTOR não vê nada clínico. As duas listas são LITERAIS (não "quem não
+// for gestor"), pelo mesmo motivo do servidor: blacklist envelhece mal — o próximo perfil
+// novo nasceria vendo tudo. Aqui é cortesia de tela; o controle é o guard.
+function podeVerRecursos(){ return !!(USUARIO && (USUARIO.perfil==="gestor" || USUARIO.perfil==="admin")); }
+function podeVerClinico(){ return !!(USUARIO && ["oncologista","revisor","auditor","admin"].includes(USUARIO.perfil)); }
+
 let CUSTO_EST = {};        // regimen_id -> estimativa do servidor (ou "carregando")
 let CUSTO_PEND = new Set();// ids já pedidos nesta rodada (evita pedir duas vezes)
 let CUSTO_CARTEIRA = null; // agregado da carteira (null = não carregado)
@@ -5530,6 +5584,615 @@ async function initEvidencia(){
   renderDatasrc();
 }
 
+
+// =================== GESTÃO DE RECURSOS (gestor + admin) ===================
+// Os DOIS lados do dinheiro: COMPRA (o que o hospital paga pelos insumos) e FATURAMENTO
+// (o que cobra da operadora). Margem = faturamento − compra.
+//
+// Quem calcula é o SERVIDOR — a app não multiplica nada. Não é preferência de estilo: já
+// existe uma aritmética de frascos/ciclos/preços no backend, e uma segunda aqui virou
+// divergência silenciosa em todo sistema onde isso foi tentado. A tela desenha o que veio
+// e mostra a ORIGEM de cada número.
+//
+// Pseudonimização: para o gestor, a resposta do servidor NÃO TRAZ nome de paciente — o
+// campo não existe no JSON, não é escondido no CSS. `pseudonimizado` no payload é só o
+// aviso que a tela imprime; a proteção é a ausência do dado.
+
+let REC_PROJ = null;        // projeção do horizonte atual (null = não carregada)
+let REC_HORIZONTE = 6;      // 3 | 6 | 12 meses
+let REC_ERRO = "";
+let REC_ABA = "resumo";     // resumo | insumos | protocolos | carteira
+
+// Cadastro (admin)
+let REC_INS = null;         // insumos + apresentações
+let REC_FILA = null;        // fármacos que o corpus pede
+let REC_COB = null;         // cobertura
+let REC_PREM = null;        // premissas do paciente-padrão
+let REC_FORM = {};          // rascunho de apresentação, por chave (digitar NÃO re-renderiza)
+let REC_BUSY = null;
+let REC_MSG = "";
+let REC_ADM_ERRO = "";
+
+const REC_ORIGEM = {
+  "insumo":             {t:"por insumo", c:"ok",  d:"Decomposto fármaco a fármaco, com o preço do frasco cadastrado."},
+  "protocolo-fallback": {t:"preço por protocolo", c:"fb", d:"A composição do esquema não fecha mg por aplicação — usando o preço por ciclo cadastrado no módulo de custo. Não produz receita: aquele cadastro não tem preço de contrato."},
+  "sem-dado":           {t:"sem dado", c:"no",  d:"Nem composição utilizável nem preço por protocolo."},
+};
+
+function fmtNum(v, casas){
+  return (typeof v==="number" && isFinite(v))
+    ? v.toLocaleString("pt-BR",{minimumFractionDigits:casas||0, maximumFractionDigits:casas||0}) : "—";
+}
+// Faixa de dinheiro. Quando min e max coincidem, imprime UM valor — repetir o mesmo
+// número dos dois lados de um travessão sugere precisão de faixa que não existe ali.
+function fmtFaixa(min, max){
+  if(typeof min!=="number" || typeof max!=="number") return "—";
+  return min===max ? fmtBRL(min) : `${fmtBRL(min)} – ${fmtBRL(max)}`;
+}
+
+async function carregarRecursos(){
+  try{
+    REC_PROJ = await api("/recursos/projecao?horizonte="+REC_HORIZONTE);
+    REC_ERRO = "";
+  }catch(e){ REC_PROJ = null; REC_ERRO = e.message; }
+  render();
+}
+function setHorizonte(m){
+  REC_HORIZONTE = Number(m); REC_PROJ = null; render(); carregarRecursos();
+}
+function setRecAba(a){ REC_ABA = a; render(); }
+
+// ---- premissas: o corpo sobre o qual toda mg foi calculada -----------------
+// Fica no topo da tela, não num rodapé: um custo calculado sobre "1,75 m² declarado" é o
+// custo de um paciente que não existe, e quem lê o número precisa saber disso antes.
+function recPremissasHtml(p){
+  if(!p) return "";
+  const org = o => o==="paciente"
+    ? `<span class="rec-org ok">do paciente</span>`
+    : `<span class="rec-org adm" title="Valor DECLARADO no cadastro de premissas — não é medida deste paciente">padrão declarado</span>`;
+  return `<div class="rec-prem">
+    <b>Paciente-padrão do cálculo:</b>
+    <span>SC ${fmtNum(p.sc_m2,2)} m² ${org(p.origem_sc)}</span>
+    <span>peso ${fmtNum(p.peso_kg,1)} kg ${org(p.origem_peso)}</span>
+    <span title="Usado na fórmula de Calvert: dose (mg) = AUC × (clearance + 25)">clearance ${fmtNum(p.clearance_ml_min,0)} mL/min ${org(p.origem_clearance)}</span>
+  </div>`;
+}
+
+function renderRecursos(){
+  if(REC_PROJ===null && !REC_ERRO){
+    carregarRecursos();
+    app().innerHTML = `<div class="card"><h2>Recursos</h2><div class="empty">⏳ Projetando…</div></div>`;
+    return;
+  }
+  const k = REC_PROJ || {};
+  const abas = [["resumo","Resumo"],["insumos","Demanda de compra"],["protocolos","Faturamento por protocolo"],["carteira","Carteira"]];
+  app().innerHTML = `
+  <div class="card">
+    <div class="rev-head">
+      <div><h2>Recursos — projeção de compra, faturamento e margem</h2>
+      <div class="sub">Dois lados do dinheiro: <b>compra</b> (o que o hospital paga pelos insumos) e <b>faturamento</b> (o que cobra da operadora). <b>Margem = faturamento − compra.</b> Tudo em <b>faixa</b> onde há faixa, e todo número traz a <b>origem</b>. Quem calcula é o servidor.</div></div>
+      <div class="rev-run">${esc(USUARIO.perfil)} <b>${esc(USUARIO.nome)}</b></div>
+    </div>
+    ${REC_ERRO?`<div class="login-err">${esc(REC_ERRO)}</div>`:""}
+    ${k.pseudonimizado?`<div class="rec-pseudo">🔒 Carteira <b>pseudonimizada</b>: o servidor não envia nome de paciente para o perfil gestor. Os rótulos são "Paciente #id · tumor · protocolo".</div>`:""}
+
+    <div class="rec-hz">
+      <span>Horizonte:</span>
+      ${[3,6,12].map(m=>`<button class="rec-hzb ${REC_HORIZONTE===m?'on':''}" onclick="setHorizonte(${m})">${m} meses</button>`).join("")}
+      <span class="hint">${esc(k.aviso||"")}</span>
+    </div>
+    ${recPremissasHtml(k.premissas)}
+
+    <div class="rec-tot">
+      <div class="rec-tot-c"><div class="rec-tot-t">Compra projetada</div><div class="rec-tot-v">${fmtFaixa(k.compra_min,k.compra_max)}</div><div class="rec-tot-s">faixa negociado – tabela</div></div>
+      <div class="rec-tot-c"><div class="rec-tot-t">Faturamento projetado</div><div class="rec-tot-v">${k.faturamento_completo?fmtBRL(k.faturamento):"—"}</div><div class="rec-tot-s">${k.faturamento_completo?"contrato cadastrado para toda a carteira":"<b>sem dado</b> — falta preço de contrato em pelo menos um protocolo"}</div></div>
+      <div class="rec-tot-c ${k.faturamento_completo?(k.margem_min<0?"neg":"pos"):""}"><div class="rec-tot-t">Margem</div><div class="rec-tot-v">${k.faturamento_completo?fmtFaixa(k.margem_min,k.margem_max):"—"}</div><div class="rec-tot-s">${k.faturamento_completo?"faturamento − compra (mínimo usa a compra no teto)":"não projetada sem faturamento — nunca herda o preço de compra"}</div></div>
+    </div>
+    <div class="rec-cnt"><b>${k.pacientes_no_calculo||0}</b> paciente(s) no cálculo · <b>${k.pacientes_fora||0}</b> fora (com motivo, na aba Carteira)
+      <button class="btn" style="margin-left:auto" onclick="exportarRecursosXlsx()">⬇ Exportar .xlsx</button></div>
+
+    <div class="rec-abas">${abas.map(([id,t])=>`<a class="${REC_ABA===id?'on':''}" onclick="setRecAba('${id}')">${t}</a>`).join("")}</div>
+    ${REC_ABA==="resumo"      ? recResumoHtml(k)      : ""}
+    ${REC_ABA==="insumos"     ? recInsumosHtml(k)     : ""}
+    ${REC_ABA==="protocolos"  ? recProtocolosHtml(k)  : ""}
+    ${REC_ABA==="carteira"    ? recCarteiraHtml(k)    : ""}
+  </div>`;
+}
+
+function recResumoHtml(k){
+  const top = (k.demanda_compra||[]).slice(0,5);
+  const prot = (k.faturamento_por_protocolo||[]).slice(0,5);
+  return `<div class="rec-sec">Maior demanda de compra (5 primeiros)</div>
+  ${top.length?`<table class="rec-t"><thead><tr><th>Insumo</th><th>Apresentação</th><th class="n">Frascos</th><th class="n">Compra (faixa)</th></tr></thead><tbody>
+    ${top.map(d=>`<tr><td>${esc(d.farmaco)}</td><td>${esc(d.conteudo)}</td><td class="n">${fmtNum(d.frascos)}</td><td class="n">${fmtFaixa(d.min,d.max)}</td></tr>`).join("")}
+  </tbody></table>`:`<div class="empty">Nenhuma demanda projetada — nenhum protocolo da carteira chega ao nível de insumo.</div>`}
+  <div class="rec-sec">Protocolos de maior custo (5 primeiros)</div>
+  ${prot.length?`<table class="rec-t"><thead><tr><th>Protocolo</th><th class="n">Pacientes</th><th class="n">Compra</th><th class="n">Faturamento</th><th class="n">Margem</th></tr></thead><tbody>
+    ${prot.map(p=>`<tr><td>${esc(p.protocolo)} <span class="rec-org ${REC_ORIGEM[p.origem].c}" title="${esc(REC_ORIGEM[p.origem].d)}">${REC_ORIGEM[p.origem].t}</span></td><td class="n">${p.pacientes}</td><td class="n">${fmtFaixa(p.compra_min,p.compra_max)}</td><td class="n">${p.faturamento_completo?fmtBRL(p.faturamento):"—"}</td><td class="n">${p.faturamento_completo?fmtFaixa(p.margem_min,p.margem_max):"—"}</td></tr>`).join("")}
+  </tbody></table>`:`<div class="empty">Nenhum protocolo projetado.</div>`}`;
+}
+
+function recInsumosHtml(k){
+  const d = k.demanda_compra||[];
+  if(!d.length) return `<div class="empty">Nenhuma demanda de compra projetada neste horizonte. Só protocolos com <b>origem por insumo</b> produzem frascos — os que caem no preço por protocolo dão custo total, não lista de compra.</div>`;
+  return `<table class="rec-t"><thead><tr><th>Insumo</th><th>Apresentação</th><th class="n">Frascos</th><th class="n">Compra (negociado)</th><th class="n">Compra (tabela)</th></tr></thead><tbody>
+    ${d.map(x=>`<tr><td>${esc(x.farmaco)}</td><td>${esc(x.conteudo)}</td><td class="n"><b>${fmtNum(x.frascos)}</b></td><td class="n">${fmtBRL(x.min)}</td><td class="n">${fmtBRL(x.max)}</td></tr>`).join("")}
+  </tbody><tfoot><tr><td colspan="2">Total</td><td class="n"><b>${fmtNum(d.reduce((a,x)=>a+x.frascos,0))}</b></td><td class="n">${fmtBRL(d.reduce((a,x)=>a+x.min,0))}</td><td class="n">${fmtBRL(d.reduce((a,x)=>a+x.max,0))}</td></tr></tfoot></table>`;
+}
+
+function recProtocolosHtml(k){
+  const p = k.faturamento_por_protocolo||[];
+  if(!p.length) return `<div class="empty">Nenhum protocolo com projeção neste horizonte.</div>`;
+  return `<table class="rec-t"><thead><tr><th>Protocolo</th><th>Origem</th><th class="n">Pac.</th><th class="n">Ciclos</th><th class="n">Compra</th><th class="n">Faturamento</th><th class="n">Margem</th></tr></thead><tbody>
+    ${p.map(x=>`<tr>
+      <td>${esc(x.protocolo)}<div class="rec-rid">${esc(x.regimen_id)}</div></td>
+      <td><span class="rec-org ${REC_ORIGEM[x.origem].c}" title="${esc(REC_ORIGEM[x.origem].d)}">${REC_ORIGEM[x.origem].t}</span></td>
+      <td class="n">${x.pacientes}</td><td class="n">${x.ciclos}</td>
+      <td class="n">${fmtFaixa(x.compra_min,x.compra_max)}</td>
+      <td class="n">${x.faturamento_completo?fmtBRL(x.faturamento):`<span class="rec-nd" title="Sem preço de contrato cadastrado para os insumos deste protocolo. Herdar o preço de compra daria margem zero — que não é resposta, é a ausência dela.">sem dado</span>`}</td>
+      <td class="n">${x.faturamento_completo?fmtFaixa(x.margem_min,x.margem_max):"—"}</td></tr>`).join("")}
+  </tbody></table>`;
+}
+
+function recCarteiraHtml(k){
+  const c = k.carteira||[], f = k.fora||[];
+  return `${c.length?`<table class="rec-t"><thead><tr><th>Paciente</th><th>Protocolo</th><th class="n">Ciclos no horizonte</th><th class="n">Compra</th><th class="n">Faturamento</th><th class="n">Margem</th></tr></thead><tbody>
+    ${c.map(x=>`<tr>
+      <td>${esc(k.pseudonimizado ? x.rotulo : (x.paciente||x.rotulo))}${k.pseudonimizado?"":`<div class="rec-rid">${esc(x.rotulo)}</div>`}</td>
+      <td>${esc(x.protocolo)}</td>
+      <td class="n">${x.ciclos_no_horizonte} <span class="hint">de ${x.ciclos_restantes} restantes (${x.ciclos_esperados} esperados, ${x.ciclos_decorridos} decorridos)</span></td>
+      <td class="n">${fmtFaixa(x.compra_min,x.compra_max)}</td>
+      <td class="n">${x.faturamento===null?"—":fmtBRL(x.faturamento)}</td>
+      <td class="n">${x.margem_min===null?"—":fmtFaixa(x.margem_min,x.margem_max)}</td></tr>`).join("")}
+  </tbody></table>`:`<div class="empty">Nenhum paciente com projeção neste horizonte.</div>`}
+  ${f.length?`<details class="rec-fora" open><summary>Quem ficou de fora e por quê (${f.length})</summary>
+    ${f.map(x=>`<div class="rec-fora-l"><b>${esc(k.pseudonimizado ? x.rotulo : (x.paciente||x.rotulo))}</b> · ${esc(x.regimen_id)} — ${esc(x.explicacao||x.motivo||"")}</div>`).join("")}
+    <div class="hint">Somar estes como zero diria que a carteira custa menos do que custa. Ficam fora do total, com o motivo.</div>
+  </details>`:""}`;
+}
+
+// ---- export .xlsx ----------------------------------------------------------
+// Escrito à mão (ZIP "stored" + XML mínimo) em vez de puxar uma biblioteca de CDN: a app
+// é um arquivo estático único e serve de dentro da rede do hospital — dependência externa
+// aqui é um ponto de falha e uma requisição para fora que ninguém pediu.
+// Abas SEPARADAS para compra e faturamento, como o cadastro as trata: são contratos
+// diferentes, com fontes diferentes, e uma existe sem a outra.
+function _crc32(buf){
+  let c, t = _crc32.tab;
+  if(!t){ t = _crc32.tab = new Int32Array(256);
+    for(let n=0;n<256;n++){ c=n; for(let k=0;k<8;k++) c = c&1 ? 0xEDB88320 ^ (c>>>1) : c>>>1; t[n]=c; } }
+  let crc = -1;
+  for(let i=0;i<buf.length;i++) crc = (crc>>>8) ^ t[(crc ^ buf[i]) & 0xFF];
+  return (crc ^ -1) >>> 0;
+}
+function _zipStore(arquivos){
+  const enc = new TextEncoder();
+  const partes = [], central = [];
+  let off = 0;
+  const u16=n=>[n&255,(n>>8)&255], u32=n=>[n&255,(n>>8)&255,(n>>16)&255,(n>>24)&255];
+  for(const a of arquivos){
+    const nome = enc.encode(a.nome), dados = enc.encode(a.texto), crc = _crc32(dados);
+    const lh = [].concat([0x50,0x4b,0x03,0x04], u16(20), u16(0), u16(0), u16(0), u16(0),
+                         u32(crc), u32(dados.length), u32(dados.length), u16(nome.length), u16(0));
+    partes.push(new Uint8Array(lh), nome, dados);
+    central.push({nome, crc, tam: dados.length, off});
+    off += lh.length + nome.length + dados.length;
+  }
+  const cd = [];
+  for(const c of central){
+    const h = [].concat([0x50,0x4b,0x01,0x02], u16(20), u16(20), u16(0), u16(0), u16(0), u16(0),
+                        u32(c.crc), u32(c.tam), u32(c.tam), u16(c.nome.length),
+                        u16(0), u16(0), u16(0), u16(0), u32(0), u32(c.off));
+    cd.push(new Uint8Array(h), c.nome);
+  }
+  const cdTam = cd.reduce((a,x)=>a+x.length,0);
+  const eocd = new Uint8Array([].concat([0x50,0x4b,0x05,0x06], u16(0), u16(0),
+                              u16(central.length), u16(central.length), u32(cdTam), u32(off), u16(0)));
+  const todos = partes.concat(cd, [eocd]);
+  const total = todos.reduce((a,x)=>a+x.length,0);
+  const saida = new Uint8Array(total);
+  let p=0; for(const x of todos){ saida.set(x,p); p+=x.length; }
+  return saida;
+}
+const _xmlEsc = t => String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+function _colLetra(i){ let s=""; i++; while(i>0){ const r=(i-1)%26; s=String.fromCharCode(65+r)+s; i=Math.floor((i-1)/26); } return s; }
+function _sheetXml(linhas){
+  const rows = linhas.map((linha,ri)=>{
+    const cels = linha.map((v,ci)=>{
+      const ref = _colLetra(ci)+(ri+1);
+      return (typeof v==="number" && isFinite(v))
+        ? `<c r="${ref}"><v>${v}</v></c>`
+        : `<c r="${ref}" t="inlineStr"><is><t xml:space="preserve">${_xmlEsc(v)}</t></is></c>`;
+    }).join("");
+    return `<row r="${ri+1}">${cels}</row>`;
+  }).join("");
+  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>${rows}</sheetData></worksheet>`;
+}
+function baixarXlsx(nomeArquivo, abas){
+  const arquivos = [
+    {nome:"[Content_Types].xml", texto:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>${abas.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join("")}</Types>`},
+    {nome:"_rels/.rels", texto:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
+    {nome:"xl/workbook.xml", texto:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${abas.map((a,i)=>`<sheet name="${_xmlEsc(a.nome)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join("")}</sheets></workbook>`},
+    {nome:"xl/_rels/workbook.xml.rels", texto:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${abas.map((_,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join("")}</Relationships>`},
+  ].concat(abas.map((a,i)=>({nome:`xl/worksheets/sheet${i+1}.xml`, texto:_sheetXml(a.linhas)})));
+  const blob = new Blob([_zipStore(arquivos)], {type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = nomeArquivo; document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 0);
+}
+
+function exportarRecursosXlsx(){
+  const k = REC_PROJ; if(!k) return;
+  const cab = ["OncoGuia — projeção de recursos", `horizonte ${k.horizonte_meses} meses`,
+               `gerado em ${new Date(k.gerado_em).toLocaleString("pt-BR")}`,
+               `SC ${k.premissas.sc_m2} m² (${k.premissas.origem_sc}) · peso ${k.premissas.peso_kg} kg (${k.premissas.origem_peso}) · clearance ${k.premissas.clearance_ml_min} mL/min`,
+               k.pseudonimizado ? "carteira pseudonimizada (perfil gestor)" : "", "ESTIMATIVA"];
+  const compra = [cab, [],
+    ["Insumo","Apresentação","Frascos","Compra negociado (R$)","Compra tabela (R$)"]]
+    .concat((k.demanda_compra||[]).map(d=>[d.farmaco, d.conteudo, d.frascos, d.min, d.max]))
+    .concat([[], ["TOTAL","", (k.demanda_compra||[]).reduce((a,x)=>a+x.frascos,0), k.compra_min, k.compra_max]]);
+  const fat = [cab, [],
+    ["Protocolo","regimen_id","Origem","Pacientes","Ciclos","Compra min (R$)","Compra max (R$)","Faturamento (R$)","Margem min (R$)","Margem max (R$)"]]
+    .concat((k.faturamento_por_protocolo||[]).map(p=>[
+      p.protocolo, p.regimen_id, REC_ORIGEM[p.origem].t, p.pacientes, p.ciclos,
+      p.compra_min, p.compra_max,
+      p.faturamento_completo ? p.faturamento : "sem dado",
+      p.faturamento_completo ? p.margem_min : "sem dado",
+      p.faturamento_completo ? p.margem_max : "sem dado"]))
+    .concat([[], ["TOTAL","","", k.pacientes_no_calculo, "", k.compra_min, k.compra_max,
+      k.faturamento_completo ? k.faturamento : "sem dado",
+      k.faturamento_completo ? k.margem_min : "sem dado",
+      k.faturamento_completo ? k.margem_max : "sem dado"]]);
+  baixarXlsx(`oncoguia-recursos-${k.horizonte_meses}m.xlsx`,
+             [{nome:"Compra", linhas:compra}, {nome:"Faturamento", linhas:fat}]);
+}
+
+// =================== CADASTRO DE INSUMOS (admin) ===================
+// Insumo = fármaco canônico; apresentação = o que se compra ("frasco 150 mg"), com preço
+// de COMPRA em faixa e preço de FATURAMENTO.
+//
+// O nome do fármaco tem de casar LITERALMENTE com o da composição do corpus — é essa
+// igualdade que liga dose a preço. Por isso o cadastro não tem campo livre de nome como
+// caminho principal: a fila abaixo lista os fármacos que o corpus pede, e cadastrar é um
+// clique. Digitar "Gencitabina" onde o corpus diz "Gemcitabina" produziria um insumo que
+// nunca casa com nada e ninguém notaria.
+async function carregarInsumos(){
+  try{
+    REC_INS  = await api("/recursos/insumos");
+    REC_FILA = await api("/recursos/insumos/corpus");
+    REC_COB  = await api("/recursos/cobertura");
+    REC_PREM = await api("/recursos/premissas");
+    REC_ADM_ERRO = "";
+  }catch(e){ REC_INS = []; REC_FILA = []; REC_COB = null; REC_ADM_ERRO = e.message; }
+  render();
+}
+// Rascunho por chave, SEM render() a cada tecla — digitar preço não pode redesenhar a
+// lista (perde foco, perde cursor, e num campo de dinheiro perde dígito). Mesmo padrão
+// do cadastro de custo e do parecer do auditor.
+function setRecForm(chave, campo, valor){
+  REC_FORM[chave] = Object.assign({}, REC_FORM[chave], {[campo]: valor});
+}
+function recFormAtual(chave, salvo){
+  const f = REC_FORM[chave] || {}, s = salvo || {};
+  const v = (k, d) => f[k] !== undefined ? f[k] : d;
+  return {
+    conteudo:  v("conteudo",  s.conteudo || ""),
+    valor:     v("valor",     s.conteudo_valor != null ? String(s.conteudo_valor).replace(".",",") : ""),
+    unidade:   v("unidade",   s.conteudo_unidade || "mg"),
+    padrao:    v("padrao",    s.padrao ? "1" : ""),
+    ct:        v("ct",        s.preco_compra_tabela    != null ? String(s.preco_compra_tabela).replace(".",",")    : ""),
+    cn:        v("cn",        s.preco_compra_negociado != null ? String(s.preco_compra_negociado).replace(".",",") : ""),
+    fat:       v("fat",       s.preco_faturamento      != null ? String(s.preco_faturamento).replace(".",",")      : ""),
+    fct:       v("fct",       s.fonte_compra_tabela    || ""),
+    fcn:       v("fcn",       s.fonte_compra_negociado || ""),
+    ffat:      v("ffat",      s.fonte_faturamento      || ""),
+  };
+}
+
+async function criarInsumo(farmaco){
+  REC_BUSY = "ins:"+farmaco; REC_MSG=""; REC_ADM_ERRO=""; render();
+  try{ await api("/recursos/insumos", {method:"POST", body: JSON.stringify({farmaco})}); REC_MSG = "Insumo criado: "+farmaco+". Cadastre a apresentação e os preços."; }
+  catch(e){ REC_ADM_ERRO = e.message; }
+  REC_BUSY = null; await carregarInsumos();
+}
+async function removerInsumo(id, farmaco){
+  if(!confirm(`Remover o insumo "${farmaco}" e TODAS as suas apresentações e preços?`)) return;
+  REC_BUSY = "ins:"+id; REC_MSG=""; REC_ADM_ERRO=""; render();
+  try{ await api("/recursos/insumos/"+id, {method:"DELETE"}); REC_MSG = "Insumo removido."; }
+  catch(e){ REC_ADM_ERRO = e.message; }
+  REC_BUSY = null; REC_PROJ = null; await carregarInsumos();
+}
+async function removerApresentacao(id){
+  if(!confirm("Remover esta apresentação e os preços dela?")) return;
+  REC_BUSY = "ap:"+id; REC_MSG=""; REC_ADM_ERRO=""; render();
+  try{ await api("/recursos/apresentacoes/"+id, {method:"DELETE"}); REC_MSG = "Apresentação removida."; }
+  catch(e){ REC_ADM_ERRO = e.message; }
+  REC_BUSY = null; REC_PROJ = null; await carregarInsumos();
+}
+
+async function salvarApresentacao(chave, insumoId, apresentacaoId){
+  const f = recFormAtual(chave, null);
+  const val = numeroBR(f.valor), ct = numeroBR(f.ct), cn = numeroBR(f.cn);
+  const fatTxt = String(f.fat||"").trim();
+  const fat = fatTxt==="" ? null : numeroBR(fatTxt);
+  REC_MSG=""; REC_ADM_ERRO="";
+  if(val===null || isNaN(val) || val<=0){ REC_ADM_ERRO = "Conteúdo da apresentação: informe quanto o frasco tem (ex.: 150)."; render(); return; }
+  if(ct===null || cn===null || isNaN(ct) || isNaN(cn)){ REC_ADM_ERRO = "Informe os dois preços de compra (use vírgula para centavos)."; render(); return; }
+  if(!String(f.fct).trim() || !String(f.fcn).trim()){ REC_ADM_ERRO = "As duas fontes de compra são obrigatórias — nenhum preço aparece na tela sem rastro."; render(); return; }
+  if(fat!==null && isNaN(fat)){ REC_ADM_ERRO = "Preço de faturamento inválido (use vírgula para centavos, ou deixe vazio)."; render(); return; }
+  // Faturamento e fonte entram JUNTOS. A trava está no servidor e no banco; aqui é para o
+  // admin ver o motivo antes de levar um 400.
+  if((fat!==null) !== (!!String(f.ffat).trim())){
+    REC_ADM_ERRO = "Preço de faturamento e fonte do contrato entram juntos: preço sem fonte não vai para a tela, e fonte sem preço não projeta receita.";
+    render(); return;
+  }
+  const corpo = {
+    insumo_id: insumoId,
+    conteudo: String(f.conteudo).trim() || `${f.valor} ${f.unidade}`,
+    conteudo_valor: Math.round(val*1000)/1000,
+    conteudo_unidade: f.unidade,
+    padrao: !!f.padrao,
+    preco_compra_tabela: Math.round(ct*100)/100,
+    preco_compra_negociado: Math.round(cn*100)/100,
+    preco_faturamento: fat===null ? null : Math.round(fat*100)/100,
+    fonte_compra_tabela: String(f.fct).trim(),
+    fonte_compra_negociado: String(f.fcn).trim(),
+    fonte_faturamento: fat===null ? null : String(f.ffat).trim(),
+  };
+  REC_BUSY = chave; render();
+  try{
+    if(apresentacaoId) await api("/recursos/apresentacoes/"+apresentacaoId, {method:"PUT", body: JSON.stringify(corpo)});
+    else               await api("/recursos/apresentacoes",                 {method:"POST", body: JSON.stringify(corpo)});
+    delete REC_FORM[chave];
+    REC_MSG = "Apresentação gravada.";
+    REC_PROJ = null;   // preço mudou: a projeção em cache virou passado
+  }catch(e){ REC_ADM_ERRO = e.message; }
+  REC_BUSY = null; await carregarInsumos();
+}
+
+async function salvarPremissas(){
+  const f = REC_FORM["prem"] || {};
+  const g = (k, d) => { const t = f[k]!==undefined ? f[k] : d; return numeroBR(t); };
+  const sc = g("sc", REC_PREM ? String(REC_PREM.sc_m2).replace(".",",") : "");
+  const pe = g("peso", REC_PREM ? String(REC_PREM.peso_kg).replace(".",",") : "");
+  const cl = g("cl", REC_PREM ? String(REC_PREM.clearance_ml_min).replace(".",",") : "");
+  REC_MSG=""; REC_ADM_ERRO="";
+  if([sc,pe,cl].some(v=>v===null||isNaN(v))){ REC_ADM_ERRO = "Premissas: informe SC, peso e clearance."; render(); return; }
+  REC_BUSY = "prem"; render();
+  try{
+    await api("/recursos/premissas", {method:"PUT", body: JSON.stringify({
+      sc_m2: Math.round(sc*100)/100, peso_kg: Math.round(pe*100)/100, clearance_ml_min: Math.round(cl*10)/10,
+    })});
+    delete REC_FORM["prem"];
+    REC_MSG = "Premissas do paciente-padrão gravadas. Toda projeção passa a usar estes valores.";
+    REC_PROJ = null;
+  }catch(e){ REC_ADM_ERRO = e.message; }
+  REC_BUSY = null; await carregarInsumos();
+}
+
+function apresFormHtml(chave, insumoId, ap){
+  const f = recFormAtual(chave, ap);
+  const busy = REC_BUSY===chave;
+  const UN = ["mg","g","mcg","UI","GBq"];
+  return `<div class="rec-apf">
+    <div class="rec-apf-g">
+      <label>Rótulo<input type="text" value="${esc(f.conteudo)}" placeholder="frasco-ampola 150 mg"
+        oninput="setRecForm('${esc(chave)}','conteudo',this.value)"></label>
+      <label>Conteúdo<input type="text" inputmode="decimal" value="${esc(f.valor)}" placeholder="150"
+        oninput="setRecForm('${esc(chave)}','valor',this.value)"></label>
+      <label>Unidade<select onchange="setRecForm('${esc(chave)}','unidade',this.value)">
+        ${UN.map(u=>`<option value="${u}" ${f.unidade===u?"selected":""}>${u}</option>`).join("")}</select></label>
+      <label title="Qual apresentação o cálculo usa quando o insumo tem mais de uma. Sem marcação e com mais de uma, o servidor devolve 'sem dado' em vez de escolher — a apresentação decide o desperdício.">Padrão do cálculo
+        <select onchange="setRecForm('${esc(chave)}','padrao',this.value)">
+          <option value="" ${f.padrao?"":"selected"}>não</option>
+          <option value="1" ${f.padrao?"selected":""}>sim</option></select></label>
+    </div>
+    <div class="rec-apf-sec">Compra — o que o hospital paga</div>
+    <div class="rec-apf-g">
+      <label>Tabela (CMED)<input type="text" inputmode="decimal" value="${esc(f.ct)}" placeholder="2400,00"
+        oninput="setRecForm('${esc(chave)}','ct',this.value)"></label>
+      <label>Negociado<input type="text" inputmode="decimal" value="${esc(f.cn)}" placeholder="1900,00"
+        oninput="setRecForm('${esc(chave)}','cn',this.value)"></label>
+      <label>Fonte da tabela<input type="text" value="${esc(f.fct)}" placeholder="CMED 2026-01 (PMVG 18%)"
+        oninput="setRecForm('${esc(chave)}','fct',this.value)"></label>
+      <label>Fonte do negociado<input type="text" value="${esc(f.fcn)}" placeholder="Ata de registro de preços 2026-02"
+        oninput="setRecForm('${esc(chave)}','fcn',this.value)"></label>
+    </div>
+    <div class="rec-apf-sec">Faturamento — o que se cobra da operadora</div>
+    <div class="rec-apf-g">
+      <label>Preço de faturamento<input type="text" inputmode="decimal" value="${esc(f.fat)}" placeholder="vazio = sem projeção de receita"
+        oninput="setRecForm('${esc(chave)}','fat',this.value)"></label>
+      <label>Fonte (contrato)<input type="text" value="${esc(f.ffat)}" placeholder="Contrato Operadora X, tabela 2026"
+        oninput="setRecForm('${esc(chave)}','ffat',this.value)"></label>
+    </div>
+    <div class="rec-apf-adm">⚠️ Sem preço de faturamento cadastrado <b>não há projeção de receita</b> para este insumo — e, por consequência, nem margem. O sistema <b>nunca</b> herda o preço de compra: isso daria margem zero, que parece resposta e é a ausência dela.</div>
+    <div class="cadm-acoes">
+      <button class="btn primary" ${busy?"disabled":""} onclick="salvarApresentacao('${esc(chave)}',${insumoId},${ap?ap.id:"null"})">${busy?"Gravando…":(ap?"Gravar alterações":"Adicionar apresentação")}</button>
+      ${ap?`<button class="btn" onclick="removerApresentacao(${ap.id})">Remover</button>`:""}
+      <span class="hint">Negociado não pode ser maior que a tabela — a faixa sairia invertida.</span>
+    </div>
+  </div>`;
+}
+
+function renderInsumos(){
+  if(REC_INS===null && !REC_ADM_ERRO){
+    carregarInsumos();
+    app().innerHTML = `<div class="card"><h2>Insumos</h2><div class="empty">⏳ Carregando…</div></div>`;
+    return;
+  }
+  const ins = REC_INS||[], fila = (REC_FILA||[]).filter(f=>!f.cadastrado), cob = REC_COB||{};
+  const pf = REC_FORM["prem"] || {};
+  const pv = (k, d) => pf[k]!==undefined ? pf[k] : d;
+  app().innerHTML = `
+  <div class="card">
+    <div class="rev-head"><div><h2>Insumos — cadastro de apresentação e preço</h2>
+      <div class="sub">O caminho <b>por insumo</b> do módulo de recursos: dose do esquema → mg por aplicação → <b>frascos</b> (arredondando para cima) → R$. Preço de <b>compra</b> em faixa e preço de <b>faturamento</b> (contrato). Todo preço exige <b>fonte</b>.</div></div>
+      <div class="rev-run">admin <b>${esc(USUARIO.nome)}</b></div></div>
+    ${REC_ADM_ERRO?`<div class="login-err">${esc(REC_ADM_ERRO)}</div>`:""}
+    ${REC_MSG?`<div class="cadm-ok">${esc(REC_MSG)}</div>`:""}
+
+    <div class="cadm-cob">
+      <span><b>${ins.length}</b> insumo(s) cadastrado(s)</span>
+      <span><b>${(cob.por_situacao&&cob.por_situacao["insumo"])||0}</b> protocolo(s) com custo por insumo</span>
+      <span><b>${fila.length}</b> fármaco(s) do corpus sem insumo</span>
+      <span class="hint">de ${cob.total_regimes||0} protocolos. A composição do corpus é indeterminada em ~90% dos esquemas (faixa, alternativa, uso contínuo) — esses <b>não viram custo por insumo nem com preço</b>, e caem no preço por protocolo.</span>
+    </div>
+
+    <div class="cadm-sec">Paciente-padrão declarado</div>
+    <div class="hint" style="margin-bottom:10px">O corpo sobre o qual a dose é calculada quando o paciente não tem peso/altura no cadastro. É <b>declaração administrativa</b>, não medida — e a tela de recursos diz isso em cada projeção.</div>
+    <div class="rec-apf"><div class="rec-apf-g">
+      <label>Superfície corporal (m²)<input type="text" inputmode="decimal" value="${esc(pv("sc", REC_PREM?String(REC_PREM.sc_m2).replace(".",","):""))}" oninput="setRecForm('prem','sc',this.value)"></label>
+      <label>Peso (kg)<input type="text" inputmode="decimal" value="${esc(pv("peso", REC_PREM?String(REC_PREM.peso_kg).replace(".",","):""))}" oninput="setRecForm('prem','peso',this.value)"></label>
+      <label title="Fórmula de Calvert: dose (mg) = AUC × (clearance + 25). Só afeta doses em AUC (carboplatina).">Clearance (mL/min)<input type="text" inputmode="decimal" value="${esc(pv("cl", REC_PREM?String(REC_PREM.clearance_ml_min).replace(".",","):""))}" oninput="setRecForm('prem','cl',this.value)"></label>
+    </div>
+    <div class="cadm-acoes"><button class="btn primary" ${REC_BUSY==="prem"?"disabled":""} onclick="salvarPremissas()">${REC_BUSY==="prem"?"Gravando…":"Gravar premissas"}</button></div></div>
+
+    <div class="cadm-sec">Fármacos do corpus sem insumo <span class="rc-count">${fila.length}</span></div>
+    <div class="hint" style="margin-bottom:10px">Ordenados pelo que mais destrava: <b>itens resolvidos</b> é quantas vezes o fármaco aparece com dose derivável. Cadastrar pelo botão garante o nome <b>idêntico</b> ao da composição — é essa igualdade literal que liga dose a preço.</div>
+    ${fila.length ? `<div class="rec-fila">${fila.slice(0,40).map(f=>`<button class="rec-filab" ${REC_BUSY==="ins:"+f.farmaco?"disabled":""} onclick="criarInsumo('${esc(f.farmaco).replace(/'/g,"\\'")}')">+ ${esc(f.farmaco)} <span>${f.resolvidos} resolvidos / ${f.regimes} itens</span></button>`).join("")}</div>`
+                 : `<div class="empty">Todos os fármacos citados pelo corpus já têm insumo.</div>`}
+
+    <div class="cadm-sec">Insumos cadastrados <span class="rc-count">${ins.length}</span></div>
+    ${ins.length ? ins.map(i=>{
+      const aps = i.apresentacoes||[];
+      return `<div class="cadm-item">
+        <div class="cadm-n">${esc(i.farmaco)} <button class="btn lnk" onclick="removerInsumo(${i.id},'${esc(i.farmaco).replace(/'/g,"\\'")}')">remover insumo</button></div>
+        <div class="cadm-sub">${aps.length} apresentação(ões)${aps.length>1 && !aps.some(a=>a.padrao) ? ` — <b class="rec-nd">nenhuma marcada como padrão: o cálculo devolve "sem dado" para este insumo</b>` : ""}</div>
+        ${aps.map(a=>apresFormHtml("ap:"+a.id, i.id, a)).join("")}
+        ${apresFormHtml("novo:"+i.id, i.id, null)}
+      </div>`;
+    }).join("") : `<div class="empty">Nenhum insumo cadastrado ainda.</div>`}
+  </div>`;
+}
+
+// ---- Decomposição por insumo na FICHA DO PACIENTE (auditor + admin) ----
+// Vem de GET /custos/paciente/:id, que devolve as DUAS leituras do mesmo protocolo lado a
+// lado: a estimativa por preço de protocolo (`estimativa`) e a decomposição por insumo
+// (`recursos`). A segunda só fecha para uma minoria dos protocolos — e quando não fecha,
+// ela mesma diz por quê, em vez de sumir da tela.
+//
+// Diferença que importa em relação à aba Recursos: aqui o cálculo usa as medidas REAIS do
+// paciente quando existem (peso e altura), e o bloco de premissas mostra qual dos dois
+// corpos foi usado em cada eixo.
+let REC_PAC = {};       // paciente_id -> payload de /custos/paciente/:id
+let REC_PAC_PEND = new Set();
+
+function pedirRecursosPaciente(pid){
+  if(!pid || !podeVerCusto() || REC_PAC[pid]!==undefined || REC_PAC_PEND.has(pid)) return;
+  REC_PAC_PEND.add(pid);
+  api("/custos/paciente/"+pid).then(r=>{ REC_PAC[pid] = r; })
+    .catch(e=>{ REC_PAC[pid] = {erro: e.message}; })
+    // Repinta só o próprio slot: render() global aqui redesenharia a tela por cima do
+    // que o usuário está digitando. Mesma regra do slot de custo.
+    .finally(()=>{ REC_PAC_PEND.delete(pid); pintarSlotsRecurso(); });
+}
+function pintarSlotsRecurso(){
+  document.querySelectorAll("[data-rec-pid]").forEach(el=>{
+    const pid = el.getAttribute("data-rec-pid");
+    if(pid) el.innerHTML = recursoConteudoHtml(Number(pid));
+  });
+}
+function recursoBlocoHtml(pid){
+  if(!podeVerCusto() || !pid) return "";
+  return `<div class="rec-slot" data-rec-pid="${esc(String(pid))}">${recursoConteudoHtml(pid)}</div>`;
+}
+const UN_LABEL = {mg_m2:"mg/m²", mg_kg:"mg/kg", mg:"mg", g:"g", g_m2:"g/m²", mcg:"mcg", mcg_kg:"mcg/kg", UI:"UI", AUC:"AUC", GBq:"GBq"};
+
+function recursoConteudoHtml(pid){
+  const p = REC_PAC[pid];
+  if(p===undefined){ pedirRecursosPaciente(pid); return `<div class="cst"><div class="cst-h">Decomposição por insumo</div><div class="cst-load">⏳ calculando…</div></div>`; }
+  if(p.erro) return `<div class="cst cst-sem"><div class="cst-h">Decomposição por insumo</div><div class="cst-sem-x">${esc(p.erro)}</div></div>`;
+  const r = p.recursos;
+  if(!r) return "";
+  const org = REC_ORIGEM[r.origem] || {t:r.origem, c:"no", d:""};
+  if(r.origem!=="insumo"){
+    return `<div class="cst cst-sem">
+      <div class="cst-h">Decomposição por insumo — <b>ESTIMATIVA</b></div>
+      <div class="cst-sem-t">sem decomposição · <span class="rec-org ${org.c}" title="${esc(org.d)}">${org.t}</span></div>
+      <div class="cst-sem-x">${esc(r.explicacao||"")}</div>
+      ${(r.pendencias||[]).length?`<div class="cst-det">Pendências: ${r.pendencias.map(x=>esc(x.farmaco)+" ("+esc(x.motivo)+")").join(", ")}</div>`:""}
+    </div>`;
+  }
+  const pr = r.premissas||{};
+  const corpo = o => o==="paciente" ? `<span class="rec-org ok">do paciente</span>` : `<span class="rec-org adm">padrão declarado</span>`;
+  return `<div class="cst">
+    <div class="cst-h">Decomposição por insumo — <b>ESTIMATIVA</b> <span class="rec-org ok">${org.t}</span></div>
+    <div class="rec-prem in">
+      <span>SC ${fmtNum(pr.sc_m2,2)} m² ${corpo(pr.origem_sc)}</span>
+      <span>peso ${fmtNum(pr.peso_kg,1)} kg ${corpo(pr.origem_peso)}</span>
+      <span>clearance ${fmtNum(pr.clearance_ml_min,0)} mL/min ${corpo(pr.origem_clearance)}</span>
+    </div>
+    <table class="rec-t mini"><thead><tr><th>Fármaco</th><th>Dose</th><th>Aplicações</th><th class="n">mg/apl.</th><th class="n">Frascos/ciclo</th><th class="n">Desperdício</th><th class="n">Compra/ciclo</th><th class="n">Faturamento/ciclo</th></tr></thead><tbody>
+      ${r.itens.map(i=>`<tr>
+        <td>${esc(i.farmaco)}<div class="rec-rid">${esc(i.apresentacao.conteudo)}</div></td>
+        <td>${fmtNum(i.dose_valor,2)} ${esc(UN_LABEL[i.dose_unidade]||i.dose_unidade)}${i.via?` · ${esc(i.via)}`:""}</td>
+        <td>${i.frascos.aplicacoes_por_ciclo}× ${i.origem_aplicacoes==="dias_do_esquema"
+              ? `<span class="rec-org ok" title="Dias escritos no esquema">D${i.dias_do_ciclo.join(", D")}</span>`
+              : `<span class="rec-org adm" title="O esquema não escreve dias do ciclo. Uma aplicação por ciclo é a leitura do texto — regime semanal, contínuo ou intra-diário sem dias já sai indeterminado do corpus e não chega aqui.">1 por ciclo (leitura)</span>`}</td>
+        <td class="n">${fmtNum(i.frascos.quantidade_por_aplicacao,2)}</td>
+        <td class="n"><b>${i.frascos.frascos_por_ciclo}</b></td>
+        <td class="n">${fmtNum(i.frascos.desperdicio_por_ciclo,1)} (${fmtNum(i.frascos.desperdicio_pct,1)}%)</td>
+        <td class="n" title="min: ${esc(i.fonte_compra_min)} · max: ${esc(i.fonte_compra_max)}">${fmtFaixa(i.compra_min_ciclo,i.compra_max_ciclo)}</td>
+        <td class="n" title="${esc(i.fonte_faturamento||"sem contrato cadastrado")}">${i.faturamento_ciclo===null?`<span class="rec-nd">sem dado</span>`:fmtBRL(i.faturamento_ciclo)}</td>
+      </tr>`).join("")}
+    </tbody><tfoot><tr><td colspan="6">Ciclo</td>
+      <td class="n">${fmtFaixa(r.compra_min_ciclo,r.compra_max_ciclo)}</td>
+      <td class="n">${r.faturamento_ciclo===null?"—":fmtBRL(r.faturamento_ciclo)}</td></tr>
+      <tr><td colspan="6">Margem por ciclo</td><td class="n" colspan="2">${r.margem_min_ciclo===null?`<span class="rec-nd">sem faturamento cadastrado — margem não projetada</span>`:fmtFaixa(r.margem_min_ciclo,r.margem_max_ciclo)}</td></tr>
+    </tfoot></table>
+    <div class="cst-det">Frascos arredondados para <b>cima por aplicação</b>: cada administração abre frascos novos, e sobra de um dia não é reaproveitada no seguinte.</div>
+  </div>`;
+}
+
+// CSS da camada de recursos (injetado uma vez).
+(function(){ if(document.getElementById("rec-css")) return; const s=document.createElement("style"); s.id="rec-css"; s.textContent=`
+.rec-pseudo{margin:10px 0;padding:9px 12px;border-radius:8px;background:#eef4ff;border:1px solid #cddcf5;color:#274a80;font-size:13px}
+.rec-hz{display:flex;align-items:center;gap:8px;margin:12px 0 8px;flex-wrap:wrap;font-size:13px}
+.rec-hzb{padding:5px 12px;border:1px solid #cfd8e3;border-radius:999px;background:#fff;cursor:pointer;font-size:13px}
+.rec-hzb.on{background:#4a6fa5;border-color:#4a6fa5;color:#fff;font-weight:700}
+.rec-prem{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:8px 12px;border:1px dashed #cfd8e3;border-radius:8px;background:#fbfcfe;font-size:12.5px;color:#44506b;margin-bottom:12px}
+.rec-prem.in{margin:8px 0;padding:6px 10px}
+.rec-org{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.2px;padding:1px 6px;border-radius:999px;border:1px solid;vertical-align:middle}
+.rec-org.ok{color:#1d6b3f;border-color:#b6dcc5;background:#eefaf2}
+.rec-org.fb{color:#8a6100;border-color:#e8d09a;background:#fdf6e6}
+.rec-org.no{color:#7a7f87;border-color:#d6dade;background:#f4f5f7}
+.rec-org.adm{color:#7a5aa8;border-color:#d8cbea;background:#f7f3fd}
+.rec-nd{color:#8a6100;font-weight:600}
+.rec-tot{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}
+.rec-tot-c{border:1px solid #d9e2ef;border-radius:10px;padding:12px 14px;background:#f8fafd}
+.rec-tot-c.pos{border-left:4px solid #2e8b57}.rec-tot-c.neg{border-left:4px solid #c0392b}
+.rec-tot-t{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#4a6fa5}
+.rec-tot-v{font-size:20px;font-weight:800;margin:4px 0;color:#1f2a44}
+.rec-tot-s{font-size:11.5px;color:#6b7480}
+.rec-cnt{display:flex;align-items:center;gap:8px;font-size:13px;color:#44506b;margin-bottom:10px}
+.rec-abas{display:flex;gap:4px;border-bottom:2px solid #e6ebf2;margin:14px 0 12px}
+.rec-abas a{padding:7px 14px;cursor:pointer;font-size:13.5px;border-bottom:2px solid transparent;margin-bottom:-2px;color:#54607a}
+.rec-abas a.on{color:#1f2a44;font-weight:700;border-bottom-color:#4a6fa5}
+.rec-t{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:8px}
+.rec-t th,.rec-t td{border-bottom:1px solid #eceff4;padding:7px 8px;text-align:left;vertical-align:top}
+.rec-t th{font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:#6b7480;font-weight:700}
+.rec-t .n,.rec-t th.n{text-align:right;white-space:nowrap}
+.rec-t tfoot td{font-weight:700;border-top:2px solid #d9e2ef;border-bottom:none}
+.rec-t.mini{font-size:12px}
+.rec-rid{font-size:11px;color:#8b93a0;font-family:ui-monospace,Menlo,monospace}
+.rec-sec{font-size:12px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:#4a6fa5;margin:16px 0 6px}
+.rec-fora{margin-top:12px;border:1px solid #e6ebf2;border-radius:8px;padding:8px 12px;background:#fafbfc}
+.rec-fora summary{cursor:pointer;font-size:13px;font-weight:600;color:#54607a}
+.rec-fora-l{font-size:12.5px;padding:4px 0;border-bottom:1px solid #f0f2f5}
+.rec-fila{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.rec-filab{border:1px solid #cfd8e3;border-radius:8px;background:#fff;padding:5px 10px;cursor:pointer;font-size:12.5px}
+.rec-filab span{color:#8b93a0;font-size:11px;margin-left:4px}
+.rec-apf{border:1px solid #e6ebf2;border-radius:8px;padding:10px 12px;margin:8px 0;background:#fcfdfe}
+.rec-apf-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px 10px}
+.rec-apf-g label{display:flex;flex-direction:column;font-size:11.5px;color:#54607a;gap:3px}
+.rec-apf-g input,.rec-apf-g select{padding:6px 8px;border:1px solid #cfd8e3;border-radius:6px;font-size:13px}
+.rec-apf-sec{font-size:11px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:#4a6fa5;margin:10px 0 4px}
+.rec-apf-adm{font-size:11.5px;color:#8a6100;background:#fdf6e6;border:1px solid #e8d09a;border-radius:6px;padding:6px 9px;margin:8px 0}
+.rec-slot{margin-top:10px}
+.btn.lnk{border:none;background:none;color:#c0392b;font-size:11.5px;cursor:pointer;padding:0 0 0 8px;text-decoration:underline}
+`; document.head.appendChild(s); })();
+
 (async function boot(){
   // Sessão: valida o token salvo contra o backend; sem token válido → tela de login.
   // A evidência (corpus) só é buscada DEPOIS de confirmar a sessão — nada é público.
@@ -5538,11 +6201,15 @@ async function initEvidencia(){
       USUARIO = await api("/auth/perfil");
       localStorage.setItem("oncoguia_usuario", JSON.stringify(USUARIO));
       await initEvidencia();
-      await carregarPacientes();
-      await carregarResumoRevisao();   // estado de revisão clínica p/ sobrepor selos (paciente + revisão)
+      // Dado clínico só para perfil clínico: para o GESTOR estas duas rotas devolvem 403
+      // (LeituraClinicaGuard), e um throw aqui derrubaria a sessão inteira em doLogout().
+      if(podeVerClinico()){
+        await carregarPacientes();
+        await carregarResumoRevisao();   // estado de revisão clínica p/ sobrepor selos (paciente + revisão)
+      }
       // Fila de exceções: só o selo do menu (auditor/admin) — a lista carrega ao abrir a aba.
       if(podeAutorizar()){ try{ AUT_CONTAGEM = await api("/autorizacoes/contagem"); }catch(_){} }
-      view = "lista";
+      view = podeVerClinico() ? "lista" : "recursos";
     }catch(e){ doLogout(); }
   }
   if(!TOKEN || !USUARIO){ view = "login"; }

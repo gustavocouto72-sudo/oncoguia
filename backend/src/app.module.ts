@@ -12,6 +12,7 @@ import { AutorizacoesModule } from './autorizacoes/autorizacoes.module';
 import { RetornosModule } from './retornos/retornos.module';
 import { EvidenciaModule } from './evidencia/evidencia.module';
 import { CustosModule } from './custos/custos.module';
+import { RecursosModule } from './recursos/recursos.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CustosModule } from './custos/custos.module';
     RetornosModule,
     EvidenciaModule,
     CustosModule,
+    RecursosModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

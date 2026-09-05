@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { AUTORIZACAO_VIGENTE, Avaliacao, CustoRegime, Paciente } from '../database/entities';
 import { EvidenciaService } from '../evidencia/evidencia.service';
+import { RecursosCalculoService } from '../recursos/recursos-calculo.service';
 import { periodicidadesDoEsquema, periodicidadeUnica } from './periodicidade';
 
 // Dias por mês usados na conversão tempo→ciclos. 30.4 é o valor fixado na especificação
@@ -85,6 +86,7 @@ export class CustosService {
     @InjectRepository(Avaliacao) private avaliacaoRepo: Repository<Avaliacao>,
     @InjectRepository(Paciente) private pacienteRepo: Repository<Paciente>,
     private evidencia: EvidenciaService,
+    private recursos: RecursosCalculoService,
   ) {}
 
   // ---- cadastro (admin) ----------------------------------------------------
@@ -311,12 +313,21 @@ export class CustosService {
   async porPaciente(pacienteId: number) {
     const vigente = (await this.vigentesPorPaciente()).find((a) => a.paciente_id === pacienteId) || null;
     if (!vigente) {
-      return { paciente_id: pacienteId, regimen_id: null, estimativa: null, sem_protocolo_vigente: true };
+      return { paciente_id: pacienteId, regimen_id: null, estimativa: null, recursos: null, sem_protocolo_vigente: true };
     }
+    // DUAS leituras do mesmo protocolo, lado a lado na ficha, de propósito:
+    //   • `estimativa` — preço por CICLO do protocolo x ciclos esperados (custos_regime);
+    //   • `recursos`   — decomposição por INSUMO, frasco a frasco, com as medidas REAIS
+    //                    do paciente quando existem e o padrão declarado quando não.
+    // A segunda só fecha para uma minoria dos protocolos (a composição do corpus é
+    // indeterminada em 90%), e quando não fecha ela mesma diz por quê. Nenhuma das duas
+    // substitui a outra em silêncio: a tela mostra a origem de cada número.
+    const paciente = await this.pacienteRepo.findOneBy({ id: pacienteId });
     return {
       paciente_id: pacienteId,
       regimen_id: vigente.regimen_id,
       estimativa: await this.estimativa(vigente.regimen_id),
+      recursos: await this.recursos.porRegimeEPaciente(vigente.regimen_id, paciente),
       sem_protocolo_vigente: false,
     };
   }

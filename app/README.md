@@ -180,11 +180,62 @@ propósito** — as listas por tumor virão do oncologista de referência na Rev
 
 **Perfis.** Escrever retorno e mexer na agenda: whitelist **explícita** `['oncologista','admin']`
 (`OncologistaOuAdminGuard` — sem hierarquia, o revisor leva 403 mesmo batendo na URL). Ler a
-trilha: qualquer autenticado.
+trilha: whitelist dos perfis **clínicos** (`LeituraClinicaGuard`) — era "qualquer
+autenticado" até o perfil `gestor` existir, e aí deixou de ser suficiente.
 
 **API:** `POST/GET /pacientes/:id/retornos` · `GET /pacientes/:id/trilha` ·
 `PATCH /pacientes/:id/reestadiamento`.
 **Portão:** `node scripts/portao-retorno.js` (39 checks, browser isolado + API).
+
+## Recursos (aba "Recursos") — os dois lados do dinheiro
+
+Perfil **gestor** + admin. Projeta **compra** (o que o hospital paga pelos insumos) e
+**faturamento** (o que cobra da operadora) por horizonte de 3, 6 ou 12 meses.
+**Margem = faturamento − compra**, sempre em faixa onde há faixa.
+
+**Duas leituras do mesmo protocolo, e a tela diz sempre qual usou:**
+
+| origem | o que é | produz |
+|---|---|---|
+| `insumo` | decomposto fármaco a fármaco: dose do esquema → mg por aplicação → frascos (arredondados para **cima por aplicação**) → R$ | compra, faturamento e margem |
+| `protocolo-fallback` | o preço por ciclo cadastrado em *Custo por ciclo* | só compra — aquele cadastro não tem preço de contrato |
+| `sem-dado` | nem composição utilizável nem preço | nada. **Nunca zero.** |
+
+O caminho por insumo cobre uma **minoria** dos protocolos, e isso é o resultado honesto:
+a composição estruturada do corpus é indeterminada em ~90% dos esquemas (faixa,
+alternativa entre fármacos, uso contínuo — ver `squads/mbe-oncologia/extracao-composicao/`).
+O preço por protocolo segue sendo o caminho principal.
+
+**Paciente-padrão declarado.** Quando o paciente não tem peso/altura no cadastro, a dose é
+calculada sobre um corpo **declarado** (SC 1,75 m², 70 kg, clearance 100 mL/min para o
+Calvert), configurável em *Insumos* pelo admin. A tela mostra a origem de **cada eixo**:
+um custo calculado sobre 1,75 m² é o custo de um paciente que não existe, e quem lê o
+número precisa saber disso antes. Com peso **e** altura no cadastro, a superfície vem de
+Mosteller e o rótulo muda para "do paciente".
+
+**Pseudonimização.** Para o gestor a API **não envia** nome nem identificador de paciente —
+a coluna nem é selecionada do banco. Não é filtro de tela: é a ausência do dado. Os
+rótulos são `Paciente #12 · mama · AC-T`.
+
+**Export `.xlsx`** com **compra e faturamento em abas separadas** — são contratos
+diferentes, com fontes diferentes, e uma existe sem a outra. O escritor é próprio (ZIP
+*stored* + XML mínimo), sem biblioteca de CDN: a app é um arquivo estático único que roda
+dentro da rede do hospital.
+
+**Cadastro (aba "Insumos", admin).** Insumo = fármaco canônico; apresentação = o que se
+compra ("frasco 150 mg"), com preço de compra em faixa e preço de faturamento. O nome do
+fármaco tem de casar **literalmente** com o da composição do corpus — é essa igualdade que
+liga dose a preço —, e por isso a fila lista os fármacos que o corpus pede e cadastrar é um
+clique. Sem preço de faturamento **não há projeção de receita**: o sistema nunca herda o
+preço de compra, que daria margem zero.
+
+**Na ficha do paciente** (auditor + admin), a decomposição por insumo aparece ao lado da
+estimativa por protocolo, com as medidas reais do paciente e as premissas visíveis.
+
+**API:** `GET /recursos/projecao?horizonte=6` · `/recursos/regime/:id` ·
+`/recursos/cobertura` · `/recursos/insumos` · `/recursos/premissas`
+(whitelist `['gestor','admin']`; escrita só admin).
+**Portão:** `node scripts/portao-recursos.js` (91 checks; rode **duas vezes seguidas**).
 
 ## Como abrir
 

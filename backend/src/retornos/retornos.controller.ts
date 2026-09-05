@@ -8,6 +8,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
+import { LeituraClinicaGuard } from '../auth/clinico.guard';
 import { OncologistaOuAdminGuard } from '../auth/oncologista.guard';
 import { CHAVES_INTERVALO, RetornosService } from './retornos.service';
 import type { IntervaloRetorno } from './retornos.service';
@@ -91,7 +92,7 @@ const PIPE = new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, t
 // ESCRITA = whitelist EXPLÍCITA ['oncologista','admin'] (OncologistaOuAdminGuard) — o
 // revisor NÃO registra seguimento, e a hierarquia do RolesGuard o deixaria passar.
 // Não existe rota de UPDATE/DELETE de retorno: o registro é imutável, correção é linha nova.
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, LeituraClinicaGuard)
 @Controller('pacientes/:pacienteId')
 export class RetornosController {
   constructor(private service: RetornosService) {}

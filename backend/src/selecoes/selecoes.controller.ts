@@ -1,6 +1,7 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { IsInt, IsNotEmpty, IsObject, IsOptional, IsString, MaxLength } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
+import { LeituraClinicaGuard } from '../auth/clinico.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { SelecoesService } from './selecoes.service';
 
@@ -13,7 +14,7 @@ class CriarSelecaoDto {
   @IsOptional() @IsString() justificativa?: string;
 }
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, LeituraClinicaGuard, RolesGuard)
 @Controller('selecoes')
 export class SelecoesController {
   constructor(private selecoesService: SelecoesService) {}

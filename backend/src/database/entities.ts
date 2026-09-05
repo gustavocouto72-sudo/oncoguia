@@ -5,7 +5,11 @@ import {
 
 // Perfis são WHITELIST, nunca hierarquia: 'auditor' não é "revisor com mais poder" —
 // é um eixo próprio (autoriza exceção de protocolo), e não herda nada de ninguém.
-export type Perfil = 'oncologista' | 'revisor' | 'auditor' | 'admin';
+// 'gestor' é outro eixo próprio, e o mais restrito de todos: vê recursos (insumos,
+// projeção de compra, faturamento, margem) e NADA de clínico — não revisa protocolo,
+// não decide autorização, e não recebe NOME de paciente. A pseudonimização é do
+// SERVIDOR (a resposta não carrega o nome), não filtro de tela.
+export type Perfil = 'oncologista' | 'revisor' | 'auditor' | 'admin' | 'gestor';
 
 // Semáforo de elegibilidade — mesmo vocabulário do motor evalExpr (elegível/atenção/inelegível).
 export type Semaforo = 'elegivel' | 'atencao' | 'inelegivel';
@@ -59,6 +63,14 @@ export class Usuario {
   cbos: string; // Código Brasileiro de Ocupações do solicitante
 }
 
+// Postgres devolve `numeric` como STRING (para não perder precisão no caminho do driver).
+// Sem transformer, `custo_ciclo_tabela * ciclos` viraria concatenação de string em vez de
+// multiplicação — o tipo de bug que passa no teste feliz e entrega um total absurdo.
+const dinheiro = {
+  to: (v: number | null) => v,
+  from: (v: string | null) => (v === null || v === undefined ? null : Number(v)),
+};
+
 // LGPD: nesta fase os pacientes são FICTÍCIOS (validação). O schema já nasce no
 // padrão de produção — dados administrativos mínimos, sem dado clínico solto na
 // tabela; o clínico entra estruturado em selecoes_protocolo.dados_clinicos.
@@ -102,6 +114,17 @@ export class Paciente {
 
   @Column({ length: 120, nullable: true })
   subtipo: string;
+
+  // ---- Medidas do paciente (opcionais) ----
+  // Existem só para REFINAR a dose calculada no módulo de recursos: mg/m² precisa de
+  // superfície corporal e mg/kg precisa de peso. Sem elas, o cálculo usa o paciente-padrão
+  // DECLARADO (premissas_recursos) e a tela diz que está usando o padrão — nunca finge que
+  // o número é do paciente. Numeric vem como string do Postgres, daí o transformer.
+  @Column({ type: 'numeric', precision: 5, scale: 2, nullable: true, transformer: dinheiro })
+  peso_kg: number | null;
+
+  @Column({ type: 'numeric', precision: 5, scale: 1, nullable: true, transformer: dinheiro })
+  altura_cm: number | null;
 
   // Campos primitivos com estavel:true congelados no cadastro (biologia imutável do tumor).
   // Servem SÓ para pré-preencher e TRAVAR na reavaliação — nunca são a fonte de verdade de
@@ -501,14 +524,6 @@ export class Retorno {
   criado_em: Date; // do servidor
 }
 
-// Postgres devolve `numeric` como STRING (para não perder precisão no caminho do driver).
-// Sem transformer, `custo_ciclo_tabela * ciclos` viraria concatenação de string em vez de
-// multiplicação — o tipo de bug que passa no teste feliz e entrega um total absurdo.
-const dinheiro = {
-  to: (v: number | null) => v,
-  from: (v: string | null) => (v === null || v === undefined ? null : Number(v)),
-};
-
 // CUSTO POR CICLO, POR REGIME — a metade "preço" da expectativa de custo global.
 // (A metade "tempo" é `expectativa_uso`, que vem do corpus do squad e NÃO mora no banco.)
 //
@@ -568,4 +583,145 @@ export class CustoRegime {
 
   @Column({ name: 'atualizado_por', nullable: true })
   atualizado_por: number; // do JWT do admin (servidor)
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RECURSOS — os dois lados do dinheiro, no nível do INSUMO.
+//
+// `custos_regime` (acima) responde "quanto custa um ciclo deste protocolo", com um preço
+// cadastrado à mão por protocolo. Isto aqui responde a pergunta operacional: "quantos
+// frascos de qual fármaco o hospital compra, e quanto cobra da operadora por eles".
+// Os dois convivem: o preço por protocolo vira FALLBACK, e toda saída de tela diz qual
+// dos dois produziu o número (origem: insumo | protocolo-fallback | sem dado).
+
+// Fármaco canônico. O nome é o MESMO vocabulário que o bloco `composicao` do corpus usa
+// (extracao-composicao/lexico.py) — é essa igualdade literal que liga dose a preço. Não
+// há tabela de sinônimos aqui de propósito: sinônimo silencioso é como se casa a dose de
+// uma droga com o preço de outra.
+@Entity('insumos')
+export class Insumo {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ length: 120, unique: true })
+  farmaco: string;
+
+  @Column({ default: true })
+  ativo: boolean;
+
+  @UpdateDateColumn({ name: 'atualizado_em', type: 'timestamptz' })
+  atualizado_em: Date;
+
+  @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'atualizado_por' })
+  atualizadoPor: Usuario;
+
+  @Column({ name: 'atualizado_por', nullable: true })
+  atualizado_por: number;
+}
+
+// Unidades em que um frasco/comprimido pode ser medido. Fechado, e casado com a dimensão
+// da dose: mg/g/mcg e AUC caem na dimensão 'mg'; UI e GBq são dimensões próprias e só
+// casam com dose na mesma dimensão. Sem isso, "30 UI de BCG" acharia preço num frasco de
+// 30 mg de outra coisa.
+export type UnidadeApresentacao = 'mg' | 'g' | 'mcg' | 'UI' | 'GBq';
+
+@Entity('apresentacoes')
+@Index(['insumo_id'])
+export class Apresentacao {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @ManyToOne(() => Insumo, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'insumo_id' })
+  insumo: Insumo;
+
+  @Column({ name: 'insumo_id' })
+  insumo_id: number;
+
+  // Rótulo humano ("frasco-ampola 150 mg"). NÃO entra em conta nenhuma — quem entra é o
+  // par conteudo_valor/conteudo_unidade. Texto e número separados porque texto de rótulo
+  // muda ("150mg", "150 mg", "FA 150 mg") e conta não pode depender de grafia.
+  @Column({ length: 120 })
+  conteudo: string;
+
+  @Column({ type: 'numeric', precision: 12, scale: 3, transformer: dinheiro })
+  conteudo_valor: number;
+
+  @Column({ type: 'varchar', length: 10 })
+  conteudo_unidade: UnidadeApresentacao;
+
+  // Qual apresentação o cálculo usa quando o insumo tem mais de uma. Sem marcação e com
+  // mais de uma, o servidor devolve "sem dado" em vez de escolher: a apresentação decide
+  // o desperdício (2 frascos de 100 mg para uma dose de 150 mg desperdiçam 50 mg; 1 de
+  // 150 mg não desperdiça nada), e com ele o custo.
+  @Column({ default: false })
+  padrao: boolean;
+
+  // COMPRA — o que o hospital paga. Faixa, pelo mesmo motivo de custos_regime: tabela
+  // CMED é teto público, negociado é o que se paga de fato.
+  @Column({ type: 'numeric', precision: 12, scale: 2, transformer: dinheiro })
+  preco_compra_tabela: number;
+
+  @Column({ type: 'numeric', precision: 12, scale: 2, transformer: dinheiro })
+  preco_compra_negociado: number;
+
+  // FATURAMENTO — o que se cobra da operadora. NULLABLE, e essa é a decisão de modelagem
+  // que mais importa aqui: sem contrato cadastrado NÃO HÁ projeção de receita. Herdar o
+  // preço de compra produziria margem zero — um número que parece resposta e é a
+  // ausência de resposta.
+  @Column({ type: 'numeric', precision: 12, scale: 2, nullable: true, transformer: dinheiro })
+  preco_faturamento: number | null;
+
+  // Rastro obrigatório de cada preço. Nenhum número aparece na tela sem fonte.
+  @Column({ length: 200 })
+  fonte_compra_tabela: string;
+
+  @Column({ length: 200 })
+  fonte_compra_negociado: string;
+
+  @Column({ length: 200, nullable: true })
+  fonte_faturamento: string | null;
+
+  @UpdateDateColumn({ name: 'atualizado_em', type: 'timestamptz' })
+  atualizado_em: Date;
+
+  @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'atualizado_por' })
+  atualizadoPor: Usuario;
+
+  @Column({ name: 'atualizado_por', nullable: true })
+  atualizado_por: number;
+}
+
+// PACIENTE-PADRÃO DECLARADO — linha única (id=1).
+//
+// Existe para o cálculo ter um corpo quando o paciente não tem peso/altura no cadastro.
+// São DECLARAÇÕES administrativas, não medidas, e a tela precisa dizer isso: um custo
+// calculado sobre 1,75 m² é o custo de um paciente que não existe. Ficam em tabela, e não
+// em constante no código, porque a especificação pede que sejam configuráveis e visíveis.
+@Entity('premissas_recursos')
+export class PremissasRecursos {
+  @PrimaryColumn({ type: 'int' })
+  id: number; // sempre 1 (CHECK no banco)
+
+  @Column({ type: 'numeric', precision: 4, scale: 2, transformer: dinheiro })
+  sc_m2: number;
+
+  @Column({ type: 'numeric', precision: 5, scale: 2, transformer: dinheiro })
+  peso_kg: number;
+
+  // Clearance de creatinina usado na fórmula de Calvert (dose_mg = AUC × (CrCl + 25)).
+  @Column({ type: 'numeric', precision: 5, scale: 1, transformer: dinheiro })
+  clearance_ml_min: number;
+
+  @UpdateDateColumn({ name: 'atualizado_em', type: 'timestamptz' })
+  atualizado_em: Date;
+
+  @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'atualizado_por' })
+  atualizadoPor: Usuario;
+
+  @Column({ name: 'atualizado_por', nullable: true })
+  atualizado_por: number;
 }

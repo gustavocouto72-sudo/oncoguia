@@ -6,6 +6,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { IsArray, IsIn, IsNotEmpty, IsOptional, IsString, MaxLength, ValidateIf } from 'class-validator';
 import type { Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt.guard';
+import { LeituraClinicaGuard } from '../auth/clinico.guard';
 import { Roles, RolesGuard } from '../auth/roles.guard';
 import { RevisorOuAdminGuard } from '../auth/revisor.guard';
 import { ArquivoUpload, RevisoesService } from './revisoes.service';
@@ -65,10 +66,11 @@ class ExportarDto {
 }
 
 // Leitura do workbench (decisões por regime): revisor|admin — o oncologista não vê a
-// Revisão. Exceção: GET /revisoes/resumo aberto a qualquer autenticado, pois é ele que
-// pinta o selo de estado nos protocolos do paciente.
+// Revisão. Exceção: GET /revisoes/resumo é aberto a todo perfil CLÍNICO (não a qualquer
+// autenticado), pois é ele que pinta o selo de estado nos protocolos do paciente; o
+// gestor fica de fora, e é o LeituraClinicaGuard da classe que garante isso.
 // Escrita: guard EXPLÍCITO revisor|admin (whitelist, não hierarquia).
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, LeituraClinicaGuard)
 @Controller('revisoes')
 export class RevisoesController {
   constructor(private service: RevisoesService) {}

@@ -216,6 +216,10 @@ export class PacientesService {
       sistema: p.sistema,
       tumor: p.tumor,
       subtipo: p.subtipo,
+      // Medidas: a tela de edição precisa delas para pré-preencher. Sem isso, um PATCH
+      // vindo daquela tela mandaria null e APAGARIA o peso e a altura do paciente.
+      peso_kg: p.peso_kg ?? null,
+      altura_cm: p.altura_cm ?? null,
       valores_estaveis: p.valores_estaveis || {},
       // Agenda de reestadiamento com "vencido" já derivado do relógio do SERVIDOR — a app
       // não decide o que está vencido a partir da data da máquina do usuário.

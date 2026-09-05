@@ -100,11 +100,19 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
 0. **Fonte certa (checar PRIMEIRO).** Tudo — app, portão, Mesa — resolve o **mesmo** run a partir da constante única **`RUN_ATIVO`** (`squads/mbe-oncologia/RUN_ATIVO`). O portão imprime `Corpus: <caminho>` no cabeçalho:
    - **`Corpus:` tem que ser igual ao `RUN_ATIVO`.** Se aparecer `!!! ATENÇÃO: este caminho NÃO é o RUN_ATIVO`, **o resultado é sobre o corpus errado — descarte** e rode de novo apontando o run ativo. (Este foi o modo de falha de 02/08: o portão rodou no 07-21 rejeitado.)
 
-1. **Invariantes mecânicos.** `python3 verificar_dados.py --check-dois` (sem caminho = usa a **pasta** do run do `RUN_ATIVO`, então os `campos_primitivos` por tumor entram e o check de órfãos roda de verdade; o dedupe mantém o agregado publicado como canônico). Exit `0` = passou; `1` = **não confie**. Checa: confirmado sem DOI, custo "concorda" sem fonte, campos órfãos (tumor sem vocabulário = warn nominal, não passa em silêncio), incompleto=0 por tumor (warn), estadiamento ordinal (warn), soma-invariante (candidatos + não-incorporados = total), consistência agregado × por-tumor (divergência = FALHA — conserto aplicado num lado só), DOIs de confirmado resolvem.
+1. **Invariantes mecânicos.** `python3 verificar_dados.py --check-dois` (sem caminho = usa a **pasta** do run do `RUN_ATIVO`, então os `campos_primitivos` por tumor entram e o check de órfãos roda de verdade; o dedupe mantém o agregado publicado como canônico). Exit `0` = passou; `1` = **não confie**. Checa: confirmado sem DOI, custo "concorda" sem fonte, campos órfãos (tumor sem vocabulário = warn nominal, não passa em silêncio), incompleto=0 por tumor (warn), estadiamento ordinal (warn), soma-invariante (candidatos + não-incorporados = total), consistência agregado × por-tumor (divergência = FALHA — conserto aplicado num lado só), DOIs de confirmado resolvem, **[9] expectativa_uso** (ciclos e periodicidade rastreáveis ao texto do esquema) e **[10] composicao** (cobertura, vocabulário fechado de unidade e via, dias dentro da periodicidade já auditada pelo [9], e a dose realmente escrita no texto).
 
 2. **Amostra viva de DOIs.** Pegue 3–4 confirmados e confirme à mão que o DOI **aponta pro estudo certo** (crossref.org/works/<doi>: autor+ano+tema). Resolver ≠ ser o paper certo. Foi o que pegou o TCHP e os 28 rótulos.
 
 3. **Cheiro de placar.** Muito confirmado / quase nenhum incompleto = bandeira vermelha. Saudável = re_derivado dominando.
+
+   O mesmo vale, invertido, para os dois blocos derivados do texto do esquema: **pouco
+   indeterminado é a bandeira vermelha**. Esquema de oncologia é cheio de faixa
+   (`AUC 5-6`), alternativa (`cisplatina ou carboplatina`), fase (`AC → paclitaxel`) e uso
+   contínuo (`VO 12/12h`) — nenhuma dessas fecha um número. Hoje: `expectativa_uso` 67%
+   indeterminado, `composicao` 90% (29 de 295 completas). O check `[10]` levanta warn se o
+   indeterminado da composição cair abaixo de 30%: placar bonito ali quase sempre
+   significa que alguém escolheu por conta própria entre duas drogas.
 
 ---
 
@@ -122,7 +130,66 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
 
 7. **Fiação.** Frontend e backend na mesma porta/base URL; app e Revisão lendo a mesma fonte. Console (F12) sem erro vermelho no load (CORS, `Failed to fetch`, `null`).
 
-8. **Matriz de acesso por perfil.** Oncologista: sem aba Revisão (nem por URL). Revisor: não cria avaliação. Admin: tudo. (Selo de estado do protocolo aparece pro oncologista mesmo sem a Revisão.)
+8. **Matriz de acesso por perfil.** Oncologista: sem aba Revisão (nem por URL). Revisor: não cria avaliação. Auditor: fila de exceção e custo, nada de Revisão. **Gestor: só Recursos** — sem Pacientes, sem Fluxograma, sem Revisão, sem autorização, e **sem nome de paciente** (a resposta do servidor sai pseudonimizada). Admin: tudo. (Selo de estado do protocolo aparece pro oncologista mesmo sem a Revisão.)
+
+   O gestor é o perfil que mais exige o teste **nas duas pontas**: o que ele não pode ver
+   tem de dar 403 na **API direta**, não só sumir da tela. Foi assim que apareceu a falha
+   real desta fase — `GET /pacientes` e `GET /revisoes/resumo` diziam "leitura = qualquer
+   autenticado", o que era verdade enquanto todo perfil autenticado era clínico. O gestor
+   levava 200 com nome, carteirinha e tumor de todo mundo. A correção não foi uma lista de
+   quem NÃO pode (blacklist envelhece mal: o próximo perfil novo nasceria vendo tudo) — foi
+   `LeituraClinicaGuard`, a lista literal de quem pode.
+
+---
+
+## Portão de RECURSOS (`scripts/portao-recursos.js`)
+
+Especialização do portão B para a gestão de recursos — insumos, compra, faturamento e
+margem. Roda em browser isolado (headless) + API direta, 91 checks.
+
+```bash
+node scripts/portao-recursos.js       # exige app (5173) e API (3005) no ar
+```
+
+O que ele cobre, e por que cada parte existe:
+
+- **Aritmética recalculada com regra PRÓPRIA.** O portão reimplementa do zero
+  dose → mg por aplicação → frascos → R$, a partir do JSON de origem
+  (`backend/data/evidencia.json`) e dos preços que ele mesmo cadastra. Não importa nada de
+  `backend/src/recursos/dose.ts`: portão que chama a função sob teste concorda com ela por
+  construção. Cobre as três conversões que decidem dinheiro — **mg/m²** (superfície),
+  **mg/kg** (peso) e **AUC** (Calvert, `AUC × (clearance + 25)`) —, o arredondamento de
+  frascos para **cima por aplicação** (não por ciclo: cada administração abre frascos
+  novos), o desperdício em mg e %, e a **margem como diferença exata** — com o mínimo da
+  margem usando o **máximo** da compra.
+- **As três origens exercitadas.** `insumo` (composição fecha e há preço de frasco),
+  `protocolo-fallback` (composição indeterminada + preço por ciclo cadastrado — dá compra
+  e **nenhuma** receita, porque `custos_regime` não tem preço de contrato) e `sem-dado`
+  (nem um nem outro; **nunca** zero).
+- **Faturamento ausente não vira margem zero.** Um dos insumos de teste é cadastrado
+  **sem** preço de contrato de propósito: o protocolo que o usa tem compra e fica sem
+  receita e sem margem. Herdar o preço de compra daria margem zero — um número que parece
+  resposta e é a ausência dela.
+- **Matriz do gestor nas DUAS pontas.** Oncologista, revisor e auditor levam 403 em toda
+  rota de `/recursos` (o auditor **continua** vendo `/custos`, que é o dado da decisão de
+  exceção). O gestor leva 403 em 13 rotas clínicas e nas três escritas de recursos. Na
+  tela: só a aba Recursos, e `go('lista')` cai em Recursos em vez de tela vazia.
+- **Pseudonimização com teste AFIRMATIVO.** Não basta "o campo `paciente` está ausente": o
+  portão procura o **nome literal** do paciente de teste no corpo inteiro da resposta, na
+  tela inteira e dentro do `.xlsx`. E confere o contraste — o admin recebe o nome, porque a
+  pseudonimização é do **perfil**, não da rota.
+- **`.xlsx` aberto e conferido contra a tela.** O portão descompacta o arquivo (leitor de
+  ZIP *stored* próprio), lê as duas planilhas e compara linha a linha com
+  `REC_PROJ` — frascos, R$ e o `"sem dado"` onde a tela não tem faturamento.
+- **Texto livre não re-renderiza a lista** (contador de render = 0), em preço e em fonte.
+- **Medidas do paciente sobrevivem a uma edição cadastral.** Peso e altura entraram na
+  tela de edição, e não só na de cadastro novo, porque a edição envia PATCH com o que ela
+  conhece: um campo que ela não mostra vira `null` no caminho. Sem isso, "corrigir o nome"
+  apagaria as medidas em silêncio e o custo do paciente voltaria ao paciente-padrão.
+- **Devolve o banco como encontrou.** Insumo e apresentação que o portão criou são
+  apagados; apresentação padrão e premissas que já existiam são restauradas. **Rode duas
+  vezes seguidas** — a segunda tem de dar o mesmo resultado da primeira, e é isso que pega
+  resíduo de teste.
 
 ---
 
@@ -171,6 +238,7 @@ faltar par de variáveis — em vez de virar um FAIL confuso lá na frente.
 | revisor | `portao.revisor` | `PORTAO_LOGIN_REVISOR` / `PORTAO_SENHA_REVISOR` | Revisão clínica e os 403 da whitelist |
 | auditor | `portao.auditor` | `PORTAO_LOGIN_AUDITOR` / `PORTAO_SENHA_AUDITOR` | decide solicitação de exceção |
 | admin | `portao.admin` | `PORTAO_LOGIN_ADMIN` / `PORTAO_SENHA_ADMIN` | `/revisao/export` e a limpeza no fim |
+| gestor | `portao.gestor` | `PORTAO_LOGIN_GESTOR` / `PORTAO_SENHA_GESTOR` | recursos: projeção, margem e a prova da pseudonimização |
 
 **Criar ou recriar as contas** (tudo pela tela, sem script e sem tocar no banco):
 1. Entre como administrador em **Admin › Gerenciar acessos**.
@@ -204,9 +272,22 @@ conta de robô tem de ser reconhecível à primeira vista numa auditoria de aces
   60s enquanto a app, já logada, tinha trocado de tela por baixo dela. Portão que falha
   pelo motivo errado ensina a ignorar portão.
 
-**Estado em 2026-09-03:** `portao-retorno` 86/86 · `portao-autorizacao` 53/53 ·
-`portao-custo` 72/72 · `portao-b` tudo passou. Portão A (dados) verde com `--check-dois`,
-incluindo o check **[9] expectativa_uso** (295/295, 67% indeterminado).
+**Estado em 2026-09-04:** `portao-retorno` 86/86 · `portao-autorizacao` 53/53 ·
+`portao-custo` 72/72 · `portao-recursos` 91/91 (duas execuções seguidas, lista de checks
+idêntica) ·
+`portao-b` tudo passou. Portão A (dados) verde com `--check-dois`, incluindo os checks
+**[9] expectativa_uso** (295/295, 67% indeterminado) e **[10] composicao** (295/295,
+90% indeterminado).
+
+> **O portão de retorno estava falhando pelo relógio.** `L5` e `L6` caíam entre 21h e a
+> meia-noite (horário de Brasília) porque um `page.evaluate` mandava
+> `data_realizada: new Date().toISOString().slice(0,10)` — **UTC** — enquanto o resto do
+> portão e o backend (`hojeISO`) usam o dia **local**. Nessa janela o retorno nascia com
+> a data de amanhã: `L6` esperava a agenda 3 meses à frente de hoje e via a de amanhã, e
+> `L5` via esse retorno como mais recente que o do admin gravado depois. O dia agora vem
+> do Node como argumento. Nenhuma das duas falhas era do código sob teste — e é
+> exatamente por isso que precisava de conserto: portão que falha pelo motivo errado
+> ensina a ignorar portão.
 
 > **Lição do check que passava vazio:** `portao-autorizacao` marcou 44/44 sobre um bug que
 > o usuário levava na cara em produção. Não foi falta de check — foi um check cuja

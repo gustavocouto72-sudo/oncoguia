@@ -43,6 +43,20 @@ herda as permissões do menor. Endpoints de `/revisao/*` exigem `revisor`+.
 - `GET /api/revisao/export` — gera o `revisao-decisoes.json` a partir do banco
   (mesmo schema do antigo download; é o que o squad reincorpora nos Steps 08/10)
 
+- `GET /api/custos/...` — expectativa de uso e custo por PROTOCOLO (whitelist `['auditor','admin']`;
+  cadastro de preço só admin)
+- `GET /api/recursos/...` — gestão de recursos por INSUMO: projeção de compra, faturamento e
+  margem (whitelist `['gestor','admin']`; cadastro só admin). Para o token de **gestor** as
+  respostas saem **pseudonimizadas** — o nome do paciente não é lido do banco
+
+## Perfis
+
+`oncologista` · `revisor` · `auditor` · `admin` · `gestor` — **whitelist, nunca hierarquia**.
+`auditor` e `gestor` são eixos próprios: o primeiro decide solicitação de exceção e mais
+nada; o segundo vê recursos e mais nada — sem Revisão, sem autorização e sem dado clínico
+(`LeituraClinicaGuard`). Só `oncologista < revisor < admin` formam escada (`RolesGuard`), e
+quem está fora dela não herda nada.
+
 ## Deploy (Vercel)
 
 Defina em Environment Variables: `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRY`, `CORS_ORIGINS`

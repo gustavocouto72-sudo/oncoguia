@@ -2,9 +2,11 @@ import {
   Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Request, UseGuards,
 } from '@nestjs/common';
 import {
-  IsIn, IsInt, IsNotEmpty, IsObject, IsOptional, IsString, MaxLength, Min,
+  IsIn, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, Max, MaxLength, Min,
+  ValidateIf,
 } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
+import { LeituraClinicaGuard } from '../auth/clinico.guard';
 import { Roles, RolesGuard } from '../auth/roles.guard';
 import { OncologistaOuAdminGuard } from '../auth/oncologista.guard';
 import { PacientesService } from './pacientes.service';
@@ -23,6 +25,14 @@ class CriarPacienteDto {
   @IsOptional() @IsString() @MaxLength(40) sistema?: string;
   @IsOptional() @IsString() @MaxLength(60) tumor?: string;
   @IsOptional() @IsString() @MaxLength(120) subtipo?: string;
+  // ---- Medidas (opcionais) ----
+  // Refinam a dose calculada no módulo de recursos: mg/m² precisa de superfície corporal
+  // (Mosteller, que exige peso E altura) e mg/kg precisa de peso. Aceitam null para
+  // APAGAR — medida digitada errada tem de poder ser removida, não só sobrescrita.
+  @IsOptional() @ValidateIf((_, v) => v !== null)
+  @IsNumber({ maxDecimalPlaces: 2 }) @Min(0.1) @Max(400) peso_kg?: number | null;
+  @IsOptional() @ValidateIf((_, v) => v !== null)
+  @IsNumber({ maxDecimalPlaces: 1 }) @Min(30) @Max(250) altura_cm?: number | null;
   @IsOptional() @IsObject() valores_estaveis?: Record<string, any>;
 }
 
@@ -39,6 +49,14 @@ class AtualizarPacienteDto {
   @IsOptional() @IsString() @MaxLength(40) sistema?: string;
   @IsOptional() @IsString() @MaxLength(60) tumor?: string;
   @IsOptional() @IsString() @MaxLength(120) subtipo?: string;
+  // ---- Medidas (opcionais) ----
+  // Refinam a dose calculada no módulo de recursos: mg/m² precisa de superfície corporal
+  // (Mosteller, que exige peso E altura) e mg/kg precisa de peso. Aceitam null para
+  // APAGAR — medida digitada errada tem de poder ser removida, não só sobrescrita.
+  @IsOptional() @ValidateIf((_, v) => v !== null)
+  @IsNumber({ maxDecimalPlaces: 2 }) @Min(0.1) @Max(400) peso_kg?: number | null;
+  @IsOptional() @ValidateIf((_, v) => v !== null)
+  @IsNumber({ maxDecimalPlaces: 1 }) @Min(30) @Max(250) altura_cm?: number | null;
   @IsOptional() @IsObject() valores_estaveis?: Record<string, any>;
 }
 
@@ -58,10 +76,13 @@ class CriarAvaliacaoDto {
   @IsOptional() @IsInt() retorno_id?: number;
 }
 
-// Leitura = qualquer autenticado. Escrita de avaliação — e, com ela, a abertura de uma
-// solicitação de exceção — = whitelist EXPLÍCITA ['oncologista','admin']
-// (OncologistaOuAdminGuard), sem hierarquia: quem trata o paciente é quem registra.
-@UseGuards(JwtAuthGuard, RolesGuard)
+// Leitura = whitelist de perfis CLÍNICOS (LeituraClinicaGuard) — era "qualquer
+// autenticado", o que deixou de ser suficiente quando nasceu o perfil GESTOR: ele levava
+// 200 aqui, com nome e carteirinha de todos os pacientes. Escrita de avaliação — e, com
+// ela, a abertura de uma solicitação de exceção — = whitelist EXPLÍCITA
+// ['oncologista','admin'] (OncologistaOuAdminGuard), sem hierarquia: quem trata o
+// paciente é quem registra.
+@UseGuards(JwtAuthGuard, LeituraClinicaGuard, RolesGuard)
 @Controller('pacientes')
 export class PacientesController {
   constructor(private pacientesService: PacientesService) {}

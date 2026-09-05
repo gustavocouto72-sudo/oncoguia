@@ -28,6 +28,7 @@ const PERFIS = {
   revisor: ['PORTAO_LOGIN_REVISOR', 'PORTAO_SENHA_REVISOR'],
   auditor: ['PORTAO_LOGIN_AUDITOR', 'PORTAO_SENHA_AUDITOR'],
   admin: ['PORTAO_LOGIN_ADMIN', 'PORTAO_SENHA_ADMIN'],
+  gestor: ['PORTAO_LOGIN_GESTOR', 'PORTAO_SENHA_GESTOR'],
 };
 
 // Falta de credencial ABORTA o portão com instrução, em vez de virar um FAIL confuso lá
