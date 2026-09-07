@@ -142,6 +142,11 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
    tela do paciente já lia (`/evidencia`, `/revisoes/resumo`, `/revisoes/fontes`), tudo já
    dentro da whitelist dele; a whitelist do oncologista **não mudou uma linha**.
 
+   *(Nota de forma, não de efeito: `/evidencia` é guardado só por `JwtAuthGuard` — o corpus
+   é legível por qualquer perfil autenticado, gestor incluído, por decisão antiga. O efeito
+   fica; a **forma escrita** vira whitelist literal dos cinco perfis na próxima mudança de
+   backend — pendência **3** do `BACKLOG.md`, sem deploy próprio.)*
+
    > **INVARIANTE — o Simulador é somente leitura por CONTRATO.** Não há `POST`/`PUT`/
    > `PATCH`/`DELETE` em nenhum caminho da tela, e o botão "Selecionar protocolo" não
    > existe lá (flag `sandbox` no pseudo-paciente, lida por `renderProtos`). O portão não
@@ -371,7 +376,7 @@ também pega corrida de carregamento.
 
 Cobre ainda a **tela sem dinheiro** (checks `S6`), para oncologista **E** admin — a asserção é sobre a TELA, não sobre o perfil. E aqui mora a parte que vale ler antes de mexer: **três palavras ficaram DELIBERADAMENTE fora do padrão de busca**, porque o corpus de evidência fala de economia por motivos legítimos, e um check que dispara nisso convida a apagar **evidência** para ficar verde.
 
-- **"custo" sozinho** — o card traz `Custo N/5`, o eixo **NCCN Affordability** do corpus (acessibilidade da evidência, escala 1–5). Já está na tela do paciente desde sempre. O portão procura `custo por ciclo`, que é vocabulário da aba Recursos.
+- **"custo" sozinho** — o card traz `Custo N/5`, o eixo **NCCN Affordability** do corpus (acessibilidade da evidência, escala 1–5). Já está na tela do paciente desde sempre. O portão procura `custo por ciclo`, que é vocabulário da aba Recursos. **DECISÃO REGISTRADA (2026-09-07): o `Custo N/5` fica nos DOIS lugares — Simulador e tela do paciente.** É eixo de **evidência publicada**, não dinheiro do hospital, e a distinção é o ponto: a camada financeira (`R$`, ciclo, faturamento, margem) vive só em Recursos, atrás do `GestorOuAdminGuard`. **Não reabrir** — quem for propor a remoção está propondo tirar um eixo da evidência da tela do médico, e isso é decisão clínica, não de layout.
 - **"margem"** — *margem cirúrgica* é termo clínico. Margem **financeira** só existe em Recursos, atrás do `GestorOuAdminGuard`.
 - **"preço"** — a **justificativa** do eixo NCCN Affordability cita economia da literatura quando é isso que explica a **não incorporação**. Exemplo real no corpus (`mama-met-hrpos-2l-capivasertibe-nao-incorporado`): *"a justificativa do protocolo é explicitamente econômica — 'ao preço atual, a adição de capivasertibe ao fulvestranto não é custo-efetiva como 2ª linha'"*. Isso é a **razão** de o protocolo estar em "Avaliados — não incorporados": reprovar aqui seria pedir para apagar a transparência. (E `precoce` casa em `pre[çc]o` sem `\b` — *progressão precoce* chegou a reprovar a tela numa versão do portão.)
 

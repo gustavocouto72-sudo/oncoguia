@@ -38,6 +38,39 @@ sem passar pela Revisão clínica — é o alarme desta pendência.
 
 ---
 
+## 3. `/evidencia` guardado por whitelist literal, não por "qualquer autenticado"
+
+**Estado:** comportamento **fica como está** por decisão (2026-09-07). O que falta é a
+forma escrita, não o efeito.
+
+- **Gancho:** `backend/src/evidencia/evidencia.controller.ts` — hoje `@UseGuards(JwtAuthGuard)`
+  e mais nada.
+- **Efeito hoje:** qualquer perfil autenticado lê o corpus de protocolos, **gestor incluído**.
+  Isso é **deliberado** e está comentado em `carregarSessao()` (`app/index.html`): "corpus:
+  igual para todo perfil autenticado". Não é vazamento — não há dado de paciente no corpus,
+  e rebuscá-lo a cada troca de chapéu seria megabytes por nada.
+- **O que falta:** trocar `JwtAuthGuard` sozinho por uma **whitelist literal com os cinco
+  perfis** (`['oncologista','revisor','auditor','admin','gestor']`, a `PERFIS` de
+  `entities.ts`) + comentário dizendo o porquê: *"corpus é público interno por decisão;
+  perfil novo entra conscientemente"*.
+- **Por que mexer se o efeito é o mesmo:** hoje a permissão está **implícita** — ela vale
+  porque a lista de perfis é a que é. É exatamente a forma das três falhas já catalogadas na
+  seção *Check permanente* do `PORTAO-VERIFICACAO.md` (perfis hierárquicos, POST direto de
+  não incorporado, leitura clínica para o gestor): *a permissão estava implícita em alguma
+  outra coisa em vez de escrita*. O modo de falha aqui é o mesmo do
+  `LeituraClinicaGuard` antes de existir — **o próximo perfil novo nasce com acesso ao
+  corpus sem ninguém decidir isso**. Com a lista literal, ele entra de propósito ou não
+  entra.
+- **Quando fechar:** na **próxima mudança de backend**, junto com o build/restart que ela já
+  exigir. **Não merece deploy próprio** — o efeito observável não muda; o que muda é a
+  pergunta que o código faz.
+- **Como fechar:** guard de whitelist no padrão dos irmãos (`clinico.guard.ts`,
+  `gestor.guard.ts`), o comentário acima, e um check no `portao-simulador` afirmando que os
+  cinco perfis leem `/evidencia` — teste **afirmativo**, porque aqui a lista completa é a
+  intenção, não uma folga.
+
+---
+
 ## 2. ~~Tipo "Autorização" na trilha do paciente~~ — FECHADO
 
 Fechado no merge das duas features (2026-09-02). A trilha traz os três tipos: `avaliacao`,
