@@ -15,7 +15,6 @@
   header.top{background:var(--navy);color:#fff;padding:12px 22px;display:flex;align-items:center;justify-content:space-between}
   header.top .brand{display:flex;align-items:center;gap:10px;font-weight:700}
   header.top .brand .logo{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#4aa3c4,#2E6E8E);display:flex;align-items:center;justify-content:center;font-size:15px}
-  header.top .demo{font-size:11px;background:#ffffff22;border:1px solid #ffffff44;padding:3px 9px;border-radius:20px;font-weight:600}
   .wrap{max-width:1300px;margin:0 auto;padding:20px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
   h2{margin:0 0 4px;font-size:18px}
@@ -186,6 +185,11 @@
   .apx-item p{margin:6px 0;font-size:12.5px;line-height:1.6;color:var(--ink)}
   .apx-item .apx-ref{color:var(--muted);font-size:12px}
   .apx-item a{color:var(--accent)}
+  /* Linha permanente de enquadramento. Substitui o banner de "protótipo": o piloto é
+     com paciente real, então o que precisa ficar dito o tempo todo não é que o dado é
+     fictício — é de quem é a decisão. Vive FORA do .wrap e fora do #app, para nenhum
+     render() poder apagá-la. */
+  .rodape{max-width:1300px;margin:0 auto;padding:16px 20px 28px;color:var(--muted);font-size:11.5px;line-height:1.5;border-top:1px solid var(--line)}
   .disclaimer{background:#fff8e8;border:1px solid #f0e0b0;color:#7a5c12;font-size:11.5px;border-radius:10px;padding:10px 13px;margin-bottom:16px}
   .empty{color:var(--muted);text-align:center;padding:26px;font-size:13px}
   .hint{font-size:11px;color:var(--muted);margin-top:4px}
@@ -321,20 +325,45 @@
   .sel-btn.noinc:hover{background:#8c3a2e;border-color:#8c3a2e;color:#fff}
   .toast{position:fixed;bottom:18px;right:18px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:600;z-index:50;box-shadow:0 6px 20px #0004}
   /* ---- Tela de login (deslogado só vê isto) — paleta fp-navy/fp-cyan dos demais projetos ---- */
-  body.auth-screen{background:#0f2a4a}
-  body.auth-screen header.top,body.auth-screen .disclaimer,body.auth-screen #datasrc,body.auth-screen #nav{display:none}
+  /* ---- Tela de apresentação + login (split em duas colunas) ----------------
+     Esquerda CLARA: o que o produto é, para quem chega sem contexto. Direita ESCURA:
+     só o formulário. O rodapé permanente da app é escondido aqui porque esta tela tem
+     o seu — a linha de enquadramento continua na tela, não some no login.
+     Responsivo: abaixo de 900px as colunas EMPILHAM (o form primeiro, para quem já
+     conhece o produto e só quer entrar no celular). */
+  body.auth-screen{background:#fff}
+  body.auth-screen header.top,body.auth-screen .disclaimer,body.auth-screen .rodape,body.auth-screen #datasrc,body.auth-screen #nav{display:none}
   body.auth-screen .wrap{max-width:none;padding:0}
-  .auth-bg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(160deg,#0d2340,#0f2a4a 55%,#112d4e)}
-  .auth-card{background:#fff;border-radius:18px;box-shadow:0 24px 60px #00000059;padding:40px 38px;width:100%;max-width:400px}
-  .auth-card .auth-logo{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,#00b4d8,#0096c7);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin:0 auto 14px}
-  .auth-card h1{margin:0 0 3px;font-size:20px;color:#0d2340;text-align:center}
-  .auth-card .auth-sub{font-size:13px;color:#64748b;text-align:center;margin-bottom:24px}
+  .auth-split{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr}
+  .auth-esq{background:#f4f7fa;border-right:1px solid #e3e9ef;padding:52px 48px;display:flex;flex-direction:column;justify-content:center}
+  .auth-esq-in{max-width:520px;margin:0 auto;width:100%}
+  .auth-brand{display:flex;align-items:center;gap:12px}
+  .auth-brand .auth-logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#4aa3c4,#2E6E8E);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;flex:none}
+  .auth-brand h1{margin:0;font-size:26px;letter-spacing:-.4px;color:#0d2340}
+  .auth-tag{font-size:14.5px;color:#44506b;margin:12px 0 26px;line-height:1.5}
+  .auth-fs{display:flex;flex-direction:column;gap:11px}
+  .auth-f{display:flex;gap:12px;background:#fff;border:1px solid #e3e9ef;border-radius:12px;padding:13px 15px}
+  .auth-f-ic{font-size:17px;line-height:1.35;flex:none}
+  .auth-f b{display:block;font-size:13.5px;color:#0d2340;margin-bottom:3px}
+  .auth-f span{display:block;font-size:12.5px;color:#6b7a88;line-height:1.5}
+  .auth-esq-rod{margin-top:28px;font-size:11.5px;color:#8b93a0;line-height:1.6}
+  .auth-esq-rod .auth-cred{display:block;margin-top:6px;color:#a0a7b3}
+  .auth-dir{background:linear-gradient(160deg,#0d2340,#0f2a4a 55%,#112d4e);padding:48px 40px;display:flex;align-items:center;justify-content:center}
+  .auth-card{background:#fff;border-radius:18px;box-shadow:0 24px 60px #00000059;padding:38px 36px;width:100%;max-width:400px}
+  .auth-card h2{margin:0 0 3px;font-size:20px;color:#0d2340}
+  .auth-card .auth-sub{font-size:13px;color:#64748b;margin-bottom:22px}
   .auth-card .field input{padding:10px 12px;border-radius:10px;border:1px solid #e2e8f0;font-size:14px}
   .auth-card .field input:focus{outline:2px solid #00b4d8;border-color:transparent}
   .auth-btn{width:100%;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;color:#0d2340;background:#00b4d8;cursor:pointer;box-shadow:0 4px 14px rgba(0,180,216,.3);margin-top:4px}
   .auth-btn:hover{background:#0096c7}
   .auth-btn:disabled{background:#cbd5e1;cursor:not-allowed;box-shadow:none}
   .auth-err{font-size:12px;font-weight:600;background:#fbecea;color:#a5281b;border-radius:8px;padding:8px 12px;margin-bottom:14px}
+  @media (max-width:900px){
+    .auth-split{grid-template-columns:1fr}
+    .auth-esq{border-right:none;border-top:1px solid #e3e9ef;padding:36px 22px;order:2}
+    .auth-dir{padding:36px 22px;order:1;min-height:auto}
+    .auth-brand h1{font-size:22px}
+  }
   /* ---- Trilha do paciente (avaliações + retornos + autorizações numa linha só) ---- */
   .tl-tipo{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:3px 9px;border-radius:20px;border:1px solid transparent;white-space:nowrap}
   .tl-tipo.aval{background:#eaf2f8;color:#1f4b6e;border-color:#c6dcea}
@@ -431,7 +460,7 @@
   @page guia{size:A4 landscape;margin:6mm}
   html.em-guia, html.em-guia body{page:guia}
   @media print{
-    header.top,.disclaimer,#datasrc,nav.tabs,.flow-tumors,.flow-toolbar,.flow-selos,.sub{display:none!important}
+    header.top,.disclaimer,.rodape,#datasrc,nav.tabs,.flow-tumors,.flow-toolbar,.flow-selos,.sub{display:none!important}
     /* Guia TISS: some tudo que é da tela de conferência e o formulário vira papel.
        Os campos viram texto puro (sem fundo, sem placeholder) — em branco é em branco. */
     .tiss-toolbar{display:none!important}
@@ -456,13 +485,12 @@
 </header>
 
 <div class="wrap">
-  <div class="disclaimer">
-    <b>Protótipo conceitual.</b> Fluxo: cadastro do paciente → o oncologista abre o paciente, escolhe o tumor e preenche o clínico → protocolos com semáforo de elegibilidade. Os campos clínicos e as regras de elegibilidade são <b>lidos da evidência consolidada pelo squad</b> (não escritos à mão). Dados fictícios; nada é recomendação clínica.
-  </div>
   <div id="datasrc"></div>
   <div id="nav"></div>
   <div id="app"><div class="card"><div class="empty">Carregando evidência do squad…</div></div></div>
 </div>
+
+<footer class="rodape" id="rodape">Apoio à decisão baseado em evidência — nada aqui é recomendação clínica; informa, o médico decide.</footer>
 
 <script src="config.js"></script>
 <script>
@@ -478,7 +506,8 @@
 // Pacientes, seleções de protocolo e pareceres da revisão vivem no backend
 // próprio do OncoGuia (backend/ — NestJS + Postgres). A EVIDÊNCIA (output do squad)
 // também vem dele: GET /evidencia, protegido por JWT — nada é servido sem login.
-// LGPD: pacientes ainda fictícios (fase de validação), mas o
+// LGPD: no piloto o paciente é REAL e entra ANONIMIZADO (iniciais + nº de atendimento) —
+// a orientação é de tela, no cadastro, e não uma validação que se aprende a burlar. O
 // schema e a auth já nascem no padrão de produção; futuro FHIR entra pelo backend.
 const API_BASE = window.ONCOGUIA_API_BASE || localStorage.getItem("oncoguia_api") || "http://localhost:3005/api";
 let TOKEN = localStorage.getItem("oncoguia_token") || null;
@@ -537,7 +566,7 @@ async function carregarPacientes(){
 function renderUserbox(){
   const el = document.getElementById("userbox"); if(!el) return;
   el.innerHTML = USUARIO
-    ? `<span class="uname">${esc(USUARIO.nome)}</span><span class="uperfil">${esc(USUARIO.perfil)}</span><button onclick="go('senha')">Senha</button><button onclick="doLogout(true)">Sair</button><span class="demo">dados fictícios</span>`
+    ? `<span class="uname">${esc(USUARIO.nome)}</span><span class="uperfil">${esc(USUARIO.perfil)}</span><button onclick="go('senha')">Senha</button><button onclick="doLogout(true)">Sair</button>`
     : "";
   renderDatasrc();
 }
@@ -553,19 +582,43 @@ function renderDatasrc(){
   el.innerHTML = DATASRC.html;
   el.style.display = (DATASRC.cls === "err" || isAdmin) ? "" : "none";
 }
+// Os quatro cartões da coluna de apresentação. Ficam numa CONSTANTE, e não soltos no
+// template, porque são a promessa que a tela faz a um oncologista que chega sem contexto
+// — mexer neles é decisão de produto, e tem de ser um lugar só.
+const AUTH_CARTOES = [
+  ["🚦", "Semáforo de elegibilidade", "Protocolos avaliados contra a evidência consolidada, com selo e referência."],
+  ["🩺", "Revisão clínica",           "Cada regime passa por oncologista de referência."],
+  ["🧭", "Trilha do paciente",        "Avaliações, retornos e autorizações num histórico único."],
+  ["🔎", "Transparência",             "Protocolos não incorporados permanecem visíveis com o motivo."],
+];
+
 function renderLogin(msg){
   // Tela cheia, sem chrome da app: deslogado não vê aba, dado ou protocolo algum.
   document.body.classList.add("auth-screen");
   app().innerHTML = `
-  <div class="auth-bg">
-    <div class="auth-card">
-      <div class="auth-logo">✚</div>
-      <h1>OncoGuia</h1>
-      <div class="auth-sub">Faça login para continuar</div>
-      ${msg?`<div class="auth-err">${msg}</div>`:""}
-      <div class="field"><label>Login</label><input id="lg_login" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"></div>
-      <div class="field"><label>Senha</label><input id="lg_senha" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
-      <button class="auth-btn" id="lg_btn" onclick="doLogin()">Entrar</button>
+  <div class="auth-split">
+    <div class="auth-esq">
+      <div class="auth-esq-in">
+        <div class="auth-brand"><span class="auth-logo">✚</span><h1>OncoGuia</h1></div>
+        <div class="auth-tag">Requisição de quimioterapia baseada em evidência</div>
+        <div class="auth-fs">
+          ${AUTH_CARTOES.map(([ic,t,d])=>`<div class="auth-f"><span class="auth-f-ic">${ic}</span><div><b>${t}</b><span>${d}</span></div></div>`).join("")}
+        </div>
+        <div class="auth-esq-rod">
+          Apoio à decisão baseado em evidência — nada aqui é recomendação clínica; informa, o médico decide.
+          <span class="auth-cred">Criado por Gustavo Couto</span>
+        </div>
+      </div>
+    </div>
+    <div class="auth-dir">
+      <div class="auth-card">
+        <h2>Entrar</h2>
+        <div class="auth-sub">Acesso restrito à equipe cadastrada.</div>
+        ${msg?`<div class="auth-err">${msg}</div>`:""}
+        <div class="field"><label>Login</label><input id="lg_login" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <div class="field"><label>Senha</label><input id="lg_senha" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <button class="auth-btn" id="lg_btn" onclick="doLogin()">Entrar</button>
+      </div>
     </div>
   </div>`;
   const l = document.getElementById("lg_login"); if(l) l.focus();
@@ -1487,7 +1540,7 @@ function renderAdmin(){
   </div>
   <div class="card">
     <h2>Pacientes cadastrados</h2>
-    <div class="sub">Correção e limpeza de cadastros (fase de validação · dados fictícios). <b>Remover</b> apaga o paciente e TODAS as suas avaliações — irreversível.</div>
+    <div class="sub">Correção e limpeza de cadastros. <b>Remover</b> apaga o paciente e TODAS as suas avaliações — irreversível.</div>
     ${patients.length? `<table>
       <thead><tr><th>Paciente</th><th>Tumor</th><th>Avaliações</th><th></th></tr></thead>
       <tbody>${pacLinhas}</tbody></table>` : `<div class="empty">Nenhum paciente cadastrado.</div>`}
@@ -1536,7 +1589,17 @@ async function salvarSenha(){
 
 // =================== RENDER ===================
 const app = ()=>document.getElementById("app");
-function go(v){ view=v; render(); }
+// A camada de dinheiro é UMA aba ("Recursos"). "custos" e "insumos" continuam sendo
+// endereços válidos — favorito antigo, portão, go() digitado no console — e caem na aba
+// única em vez de virar link morto. "insumos" ainda ABRE a seção avançada, que é onde
+// aquele conteúdo passou a morar: redirecionar para o topo da tela seria um link vivo
+// que leva ao lugar errado.
+const VIEW_ALIAS = { custos: "recursos", insumos: "recursos" };
+function go(v){
+  if(v === "insumos") REC_AVANCADO = true;
+  view = VIEW_ALIAS[v] || v;
+  render();
+}
 function render(){
   // Página nomeada da guia TISS (paisagem) marcada na RAIZ, não no elemento: `page:` num
   // elemento no meio do documento força quebra ao entrar nele, e a guia saía sempre na
@@ -1553,13 +1616,17 @@ function render(){
   if(view==="revclin" && !["revisor","admin"].includes(USUARIO.perfil)) view = "lista"; // Revisão: só revisor/admin
   if(view==="autorizacoes" && !["auditor","admin"].includes(USUARIO.perfil)) view = "lista"; // Autorizações: só auditor/admin
   if(view==="simulador" && !["revisor","admin"].includes(USUARIO.perfil)) view = "lista"; // Simulador: só revisor/admin
-  if(view==="custos" && USUARIO.perfil!=="admin") view = "lista"; // Cadastro de preço: só admin (o backend recusa com 403 de qualquer forma)
+  // "custos" e "insumos" viraram SEÇÕES da aba Recursos. A normalização é aqui também, e
+  // não só no go(): quem chega por localStorage, por URL antiga ou por chamada direta cai
+  // na aba única, e o guard de perfil abaixo é o mesmo de sempre. O cadastro de preço e o
+  // de insumo continuam sendo de ADMIN — a seção não é desenhada para o gestor, e o
+  // backend recusa com 403 de qualquer forma.
+  if(view==="custos" || view==="insumos") view = "recursos";
   if(view==="recursos" && !podeVerRecursos()) view = "lista";      // Recursos: gestor/admin
-  if(view==="insumos" && USUARIO.perfil!=="admin") view = "lista"; // Cadastro de insumo: só admin
   // O GESTOR não tem "lista": ele não vê paciente. Toda rota clínica cai em Recursos —
   // inclusive o fallback `view="lista"` das linhas acima, e inclusive quem chegou aqui
   // digitando a URL. O backend devolve 403 de qualquer forma; isto evita a tela em branco.
-  if(!podeVerClinico()) view = podeVerRecursos() && view!=="insumos" && view!=="senha" ? "recursos" : view;
+  if(!podeVerClinico()) view = podeVerRecursos() && view!=="senha" ? "recursos" : view;
   renderNav();
   if(view==="login") view = podeVerClinico() ? "lista" : "recursos";
   if(view==="admin") return renderAdmin();
@@ -1567,9 +1634,7 @@ function render(){
   if(view==="revclin") return renderRevisaoClinica();
   if(view==="autorizacoes") return renderAutorizacoes();
   if(view==="simulador") return renderSimulador();
-  if(view==="custos") return renderCustos();
   if(view==="recursos") return renderRecursos();
-  if(view==="insumos") return renderInsumos();
   if(view==="fluxograma") return renderFluxograma();
   if(view==="lista") return renderLista();
   if(view==="cadastro") return renderCadastro();
@@ -1584,9 +1649,8 @@ function renderNav(){
   if(!nav) return;
   const isFlow = view==="fluxograma", isAdm = view==="admin", isRevc = view==="revclin", isSim = view==="simulador";
   const isAut = view==="autorizacoes";
-  const isCst = view==="custos";
-  const isRec = view==="recursos", isIns = view==="insumos";
-  const isPac = !isFlow && !isAdm && !isRevc && !isSim && !isAut && !isCst && !isRec && !isIns && view!=="senha";
+  const isRec = view==="recursos";
+  const isPac = !isFlow && !isAdm && !isRevc && !isSim && !isAut && !isRec && view!=="senha";
   // Aba Autorizações: whitelist ['auditor','admin'] — o oncologista não a vê, e o
   // bloqueio por URL/go() está no render(); o backend recusa com 403 de qualquer forma.
   const autTab = podeAutorizar()
@@ -1594,6 +1658,8 @@ function renderNav(){
     : "";
   // Aba Recursos: whitelist ['gestor','admin']. O gestor NÃO recebe Pacientes nem
   // Fluxograma — não é aba escondida por conveniência, é o perfil inteiro dele.
+  // Aba ÚNICA da camada de dinheiro: "Custo por ciclo" e "Insumos" eram abas irmãs e
+  // viraram seções dentro desta. O admin vê as três coisas aqui.
   const recTab = podeVerRecursos()
     ? `<a class="${isRec?'on':''}" onclick="go('recursos')">Recursos</a>` : "";
   nav.innerHTML = `<nav class="tabs">
@@ -1602,7 +1668,7 @@ function renderNav(){
     ${USUARIO && ["revisor","admin"].includes(USUARIO.perfil) ? `<a class="${isRevc?'on':''}" onclick="go('revclin')">Revisão clínica</a><a class="${isSim?'on':''}" onclick="go('simulador')">Simulador</a>` : ""}
     ${autTab}
     ${recTab}
-    ${USUARIO && USUARIO.perfil==="admin" ? `<a class="${isCst?'on':''}" onclick="go('custos')">Custo por ciclo</a><a class="${isIns?'on':''}" onclick="go('insumos')">Insumos</a><a class="${isAdm?'on':''}" onclick="go('admin')">Admin</a>` : ""}
+    ${USUARIO && USUARIO.perfil==="admin" ? `<a class="${isAdm?'on':''}" onclick="go('admin')">Admin</a>` : ""}
   </nav>`;
 }
 
@@ -1802,7 +1868,7 @@ function renderCadastro(){
       ? `Correção dos dados cadastrais: nome, identificador, contexto tumoral e biologia estável. O histórico de avaliações permanece imutável.`
       : `Dados administrativos + o <b>tumor do paciente</b> (atributo do paciente, não escolha por visita) e a <b>biologia estável</b> (imutável no tempo). O estado clínico dinâmico é registrado nas avaliações.`}</div>
     <div class="grid2">
-      <div class="field"><label>Nome completo</label><input id="f_nome" placeholder="Nome do paciente" value="${esc(CADASTRO.nome||"")}" oninput="CADASTRO.nome=this.value"></div>
+      <div class="field"><label>Iniciais + nº de atendimento (não usar nome)</label><input id="f_nome" placeholder="Iniciais + nº de atendimento (não usar nome)" value="${esc(CADASTRO.nome||"")}" oninput="CADASTRO.nome=this.value"><div class="hint">Ex.: <b>M.S.R. — 2026-004821</b>. Piloto com pacientes reais anonimizados: o nome não entra no sistema.</div></div>
       <div class="field"><label>Identificador (registro do hospital)</label><input id="f_ident" placeholder="Ex.: 2026-004821" value="${esc(CADASTRO.ident||"")}" oninput="CADASTRO.ident=this.value"></div>
     </div>
     ${adminHtml}
@@ -1897,7 +1963,7 @@ async function salvarCadastro(){
   // Lê do ESTADO (CADASTRO), não do DOM: os campos são bound por oninput, então o valor
   // sobrevive a qualquer re-render. Nome é obrigatório — nunca mais "Paciente sem nome".
   const nome = (CADASTRO.nome||"").trim();
-  if(!nome){ alert("Informe o nome do paciente."); const e=document.getElementById("f_nome"); if(e) e.focus(); return; }
+  if(!nome){ alert("Informe a identificação do paciente (iniciais + nº de atendimento)."); const e=document.getElementById("f_nome"); if(e) e.focus(); return; }
   const tumor = CADASTRO.tumor || null;
   // valores_estaveis = só os campos estáveis preenchidos (não vaza dinâmico para cá).
   const valores_estaveis = {};
@@ -2112,8 +2178,6 @@ function renderSeguimentoResumo(p, detail){
       ${u.detalhe_semaforo&&u.detalhe_semaforo.ressalva?`<div class="hint" style="margin-top:8px;color:var(--amber);font-weight:700">⚠️ ${esc(u.detalhe_semaforo.ressalva)}</div>`:""}
       <div class="hint" style="margin-top:10px;font-weight:700">Fotografia clínica desta avaliação</div>
       <div class="crit" style="margin-top:6px">${snapshotChipsFor(u.snapshot_campos, detail.tumor)}</div>
-      ${custoBlocoHtml(u.regimen_id)}
-      ${recursoBlocoHtml(p && p.id)}
     </div>`;
   } else {
     resumo = `<div class="empty" style="margin-top:12px">Nenhuma avaliação registrada ainda.<br>
@@ -5136,9 +5200,23 @@ function custoFormAtual(rid){
     pd:        f.pd        !== undefined ? f.pd        : (salvo.periodo_dias != null ? String(salvo.periodo_dias) : ""),
   };
 }
-async function carregarCustosAdm(){
+// Busca sem repintar. Existe separada porque a aba Recursos carrega isto JUNTO com a
+// projeção: um render() que chega depois, sozinho, cai por cima de um campo de preço que
+// alguém já está preenchendo — e num campo de dinheiro isso perde dígito. A segunda
+// execução do portão pegou exatamente esse caso (renders=1, "Contrato teste 202").
+async function buscarCustosAdm(){
   try{ CUSTO_ADM = await api("/custos"); CUSTO_COBERTURA = await api("/custos/cobertura"); CUSTO_ERRO=""; }
   catch(e){ CUSTO_ADM = []; CUSTO_COBERTURA = null; CUSTO_ERRO = e.message; }
+}
+// Chamado de dentro do render() como caminho de recuperação (projeção falhou e a tela foi
+// desenhada assim mesmo): sem a trava de reentrância, cada repintura enquanto as duas
+// chamadas estão no ar dispararia outro par.
+let CUSTO_ADM_BUSY = false;
+async function carregarCustosAdm(){
+  if(CUSTO_ADM_BUSY) return;
+  CUSTO_ADM_BUSY = true;
+  await buscarCustosAdm();
+  CUSTO_ADM_BUSY = false;
   render();
 }
 let CUSTO_COBERTURA = null;
@@ -5212,19 +5290,20 @@ function custoFormHtml(rid, nome, sub){
   </div>`;
 }
 
-function renderCustos(){
-  if(CUSTO_ADM===null){
-    carregarCustosAdm();
-    app().innerHTML = `<div class="card"><h2>Custo por ciclo</h2><div class="empty">⏳ Carregando…</div></div>`;
-    return;
-  }
+// ---- Seção "Preços por protocolo" da aba Recursos (admin) ----
+// Era a aba "Custo por ciclo". É o CAMINHO PRINCIPAL do dinheiro — o preço por protocolo
+// alcança todo esquema com tempo de uso derivável, enquanto o custo por insumo depende de
+// a composição fechar em mg por aplicação. Por isso esta seção fica aberta e aquela fica
+// recolhida.
+function recPrecosSecaoHtml(){
+  if(CUSTO_ADM===null) return `<div class="card"><h2>Preços por protocolo</h2><div class="empty">⏳ Carregando…</div></div>`;
   const cob = CUSTO_COBERTURA || {};
   const fila = (cob.fila_preco||[]);
   const cadastrados = (CUSTO_ADM||[]);
-  app().innerHTML = `
+  return `
   <div class="card">
-    <div class="rev-head"><div><h2>Custo por ciclo — cadastro</h2>
-      <div class="sub">Preço <b>duplo</b> por protocolo: tabela CMED (teto público) e negociado (o que a operadora paga). A estimativa sai em <b>faixa</b> porque o valor exato depende de contrato. Nesta fase o custo é <b>por regime</b> — por fármaco+dose depende do módulo de superfície corporal (backlog). As duas <b>fontes são obrigatórias</b>: nenhum número aparece na tela sem rastro.</div></div>
+    <div class="rev-head"><div><h2>Preços por protocolo</h2>
+      <div class="sub">Preço <b>duplo</b> por protocolo: tabela CMED (teto público) e negociado (o que a operadora paga). A estimativa sai em <b>faixa</b> porque o valor exato depende de contrato. Aqui o custo é <b>por regime</b> — por fármaco+dose é a seção avançada abaixo. As duas <b>fontes são obrigatórias</b>: nenhum número aparece na tela sem rastro.</div></div>
       <div class="rev-run">admin <b>${esc(USUARIO.nome)}</b></div></div>
     ${CUSTO_ERRO?`<div class="login-err">${esc(CUSTO_ERRO)}</div>`:""}
     ${CUSTO_OK?`<div class="cadm-ok">${esc(CUSTO_OK)}</div>`:""}
@@ -5602,6 +5681,9 @@ let REC_PROJ = null;        // projeção do horizonte atual (null = não carreg
 let REC_HORIZONTE = 6;      // 3 | 6 | 12 meses
 let REC_ERRO = "";
 let REC_ABA = "resumo";     // resumo | insumos | protocolos | carteira
+// Seção "Avançado — custo por insumo": FECHADA por padrão. Estado em variável (não no
+// DOM) para sobreviver a render(), e para o portão poder abri-la sem simular clique.
+let REC_AVANCADO = false;
 
 // Cadastro (admin)
 let REC_INS = null;         // insumos + apresentações
@@ -5632,7 +5714,20 @@ function fmtFaixa(min, max){
 
 async function carregarRecursos(){
   try{
-    REC_PROJ = await api("/recursos/projecao?horizonte="+REC_HORIZONTE);
+    // Para o admin, a cobertura do caminho por insumo vem JUNTO com a projeção, não
+    // depois: é o número que o cabeçalho da seção recolhida imprime, e um cabeçalho que
+    // aparece dizendo "ainda não carregada" e só então vira "cobre 8 de 295" é a versão
+    // animada de esconder a cobertura de quem olha a tela por um segundo.
+    // Tudo o que a aba precisa entra numa espera só, e a tela pinta UMA vez, completa.
+    // Carregar em ondas seria mais rápido de aparecer e pior de usar: cada onda que chega
+    // é um render() por cima do que já está na tela — inclusive por cima de um campo de
+    // preço no meio da digitação.
+    const adm = !!(USUARIO && USUARIO.perfil==="admin");
+    const espera = [api("/recursos/projecao?horizonte="+REC_HORIZONTE)];
+    if(adm && REC_COB===null)   espera.push(buscarCobertura());
+    if(adm && CUSTO_ADM===null) espera.push(buscarCustosAdm());
+    const [proj] = await Promise.all(espera);
+    REC_PROJ = proj;
     REC_ERRO = "";
   }catch(e){ REC_PROJ = null; REC_ERRO = e.message; }
   render();
@@ -5641,6 +5736,33 @@ function setHorizonte(m){
   REC_HORIZONTE = Number(m); REC_PROJ = null; render(); carregarRecursos();
 }
 function setRecAba(a){ REC_ABA = a; render(); }
+// Abre/fecha a seção avançada. Idempotente de propósito: o `ontoggle` do <details> chama
+// esta função, e render() recria o elemento — sem a saída antecipada, reabrir a tela
+// dispararia um render em cadeia.
+function setRecAvancado(aberto){
+  const a = !!aberto;
+  if(a === REC_AVANCADO) return;
+  REC_AVANCADO = a;
+  render();
+}
+// Cobertura do caminho por insumo. Carregada mesmo com a seção FECHADA, porque é o número
+// que o cabeçalho dela imprime — "recolhido" só é honesto se disser o tamanho do que
+// recolheu. Falha vira {} (e o cabeçalho diz que não carregou) em vez de deixar REC_COB
+// em null, que faria cada render() tentar de novo.
+async function buscarCobertura(){
+  try{ REC_COB = await api("/recursos/cobertura"); }
+  catch(e){ REC_COB = {}; }
+}
+// Caminho de recuperação: se a projeção falhou, a tela é desenhada mesmo assim e a
+// cobertura ainda não veio. Repinta quando chegar.
+let REC_COB_BUSY = false;
+async function carregarCobertura(){
+  if(REC_COB_BUSY) return;
+  REC_COB_BUSY = true;
+  await buscarCobertura();
+  REC_COB_BUSY = false;
+  render();
+}
 
 // ---- premissas: o corpo sobre o qual toda mg foi calculada -----------------
 // Fica no topo da tela, não num rodapé: um custo calculado sobre "1,75 m² declarado" é o
@@ -5658,12 +5780,27 @@ function recPremissasHtml(p){
   </div>`;
 }
 
+// A aba ÚNICA da camada de dinheiro. Em cima, a projeção da carteira (que é o que o
+// gestor abre a tela para ver); abaixo, para o admin, os dois cadastros que alimentam o
+// número — preço por protocolo (aberto) e custo por insumo (recolhido).
+// Eram três abas de primeiro nível. Duas delas abriam em estado vazio na maior parte do
+// tempo, porque a composição estruturada só fecha em mg por aplicação numa fatia pequena
+// do corpus. Os guards não mudaram: projeção é gestor+admin, cadastro é admin, e o
+// backend devolve 403 de qualquer forma.
 function renderRecursos(){
+  const adm = USUARIO.perfil==="admin";
   if(REC_PROJ===null && !REC_ERRO){
     carregarRecursos();
     app().innerHTML = `<div class="card"><h2>Recursos</h2><div class="empty">⏳ Projetando…</div></div>`;
     return;
   }
+  // Preço por protocolo é o caminho principal do admin: carrega junto com a projeção.
+  // A cobertura vem separada porque o CABEÇALHO da seção avançada precisa dela mesmo
+  // com a seção fechada — dizer "cobre X de N" é o que impede que "recolhido" vire
+  // "escondido". Já o cadastro por insumo só carrega quando alguém abre a seção.
+  if(adm && CUSTO_ADM===null && !CUSTO_ERRO) carregarCustosAdm();
+  if(adm && REC_COB===null) carregarCobertura();
+  if(adm && REC_AVANCADO && REC_INS===null && !REC_ADM_ERRO) carregarInsumos();
   const k = REC_PROJ || {};
   const abas = [["resumo","Resumo"],["insumos","Demanda de compra"],["protocolos","Faturamento por protocolo"],["carteira","Carteira"]];
   app().innerHTML = `
@@ -5696,7 +5833,9 @@ function renderRecursos(){
     ${REC_ABA==="insumos"     ? recInsumosHtml(k)     : ""}
     ${REC_ABA==="protocolos"  ? recProtocolosHtml(k)  : ""}
     ${REC_ABA==="carteira"    ? recCarteiraHtml(k)    : ""}
-  </div>`;
+  </div>
+  ${adm ? recPrecosSecaoHtml()   : ""}
+  ${adm ? recAvancadoSecaoHtml() : ""}`;
 }
 
 function recResumoHtml(k){
@@ -5857,14 +5996,18 @@ function exportarRecursosXlsx(){
 // caminho principal: a fila abaixo lista os fármacos que o corpus pede, e cadastrar é um
 // clique. Digitar "Gencitabina" onde o corpus diz "Gemcitabina" produziria um insumo que
 // nunca casa com nada e ninguém notaria.
+let REC_INS_BUSY = false;
 async function carregarInsumos(){
+  if(REC_INS_BUSY) return;
+  REC_INS_BUSY = true;
   try{
     REC_INS  = await api("/recursos/insumos");
     REC_FILA = await api("/recursos/insumos/corpus");
     REC_COB  = await api("/recursos/cobertura");
     REC_PREM = await api("/recursos/premissas");
     REC_ADM_ERRO = "";
-  }catch(e){ REC_INS = []; REC_FILA = []; REC_COB = null; REC_ADM_ERRO = e.message; }
+  }catch(e){ REC_INS = []; REC_FILA = []; REC_ADM_ERRO = e.message; }
+  finally{ REC_INS_BUSY = false; }
   render();
 }
 // Rascunho por chave, SEM render() a cada tecla — digitar preço não pode redesenhar a
@@ -6015,20 +6158,42 @@ function apresFormHtml(chave, insumoId, ap){
   </div>`;
 }
 
-function renderInsumos(){
-  if(REC_INS===null && !REC_ADM_ERRO){
-    carregarInsumos();
-    app().innerHTML = `<div class="card"><h2>Insumos</h2><div class="empty">⏳ Carregando…</div></div>`;
-    return;
-  }
+// ---- Seção "Avançado — custo por insumo" (admin) --------------------------------------
+// Era a aba "Insumos". Nasce FECHADA, e isso é uma decisão sobre cobertura, não sobre
+// importância: a composição do corpus só fecha em mg por aplicação para uma minoria dos
+// esquemas, então este caminho responde por uma fatia pequena da carteira. Uma aba de
+// primeiro nível para ele mostrava, o dia inteiro, um estado vazio. O cabeçalho imprime a
+// cobertura REAL ("cobre X de N protocolos") em vez de deixar quem abre descobrir sozinho.
+//
+// O conteúdo só entra no DOM quando a seção está aberta — e é aí que as quatro chamadas
+// de cadastro acontecem. Recolhida, ela não busca nada.
+function recAvancadoSecaoHtml(){
+  const cob = REC_COB || {};
+  const nIns = (cob.por_situacao && cob.por_situacao["insumo"]) || 0;
+  const tot  = cob.total_regimes;
+  const cobertura = tot ? `cobre ${nIns} de ${tot} protocolos` : "cobertura ainda não carregada";
+  return `
+  <div class="card rec-avc-card">
+    <details class="rec-avc" ${REC_AVANCADO?"open":""} ontoggle="setRecAvancado(this.open)">
+      <summary>Avançado — custo por insumo <span class="rec-avc-cob">${esc(cobertura)}</span></summary>
+      ${REC_AVANCADO ? recAvancadoConteudoHtml() : ""}
+    </details>
+  </div>`;
+}
+
+// O caminho por insumo: dose do esquema → mg por aplicação → frascos → R$.
+// O nome do fármaco tem de casar LITERALMENTE com o da composição do corpus — é essa
+// igualdade que liga dose a preço. Por isso o cadastro não tem campo livre de nome como
+// caminho principal: a fila abaixo lista os fármacos que o corpus pede, e cadastrar é um
+// clique. Digitar "Gencitabina" onde o corpus diz "Gemcitabina" produziria um insumo que
+// nunca casa com nada e ninguém notaria.
+function recAvancadoConteudoHtml(){
+  if(REC_INS===null && !REC_ADM_ERRO) return `<div class="empty">⏳ Carregando…</div>`;
   const ins = REC_INS||[], fila = (REC_FILA||[]).filter(f=>!f.cadastrado), cob = REC_COB||{};
   const pf = REC_FORM["prem"] || {};
   const pv = (k, d) => pf[k]!==undefined ? pf[k] : d;
-  app().innerHTML = `
-  <div class="card">
-    <div class="rev-head"><div><h2>Insumos — cadastro de apresentação e preço</h2>
-      <div class="sub">O caminho <b>por insumo</b> do módulo de recursos: dose do esquema → mg por aplicação → <b>frascos</b> (arredondando para cima) → R$. Preço de <b>compra</b> em faixa e preço de <b>faturamento</b> (contrato). Todo preço exige <b>fonte</b>.</div></div>
-      <div class="rev-run">admin <b>${esc(USUARIO.nome)}</b></div></div>
+  return `
+    <div class="sub" style="margin:8px 0 4px">Dose do esquema → mg por aplicação → <b>frascos</b> (arredondando para cima) → R$. Preço de <b>compra</b> em faixa e preço de <b>faturamento</b> (contrato). Todo preço exige <b>fonte</b>.</div>
     ${REC_ADM_ERRO?`<div class="login-err">${esc(REC_ADM_ERRO)}</div>`:""}
     ${REC_MSG?`<div class="cadm-ok">${esc(REC_MSG)}</div>`:""}
 
@@ -6040,7 +6205,7 @@ function renderInsumos(){
     </div>
 
     <div class="cadm-sec">Paciente-padrão declarado</div>
-    <div class="hint" style="margin-bottom:10px">O corpo sobre o qual a dose é calculada quando o paciente não tem peso/altura no cadastro. É <b>declaração administrativa</b>, não medida — e a tela de recursos diz isso em cada projeção.</div>
+    <div class="hint" style="margin-bottom:10px">O corpo sobre o qual a dose é calculada quando o paciente não tem peso/altura no cadastro. É <b>declaração administrativa</b>, não medida — e a projeção no topo desta tela diz isso em cada número.</div>
     <div class="rec-apf"><div class="rec-apf-g">
       <label>Superfície corporal (m²)<input type="text" inputmode="decimal" value="${esc(pv("sc", REC_PREM?String(REC_PREM.sc_m2).replace(".",","):""))}" oninput="setRecForm('prem','sc',this.value)"></label>
       <label>Peso (kg)<input type="text" inputmode="decimal" value="${esc(pv("peso", REC_PREM?String(REC_PREM.peso_kg).replace(".",","):""))}" oninput="setRecForm('prem','peso',this.value)"></label>
@@ -6062,88 +6227,25 @@ function renderInsumos(){
         ${aps.map(a=>apresFormHtml("ap:"+a.id, i.id, a)).join("")}
         ${apresFormHtml("novo:"+i.id, i.id, null)}
       </div>`;
-    }).join("") : `<div class="empty">Nenhum insumo cadastrado ainda.</div>`}
-  </div>`;
+    }).join("") : `<div class="empty">Nenhum insumo cadastrado ainda.</div>`}`;
 }
 
-// ---- Decomposição por insumo na FICHA DO PACIENTE (auditor + admin) ----
-// Vem de GET /custos/paciente/:id, que devolve as DUAS leituras do mesmo protocolo lado a
-// lado: a estimativa por preço de protocolo (`estimativa`) e a decomposição por insumo
-// (`recursos`). A segunda só fecha para uma minoria dos protocolos — e quando não fecha,
-// ela mesma diz por quê, em vez de sumir da tela.
+// ---- Decomposição por insumo: NÃO vive mais na ficha do paciente ------------
+// O bloco desenhava, dentro da ficha, a decomposição de GET /custos/paciente/:id — e ao
+// lado dele o bloco de expectativa de custo. Os dois saíram, para TODOS os perfis
+// (admin incluído): o momento clínico não mostra dinheiro, e não mostra estado vazio de
+// dinheiro — a decomposição só fecha para uma minoria dos protocolos, então na maior
+// parte das fichas o que aparecia era "sem decomposição" com uma explicação sobre
+// composição estruturada, no meio da leitura de um paciente.
 //
-// Diferença que importa em relação à aba Recursos: aqui o cálculo usa as medidas REAIS do
-// paciente quando existem (peso e altura), e o bloco de premissas mostra qual dos dois
-// corpos foi usado em cada eixo.
-let REC_PAC = {};       // paciente_id -> payload de /custos/paciente/:id
-let REC_PAC_PEND = new Set();
-
-function pedirRecursosPaciente(pid){
-  if(!pid || !podeVerCusto() || REC_PAC[pid]!==undefined || REC_PAC_PEND.has(pid)) return;
-  REC_PAC_PEND.add(pid);
-  api("/custos/paciente/"+pid).then(r=>{ REC_PAC[pid] = r; })
-    .catch(e=>{ REC_PAC[pid] = {erro: e.message}; })
-    // Repinta só o próprio slot: render() global aqui redesenharia a tela por cima do
-    // que o usuário está digitando. Mesma regra do slot de custo.
-    .finally(()=>{ REC_PAC_PEND.delete(pid); pintarSlotsRecurso(); });
-}
-function pintarSlotsRecurso(){
-  document.querySelectorAll("[data-rec-pid]").forEach(el=>{
-    const pid = el.getAttribute("data-rec-pid");
-    if(pid) el.innerHTML = recursoConteudoHtml(Number(pid));
-  });
-}
-function recursoBlocoHtml(pid){
-  if(!podeVerCusto() || !pid) return "";
-  return `<div class="rec-slot" data-rec-pid="${esc(String(pid))}">${recursoConteudoHtml(pid)}</div>`;
-}
-const UN_LABEL = {mg_m2:"mg/m²", mg_kg:"mg/kg", mg:"mg", g:"g", g_m2:"g/m²", mcg:"mcg", mcg_kg:"mcg/kg", UI:"UI", AUC:"AUC", GBq:"GBq"};
-
-function recursoConteudoHtml(pid){
-  const p = REC_PAC[pid];
-  if(p===undefined){ pedirRecursosPaciente(pid); return `<div class="cst"><div class="cst-h">Decomposição por insumo</div><div class="cst-load">⏳ calculando…</div></div>`; }
-  if(p.erro) return `<div class="cst cst-sem"><div class="cst-h">Decomposição por insumo</div><div class="cst-sem-x">${esc(p.erro)}</div></div>`;
-  const r = p.recursos;
-  if(!r) return "";
-  const org = REC_ORIGEM[r.origem] || {t:r.origem, c:"no", d:""};
-  if(r.origem!=="insumo"){
-    return `<div class="cst cst-sem">
-      <div class="cst-h">Decomposição por insumo — <b>ESTIMATIVA</b></div>
-      <div class="cst-sem-t">sem decomposição · <span class="rec-org ${org.c}" title="${esc(org.d)}">${org.t}</span></div>
-      <div class="cst-sem-x">${esc(r.explicacao||"")}</div>
-      ${(r.pendencias||[]).length?`<div class="cst-det">Pendências: ${r.pendencias.map(x=>esc(x.farmaco)+" ("+esc(x.motivo)+")").join(", ")}</div>`:""}
-    </div>`;
-  }
-  const pr = r.premissas||{};
-  const corpo = o => o==="paciente" ? `<span class="rec-org ok">do paciente</span>` : `<span class="rec-org adm">padrão declarado</span>`;
-  return `<div class="cst">
-    <div class="cst-h">Decomposição por insumo — <b>ESTIMATIVA</b> <span class="rec-org ok">${org.t}</span></div>
-    <div class="rec-prem in">
-      <span>SC ${fmtNum(pr.sc_m2,2)} m² ${corpo(pr.origem_sc)}</span>
-      <span>peso ${fmtNum(pr.peso_kg,1)} kg ${corpo(pr.origem_peso)}</span>
-      <span>clearance ${fmtNum(pr.clearance_ml_min,0)} mL/min ${corpo(pr.origem_clearance)}</span>
-    </div>
-    <table class="rec-t mini"><thead><tr><th>Fármaco</th><th>Dose</th><th>Aplicações</th><th class="n">mg/apl.</th><th class="n">Frascos/ciclo</th><th class="n">Desperdício</th><th class="n">Compra/ciclo</th><th class="n">Faturamento/ciclo</th></tr></thead><tbody>
-      ${r.itens.map(i=>`<tr>
-        <td>${esc(i.farmaco)}<div class="rec-rid">${esc(i.apresentacao.conteudo)}</div></td>
-        <td>${fmtNum(i.dose_valor,2)} ${esc(UN_LABEL[i.dose_unidade]||i.dose_unidade)}${i.via?` · ${esc(i.via)}`:""}</td>
-        <td>${i.frascos.aplicacoes_por_ciclo}× ${i.origem_aplicacoes==="dias_do_esquema"
-              ? `<span class="rec-org ok" title="Dias escritos no esquema">D${i.dias_do_ciclo.join(", D")}</span>`
-              : `<span class="rec-org adm" title="O esquema não escreve dias do ciclo. Uma aplicação por ciclo é a leitura do texto — regime semanal, contínuo ou intra-diário sem dias já sai indeterminado do corpus e não chega aqui.">1 por ciclo (leitura)</span>`}</td>
-        <td class="n">${fmtNum(i.frascos.quantidade_por_aplicacao,2)}</td>
-        <td class="n"><b>${i.frascos.frascos_por_ciclo}</b></td>
-        <td class="n">${fmtNum(i.frascos.desperdicio_por_ciclo,1)} (${fmtNum(i.frascos.desperdicio_pct,1)}%)</td>
-        <td class="n" title="min: ${esc(i.fonte_compra_min)} · max: ${esc(i.fonte_compra_max)}">${fmtFaixa(i.compra_min_ciclo,i.compra_max_ciclo)}</td>
-        <td class="n" title="${esc(i.fonte_faturamento||"sem contrato cadastrado")}">${i.faturamento_ciclo===null?`<span class="rec-nd">sem dado</span>`:fmtBRL(i.faturamento_ciclo)}</td>
-      </tr>`).join("")}
-    </tbody><tfoot><tr><td colspan="6">Ciclo</td>
-      <td class="n">${fmtFaixa(r.compra_min_ciclo,r.compra_max_ciclo)}</td>
-      <td class="n">${r.faturamento_ciclo===null?"—":fmtBRL(r.faturamento_ciclo)}</td></tr>
-      <tr><td colspan="6">Margem por ciclo</td><td class="n" colspan="2">${r.margem_min_ciclo===null?`<span class="rec-nd">sem faturamento cadastrado — margem não projetada</span>`:fmtFaixa(r.margem_min_ciclo,r.margem_max_ciclo)}</td></tr>
-    </tfoot></table>
-    <div class="cst-det">Frascos arredondados para <b>cima por aplicação</b>: cada administração abre frascos novos, e sobra de um dia não é reaproveitada no seguinte.</div>
-  </div>`;
-}
+// O número não sumiu do produto, mudou de lugar: a projeção da carteira e a demanda de
+// compra estão na aba RECURSOS, e a expectativa de custo por solicitação está no fluxo
+// de AUTORIZAÇÃO (fila do auditor), que é onde a pergunta "quanto custa" é a pergunta
+// que se está fazendo.
+//
+// O endpoint continua existindo e continua coberto pelo portão (G4/G7 em
+// portao-recursos.js batem o cálculo com a superfície REAL do paciente contra o
+// recálculo do próprio portão). Tirar o desenho da ficha não é tirar a rota.
 
 // CSS da camada de recursos (injetado uma vez).
 (function(){ if(document.getElementById("rec-css")) return; const s=document.createElement("style"); s.id="rec-css"; s.textContent=`
@@ -6189,7 +6291,10 @@ function recursoConteudoHtml(pid){
 .rec-apf-g input,.rec-apf-g select{padding:6px 8px;border:1px solid #cfd8e3;border-radius:6px;font-size:13px}
 .rec-apf-sec{font-size:11px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:#4a6fa5;margin:10px 0 4px}
 .rec-apf-adm{font-size:11.5px;color:#8a6100;background:#fdf6e6;border:1px solid #e8d09a;border-radius:6px;padding:6px 9px;margin:8px 0}
-.rec-slot{margin-top:10px}
+.rec-avc-card{padding-top:8px;padding-bottom:8px}
+.rec-avc>summary{cursor:pointer;font-size:14px;font-weight:700;color:#44506b;padding:6px 2px;list-style:revert}
+.rec-avc[open]>summary{border-bottom:1px solid #e6ebf2;margin-bottom:6px}
+.rec-avc-cob{font-weight:500;font-size:12px;color:#8b93a0;margin-left:8px}
 .btn.lnk{border:none;background:none;color:#c0392b;font-size:11.5px;cursor:pointer;padding:0 0 0 8px;text-decoration:underline}
 `; document.head.appendChild(s); })();
 

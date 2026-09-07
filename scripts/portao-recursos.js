@@ -17,8 +17,11 @@
 //  Fase 5 (UI, gestor): a aba Recursos existe, Pacientes NÃO existe no DOM nem entrando
 //    por go('lista'), a tela não imprime o nome do paciente, e o .xlsx exportado é aberto
 //    e conferido contra os números da tela.
-//  Fase 6 (UI, admin): digitar preço de insumo não re-renderiza a lista (contador = 0) e
-//    o valor digitado sobrevive.
+//  Fase 6 (UI, admin): o cadastro por insumo virou a seção "Avançado — custo por insumo"
+//    da aba única Recursos, RECOLHIDA por padrão. Seção fechada não pode esconder falha:
+//    o portão confere que ela nasce fechada, que o cabeçalho declara a cobertura real,
+//    ABRE a seção e só então roda os mesmos checks de antes — digitar preço de insumo não
+//    re-renderiza a lista (contador = 0) e o valor digitado sobrevive.
 //  Limpeza: devolve o banco como encontrou — insumo/apresentação que o portão criou são
 //    apagados, apresentação padrão que já existia é restaurada. RODE DUAS VEZES SEGUIDAS:
 //    a segunda tem de dar o mesmo resultado da primeira.
@@ -563,8 +566,28 @@ async function ctxLogin(browser, perfil, extra) {
     // ═══ FASE 6 — UI do ADMIN: digitar preço não re-renderiza a lista ═══
     {
       const { ctx, page, errs } = await ctxLogin(browser, 'admin');
+      await page.evaluate(() => go('recursos'));
+      await page.waitForSelector('.rec-tot', { timeout: 25000 });
+      // A seção avançada nasce FECHADA — e fechada aqui quer dizer SEM CONTEÚDO no DOM,
+      // não conteúdo escondido no CSS. Este par de checks é o que impede que "recolher"
+      // vire "esconder falha": o portão prova o estado inicial, depois ABRE de propósito.
+      const estadoFechado = await page.evaluate(() => ({
+        flag: REC_AVANCADO, temForm: !!document.querySelector('.rec-apf'),
+        cabecalho: (document.querySelector('.rec-avc > summary') || {}).innerText || '',
+      }));
+      ok('G6 seção avançada nasce FECHADA, e sem o formulário no DOM',
+        estadoFechado.flag === false && estadoFechado.temForm === false, JSON.stringify(estadoFechado));
+      // "Recolhido" só é honesto se disser o tamanho do que recolheu: o cabeçalho da seção
+      // fechada imprime a cobertura REAL do caminho por insumo.
+      ok('G6 cabeçalho da seção fechada declara a cobertura real ("cobre X de N protocolos")',
+        /cobre \d+ de \d+ protocolos/.test(estadoFechado.cabecalho), estadoFechado.cabecalho);
+      // O endereço antigo continua vivo E leva ao lugar certo: go('insumos') abre a aba
+      // única JÁ com a seção avançada aberta, em vez de largar quem clicou no topo da tela.
       await page.evaluate(() => go('insumos'));
       await page.waitForSelector('.rec-apf', { timeout: 25000 });
+      const alias = await page.evaluate(() => ({ v: view, aberto: REC_AVANCADO }));
+      ok('G6 go("insumos") cai na aba única COM a seção avançada aberta (link vivo)',
+        alias.v === 'recursos' && alias.aberto === true, JSON.stringify(alias));
       // Conta re-renders da tela envolvendo render(): digitar num campo de dinheiro não
       // pode redesenhar a lista (perde foco, perde cursor, perde dígito).
       await page.evaluate(() => { window.__rc = 0; const o = window.render; window.render = function () { window.__rc++; return o.apply(this, arguments); }; });
@@ -591,9 +614,12 @@ async function ctxLogin(browser, perfil, extra) {
         await digitar('.rec-apf input[placeholder="2400,00"]', '1234,56', 'PREÇO DE COMPRA');
         await digitar('.rec-apf input[placeholder^="Contrato Operadora"]', 'Contrato teste 2026', 'FONTE DO CONTRATO (texto livre)');
       }
-      const corpo = await page.evaluate(() => document.body.innerText);
-      ok('G6 tela de insumos avisa que faturamento ausente não vira margem zero',
-        /nunca.*herda o preço de compra|margem zero/i.test(corpo), '');
+      // Lê o texto DA SEÇÃO, não do body: a projeção no topo da mesma tela também fala em
+      // "nunca herda o preço de compra", e procurar no body inteiro faria este check passar
+      // sozinho, sem o aviso do cadastro estar na tela.
+      const corpo = await page.evaluate(() => (document.querySelector('.rec-avc') || {}).innerText || '');
+      ok('G6 seção avançada avisa que faturamento ausente não vira margem zero',
+        /nunca.*herda o preço de compra|margem zero/i.test(corpo), corpo.slice(0, 80));
       ok('G6 sem erro de console na tela do admin', errs.length === 0, errs.join(' | '));
       await ctx.close();
     }

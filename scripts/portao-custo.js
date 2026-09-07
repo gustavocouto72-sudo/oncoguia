@@ -12,10 +12,20 @@
 //    nunca campo vazio. E preço negociado acima da tabela é recusado (faixa invertida).
 //  Fase 4 (UI, oncologista): o bloco NÃO existe no DOM, nem entrando pela URL
 //    (go('custos') e go('autorizacoes') caem em Pacientes).
-//  Fase 5 (UI, auditor): o bloco aparece na fila com faixa, fontes, origem dos ciclos e
-//    o aviso do PFS; a carteira soma e diz quem ficou de fora.
-//  Fase 6 (UI, admin): digitar nos campos de PREÇO não re-renderiza a lista (contador=0)
-//    e o valor digitado sobrevive.
+//  Fase 5 (UI, auditor): o bloco aparece NA FILA DE AUTORIZAÇÃO com faixa, fontes,
+//    origem dos ciclos e o aviso do PFS; a carteira soma e diz quem ficou de fora.
+//  Fase 5b (UI, admin): o dinheiro que saiu da ficha está na ABA RECURSOS — é para onde
+//    o check migrou. O paciente de teste criado na Fase 2b é o que torna este check não
+//    vazio: ele tem protocolo vigente estimável, então a carteira da aba tem de somá-lo.
+//  FICHA LIMPA (todos os perfis que abrem paciente): a ficha NÃO contém "ESTIMATIVA" nem
+//    "R$". O momento clínico não mostra dinheiro — nem o valor, nem o estado vazio dele.
+//    É o check INVERSO do que existia antes ("auditor vê o bloco na ficha"): o bloco saiu
+//    da ficha para todos, admin incluído, e sair para todos é o que se prova aqui.
+//  Fase 6 (UI, admin): o cadastro de preço agora é a SEÇÃO "Preços por protocolo" da aba
+//    única Recursos — o portão confere que a aba de dinheiro é uma só, que o endereço
+//    antigo go('custos') cai nela (link vivo, não morto) e que a seção está aberta. Os
+//    checks de digitação são os mesmos: digitar nos campos de PREÇO não re-renderiza a
+//    lista (contador=0) e o valor digitado sobrevive.
 //  Limpeza: apaga os preços de teste (DELETE não existe na API por desenho — o portão
 //    restaura o estado anterior via PUT, ou remove direto o que criou).
 //
@@ -47,6 +57,35 @@ const RID_ORAL = 'nsclc-met-osimertinibe-egfr';
 const NOME_TESTE = 'Paciente Portao Custo';
 const FONTE_T = 'PORTAO CUSTO - CMED teste';
 const FONTE_N = 'PORTAO CUSTO - contrato teste';
+
+// Abre a ficha de um paciente com protocolo vigente e prova que NENHUM dinheiro aparece
+// ali. Lê o innerText de #app (a TELA), não o body: o <script> da app mora dentro do
+// <body>, então body.textContent devolveria o fonte inteiro — inclusive as strings
+// "ESTIMATIVA" e "R$" que só existem dentro de funções. Já foi essa a armadilha do C8.
+// Recebe o contexto JÁ LOGADO: login é limitado a 5/min por IP e este portão usa 4 perfis.
+async function fichaSemDinheiro(page, perfil, ok) {
+  const pid = await page.evaluate(async () => {
+    const l = await api('/pacientes'); const c = (l || []).find(p => p.ultima_avaliacao);
+    return c ? c.id : null;
+  });
+  if (!pid) {
+    // Sem paciente com avaliação a ficha não desenha bloco nenhum e o check não prova
+    // nada. Falha alto em vez de passar vazio: a Fase 2b CRIA esse paciente, então
+    // chegar aqui sem ele é defeito do portão, não ausência de dado.
+    ok(`CF ficha limpa (${perfil}): havia paciente com avaliação para abrir`, false,
+      'nenhum paciente com ultima_avaliacao — o check ficaria vazio');
+    return;
+  }
+  await page.evaluate(id => abrir(id), pid);
+  await page.waitForTimeout(1800);
+  const t = await page.evaluate(() => (document.getElementById('app') || document.body).innerText);
+  ok(`CF ficha do paciente NÃO diz "ESTIMATIVA" (${perfil})`, !/ESTIMATIVA/.test(t),
+    'paciente=' + pid + ' ' + (t.match(/.{0,40}ESTIMATIVA.{0,40}/) || [''])[0]);
+  ok(`CF ficha do paciente NÃO mostra R$ (${perfil})`, !/R\$/.test(t),
+    'paciente=' + pid + ' ' + (t.match(/.{0,40}R\$.{0,40}/) || [''])[0]);
+  ok(`CF nenhum bloco de custo/recurso no DOM da ficha (${perfil})`,
+    await page.evaluate(() => document.querySelectorAll('.cst, .cst-cart, .rec-slot, [data-rec-pid]').length) === 0, '');
+}
 
 const R = [];
 const ok = (n, c, x) => { R.push([c, n, x]); console.log((c ? 'PASS' : 'FAIL') + '  ' + n + (x ? '  [' + String(x).slice(0, 170) + ']' : '')); };
@@ -365,16 +404,10 @@ async function ctxLogin(browser, perfil) {
       ok('C8 nenhum bloco de custo no DOM do oncologista', nBloco === 0, 'elementos=' + nBloco);
       const podeVer = await page.evaluate(() => podeVerCusto());
       ok('C8 podeVerCusto() = false para oncologista', podeVer === false);
-      // Abre um paciente com protocolo vigente: nem na ficha o bloco aparece.
-      const pid = await page.evaluate(async () => {
-        const l = await api('/pacientes'); const c = (l || []).find(p => p.ultima_avaliacao); return c ? c.id : (l && l[0] ? l[0].id : null);
-      });
-      if (pid) {
-        await page.evaluate(id => abrir(id), pid);
-        await page.waitForTimeout(1200);
-        const nFicha = await page.evaluate(() => document.querySelectorAll('.cst').length);
-        ok('C9 bloco ausente também na ficha do paciente (oncologista)', nFicha === 0, 'paciente=' + pid + ' elementos=' + nFicha);
-      } else { ok('C9 bloco ausente na ficha do paciente (oncologista)', true, 'sem paciente para abrir — check vazio'); }
+      // Abre um paciente com protocolo vigente: nem na ficha o bloco aparece. Para o
+      // oncologista isso já era verdade por guard de perfil; agora é verdade por desenho
+      // da tela, e o mesmo check roda para auditor e admin mais abaixo.
+      await fichaSemDinheiro(page, 'oncologista', ok);
       ok('C9 sem erro de console no oncologista', errs.length === 0, errs.join(' | '));
       await ctx.close();
     }
@@ -391,20 +424,27 @@ async function ctxLogin(browser, perfil) {
       ok('C10 carteira soma sem tratar "sem estimativa" como zero',
         cart && typeof cart.total_min === 'number' && typeof cart.pacientes_sem_estimativa === 'number',
         cart ? `no_calculo=${cart.pacientes_no_calculo} fora=${cart.pacientes_sem_estimativa}` : 'null');
-      // Bloco na ficha de um paciente com protocolo vigente.
-      const pid2 = await page.evaluate(async () => {
-        const l = await api('/pacientes'); const c = (l || []).find(p => p.ultima_avaliacao); return c ? c.id : null;
-      });
-      if (pid2) {
-        await page.evaluate(id => abrir(id), pid2);
-        await page.waitForTimeout(1800);
-        const nAud = await page.evaluate(() => document.querySelectorAll('.cst').length);
-        ok('C11 auditor vê o bloco na ficha do paciente', nAud > 0, 'paciente=' + pid2 + ' elementos=' + nAud);
-        // Zero na TELA (só o container da app), não no fonte.
-        const tApp = await page.evaluate(() => (document.getElementById('app') || document.body).innerText);
-        ok('C11 nenhum "R$ 0,00" renderizado (indeterminado não vira zero)', !/R\$\s*0,00/.test(tApp),
-          (tApp.match(/R\$\s*0,00/g) || []).join(','));
-
+      // O bloco de expectativa MIGROU da ficha para o fluxo de autorização. Onde há
+      // solicitação na fila, o cartão dela carrega o bloco — a pergunta "quanto custa"
+      // é a pergunta que se está fazendo nesta tela, e é aqui que ela é respondida.
+      const fila = await page.evaluate(() => ({
+        cards: document.querySelectorAll('.aut-card').length,
+        comCusto: Array.from(document.querySelectorAll('.aut-card')).filter(c => c.querySelector('.cst')).length,
+      }));
+      if (fila.cards > 0) {
+        ok('C11 na fila de autorização, TODO cartão traz o bloco de expectativa de custo',
+          fila.comCusto === fila.cards, `cartoes=${fila.cards} com bloco=${fila.comCusto}`);
+      } else {
+        // Fila vazia não é falha do app — mas também não é prova. O check fica registrado
+        // como VAZIO e alto, para não virar um PASS que não olhou nada.
+        ok('C11 fila de autorização tinha solicitação para conferir o bloco', false,
+          'fila vazia — este check não provou nada nesta rodada (crie uma solicitação de exceção)');
+      }
+      // Zero na TELA (só o container da app), não no fonte.
+      const tApp = await page.evaluate(() => (document.getElementById('app') || document.body).innerText);
+      ok('C11 nenhum "R$ 0,00" renderizado (indeterminado não vira zero)', !/R\$\s*0,00/.test(tApp),
+        (tApp.match(/R\$\s*0,00/g) || []).join(','));
+      {
         // Desacoplamento na TELA: protocolo com tempo derivável e SEM preço tem de
         // mostrar a metade de USO e nenhum R$. Renderiza o bloco isolado e inspeciona —
         // é o único jeito de provar isso sem depender de qual protocolo o paciente tem.
@@ -431,19 +471,49 @@ async function ctxLogin(browser, perfil) {
           ok('C11b uso sem preço renderizado na tela', !RID_SEM_PRECO,
             RID_SEM_PRECO ? 'bloco não renderizou para ' + RID_SEM_PRECO : 'sem regime candidato — check vazio');
         }
-      } else { ok('C11 bloco na ficha (auditor)', true, 'sem paciente com avaliação — check vazio'); }
+      }
+      // E o inverso do check antigo: o auditor PODE ver dinheiro, e mesmo assim a ficha
+      // do paciente dele não mostra nenhum. O que separa as telas não é o perfil, é o
+      // momento — clínico não vê preço nem "sem preço".
+      await fichaSemDinheiro(page, 'auditor', ok);
       ok('C11 sem erro de console no auditor', errs.length === 0, errs.join(' | '));
       await ctx.close();
     }
 
-    // ═══ FASE 6 — UI do admin: digitar preço não re-renderiza ═══
+    // ═══ FASE 5b — UI do REVISOR: a ficha continua limpa para ele também ═══
+    // O revisor não vê custo em lugar nenhum (403 em /custos), então este check é só a
+    // outra metade: nenhum perfil que abre paciente encontra dinheiro na ficha.
+    {
+      const { ctx, page, errs } = await ctxLogin(browser, 'revisor');
+      await fichaSemDinheiro(page, 'revisor', ok);
+      ok('CF sem erro de console no revisor', errs.length === 0, errs.join(' | '));
+      await ctx.close();
+    }
+
+    // ═══ FASE 6 — UI do admin: aba única + digitar preço não re-renderiza ═══
     {
       const { ctx, page, errs } = await ctxLogin(browser, 'admin');
+      // A camada de dinheiro virou UMA aba. "Custo por ciclo" e "Insumos" não são mais
+      // abas de primeiro nível — mas os endereços continuam vivos, e é isso que estes dois
+      // checks provam: go('custos') não pode cair em tela vazia nem em Pacientes.
+      await page.waitForSelector('nav.tabs', { timeout: 25000 });
+      const abasAdm = await page.$$eval('nav.tabs a', els => els.map(e => e.textContent.trim()));
+      ok('C12 admin vê UMA aba de dinheiro ("Recursos"), sem "Custo por ciclo" nem "Insumos"',
+        abasAdm.includes('Recursos') && !abasAdm.some(a => /Custo por ciclo/i.test(a) || /^Insumos$/i.test(a)),
+        JSON.stringify(abasAdm));
       await page.evaluate(() => go('custos'));
+      await page.waitForTimeout(400);
+      const viewAdm = await page.evaluate(() => view);
+      ok('C12 go("custos") cai na aba única Recursos (endereço antigo não vira link morto)',
+        viewAdm === 'recursos', 'view=' + viewAdm);
       // Espera a LISTA, não a variável: CUSTO_ADM é preenchida pela primeira chamada e a
-      // tela só é pintada quando a segunda (/custos/cobertura) volta.
+      // seção só é pintada quando a segunda (/custos/cobertura) volta — e agora ela entra
+      // ABAIXO da projeção, que é o que a aba carrega primeiro.
       const sel = `#cst_tab_${RID_FIXA}`;
       await page.waitForSelector(sel, { timeout: 30000 });
+      const secPrecos = await page.evaluate(() =>
+        Array.from(document.querySelectorAll('h2')).some(e => /Preços por protocolo/.test(e.textContent)));
+      ok('C12 seção "Preços por protocolo" vem ABERTA na aba (é o caminho principal)', secPrecos, '');
       await page.evaluate(() => { window.__rc = 0; const o = window.render; window.render = function () { window.__rc++; return o.apply(this, arguments); }; });
       await page.click(sel, { clickCount: 3 });
       await page.type(sel, '13450,75', { delay: 12 });
@@ -469,6 +539,25 @@ async function ctxLogin(browser, perfil) {
       } else {
         ok('C12 campo de período presente para o oral', false, `${selP} não encontrado na tela do admin`);
       }
+      // ---- O check que saiu da ficha: o dinheiro está na ABA RECURSOS ----------
+      // Antes o portão provava "auditor vê o bloco de custo na ficha do paciente". A
+      // ficha ficou limpa, então a prova migra para onde a informação passou a viver.
+      // Não é vazio: a Fase 2b criou um paciente com protocolo vigente estimável, então
+      // a carteira desta aba TEM de somá-lo — e a soma é dinheiro na tela.
+      await page.evaluate(() => { setRecAba('carteira'); });
+      await page.waitForTimeout(600);
+      const rec = await page.evaluate((nome) => {
+        const t = (document.getElementById('app') || document.body).innerText;
+        return { temRS: /R\$/.test(t), temPac: t.includes(nome), tot: document.querySelectorAll('.rec-tot-v').length };
+      }, NOME_TESTE);
+      ok('C12 aba Recursos mostra dinheiro (é para onde o bloco da ficha migrou)',
+        rec.temRS && rec.tot > 0, `R$=${rec.temRS} cartoes_de_total=${rec.tot}`);
+      ok('C12 o paciente de teste (protocolo vigente estimável) aparece na carteira da aba',
+        rec.temPac, 'admin vê nome — a pseudonimização é do perfil gestor');
+      // E a outra metade, para o perfil que pode ver TUDO: a ficha continua sem dinheiro.
+      // Este é o check que impede a regressão mais provável — "o admin é quem manda,
+      // deixa o bloco para ele".
+      await fichaSemDinheiro(page, 'admin', ok);
       ok('C12 sem erro de console no admin', errs.length === 0, errs.join(' | '));
       await ctx.close();
     }

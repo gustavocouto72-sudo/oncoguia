@@ -121,7 +121,7 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
 4. **Fonte certa.** O cabeçalho da app lê o run do `RUN_ATIVO` (07-22). Marcadores de sanidade: TCHP → TRYPHAENA; capivasertibe → CAPItello-291.
 
 5. **Os 4 fluxos reais, de ponta a ponta** (clicando, não confiando no "verificado"):
-   - [ ] login
+   - [ ] login (tela de apresentação: apresentação à esquerda, formulário à direita, empilha em tela estreita)
    - [ ] cadastrar paciente (digitar nome inteiro sem apagar) → salva
    - [ ] mudar característica clínica → protocolos re-avaliam **ao vivo** à direita
    - [ ] abrir Revisão → digitar parecer → gravar → aparece atribuído
@@ -140,12 +140,31 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
    quem NÃO pode (blacklist envelhece mal: o próximo perfil novo nasceria vendo tudo) — foi
    `LeituraClinicaGuard`, a lista literal de quem pode.
 
+9. **Enquadramento e ficha limpa** (piloto com oncologistas, paciente real anonimizado):
+   - [ ] **Nada de protótipo na tela.** Sem o badge "dados fictícios" e sem o banner
+         "Protótipo conceitual". No lugar, uma linha permanente no rodapé: *"Apoio à
+         decisão baseado em evidência — nada aqui é recomendação clínica; informa, o
+         médico decide."* O badge era uma afirmação **falsa** sobre o conteúdo do banco a
+         partir do momento em que entra paciente de verdade.
+   - [ ] **Campo de nome orienta, não bloqueia.** Rótulo e placeholder dizem "Iniciais +
+         nº de atendimento (não usar nome)". É orientação de tela: validação que recusasse
+         texto aqui só ensinaria a burlá-la (o nome entraria com um ponto no meio).
+   - [ ] **A ficha do paciente não mostra dinheiro — para NENHUM perfil, admin incluído.**
+         Sem "ESTIMATIVA", sem "R$". Os blocos "Expectativa de uso e custo" e
+         "Decomposição por insumo" saíram da ficha: o momento clínico não mostra preço
+         nem o **estado vazio** dele (a decomposição só fecha em 29 de 295 protocolos, então
+         o que aparecia na maioria das fichas era uma explicação sobre composição
+         estruturada no meio da leitura de um paciente). O número mudou de lugar, não sumiu:
+         projeção e demanda de compra na aba **Recursos**, expectativa por solicitação no
+         fluxo de **autorização**. A rota `/custos/paciente/:id` continua existindo e
+         continua coberta (G4/G7).
+
 ---
 
 ## Portão de RECURSOS (`scripts/portao-recursos.js`)
 
 Especialização do portão B para a gestão de recursos — insumos, compra, faturamento e
-margem. Roda em browser isolado (headless) + API direta, 91 checks.
+margem. Roda em browser isolado (headless) + API direta, 94 checks.
 
 ```bash
 node scripts/portao-recursos.js       # exige app (5173) e API (3005) no ar
@@ -170,6 +189,16 @@ O que ele cobre, e por que cada parte existe:
   **sem** preço de contrato de propósito: o protocolo que o usa tem compra e fica sem
   receita e sem margem. Herdar o preço de compra daria margem zero — um número que parece
   resposta e é a ausência dela.
+- **A camada de dinheiro é UMA aba.** "Custo por ciclo" e "Insumos" eram abas irmãs de
+  primeiro nível e viraram seções de **Recursos**: projeção no topo, "Preços por protocolo"
+  aberta (é o caminho principal — preço por protocolo alcança todo esquema com tempo
+  derivável), e "Avançado — custo por insumo" **recolhida**. O portão trata seção recolhida
+  como risco, não como detalhe: confere que ela **nasce fechada e sem o formulário no DOM**,
+  que o cabeçalho **declara a cobertura real** ("cobre 8 de 295 protocolos" — recolhido só é
+  honesto se disser o tamanho do que recolheu), e só então **abre** a seção e roda os checks
+  de digitação. Os endereços antigos continuam vivos: `go('custos')` cai na aba, e
+  `go('insumos')` cai na aba **já com a seção avançada aberta** — redirecionar para o topo
+  da tela seria um link vivo levando ao lugar errado.
 - **Matriz do gestor nas DUAS pontas.** Oncologista, revisor e auditor levam 403 em toda
   rota de `/recursos` (o auditor **continua** vendo `/custos`, que é o dado da decisão de
   exceção). O gestor leva 403 em 13 rotas clínicas e nas três escritas de recursos. Na
@@ -190,6 +219,49 @@ O que ele cobre, e por que cada parte existe:
   apagados; apresentação padrão e premissas que já existiam são restauradas. **Rode duas
   vezes seguidas** — a segunda tem de dar o mesmo resultado da primeira, e é isso que pega
   resíduo de teste.
+- **Seção recolhida é verificada ABERTA.** O cadastro por insumo virou a seção "Avançado —
+  custo por insumo" da aba única Recursos, fechada por padrão. O portão confere que ela
+  **nasce fechada e sem conteúdo no DOM**, que o cabeçalho da seção fechada **declara a
+  cobertura real** (`cobre X de N protocolos`), e só então a **abre** para rodar os mesmos
+  checks de antes. Recolher a UI não pode virar recolher o check.
+
+---
+
+## Lição — portão mede correção, uso real mede produto
+
+O portão de recursos ficou verde nos 91 checks enquanto a tela mostrava, em duas das três
+abas de dinheiro, um estado vazio o dia inteiro. Não havia bug: o cálculo por insumo exige
+que a composição do esquema feche em **mg por aplicação**, e isso acontece em **8 de 295**
+protocolos. Os números estavam certos; o que estava errado era dar a eles uma aba de
+primeiro nível.
+
+**Placar de cobertura baixo pede UI que recolhe, não UI que exibe o vazio.** As três abas
+viraram uma: projeção da carteira em cima, preços por protocolo (o caminho principal)
+abaixo, e o custo por insumo numa seção **fechada** cujo cabeçalho imprime a cobertura
+real. Nada de backend, tabela, endpoint ou extração mudou — a mudança foi inteira de
+apresentação, e os endereços antigos (`go('custos')`, `go('insumos')`) continuam vivos,
+caindo na aba única em vez de virarem link morto.
+
+Duas regras que saem daí, e valem para o próximo módulo:
+
+1. **Antes de promover um caminho a aba, olhe o placar de cobertura dele.** Um caminho que
+   alcança uma fatia pequena do corpus é uma seção recolhida com o número no cabeçalho, não
+   uma aba. E o número tem de estar visível **com a seção fechada** — "recolhido" só é
+   honesto se disser o tamanho do que recolheu. Critério de re-expansão: a seção avançada
+   volta a ter destaque quando composição completa + preço de insumo real cobrirem parcela
+   relevante da carteira (o número se define na época, contra a carteira de então — não
+   contra o corpus inteiro).
+2. **Dobrar UI é mexer no que o portão mede.** Os checks migram de endereço, nunca de
+   exigência: seletor novo, mesma prova. E seção fechada é a chance óbvia de um check
+   passar por ausência — por isso o portão abre a seção antes de verificar, e checa
+   explicitamente que ela nasceu fechada.
+
+Um efeito colateral que só a **segunda execução** do portão pegou: com o cadastro de preço
+e a projeção na mesma tela, a tela passou a carregar em ondas, e a onda que chegava
+disparava um `render()` **por cima de um campo de preço em digitação** — perdeu um dígito
+("Contrato teste 202"). A correção foi carregar tudo numa espera só e pintar a tela **uma
+vez, completa**. A regra "rode duas vezes seguidas" existe para resíduo de banco; ela
+também pega corrida de carregamento.
 
 ---
 
@@ -342,4 +414,4 @@ idêntica) ·
 
 *Automação (adendo 2) — módulo Retorno/Trilha:* `node scripts/portao-retorno.js` roda o portão do seguimento em browser isolado e headless (exige app e API no ar; as portas são configuráveis por `PORTAO_APP`/`PORTAO_API`, default 5173/3005; **credenciais em `.env.local`** — ver "Contas de teste dos portões" acima). 86 checks: RECIST travado na UI **e** 400 no DTO, toxicidades vindas do regime em curso + "outra", troca de protocolo gerando avaliação **vinculada** ao retorno, trilha mesclada na sequência real do fluxo, reestadiamento agendado/reagendado/vencido, o **formulário de retorno enxuto** (sem campo de data agendada no topo, sem jargão de imutabilidade na tela — só o ⓘ; linha read-only do previsto quando o retorno veio de um agendamento), o **próximo retorno** (chips, data calculada, agendado criado na trilha, intervalo do último ciclo sugerido sem ser imposto, 0 re-render ao escolher), a **lista de Pacientes** (as sete colunas pelo rótulo do cabeçalho, e a ausência das duas que saíram; idade em anos completos calculada no check, não cravada; protocolo com linha e dia da avaliação; selo **NÃO INCORPORADO** ausente para quem é incorporado e presente no eixo do corpus; selo **⏳ aguardando autorização** com o protocolo exibido continuando a ser o **vigente**; **médico assistente** derivado batendo com o topo da trilha — inclusive quando um retorno de OUTRO profissional passa a ser o evento mais recente; **busca** por nome e por registro com **0 re-render**, foco e cursor preservados, e estado vazio próprio), o **"quem não veio"** (coluna Próximo retorno em vermelho com o atraso em dias, atrasado no topo da ordem padrão, filtro de retornos atrasados, e o atraso sumindo quando o retorno é registrado), a **guia TISS SP/SADT** (blocos e numeração conforme o *Padrão TISS — Componente de Conteúdo e Estrutura, nov/2022*, p. 423, na ordem; pré-preenchimento de beneficiário/convênio/indicação/exames/solicitante; e o contrário disso — nº de guia, senha, CNES, código na operadora e TUSS **em branco**, porque a app não os inventa; as 5 linhas fixas de procedimento do formulário oficial; edição na conferência refletida na impressão; uma página **A4 paisagem**; barra de conferência fora do papel), **0 re-render** ao digitar em observações/toxicidade/exames, ausência de rota de edição (imutabilidade) e a matriz de perfil (revisor 403 na escrita, 200 na leitura). Também fixa a interação com a autorização: o portão escolhe deliberadamente um candidato **elegível**, porque retorno pressupõe protocolo **vigente** — seleção fora do padrão nasce como exceção pendente e não é vigente até o auditor aprovar. Apaga o paciente de teste no fim.
 
-*Automação (adendo):* `node scripts/portao-b.js` roda os checks 5–8 do Portão B em browser isolado e headless (Chrome do sistema; exige app em 5173 e backend em 3005): login dos 3 perfis, cadastro digitado com contador de render = 0, re-avaliação ao vivo, parecer gravado/atribuído, matriz de acesso, console limpo — e **apaga os dados de teste no fim** (parecer via SQL, paciente via DELETE admin). É um check que não passa pelo agente; o click-through manual continua valendo como contraprova humana.
+*Automação (adendo):* `node scripts/portao-b.js` roda os checks 5–8 do Portão B em browser isolado e headless (Chrome do sistema; exige app em 5173 e backend em 3005): a **Fase 0** confere a tela de login deslogada (split de duas colunas com o formulário na direita, os quatro cartões, o crédito, a linha permanente, ausência do enquadramento de protótipo, e o empilhamento em 420px de largura) — inclusive os ids `#lg_login`/`#lg_senha`/`#lg_btn`, que **`portao-credenciais.js` digita**: se a tela trocar de seletor sem o portão trocar junto, todos os portões param de logar, e é melhor falhar aqui com o nome certo. Depois: login dos 3 perfis, cadastro digitado com contador de render = 0, re-avaliação ao vivo, parecer gravado/atribuído, matriz de acesso, console limpo — e **apaga os dados de teste no fim** (parecer via SQL, paciente via DELETE admin). É um check que não passa pelo agente; o click-through manual continua valendo como contraprova humana.
