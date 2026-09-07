@@ -1,19 +1,22 @@
 import {
   BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Request, UseGuards,
 } from '@nestjs/common';
-import { IsBoolean, IsIn, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import { ArrayNotEmpty, IsArray, IsBoolean, IsIn, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 import { randomInt } from 'crypto';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { Roles, RolesGuard } from '../auth/roles.guard';
 import { UsuariosService } from './usuarios.service';
-import type { Perfil } from '../database/entities';
+import { PERFIS, type Perfil } from '../database/entities';
 
-// Perfis atribuíveis na tela de admin. 'auditor' e 'gestor' entram aqui como eixos
-// próprios, não como degraus de escada: o auditor decide solicitação de exceção
-// (protocolo Inelegível/Não incorporado) e mais nada; o gestor vê recursos (insumos,
-// projeção de compra, faturamento, margem) e mais nada — sem Revisão, sem autorização e
-// sem nome de paciente. Nenhum dos dois herda nem cede permissão de outro perfil.
-const PERFIS: Perfil[] = ['oncologista', 'revisor', 'auditor', 'admin', 'gestor'];
+// Perfis atribuíveis na tela de admin — o vocabulário vem de entities.ts, o mesmo que o
+// CHECK do banco usa. 'auditor' e 'gestor' entram aqui como eixos próprios, não como
+// degraus de escada: o auditor decide solicitação de exceção (protocolo Inelegível/Não
+// incorporado) e mais nada; o gestor vê recursos (insumos, projeção de compra,
+// faturamento, margem) e mais nada — sem Revisão, sem autorização e sem nome de paciente.
+// Nenhum dos dois herda nem cede permissão de outro perfil.
+//
+// Uma pessoa recebe uma LISTA deles e veste um por vez (POST /auth/trocar-perfil). Estar
+// na lista não acumula permissão: o guard confere o perfil ATIVO, e só ele.
 
 // Senha temporária aleatória por usuário (alfabeto sem caracteres ambíguos: 0/O, 1/l/I).
 function gerarSenhaTemporaria(tamanho = 10): string {
@@ -36,10 +39,16 @@ class DadosProfissionaisDto {
   @IsOptional() @IsString() @MaxLength(10) cbos?: string;
 }
 
+// `perfis` (lista) é o campo novo; `perfil` (item único) continua aceito e significa uma
+// lista de um. Não é gentileza com clientes antigos: os portões e os scripts batem direto
+// na API, e quebrar o cadastro de usuário de um perfil só — que é a esmagadora maioria —
+// para introduzir a lista seria trocar um problema real por nenhum ganho.
 class CriarUsuarioDto extends DadosProfissionaisDto {
   @IsString() @IsNotEmpty({ message: 'Nome obrigatório' }) nome: string;
   @IsString() @IsNotEmpty({ message: 'Login obrigatório' }) login: string;
-  @IsIn(PERFIS, { message: 'Perfil inválido' }) perfil: Perfil;
+  @IsOptional() @IsIn(PERFIS, { message: 'Perfil inválido' }) perfil?: Perfil;
+  @IsOptional() @IsArray() @ArrayNotEmpty({ message: 'Selecione ao menos um perfil' })
+  @IsIn(PERFIS, { each: true, message: 'Perfil inválido' }) perfis?: Perfil[];
 }
 
 class AtualizarUsuarioDto extends DadosProfissionaisDto {
@@ -47,7 +56,17 @@ class AtualizarUsuarioDto extends DadosProfissionaisDto {
   @IsOptional() @IsString() login?: string;
   @IsOptional() @IsString() @MinLength(6, { message: 'Senha deve ter no mínimo 6 caracteres' }) senha?: string;
   @IsOptional() @IsIn(PERFIS, { message: 'Perfil inválido' }) perfil?: Perfil;
+  @IsOptional() @IsArray() @ArrayNotEmpty({ message: 'Selecione ao menos um perfil' })
+  @IsIn(PERFIS, { each: true, message: 'Perfil inválido' }) perfis?: Perfil[];
   @IsOptional() @IsBoolean() ativo?: boolean;
+}
+
+// A lista efetiva do payload: `perfis` manda; na ausência dela, `perfil` vira lista de um;
+// sem nenhum dos dois, undefined (= "não mexe", no PATCH).
+function listaDe(dto: { perfil?: Perfil; perfis?: Perfil[] }): Perfil[] | undefined {
+  if (dto.perfis && dto.perfis.length) return dto.perfis;
+  if (dto.perfil) return [dto.perfil];
+  return undefined;
 }
 
 type ReqUser = { user: { id: number } };
@@ -68,8 +87,10 @@ export class UsuariosController {
   @Post()
   @Roles('admin')
   async create(@Body() dto: CriarUsuarioDto) {
+    const perfis = listaDe(dto);
+    if (!perfis) throw new BadRequestException('Selecione ao menos um perfil');
     const senha = gerarSenhaTemporaria();
-    const usuario = await this.service.create({ ...dto, senha });
+    const usuario = await this.service.create({ ...dto, perfis, senha });
     return { ...usuario, senha_temporaria: senha };
   }
 
@@ -79,7 +100,8 @@ export class UsuariosController {
     if (req.user.id === id && dto.ativo === false) {
       throw new BadRequestException('Você não pode desativar o próprio usuário');
     }
-    return this.service.update(id, dto);
+    // `autorId` vai junto: é ele que arma a trava anti-lockout do perfil de admin.
+    return this.service.update(id, { ...dto, perfis: listaDe(dto) }, req.user.id);
   }
 
   @Delete(':id')

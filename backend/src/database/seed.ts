@@ -33,7 +33,12 @@ async function seed() {
     const existente = await usuarioRepo.findOneBy({ login: u.login });
     if (!existente) {
       const hash = await bcrypt.hash(u.senha, 10);
-      await usuarioRepo.save({ nome: u.nome, login: u.login, senha_hash: hash, perfil: u.perfil });
+      // `perfis` vai EXPLÍCITO: o default da coluna é ['oncologista'], e o CHECK do banco
+      // exige que `perfil` seja membro da lista — salvar só `perfil: 'revisor'` estouraria
+      // CHK_usuarios_perfis. Contas de seed nascem com um chapéu só.
+      await usuarioRepo.save({
+        nome: u.nome, login: u.login, senha_hash: hash, perfil: u.perfil, perfis: [u.perfil],
+      });
       console.log(`Usuário ${u.perfil} criado (login: ${u.login} / senha: ${u.senha})`);
     }
   }

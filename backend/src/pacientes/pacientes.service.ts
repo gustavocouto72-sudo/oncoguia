@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
-  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, Paciente, Retorno, SelecaoProtocolo, Semaforo,
+  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, Paciente, Perfil, Retorno, SelecaoProtocolo, Semaforo,
 } from '../database/entities';
 import { EvidenciaService } from '../evidencia/evidencia.service';
 import { diaLocal, estadoReestadiamento, estadoRetorno, hojeISO, somarMeses } from '../retornos/retornos.service';
@@ -258,7 +258,7 @@ export class PacientesService {
   }
 
   // Cria uma nova avaliação: EMPILHA, nunca sobrescreve. data e avaliado_por do servidor.
-  async criarAvaliacao(pacienteId: number, dados: NovaAvaliacao, usuarioId: number) {
+  async criarAvaliacao(pacienteId: number, dados: NovaAvaliacao, usuarioId: number, perfilAtivo: Perfil) {
     const paciente = await this.pacienteOr404(pacienteId);
     // Solicitação de exceção — decidida NO SERVIDOR, não pela app. A app manda
     // 'pendente' (é o que pinta o botão "Selecionar mesmo assim"), mas os dois eixos que
@@ -276,6 +276,9 @@ export class PacientesService {
     const nova = this.avaliacaoRepo.create({
       paciente_id: pacienteId,
       avaliado_por: usuarioId,
+      // Com que chapéu esta avaliação foi feita — do JWT, nunca do cliente. Ver
+      // Avaliacao.perfil_ativo: `avaliadoPor.perfil` responde o que a pessoa é HOJE.
+      perfil_ativo: perfilAtivo,
       regimen_id: dados.regimen_id,
       linha_tratamento: dados.linha_tratamento ?? null,
       snapshot_campos: dados.snapshot_campos,
@@ -331,8 +334,10 @@ export class PacientesService {
         ? { id: a.autorizacaoAuditor.id, nome: a.autorizacaoAuditor.nome }
         : null,
       retorno_id: a.retorno_id ?? null,
+      // Perfil do MOMENTO da avaliação (a.perfil_ativo), com fallback no perfil atual da
+      // conta para registros anteriores à coluna.
       avaliado_por: a.avaliadoPor
-        ? { id: a.avaliadoPor.id, nome: a.avaliadoPor.nome, perfil: a.avaliadoPor.perfil }
+        ? { id: a.avaliadoPor.id, nome: a.avaliadoPor.nome, perfil: a.perfil_ativo || a.avaliadoPor.perfil }
         : null,
     };
   }

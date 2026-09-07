@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as fs from 'fs';
 import * as path from 'path';
-import { FonteSugerida, Revisao } from '../database/entities';
+import { FonteSugerida, Perfil, Revisao } from '../database/entities';
 
 // Upload vindo do FileInterceptor (memoryStorage) — tipado localmente para não
 // depender de @types/multer.
@@ -110,6 +110,7 @@ export class RevisoesService {
   async criar(
     dto: { regimen_id: string; content_hash: string; decisao: Revisao['decisao']; justificativa?: string; natureza?: Revisao['natureza']; acao?: Revisao['acao']; acao_detalhe?: string; eixo?: Revisao['eixo'] },
     revisorId: number,
+    perfilAtivo: Perfil,
   ) {
     const ehParecerCritico = dto.decisao === 'contestado' || dto.decisao === 'ajuste_solicitado';
     // acao_detalhe só acompanha as ações que o exigem (DOI novo / spec da regra / qual o erro)
@@ -126,6 +127,7 @@ export class RevisoesService {
       acao_detalhe: temDetalhe ? (dto.acao_detalhe || '').trim() || null : null,
       eixo: dto.eixo ?? null,
       revisor_id: revisorId,
+      perfil_ativo: perfilAtivo,   // com que chapéu — do JWT, nunca do cliente
     });
     const salvo = await this.repo.save(row);
     const full = await this.repo.findOne({ where: { id: salvo.id }, relations: { revisor: true } });

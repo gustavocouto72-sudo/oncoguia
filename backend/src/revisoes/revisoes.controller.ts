@@ -3,6 +3,7 @@ import {
   StreamableFile, UploadedFile, UseGuards, UseInterceptors, ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import type { Perfil } from '../database/entities';
 import { IsArray, IsIn, IsNotEmpty, IsOptional, IsString, MaxLength, ValidateIf } from 'class-validator';
 import type { Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt.guard';
@@ -79,9 +80,9 @@ export class RevisoesController {
   @UseGuards(RevisorOuAdminGuard)
   criar(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })) dto: CriarRevisaoDto,
-    @Request() req: { user: { id: number } },
+    @Request() req: { user: { id: number; perfil: Perfil } },
   ) {
-    return this.service.criar(dto, req.user.id);
+    return this.service.criar(dto, req.user.id, req.user.perfil);
   }
 
   // GET /revisoes/resumo — mapa regimen_id → estado atual (uma chamada só para a sobreposição).

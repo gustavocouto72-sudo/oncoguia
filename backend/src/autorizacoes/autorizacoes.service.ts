@@ -1,7 +1,7 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { Avaliacao, AutorizacaoEstado } from '../database/entities';
+import { Avaliacao, AutorizacaoEstado, Perfil } from '../database/entities';
 import { PacientesService } from '../pacientes/pacientes.service';
 
 export type FiltroAutorizacao = 'pendentes' | 'decididas' | 'todas';
@@ -50,9 +50,26 @@ export class AutorizacoesService {
 
   // Decisão do auditor. Parecer obrigatório NAS DUAS decisões (aprovar e negar) — sem ele,
   // 400. Só 'pendente' é decidível: 'nao_necessaria' não é solicitação e já decidida é final.
-  async decidir(avaliacaoId: number, dados: DecisaoAutorizacao, auditorId: number) {
+  async decidir(avaliacaoId: number, dados: DecisaoAutorizacao, auditorId: number, perfilAtivo: Perfil) {
     const a = await this.avaliacaoRepo.findOne({ where: { id: avaliacaoId } });
     if (!a) throw new NotFoundException('Solicitação de exceção não encontrada');
+    // REGRA DE CONFLITO — ninguém decide a própria solicitação.
+    //
+    // Nasceu com os perfis múltiplos, e é a regra que os torna seguros: uma pessoa com
+    // [oncologista, auditor] pede a exceção com um chapéu e, trocando de chapéu, chegaria
+    // à própria fila com permissão legítima. Nenhum guard reclamaria — o perfil ativo É
+    // auditor. A pergunta que falta não é sobre PERFIL, é sobre PESSOA, e por isso a
+    // checagem é por id do autor e vale **qualquer que seja o perfil ativo** (admin
+    // incluído: quem tem mais poder não tem menos conflito).
+    //
+    // Fica no servidor, não na tela: esconder o botão resolveria o acidente, não o caso
+    // deliberado — e é o deliberado que uma trilha de autorização precisa impedir.
+    if (a.avaliado_por && a.avaliado_por === auditorId) {
+      throw new ForbiddenException(
+        'Conflito de interesse: quem solicitou a exceção não pode decidi-la. ' +
+        'Outro auditor precisa analisar esta solicitação.',
+      );
+    }
     const parecer = String(dados.parecer ?? '').trim();
     if (!parecer) throw new BadRequestException('Parecer obrigatório para aprovar ou negar');
     if (parecer.length > 4000) throw new BadRequestException('Parecer muito longo (máx. 4000 caracteres)');
@@ -71,6 +88,7 @@ export class AutorizacoesService {
         autorizacao_estado: dados.decisao,
         autorizacao_parecer: parecer,
         autorizacao_auditor_id: auditorId,
+        autorizacao_perfil_ativo: perfilAtivo,
         autorizacao_decidida_em: new Date(),
       },
     );
@@ -110,12 +128,19 @@ export class AutorizacoesService {
             operadora: p.operadora, plano: p.plano,
           }
         : null,
+      // O perfil mostrado é o ATIVO NO MOMENTO da ação (a.perfil_ativo), não o padrão
+      // atual da conta: quem pediu de chapéu de oncologista continua aparecendo como
+      // oncologista mesmo depois de ganhar o chapéu de auditor. Fallback no perfil da
+      // conta para registros anteriores à coluna cujo autor já não existe.
       solicitante: a.avaliadoPor
-        ? { id: a.avaliadoPor.id, nome: a.avaliadoPor.nome, perfil: a.avaliadoPor.perfil }
+        ? { id: a.avaliadoPor.id, nome: a.avaliadoPor.nome, perfil: a.perfil_ativo || a.avaliadoPor.perfil }
         : null,
       parecer: a.autorizacao_parecer,
       auditor: a.autorizacaoAuditor
-        ? { id: a.autorizacaoAuditor.id, nome: a.autorizacaoAuditor.nome, perfil: a.autorizacaoAuditor.perfil }
+        ? {
+            id: a.autorizacaoAuditor.id, nome: a.autorizacaoAuditor.nome,
+            perfil: a.autorizacao_perfil_ativo || a.autorizacaoAuditor.perfil,
+          }
         : null,
       decidida_em: a.autorizacao_decidida_em,
     };

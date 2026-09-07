@@ -5,6 +5,7 @@ import {
   Avaliacao,
   CondutaRetorno,
   Paciente,
+  Perfil,
   Retorno,
   RespostaRetorno,
   ToxicidadeRegistrada,
@@ -135,7 +136,7 @@ export class RetornosService {
 
   // Cria o retorno: EMPILHA, nunca sobrescreve (não existe rota de UPDATE/DELETE aqui —
   // corrigir um retorno é registrar outro). registrado_por e criado_em são do servidor.
-  async criar(pacienteId: number, dados: NovoRetorno, usuarioId: number) {
+  async criar(pacienteId: number, dados: NovoRetorno, usuarioId: number, perfilAtivo: Perfil) {
     const paciente = await this.pacienteOr404(pacienteId);
 
     // Regra RECIST, segunda trava (a primeira é o DTO, a terceira é o CHECK do banco):
@@ -192,6 +193,7 @@ export class RetornosService {
       fonte_dados: dados.fonte_dados || null,
       observacoes: dados.observacoes || null,
       registrado_por: usuarioId,
+      perfil_ativo: perfilAtivo,   // com que chapéu — do JWT, nunca do cliente
     });
     const salvo = await this.retornoRepo.save(novo);
 
@@ -367,7 +369,7 @@ export class RetornosService {
       fonte_dados: r.fonte_dados,
       observacoes: r.observacoes,
       registrado_por: r.registradoPor
-        ? { id: r.registradoPor.id, nome: r.registradoPor.nome, perfil: r.registradoPor.perfil }
+        ? { id: r.registradoPor.id, nome: r.registradoPor.nome, perfil: r.perfil_ativo || r.registradoPor.perfil }
         : null,
       criado_em: r.criado_em,
     };

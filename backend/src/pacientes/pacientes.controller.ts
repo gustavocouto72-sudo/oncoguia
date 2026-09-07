@@ -10,7 +10,7 @@ import { LeituraClinicaGuard } from '../auth/clinico.guard';
 import { Roles, RolesGuard } from '../auth/roles.guard';
 import { OncologistaOuAdminGuard } from '../auth/oncologista.guard';
 import { PacientesService } from './pacientes.service';
-import type { Semaforo } from '../database/entities';
+import type { Perfil, Semaforo } from '../database/entities';
 
 class CriarPacienteDto {
   @IsString() @IsNotEmpty({ message: 'Nome obrigatório' }) @MaxLength(160) nome: string;
@@ -126,9 +126,9 @@ export class PacientesController {
   criarAvaliacao(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: CriarAvaliacaoDto,
-    @Request() req: { user: { id: number } },
+    @Request() req: { user: { id: number; perfil: Perfil } },
   ) {
-    return this.pacientesService.criarAvaliacao(id, dto, req.user.id);
+    return this.pacientesService.criarAvaliacao(id, dto, req.user.id, req.user.perfil);
   }
 
   @Get(':id/avaliacoes')

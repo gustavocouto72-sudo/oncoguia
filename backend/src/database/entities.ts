@@ -11,6 +11,9 @@ import {
 // SERVIDOR (a resposta não carrega o nome), não filtro de tela.
 export type Perfil = 'oncologista' | 'revisor' | 'auditor' | 'admin' | 'gestor';
 
+// O vocabulário fechado, num lugar só — DTO, CHECK do banco e tela de admin leem daqui.
+export const PERFIS: Perfil[] = ['oncologista', 'revisor', 'auditor', 'admin', 'gestor'];
+
 // Semáforo de elegibilidade — mesmo vocabulário do motor evalExpr (elegível/atenção/inelegível).
 export type Semaforo = 'elegivel' | 'atencao' | 'inelegivel';
 
@@ -42,8 +45,17 @@ export class Usuario {
   @Column({ length: 255 })
   senha_hash: string;
 
+  // PERFIL ATIVO PADRÃO — o chapéu que o login entrega. Não é mais "o perfil da pessoa":
+  // é o item de `perfis` com que a sessão começa. O CHECK do banco garante que ele SEMPRE
+  // pertence à lista (CHK_usuarios_perfis).
   @Column({ type: 'varchar', length: 20, default: 'oncologista' })
   perfil: Perfil;
+
+  // A LISTA de chapéus que esta pessoa pode vestir — um por vez. Quem define é o admin.
+  // Trocar = POST /auth/trocar-perfil, que valida o pedido CONTRA ESTA LISTA e emite um
+  // token novo. O token continua carregando UM perfil: os guards não mudam de lógica.
+  @Column({ type: 'varchar', length: 20, array: true, default: () => `ARRAY['oncologista']::varchar(20)[]` })
+  perfis: Perfil[];
 
   @Column({ default: true })
   ativo: boolean;
@@ -189,6 +201,13 @@ export class Avaliacao {
   @Column({ name: 'avaliado_por', nullable: true })
   avaliado_por: number; // do JWT
 
+  // COM QUE CHAPÉU esta avaliação foi feita. Desde que uma pessoa pode ter vários perfis,
+  // `avaliadoPor.perfil` responde "o que ele é hoje", não "o que ele era ao gravar" — e é
+  // a segunda pergunta que a trilha precisa responder. Vem do JWT (perfil ativo), nunca
+  // do cliente. Null só quando o autor foi removido (ON DELETE SET NULL).
+  @Column({ name: 'perfil_ativo', type: 'varchar', length: 20, nullable: true })
+  perfil_ativo: Perfil;
+
   @Column({ type: 'int', nullable: true })
   linha_tratamento: number;
 
@@ -223,6 +242,11 @@ export class Avaliacao {
 
   @Column({ name: 'autorizacao_auditor_id', nullable: true })
   autorizacao_auditor_id: number; // do JWT do auditor (servidor)
+
+  // Chapéu de quem DECIDIU — coluna própria porque a decisão mora na mesma linha do
+  // pedido, e pedido e decisão são pessoas (e perfis) diferentes.
+  @Column({ name: 'autorizacao_perfil_ativo', type: 'varchar', length: 20, nullable: true })
+  autorizacao_perfil_ativo: Perfil;
 
   @Column({ name: 'autorizacao_decidida_em', type: 'timestamptz', nullable: true })
   autorizacao_decidida_em: Date; // do servidor
@@ -376,6 +400,10 @@ export class Revisao {
   @Column({ name: 'revisor_id', nullable: true })
   revisor_id: number; // do JWT (servidor)
 
+  // Chapéu ativo no momento do parecer — ver Avaliacao.perfil_ativo.
+  @Column({ name: 'perfil_ativo', type: 'varchar', length: 20, nullable: true })
+  perfil_ativo: Perfil;
+
   @Column({ type: 'varchar', length: 20 })
   decisao: DecisaoRevisao; // aprovado | contestado | ajuste_solicitado
 
@@ -519,6 +547,10 @@ export class Retorno {
 
   @Column({ name: 'registrado_por', nullable: true })
   registrado_por: number; // do JWT (servidor)
+
+  // Chapéu ativo no momento do registro — ver Avaliacao.perfil_ativo.
+  @Column({ name: 'perfil_ativo', type: 'varchar', length: 20, nullable: true })
+  perfil_ativo: Perfil;
 
   @CreateDateColumn({ name: 'criado_em', type: 'timestamptz' })
   criado_em: Date; // do servidor

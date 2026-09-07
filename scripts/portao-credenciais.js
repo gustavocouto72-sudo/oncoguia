@@ -79,8 +79,11 @@ async function tokenApi(API, perfil, tentativas = 5) {
 // num "botão + Novo paciente não apareceu", que não diz nada sobre a causa.
 // Se for o rate limit, espera e tenta de novo — o portão precisa provar o fluxo do
 // usuário, e o usuário também tentaria de novo.
-async function loginNaTela(page, perfil, tentativas = 5) {
-  const { login, senha } = cred(perfil);
+// `quem` é o PERFIL (a conta de teste do .env.local) ou um par {login, senha} literal —
+// este último para a conta que o portão de perfis múltiplos CRIA na hora: ela não existe
+// no .env.local, e não deveria (é descartável, some na limpeza).
+async function loginNaTela(page, quem, tentativas = 5) {
+  const { login, senha } = typeof quem === 'string' ? cred(quem) : quem;
   for (let i = 1; ; i++) {
     await page.fill('#lg_login', login);
     await page.fill('#lg_senha', senha);
@@ -94,10 +97,10 @@ async function loginNaTela(page, perfil, tentativas = 5) {
     if (!erro) return login;
     const txt = (await erro.textContent()) || '';
     if (!/429|muitas|Too Many|limite/i.test(txt) || i >= tentativas) {
-      throw new Error(`login ${perfil} (${login}) na tela: ${txt.trim().slice(0, 120)}`);
+      throw new Error(`login ${login} na tela: ${txt.trim().slice(0, 120)}`);
     }
     const s = 15 * i;
-    console.log(`  … rate limit no login ${perfil} (tela): aguardando ${s}s (tentativa ${i}/${tentativas - 1})`);
+    console.log(`  … rate limit no login ${login} (tela): aguardando ${s}s (tentativa ${i}/${tentativas - 1})`);
     await espera(s * 1000);
   }
 }

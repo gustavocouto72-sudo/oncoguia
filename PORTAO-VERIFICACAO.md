@@ -130,7 +130,18 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
 
 7. **Fiação.** Frontend e backend na mesma porta/base URL; app e Revisão lendo a mesma fonte. Console (F12) sem erro vermelho no load (CORS, `Failed to fetch`, `null`).
 
-8. **Matriz de acesso por perfil.** Oncologista: sem aba Revisão (nem por URL). Revisor: não cria avaliação. Auditor: fila de exceção e custo, nada de Revisão. **Gestor: só Recursos** — sem Pacientes, sem Fluxograma, sem Revisão, sem autorização, e **sem nome de paciente** (a resposta do servidor sai pseudonimizada). Admin: tudo. (Selo de estado do protocolo aparece pro oncologista mesmo sem a Revisão.)
+8. **Matriz de acesso por perfil ATIVO.** Oncologista: sem aba Revisão (nem por URL). Revisor: não cria avaliação. Auditor: fila de exceção, nada de Revisão e **nada de dinheiro**. **Gestor: só Recursos** — sem Pacientes, sem Fluxograma, sem Revisão, sem autorização, e **sem nome de paciente** (a resposta do servidor sai pseudonimizada). Admin: tudo. (Selo de estado do protocolo aparece pro oncologista mesmo sem a Revisão.)
+
+   **"Por perfil ATIVO" é literal, e importa desde os perfis múltiplos.** Uma pessoa pode
+   ter vários chapéus e veste um por vez; a matriz testa o que ela está **vestindo**, nunca
+   a lista do que ela pode vestir. A prova é a mesma pessoa com dois tokens dando 403 e 200
+   na mesma rota (`portao-perfis`, checks `P5`/`P6`). E há uma pergunta que a matriz não
+   consegue fazer — "foi você quem pediu?" —, coberta pela **regra de conflito** da
+   autorização: ninguém decide a própria solicitação, qualquer que seja o perfil ativo.
+   - [ ] trocar de perfil no seletor do topo (só aparece para quem tem mais de um) e
+         conferir que as abas mudam nos **dois** sentidos
+   - [ ] trocar com um formulário aberto → **pede confirmação nomeando o que se perde**;
+         cancelar preserva o que estava digitado
 
    O gestor é o perfil que mais exige o teste **nas duas pontas**: o que ele não pode ver
    tem de dar 403 na **API direta**, não só sumir da tela. Foi assim que apareceu a falha
@@ -337,6 +348,21 @@ também pega corrida de carregamento.
 
 *Automação (adendo 4) — módulo Expectativa de custo:* `node scripts/portao-custo.js` roda o portão do custo global (mesmas portas). **50 checks.** O coração são dois. **(1) A matriz de perfil nas DUAS pontas, por API direta:** oncologista e revisor levam **403 em todas as 6 rotas de leitura** de `/custos` e no `PUT` de preço — a app esconder o bloco é cortesia, o controle é o guard; e o **gestor** lê mas não cadastra (403 só no PUT), porque leitura e escrita são whitelists diferentes (`['gestor','admin']` vs `['admin']`). O **auditor saiu da leitura** em 2026-09-07 — ver *Decisão de papel* acima; o check que dizia `auditor LÊ custo (200)` foi **invertido** para `403`, não removido, e a Fase 5 inteira (que provava "o auditor vê o bloco e a carteira na fila") hoje prova o oposto no mesmo endereço. **(2) A aritmética conferida contra o JSON de origem:** o portão recalcula ciclos e faixa a partir de `backend/data/evidencia.json` **com cópia própria da regra de periodicidade** — portão que importa a função sob teste não testa nada — e compara com o que o servidor respondeu, incluindo a **soma da carteira** (total = soma das linhas, e cada linha = ciclos × preço). Para isso o portão **cria o próprio paciente e a avaliação**: na primeira execução o check passou com `no_calculo=0`, isto é, verde sem somar nada, porque nenhum paciente da base tinha protocolo estimável. Cobre ainda: **indeterminado vira "sem estimativa" com motivo — nunca R$ 0** nem campo vazio (e nada de `R$ 0,00` renderizado na tela), periodicidade não derivável do esquema **não é chutada**, preço negociado acima da tabela é **recusado** (faixa invertida), preço **sem fonte** é recusado, preço para regime fora do corpus é recusado, o bloco **ausente do DOM do oncologista** inclusive entrando por `go('custos')`, e **0 re-render ao digitar nos campos de preço**. Restaura os preços anteriores e apaga o paciente de teste no fim.
 
+*Automação (adendo 5) — PERFIS MÚLTIPLOS (troca de chapéu):* `node scripts/portao-perfis.js` roda o portão dos perfis múltiplos (mesmas portas). **52 checks.** Ele **cria e apaga a própria conta de teste** — não há variável nova no `.env.local`, e não deveria haver: o que está sob teste é a *atribuição* de perfis, então a conta precisa nascer dentro do portão, com dois chapéus (`[oncologista, auditor]`), pela tela de acessos do admin. Faz **3 logins** (admin na tela, a conta criada na tela, o auditor por API); todos os demais tokens saem de `POST /auth/trocar-perfil`, que **não é login** e não consome a janela de 5/min.
+
+O desenho que ele guarda, em quatro frases:
+
+- **O token carrega UM perfil ativo.** A pessoa tem uma LISTA (`usuarios.perfis`), mas veste um por vez. O perfil ativo padrão é `usuarios.perfil`, e um CHECK do banco (`CHK_usuarios_perfis`) garante que ele é sempre membro da lista — coerência é invariante do banco, não disciplina do service.
+- **Trocar = token novo, validado contra a lista.** `POST /auth/trocar-perfil` relê a lista **do banco** e recusa com 403 o que não estiver nela, inclusive com JWT válido batendo direto na URL. E o `JwtStrategy` reconfere o perfil do token **a cada requisição**: admin que retira um perfil corta o acesso **na hora**, sem esperar as 8h do token expirar.
+- **A matriz de perfil continua sendo POR PERFIL ATIVO, nunca por lista.** Nada afrouxa porque a pessoa "tem" o outro chapéu — vale o que ela está vestindo. Os checks `P5`/`P6` são a prova viva disso: **a mesma pessoa**, dois tokens, `GET /autorizacoes` dá 403 num e 200 no outro. Se algum guard passasse a olhar a lista (a tentação óbvia: "ele é auditor, deixa passar"), esses dois checks viram 200 e o portão pega na hora.
+- **Ninguém decide a própria solicitação.** A pergunta que o guard **não** faz é sobre PESSOA, não sobre perfil — e é exatamente a que os perfis múltiplos abrem: pedir a exceção com um chapéu e, trocando, chegar à própria fila com permissão legítima. `AutorizacoesService.decidir` recusa quando `auditor_id == avaliado_por`, **qualquer que seja o perfil ativo** (admin incluído: quem tem mais poder não tem menos conflito).
+
+Cobre ainda: **um perfil só = badge estático** (o seletor aparecendo para quem não tem escolha é promessa vazia na tela) e **dois ou mais = seletor**; a troca **re-renderiza com as abas certas** nos dois sentidos (Autorizações entra e sai); trocar com **formulário aberto pede confirmação que NOMEIA o que se perde** ("um cadastro de paciente em preenchimento"), cancelar não troca nada **e preserva o texto digitado**, e — a outra metade da mesma regra — **sem rascunho aberto a troca não pergunta nada** (aviso que aparece sempre é aviso que se aprende a clicar sem ler); a **trava anti-lockout** (o admin não retira o próprio `admin`); e o **perfil ativo carimbado no registro** — o pedido guarda o chapéu com que foi FEITO (`avaliacoes.perfil_ativo`), não o que a pessoa tem hoje.
+
+> **A espera que lia o render anterior.** A primeira versão deste portão acusou "Autorizações não entrou" e, na troca seguinte, "Autorizações não saiu" — o sintoma clássico de estar **sempre um render atrasado**. A causa não era a app: a espera era `USUARIO.perfil === 'auditor'`, e `USUARIO` é atribuído **antes** do `await carregarSessao()` (carteira, selo da fila) que precede o `render()`. O portão lia o DOM do chapéu anterior. Agora espera `USUARIO.perfil === p && !TROCANDO_PERFIL` — a flag volta a `false` na mesma linha síncrona do render, então é ela o sinal de "acabou". Mesma família do check que passava vazio: **esperar pelo dado não é esperar pela tela**, e num portão de UI é a tela que está sob teste.
+
+> **Veredito refém do `browser.close()`.** Numa execução o portão imprimiu os 52 PASS e **pendurou** no `await browser.close()` — sem veredito, o que para quem lê é indistinguível de um portão que quebrou no meio. O `close()` agora corre contra um prazo de 8s (`Promise.race`); o `process.exit` leva o Chrome junto de qualquer forma. O que não pode é o encerramento do browser decidir se o resultado aparece.
+
 *Adendo 4.1 — orais contínuos e desacoplamento uso/custo:* o portão passou para **72 checks**. Novos: **oral sem `periodo_dias`** não converte tempo em aplicações e não mostra R$ nenhum **mesmo com preço cadastrado** (o esquema do osimertinibe não tem intervalo de ciclo, e inventar um erraria o custo por um fator de 3); **com `periodo_dias`** a aritmética confere contra o recálculo independente (20,7 meses × 30,4 ÷ 30 = 21 períodos) e a origem sai marcada como `periodo_declarado`, não como esquema; `periodo_dias` **0 ou 400 é recusado**; regime com **tempo derivável e sem preço** mostra a metade de USO e **nenhum R$** — na API e na tela; e digitar no campo de período tem **0 re-render**, igual aos de preço.
 
 > **Lição do endpoint que ficou lento e virou falha de portão:** `/custos/cobertura` fazia um `findOne` de preço **por regime** — 295 idas ao Neon numa chamada só, **13,8s** de resposta. O portão esperava por `CUSTO_ADM !== null`, que é preenchida pela **primeira** das duas chamadas, e ia procurar o campo na tela 13 segundos antes de a tela existir: `waitForSelector` estourava e o portão acusava um bug de UI que não existia. Consertos, nesta ordem: a consulta virou **um** `find()` com mapa em memória (13,8s → **0,3s**), e a espera do portão passou a ser pelo **elemento da lista**, não pela variável. Espera por variável de estado é espera por meia verdade quando o carregamento tem mais de um passo.
@@ -400,8 +426,9 @@ conta de robô tem de ser reconhecível à primeira vista numa auditoria de aces
   60s enquanto a app, já logada, tinha trocado de tela por baixo dela. Portão que falha
   pelo motivo errado ensina a ignorar portão.
 
-**Estado em 2026-09-04:** `portao-retorno` 86/86 · `portao-autorizacao` 53/53 ·
-`portao-custo` 72/72 · `portao-recursos` 91/91 (duas execuções seguidas, lista de checks
+**Estado em 2026-09-07:** `portao-perfis` 52/52 (duas execuções seguidas, lista de checks
+idêntica) · `portao-retorno` 86/86 · `portao-autorizacao` 67/67 ·
+`portao-custo` 98/98 · `portao-recursos` 99/99 (duas execuções seguidas, lista de checks
 idêntica) ·
 `portao-b` tudo passou. Portão A (dados) verde com `--check-dois`, incluindo os checks
 **[9] expectativa_uso** (295/295, 67% indeterminado) e **[10] composicao** (295/295,
@@ -449,6 +476,15 @@ idêntica) ·
 > leva 403 em 10 rotas clínicas, e oncologista/revisor/auditor levam 403 em todas as de
 > `/recursos` **e de `/custos`** — mais o teste **afirmativo** de que o nome do paciente não
 > aparece na resposta, na tela nem dentro do `.xlsx`.
+>
+> **Corolário (2026-09-07) — a matriz é por PERFIL ATIVO, nunca por lista.** Desde os
+> perfis múltiplos uma pessoa pode ter vários chapéus, e a tentação é o guard perguntar
+> "algum dos perfis dela serve?". Não: ele pergunta **qual está vestido**, como sempre
+> perguntou — o token carrega um perfil só, e é ele que a matriz testa. O `portao-perfis`
+> guarda isso com a mesma pessoa e dois tokens (`P5`/`P6`): 403 num, 200 no outro. A
+> pergunta que a matriz de perfil **não** consegue fazer é sobre PESSOA — "foi você quem
+> pediu?" —, e é por isso que a regra de conflito da autorização existe ao lado dela, não
+> dentro dela.
 >
 > **Corolário (2026-09-07):** quando a exigência **muda de sinal**, o check se **inverte**,
 > não se apaga. `C2 auditor LÊ custo (200)` virou `C2 ★ auditor NÃO lê custo (403)` no mesmo

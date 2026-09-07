@@ -3,6 +3,7 @@ import { IsIn, IsString } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { AuditorOuAdminGuard } from '../auth/auditor.guard';
 import { AutorizacoesService, FiltroAutorizacao } from './autorizacoes.service';
+import type { Perfil } from '../database/entities';
 
 class DecidirDto {
   @IsIn(['aprovada', 'negada'], { message: 'decisao deve ser aprovada ou negada' })
@@ -41,8 +42,8 @@ export class AutorizacoesController {
   decidir(
     @Param('id', ParseIntPipe) id: number,
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })) dto: DecidirDto,
-    @Request() req: { user: { id: number } },
+    @Request() req: { user: { id: number; perfil: Perfil } },
   ) {
-    return this.service.decidir(id, dto, req.user.id);
+    return this.service.decidir(id, dto, req.user.id, req.user.perfil);
   }
 }

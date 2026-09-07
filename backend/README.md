@@ -37,6 +37,8 @@ herda as permissões do menor. Endpoints de `/revisao/*` exigem `revisor`+.
 
 - `POST /api/auth/login` → `{ access_token, usuario }`
 - `GET /api/auth/perfil` · `POST /api/auth/alterar-senha`
+- `POST /api/auth/trocar-perfil` `{ perfil }` → token NOVO com outro perfil **da lista** do
+  usuário; perfil fora da lista = 403 (ver *Perfis*)
 - `GET|POST /api/pacientes` · `GET /api/pacientes/:id` · `GET /api/pacientes/:id/selecoes`
 - `POST /api/selecoes` — grava a escolha de protocolo (fotografia de `dados_clinicos` em JSONB)
 - `POST|GET /api/revisao/decisoes` — pareceres da Mesa de Revisão (perfil revisor)
@@ -60,6 +62,26 @@ nada — **sem ver dinheiro**, nem na tela nem por API; o segundo vê a camada f
 (`/custos` + `/recursos`) e mais nada — sem Revisão, sem autorização e sem dado clínico
 (`LeituraClinicaGuard`). Só `oncologista < revisor < admin` formam escada (`RolesGuard`), e
 quem está fora dela não herda nada.
+
+### Vários chapéus, um por vez
+
+Uma pessoa tem uma **LISTA** de perfis (`usuarios.perfis`, definida pelo admin) e veste
+**um por vez**. O que o login entrega é `usuarios.perfil`, o *perfil ativo padrão*, que o
+CHECK `CHK_usuarios_perfis` obriga a ser membro da lista.
+
+- **O JWT carrega UM perfil ativo.** Guards e whitelists não mudaram de lógica: continuam
+  perguntando "qual é o perfil ativo?". Estar na lista **não acumula permissão**.
+- **Trocar = `POST /auth/trocar-perfil`**, que valida o pedido contra a lista **lida do
+  banco** e emite um token novo. Fora da lista → 403, inclusive por API direta.
+- **A lista é reconferida a cada requisição** (`JwtStrategy`): retirar um perfil de alguém
+  invalida na hora o token que o usava — não se espera o token expirar.
+- **Ninguém decide a própria solicitação.** `POST /autorizacoes/:id/decidir` recusa quando
+  o auditor é o autor da avaliação, **qualquer que seja o perfil ativo**. Sem essa regra os
+  perfis múltiplos abririam o caminho de pedir a exceção com um chapéu e aprová-la com
+  outro, sem nenhum guard reclamar.
+- **Cada ação gravada carimba o perfil ativo do momento** (`perfil_ativo` em `avaliacoes`,
+  `revisoes` e `retornos`; `autorizacao_perfil_ativo` para a decisão). "Quem escreveu" não
+  responde mais "com que chapéu escreveu".
 
 ## Deploy (Vercel)
 

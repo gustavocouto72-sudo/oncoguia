@@ -282,11 +282,25 @@
   .login-card{max-width:400px;margin:70px auto}
   .login-err{background:var(--redbg);color:#a5281b;border:1px solid #f0c3bd;border-radius:8px;padding:8px 12px;font-size:12px;margin-bottom:12px}
   .login-info{background:var(--greenbg);color:#137a49;border:1px solid #bfe6cf;border-radius:8px;padding:8px 12px;font-size:12px;margin-bottom:12px;line-height:1.5}
-  .userbox{display:flex;align-items:center;gap:10px;font-size:12px}
-  .userbox .uname{font-weight:700}
+  /* `flex:none` + `nowrap`: com o badge estático o nome cabia sempre; o <select> do
+     seletor de perfil tem largura intrínseca bem maior e espremia a caixa inteira — o
+     nome quebrava em três linhas e o cabeçalho crescia junto. A caixa de usuário não é
+     área elástica do cabeçalho, é conteúdo de tamanho próprio. */
+  .userbox{display:flex;align-items:center;gap:10px;font-size:12px;flex:none}
+  .userbox .uname{font-weight:700;white-space:nowrap}
   .userbox .uperfil{font-size:10px;background:#ffffff22;border:1px solid #ffffff44;padding:2px 8px;border-radius:20px;text-transform:uppercase;font-weight:700}
+  /* Seletor de perfil: MESMA pílula do badge estático, de propósito. Quem tem um chapéu
+     só e quem tem três veem o mesmo objeto no mesmo lugar — o que muda é ele abrir. */
+  .userbox select.uperfil{cursor:pointer;color:#fff;padding-right:22px;max-width:170px;appearance:none;
+    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath fill='%23fff' d='M0 0h10L5 6z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 8px center;background-size:8px}
+  .userbox select.uperfil option{color:#123; background:#fff; text-transform:none}
+  .userbox select.uperfil:disabled{opacity:.55;cursor:progress}
 
   /* ---- admin: gestão de acessos ---- */
+  .adm-perfis{display:flex;flex-wrap:wrap;gap:4px 14px;padding:7px 0}
+  .adm-perfis label{display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+    text-transform:none;letter-spacing:0;font-size:13px;font-weight:600;color:var(--ink)}
   .adm-ok{background:var(--greenbg);color:#157a49;border:1px solid #bfe6cf;border-radius:8px;padding:8px 12px;font-size:12px;margin:0 0 12px}
   .senha-tmp{background:#eaf2f8;border:1px solid #bcd4e6;border-radius:10px;padding:12px 16px;margin:0 0 12px;font-size:12px;color:var(--ink)}
   .senha-tmp .pw{display:block;font-size:20px;letter-spacing:3px;color:var(--navy);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:800;margin:4px 0}
@@ -563,12 +577,86 @@ async function carregarPacientes(){
 }
 
 // ---- sessão ----
+// A LISTA de chapéus desta pessoa. Fallback no perfil ativo para uma sessão restaurada de
+// um localStorage gravado antes dos perfis múltiplos: lista vazia esconderia o badge.
+function perfisDoUsuario(){
+  if(!USUARIO) return [];
+  return (USUARIO.perfis && USUARIO.perfis.length) ? USUARIO.perfis : [USUARIO.perfil];
+}
+
+// UM chapéu = badge estático, exatamente como sempre foi. DOIS OU MAIS = seletor.
+// A regra é essa e não "mostra sempre o seletor": para a esmagadora maioria dos usuários
+// um <select> de um item só seria um controle que promete uma escolha inexistente.
 function renderUserbox(){
   const el = document.getElementById("userbox"); if(!el) return;
-  el.innerHTML = USUARIO
-    ? `<span class="uname">${esc(USUARIO.nome)}</span><span class="uperfil">${esc(USUARIO.perfil)}</span><button onclick="go('senha')">Senha</button><button onclick="doLogout(true)">Sair</button>`
-    : "";
+  if(!USUARIO){ el.innerHTML = ""; renderDatasrc(); return; }
+  const perfis = perfisDoUsuario();
+  const chapeu = perfis.length > 1
+    ? `<select class="uperfil" id="ub_perfil" title="Trocar de perfil" onchange="trocarPerfil(this.value)">
+         ${perfis.map(p=>`<option value="${esc(p)}" ${p===USUARIO.perfil?"selected":""}>${esc(PERFIL_LABEL[p]||p)}</option>`).join("")}
+       </select>`
+    : `<span class="uperfil">${esc(USUARIO.perfil)}</span>`;
+  el.innerHTML = `<span class="uname">${esc(USUARIO.nome)}</span>${chapeu}`
+    + `<button onclick="go('senha')">Senha</button><button onclick="doLogout(true)">Sair</button>`;
   renderDatasrc();
+}
+
+// ---- troca de perfil ----------------------------------------------------------------
+// RASCUNHO EM DIGITAÇÃO — o que se perde se a sessão re-renderizar agora.
+// Trocar de chapéu recarrega a tela inteira (abas, dados, permissões), e tudo que estava
+// digitado e não gravado vai junto. Estes são os formulários que guardam texto do usuário
+// em memória; a lista existe para que a confirmação diga O QUE se perde, não um "tem
+// certeza?" genérico — aviso que não nomeia o prejuízo é aviso que se aprende a ignorar.
+function rascunhoAberto(){
+  const abertos = [];
+  if(REAVAL) abertos.push("uma reavaliação em preenchimento");
+  if(CADASTRO) abertos.push("um cadastro de paciente em preenchimento");
+  if(RETORNO) abertos.push("um retorno em preenchimento");
+  if(SADT) abertos.push("uma guia SP/SADT em preenchimento");
+  if(SIM) abertos.push("o simulador aberto");
+  // Pareceres: só contam com CONTEÚDO digitado — um objeto criado por um clique de
+  // seleção e depois esvaziado não é rascunho, e alertar sobre ele ensina a ignorar.
+  const temTexto = o => Object.values(o||{}).some(f => f && Object.values(f).some(v => typeof v==="string" && v.trim()));
+  if(temTexto(REVC_FORM)) abertos.push("um parecer de revisão digitado");
+  if(temTexto(AUT_FORM)) abertos.push("um parecer de autorização digitado");
+  return abertos;
+}
+
+// Troca de chapéu: pede o token NOVO ao backend e recarrega a sessão com ele.
+// Quem recusa perfil fora da lista é o SERVIDOR (403) — o seletor só oferece o que a
+// pessoa tem, mas isso é conveniência de tela. Em caso de erro, o <select> volta ao
+// perfil ativo de verdade: um seletor mostrando um chapéu que a sessão não está usando
+// seria pior do que não trocar.
+let TROCANDO_PERFIL = false;
+async function trocarPerfil(perfil){
+  const sel = document.getElementById("ub_perfil");
+  if(TROCANDO_PERFIL || !USUARIO || perfil === USUARIO.perfil){ if(sel) sel.value = USUARIO ? USUARIO.perfil : ""; return; }
+  const abertos = rascunhoAberto();
+  if(abertos.length && !confirm(
+      `Você tem ${abertos.join(" e ")}. Trocar de perfil recarrega a tela e esse conteúdo será perdido.\n\nTrocar mesmo assim?`)){
+    if(sel) sel.value = USUARIO.perfil;   // desfaz a escolha no <select>: nada mudou
+    return;
+  }
+  TROCANDO_PERFIL = true; if(sel) sel.disabled = true;
+  try{
+    const r = await api("/auth/trocar-perfil", {method:"POST", body:JSON.stringify({perfil})});
+    TOKEN = r.access_token; USUARIO = r.usuario;
+    localStorage.setItem("oncoguia_token", TOKEN);
+    localStorage.setItem("oncoguia_usuario", JSON.stringify(USUARIO));
+    limparEstadoDeSessao();
+    await carregarSessao();
+    view = podeVerClinico() ? "lista" : "recursos";
+    TROCANDO_PERFIL = false;
+    renderUserbox(); render();
+    toast(`Perfil ativo: ${PERFIL_LABEL[USUARIO.perfil]||USUARIO.perfil}`);
+  }catch(e){
+    TROCANDO_PERFIL = false;
+    renderUserbox();   // devolve o <select> ao perfil que a sessão realmente usa
+    // 401 no meio da troca: `api()` já derrubou a sessão, e sem este render a tela ficaria
+    // no perfil antigo, com dados de paciente à vista e sem caixa de usuário no topo.
+    if(!TOKEN || !USUARIO) return render();
+    alert("Não foi possível trocar de perfil: " + (e.message||e));
+  }
 }
 
 // Indicador de fonte da evidência: informação de desenvolvimento. Na tela, apenas
@@ -632,12 +720,8 @@ async function doLogin(){
     TOKEN = r.access_token; USUARIO = r.usuario;
     localStorage.setItem("oncoguia_token", TOKEN);
     localStorage.setItem("oncoguia_usuario", JSON.stringify(USUARIO));
-    REVC_RESUMO = {}; REVC_RESUMO_OK = false; REVC_DEC = {}; REVC_SEL = new Set(); REVC_FONTES = {}; REVC_FONTES_OK = false; // estado de revisão recarrega como o novo usuário
-    await initEvidencia();           // corpus de protocolos: só chega com JWT válido
-    if(podeVerClinico()){
-      await carregarPacientes();
-      await carregarResumoRevisao();
-    }
+    limparEstadoDeSessao();          // nada do usuário anterior atravessa o login
+    await carregarSessao();          // corpus + carteira + selo da fila, conforme o perfil
     renderUserbox(); view = podeVerClinico() ? "lista" : "recursos"; render();
   }catch(e){
     renderLogin(e.message || "Falha no login");
@@ -645,14 +729,48 @@ async function doLogin(){
     const b = document.getElementById("lg_btn"); if(b) b.disabled = false;
   }
 }
-function doLogout(rerender){
-  TOKEN = null; USUARIO = null;
+// Estado que pertence a UM CHAPÉU, não à pessoa: some no logout E na troca de perfil.
+// Ele é a razão de a troca não poder ser só "renderiza de novo": um oncologista que vira
+// gestor não pode continuar com a carteira de pacientes, a trilha e os pareceres do
+// chapéu anterior em memória — a app pararia de PEDIR o que ele não pode ver, mas ainda
+// TERIA. A evidência (corpus) fica de fora de propósito: ela é a mesma para qualquer
+// perfil autenticado, e rebuscá-la a cada troca seria megabytes por nada.
+function limparEstadoDeSessao(){
   REVC_RESUMO = {}; REVC_RESUMO_OK = false; REVC_DEC = {}; REVC_OPEN = new Set(); REVC_FORM = {}; REVC_SEL = new Set(); REVC_FONTES = {}; REVC_FONTES_OK = false;
   ADM_USUARIOS = null; ADM_EDIT = null; ADM_SENHA_TMP = null; ADM_ERRO = ""; ADM_OK = "";
   SIM = null; // sandbox do simulador não sobrevive à sessão
   LISTA_FILTRO = "todos"; LISTA_BUSCA = ""; // a busca da lista é texto sobre paciente: sai com a sessão
   TRILHA = {}; RETORNO = null; SADT = null; // trilha e rascunho de retorno idem
-  // A evidência é privada: sai da memória junto com a sessão.
+  // Dado de paciente carregado: some junto. Vale para o logout (era vazamento: a carteira
+  // ficava na memória da aba depois de sair) e vale ainda mais para a troca de chapéu.
+  patients = []; PAC_DETAIL = {}; SELECOES_CACHE = {}; REAVAL = null; CADASTRO = null; current = null;
+  AUT_LISTA = null; AUT_CONTAGEM = null; AUT_FORM = {}; AUT_ERRO = ""; AUT_BUSY = null; AUT_FILTRO = "pendentes";
+  REC_PROJ = null; REC_INS = null; REC_FILA = null; REC_COB = null; REC_PREM = null;
+  REC_FORM = {}; REC_ERRO = ""; REC_MSG = ""; REC_ADM_ERRO = ""; REC_BUSY = null; REC_ABA = "resumo"; REC_AVANCADO = false;
+}
+
+// Tudo que uma sessão AUTENTICADA precisa buscar depois que o token está no lugar.
+// Um caminho só para os três momentos em que isso acontece — login, boot com token salvo
+// e troca de perfil. Eram duas cópias quase iguais (doLogin e boot) e a troca teria sido
+// a terceira: o modo de falha é a cópia que esquece uma linha e deixa um perfil sem o
+// selo da fila, ou com a carteira do chapéu anterior.
+async function carregarSessao(){
+  if(!EVIDENCIA) await initEvidencia();   // corpus: igual para todo perfil autenticado
+  // Dado clínico só para perfil clínico: para o GESTOR estas rotas devolvem 403
+  // (LeituraClinicaGuard), e um throw aqui derrubaria a sessão inteira em doLogout().
+  if(podeVerClinico()){
+    await carregarPacientes();
+    await carregarResumoRevisao();
+  }
+  // Fila de exceções: só o selo do menu (auditor/admin) — a lista carrega ao abrir a aba.
+  if(podeAutorizar()){ try{ AUT_CONTAGEM = await api("/autorizacoes/contagem"); }catch(_){} }
+}
+
+function doLogout(rerender){
+  TOKEN = null; USUARIO = null;
+  limparEstadoDeSessao();
+  // A evidência é privada: sai da memória junto com a sessão. (Só no logout — a troca de
+  // perfil a mantém: é a mesma pessoa, já autenticada, e o corpus não muda por chapéu.)
   EVIDENCIA = null; REGIMES = []; TUMORES = []; CAMPOS_POR_TUMOR = {}; DATA_SOURCE = null; DATASRC = null;
   CAMPOS_PRIM_POR_TUMOR = {}; CRIT_EXPR_POR_TUMOR = {}; CRIT_LABEL_POR_TUMOR = {}; HAS_PRIM_FORMAT = false;
   VIGIL_CANDS = null; CAND_POR_REGIME = null; CANDS_STANDALONE = null;
@@ -1365,7 +1483,12 @@ function clauseLabel(node,primMap,tumor){
 // Espelha o padrão HelmCare: CRUD de usuários via backend (/usuarios, admin-only).
 // A ação padrão na tela é DESATIVAR (preserva a trilha de auditoria); a exclusão
 // física só aparece para usuários já inativos, como exceção.
-const PERFIL_LABEL = { admin:"Administrador", oncologista:"Oncologista", revisor:"Revisor", auditor:"Auditor" };
+// O vocabulário dos 5 perfis, na ordem em que o backend os normaliza (entities.ts PERFIS)
+// — assim a lista de checkboxes e a lista salva não trocam de ordem entre dois saves.
+// 'gestor' faltava aqui e em admPerfilOptions desde que o perfil nasceu: a tela de admin
+// não conseguia criar um, e a tabela imprimia "gestor" cru na coluna Perfil.
+const PERFIS_APP = ["oncologista","revisor","auditor","admin","gestor"];
+const PERFIL_LABEL = { oncologista:"Oncologista", revisor:"Revisor", auditor:"Auditor", admin:"Administrador", gestor:"Gestor" };
 let ADM_USUARIOS = null;   // null = ainda não carregado do backend
 let ADM_EDIT = null;       // usuário em edição (cópia) ou null
 let ADM_SENHA_TMP = null;  // {login, senha} do último usuário criado
@@ -1381,7 +1504,7 @@ async function admCriar(){
   const g=id=>document.getElementById(id).value;
   try{
     const r = await api("/usuarios", {method:"POST", body:JSON.stringify(Object.assign({
-      nome:g("adm_nome").trim(), login:g("adm_login").trim(), perfil:g("adm_perfil"),
+      nome:g("adm_nome").trim(), login:g("adm_login").trim(), perfis:admPerfisLidos("adm"),
     }, admProfissionais("adm")))});
     ADM_SENHA_TMP = { login:r.login, senha:r.senha_temporaria };
     ADM_OK = "Usuário criado com sucesso.";
@@ -1399,7 +1522,7 @@ async function admSalvar(){
   const g=id=>document.getElementById(id);
   const payload = Object.assign({
     nome:g("adm_e_nome").value.trim(), login:g("adm_e_login").value.trim(),
-    perfil:g("adm_e_perfil").value, ativo:g("adm_e_ativo").checked,
+    perfis:admPerfisLidos("adm_e"), ativo:g("adm_e_ativo").checked,
   }, admProfissionais("adm_e"));
   if(g("adm_e_senha").value) payload.senha = g("adm_e_senha").value;
   try{
@@ -1456,9 +1579,29 @@ function admProfissionaisHtml(pref, u){
     <div class="field"><label>Código CBO</label><input id="${pref}_cbos" value="${esc(u.cbos||"")}"></div>
   </div>`;
 }
-function admPerfilOptions(sel){
-  return ["oncologista","revisor","auditor","admin"]
-    .map(p=>`<option value="${p}" ${p===sel?"selected":""}>${PERFIL_LABEL[p]}</option>`).join("");
+// PERFIS = checkboxes, não <select>: uma pessoa pode ter mais de um chapéu (e veste um
+// por vez, trocando no canto superior direito). O prefixo separa o formulário de criação
+// do de edição, que coexistem no mesmo DOM.
+function admPerfisCheckboxes(pref, marcados){
+  const set = new Set(marcados && marcados.length ? marcados : []);
+  return `<div class="adm-perfis">` + PERFIS_APP.map(p=>
+    `<label><input type="checkbox" id="${pref}_perfil_${p}" value="${p}" ${set.has(p)?"checked":""}> ${PERFIL_LABEL[p]}</label>`
+  ).join("") + `</div>`;
+}
+// Lê a lista marcada. Volta [] quando nada foi marcado — quem recusa é o backend
+// ("Selecione ao menos um perfil"), e a app mostra a mensagem dele; ter a checagem só
+// aqui deixaria a API aceitando conta sem acesso nenhum por chamada direta.
+function admPerfisLidos(pref){
+  return PERFIS_APP.filter(p=>{ const el=document.getElementById(`${pref}_perfil_${p}`); return el && el.checked; });
+}
+// Rótulo da coluna Perfil na tabela: um chapéu imprime o nome; vários imprimem a lista,
+// com o ATIVO PADRÃO (o que o login entrega) em negrito.
+function admPerfisLabel(u){
+  const lista = (u.perfis && u.perfis.length) ? u.perfis : [u.perfil];
+  return lista.map(p=>{
+    const nome = esc(PERFIL_LABEL[p]||p);
+    return p===u.perfil ? `<b>${nome}</b>` : nome;
+  }).join(" · ");
 }
 function renderAdmin(){
   if(ADM_USUARIOS===null){
@@ -1479,11 +1622,13 @@ function renderAdmin(){
       <div class="field"><label>Nome completo</label><input id="adm_e_nome" value="${esc(ADM_EDIT.nome)}"></div>
       <div class="field"><label>Login</label><input id="adm_e_login" value="${esc(ADM_EDIT.login)}"></div>
     </div>
-    <div class="grid3">
+    <div class="grid2">
       <div class="field"><label>Nova senha (em branco = manter)</label><input id="adm_e_senha" type="password" autocomplete="new-password"></div>
-      <div class="field"><label>Perfil</label><select id="adm_e_perfil">${admPerfilOptions(ADM_EDIT.perfil)}</select></div>
       <div class="field"><label>Status</label><label style="display:inline-flex;align-items:center;gap:8px;padding:9px 0;cursor:pointer;text-transform:none;letter-spacing:0;font-size:13px;font-weight:600;color:var(--ink)"><input type="checkbox" id="adm_e_ativo" ${ADM_EDIT.ativo?"checked":""} ${ADM_EDIT.id===USUARIO.id?"disabled":""}> Ativo</label></div>
     </div>
+    <div class="field"><label>Perfis</label>
+      <div class="hint" style="margin:-2px 0 2px">Vários perfis = a pessoa escolhe qual usar no seletor do topo. Um por vez — marcar dois não soma permissão.</div>
+      ${admPerfisCheckboxes("adm_e", ADM_EDIT.perfis || [ADM_EDIT.perfil])}</div>
     ${admProfissionaisHtml("adm_e", ADM_EDIT)}
     <div class="row-actions">
       <button class="btn ghost" onclick="admCancelar()">Cancelar</button>
@@ -1493,11 +1638,13 @@ function renderAdmin(){
   <div class="card">
     <h2>Novo usuário</h2>
     <div class="sub">Uma senha temporária aleatória é gerada na criação — repasse-a ao usuário com a orientação de trocá-la no primeiro acesso.</div>
-    <div class="grid3">
+    <div class="grid2">
       <div class="field"><label>Nome completo</label><input id="adm_nome" placeholder="Nome do profissional"></div>
       <div class="field"><label>Login</label><input id="adm_login" placeholder="ex.: maria.souza"></div>
-      <div class="field"><label>Perfil</label><select id="adm_perfil">${admPerfilOptions("oncologista")}</select></div>
     </div>
+    <div class="field"><label>Perfis</label>
+      <div class="hint" style="margin:-2px 0 2px">Vários perfis = a pessoa escolhe qual usar no seletor do topo. Um por vez — marcar dois não soma permissão.</div>
+      ${admPerfisCheckboxes("adm", ["oncologista"])}</div>
     ${admProfissionaisHtml("adm", null)}
     <div class="row-actions"><button class="btn primary" onclick="admCriar()">Criar usuário</button></div>
   </div>`;
@@ -1505,7 +1652,7 @@ function renderAdmin(){
     <tr>
       <td><b>${esc(u.nome)}</b>${u.id===USUARIO.id?` <span class="hint">(você)</span>`:""}</td>
       <td>${esc(u.login)}</td>
-      <td>${PERFIL_LABEL[u.perfil]||esc(u.perfil)}</td>
+      <td>${admPerfisLabel(u)}</td>
       <td>${conselhoLabel(u) || `<span class="hint">—</span>`}</td>
       <td><span class="adm-status ${u.ativo?"on":"off"}">${u.ativo?"Ativo":"Inativo"}</span></td>
       <td style="text-align:right;white-space:nowrap">
@@ -6168,17 +6315,11 @@ function recAvancadoConteudoHtml(){
   // A evidência (corpus) só é buscada DEPOIS de confirmar a sessão — nada é público.
   if(TOKEN){
     try{
+      // /auth/perfil devolve o perfil ATIVO do token (não o padrão da conta): um F5 depois
+      // de trocar de chapéu volta com o chapéu trocado, não com o do login.
       USUARIO = await api("/auth/perfil");
       localStorage.setItem("oncoguia_usuario", JSON.stringify(USUARIO));
-      await initEvidencia();
-      // Dado clínico só para perfil clínico: para o GESTOR estas duas rotas devolvem 403
-      // (LeituraClinicaGuard), e um throw aqui derrubaria a sessão inteira em doLogout().
-      if(podeVerClinico()){
-        await carregarPacientes();
-        await carregarResumoRevisao();   // estado de revisão clínica p/ sobrepor selos (paciente + revisão)
-      }
-      // Fila de exceções: só o selo do menu (auditor/admin) — a lista carrega ao abrir a aba.
-      if(podeAutorizar()){ try{ AUT_CONTAGEM = await api("/autorizacoes/contagem"); }catch(_){} }
+      await carregarSessao();
       view = podeVerClinico() ? "lista" : "recursos";
     }catch(e){ doLogout(); }
   }

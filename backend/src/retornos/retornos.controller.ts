@@ -12,7 +12,7 @@ import { LeituraClinicaGuard } from '../auth/clinico.guard';
 import { OncologistaOuAdminGuard } from '../auth/oncologista.guard';
 import { CHAVES_INTERVALO, RetornosService } from './retornos.service';
 import type { IntervaloRetorno } from './retornos.service';
-import type { CondutaRetorno, RespostaRetorno } from '../database/entities';
+import type { CondutaRetorno, Perfil, RespostaRetorno } from '../database/entities';
 
 const RESPOSTAS: RespostaRetorno[] = [
   'resposta_completa', 'resposta_parcial', 'doenca_estavel', 'progressao', 'nao_avaliada',
@@ -102,9 +102,9 @@ export class RetornosController {
   criar(
     @Param('pacienteId', ParseIntPipe) pacienteId: number,
     @Body(PIPE) dto: CriarRetornoDto,
-    @Request() req: { user: { id: number } },
+    @Request() req: { user: { id: number; perfil: Perfil } },
   ) {
-    return this.service.criar(pacienteId, dto, req.user.id);
+    return this.service.criar(pacienteId, dto, req.user.id, req.user.perfil);
   }
 
   @Get('retornos')
