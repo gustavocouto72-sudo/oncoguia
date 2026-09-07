@@ -1762,7 +1762,7 @@ function render(){
   if(view==="admin" && USUARIO.perfil!=="admin") view = "lista"; // bloqueio de acesso direto
   if(view==="revclin" && !["revisor","admin"].includes(USUARIO.perfil)) view = "lista"; // Revisão: só revisor/admin
   if(view==="autorizacoes" && !["auditor","admin"].includes(USUARIO.perfil)) view = "lista"; // Autorizações: só auditor/admin
-  if(view==="simulador" && !["revisor","admin"].includes(USUARIO.perfil)) view = "lista"; // Simulador: só revisor/admin
+  if(view==="simulador" && !podeSimular()) view = "lista"; // Simulador: whitelist própria (ver podeSimular)
   // "custos" e "insumos" viraram SEÇÕES da aba Recursos. A normalização é aqui também, e
   // não só no go(): quem chega por localStorage, por URL antiga ou por chamada direta cai
   // na aba única, e o guard de perfil abaixo é o mesmo de sempre. O cadastro de preço e o
@@ -1809,10 +1809,16 @@ function renderNav(){
   // viraram seções dentro desta. O admin vê as três coisas aqui.
   const recTab = podeVerRecursos()
     ? `<a class="${isRec?'on':''}" onclick="go('recursos')">Recursos</a>` : "";
+  // Aba Simulador: whitelist ['oncologista','revisor','admin'] — ver podeSimular(). Saiu
+  // de dentro do ternário da Revisão clínica: eram a mesma condição por acidente de
+  // escrita, e o oncologista entra aqui SEM entrar lá.
+  const simTab = podeSimular()
+    ? `<a class="${isSim?'on':''}" onclick="go('simulador')">Simulador</a>` : "";
   nav.innerHTML = `<nav class="tabs">
     ${podeVerClinico() ? `<a class="${isPac?'on':''}" onclick="go('lista')">Pacientes</a>
     <a class="${isFlow?'on':''}" onclick="go('fluxograma')">Fluxograma</a>` : ""}
-    ${USUARIO && ["revisor","admin"].includes(USUARIO.perfil) ? `<a class="${isRevc?'on':''}" onclick="go('revclin')">Revisão clínica</a><a class="${isSim?'on':''}" onclick="go('simulador')">Simulador</a>` : ""}
+    ${USUARIO && ["revisor","admin"].includes(USUARIO.perfil) ? `<a class="${isRevc?'on':''}" onclick="go('revclin')">Revisão clínica</a>` : ""}
+    ${simTab}
     ${autTab}
     ${recTab}
     ${USUARIO && USUARIO.perfil==="admin" ? `<a class="${isAdm?'on':''}" onclick="go('admin')">Admin</a>` : ""}
@@ -4251,13 +4257,24 @@ function flowMermaidDownload(){
   baixarTexto(flowMermaid(c.tree, c.tumorLabel), `fluxograma-${FLOW_TUMOR}.mmd`, "text/plain");
 }
 
-// =================== SIMULADOR DE ELEGIBILIDADE (revisor/admin) ===================
-// Sandbox SEM paciente e SEM persistência: o revisor escolhe o tumor, edita os
+// =================== SIMULADOR DE ELEGIBILIDADE (oncologista/revisor/admin) ===================
+// Sandbox SEM paciente e SEM persistência: quem abre escolhe o tumor, edita os
 // campos_primitivos livremente (nada travado — não há paciente real) e vê os protocolos
 // re-avaliados AO VIVO pelo MESMO motor da tela do paciente (evalExpr → classificarPrim →
 // renderProtos). Nada é gravado no banco, nenhuma avaliação é criada; o botão
 // "Selecionar protocolo" não existe aqui (flag sandbox no pseudo-paciente).
 let SIM = null; // {tumor, sysOpen, clin:{campo→valor}, sexo, idade}
+
+// Quem vê o Simulador = whitelist EXPLÍCITA, sem herança hierárquica — mesmo padrão de
+// podeAutorizar()/podeVerRecursos(). O ONCOLOGISTA entra: o Simulador é leitura pura do
+// corpus de evidência — sem paciente, sem escrita, sem custo — e é onde o "informa, o
+// médico decide" vira exploração livre. Entrar aqui NÃO o coloca em Revisão clínica: as
+// duas abas compartilhavam um ternário só, e agora cada uma tem a sua lista literal.
+//
+// INVARIANTE: simulação não grava. Não há POST/PUT em nenhum caminho desta tela, e o
+// botão "Selecionar protocolo" some pela flag `sandbox` do pseudo-paciente (renderProtos).
+// Salvar simulação é decisão nova, não extensão desta — ver PORTAO-VERIFICACAO.md.
+function podeSimular(){ return !!(USUARIO && ["oncologista","revisor","admin"].includes(USUARIO.perfil)); }
 
 // Pseudo-paciente do sandbox. Sexo/idade do contexto só entram no motor se forem
 // campos_primitivos do tumor (i.e., alguma regra os usa) — clinValues() descarta o resto,
@@ -4400,7 +4417,7 @@ function renderSimulador(){
     app().innerHTML = `
     <div class="card">
       <h2>Simulador de elegibilidade</h2>
-      <div class="sub">Sandbox para revisores: explore como o semáforo dos protocolos responde às características clínicas — mesmo motor de elegibilidade da tela do paciente, sem paciente.</div>
+      <div class="sub">Sandbox de evidência: explore como o semáforo dos protocolos responde às características clínicas — mesmo motor de elegibilidade da tela do paciente, sem paciente.</div>
       <div class="disclaimer">🧪 <b>Simulação — nenhum dado é salvo.</b> Nada é gravado no banco e nenhuma avaliação é criada; o botão de seleção de protocolo não existe aqui.</div>
       ${ctxHtml}
       <div class="section-t">Tumor</div>
@@ -4413,7 +4430,7 @@ function renderSimulador(){
   app().innerHTML = `
   <div class="card">
     <h2>Simulador de elegibilidade</h2>
-    <div class="sub">Sandbox para revisores: explore como o semáforo dos protocolos responde às características clínicas — mesmo motor de elegibilidade da tela do paciente, sem paciente.</div>
+    <div class="sub">Sandbox de evidência: explore como o semáforo dos protocolos responde às características clínicas — mesmo motor de elegibilidade da tela do paciente, sem paciente.</div>
     <div class="disclaimer">🧪 <b>Simulação — nenhum dado é salvo.</b> Nada é gravado no banco e nenhuma avaliação é criada; o botão de seleção de protocolo não existe aqui.</div>
     ${ctxHtml}
     <div class="section-t">Tumor</div>

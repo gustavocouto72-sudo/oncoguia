@@ -68,6 +68,29 @@ View **read-only**, **independente de paciente**: é o **algoritmo do protocolo 
 
 Não altera o squad nem os arquivos do run — só lê o JSON consolidado.
 
+## Simulador (aba "Simulador") — elegibilidade sem paciente
+Sandbox **sem paciente** e **sem persistência**, visível a **oncologista · revisor · admin**
+(`podeSimular()`). Escolha o tumor, edite qualquer característica clínica — nada é travado,
+porque não há paciente real — e veja os protocolos re-avaliados **ao vivo** pelo **mesmo
+motor** da tela do paciente (`evalExpr` → `classificarPrim` → `renderProtos`). Sexo e idade
+ficam num bloco de *Contexto* opcional e só entram na conta se alguma regra do tumor os usar;
+fora disso são informativos, sem regra inventada.
+
+**Por que o oncologista vê.** É leitura pura do corpus de evidência — sem paciente, sem
+escrita, sem dinheiro — e materializa o "informa, o médico decide" como **exploração livre**:
+dá para perguntar "e se o performance status fosse outro?" sem tocar em ninguém. Entrar aqui
+**não** dá acesso à Revisão clínica: as duas abas dividiam uma condição só no `renderNav()`,
+e hoje cada uma tem a sua whitelist literal.
+
+> **Somente leitura por contrato.** Nenhum `POST`/`PUT` em qualquer caminho da tela, nenhuma
+> avaliação criada, e o botão **"Selecionar protocolo" não existe** aqui (flag `sandbox` no
+> pseudo-paciente, lida por `renderProtos`). O `portao-simulador` **escuta a rede** e exige
+> zero escritas com a tela aberta. Salvar simulação seria **decisão nova, não extensão** —
+> ver `PORTAO-VERIFICACAO.md`.
+
+Nenhuma rota nova no servidor: o Simulador lê o que a tela do paciente já lia
+(`/evidencia`, `/revisoes/resumo`, `/revisoes/fontes`).
+
 ## Revisão clínica (aba "Revisão clínica") — a camada humana sobre os protocolos
 Uma aba só de revisão (a antiga **Mesa de Revisão** foi aposentada e sua função útil absorvida aqui).
 Lista os **295 protocolos** por tumor; o revisor (perfil `revisor`/`admin`) **aprova · contesta ·
