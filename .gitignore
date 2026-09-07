@@ -47,3 +47,7 @@ backend/uploads/
 # pontual de cada número usado, em fontes-extraidas.json.
 squads/mbe-oncologia/extracao-expectativa-uso/abstracts.json
 squads/mbe-oncologia/extracao-expectativa-uso/candidatos.json
+
+# Screenshot que os portões gravam quando um check de UI falha: artefato de depuração de
+# UMA rodada, regenerável, e que um `git add -A` distraído leva junto para o commit.
+portao-*-erro.png
