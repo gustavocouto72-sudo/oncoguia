@@ -5,6 +5,10 @@ import type { Perfil } from '../database/entities';
 // hierárquica — mesmo padrão do RevisorOuAdminGuard. O perfil precisa estar literalmente
 // em ['auditor','admin']: 'auditor' não é degrau de escada, é eixo próprio. Oncologista e
 // revisor recebem 403 aqui, inclusive batendo direto na URL.
+//
+// ESCOPO: só a fila e a decisão. Este guard NÃO guarda dinheiro — /custos era guardado
+// por ele e passou para o GestorOuAdminGuard. O auditor decide mérito sem ver custo, e é
+// deliberado: nenhuma rota de leitura financeira volta para cá.
 const PERFIS_AUTORIZACAO: Perfil[] = ['auditor', 'admin'];
 
 @Injectable()

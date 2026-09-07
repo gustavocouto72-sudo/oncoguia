@@ -200,9 +200,10 @@ O que ele cobre, e por que cada parte existe:
   `go('insumos')` cai na aba **já com a seção avançada aberta** — redirecionar para o topo
   da tela seria um link vivo levando ao lugar errado.
 - **Matriz do gestor nas DUAS pontas.** Oncologista, revisor e auditor levam 403 em toda
-  rota de `/recursos` (o auditor **continua** vendo `/custos`, que é o dado da decisão de
-  exceção). O gestor leva 403 em 13 rotas clínicas e nas três escritas de recursos. Na
-  tela: só a aba Recursos, e `go('lista')` cai em Recursos em vez de tela vazia.
+  rota de `/recursos` **e de `/custos`** — a camada financeira inteira é `['gestor','admin']`.
+  O gestor leva 403 em 10 rotas clínicas e nas escritas de recursos e de preço; lê `/custos`
+  com a carteira **pseudonimizada**. Na tela: só a aba Recursos, e `go('lista')` cai em
+  Recursos em vez de tela vazia.
 - **Pseudonimização com teste AFIRMATIVO.** Não basta "o campo `paciente` está ausente": o
   portão procura o **nome literal** do paciente de teste no corpo inteiro da resposta, na
   tela inteira e dentro do `.xlsx`. E confere o contraste — o admin recebe o nome, porque a
@@ -224,6 +225,61 @@ O que ele cobre, e por que cada parte existe:
   **nasce fechada e sem conteúdo no DOM**, que o cabeçalho da seção fechada **declara a
   cobertura real** (`cobre X de N protocolos`), e só então a **abre** para rodar os mesmos
   checks de antes. Recolher a UI não pode virar recolher o check.
+
+---
+
+## Decisão de papel — o auditor decide MÉRITO, não custo
+
+**Regra permanente: a tela de Autorizações não mostra dinheiro para NINGUÉM — nem para o
+admin. Informação financeira (carteira, estimativa, preço, projeção) é de gestor e admin, e
+só na aba Recursos.** Nenhuma feature futura reintroduz custo no fluxo de autorização por
+parecer útil ali.
+
+O que mudou, em 2026-09-07: o painel "Custo total da carteira — ESTIMATIVA" no topo da fila
+e o bloco "Expectativa de uso e custo" dentro de cada cartão foram removidos, e a whitelist
+de **toda leitura** de `/custos` passou de `['auditor','admin']` para `['gestor','admin']`.
+O auditor leva **403** batendo direto na URL.
+
+Por que, já que o número era correto e a pergunta "quanto custa" parecia natural naquela
+tela: **quem autoriza uma exceção decide mérito** — a evidência sustenta este protocolo para
+este paciente? O preço não é insumo dessa pergunta. Um número à vista no momento da decisão
+convida a resposta certa pelo motivo errado, e **o convite não deixa rastro no parecer**: o
+parecer registra o que o auditor escreveu, nunca o que ele estava olhando. Um viés que não
+aparece na trilha não pode ser auditado depois — e este módulo inteiro existe para que a
+decisão seja auditável.
+
+Três coisas que fazem a regra ficar de pé:
+
+1. **A asserção é sobre a TELA, não sobre o perfil.** Os portões rodam o mesmo check para
+   auditor **e para admin**. Se valesse só para o auditor, "o admin é quem manda, deixa o
+   número para ele" passaria — e é essa a regressão provável, porque o admin é o único
+   perfil que pode ler `/custos` e abrir Autorizações ao mesmo tempo.
+2. **A UI é cortesia; o controle é o guard.** Esconder o bloco não protege nada sozinho —
+   `CustosController` e `RecursosController` compartilham a mesma whitelist literal
+   (`GestorOuAdminGuard`), e os portões batem nas rotas direto, sem passar pela tela.
+3. **A remoção tem contraprova.** Todo check de ausência vem em par com um de presença: o
+   auditor continua com fila, parecer e botões (`/autorizacoes` inalterado, 200); e a aba
+   Recursos do admin continua cheia de `R$`. Sem o par, "apagaram a camada de dinheiro do
+   produto" também passaria verde.
+
+**Os checks antigos foram INVERTIDOS, não apagados** — `C2 auditor LÊ custo (200)` virou
+`C2 ★ auditor NÃO lê custo (403)`, e `G1 auditor CONTINUA vendo custo` virou
+`G1 ★ auditor NÃO vê custo em lugar nenhum`. Mesmo endereço, exigência de sinal oposto: quem
+reintroduzir custo no caminho do auditor tem de derrubar um check que diz o motivo, em vez
+de escrever num vazio.
+
+**Uma coisa que continua na tela e não é dinheiro:** o selo `Custo 4/5` (NCCN Affordability)
+no cartão de evidência. É eixo de evidência publicada, na mesma linha de GRADE e ESMO-MCBS,
+e é exatamente o tipo de coisa que o auditor deve ler para decidir mérito. Não é preço, não
+tem `R$` e não vem do cadastro do hospital.
+
+**Efeito colateral que precisou de decisão própria:** `/custos/carteira` lista pacientes
+**com nome**, e a rota passou a ser do gestor — o único perfil que nunca vê paciente. A
+resposta dele sai pseudonimizada, no mesmo desenho de `/recursos/projecao`: a coluna `nome`
+**nem é selecionada** do banco para esse perfil. Trocar a whitelist sem isso teria entregado
+nome de paciente ao perfil desenhado para não ter nenhum — a lição é que **mudança de
+whitelist é mudança de superfície de dado**, e a pergunta "o que mais vem junto nessa
+resposta?" faz parte da mudança.
 
 ---
 
@@ -277,9 +333,9 @@ também pega corrida de carregamento.
 
 ---
 
-*Automação (adendo 3) — módulo Autorização/exceção:* `node scripts/portao-autorizacao.js` roda o portão da solicitação de exceção (mesmas portas). 53 checks. Os dois marcados **★** são o coração: um `POST /pacientes/:id/avaliacoes` **direto**, sem `autorizacao_estado`, de um protocolo **não incorporado** tem de nascer `pendente` — o servidor relê o corpus e não acredita no cliente. Cobre ainda: pendente/negada nunca viram protocolo vigente, decisão única e imutável (409 na segunda), parecer obrigatório nas duas decisões, **0 re-render** ao digitar o parecer, e a matriz de perfil inteira (o `auditor` é eixo próprio: 403 em avaliação, Revisão, export e usuários). Desde 2026-09-03 cobre também a **decisão com a visão do paciente aberta** (fase B, os dois ★ novos): o auditor abre a ficha — detalhe e trilha em cache — e só então nega. Foi o caminho que escapou quando o `AVAL_HIST` órfão (sobra do rename Histórico→Trilha) estourava **depois** do POST e alertava "Falha ao registrar a decisão" para uma decisão já gravada. Junto veio o conserto da espera do A5: ela era `(AUT_LISTA || []).every(...)`, e a decisão zera `AUT_LISTA` **antes** de recarregar a fila — com a lista em `null` a checagem passava **vazia**. Agora exige `Array.isArray`, isto é, exige que o refresh tenha completado. Apaga o paciente de teste no fim.
+*Automação (adendo 3) — módulo Autorização/exceção:* `node scripts/portao-autorizacao.js` roda o portão da solicitação de exceção (mesmas portas). 53 checks. Os dois marcados **★** são o coração: um `POST /pacientes/:id/avaliacoes` **direto**, sem `autorizacao_estado`, de um protocolo **não incorporado** tem de nascer `pendente` — o servidor relê o corpus e não acredita no cliente. Cobre ainda: pendente/negada nunca viram protocolo vigente, decisão única e imutável (409 na segunda), parecer obrigatório nas duas decisões, **0 re-render** ao digitar o parecer, e a matriz de perfil inteira (o `auditor` é eixo próprio: 403 em avaliação, Revisão, export e usuários — e, desde 2026-09-07, **403 em `/custos` e `/recursos` também**: ele decide mérito sem ver dinheiro). Desde 2026-09-07 cobre ainda a **tela sem dinheiro** (checks `D1`/`D2`): a aba Autorizações não contém `R$` nem `ESTIMATIVA`, no texto **e** no DOM, para **auditor E admin** — a asserção é sobre a tela, não sobre o perfil, porque o admin é o único que poderia ver o número sem nenhum guard reclamar. Cada check de ausência vem em par com um de presença (fila, parecer e botões intactos; aba Recursos do admin ainda com `R$`), para que apagar a camada de dinheiro do produto não passe verde. Desde 2026-09-03 cobre também a **decisão com a visão do paciente aberta** (fase B, os dois ★ novos): o auditor abre a ficha — detalhe e trilha em cache — e só então nega. Foi o caminho que escapou quando o `AVAL_HIST` órfão (sobra do rename Histórico→Trilha) estourava **depois** do POST e alertava "Falha ao registrar a decisão" para uma decisão já gravada. Junto veio o conserto da espera do A5: ela era `(AUT_LISTA || []).every(...)`, e a decisão zera `AUT_LISTA` **antes** de recarregar a fila — com a lista em `null` a checagem passava **vazia**. Agora exige `Array.isArray`, isto é, exige que o refresh tenha completado. Apaga o paciente de teste no fim.
 
-*Automação (adendo 4) — módulo Expectativa de custo:* `node scripts/portao-custo.js` roda o portão do custo global (mesmas portas). **50 checks.** O coração são dois. **(1) A matriz de perfil nas DUAS pontas, por API direta:** oncologista e revisor levam **403 em todas as 6 rotas de leitura** de `/custos` e no `PUT` de preço — a app esconder o bloco é cortesia, o controle é o guard; e o auditor **lê mas não cadastra** (403 só no PUT), porque leitura e escrita são whitelists diferentes (`['auditor','admin']` vs `['admin']`). **(2) A aritmética conferida contra o JSON de origem:** o portão recalcula ciclos e faixa a partir de `backend/data/evidencia.json` **com cópia própria da regra de periodicidade** — portão que importa a função sob teste não testa nada — e compara com o que o servidor respondeu, incluindo a **soma da carteira** (total = soma das linhas, e cada linha = ciclos × preço). Para isso o portão **cria o próprio paciente e a avaliação**: na primeira execução o check passou com `no_calculo=0`, isto é, verde sem somar nada, porque nenhum paciente da base tinha protocolo estimável. Cobre ainda: **indeterminado vira "sem estimativa" com motivo — nunca R$ 0** nem campo vazio (e nada de `R$ 0,00` renderizado na tela), periodicidade não derivável do esquema **não é chutada**, preço negociado acima da tabela é **recusado** (faixa invertida), preço **sem fonte** é recusado, preço para regime fora do corpus é recusado, o bloco **ausente do DOM do oncologista** inclusive entrando por `go('custos')`, e **0 re-render ao digitar nos campos de preço**. Restaura os preços anteriores e apaga o paciente de teste no fim.
+*Automação (adendo 4) — módulo Expectativa de custo:* `node scripts/portao-custo.js` roda o portão do custo global (mesmas portas). **50 checks.** O coração são dois. **(1) A matriz de perfil nas DUAS pontas, por API direta:** oncologista e revisor levam **403 em todas as 6 rotas de leitura** de `/custos` e no `PUT` de preço — a app esconder o bloco é cortesia, o controle é o guard; e o **gestor** lê mas não cadastra (403 só no PUT), porque leitura e escrita são whitelists diferentes (`['gestor','admin']` vs `['admin']`). O **auditor saiu da leitura** em 2026-09-07 — ver *Decisão de papel* acima; o check que dizia `auditor LÊ custo (200)` foi **invertido** para `403`, não removido, e a Fase 5 inteira (que provava "o auditor vê o bloco e a carteira na fila") hoje prova o oposto no mesmo endereço. **(2) A aritmética conferida contra o JSON de origem:** o portão recalcula ciclos e faixa a partir de `backend/data/evidencia.json` **com cópia própria da regra de periodicidade** — portão que importa a função sob teste não testa nada — e compara com o que o servidor respondeu, incluindo a **soma da carteira** (total = soma das linhas, e cada linha = ciclos × preço). Para isso o portão **cria o próprio paciente e a avaliação**: na primeira execução o check passou com `no_calculo=0`, isto é, verde sem somar nada, porque nenhum paciente da base tinha protocolo estimável. Cobre ainda: **indeterminado vira "sem estimativa" com motivo — nunca R$ 0** nem campo vazio (e nada de `R$ 0,00` renderizado na tela), periodicidade não derivável do esquema **não é chutada**, preço negociado acima da tabela é **recusado** (faixa invertida), preço **sem fonte** é recusado, preço para regime fora do corpus é recusado, o bloco **ausente do DOM do oncologista** inclusive entrando por `go('custos')`, e **0 re-render ao digitar nos campos de preço**. Restaura os preços anteriores e apaga o paciente de teste no fim.
 
 *Adendo 4.1 — orais contínuos e desacoplamento uso/custo:* o portão passou para **72 checks**. Novos: **oral sem `periodo_dias`** não converte tempo em aplicações e não mostra R$ nenhum **mesmo com preço cadastrado** (o esquema do osimertinibe não tem intervalo de ciclo, e inventar um erraria o custo por um fator de 3); **com `periodo_dias`** a aritmética confere contra o recálculo independente (20,7 meses × 30,4 ÷ 30 = 21 períodos) e a origem sai marcada como `periodo_declarado`, não como esquema; `periodo_dias` **0 ou 400 é recusado**; regime com **tempo derivável e sem preço** mostra a metade de USO e **nenhum R$** — na API e na tela; e digitar no campo de período tem **0 re-render**, igual aos de preço.
 
@@ -287,7 +343,7 @@ também pega corrida de carregamento.
 
 > **Cuidado ao checar ausência de bloco na UI:** o `<script>` da app mora **dentro do `<body>`**, então `document.body.textContent` devolve o **código-fonte** junto com a tela — procurar a string `'Expectativa de custo'` ali dá falso-positivo, porque ela existe dentro de uma função. O portão conta **elementos** (`document.querySelectorAll('.cst')`), não texto.
 
-> **Lição do bloco assíncrono que quebrou o vizinho:** a primeira versão do bloco de custo buscava a estimativa e chamava `render()` quando ela chegava. Isso passou no portão de custo e **quebrou o `portao-autorizacao` (50/53)**: o render global caía por cima do auditor enquanto ele digitava o parecer — `renders=2`, texto truncado em "TESTE PORTAO". Qualquer coisa que chegue **assíncrona** nesta app repinta o **próprio slot** (`pintarSlotsCusto()`, `#cst-carteira`), nunca a tela inteira. É a mesma regra do "0 re-render" dos formulários, aplicada à chegada de dado em vez de à digitação — e o motivo de rodar **todos** os portões antes do commit, não só o do módulo que se mexeu.
+> **Lição do bloco assíncrono que quebrou o vizinho:** a primeira versão do bloco de custo buscava a estimativa e chamava `render()` quando ela chegava. Isso passou no portão de custo e **quebrou o `portao-autorizacao` (50/53)**: o render global caía por cima do auditor enquanto ele digitava o parecer — `renders=2`, texto truncado em "TESTE PORTAO". Qualquer coisa que chegue **assíncrona** nesta app repinta o **próprio slot**, nunca a tela inteira. (O bloco de custo em si não existe mais — saiu da aba Autorizações em 2026-09-07 —, mas a lição não era sobre custo: era sobre chegada assíncrona repintando por cima de quem digita, e vale para o próximo bloco que alguém puser numa tela com formulário aberto.) É a mesma regra do "0 re-render" dos formulários, aplicada à chegada de dado em vez de à digitação — e o motivo de rodar **todos** os portões antes do commit, não só o do módulo que se mexeu.
 
 > **Rodando os portões em sequência:** `POST /auth/login` é limitado a **5 por minuto por IP** (`@Throttle` no AuthController) e o teto global é 60 req/min. Como cada portão agora loga uma vez **por perfil**, encadeá-los estoura a janela. Os scripts tratam isso: `tokenApi()` e `loginNaTela()` (em `scripts/portao-credenciais.js`) **esperam e tentam de novo** no 429, imprimindo `… rate limit no login <perfil>: aguardando Ns`. Um 429 não vira mais FAIL falso — só demora. Qualquer outro status continua sendo erro na hora. Não fique dando `curl` no login para "testar se liberou": cada tentativa reenche a janela.
 
@@ -390,9 +446,15 @@ idêntica) ·
 > obrigatoriamente os perfis que **NÃO** devem acessar. Testar só quem pode prova que a
 > funcionalidade existe, não que ela está protegida; e testar só na tela prova que o
 > botão sumiu, não que a rota recusa. O `portao-recursos` faz as duas direções: o gestor
-> leva 403 em 13 rotas clínicas, e oncologista/revisor/auditor levam 403 em todas as de
-> recursos — mais o teste **afirmativo** de que o nome do paciente não aparece na
-> resposta, na tela nem dentro do `.xlsx`.
+> leva 403 em 10 rotas clínicas, e oncologista/revisor/auditor levam 403 em todas as de
+> `/recursos` **e de `/custos`** — mais o teste **afirmativo** de que o nome do paciente não
+> aparece na resposta, na tela nem dentro do `.xlsx`.
+>
+> **Corolário (2026-09-07):** quando a exigência **muda de sinal**, o check se **inverte**,
+> não se apaga. `C2 auditor LÊ custo (200)` virou `C2 ★ auditor NÃO lê custo (403)` no mesmo
+> lugar, com o motivo escrito ao lado. Apagar deixa um vazio onde qualquer coisa passa;
+> inverter deixa uma pergunta que o próximo tem de responder. E toda remoção vem com
+> **contraprova de presença** no mesmo par — sem ela, "apagaram o módulo inteiro" fica verde.
 
 > **Lição do check que passava vazio:** `portao-autorizacao` marcou 44/44 sobre um bug que
 > o usuário levava na cara em produção. Não foi falta de check — foi um check cuja

@@ -64,9 +64,10 @@ const valida = new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true 
 // Guard de método SOMA ao da classe no Nest: o gestor lê, mas não cadastra.
 //
 // Oncologista, revisor e AUDITOR levam 403 em todas as rotas daqui — inclusive batendo
-// direto na URL. O auditor continua vendo custo no fluxo de autorização (/custos), que é
-// outro controller com outra whitelist; projeção de compra e margem não são insumo de
-// decisão clínica.
+// direto na URL. E agora também em /custos: o auditor não vê mais preço no fluxo de
+// autorização. Os dois controllers do dinheiro passaram a ter a MESMA whitelist, e a
+// assimetria que existia aqui deixou de existir — quem decide exceção decide mérito, não
+// custo.
 //
 // PSEUDONIMIZAÇÃO: as rotas que devolvem carteira recebem o perfil do JWT e montam a
 // resposta do gestor SEM nome de paciente — o campo não é apagado depois, é nunca lido.

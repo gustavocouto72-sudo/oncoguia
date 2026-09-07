@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import { IsInt, IsNumber, IsOptional, IsString, Max, MaxLength, Min, ValidateIf } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
-import { AuditorOuAdminGuard } from '../auth/auditor.guard';
+import { GestorOuAdminGuard } from '../auth/gestor.guard';
 import { AdminGuard } from '../auth/admin.guard';
 import { CustosService } from './custos.service';
 
@@ -34,16 +34,25 @@ class SalvarCustoDto {
   periodo_dias?: number | null;
 }
 
-// EXPECTATIVA DE CUSTO — visibilidade auditor + admin, por whitelist EXPLÍCITA no
-// SERVIDOR. A app esconder o bloco é cortesia; o controle é aqui. Oncologista e revisor
-// levam 403 em TODAS as rotas deste controller, inclusive batendo direto na URL.
+// EXPECTATIVA DE CUSTO — visibilidade gestor + admin, por whitelist EXPLÍCITA no
+// SERVIDOR. A app esconder o bloco é cortesia; o controle é aqui. Oncologista, revisor e
+// AUDITOR levam 403 em TODAS as rotas deste controller, inclusive batendo direto na URL.
+//
+// O AUDITOR SAIU DAQUI (era ['auditor','admin']). Decisão de papel, não de tela: quem
+// autoriza uma exceção decide MÉRITO — a evidência sustenta este protocolo para este
+// paciente? —, e o preço não é insumo dessa pergunta. Ter o número à vista no momento da
+// decisão convida a resposta errada pelo motivo errado, e o convite não deixa rastro no
+// parecer. Dinheiro é assunto de gestor e admin, e só na aba Recursos.
+//
+// A rota de decidir exceção (/autorizacoes) NÃO mudou: o auditor segue decidindo. O que
+// mudou é o que ele consegue ver enquanto decide.
 //
 // Duas camadas, de propósito:
-//   • classe    → JwtAuthGuard + AuditorOuAdminGuard  (ler custo/estimativa)
+//   • classe    → JwtAuthGuard + GestorOuAdminGuard   (ler custo/estimativa)
 //   • escrita   → + AdminGuard                        (cadastrar preço)
-// Guard de método SOMA ao da classe no Nest, então PUT roda os três: auditor lê, mas
+// Guard de método SOMA ao da classe no Nest, então PUT roda os três: gestor lê, mas
 // não cadastra.
-@UseGuards(JwtAuthGuard, AuditorOuAdminGuard)
+@UseGuards(JwtAuthGuard, GestorOuAdminGuard)
 @Controller('custos')
 export class CustosController {
   constructor(private service: CustosService) {}
@@ -58,9 +67,12 @@ export class CustosController {
     return this.service.cobertura();
   }
 
+  // Recebe o perfil porque a carteira lista PACIENTES: para o gestor a resposta sai sem
+  // nome, como já acontece em /recursos/projecao. Abrir a rota para o gestor sem isso
+  // teria entregado nome de paciente ao único perfil que nunca deve ver nenhum.
   @Get('carteira')
-  carteira() {
-    return this.service.carteira();
+  carteira(@Request() req: { user: { perfil: string } }) {
+    return this.service.carteira(req.user.perfil);
   }
 
   // GET /custos/estimativas?ids=a,b,c — lote, para a app pintar uma lista sem N chamadas.

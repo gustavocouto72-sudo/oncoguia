@@ -79,7 +79,7 @@ export interface CicloRecurso {
 }
 
 // CÁLCULO puro de recursos, separado do serviço de PROJEÇÃO por um motivo estrutural:
-// a ficha do paciente (auditor + admin) precisa da decomposição por insumo, e o
+// a rota /custos/paciente/:id (gestor + admin) precisa da decomposição por insumo, e o
 // controller que a serve vive no módulo de CUSTOS. Se o cálculo morasse junto da
 // projeção — que depende de CustosService para o tempo de uso —, custos importaria
 // recursos e recursos importaria custos. Cortado aqui, cada um importa só o que usa.
@@ -401,7 +401,7 @@ export class RecursosCalculoService {
   }
 
   // Decomposição do ciclo com as medidas REAIS do paciente quando existem — é a versão
-  // que a ficha do paciente mostra (auditor + admin). Mesma conta, corpo diferente: e a
+  // servida por /custos/paciente/:id (gestor + admin). Mesma conta, corpo diferente: e a
   // resposta carrega `premissas` dizendo qual dos dois corpos foi usado em cada eixo.
   async porRegimeEPaciente(regimenId: string, paciente: Paciente | null): Promise<CicloRecurso> {
     return this.cicloDoRegime(regimenId, await this.contexto(paciente));

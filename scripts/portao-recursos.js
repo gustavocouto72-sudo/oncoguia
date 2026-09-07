@@ -2,8 +2,10 @@
 // É o check que NÃO passa pelo agente.
 //
 //  Fase 1 (API): a matriz do perfil GESTOR nas DUAS direções. Oncologista, revisor e
-//    AUDITOR levam 403 em TODA rota de /recursos — leitura e escrita —, batendo direto na
-//    URL. E o gestor leva 403 em tudo que é clínico: paciente, trilha, retorno, seleção,
+//    AUDITOR levam 403 em TODA rota de /recursos E de /custos — leitura e escrita —,
+//    batendo direto na URL: a camada financeira inteira é ['gestor','admin'], e o auditor
+//    saiu dela (decide mérito, não custo). O gestor herdou /custos, com a carteira
+//    pseudonimizada. E o gestor leva 403 em tudo que é clínico: paciente, trilha, seleção,
 //    Revisão, autorização, custo e usuários. Gestor lê recursos mas NÃO cadastra.
 //  Fase 2 (API): a ARITMÉTICA, recalculada com regra PRÓPRIA a partir do JSON de origem
 //    (backend/data/evidencia.json) + os preços cadastrados pelo próprio portão. Cobre as
@@ -226,15 +228,35 @@ async function ctxLogin(browser, perfil, extra) {
       const w = await req('POST', '/recursos/insumos', tk, { farmaco: 'X' });
       ok(`G1 ${perfil} levou 403 na ESCRITA de insumo`, w.status === 403, 'status=' + w.status);
     }
-    // O AUDITOR continua vendo CUSTO (é o dado da decisão de exceção) — o 403 acima é só
-    // de recursos. Se este check cair, a correção quebrou o módulo anterior.
-    const audCusto = await req('GET', '/custos/carteira', tkAud);
-    ok('G1 auditor CONTINUA vendo custo no fluxo de autorização', audCusto.status === 200, 'status=' + audCusto.status);
+    // ★ CHECK INVERTIDO. Ele afirmava "auditor CONTINUA vendo custo no fluxo de
+    // autorização" (200 em /custos/carteira). A exigência mudou de sinal: dinheiro saiu
+    // da autorização, e o auditor leva 403 nas DUAS metades da camada financeira —
+    // /recursos (acima) e /custos (aqui). O endereço é o mesmo, a expectativa é a oposta.
+    // Não foi apagado de propósito: quem reintroduzir custo no fluxo do auditor tem de
+    // passar por este check e explicar por quê.
+    const rotasCusto = ['/custos', '/custos/carteira', '/custos/cobertura',
+      `/custos/estimativa/${RID_M2}`, `/custos/estimativas?ids=${RID_M2}`, '/custos/paciente/1'];
+    {
+      let todas403 = true, detalhe = '';
+      for (const rota of rotasCusto) {
+        const r = await req('GET', rota, tkAud);
+        if (r.status !== 403) { todas403 = false; detalhe += `${rota}=${r.status} `; }
+      }
+      ok(`G1 ★ auditor NÃO vê custo em lugar nenhum (403 nas ${rotasCusto.length} rotas de /custos)`,
+        todas403, detalhe);
+    }
+    // E a outra ponta do mesmo movimento: a fila de autorização segue intacta para ele.
+    // Se ESTE cair, a mudança de whitelist derrubou o trabalho do auditor junto.
+    ok('G1 ★ auditor CONTINUA decidindo exceção (fila intacta)',
+      (await req('GET', '/autorizacoes', tkAud)).status === 200);
 
     // Direção inversa: o gestor não entra em nada clínico.
+    // /custos SAIU desta lista: era rota do auditor e virou rota do gestor no mesmo
+    // movimento que tirou dinheiro da autorização. Continua sendo proibido para o gestor
+    // tudo que é CLÍNICO — inclusive a fila de autorização, que ele nunca decidiu.
     const rotasClinicas = ['/pacientes', '/pacientes/1', '/pacientes/1/avaliacoes', '/pacientes/1/selecoes',
       '/pacientes/1/trilha', '/pacientes/1/retornos', '/revisoes', '/revisoes/resumo',
-      '/custos', '/custos/carteira', `/custos/estimativa/${RID_M2}`, '/autorizacoes', '/usuarios'];
+      '/autorizacoes', '/usuarios'];
     {
       let todas403 = true, detalhe = '';
       for (const rota of rotasClinicas) {
@@ -253,6 +275,39 @@ async function ctxLogin(browser, perfil, extra) {
     // Gestor LÊ recursos, mas não CADASTRA.
     const gLe = await req('GET', '/recursos/projecao?horizonte=6', tkGes);
     ok('G1 gestor LÊ a projeção de recursos', gLe.status === 200, 'status=' + gLe.status);
+    // ★ NOVO: o gestor herdou a leitura de custo que era do auditor. Financeiro inteiro
+    // num eixo só — se esta metade falhar, a mudança tirou o dado do auditor sem entregar
+    // a ninguém.
+    {
+      let todas200 = true, detalhe = '';
+      for (const rota of rotasCusto) {
+        const r = await req('GET', rota, tkGes);
+        if (r.status !== 200) { todas200 = false; detalhe += `${rota}=${r.status} `; }
+      }
+      ok(`G1 ★ gestor LÊ custo (200 nas ${rotasCusto.length} rotas de /custos)`, todas200, detalhe);
+    }
+    // Mas não cadastra preço: leitura e escrita são whitelists diferentes, como no auditor
+    // de antes.
+    const gEscrevePreco = await req('PUT', `/custos/${RID_M2}`, tkGes,
+      { custo_ciclo_tabela: 1, custo_ciclo_negociado: 1, fonte_tabela: 'x', fonte_negociado: 'y' });
+    ok('G1 gestor NÃO cadastra preço (403)', gEscrevePreco.status === 403, 'status=' + gEscrevePreco.status);
+    // ★ PSEUDONIMIZAÇÃO da carteira de custo: a rota abriu para o gestor, e o gestor é o
+    // perfil que nunca vê paciente. Nome não pode aparecer em NENHUMA das duas listas.
+    {
+      const cart = (await req('GET', '/custos/carteira', tkGes)).body || {};
+      const linhas = [...(cart.com_estimativa || []), ...(cart.sem_estimativa || [])];
+      ok('G1 ★ /custos/carteira do gestor sai SEM nome de paciente (pseudonimizada)',
+        cart.pseudonimizado === true && linhas.length > 0
+        && linhas.every(l => !('paciente' in l) && typeof l.paciente_ref === 'string'),
+        `pseudonimizado=${cart.pseudonimizado} linhas=${linhas.length} `
+        + JSON.stringify(linhas.find(l => 'paciente' in l) || '').slice(0, 80));
+      // E o admin continua vendo o nome — a pseudonimização é do PERFIL, não da rota.
+      const cartAdm = (await req('GET', '/custos/carteira', tkAdm)).body || {};
+      const linhasAdm = [...(cartAdm.com_estimativa || []), ...(cartAdm.sem_estimativa || [])];
+      ok('G1 admin vê nome na carteira de custo (pseudonimização é do perfil, não da rota)',
+        cartAdm.pseudonimizado === false && linhasAdm.some(l => 'paciente' in l),
+        `pseudonimizado=${cartAdm.pseudonimizado} linhas=${linhasAdm.length}`);
+    }
     for (const [m, rota, body] of [['POST', '/recursos/insumos', { farmaco: 'X' }],
                                    ['PUT', '/recursos/premissas', { sc_m2: 2, peso_kg: 80, clearance_ml_min: 90 }],
                                    ['DELETE', '/recursos/insumos/999999', null]]) {
@@ -404,17 +459,19 @@ async function ctxLogin(browser, perfil, extra) {
       });
       ok('G4 avaliação vigente registrada no protocolo de teste', av.status === 201 || av.status === 200, 'status=' + av.status);
 
-      // A ficha (auditor) usa as medidas REAIS: SC de Mosteller com 82,5 kg e 178 cm.
+      // A decomposição por paciente usa as medidas REAIS: SC de Mosteller com 82,5 kg e
+      // 178 cm. Lida com token de ADMIN — era tkAud, e o auditor perdeu /custos quando o
+      // dinheiro saiu da autorização. A rota não mudou; quem pode chamá-la, sim.
       const scReal = scPortao(82.5, 178);
-      const ficha = (await req('GET', `/custos/paciente/${pacienteId}`, tkAud)).body;
-      ok('G4 ficha do paciente traz a decomposição por insumo (auditor)',
+      const ficha = (await req('GET', `/custos/paciente/${pacienteId}`, tkAdm)).body;
+      ok('G4 /custos/paciente/:id traz a decomposição por insumo (admin)',
         ficha.recursos && ficha.recursos.origem === 'insumo', ficha.recursos && ficha.recursos.origem);
-      ok('G4 ficha usa a SUPERFÍCIE REAL do paciente (Mosteller), rotulada como tal',
+      ok('G4 decomposição usa a SUPERFÍCIE REAL do paciente (Mosteller), rotulada como tal',
         ficha.recursos && perto(ficha.recursos.premissas.sc_m2, Math.round(scReal * 100) / 100, 0.005)
         && ficha.recursos.premissas.origem_sc === 'paciente' && ficha.recursos.premissas.origem_peso === 'paciente',
         ficha.recursos ? `sc=${ficha.recursos.premissas.sc_m2} esperado ${(Math.round(scReal * 100) / 100)} origem=${ficha.recursos.premissas.origem_sc}` : '');
       const esperadoReal = cicloEsperadoPortao(regs.get(RID_M2), { sc: Math.round(scReal * 100) / 100, peso: 82.5, clearance: 100 });
-      ok('G4 ficha: compra do ciclo com a SC real = recálculo do portão',
+      ok('G4 decomposição: compra do ciclo com a SC real = recálculo do portão',
         ficha.recursos && perto(ficha.recursos.compra_min_ciclo, esperadoReal.compra_min)
         && perto(ficha.recursos.compra_max_ciclo, esperadoReal.compra_max),
         ficha.recursos ? `${ficha.recursos.compra_min_ciclo}/${ficha.recursos.compra_max_ciclo} esperado ${esperadoReal.compra_min}/${esperadoReal.compra_max}` : '');
@@ -651,8 +708,11 @@ async function ctxLogin(browser, perfil, extra) {
       ok('G7 corrigir o nome NÃO apaga peso e altura',
         Number(depois.peso_kg) === 82.5 && Number(depois.altura_cm) === 178,
         `peso=${depois.peso_kg} altura=${depois.altura_cm}`);
-      ok('G7 a ficha continua calculando com a superfície REAL depois da edição',
-        ((await req('GET', `/custos/paciente/${pacienteId}`, tkAud)).body.recursos || {}).premissas?.origem_sc === 'paciente', '');
+      // tkAdm, não tkAud: o auditor perdeu /custos quando o dinheiro saiu da autorização.
+      // A asserção aqui é sobre a CONTA sobreviver à edição cadastral, não sobre perfil —
+      // quem prova permissão é a Fase 1.
+      ok('G7 a decomposição continua calculando com a superfície REAL depois da edição',
+        ((await req('GET', `/custos/paciente/${pacienteId}`, tkAdm)).body.recursos || {}).premissas?.origem_sc === 'paciente', '');
       ok('G7 sem erro de console na edição cadastral', errs.length === 0, errs.join(' | '));
       await ctx.close();
     }

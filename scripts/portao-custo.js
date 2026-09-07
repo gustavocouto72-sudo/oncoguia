@@ -1,10 +1,13 @@
 // Portão do módulo EXPECTATIVA DE CUSTO — fluxos reais em browser isolado (headless) + API.
 // É o check que NÃO passa pelo agente.
 //
-//  Fase 1 (API): a matriz de perfil nas DUAS pontas. Oncologista e revisor levam 403 em
-//    TODAS as rotas de /custos — leitura e escrita —, batendo direto na URL. Auditor lê
-//    mas NÃO cadastra preço (403 só no PUT). Admin faz as duas coisas. A app esconder o
-//    bloco é cortesia; se este bloco falhar, o dado de custo está exposto.
+//  Fase 1 (API): a matriz de perfil nas DUAS pontas. Oncologista, revisor e AUDITOR
+//    levam 403 em TODAS as rotas de /custos — leitura e escrita —, batendo direto na URL.
+//    Gestor lê mas NÃO cadastra preço (403 só no PUT). Admin faz as duas coisas. A app
+//    esconder o bloco é cortesia; se este bloco falhar, o dado de custo está exposto.
+//    ★ O AUDITOR foi de 200 para 403 aqui. Ele decide MÉRITO de exceção, não custo; o
+//    preço não é insumo dessa decisão, e vê-lo convida a resposta certa pelo motivo
+//    errado — sem deixar rastro no parecer.
 //  Fase 2 (API): a aritmética. Recalcula ciclos e faixa a partir do JSON DE ORIGEM
 //    (backend/data/evidencia.json) + o preço cadastrado, com cópia própria da regra de
 //    periodicidade — portão que importa a função sob teste não testa nada.
@@ -12,11 +15,17 @@
 //    nunca campo vazio. E preço negociado acima da tabela é recusado (faixa invertida).
 //  Fase 4 (UI, oncologista): o bloco NÃO existe no DOM, nem entrando pela URL
 //    (go('custos') e go('autorizacoes') caem em Pacientes).
-//  Fase 5 (UI, auditor): o bloco aparece NA FILA DE AUTORIZAÇÃO com faixa, fontes,
-//    origem dos ciclos e o aviso do PFS; a carteira soma e diz quem ficou de fora.
-//  Fase 5b (UI, admin): o dinheiro que saiu da ficha está na ABA RECURSOS — é para onde
-//    o check migrou. O paciente de teste criado na Fase 2b é o que torna este check não
-//    vazio: ele tem protocolo vigente estimável, então a carteira da aba tem de somá-lo.
+//  Fase 5 (UI, auditor): ★ CHECK INVERTIDO. Ele provava que "o bloco aparece NA FILA DE
+//    AUTORIZAÇÃO com faixa, fontes e carteira". Agora prova o oposto, no mesmo endereço:
+//    a tela de Autorizações não tem bloco de custo, não tem painel de carteira, não diz
+//    "R$" e não diz "ESTIMATIVA" — e o auditor leva 403 na API se tentar pela URL. O que
+//    NÃO mudou: ele continua decidindo (a fila e os botões estão lá).
+//  Fase 5b (UI, admin): o dinheiro que saiu da ficha E da autorização está na ABA
+//    RECURSOS — é para onde o check migrou. O paciente de teste criado na Fase 2b é o que
+//    torna este check não vazio: ele tem protocolo vigente estimável, então a carteira da
+//    aba tem de somá-lo. E a tela de Autorizações do ADMIN também não mostra dinheiro:
+//    "o admin é quem manda, deixa o número para ele" é a regressão mais provável, e é
+//    exatamente ela que o check do admin fecha.
 //  FICHA LIMPA (todos os perfis que abrem paciente): a ficha NÃO contém "ESTIMATIVA" nem
 //    "R$". O momento clínico não mostra dinheiro — nem o valor, nem o estado vazio dele.
 //    É o check INVERSO do que existia antes ("auditor vê o bloco na ficha"): o bloco saiu
@@ -30,8 +39,9 @@
 //    restaura o estado anterior via PUT, ou remove direto o que criou).
 //
 // NÃO ENCADEIE este portão com outro sem uma janela de ~1 min: `POST /auth/login` é
-// limitado a 5/min por IP e este portão usa 4 perfis. O helper espera no 429, mas dois
-// portões seguidos gastam a janela inteira e o segundo dorme muito.
+// limitado a 5/min por IP e este portão usa 5 perfis (o gestor entrou quando /custos
+// passou a ser dele) — mais os logins de UI das fases de tela. O helper espera no 429,
+// mas dois portões seguidos gastam a janela inteira e o segundo dorme muito.
 //
 // Uso: node scripts/portao-custo.js   (exige app e API no ar; portas por
 // PORTAO_APP/PORTAO_API, default 5173/3005).
@@ -85,6 +95,29 @@ async function fichaSemDinheiro(page, perfil, ok) {
     'paciente=' + pid + ' ' + (t.match(/.{0,40}R\$.{0,40}/) || [''])[0]);
   ok(`CF nenhum bloco de custo/recurso no DOM da ficha (${perfil})`,
     await page.evaluate(() => document.querySelectorAll('.cst, .cst-cart, .rec-slot, [data-rec-pid]').length) === 0, '');
+}
+
+// A tela de AUTORIZAÇÕES não mostra dinheiro para NINGUÉM — nem para o admin. Roda para
+// auditor e para admin, e é o mesmo helper nos dois: se a asserção valesse só para um
+// perfil, "o admin é quem manda, deixa o número para ele" passaria.
+//
+// Texto lido de #app (o container), nunca de document.body: o <script> da app mora dentro
+// do <body>, então body.textContent devolveria o CÓDIGO-FONTE inteiro — e o fonte tem a
+// palavra "ESTIMATIVA" em comentário. Procurar texto no body é procurar o fonte.
+async function telaAutorizacaoSemDinheiro(page, perfil, ok) {
+  const t = await page.evaluate(() => (document.getElementById('app') || document.body).innerText);
+  ok(`CA ★ tela de Autorizações NÃO diz "R$" (${perfil})`, !/R\$/.test(t),
+    (t.match(/.{0,45}R\$.{0,45}/) || [''])[0]);
+  ok(`CA ★ tela de Autorizações NÃO diz "ESTIMATIVA" (${perfil})`, !/ESTIMATIVA/.test(t),
+    (t.match(/.{0,45}ESTIMATIVA.{0,45}/) || [''])[0]);
+  // DOM, não só texto: um bloco vazio ou em "⏳ calculando…" não tem R$ e passaria no
+  // check de texto — mas seria o bloco de volta.
+  ok(`CA ★ nenhum bloco de custo/carteira no DOM da fila (${perfil})`,
+    await page.evaluate(() => document.querySelectorAll('.cst, .cst-cart, .cst-slot, [data-cst-rid]').length) === 0, '');
+  // E o estado: a tela nem chega a pedir a carteira. Se o fetch voltasse, a rota
+  // responderia 403 e a regressão apareceria como erro de console, não como número.
+  ok(`CA a app não guarda mais estado de carteira de custo (${perfil})`,
+    await page.evaluate(() => typeof CUSTO_CARTEIRA === 'undefined' && typeof podeVerCusto === 'undefined'), '');
 }
 
 const R = [];
@@ -149,14 +182,15 @@ async function ctxLogin(browser, perfil) {
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
   const evid = JSON.parse(fs.readFileSync(EVID, 'utf-8'));
   const regs = new Map(evid.regimes.map(r => [r.regimen_id, r]));
-  let tkOnco, tkRev, tkAud, tkAdm;
+  let tkOnco, tkRev, tkAud, tkAdm, tkGes;
   // regimen_id -> linha que existia ANTES do portão, ou null se não existia nenhuma.
   // A distinção é o ponto: linha que existia se RESTAURA, linha que o portão criou se
   // APAGA. Guardar só as que existiam (como era antes) deixava as criadas para trás.
   const anteriores = {};
-  // Um regime com tempo derivável e SEM preço — o caso do desacoplamento (mostra uso,
-  // nenhum R$). Escolhido do corpus, não fixo, para não depender de qual preço existe.
-  let RID_SEM_PRECO = null;
+  // Um regime com tempo derivável e SEM preço — o caso do desacoplamento. Escolhido do
+  // corpus, não fixo, para não depender de qual preço existe. Hoje é conferido só pela
+  // API (C15): a metade de tela que existia — renderizar o bloco e ler "sem preço
+  // cadastrado" sem nenhum R$ — foi embora com o bloco, que saiu da aba Autorizações.
   let pacienteId = null; // paciente de teste (criado e apagado pelo portão)
 
   try {
@@ -164,11 +198,12 @@ async function ctxLogin(browser, perfil) {
     tkAud = await tokenApi(API, 'auditor');
     tkOnco = await tokenApi(API, 'oncologista');
     tkRev = await tokenApi(API, 'revisor');
+    tkGes = await tokenApi(API, 'gestor');
 
     // ═══ FASE 1 — matriz de perfil por API DIRETA ═══
     const rotasLeitura = ['/custos', '/custos/carteira', '/custos/cobertura',
       `/custos/estimativa/${RID_FIXA}`, `/custos/estimativas?ids=${RID_FIXA}`, '/custos/paciente/1'];
-    for (const [perfil, tk] of [['oncologista', tkOnco], ['revisor', tkRev]]) {
+    for (const [perfil, tk] of [['oncologista', tkOnco], ['revisor', tkRev], ['auditor', tkAud]]) {
       let todas403 = true, detalhe = '';
       for (const rota of rotasLeitura) {
         const r = await req('GET', rota, tk);
@@ -181,10 +216,24 @@ async function ctxLogin(browser, perfil) {
     const semToken = await req('GET', '/custos', null);
     ok('C1 sem token: 401 (nem chega no guard de perfil)', semToken.status === 401, 'status=' + semToken.status);
 
+    // ★ CHECK INVERTIDO. Era 'C2 auditor LÊ custo (200)'. O endereço é o mesmo e a
+    // expectativa é a oposta: dinheiro saiu do fluxo de autorização. Não apagado —
+    // invertido, para que reintroduzir custo no caminho do auditor tenha de derrubar um
+    // check com nome e motivo (o laço de C1 acima já cobre as 6 rotas; este isola o
+    // pedaço que era 200 para o erro apontar direto).
     const audLe = await req('GET', '/custos/cobertura', tkAud);
-    ok('C2 auditor LÊ custo (200)', audLe.status === 200, 'status=' + audLe.status);
-    const audEscreve = await req('PUT', `/custos/${RID_FIXA}`, tkAud, { custo_ciclo_tabela: 1, custo_ciclo_negociado: 1, fonte_tabela: 'x', fonte_negociado: 'y' });
-    ok('C2 auditor NÃO cadastra preço (403) — leitura e escrita são whitelists diferentes', audEscreve.status === 403, 'status=' + audEscreve.status);
+    ok('C2 ★ auditor NÃO lê custo (403) — decide mérito, não custo', audLe.status === 403, 'status=' + audLe.status);
+    // E o contrapeso, para a mudança não virar "tiraram o auditor do sistema": a fila de
+    // exceção continua dele, e decidir continua funcionando.
+    ok('C2 ★ auditor CONTINUA vendo a fila de autorização (200)',
+      (await req('GET', '/autorizacoes', tkAud)).status === 200);
+
+    // O GESTOR ocupa a leitura que era do auditor — e não cadastra preço, exatamente como
+    // o auditor não cadastrava. Leitura e escrita seguem sendo whitelists diferentes.
+    const gesLe = await req('GET', '/custos/cobertura', tkGes);
+    ok('C2 gestor LÊ custo (200)', gesLe.status === 200, 'status=' + gesLe.status);
+    const gesEscreve = await req('PUT', `/custos/${RID_FIXA}`, tkGes, { custo_ciclo_tabela: 1, custo_ciclo_negociado: 1, fonte_tabela: 'x', fonte_negociado: 'y' });
+    ok('C2 gestor NÃO cadastra preço (403) — leitura e escrita são whitelists diferentes', gesEscreve.status === 403, 'status=' + gesEscreve.status);
 
     // Antes de QUALQUER escrita de preço, registra como o banco estava. Chamar duas
     // vezes para o mesmo regime não sobrescreve: o primeiro registro é o estado real
@@ -196,6 +245,11 @@ async function ctxLogin(browser, perfil) {
     };
 
     // ═══ FASE 2 — cadastro e aritmética contra o JSON de origem ═══
+    // Daqui para baixo, toda leitura de /custos usa tkAdm. Era tkAud: o auditor lia custo
+    // e servia de "perfil de leitura" para os checks de conta. Ele não lê mais, e as
+    // asserções de ARITMÉTICA não são sobre perfil nenhum — quem prova permissão é a
+    // Fase 1. Trocar o token aqui não afrouxa nada; deixar tkAud daria 403 e faria a
+    // matemática inteira falhar por um motivo que não é o dela.
     for (const rid of [RID_FIXA, RID_PFS]) await lembrarPreco(rid);
     const PRECOS = { [RID_FIXA]: [12000.00, 9500.00], [RID_PFS]: [28000.00, 21000.00] };
     for (const rid of [RID_FIXA, RID_PFS]) {
@@ -208,7 +262,7 @@ async function ctxLogin(browser, perfil) {
 
     for (const rid of [RID_FIXA, RID_PFS]) {
       const [tab, neg] = PRECOS[rid];
-      const e = (await req('GET', `/custos/estimativa/${rid}`, tkAud)).body;
+      const e = (await req('GET', `/custos/estimativa/${rid}`, tkAdm)).body;
       const esperado = ciclosEsperadosPortao(regs.get(rid));
       ok(`C4 ${rid}: ciclos do servidor = recálculo do portão sobre evidencia.json`,
         e.uso.disponivel && e.uso.ciclos_esperados === esperado, `servidor=${e.uso.ciclos_esperados} portao=${esperado}`);
@@ -240,7 +294,7 @@ async function ctxLogin(browser, perfil) {
         ok('C5b avaliação vigente registrada no protocolo estimável', av.status === 201 || av.status === 200,
           'status=' + av.status);
 
-        const k = (await req('GET', '/custos/carteira', tkAud)).body;
+        const k = (await req('GET', '/custos/carteira', tkAdm)).body;
         const linha = (k.com_estimativa || []).find(l => l.paciente_id === pacienteId);
         ok('C5b paciente de teste entra no cálculo da carteira', !!linha,
           `no_calculo=${k.pacientes_no_calculo} fora=${k.pacientes_sem_estimativa}`);
@@ -263,14 +317,14 @@ async function ctxLogin(browser, perfil) {
           `fora=${k.pacientes_sem_estimativa}`);
 
         // A rota por paciente responde o mesmo que a linha da carteira.
-        const pp = (await req('GET', `/custos/paciente/${pacienteId}`, tkAud)).body;
+        const pp = (await req('GET', `/custos/paciente/${pacienteId}`, tkAdm)).body;
         ok('C5b /custos/paciente/:id bate com a linha da carteira',
           pp.regimen_id === RID_FIXA && Math.abs(pp.estimativa.custo.total_min - linha.total_min) < 0.005,
           `${pp.estimativa && pp.estimativa.custo.total_min} vs ${linha && linha.total_min}`);
       }
     }
 
-    const ePfs = (await req('GET', `/custos/estimativa/${RID_PFS}`, tkAud)).body;
+    const ePfs = (await req('GET', `/custos/estimativa/${RID_PFS}`, tkAdm)).body;
     ok('C5 origem dos ciclos declarada como proxy de PFS', ePfs.uso.origem_ciclos === 'proxy_pfs', ePfs.uso.origem_ciclos);
     ok('C5 aviso do PFS presente na resposta do servidor',
       /piso/i.test(ePfs.uso.aviso || ''), ePfs.uso.aviso);
@@ -278,7 +332,7 @@ async function ctxLogin(browser, perfil) {
     // ═══ FASE 3 — indeterminado e cadastro inválido ═══
     // Um regime com tempo indeterminado no corpus: tem de vir "sem estimativa" COM motivo.
     const ridIndet = evid.regimes.find(r => r.expectativa_uso && r.expectativa_uso.indeterminado).regimen_id;
-    const eInd = (await req('GET', `/custos/estimativa/${ridIndet}`, tkAud)).body;
+    const eInd = (await req('GET', `/custos/estimativa/${ridIndet}`, tkAdm)).body;
     ok('C6 tempo indeterminado -> uso.disponivel=false com motivo', eInd.uso.disponivel === false && !!eInd.uso.motivo, `${ridIndet}: ${eInd.uso.motivo}`);
     ok('C6 indeterminado NÃO devolve zero nem campo vazio silencioso',
       eInd.custo.total_min === undefined && eInd.custo.total_max === undefined && !!eInd.uso.explicacao,
@@ -299,7 +353,7 @@ async function ctxLogin(browser, perfil) {
         fonte_tabela: FONTE_T, fonte_negociado: FONTE_N,
       });
       ok('C13 preço do oral cadastrado sem periodo_dias', semPer.status === 200, 'status=' + semPer.status);
-      const eSem = (await req('GET', `/custos/estimativa/${RID_ORAL}`, tkAud)).body;
+      const eSem = (await req('GET', `/custos/estimativa/${RID_ORAL}`, tkAdm)).body;
       ok('C13 oral SEM periodo_dias: uso não derivável (não chuta intervalo)',
         eSem.uso.disponivel === false && eSem.uso.motivo === 'periodicidade_nao_derivavel', eSem.uso.motivo);
       ok('C13 oral SEM periodo_dias: nenhum total em R$ mesmo com preço cadastrado',
@@ -314,7 +368,7 @@ async function ctxLogin(browser, perfil) {
         fonte_tabela: FONTE_T, fonte_negociado: FONTE_N, periodo_dias: 30,
       });
       ok('C14 preço do oral regravado com periodo_dias=30', comPer.status === 200, 'status=' + comPer.status);
-      const eCom = (await req('GET', `/custos/estimativa/${RID_ORAL}`, tkAud)).body;
+      const eCom = (await req('GET', `/custos/estimativa/${RID_ORAL}`, tkAdm)).body;
       // Recálculo INDEPENDENTE: 20,7 meses (FLAURA) x 30,4 / 30.
       const b = regs.get(RID_ORAL).expectativa_uso;
       const meses = b.duracao_mediana_tratamento_meses;
@@ -358,11 +412,10 @@ async function ctxLogin(browser, perfil) {
       });
       const lista = (await req('GET', '/custos', tkAdm)).body || [];
       const alvoSem = semPreco && !lista.some(c => c.regimen_id === semPreco.regimen_id) ? semPreco : null;
-      RID_SEM_PRECO = alvoSem ? alvoSem.regimen_id : null;
       if (!alvoSem) {
         ok('C15 uso sem preço', true, 'nenhum regime fixa sem preço disponível — check vazio');
       } else {
-        const eSP = (await req('GET', `/custos/estimativa/${alvoSem.regimen_id}`, tkAud)).body;
+        const eSP = (await req('GET', `/custos/estimativa/${alvoSem.regimen_id}`, tkAdm)).body;
         ok('C15 tempo derivável e SEM preço: uso disponível mesmo assim',
           eSP.uso.disponivel === true && eSP.uso.ciclos_esperados === alvoSem.expectativa_uso.ciclos,
           `${alvoSem.regimen_id}: ciclos=${eSP.uso.ciclos_esperados}`);
@@ -402,8 +455,15 @@ async function ctxLogin(browser, perfil) {
       // texto aqui é procurar o fonte, não a tela.
       const nBloco = await page.evaluate(() => document.querySelectorAll('.cst, .cst-cart').length);
       ok('C8 nenhum bloco de custo no DOM do oncologista', nBloco === 0, 'elementos=' + nBloco);
-      const podeVer = await page.evaluate(() => podeVerCusto());
-      ok('C8 podeVerCusto() = false para oncologista', podeVer === false);
+      // podeVerCusto() não existe mais: era o gate de tela do bloco de custo na fila de
+      // autorização, e saiu junto com ele. Quem responde "este perfil vê dinheiro?" hoje é
+      // podeVerRecursos() — uma função só, para uma aba só.
+      const podeVer = await page.evaluate(() => ({
+        recursos: podeVerRecursos(), custoOrfa: typeof podeVerCusto !== 'undefined',
+      }));
+      ok('C8 podeVerRecursos() = false para oncologista', podeVer.recursos === false);
+      ok('C8 podeVerCusto() não existe mais (gate órfão não sobreviveu à remoção)',
+        podeVer.custoOrfa === false);
       // Abre um paciente com protocolo vigente: nem na ficha o bloco aparece. Para o
       // oncologista isso já era verdade por guard de perfil; agora é verdade por desenho
       // da tela, e o mesmo check roda para auditor e admin mais abaixo.
@@ -412,69 +472,50 @@ async function ctxLogin(browser, perfil) {
       await ctx.close();
     }
 
-    // ═══ FASE 5 — UI do auditor: bloco e carteira ═══
+    // ═══ FASE 5 — UI do auditor: a tela de Autorizações NÃO mostra dinheiro ═══
+    // ★ FASE INVERTIDA. Provava "o auditor vê a carteira e o bloco de custo na fila".
+    // Agora prova o oposto no mesmo endereço, porque a exigência mudou de sinal: quem
+    // decide exceção decide MÉRITO, e o preço não é insumo dessa decisão. As duas pontas,
+    // como sempre — nada na TELA e 403 na API direta.
     {
       const { ctx, page, errs } = await ctxLogin(browser, 'auditor');
+      // Espera o NAV antes de navegar: ctxLogin volta com o token no localStorage, o que
+      // acontece ANTES de a app popular USUARIO e desenhar — e nessa janela go() cai em
+      // 'lista'. O nav só existe com USUARIO carregado.
+      await page.waitForSelector('#nav a', { timeout: 25000 });
       await page.evaluate(() => go('autorizacoes'));
-      await page.waitForFunction(() => AUT_LISTA !== null, null, { timeout: 25000 });
-      await page.waitForTimeout(1200);
-      const nCart = await page.evaluate(() => document.querySelectorAll('.cst-cart').length);
-      ok('C10 auditor vê o painel "Custo total da carteira"', nCart === 1, 'elementos=' + nCart);
-      const cart = await page.evaluate(() => CUSTO_CARTEIRA);
-      ok('C10 carteira soma sem tratar "sem estimativa" como zero',
-        cart && typeof cart.total_min === 'number' && typeof cart.pacientes_sem_estimativa === 'number',
-        cart ? `no_calculo=${cart.pacientes_no_calculo} fora=${cart.pacientes_sem_estimativa}` : 'null');
-      // O bloco de expectativa MIGROU da ficha para o fluxo de autorização. Onde há
-      // solicitação na fila, o cartão dela carrega o bloco — a pergunta "quanto custa"
-      // é a pergunta que se está fazendo nesta tela, e é aqui que ela é respondida.
+      await page.waitForFunction(() => view === 'autorizacoes' && AUT_LISTA !== null,
+        null, { timeout: 25000 });
+      // Espera generosa de propósito: o bloco antigo chegava ASSÍNCRONO (lote de
+      // /custos/estimativas com debounce). Conferir cedo demais provaria só que ele ainda
+      // não tinha chegado — que é o falso PASS mais fácil de escrever aqui.
+      await page.waitForTimeout(2500);
+      await telaAutorizacaoSemDinheiro(page, 'auditor', ok);
+
+      // A outra metade: a tela ficou sem dinheiro E o auditor continua trabalhando.
+      // Sem este check, "some com a aba inteira" também passaria.
       const fila = await page.evaluate(() => ({
         cards: document.querySelectorAll('.aut-card').length,
-        comCusto: Array.from(document.querySelectorAll('.aut-card')).filter(c => c.querySelector('.cst')).length,
+        botoes: document.querySelectorAll('.aut-card button.ok, .aut-card button.neg').length,
+        pareceres: document.querySelectorAll('.aut-card textarea').length,
       }));
-      if (fila.cards > 0) {
-        ok('C11 na fila de autorização, TODO cartão traz o bloco de expectativa de custo',
-          fila.comCusto === fila.cards, `cartoes=${fila.cards} com bloco=${fila.comCusto}`);
-      } else {
-        // Fila vazia não é falha do app — mas também não é prova. O check fica registrado
-        // como VAZIO e alto, para não virar um PASS que não olhou nada.
-        ok('C11 fila de autorização tinha solicitação para conferir o bloco', false,
-          'fila vazia — este check não provou nada nesta rodada (crie uma solicitação de exceção)');
+      ok('C10 ★ o auditor continua decidindo: fila com cartão, parecer e botões',
+        fila.cards > 0 && fila.botoes > 0 && fila.pareceres > 0,
+        `cartoes=${fila.cards} botoes=${fila.botoes} pareceres=${fila.pareceres}`
+        + (fila.cards ? '' : ' — FILA VAZIA: este check não provou nada (crie uma solicitação de exceção)'));
+
+      // API direta, o controle de verdade: esconder na tela é cortesia.
+      const rotas403 = ['/custos', '/custos/carteira', '/custos/cobertura',
+        `/custos/estimativa/${RID_FIXA}`, `/custos/estimativas?ids=${RID_FIXA}`, '/custos/paciente/1'];
+      let todas403 = true, detalhe = '';
+      for (const rota of rotas403) {
+        const r = await req('GET', rota, tkAud);
+        if (r.status !== 403) { todas403 = false; detalhe += `${rota}=${r.status} `; }
       }
-      // Zero na TELA (só o container da app), não no fonte.
-      const tApp = await page.evaluate(() => (document.getElementById('app') || document.body).innerText);
-      ok('C11 nenhum "R$ 0,00" renderizado (indeterminado não vira zero)', !/R\$\s*0,00/.test(tApp),
-        (tApp.match(/R\$\s*0,00/g) || []).join(','));
-      {
-        // Desacoplamento na TELA: protocolo com tempo derivável e SEM preço tem de
-        // mostrar a metade de USO e nenhum R$. Renderiza o bloco isolado e inspeciona —
-        // é o único jeito de provar isso sem depender de qual protocolo o paciente tem.
-        const semPrecoUI = await page.evaluate(async (alvo) => {
-          if (!alvo) return null;
-          const el = document.createElement('div');
-          el.innerHTML = custoBlocoHtml(alvo);
-          document.body.appendChild(el);
-          for (let i = 0; i < 60 && CUSTO_EST[alvo] === undefined; i++) await new Promise(r => setTimeout(r, 100));
-          pintarSlotsCusto();
-          const txt = el.innerText;
-          const e = CUSTO_EST[alvo];
-          el.remove();
-          return { txt, uso: e && e.uso };
-        }, RID_SEM_PRECO);
-        if (semPrecoUI && semPrecoUI.uso) {
-          ok('C11b uso sem preço: bloco mostra "Uso esperado" e o nº de aplicações',
-            /uso esperado/i.test(semPrecoUI.txt) && new RegExp(String(semPrecoUI.uso.ciclos_esperados)).test(semPrecoUI.txt),
-            semPrecoUI.txt.replace(/\s+/g, ' ').slice(0, 130));
-          ok('C11b uso sem preço: diz "sem preço cadastrado" e NÃO mostra R$ nenhum',
-            /sem pre[çc]o/i.test(semPrecoUI.txt) && !/R\$/.test(semPrecoUI.txt),
-            (semPrecoUI.txt.match(/R\$[^\s]*/g) || []).join(','));
-        } else {
-          ok('C11b uso sem preço renderizado na tela', !RID_SEM_PRECO,
-            RID_SEM_PRECO ? 'bloco não renderizou para ' + RID_SEM_PRECO : 'sem regime candidato — check vazio');
-        }
-      }
-      // E o inverso do check antigo: o auditor PODE ver dinheiro, e mesmo assim a ficha
-      // do paciente dele não mostra nenhum. O que separa as telas não é o perfil, é o
-      // momento — clínico não vê preço nem "sem preço".
+      ok(`C11 ★ auditor pela URL: 403 em TODA leitura de custo (${rotas403.length} rotas)`, todas403, detalhe);
+
+      // A ficha do paciente segue limpa para ele — já era verdade antes por desenho da
+      // tela, e continua sendo agora também por guard de perfil.
       await fichaSemDinheiro(page, 'auditor', ok);
       ok('C11 sem erro de console no auditor', errs.length === 0, errs.join(' | '));
       await ctx.close();
@@ -558,6 +599,16 @@ async function ctxLogin(browser, perfil) {
       // Este é o check que impede a regressão mais provável — "o admin é quem manda,
       // deixa o bloco para ele".
       await fichaSemDinheiro(page, 'admin', ok);
+
+      // ★ E a MESMA regressão na tela de Autorizações, que o admin também abre. A regra
+      // não é "esconder do auditor": é que a tela de autorização não mostra dinheiro para
+      // NINGUÉM. O admin é o único perfil que veria o número se a asserção fosse sobre
+      // perfil em vez de sobre tela — então é ele que fecha o buraco.
+      await page.evaluate(() => go('autorizacoes'));
+      await page.waitForFunction(() => view === 'autorizacoes' && AUT_LISTA !== null,
+        null, { timeout: 25000 });
+      await page.waitForTimeout(2500);
+      await telaAutorizacaoSemDinheiro(page, 'admin', ok);
       ok('C12 sem erro de console no admin', errs.length === 0, errs.join(' | '));
       await ctx.close();
     }

@@ -142,7 +142,7 @@ export class CustosService {
     });
   }
 
-  // ---- estimativa (auditor + admin) ----------------------------------------
+  // ---- estimativa (gestor + admin) -----------------------------------------
   private regimePorId(regimenId: string): any | null {
     const regimes: any[] = this.evidencia.carregar()?.regimes || [];
     return regimes.find((r) => String(r?.regimen_id) === String(regimenId)) || null;
@@ -336,9 +336,21 @@ export class CustosService {
   // reporta separadamente quantos ficaram de fora e por quê. Somar tratando "sem
   // estimativa" como zero diria que a carteira custa menos do que custa — que é
   // exatamente o erro que este módulo existe para não cometer.
-  async carteira() {
+  //
+  // PSEUDONIMIZAÇÃO (perfil gestor): a rota passou a ser ['gestor','admin'] quando o
+  // dinheiro saiu do fluxo de autorização, e o gestor é justamente o perfil que nunca vê
+  // paciente. Mesmo desenho de /recursos/projecao: para ele a coluna `nome` NEM É
+  // SELECIONADA do banco — não é o nome apagado depois da consulta, é caminho de código
+  // que não existe. Rótulo estável no lugar: "Paciente #12".
+  // `perfil` é OBRIGATÓRIO de propósito: opcional, o default seria "mostra nome", e o
+  // próximo caller que esquecesse o argumento vazaria em silêncio. Argumento de
+  // privacidade não tem default seguro — tem que ser dito.
+  async carteira(perfil: string) {
+    const gestor = perfil === 'gestor';
     const vigentes = await this.vigentesPorPaciente();
-    const pacientes = await this.pacienteRepo.find({ select: { id: true, nome: true } });
+    const pacientes = gestor
+      ? await this.pacienteRepo.find({ select: { id: true } })
+      : await this.pacienteRepo.find({ select: { id: true, nome: true } });
     const nomePorId = new Map(pacientes.map((p) => [p.id, p.nome]));
     const precos = await this.mapaPrecos();
     const porRegime = new Map<string, Estimativa>();
@@ -355,8 +367,9 @@ export class CustosService {
       const e = porRegime.get(v.regimen_id)!;
       const linha = {
         paciente_id: v.paciente_id,
-        paciente: nomePorId.get(v.paciente_id) || null,
+        paciente_ref: `Paciente #${v.paciente_id}`,
         regimen_id: v.regimen_id,
+        ...(gestor ? {} : { paciente: nomePorId.get(v.paciente_id) || null }),
       };
       // Só entra na SOMA quem tem custo. Uso sem preço não vira zero: fica na lista de
       // fora, com o motivo — e o motivo diz que falta preço, não que falta tempo.
@@ -387,6 +400,7 @@ export class CustosService {
       aviso: usaProxyPfs ? AVISO_PFS : undefined,
       com_estimativa: comEstimativa,
       sem_estimativa: semEstimativa,
+      pseudonimizado: gestor,
       selo: 'estimativa' as const,
     };
   }

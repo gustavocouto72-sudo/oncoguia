@@ -4,7 +4,7 @@ import type { Perfil } from '../database/entities';
 // Escrita de PREÇO = whitelist EXPLÍCITA ['admin'], sem herança hierárquica.
 //
 // Poderia ser @Roles('admin') + RolesGuard (admin é o topo da escada, então o efeito
-// prático hoje é o mesmo). Não é: quem lê preço é ['auditor','admin'] por whitelist, e
+// prático hoje é o mesmo). Não é: quem lê preço é ['gestor','admin'] por whitelist, e
 // misturar os dois mecanismos no mesmo controller deixa a matriz de permissão dependendo
 // de onde cada perfil está na HIERARQUIA — exatamente o acoplamento que o resto do
 // módulo evita. Aqui a pergunta é literal: o perfil é 'admin'?

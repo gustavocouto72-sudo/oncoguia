@@ -8,7 +8,7 @@ import { CustosService } from './custos.service';
 
 // EvidenciaModule entra porque a metade "tempo" da estimativa (expectativa_uso) vem do
 // corpus publicado, não do banco: o servidor lê o mesmo JSON que a app recebe.
-// RecursosCalculoModule entra porque a ficha do paciente (auditor + admin) mostra a
+// RecursosCalculoModule entra porque /custos/paciente/:id (gestor + admin) devolve a
 // decomposição por insumo ao lado da estimativa por protocolo. É o módulo do CÁLCULO, não
 // o de recursos inteiro — aquele importa este, e importá-lo de volta fecharia um ciclo.
 @Module({

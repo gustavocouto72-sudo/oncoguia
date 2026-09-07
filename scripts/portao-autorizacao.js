@@ -10,11 +10,20 @@
 //    PACIENTE ABERTA (detalhe + trilha em cache). Foi por aqui que o `AVAL_HIST` órfão
 //    (sobra do rename Histórico→Trilha) alertou "Falha ao registrar a decisão" para uma
 //    decisão já gravada: o erro era no refresh, depois do POST.
+//  Fase 4 (UI, admin): a tela de Autorizações não mostra dinheiro para ELE TAMBÉM — é o
+//    único perfil que pode ler /custos e abrir esta aba, então é onde a regra falharia
+//    calada. E a contraprova: a aba Recursos dele continua cheia de R$.
 //  Fase 3 (API): o que a UI não pode garantir — enforcement SERVER-SIDE do não-incorporado
 //    (POST direto sem autorizacao_estado nasce pendente do mesmo jeito), estado inicial
 //    não escolhível pelo cliente, decisão única e imutável, parecer obrigatório nas duas
-//    decisões, e a matriz de perfil (auditor é eixo próprio, não degrau de hierarquia).
+//    decisões, e a matriz de perfil (auditor é eixo próprio, não degrau de hierarquia) —
+//    incluindo a ponta nova: o auditor leva 403 em /custos e /recursos, e mesmo assim
+//    decide. Decide MÉRITO, sem ver custo.
 //  Limpeza: apaga o paciente de teste (DELETE admin, JWT assinado).
+//
+// NÃO ENCADEIE com outro portão sem uma janela de ~1 min: `POST /auth/login` é limitado
+// a 5/min por IP e este portão usa 4 perfis (oncologista, auditor e admin na UI, revisor
+// por token). O helper espera no 429.
 //
 // Uso: node scripts/portao-autorizacao.js   (exige app e API no ar; portas por
 // PORTAO_APP/PORTAO_API, default 5173/3005).
@@ -36,6 +45,35 @@ const RID_INC = 'mama-adj-her2neg-act';
 
 const R = [];
 const ok = (n, c, x) => { R.push([c, n, x]); console.log((c ? 'PASS' : 'FAIL') + '  ' + n + (x ? '  [' + String(x).slice(0, 160) + ']' : '')); };
+
+// A TELA DE AUTORIZAÇÕES NÃO MOSTRA DINHEIRO — PARA NENHUM PERFIL, admin incluído.
+//
+// Aqui viveram duas coisas: o painel "Custo total da carteira — ESTIMATIVA" no topo da
+// fila e o bloco "Expectativa de uso e custo — ESTIMATIVA" dentro de cada cartão. As duas
+// saíram. O motivo é de PAPEL, não de layout: quem autoriza uma exceção decide MÉRITO —
+// a evidência sustenta este protocolo para este paciente? — e o preço não é insumo dessa
+// pergunta. Ter o número à vista convida a resposta certa pelo motivo errado, e o convite
+// não deixa rastro no parecer.
+//
+// A asserção é sobre a TELA, não sobre o perfil: por isso roda para auditor E para admin.
+// Se fosse só o auditor, "o admin é quem manda, deixa o número para ele" passaria — e é
+// exatamente essa a regressão provável.
+//
+// Texto lido de #app, nunca de document.body: o <script> da app mora dentro do <body>,
+// então body.textContent devolveria o CÓDIGO-FONTE — que tem "ESTIMATIVA" em comentário.
+async function telaSemDinheiro(page, perfil) {
+  const t = await page.evaluate(() => (document.getElementById('app') || document.body).innerText);
+  ok(`D1 ★ Autorizações NÃO diz "R$" (${perfil})`, !/R\$/.test(t),
+    (t.match(/.{0,45}R\$.{0,45}/) || [''])[0]);
+  ok(`D1 ★ Autorizações NÃO diz "ESTIMATIVA" (${perfil})`, !/ESTIMATIVA/.test(t),
+    (t.match(/.{0,45}ESTIMATIVA.{0,45}/) || [''])[0]);
+  // DOM, não só texto: um bloco em "⏳ calculando…" não tem R$ e passaria no teste de
+  // texto — mas seria o bloco de volta.
+  ok(`D1 ★ nenhum bloco de custo/carteira no DOM (${perfil})`,
+    await page.evaluate(() => document.querySelectorAll('.cst, .cst-cart, .cst-slot, [data-cst-rid]').length) === 0, '');
+  ok(`D1 estado de custo não sobreviveu à remoção (${perfil})`,
+    await page.evaluate(() => typeof CUSTO_CARTEIRA === 'undefined' && typeof podeVerCusto === 'undefined'), '');
+}
 
 // Login de API por PERFIL (nunca por login literal), com espera no 429 — ver
 // scripts/portao-credenciais.js.
@@ -77,7 +115,7 @@ async function ctxLogin(browser, perfil) {
   exigirBancoDeDev('autorização / solicitação de exceção');
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
   let pacienteId = null, avaliacaoPendenteId = null;
-  let tkOnco = null, tkAud = null;
+  let tkOnco = null, tkAud = null, tkAdm = null;
 
   try {
     // ═══ FASE 1 — oncologista abre a solicitação de exceção ═══
@@ -147,6 +185,21 @@ async function ctxLogin(browser, perfil) {
     const cardTxt = await pa.evaluate(() => document.body.textContent);
     ok('A3 card mostra o paciente', cardTxt.includes(NOME_TESTE));
     ok('A3 card mostra a justificativa do médico', cardTxt.includes(JUST_TESTE.slice(0, 40)));
+
+    // ---- a fila NÃO mostra dinheiro (auditor) --------------------------------
+    // Espera generosa de propósito: o bloco de custo removido chegava ASSÍNCRONO (lote
+    // de /custos/estimativas com debounce de 30ms + ida ao servidor). Conferir cedo
+    // demais provaria só que ele ainda não tinha voltado — o falso PASS mais fácil de
+    // escrever aqui. A fila tem cartão nesta altura (A2 acabou de exigir isso), então o
+    // check não é vazio: há onde o bloco reapareceria.
+    await pa.waitForTimeout(2500);
+    await telaSemDinheiro(pa, 'auditor');
+    // A outra ponta, no mesmo fôlego: sem dinheiro E com o trabalho intacto. Sem isto,
+    // "sumiu com a aba inteira" também passaria.
+    ok('D1 ★ auditor continua com fila, parecer e botões de decisão',
+      await pa.evaluate(() => document.querySelectorAll('.aut-card').length > 0
+        && document.querySelectorAll('.aut-card textarea').length > 0
+        && document.querySelectorAll('.aut-card button.ok, .aut-card button.neg').length > 0));
 
     // parecer: digitar não re-renderiza a fila
     await pa.evaluate(() => { window.__rc = 0; const o = window.render; window.render = function () { window.__rc++; return o.apply(this, arguments); }; });
@@ -341,6 +394,61 @@ async function ctxLogin(browser, perfil) {
       (await req('GET', '/usuarios', tkAud)).status === 403);
     ok('P10 auditor lê a evidência (autenticado) → 200',
       (await req('GET', '/evidencia', tkAud)).status === 200);
+    // ★ A ponta de API do mesmo movimento que limpou a tela: o auditor entrou na lista
+    // dos perfis que NÃO acessam a camada financeira. Esconder na tela é cortesia; o
+    // controle é o guard, e é ele que este check exercita — batendo direto na URL.
+    // /custos era ['auditor','admin'] e virou ['gestor','admin'].
+    {
+      const rotasDinheiro = ['/custos', '/custos/carteira', '/custos/cobertura',
+        `/custos/estimativa/${RID_INC}`, `/custos/estimativas?ids=${RID_INC}`,
+        `/custos/paciente/${pacienteId}`,
+        '/recursos/projecao?horizonte=6', '/recursos/insumos', '/recursos/cobertura'];
+      let todas403 = true, detalhe = '';
+      for (const rota of rotasDinheiro) {
+        const r = await req('GET', rota, tkAud);
+        if (r.status !== 403) { todas403 = false; detalhe += `${rota}=${r.status} `; }
+      }
+      ok(`P11 ★ auditor NÃO acessa custo nem recursos por API direta (403 em ${rotasDinheiro.length} rotas)`,
+        todas403, detalhe);
+    }
+    ok('P12 ★ e mesmo assim o auditor DECIDE normalmente (fila 200, decisão gravada acima)',
+      (await req('GET', '/autorizacoes', tkAud)).status === 200);
+    // ═══ FASE 4 — UI do ADMIN: a mesma tela, o mesmo vazio ═══
+    // O admin é o único perfil que ainda PODE ler /custos e abrir Autorizações ao mesmo
+    // tempo. Ou seja: é o único em que a regra "a tela não mostra dinheiro" pode falhar
+    // sem que nenhum guard reclame. Por isso ele tem fase própria — a asserção é sobre a
+    // TELA, e uma asserção sobre tela que só roda no perfil bloqueado não prova nada.
+    {
+      const fa = await ctxLogin(browser, 'admin');
+      tkAdm = fa.tk;   // reaproveitado na limpeza: `POST /auth/login` é 5/min por IP
+      // Espera o NAV, não só o token: ctxLogin volta quando o JWT chega ao localStorage, e
+      // isso acontece ANTES de a app terminar o boot (buscar /auth/me, popular USUARIO e
+      // desenhar). Chamar go('autorizacoes') nessa janela cai em 'lista' — foi assim que
+      // este check falhou em 1 de 4 execuções. O nav só existe com USUARIO carregado, então
+      // esperá-lo é esperar o boot.
+      await fa.page.waitForSelector('#nav a', { timeout: 25000 });
+      await fa.page.evaluate(() => go('autorizacoes'));
+      await fa.page.waitForFunction(() => view === 'autorizacoes' && AUT_LISTA !== null,
+        null, { timeout: 25000 });
+      await fa.page.waitForTimeout(2500);
+      const viewAdm = await fa.page.evaluate(() => view);
+      ok('D2 admin abre a aba Autorizações', viewAdm === 'autorizacoes', 'view=' + viewAdm);
+      await telaSemDinheiro(fa.page, 'admin');
+      ok('D2 console limpo na tela de Autorizações do admin', fa.errs.length === 0, fa.errs.join(' | '));
+      // Contraprova: o admin CONTINUA vendo dinheiro onde ele mora agora. Sem isto, este
+      // portão passaria com a camada financeira apagada do produto inteiro.
+      await fa.page.evaluate(() => go('recursos'));
+      // Espera o ESTADO, não o relógio: a projeção é um fetch, e 2,5s fixos falharam em 1
+      // de 3 execuções — a tela ainda estava em "⏳ carregando" e o check leu ausência de
+      // R$ como se fosse a regressão que ele procura. Um check de PRESENÇA com espera fixa
+      // é um falso FAIL esperando a máquina ficar lenta (e o de ausência, um falso PASS).
+      await fa.page.waitForFunction(() => REC_PROJ !== null || REC_ERRO, null, { timeout: 30000 });
+      await fa.page.waitForTimeout(400);
+      const temDinheiro = await fa.page.evaluate(() =>
+        /R\$/.test((document.getElementById('app') || document.body).innerText));
+      ok('D2 ★ o dinheiro não sumiu do produto: a aba Recursos do admin mostra R$', temDinheiro);
+      await fa.ctx.close();
+    }
   } catch (e) {
     ok('EXCEÇÃO no portão', false, e.message);
   } finally {
@@ -352,7 +460,9 @@ async function ctxLogin(browser, perfil) {
     if (pacienteId) {
       try {
         // Login de verdade da conta de teste admin (era JWT assinado com sub:1 fixo).
-        const admin = await token('admin');
+        // Reaproveita o token da Fase 4 quando ela chegou a rodar — um login a menos na
+        // janela de 5/min. Se o portão estourou antes dela, faz o login aqui.
+        const admin = tkAdm || await token('admin');
         const del = await req('DELETE', `/pacientes/${pacienteId}`, admin);
         ok('Z limpeza: paciente de teste removido', del.status === 200 || del.status === 204, String(del.status));
       } catch (e) { ok('Z limpeza: paciente de teste removido', false, e.message); }

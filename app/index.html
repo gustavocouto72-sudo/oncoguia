@@ -5023,27 +5023,28 @@ let AUT_FORM = {};           // avaliacao_id -> {parecer} (rascunho; digitar NÃ
 let AUT_BUSY = null;         // id em gravação
 let AUT_ERRO = "";
 
-// =================== EXPECTATIVA DE CUSTO (auditor + admin) ===================
-// Bloco de ESTIMATIVA: custo por ciclo em faixa (tabela CMED x negociado) x ciclos
-// esperados (do bloco expectativa_uso do corpus). Quem calcula é o SERVIDOR — a app não
-// multiplica nada, só desenha o que veio, para não existirem duas aritméticas.
+// ======================= CAMADA DE DINHEIRO (gestor + admin) ==================
+// DINHEIRO SAIU DO FLUXO DE AUTORIZAÇÃO. O que vivia aqui — o bloco "Expectativa de uso
+// e custo" dentro de cada cartão da fila e o painel "Custo total da carteira" no topo da
+// aba Autorizações — foi REMOVIDO, para TODOS os perfis, admin incluído.
 //
-// Visibilidade: whitelist ['auditor','admin']. Esconder o bloco aqui é CORTESIA — o
-// controle é o guard do /custos, que devolve 403 para oncologista e revisor mesmo que
-// alguém chame a rota na mão. Por isso a app nem pede a estimativa quando o perfil não
-// pode ver: pedir e receber 403 encheria o console de erro sem motivo.
-function podeVerCusto(){ return !!(USUARIO && (USUARIO.perfil==="auditor" || USUARIO.perfil==="admin")); }
-
-// GESTÃO DE RECURSOS — whitelist ['gestor','admin'], espelhando o GestorOuAdminGuard.
-// E o inverso: o GESTOR não vê nada clínico. As duas listas são LITERAIS (não "quem não
-// for gestor"), pelo mesmo motivo do servidor: blacklist envelhece mal — o próximo perfil
-// novo nasceria vendo tudo. Aqui é cortesia de tela; o controle é o guard.
+// Não é ajuste de tela: a whitelist do /custos no servidor passou de ['auditor','admin']
+// para ['gestor','admin'], e o auditor leva 403 batendo direto na URL. O motivo é de
+// papel, não de layout — quem autoriza uma exceção decide MÉRITO (a evidência sustenta
+// este protocolo para este paciente?), e o preço não é insumo dessa pergunta. Um número
+// à vista no momento da decisão convida a resposta errada pelo motivo errado, e o
+// convite não deixa rastro nenhum no parecer.
+//
+// Nada se perdeu de lugar nenhum: a soma da carteira, quem ficou de fora e por quê, a
+// demanda de compra e o faturamento estão na aba RECURSOS (seções Resumo e Carteira),
+// que é de gestor e admin. O que sobrou aqui é o CADASTRO de preço (admin), que também
+// mora dentro da aba Recursos.
+//
+// As duas listas são LITERAIS (nunca "quem não for X"): blacklist envelhece mal — o
+// próximo perfil novo nasceria vendo tudo. Aqui é cortesia de tela; o controle é o guard.
 function podeVerRecursos(){ return !!(USUARIO && (USUARIO.perfil==="gestor" || USUARIO.perfil==="admin")); }
 function podeVerClinico(){ return !!(USUARIO && ["oncologista","revisor","auditor","admin"].includes(USUARIO.perfil)); }
 
-let CUSTO_EST = {};        // regimen_id -> estimativa do servidor (ou "carregando")
-let CUSTO_PEND = new Set();// ids já pedidos nesta rodada (evita pedir duas vezes)
-let CUSTO_CARTEIRA = null; // agregado da carteira (null = não carregado)
 let CUSTO_ADM = null;      // lista de preços cadastrados (tela do admin)
 let CUSTO_FORM = {};       // rascunho do formulário de preço, por regimen_id
 let CUSTO_BUSY = null;     // regimen_id sendo gravado
@@ -5054,133 +5055,25 @@ const fmtBRL = v => (typeof v==="number" && isFinite(v))
   ? v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",minimumFractionDigits:2,maximumFractionDigits:2})
   : "—";
 
-// Busca em LOTE, com debounce: uma tela com 20 protocolos faz 1 chamada, não 20.
-let _custoTimer = null;
-function pedirEstimativa(rid){
-  if(!rid || !podeVerCusto() || CUSTO_EST[rid] !== undefined || CUSTO_PEND.has(rid)) return;
-  CUSTO_PEND.add(rid);
-  clearTimeout(_custoTimer);
-  _custoTimer = setTimeout(async ()=>{
-    const ids = [...CUSTO_PEND]; CUSTO_PEND.clear();
-    if(!ids.length) return;
-    try{
-      const lista = await api("/custos/estimativas?ids="+encodeURIComponent(ids.join(",")));
-      (lista||[]).forEach(e=>{ CUSTO_EST[e.regimen_id] = e; });
-    }catch(e){
-      // Falha de rede não pode virar "custo zero" na tela: marca cada id com o erro.
-      ids.forEach(id=>{ CUSTO_EST[id] = {regimen_id:id, disponivel:false, motivo:"erro", explicacao:"Falha ao consultar a estimativa: "+e.message, selo:"estimativa"}; });
-    }
-    // NÃO chama render(): a estimativa chega ASSÍNCRONA e um render global aqui
-    // redesenharia a tela por cima do que o usuário está digitando — foi assim que este
-    // bloco quebrou o "0 re-render" do parecer do auditor. Atualiza só os próprios slots.
-    pintarSlotsCusto();
-  }, 30);
-}
-
-// O bloco. Devolve "" para quem não pode ver — e é isso que tira o bloco do DOM do
-// oncologista, inclusive quando ele chega na tela pela URL.
-function custoBlocoHtml(rid){
-  if(!podeVerCusto() || !rid) return "";
-  return `<div class="cst-slot" data-cst-rid="${esc(rid)}">${custoConteudoHtml(rid)}</div>`;
-}
-
-// Repinta só os slots de custo já no DOM. Existe para que a chegada assíncrona da
-// estimativa não precise de render() global — ver pedirEstimativa().
-function pintarSlotsCusto(){
-  document.querySelectorAll("[data-cst-rid]").forEach(el=>{
-    const rid = el.getAttribute("data-cst-rid");
-    if(rid) el.innerHTML = custoConteudoHtml(rid);
-  });
-}
-
-function custoConteudoHtml(rid){
-  const e = CUSTO_EST[rid];
-  if(e === undefined){ pedirEstimativa(rid); return `<div class="cst"><div class="cst-h">Expectativa de uso e custo — <b>ESTIMATIVA</b></div><div class="cst-load">⏳ calculando…</div></div>`; }
-
-  const uso = e.uso || {}, custo = e.custo || {};
-
-  // USO e CUSTO são independentes. Sem tempo derivável não há o que mostrar — aí sim
-  // "sem estimativa". Com tempo derivável e sem preço, o uso aparece igual: o número de
-  // aplicações é dado clínico do corpus e não depende de ninguém ter cadastrado preço.
-  if(!uso.disponivel){
-    return `<div class="cst cst-sem">
-      <div class="cst-h">Expectativa de uso e custo — <b>ESTIMATIVA</b></div>
-      <div class="cst-sem-t">sem estimativa</div>
-      <div class="cst-sem-x">${esc(uso.explicacao||"Motivo não informado pelo servidor.")}</div>
-      ${uso.duracao_meses?`<div class="cst-det">Duração conhecida: ${esc(String(uso.duracao_meses).replace(".",","))} meses — falta o intervalo entre aplicações.</div>`:""}
-      ${uso.origem_detalhe?`<div class="cst-det">${esc(uso.origem_detalhe)}</div>`:""}
-      ${uso.nota_expectativa?`<div class="cst-nota"><b>Nota do tempo de uso:</b> ${esc(uso.nota_expectativa)}</div>`:""}
-    </div>`;
-  }
-
-  // ---- metade USO (sempre que houver tempo derivável) ----
-  const decl = uso.periodicidade_origem === "periodo_declarado";
-  const usoHtml = `
-    <div class="cst-sec">Uso esperado</div>
-    <div class="cst-l"><span>${decl?"Períodos esperados":"Ciclos esperados"}</span><b>${uso.ciclos_esperados}</b> <span class="cst-org">${esc(custoOrigemLabel(uso))}</span></div>
-    ${uso.periodicidade_dias?`<div class="cst-l"><span>Intervalo</span><b>${uso.periodicidade_dias} dias</b> ${decl
-      ? `<span class="cst-org adm" title="Valor administrativo informado por quem cadastrou o preço — não sai do protocolo nem de extração clínica">período declarado no cadastro</span>`
-      : `<span class="cst-org">do esquema</span>`}</div>`:""}
-    ${uso.origem_detalhe?`<div class="cst-det">${esc(uso.origem_detalhe)}</div>`:""}
-    ${uso.aviso?`<div class="cst-aviso">⚠️ ${esc(uso.aviso)}</div>`:""}
-    ${uso.nota_expectativa?`<div class="cst-nota"><b>Nota do tempo de uso:</b> ${esc(uso.nota_expectativa)}</div>`:""}`;
-
-  // ---- metade CUSTO (só quando há preço) ----
-  const c = custo.custo_ciclo || {};
-  const custoHtml = custo.disponivel ? `
-    <div class="cst-sec">Custo</div>
-    <div class="cst-l"><span>${decl?`Preço por ${custo.periodo_dias} dias`:"Custo por ciclo"}</span><b>${fmtBRL(c.min)} – ${fmtBRL(c.max)}</b></div>
-    <div class="cst-fontes">
-      <div><span class="cst-fk">negociado</span> ${esc(c.fonte_min||"—")}</div>
-      <div><span class="cst-fk">tabela</span> ${esc(c.fonte_max||"—")}</div>
-    </div>
-    <div class="cst-tot"><span>Total estimado</span><b>${fmtBRL(custo.total_min)} – ${fmtBRL(custo.total_max)}</b></div>`
-    : `
-    <div class="cst-sec">Custo</div>
-    <div class="cst-semp" title="${esc(custo.explicacao||"")}">sem preço cadastrado</div>`;
-
-  return `<div class="cst">
-    <div class="cst-h">Expectativa de uso e custo — <b>ESTIMATIVA</b></div>
-    ${usoHtml}
-    ${custoHtml}
-  </div>`;
-}
-
-// Origem dos ciclos, sempre visível: o auditor precisa saber se o número veio do esquema
-// (duro) ou de um proxy de PFS (piso otimista).
+// Origem dos ciclos. Rótulo do CADASTRO de preço (aba Recursos): diz ao admin se o
+// número de ciclos daquela fila veio do esquema (duro) ou de um proxy de PFS (piso
+// otimista) — o mesmo rótulo servia o bloco da fila de autorização, que não existe mais.
 const CUSTO_ORIGEM = {
   esquema:            {t:"nº de ciclos do esquema",              cls:"esq"},
   proxy_pfs:          {t:"proxy: PFS mediana do pivotal",        cls:"pfs"},
   duracao_reportada:  {t:"duração mediana reportada no pivotal", cls:"dur"},
 };
-function custoOrigemLabel(uso){ const m = CUSTO_ORIGEM[uso.origem_ciclos]; return m ? m.t : ""; }
-
-// ---- Carteira (área do auditor) ----
-async function carregarCarteira(){
-  try{ CUSTO_CARTEIRA = await api("/custos/carteira"); }
-  catch(e){ CUSTO_CARTEIRA = {erro:e.message}; }
-  // Idem: repinta o próprio slot, sem render() global por cima de um rascunho aberto.
-  const el = document.getElementById("cst-carteira");
-  if(el) el.innerHTML = carteiraConteudoHtml();
-}
-function carteiraHtml(){
-  if(!podeVerCusto()) return "";
-  return `<div id="cst-carteira">${carteiraConteudoHtml()}</div>`;
-}
-function carteiraConteudoHtml(){
-  if(CUSTO_CARTEIRA===null){ carregarCarteira(); return `<div class="cst-cart"><div class="cst-h">Custo total da carteira — <b>ESTIMATIVA</b></div><div class="cst-load">⏳ somando…</div></div>`; }
-  const k = CUSTO_CARTEIRA;
-  if(k.erro) return `<div class="cst-cart"><div class="cst-h">Custo total da carteira</div><div class="cst-sem-x">${esc(k.erro)}</div></div>`;
-  return `<div class="cst-cart">
-    <div class="cst-h">Custo total da carteira — <b>ESTIMATIVA</b></div>
-    <div class="cst-tot"><span>Soma dos protocolos vigentes</span><b>${fmtBRL(k.total_min)} – ${fmtBRL(k.total_max)}</b></div>
-    <div class="cst-cart-m">${k.pacientes_no_calculo} paciente(s) no cálculo${k.pacientes_sem_estimativa?` · <b>${k.pacientes_sem_estimativa} fora</b> (sem estimativa — não entram como zero)`:""}</div>
-    ${k.aviso?`<div class="cst-aviso">⚠️ ${esc(k.aviso)}</div>`:""}
-    ${k.sem_estimativa&&k.sem_estimativa.length?`<details class="cst-fora"><summary>Quem ficou de fora e por quê (${k.sem_estimativa.length})</summary>
-      ${k.sem_estimativa.map(s=>`<div class="cst-fora-l"><b>${esc(s.paciente||("#"+s.paciente_id))}</b> · ${esc(s.regimen_id)} — ${esc(s.explicacao||s.motivo)}</div>`).join("")}
-    </details>`:""}
-  </div>`;
-}
+// ---- Carteira: NÃO vive mais na aba Autorizações ---------------------------
+// O painel "Custo total da carteira — ESTIMATIVA" ficava no topo da fila do auditor.
+// Saiu daqui inteiro (função, fetch de /custos/carteira e estado), não foi escondido
+// atrás de um if: o auditor levaria 403 na rota de qualquer jeito, e um bloco que só
+// sabe renderizar erro é pior do que bloco nenhum.
+//
+// A informação continua no produto, na aba RECURSOS: a seção Resumo traz os totais e a
+// seção Carteira traz paciente a paciente, com a lista de quem ficou de fora e o motivo
+// — a mesma regra de nunca somar "sem estimativa" como zero. A rota /custos/carteira
+// continua existindo (agora ['gestor','admin'], pseudonimizada para o gestor) e continua
+// coberta pelo portão. Tirar o desenho não é tirar a rota.
 
 // ---- Cadastro de preço (ADMIN) ----
 // Formulário guarda o rascunho em CUSTO_FORM e NÃO chama render() a cada tecla: digitar
@@ -5255,8 +5148,9 @@ async function salvarCusto(rid, btn){
       periodo_dias: pd,
     })});
     delete CUSTO_FORM[rid];
-    CUSTO_EST = {};          // preço mudou: as estimativas em cache viraram passado
-    CUSTO_CARTEIRA = null;
+    // Não há mais cache de estimativa nem de carteira para invalidar aqui: os dois eram
+    // da camada que saiu da aba Autorizações. A aba Recursos recarrega a projeção pelo
+    // seu próprio caminho.
     CUSTO_OK = "Preço gravado para "+rid+".";
   }catch(e){ CUSTO_ERRO = e.message; }
   CUSTO_BUSY = null;
@@ -5326,36 +5220,10 @@ function recPrecosSecaoHtml(){
   </div>`;
 }
 
-// CSS da camada de custo (injetado uma vez).
-(function(){ if(document.getElementById("cst-css")) return; const s=document.createElement("style"); s.id="cst-css"; s.textContent=`
-.cst{margin-top:12px;border:1px solid #d9e2ef;border-left:4px solid #4a6fa5;border-radius:10px;padding:12px 14px;background:#f8fafd}
-.cst-sem{border-left-color:#b8bfc7;background:#fafafb}
-.cst-h{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#4a6fa5;margin-bottom:8px}
-.cst-sem .cst-h{color:#77828d}
-.cst-load{font-size:13px;color:#77828d}
-.cst-sem-t{font-weight:800;font-size:14px;color:#5d6873}
-.cst-sem-x{font-size:12px;color:#67727d;margin-top:4px}
-.cst-l{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13px;padding:3px 0}
-.cst-l>span:first-child{color:#67727d}
-.cst-l b{font-size:14px}
-.cst-org{font-size:11px;color:#7b8794;background:#eef1f5;border-radius:999px;padding:1px 8px;white-space:nowrap}
-.cst-det{font-size:11px;color:#8a949e;margin:2px 0 6px}
-.cst-fontes{margin:2px 0 8px;font-size:11px;color:#77828d;line-height:1.6}
-.cst-fk{display:inline-block;min-width:74px;font-weight:700;color:#5d6873}
-.cst-tot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:8px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:13px}
-.cst-tot>span:first-child{color:#67727d}
-.cst-tot b{font-size:16px;color:#1f3f6e}
-.cst-aviso{margin-top:8px;padding:7px 10px;border-radius:8px;background:#fdf6e3;color:#7a5a00;font-size:12px;font-weight:600}
-.cst-nota{margin-top:7px;font-size:11px;color:#6b7681;line-height:1.5}
-.cst-sec{margin:10px 0 4px;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#8797a5;border-top:1px solid #e6ecf3;padding-top:8px}
-.cst-sec:first-of-type{border-top:0;padding-top:0;margin-top:2px}
-.cst-org.adm{background:#fdf6e3;color:#7a5a00}
-.cst-semp{font-size:13px;color:#77828d;font-style:italic}
-.cst-cart{margin:14px 0 6px;border:1px solid #d9e2ef;border-radius:10px;padding:14px 16px;background:#f8fafd}
-.cst-cart-m{font-size:12px;color:#67727d;margin-top:6px}
-.cst-fora{margin-top:9px;font-size:12px}
-.cst-fora summary{cursor:pointer;color:#5d6873;font-weight:600}
-.cst-fora-l{padding:4px 0;color:#67727d;border-bottom:1px solid #eef1f5}
+// CSS do CADASTRO de preço (injetado uma vez). As regras .cst-* que ficavam aqui eram do
+// bloco de expectativa e do painel de carteira, os dois removidos da aba Autorizações —
+// saíram junto: CSS órfão é o que faz um bloco removido voltar meio desenhado.
+(function(){ if(document.getElementById("cadm-css")) return; const s=document.createElement("style"); s.id="cadm-css"; s.textContent=`
 .cadm-cob{display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;margin:10px 0 6px;padding:10px 12px;background:#f7f8fa;border-radius:8px;font-size:13px}
 .cadm-sec{margin:20px 0 4px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#8797a5}
 .cadm-item{border:1px solid var(--border,#e3e6ea);border-radius:10px;padding:12px 14px;margin-bottom:12px;background:#fff}
@@ -5512,8 +5380,6 @@ function autCard(a){
       <div class="aut-proto-m">${a.linha_tratamento?`<b>${a.linha_tratamento}ª linha</b> · `:""}solicitado por <b>${esc(a.solicitante?a.solicitante.nome:"—")}</b> em ${fmtDataHora(a.data)}</div>
     </div>
 
-    ${custoBlocoHtml(a.regimen_id)}
-
     <div class="aut-sec-t">Por que precisa de exceção</div>
     ${autPorQue(a)}
 
@@ -5548,7 +5414,6 @@ function renderAutorizacoes(){
       <div class="sub">Protocolo <b>Inelegível</b> ou <b>Não incorporado</b> selecionado pelo médico não vira tratamento vigente sozinho: entra aqui como solicitação. Aprovar torna o protocolo vigente; negar mantém o registro na trilha do paciente com o seu parecer — <b>nada é apagado</b>, e uma nova tentativa é uma nova solicitação. <b>Parecer obrigatório nas duas decisões</b>; a decisão é única e imutável.</div></div>
       <div class="rev-run">auditor <b>${esc(USUARIO.nome)}</b></div></div>
     ${AUT_ERRO?`<div class="login-err">${esc(AUT_ERRO)}</div>`:""}
-    ${carteiraHtml()}
     <div class="aut-filtros">
       <button class="aut-fb ${AUT_FILTRO==='pendentes'?'on':''}" onclick="setAutFiltro('pendentes')">⏳ Pendentes <span class="n">${C.pendentes}</span></button>
       <button class="aut-fb ${AUT_FILTRO==='decididas'?'on':''}" onclick="setAutFiltro('decididas')">Decididas <span class="n">${C.aprovadas+C.negadas}</span></button>

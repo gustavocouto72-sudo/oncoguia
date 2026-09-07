@@ -535,7 +535,9 @@ export class Retorno {
 // fármaco+dose (que exige superfície corporal do paciente) espera o módulo BSA — está no
 // backlog, e é por isso que aqui não há coluna de fármaco.
 //
-// Escrita: admin. Leitura: auditor + admin (whitelist explícita no controller).
+// Escrita: admin. Leitura: gestor + admin (whitelist explícita no controller). O auditor
+// saiu da leitura quando o dinheiro saiu do fluxo de autorização: ele decide mérito, não
+// custo.
 @Entity('custos_regime')
 export class CustoRegime {
   // O regimen_id é a chave: um registro por protocolo, sobrescrito no cadastro.
