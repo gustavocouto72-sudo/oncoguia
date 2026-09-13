@@ -14,7 +14,7 @@
       "status": {
         "executado": 6,
         "executado_sem_mudanca": 2,
-        "triagem_manual": 1
+        "executado_como_refutar": 1
       }
     },
     {
@@ -109,8 +109,8 @@
     {
       "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
       "acao": "ajustar_elegibilidade",
-      "status": "triagem_manual",
-      "nota": "sem regra computável; balde proposto refutar (troca de justificativa)"
+      "status": "executado_como_refutar",
+      "nota": "pendência confirmada pelo humano em 2026-09-13: não-incorporado + justificativa do revisor (balde refutar); hash intacto"
     },
     {
       "regimen_id": "prostata-mcrpc-terapia-ossea-zoledronico",
@@ -208,12 +208,6 @@
       "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
       "acao": "corrigir_referencia",
       "motivo": "NÃO aplicado. O DOI indicado (10.1002/cncr.33169) resolve no Crossref para CHEN RC, Choueiri TK, Feuilly M, et al. Quality-adjusted survival with first-line cabozantinib or sunitinib for advanced renal cell carcinoma in the CABOSUN randomized clinical trial (Alliance). Cancer. 2020. — análise de sobrevida ajustada por qualidade do CABOSUN (1ª linha, cabozantinibe vs sunitinibe). Não é fonte para cabozantinibe em 2ª linha pós-imunoterapia, que é o card. Referência atual (METEOR, pós-TKI) mantida. Pede-se ao revisor o DOI/PMID da fonte pretendida (ex.: série de cabozantinibe pós-ICI)."
-    },
-    {
-      "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
-      "acao": "ajustar_elegibilidade",
-      "balde_proposto": "refutar",
-      "motivo": "NÃO aplicado como ajustar_elegibilidade: o texto do revisor é 'manter não incorporar, trocar a justificativa' (comparador ARSI vs Lu-PSMA-617; CARD/TheraP; PSMA-PET, disponibilidade e contraindicação à radioligante) — não há regra {campo, operador, valor} derivável sem o squad escolher primitivos (PSMA-PET, disponibilidade de Lu-PSMA) por conta própria. Balde proposto: refutar (mantém não-incorporado, substitui a justificativa pela do revisor). Executar só após o humano confirmar o balde — refutar muda o corpo publicado e nunca é deduzido de texto livre."
     }
   ],
   "primitivos_novos": [
@@ -589,5 +583,14 @@
     "renal-adj-pembrolizumab",
     "testiculo-nsgct-eI-bep1",
     "testiculo-refrataria-paliativo-gemox"
+  ],
+  "pendencias_resolvidas": [
+    {
+      "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
+      "de": "triagem_manual",
+      "para": "refutar",
+      "confirmado_por": "humano",
+      "data": "2026-09-13"
+    }
   ]
 }

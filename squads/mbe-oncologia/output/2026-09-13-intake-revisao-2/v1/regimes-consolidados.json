@@ -244,7 +244,7 @@
           "status": {
             "executado": 6,
             "executado_sem_mudanca": 2,
-            "triagem_manual": 1
+            "executado_como_refutar": 1
           }
         },
         {
@@ -339,8 +339,8 @@
         {
           "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
           "acao": "ajustar_elegibilidade",
-          "status": "triagem_manual",
-          "nota": "sem regra computável; balde proposto refutar (troca de justificativa)"
+          "status": "executado_como_refutar",
+          "nota": "pendência confirmada pelo humano em 2026-09-13: não-incorporado + justificativa do revisor (balde refutar); hash intacto"
         },
         {
           "regimen_id": "prostata-mcrpc-terapia-ossea-zoledronico",
@@ -438,12 +438,6 @@
           "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
           "acao": "corrigir_referencia",
           "motivo": "NÃO aplicado. O DOI indicado (10.1002/cncr.33169) resolve no Crossref para CHEN RC, Choueiri TK, Feuilly M, et al. Quality-adjusted survival with first-line cabozantinib or sunitinib for advanced renal cell carcinoma in the CABOSUN randomized clinical trial (Alliance). Cancer. 2020. — análise de sobrevida ajustada por qualidade do CABOSUN (1ª linha, cabozantinibe vs sunitinibe). Não é fonte para cabozantinibe em 2ª linha pós-imunoterapia, que é o card. Referência atual (METEOR, pós-TKI) mantida. Pede-se ao revisor o DOI/PMID da fonte pretendida (ex.: série de cabozantinibe pós-ICI)."
-        },
-        {
-          "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
-          "acao": "ajustar_elegibilidade",
-          "balde_proposto": "refutar",
-          "motivo": "NÃO aplicado como ajustar_elegibilidade: o texto do revisor é 'manter não incorporar, trocar a justificativa' (comparador ARSI vs Lu-PSMA-617; CARD/TheraP; PSMA-PET, disponibilidade e contraindicação à radioligante) — não há regra {campo, operador, valor} derivável sem o squad escolher primitivos (PSMA-PET, disponibilidade de Lu-PSMA) por conta própria. Balde proposto: refutar (mantém não-incorporado, substitui a justificativa pela do revisor). Executar só após o humano confirmar o balde — refutar muda o corpo publicado e nunca é deduzido de texto livre."
         }
       ],
       "refutados": [
@@ -454,6 +448,13 @@
           "data": "2026-09-12",
           "citacao_verificada": "10.1016/S0140-6736(25)00684-1",
           "ressalva": "SG final TALAPRO-2 (2025) diverge dos números do revisor — re_revisao aberta"
+        },
+        {
+          "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
+          "nota_revisao": "Manter não incorporar, trocar a justificativa (Não de forma generalizada) — depende do comparador. Frente à troca de um segundo inibidor da via do receptor androgênico (ARSI), o benefício do cabazitaxel é robusto e clinicamente relevante (CARD); já frente à radioligand therapy com lutécio-177-PSMA-617, o cabazitaxel não perde em sobrevida global (SG), mas perde em resposta e qualidade de vida (TheraP).\nNa prática, o cabazitaxel continua sendo terapia com benefício de sobrevida bem estabelecido frente à troca de ARSI, e permanece opção validada (e não inferior em SG) frente ao Lu-PSMA-617 em pacientes PSMA-positivos pós-docetaxel, sendo particularmente relevante quando a doença é PSMA-negativa/discordante em FDG-PET, quando a radioligand therapy não está disponível, ou quando há contraindicação a ela",
+          "revisor": "Gustavo Drummond Pinho Ribeiro",
+          "data": "2026-09-12",
+          "origem": "triagem_manual → refutar, confirmado pelo humano em 2026-09-13"
         }
       ],
       "excluidos": [],
@@ -1109,6 +1110,15 @@
       "app_pendencias": [
         "consolidacao.nota_revisao / notas_revisao[] não são renderizados pela app hoje (só incorporacao.nota_revisao) — as notas do manter_anotar estão no dado; exibi-las é mudança de app (portão B)",
         "rótulo do enum `cenario` para testículo (ver re_revisao)"
+      ],
+      "pendencias_resolvidas": [
+        {
+          "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
+          "de": "triagem_manual",
+          "para": "refutar",
+          "confirmado_por": "humano",
+          "data": "2026-09-13"
+        }
       ]
     },
     "revisao_humana_lotes_anteriores": [
@@ -28032,25 +28042,24 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [
-          "nao_incorporado: decisão do protocolo confirmada pela re-derivação (MCBS 2, benefício modesto)"
+          "nao_incorporado"
         ],
-        "decisao_revisao": "triagem_manual",
-        "spec_revisor_nao_computavel": "NÃO aplicado como ajustar_elegibilidade: o texto do revisor é 'manter não incorporar, trocar a justificativa' (comparador ARSI vs Lu-PSMA-617; CARD/TheraP; PSMA-PET, disponibilidade e contraindicação à radioligante) — não há regra {campo, operador, valor} derivável sem o squad escolher primitivos (PSMA-PET, disponibilidade de Lu-PSMA) por conta própria. Balde proposto: refutar (mantém não-incorporado, substitui a justificativa pela do revisor). Executar só após o humano confirmar o balde — refutar muda o corpo publicado e nunca é deduzido de texto livre.",
+        "decisao_revisao": "refutado_revisao_clinica",
         "nota_revisao": "Manter não incorporar, trocar a justificativa (Não de forma generalizada) — depende do comparador. Frente à troca de um segundo inibidor da via do receptor androgênico (ARSI), o benefício do cabazitaxel é robusto e clinicamente relevante (CARD); já frente à radioligand therapy com lutécio-177-PSMA-617, o cabazitaxel não perde em sobrevida global (SG), mas perde em resposta e qualidade de vida (TheraP).\nNa prática, o cabazitaxel continua sendo terapia com benefício de sobrevida bem estabelecido frente à troca de ARSI, e permanece opção validada (e não inferior em SG) frente ao Lu-PSMA-617 em pacientes PSMA-positivos pós-docetaxel, sendo particularmente relevante quando a doença é PSMA-negativa/discordante em FDG-PET, quando a radioligand therapy não está disponível, ou quando há contraindicação a ela",
         "notas_revisao": [
           {
             "lote": 2,
             "data": "2026-09-12",
             "revisor": "Gustavo Drummond Pinho Ribeiro",
-            "acao": "ajustar_elegibilidade",
+            "acao": "refutar (balde confirmado pelo humano; acao original ajustar_elegibilidade)",
             "natureza": "dado",
             "eixo": "elegibilidade",
             "nota": "Manter não incorporar, trocar a justificativa (Não de forma generalizada) — depende do comparador. Frente à troca de um segundo inibidor da via do receptor androgênico (ARSI), o benefício do cabazitaxel é robusto e clinicamente relevante (CARD); já frente à radioligand therapy com lutécio-177-PSMA-617, o cabazitaxel não perde em sobrevida global (SG), mas perde em resposta e qualidade de vida (TheraP).\nNa prática, o cabazitaxel continua sendo terapia com benefício de sobrevida bem estabelecido frente à troca de ARSI, e permanece opção validada (e não inferior em SG) frente ao Lu-PSMA-617 em pacientes PSMA-positivos pós-docetaxel, sendo particularmente relevante quando a doença é PSMA-negativa/discordante em FDG-PET, quando a radioligand therapy não está disponível, ou quando há contraindicação a ela",
-            "nota_squad": "NÃO aplicado como ajustar_elegibilidade: o texto do revisor é 'manter não incorporar, trocar a justificativa' (comparador ARSI vs Lu-PSMA-617; CARD/TheraP; PSMA-PET, disponibilidade e contraindicação à radioligante) — não há regra {campo, operador, valor} derivável sem o squad escolher primitivos (PSMA-PET, disponibilidade de Lu-PSMA) por conta própria. Balde proposto: refutar (mantém não-incorporado, substitui a justificativa pela do revisor). Executar só após o humano confirmar o balde — refutar muda o corpo publicado e nunca é deduzido de texto livre."
+            "nota_squad": "Ação registrada como ajustar_elegibilidade; o texto pedia 'manter não incorporar, trocar a justificativa'. Balde refutar confirmado pelo humano em 2026-09-13 (pendência do lote 2). Sem primitivo novo, eixos não reprocessados."
           }
         ]
       },
-      "versao": 1,
+      "versao": 2,
       "atualizado_em": "2026-09-13",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
       "revisado_em": "2026-09-12",
@@ -28072,10 +28081,19 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-13",
+          "origem": "intake-lote2:refutar (pendência confirmada)",
+          "mudanca": "Triagem manual resolvida pelo humano: executa como refutar — não-incorporação mantida com a justificativa do revisor verbatim (bloco incorporacao). Eixos, regra e referência intactos.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [
-        "nao_incorporado: decisão do protocolo confirmada pela re-derivação (MCBS 2, benefício modesto)"
+        "nao_incorporado"
       ],
       "expectativa_uso": {
         "tipo": "ate_progressao",
@@ -28113,6 +28131,14 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
+      },
+      "incorporacao": {
+        "status": "nao_incorporado",
+        "motivo": "refutado",
+        "nota_revisao": "Manter não incorporar, trocar a justificativa (Não de forma generalizada) — depende do comparador. Frente à troca de um segundo inibidor da via do receptor androgênico (ARSI), o benefício do cabazitaxel é robusto e clinicamente relevante (CARD); já frente à radioligand therapy com lutécio-177-PSMA-617, o cabazitaxel não perde em sobrevida global (SG), mas perde em resposta e qualidade de vida (TheraP).\nNa prática, o cabazitaxel continua sendo terapia com benefício de sobrevida bem estabelecido frente à troca de ARSI, e permanece opção validada (e não inferior em SG) frente ao Lu-PSMA-617 em pacientes PSMA-positivos pós-docetaxel, sendo particularmente relevante quando a doença é PSMA-negativa/discordante em FDG-PET, quando a radioligand therapy não está disponível, ou quando há contraindicação a ela",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "data": "2026-09-12",
+        "nota_squad": "Ação registrada como ajustar_elegibilidade; o texto pedia 'manter não incorporar, trocar a justificativa'. Balde refutar confirmado pelo humano em 2026-09-13 (pendência do lote 2). Sem primitivo novo, eixos não reprocessados."
       }
     },
     {
