@@ -5,7 +5,7 @@
       "total": 5,
       "status": {
         "executado": 4,
-        "triagem_manual": 1
+        "resolvido_manter": 1
       }
     },
     {
@@ -55,8 +55,8 @@
     {
       "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
       "acao": "corrigir_referencia",
-      "status": "triagem_manual",
-      "nota": "DOI resolve mas é o paper errado (CABOSUN 1L, Q-TWiST)"
+      "status": "resolvido_manter",
+      "nota": "triagem fechada por decisão do revisor recebida por mensagem (2026-09-13): 'incorporar segunda linha apenas'; METEOR mantido, regra inalterada, hash intacto"
     },
     {
       "regimen_id": "testiculo-nsgct-eI-bep1",
@@ -203,13 +203,7 @@
       "nota": "nota no card 2L + regime novo criado (penis-met-1l-paclitaxel-carboplatina)"
     }
   ],
-  "triagem_manual": [
-    {
-      "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
-      "acao": "corrigir_referencia",
-      "motivo": "NÃO aplicado. O DOI indicado (10.1002/cncr.33169) resolve no Crossref para CHEN RC, Choueiri TK, Feuilly M, et al. Quality-adjusted survival with first-line cabozantinib or sunitinib for advanced renal cell carcinoma in the CABOSUN randomized clinical trial (Alliance). Cancer. 2020. — análise de sobrevida ajustada por qualidade do CABOSUN (1ª linha, cabozantinibe vs sunitinibe). Não é fonte para cabozantinibe em 2ª linha pós-imunoterapia, que é o card. Referência atual (METEOR, pós-TKI) mantida. Pede-se ao revisor o DOI/PMID da fonte pretendida (ex.: série de cabozantinibe pós-ICI)."
-    }
-  ],
+  "triagem_manual": [],
   "primitivos_novos": [
     {
       "campo": "pdl1_cps",
@@ -591,6 +585,18 @@
       "para": "refutar",
       "confirmado_por": "humano",
       "data": "2026-09-13"
+    },
+    {
+      "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
+      "de": "triagem_manual",
+      "para": "manter_anotar",
+      "origem": {
+        "canal": "mensagem ao Gustavo Couto (fora da app)",
+        "decidido_por": "Gustavo Drummond Pinho Ribeiro (revisor)",
+        "data": "2026-09-13",
+        "texto": "incorporar segunda linha apenas",
+        "efeito": "manter: METEOR mantido, regra inalterada; DOI do parecer (CABOSUN Q-TWiST, 1ª linha) não entra"
+      }
     }
   ]
 }

@@ -235,7 +235,7 @@
           "total": 5,
           "status": {
             "executado": 4,
-            "triagem_manual": 1
+            "resolvido_manter": 1
           }
         },
         {
@@ -285,8 +285,8 @@
         {
           "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
           "acao": "corrigir_referencia",
-          "status": "triagem_manual",
-          "nota": "DOI resolve mas é o paper errado (CABOSUN 1L, Q-TWiST)"
+          "status": "resolvido_manter",
+          "nota": "triagem fechada por decisão do revisor recebida por mensagem (2026-09-13): 'incorporar segunda linha apenas'; METEOR mantido, regra inalterada, hash intacto"
         },
         {
           "regimen_id": "testiculo-nsgct-eI-bep1",
@@ -433,13 +433,7 @@
           "nota": "nota no card 2L + regime novo criado (penis-met-1l-paclitaxel-carboplatina)"
         }
       ],
-      "triagem_manual": [
-        {
-          "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
-          "acao": "corrigir_referencia",
-          "motivo": "NÃO aplicado. O DOI indicado (10.1002/cncr.33169) resolve no Crossref para CHEN RC, Choueiri TK, Feuilly M, et al. Quality-adjusted survival with first-line cabozantinib or sunitinib for advanced renal cell carcinoma in the CABOSUN randomized clinical trial (Alliance). Cancer. 2020. — análise de sobrevida ajustada por qualidade do CABOSUN (1ª linha, cabozantinibe vs sunitinibe). Não é fonte para cabozantinibe em 2ª linha pós-imunoterapia, que é o card. Referência atual (METEOR, pós-TKI) mantida. Pede-se ao revisor o DOI/PMID da fonte pretendida (ex.: série de cabozantinibe pós-ICI)."
-        }
-      ],
+      "triagem_manual": [],
       "refutados": [
         {
           "regimen_id": "prostata-mcrpc-1l-parp-nao-incorporado",
@@ -1118,6 +1112,18 @@
           "para": "refutar",
           "confirmado_por": "humano",
           "data": "2026-09-13"
+        },
+        {
+          "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
+          "de": "triagem_manual",
+          "para": "manter_anotar",
+          "origem": {
+            "canal": "mensagem ao Gustavo Couto (fora da app)",
+            "decidido_por": "Gustavo Drummond Pinho Ribeiro (revisor)",
+            "data": "2026-09-13",
+            "texto": "incorporar segunda linha apenas",
+            "efeito": "manter: METEOR mantido, regra inalterada; DOI do parecer (CABOSUN Q-TWiST, 1ª linha) não entra"
+          }
         }
       ]
     },
@@ -47270,10 +47276,12 @@
         "selo_confianca": "confirmado",
         "eixos_diverge": [],
         "lacunas": [],
-        "flags": [],
-        "decisao_revisao": "triagem_manual",
-        "spec_revisor_nao_computavel": "NÃO aplicado. O DOI indicado (10.1002/cncr.33169) resolve no Crossref para CHEN RC, Choueiri TK, Feuilly M, et al. Quality-adjusted survival with first-line cabozantinib or sunitinib for advanced renal cell carcinoma in the CABOSUN randomized clinical trial (Alliance). Cancer. 2020. — análise de sobrevida ajustada por qualidade do CABOSUN (1ª linha, cabozantinibe vs sunitinibe). Não é fonte para cabozantinibe em 2ª linha pós-imunoterapia, que é o card. Referência atual (METEOR, pós-TKI) mantida. Pede-se ao revisor o DOI/PMID da fonte pretendida (ex.: série de cabozantinibe pós-ICI).",
-        "nota_revisao": "Corrigir referência",
+        "flags": [
+          "nota_revisor (por mensagem, 2026-09-13): incorporar segunda linha apenas — METEOR mantido"
+        ],
+        "decisao_revisao": "revisado_com_ressalva",
+        "spec_revisor_nao_computavel": null,
+        "nota_revisao": "Decisão do revisor (por mensagem, 2026-09-13): incorporar segunda linha apenas. Referência METEOR e regra de 2ª linha pós-imunoterapia mantidas.",
         "notas_revisao": [
           {
             "lote": 2,
@@ -47284,13 +47292,30 @@
             "eixo": null,
             "nota": "Corrigir referência",
             "nota_squad": "NÃO aplicado. O DOI indicado (10.1002/cncr.33169) resolve no Crossref para CHEN RC, Choueiri TK, Feuilly M, et al. Quality-adjusted survival with first-line cabozantinib or sunitinib for advanced renal cell carcinoma in the CABOSUN randomized clinical trial (Alliance). Cancer. 2020. — análise de sobrevida ajustada por qualidade do CABOSUN (1ª linha, cabozantinibe vs sunitinibe). Não é fonte para cabozantinibe em 2ª linha pós-imunoterapia, que é o card. Referência atual (METEOR, pós-TKI) mantida. Pede-se ao revisor o DOI/PMID da fonte pretendida (ex.: série de cabozantinibe pós-ICI)."
+          },
+          {
+            "lote": 2,
+            "data": "2026-09-13",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "manter_anotar (triagem resolvida por mensagem)",
+            "natureza": "dado",
+            "eixo": null,
+            "nota": "incorporar segunda linha apenas — decisão recebida por mensagem, fora do fluxo de parecer da app.",
+            "nota_squad": "Fecha a triagem do parecer de 2026-09-12 (corrigir_referencia com DOI 10.1002/cncr.33169, que resolve para o CABOSUN Q-TWiST de 1ª linha): referência METEOR mantida, regra inalterada, hash intacto."
           }
-        ]
+        ],
+        "triagem_resolvida": {
+          "canal": "mensagem ao Gustavo Couto (fora da app)",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro (revisor)",
+          "data": "2026-09-13",
+          "texto": "incorporar segunda linha apenas",
+          "efeito": "manter: METEOR mantido, regra inalterada; DOI do parecer (CABOSUN Q-TWiST, 1ª linha) não entra"
+        }
       },
-      "versao": 1,
+      "versao": 2,
       "atualizado_em": "2026-09-13",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-12",
+      "revisado_em": "2026-09-13",
       "historico_versoes": [
         {
           "versao": 1,
@@ -47309,9 +47334,20 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-13",
+          "origem": "intake-lote2:triagem resolvida (manter_anotar)",
+          "mudanca": "Triagem fechada por decisão do revisor recebida por mensagem: 'incorporar segunda linha apenas'. METEOR mantido, regra inalterada; DOI do parecer não incorporado.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro (por mensagem; relatado por Gustavo Couto)"
         }
       ],
-      "flags": [],
+      "flags": [
+        "nota_revisor (por mensagem, 2026-09-13): incorporar segunda linha apenas — METEOR mantido"
+      ],
       "expectativa_uso": {
         "tipo": "ate_progressao",
         "duracao_mediana_tratamento_meses": null,
