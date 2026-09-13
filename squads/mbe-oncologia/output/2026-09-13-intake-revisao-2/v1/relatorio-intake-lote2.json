@@ -1,0 +1,593 @@
+{
+  "placar_por_acao": [
+    {
+      "acao": "corrigir_referencia",
+      "total": 5,
+      "status": {
+        "executado": 4,
+        "triagem_manual": 1
+      }
+    },
+    {
+      "acao": "ajustar_elegibilidade",
+      "total": 9,
+      "status": {
+        "executado": 6,
+        "executado_sem_mudanca": 2,
+        "triagem_manual": 1
+      }
+    },
+    {
+      "acao": "refutar",
+      "total": 1,
+      "status": {
+        "executado_com_ressalva": 1
+      }
+    },
+    {
+      "acao": "manter_anotar",
+      "total": 10,
+      "status": {
+        "executado": 10
+      }
+    },
+    {
+      "acao": "outro",
+      "total": 2,
+      "status": {
+        "executado": 2
+      }
+    }
+  ],
+  "resultado": [
+    {
+      "regimen_id": "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
+      "acao": "corrigir_referencia",
+      "status": "executado",
+      "nota": "referência trocada (verificada); selo incompleto→re_derivado"
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-abiraterona-prednisona",
+      "acao": "corrigir_referencia",
+      "status": "executado",
+      "nota": "pacote ref+elegibilidade; selo divergencia→re_derivado"
+    },
+    {
+      "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
+      "acao": "corrigir_referencia",
+      "status": "triagem_manual",
+      "nota": "DOI resolve mas é o paper errado (CABOSUN 1L, Q-TWiST)"
+    },
+    {
+      "regimen_id": "testiculo-nsgct-eI-bep1",
+      "acao": "corrigir_referencia",
+      "status": "executado",
+      "nota": "referência trocada (verificada); selo re_derivado"
+    },
+    {
+      "regimen_id": "testiculo-refrataria-paliativo-gemox",
+      "acao": "corrigir_referencia",
+      "status": "executado",
+      "nota": "referência criada (verificada); selo incompleto→re_derivado"
+    },
+    {
+      "regimen_id": "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
+      "acao": "ajustar_elegibilidade",
+      "status": "executado",
+      "nota": "regra nova; primitivos ['pdl1_cps', 'pdl1_expressao_pct']; selo incompleto"
+    },
+    {
+      "regimen_id": "bexiga-met-erdafitinibe-fgfr",
+      "acao": "ajustar_elegibilidade",
+      "status": "executado",
+      "nota": "regra nova (io_previa); selo incompleto"
+    },
+    {
+      "regimen_id": "bexiga-mibc-adj-nivolumabe",
+      "acao": "ajustar_elegibilidade",
+      "status": "executado",
+      "nota": "regra nova (2 ramos); primitivos ['estadio_pt', 'pn_positivo', 'neoadjuvancia_previa']; selo confirmado→re_derivado"
+    },
+    {
+      "regimen_id": "gastrico-met-1l-io-qt-cps",
+      "acao": "ajustar_elegibilidade",
+      "status": "executado",
+      "nota": "regra nova (2 cortes); pivô adicional; selo re_derivado"
+    },
+    {
+      "regimen_id": "gastrico-met-her2-pembro-tras-qt",
+      "acao": "ajustar_elegibilidade",
+      "status": "executado_sem_mudanca",
+      "nota": "regra já exigia CPS ≥1"
+    },
+    {
+      "regimen_id": "penis-adj-tip",
+      "acao": "ajustar_elegibilidade",
+      "status": "executado",
+      "nota": "regra nova; primitivos ['linfonodo_pelvico_positivo', 'extensao_extranodal', 'estadio_pn']; selo incompleto"
+    },
+    {
+      "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
+      "acao": "ajustar_elegibilidade",
+      "status": "triagem_manual",
+      "nota": "sem regra computável; balde proposto refutar (troca de justificativa)"
+    },
+    {
+      "regimen_id": "prostata-mcrpc-terapia-ossea-zoledronico",
+      "acao": "ajustar_elegibilidade",
+      "status": "executado_sem_mudanca",
+      "nota": "regra já restringia a mCRPC ósseo"
+    },
+    {
+      "regimen_id": "renal-adj-pembrolizumab",
+      "acao": "ajustar_elegibilidade",
+      "status": "executado",
+      "nota": "regra nova (3 ramos); primitivos ['estadio_pt', 'pn_positivo', 'grau_nuclear', 'diferenciacao_sarcomatoide', 'm1_ressecado']; selo confirmado→re_derivado"
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-parp-nao-incorporado",
+      "acao": "refutar",
+      "status": "executado_com_ressalva",
+      "nota": "não-incorporado + justificativa do revisor; SG final TALAPRO-2 (2025) diverge — re_revisao aberta"
+    },
+    {
+      "regimen_id": "bexiga-met-1l-enfortumab-pembrolizumabe",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "bexiga-met-1l-gc-nivolumabe",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "bexiga-mibc-tmt-5fu-mitomicina",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "bexiga-mibc-tmt-cisplatina",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "hcc-1l-tremelimumabe-durvalumabe",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "renal-met-favoravel-ipilimumabe-nivolumabe",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "renal-met-intalto-nivolumabe-cabozantinibe",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "testiculo-avancado-baixorisco-bep3-ep4",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "testiculo-avancado-intalto-bep4-vip4",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "testiculo-recidiva-tip-veip",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada; hash intacto"
+    },
+    {
+      "regimen_id": "biliares-1l-5fu",
+      "acao": "outro",
+      "status": "executado",
+      "nota": "título/subtipo corrigidos; hash intacto"
+    },
+    {
+      "regimen_id": "penis-met-2l-paclitaxel",
+      "acao": "outro",
+      "status": "executado",
+      "nota": "nota no card 2L + regime novo criado (penis-met-1l-paclitaxel-carboplatina)"
+    }
+  ],
+  "triagem_manual": [
+    {
+      "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
+      "acao": "corrigir_referencia",
+      "motivo": "NÃO aplicado. O DOI indicado (10.1002/cncr.33169) resolve no Crossref para CHEN RC, Choueiri TK, Feuilly M, et al. Quality-adjusted survival with first-line cabozantinib or sunitinib for advanced renal cell carcinoma in the CABOSUN randomized clinical trial (Alliance). Cancer. 2020. — análise de sobrevida ajustada por qualidade do CABOSUN (1ª linha, cabozantinibe vs sunitinibe). Não é fonte para cabozantinibe em 2ª linha pós-imunoterapia, que é o card. Referência atual (METEOR, pós-TKI) mantida. Pede-se ao revisor o DOI/PMID da fonte pretendida (ex.: série de cabozantinibe pós-ICI)."
+    },
+    {
+      "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
+      "acao": "ajustar_elegibilidade",
+      "balde_proposto": "refutar",
+      "motivo": "NÃO aplicado como ajustar_elegibilidade: o texto do revisor é 'manter não incorporar, trocar a justificativa' (comparador ARSI vs Lu-PSMA-617; CARD/TheraP; PSMA-PET, disponibilidade e contraindicação à radioligante) — não há regra {campo, operador, valor} derivável sem o squad escolher primitivos (PSMA-PET, disponibilidade de Lu-PSMA) por conta própria. Balde proposto: refutar (mantém não-incorporado, substitui a justificativa pela do revisor). Executar só após o humano confirmar o balde — refutar muda o corpo publicado e nunca é deduzido de texto livre."
+    }
+  ],
+  "primitivos_novos": [
+    {
+      "campo": "pdl1_cps",
+      "tumor": "bexiga",
+      "tipo": "integer",
+      "label": "PD-L1 CPS (combined positive score)",
+      "secao": "Biomarcadores",
+      "opcoes": null,
+      "ordinal": null,
+      "motivo": "pembrolizumabe em urotelial inelegível a cisplatina exige CPS ≥10 (spec do revisor); numérico — mesmo nome/tipo já usado em esofago-estomago"
+    },
+    {
+      "campo": "pdl1_expressao_pct",
+      "tumor": "bexiga",
+      "tipo": "number",
+      "label": "Expressão de PD-L1 (%) — atezolizumabe: ≥5%",
+      "secao": "Biomarcadores",
+      "opcoes": null,
+      "ordinal": null,
+      "motivo": "atezolizumabe exige 'expressão tumoral de PD-L1 5%' (spec do revisor). O revisor não especificou compartimento/ensaio (IC vs TC; SP142) — rótulo neutro; conferir"
+    },
+    {
+      "campo": "estadio_pt",
+      "tumor": "bexiga",
+      "tipo": "enum",
+      "label": "Estádio T patológico (pT; ypT se houve neoadjuvância)",
+      "secao": "Estadiamento patológico",
+      "opcoes": [
+        "pT0",
+        "pTa",
+        "pTis",
+        "pT1",
+        "pT2",
+        "pT2a",
+        "pT2b",
+        "pT3",
+        "pT3a",
+        "pT3b",
+        "pT4",
+        "pT4a",
+        "pT4b"
+      ],
+      "ordinal": {
+        "pT0": 0,
+        "pTa": 0.1,
+        "pTis": 0.2,
+        "pT1": 1,
+        "pT2": 2,
+        "pT2a": 2.1,
+        "pT2b": 2.2,
+        "pT3": 3,
+        "pT3a": 3.1,
+        "pT3b": 3.2,
+        "pT4": 4,
+        "pT4a": 4.1,
+        "pT4b": 4.2
+      },
+      "motivo": "CheckMate 274 (spec do revisor) exige pT3–pT4a sem neoadjuvância ou ypT2–ypT4a com neoadjuvância; comparação ordinal pelo mapa canônico (mesmo padrão do estadio_t de próstata)"
+    },
+    {
+      "campo": "pn_positivo",
+      "tumor": "bexiga",
+      "tipo": "boolean",
+      "label": "Linfonodo patológico positivo (pN+ / ypN+)",
+      "secao": "Estadiamento patológico",
+      "opcoes": null,
+      "ordinal": null,
+      "motivo": "spec do revisor: 'pN+' / 'ypN+'"
+    },
+    {
+      "campo": "neoadjuvancia_previa",
+      "tumor": "bexiga",
+      "tipo": "boolean",
+      "label": "Quimioterapia neoadjuvante à base de cisplatina realizada",
+      "secao": "Contexto",
+      "opcoes": null,
+      "ordinal": null,
+      "motivo": "spec do revisor distingue os dois ramos por neoadjuvância prévia"
+    },
+    {
+      "campo": "linfonodo_pelvico_positivo",
+      "tumor": "penis",
+      "tipo": "boolean",
+      "label": "Envolvimento linfonodal pélvico (pós-linfadenectomia)",
+      "secao": "Estadiamento patológico",
+      "opcoes": null,
+      "ordinal": null,
+      "motivo": "spec do revisor: 'envolvimento linfonodal pélvico'"
+    },
+    {
+      "campo": "extensao_extranodal",
+      "tumor": "penis",
+      "tipo": "boolean",
+      "label": "Extensão extranodal (ENE)",
+      "secao": "Estadiamento patológico",
+      "opcoes": null,
+      "ordinal": null,
+      "motivo": "spec do revisor: 'extensão extranodal (ENE)'"
+    },
+    {
+      "campo": "estadio_pn",
+      "tumor": "penis",
+      "tipo": "enum",
+      "label": "Estádio N patológico (pN) — pós-linfadenectomia",
+      "secao": "Estadiamento patológico",
+      "opcoes": [
+        "pN0",
+        "pN1",
+        "pN2",
+        "pN3"
+      ],
+      "ordinal": {
+        "pN0": 0,
+        "pN1": 1,
+        "pN2": 2,
+        "pN3": 3
+      },
+      "motivo": "spec do revisor: 'doença inguinal bilateral/volumosa (pN2–N3)'; comparação ordinal pelo mapa canônico"
+    },
+    {
+      "campo": "estadio_pt",
+      "tumor": "renal",
+      "tipo": "enum",
+      "label": "Estádio T patológico (pT) da nefrectomia",
+      "secao": "Estadiamento patológico",
+      "opcoes": [
+        "pT1",
+        "pT1a",
+        "pT1b",
+        "pT2",
+        "pT2a",
+        "pT2b",
+        "pT3",
+        "pT3a",
+        "pT3b",
+        "pT3c",
+        "pT4"
+      ],
+      "ordinal": {
+        "pT1": 1,
+        "pT1a": 1.1,
+        "pT1b": 1.2,
+        "pT2": 2,
+        "pT2a": 2.1,
+        "pT2b": 2.2,
+        "pT3": 3,
+        "pT3a": 3.1,
+        "pT3b": 3.2,
+        "pT3c": 3.3,
+        "pT4": 4
+      },
+      "motivo": "KEYNOTE-564 (spec do revisor): pT2 grau 4/sarcomatoide, pT3, pT4; comparação ordinal pelo mapa canônico"
+    },
+    {
+      "campo": "pn_positivo",
+      "tumor": "renal",
+      "tipo": "boolean",
+      "label": "Linfonodo patológico positivo (pN+)",
+      "secao": "Estadiamento patológico",
+      "opcoes": null,
+      "ordinal": null,
+      "motivo": "spec do revisor: 'qualquer pT e grau, com linfonodos positivos (N+)'"
+    },
+    {
+      "campo": "grau_nuclear",
+      "tumor": "renal",
+      "tipo": "integer",
+      "label": "Grau nuclear (WHO/ISUP) 1–4",
+      "secao": "Patologia",
+      "opcoes": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "ordinal": null,
+      "motivo": "spec do revisor: 'pT2 com grau nuclear 4'"
+    },
+    {
+      "campo": "diferenciacao_sarcomatoide",
+      "tumor": "renal",
+      "tipo": "boolean",
+      "label": "Diferenciação sarcomatoide",
+      "secao": "Patologia",
+      "opcoes": null,
+      "ordinal": null,
+      "motivo": "spec do revisor: 'ou diferenciação sarcomatoide'"
+    },
+    {
+      "campo": "m1_ressecado",
+      "tumor": "renal",
+      "tipo": "boolean",
+      "label": "M1 ao diagnóstico com metástases completamente ressecadas (síncrono ou ≤1 ano da nefrectomia), sem evidência de doença",
+      "secao": "Contexto",
+      "opcoes": null,
+      "ordinal": null,
+      "motivo": "spec do revisor: '3) M1 ressecado'"
+    }
+  ],
+  "pareceres_expirados": [
+    {
+      "regimen_id": "prostata-mcrpc-1l-abiraterona-prednisona",
+      "decisao": "contestado",
+      "acao": "corrigir_referencia",
+      "data": "2026-09-12",
+      "content_hash_parecer": "6cb39935a0ab60e3",
+      "hash_novo": "7bb350279ea82325"
+    },
+    {
+      "regimen_id": "renal-adj-pembrolizumab",
+      "decisao": "aprovado",
+      "acao": null,
+      "data": "2026-09-12",
+      "content_hash_parecer": "571407ecaa3fccb5",
+      "hash_novo": "f7eb0d9fd7ffc633"
+    },
+    {
+      "regimen_id": "renal-adj-pembrolizumab",
+      "decisao": "ajuste_solicitado",
+      "acao": "ajustar_elegibilidade",
+      "data": "2026-09-12",
+      "content_hash_parecer": "571407ecaa3fccb5",
+      "hash_novo": "f7eb0d9fd7ffc633"
+    },
+    {
+      "regimen_id": "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
+      "decisao": "ajuste_solicitado",
+      "acao": "corrigir_referencia",
+      "data": "2026-09-12",
+      "content_hash_parecer": "43205a4c0011f070",
+      "hash_novo": "8dd5e5ca7dcb1397"
+    },
+    {
+      "regimen_id": "bexiga-mibc-adj-nivolumabe",
+      "decisao": "ajuste_solicitado",
+      "acao": "ajustar_elegibilidade",
+      "data": "2026-09-12",
+      "content_hash_parecer": "8c0252b7124aa871",
+      "hash_novo": "a4440269278f065b"
+    },
+    {
+      "regimen_id": "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
+      "decisao": "ajuste_solicitado",
+      "acao": "ajustar_elegibilidade",
+      "data": "2026-09-12",
+      "content_hash_parecer": "3529dcdba2fcea94",
+      "hash_novo": "378b7e4b6bc236cc"
+    },
+    {
+      "regimen_id": "bexiga-met-erdafitinibe-fgfr",
+      "decisao": "ajuste_solicitado",
+      "acao": "ajustar_elegibilidade",
+      "data": "2026-09-12",
+      "content_hash_parecer": "3e950e6a322da808",
+      "hash_novo": "99b8818096295417"
+    },
+    {
+      "regimen_id": "testiculo-nsgct-eI-bep1",
+      "decisao": "ajuste_solicitado",
+      "acao": "corrigir_referencia",
+      "data": "2026-09-13",
+      "content_hash_parecer": "bf818d648f097bf7",
+      "hash_novo": "8d2aaf155f29d1c8"
+    },
+    {
+      "regimen_id": "testiculo-refrataria-paliativo-gemox",
+      "decisao": "ajuste_solicitado",
+      "acao": "corrigir_referencia",
+      "data": "2026-09-13",
+      "content_hash_parecer": "ba551d79292e7954",
+      "hash_novo": "9e3f00bceb25b330"
+    },
+    {
+      "regimen_id": "penis-adj-tip",
+      "decisao": "ajuste_solicitado",
+      "acao": "ajustar_elegibilidade",
+      "data": "2026-09-13",
+      "content_hash_parecer": "dad8fa1d1880d2fe",
+      "hash_novo": "bdd457b734c4669c"
+    },
+    {
+      "regimen_id": "gastrico-met-1l-io-qt-cps",
+      "decisao": "ajuste_solicitado",
+      "acao": "ajustar_elegibilidade",
+      "data": "2026-09-13",
+      "content_hash_parecer": "bfc077511bd5c480",
+      "hash_novo": "09c4592b3c830d28"
+    }
+  ],
+  "ja_expirados_antes": [
+    "mama-adj-her2neg-act-docetaxel",
+    "mama-adj-her2neg-carbo-paclitaxel",
+    "mama-adj-her2pos-tdm1-katherine",
+    "mama-met-hrpos-2l-sacituzumab-govitecan",
+    "mama-neo-her2pos-ct1c-acth",
+    "mama-neo-her2pos-ct1c-tch",
+    "mama-neo-tnbc-acdd-ct"
+  ],
+  "amostra_sorteada": [
+    {
+      "id": "prostata-mcrpc-1l-abiraterona-prednisona",
+      "mudou": true,
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"resistente_castracao\", true]}, {\"eq\": [\"quimio_naive\", true]}, {\"eq\": [\"assintomatico_ou_pouco_sintomatico\", true]}, {\"not\": {\"eq\": [\"metastase_visceral\", true]}}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"resistente_castracao\", true]}]}",
+      "texto_revisor": "incluir para todos no cenário de resistencia a castração",
+      "novosPrim": []
+    },
+    {
+      "id": "gastrico-met-1l-io-qt-cps",
+      "mudou": true,
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"gte\": [\"pdl1_cps\", 10]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"or\": [{\"ref\": \"cps_nivolumabe\"}, {\"ref\": \"cps_pembrolizumabe\"}]}]}",
+      "texto_revisor": "Colocar obrigatório o PDL1 na elegibilidade (CPS tem que ser igual ou maior que 5 no Nivolumabe e maior ou igual a 10 no pembrolizumabe)",
+      "novosPrim": []
+    },
+    {
+      "id": "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
+      "mudou": true,
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"inelegivel_platina\", true]}, {\"eq\": [\"pdl1_positivo\", true]}, {\"not\": {\"eq\": [\"doenca_autoimune_ativa\", true]}}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"elegivel_cisplatina\", false]}, {\"or\": [{\"ref\": \"pdl1_pembrolizumabe\"}, {\"ref\": \"pdl1_atezolizumabe\"}]}, {\"not\": {\"eq\": [\"doenca_autoimune_ativa\", true]}}]}",
+      "texto_revisor": "Pembrolizumabe: Pacientes inelegíveis a cisplatina com CPS (combined positive score) ≥10; Atezolizumabe: Pacientes com expressão tumoral de PD-L1 5%",
+      "novosPrim": [
+        "pdl1_cps",
+        "pdl1_expressao_pct"
+      ]
+    },
+    {
+      "id": "penis-adj-tip",
+      "mudou": true,
+      "antes": "{\"and\": [{\"eq\": [\"tumor\", \"penis_escamoso\"]}, {\"eq\": [\"alto_risco_pos_cirurgia\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"tumor\", \"penis_escamoso\"]}, {\"ref\": \"alto_risco_linfonodal_penis\"}]}",
+      "texto_revisor": "pacientes com envolvimento linfonodal pélvico, extensão extranodal (ENE) ou doença inguinal bilateral/volumosa (pN2-N3)",
+      "novosPrim": [
+        "linfonodo_pelvico_positivo",
+        "extensao_extranodal",
+        "estadio_pn"
+      ]
+    }
+  ],
+  "re_revisao": [
+    {
+      "regimen_id": "prostata-mcrpc-1l-parp-nao-incorporado",
+      "item": "talapro2_sg_final_vs_justificativa",
+      "descricao": "Justificativa do revisor (SG não significativa/imatura) diverge da SG final publicada do TALAPRO-2 (2025: HR 0,80; HRR-def HR 0,55). Confirmar se a não-incorporação se mantém e com qual justificativa.",
+      "status": "aberto",
+      "data": "2026-09-13"
+    },
+    {
+      "regimen_id": "testiculo-*",
+      "item": "rotulo_cenario_testiculo",
+      "descricao": "Os 3 cards de testículo (bep3-ep4, bep4-vip4, tip-veip) pedem que a tela não exiba 'metastático' como estadiamento: é o rótulo do enum `cenario` da app. Ajuste de rótulo (ex.: 'doença avançada — estádio II–III (TNM/S)') é mudança de app, com portão B; dado inalterado.",
+      "status": "aberto",
+      "data": "2026-09-13"
+    }
+  ],
+  "placar_selo": {
+    "re_derivado": 178,
+    "incompleto": 53,
+    "divergencia": 19,
+    "confirmado": 46
+  },
+  "total_regimes": 296,
+  "hashes_mudaram": [
+    "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
+    "bexiga-met-erdafitinibe-fgfr",
+    "bexiga-mibc-adj-nivolumabe",
+    "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
+    "gastrico-met-1l-io-qt-cps",
+    "penis-adj-tip",
+    "prostata-mcrpc-1l-abiraterona-prednisona",
+    "renal-adj-pembrolizumab",
+    "testiculo-nsgct-eI-bep1",
+    "testiculo-refrataria-paliativo-gemox"
+  ]
+}
