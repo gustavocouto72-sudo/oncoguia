@@ -206,6 +206,34 @@ async function loginCtx(browser, perfil) {
   await page.waitForTimeout(400);
   const depois = await page.evaluate(() => document.getElementById('pac-protos-live').innerHTML.length);
   ok('B5.3 mudar característica → re-avalia ao vivo', !!mudou && depois !== antes, `campo=${mudou} html ${antes}→${depois}`);
+
+  // ---- B10 — o card mostra o que o revisor ESCREVEU (notas da revisão clínica) ----
+  // O corpus publicado tem cards de mama "revisado com ressalva" (lote 1): a nota do
+  // revisor tem de aparecer no card do PACIENTE, com revisor e data — não só no
+  // JSON. Lê o DOM, não o modelo: o que se afirma é a tela.
+  // textContent, não innerText: os não incorporados vivem num <details> fechado, e
+  // innerText de nó escondido é "" — "" === "" faria dois textos vazios parecerem iguais
+  // e um bloco escondido parecer sem título (foi assim na primeira rodada deste check).
+  const notas = await page.evaluate(() => {
+    const tx = e => (e ? e.textContent : '').trim();
+    const blocos = Array.from(document.querySelectorAll('#pac-protos-live .proto .rnotas'));
+    const comMeta = blocos.filter(b => Array.from(b.querySelectorAll('.rnota-meta')).every(m => /\d{4}-\d{2}-\d{2}/.test(tx(m)) && tx(m).replace(/\d{4}-\d{2}-\d{2}/, '').replace(/[·\s]/g, '').length > 3));
+    const semTexto = blocos.filter(b => Array.from(b.querySelectorAll('.rnota-txt')).some(t => !tx(t)));
+    const titulo = blocos.filter(b => /Notas da revisão clínica/.test(tx(b.querySelector('.rnotas-h'))));
+    // uma nota que já é o motivo da não incorporação não pode aparecer duas vezes no mesmo card
+    const dup = Array.from(document.querySelectorAll('#pac-protos-live .proto')).filter(c => {
+      const nis = Array.from(c.querySelectorAll('.noinc-just')).map(tx).filter(Boolean);
+      const ns = Array.from(c.querySelectorAll('.rnota-txt')).map(tx).filter(Boolean);
+      return ns.some(n => nis.includes(n));
+    });
+    // e o mesmo texto não pode aparecer duas vezes DENTRO do bloco (nota × "nota do squad")
+    const eco = blocos.filter(b => { const a = Array.from(b.querySelectorAll('.rnota-txt, .rnota-squad')).map(tx).map(t => t.replace(/^Nota do squad:\s*/, '')); return new Set(a).size !== a.length; });
+    return { n: blocos.length, comMeta: comMeta.length, semTexto: semTexto.length, titulo: titulo.length, dup: dup.length, eco: eco.length };
+  });
+  ok('B10 ★ card do paciente exibe "Notas da revisão clínica" (corpus tem notas de lote 1)', notas.n > 0 && notas.titulo === notas.n, JSON.stringify(notas));
+  ok('B10 ★ toda nota vem com revisor e data', notas.n > 0 && notas.comMeta === notas.n && notas.semTexto === 0, JSON.stringify(notas));
+  ok('B10 nota de não incorporação não é repetida no bloco de notas', notas.dup === 0, 'dup=' + notas.dup);
+  ok('B10 nenhum texto ecoado dentro do bloco (nota × nota do squad)', notas.eco === 0, 'eco=' + notas.eco);
   await f1.ctx.close();
 
   // ============ FASE 2 — revisor ============
@@ -220,6 +248,22 @@ async function loginCtx(browser, perfil) {
     ok('B8 revisor não cria avaliação (podeAvaliar=false)', podeAv === false);
     await p2.click('a:has-text("Revisão clínica")');
     await p2.waitForSelector('.rc-b.bad', { timeout: 20000 });
+    // ---- B10 — na Revisão clínica o card também mostra as notas; e o rótulo do cenário
+    // de testículo é estadiamento (TNM/S + IGCCCG), não "metastático" (pedido do revisor,
+    // lote 2). Só rótulo: o valor interno segue `metastatico` (o filtro/agrupamento não muda).
+    const rev = await p2.evaluate(() => {
+      const notas = document.querySelectorAll('.rc-card .rnotas').length;
+      const metas = Array.from(document.querySelectorAll('.rc-meta[data-rid^="testiculo-"]')).map(e => e.innerText);
+      const tMet = metas.filter(t => /metast/i.test(t));
+      const tRot = metas.filter(t => /Avançado \(estádio II-III \/ IGCCCG\)/.test(t));
+      const outro = Array.from(document.querySelectorAll('.rc-meta[data-rid^="prostata-mcrpc-"]')).map(e => e.innerText).filter(t => /^Metastático/.test(t));
+      const ridsMet = (REGIMES || []).filter(r => r.tumor === 'testiculo' && r.cenario === 'metastatico').length;
+      return { notas, metas: metas.length, tMet: tMet.length, tRot: tRot.length, ridsMet, outro: outro.length };
+    });
+    ok('B10 ★ Revisão clínica: cards com "Notas da revisão clínica"', rev.notas > 0, 'cards com notas=' + rev.notas);
+    ok('B10 ★ testículo: cenário rotulado "Avançado (estádio II-III / IGCCCG)" nos cards de valor metastatico', rev.ridsMet > 0 && rev.tRot === rev.ridsMet, JSON.stringify(rev));
+    ok('B10 ★ testículo: nenhum card diz "metastático" no cenário', rev.tMet === 0, JSON.stringify(rev));
+    ok('B10 outros tumores seguem com "Metastático" (mudança só de testículo)', rev.outro > 0, 'prostata mCRPC com rótulo Metastático=' + rev.outro);
     await p2.click('.rc-b.bad');                       // ⚑ Contestar no 1º card
     await p2.waitForSelector('.rc-just');
     const rid = await p2.evaluate(() => Object.keys(REVC_FORM).find(k => REVC_FORM[k] && REVC_FORM[k].decisao === 'contestado'));

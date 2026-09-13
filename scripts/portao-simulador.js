@@ -201,6 +201,31 @@ async function telaSemDinheiro(page, perfil) {
     ok('S4 ★ mudar característica recalcula os protocolos ao vivo',
       mudou && depois.length > 0 && depois !== antes, antes === depois ? 'assinatura idêntica' : '');
 
+    // ═══ FASE 1b — o card do sandbox mostra as notas da revisão; testículo sem "metastático" ═══
+    // Mesma tela de cards da seleção de protocolo: as notas do revisor (lote 1 no corpus
+    // publicado) têm de estar aqui também, com revisor e data.
+    // textContent, não innerText: os não incorporados ficam num <details> fechado e
+    // innerText de nó escondido é "" (mesma lição do B10 em portao-b.js).
+    const simNotas = await page.evaluate(() => {
+      const b = Array.from(document.querySelectorAll('#sim-protos-live .proto .rnotas'));
+      return { n: b.length, comMeta: b.filter(x => Array.from(x.querySelectorAll('.rnota-meta')).every(m => /\d{4}-\d{2}-\d{2}/.test(m.textContent))).length };
+    });
+    ok('S3b ★ Simulador: cards com "Notas da revisão clínica" (com data)', simNotas.n > 0 && simNotas.comMeta === simNotas.n, JSON.stringify(simNotas));
+    // Testículo: o rótulo do cenário no FORMULÁRIO e nos CHIPS é estadiamento, não "metastático".
+    await abrirSimulador(page, 'testiculo');
+    const tst = await page.evaluate(() => {
+      const opts = Array.from(document.querySelectorAll('.pac-left select option, .pac-left .seg button, .pac-left label')).map(e => e.innerText || e.textContent).filter(Boolean);
+      const rot = opts.filter(t => /Avançado \(estádio II-III \/ IGCCCG\)/.test(t)).length;
+      const met = opts.filter(t => /^\s*Metast[aá]tico\s*$/i.test(t)).length;
+      const chips = Array.from(document.querySelectorAll('#sim-protos-live .chip')).map(e => e.innerText);
+      const chipMet = chips.filter(t => /metast[aá]tico/i.test(t)).length;
+      const chipRot = chips.filter(t => /Avançado \(estádio II-III \/ IGCCCG\)/.test(t)).length;
+      return { rot, met, chipMet, chipRot, cards: document.querySelectorAll('#sim-protos-live .proto').length };
+    });
+    ok('S3c ★ testículo: opção do cenário rotulada "Avançado (estádio II-III / IGCCCG)"', tst.rot > 0 && tst.met === 0, JSON.stringify(tst));
+    ok('S3c ★ testículo: chips dos cards não dizem "metastático"; dizem o estadiamento', tst.chipMet === 0 && tst.chipRot > 0, JSON.stringify(tst));
+    await abrirSimulador(page, TUMOR);
+
     // ═══ FASE 2 — a invariante: simulação NÃO GRAVA ═══
     ok('S5 ★ nenhum botão "Selecionar protocolo" no sandbox',
       await page.evaluate(() => document.querySelectorAll('#app .sel-btn').length) === 0, '');

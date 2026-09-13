@@ -328,6 +328,12 @@
   /* Incorporação institucional — eixo separado da elegibilidade */
   .noinc-line{margin:6px 0 2px;font-size:12px;font-weight:700;color:#a5281b;background:#fbecea;border:1px solid #f2cdc8;border-radius:7px;padding:4px 9px;display:inline-block}
   .noinc-just{font-size:11.5px;color:#7d6a66;margin:3px 0 2px;line-height:1.45}
+  .rnotas{margin:6px 0 4px;padding:6px 10px;border-left:3px solid #c9b458;background:#fbf8ec;border-radius:0 7px 7px 0}
+  .rnotas-h{font-size:11px;font-weight:700;color:#7a6520;letter-spacing:.02em;margin-bottom:3px}
+  .rnota{margin:3px 0 5px}
+  .rnota-txt{font-size:12px;color:#3d3a30;line-height:1.45;white-space:pre-line}
+  .rnota-meta{font-size:10.5px;color:#8a7f5c;margin-top:1px}
+  .rnota-squad{font-size:11px;color:#5e5a4a;margin-top:2px;line-height:1.4;font-style:italic}
   .noinc-sec{margin-top:16px;border:1px dashed #dcc7c3;border-radius:10px;background:#fdf8f7;padding:0 12px}
   .noinc-sec>summary{cursor:pointer;list-style:none;padding:11px 2px;font-weight:800;font-size:13px;color:#8c3a2e}
   .noinc-sec>summary::before{content:"▸ ";color:#b98}
@@ -1224,7 +1230,14 @@ let CRIT_EXPR_POR_TUMOR   = {};   // tumor -> { id -> expr }   (resolve {ref:id}
 let CRIT_LABEL_POR_TUMOR  = {};   // tumor -> { id -> label }
 let HAS_PRIM_FORMAT = false;      // o dado traz campos_primitivos e regras?
 
-function primFieldsFor(t){ return CAMPOS_PRIM_POR_TUMOR[t] || null; }
+// Cada spec carrega o tumor (_tumor) para rótulos dependentes do tumor (ver cenarioRotulo).
+function primFieldsFor(t){ const l = CAMPOS_PRIM_POR_TUMOR[t] || null; if(l) l.forEach(s=>{ if(s && !s._tumor) s._tumor=t; }); return l; }
+// Valor de primitivo legível — cenário passa pelo rótulo por tumor.
+function primValLabel(campo, v, primMap){
+  const s = primMap && primMap[campo];
+  if(campo==="cenario" && s && s._tumor) return cenarioRotulo(s._tumor, v);
+  return humanOpt(v);
+}
 function usaPrim(t){ return HAS_PRIM_FORMAT && !!primFieldsFor(t); }
 function primByCampo(t){ const m={}; (primFieldsFor(t)||[]).forEach(s=>m[s.campo]=s); return m; }
 
@@ -1305,11 +1318,11 @@ function humanOpt(v){ const s=String(v); if(s==="true")return"Sim"; if(s==="fals
 function shortLabel(lbl){ return String(lbl).replace(/\s*\(.*\)\s*$/,"").trim(); }
 function fieldLabel(campo,primMap){ const s=primMap&&primMap[campo]; return shortLabel((s&&s.label)||humanizeKey(campo)); }
 function leafText(f,primMap){
-  const val = Array.isArray(f.valor) ? "["+f.valor.map(humanOpt).join(", ")+"]" : humanOpt(f.valor);
-  return `${fieldLabel(f.campo,primMap)} ${humanOpt(f.pv)} ${OP_SYM[f.op]||f.op} ${val}`;
+  const val = Array.isArray(f.valor) ? "["+f.valor.map(x=>primValLabel(f.campo,x,primMap)).join(", ")+"]" : primValLabel(f.campo,f.valor,primMap);
+  return `${fieldLabel(f.campo,primMap)} ${primValLabel(f.campo,f.pv,primMap)} ${OP_SYM[f.op]||f.op} ${val}`;
 }
 function leafLabel(campo,op,valor,primMap){
-  const val = Array.isArray(valor) ? "["+valor.map(humanOpt).join(", ")+"]" : humanOpt(valor);
+  const val = Array.isArray(valor) ? "["+valor.map(x=>primValLabel(campo,x,primMap)).join(", ")+"]" : primValLabel(campo,valor,primMap);
   return `${fieldLabel(campo,primMap)} ${OP_SYM[op]||op} ${val}`;
 }
 function critLabel(tumor,id){ return (CRIT_LABEL_POR_TUMOR[tumor]||{})[id] || humanizeKey(id); }
@@ -1351,7 +1364,7 @@ function renderPrimField(p,s){
     </div></div>`;
   }
   // enum / integer(opcoes) → segmentado (≤4 opções curtas) senão dropdown
-  const opts=(s.opcoes||[]).map(o=>[String(o),humanOpt(o)]);
+  const opts=(s.opcoes||[]).map(o=>[String(o), s.campo==="cenario"?cenarioRotulo(s._tumor,o):humanOpt(o)]);
   const dropdown = opts.length>4 || opts.some(o=>o[1].length>8);
   if(!dropdown){
     return `<div class="pf-field"><label>${esc(shortLabel(s.label))}${lockTag}</label><div class="seg" style="${lockStyle}">
@@ -2090,7 +2103,7 @@ function renderCadCampo(s){
       ${[["false","Não"],["true","Sim"]].map(o=>`<button class="${String(val)===o[0]?'on':''}" onclick="setCadClin('${esc(s.campo)}','${o[0]}',this)">${o[1]}</button>`).join("")}
     </div></div>`;
   }
-  const opts=(s.opcoes||[]).map(o=>[String(o),humanOpt(o)]);
+  const opts=(s.opcoes||[]).map(o=>[String(o), s.campo==="cenario"?cenarioRotulo(s._tumor,o):humanOpt(o)]);
   const dropdown = opts.length>4 || opts.some(o=>o[1].length>8);
   if(!dropdown){
     return `<div class="pf-field"><label>${esc(shortLabel(s.label))}</label><div class="seg">
@@ -2470,7 +2483,7 @@ function renderReavalField(s){
       ${[["false","Não"],["true","Sim"]].map(o=>`<button class="${String(val)===o[0]?'on':''}" ${dis} onclick="setReaval('${esc(s.campo)}','${o[0]}',this)">${o[1]}</button>`).join("")}
     </div></div>`;
   }
-  const opts=(s.opcoes||[]).map(o=>[String(o),humanOpt(o)]);
+  const opts=(s.opcoes||[]).map(o=>[String(o), s.campo==="cenario"?cenarioRotulo(s._tumor,o):humanOpt(o)]);
   const dropdown = opts.length>4 || opts.some(o=>o[1].length>8);
   if(!dropdown){
     return `<div class="pf-field"><label>${label}</label><div class="seg" style="${lockStyle}">
@@ -2579,6 +2592,7 @@ function renderReavalProtosWrap(p, detail){
         <div class="semaphore ${sm.cls}"><span class="dot"></span>${sm.t}</div>
       </div>
       ${incPillHtml(r, status)}
+      ${notasRevisaoHtml(r)}
       ${selosLine(r)}
       <div class="rc-selo-line" style="margin:4px 0 2px">${estadoSeloHtml(r.regimen_id)}</div>
       <div class="crit">${chips}</div>
@@ -3507,7 +3521,7 @@ function snapshotChips(s){
     let v = dc[k];
     const opts = Array.isArray(spec.options) ? spec.options.map(o=>Array.isArray(o)?o:[o.v,o.l]) : null;
     const hit = opts && opts.find(o=>String(o[0])===String(v));
-    v = hit ? hit[1] : (k==="cenario" ? (CEN_SNAP[String(v)]||humanOpt(v)) : humanOpt(v));
+    v = hit ? hit[1] : (k==="cenario" ? cenarioRotulo(s.tumor, v) : humanOpt(v));
     const uni = spec.unidade ? " "+spec.unidade : "";
     return `<span class="chip snap">${esc(label)}: ${esc(String(v))}${esc(uni)}</span>`;
   }).join("");
@@ -3593,6 +3607,45 @@ function incPillHtml(r, status){
   const quem = inc.revisor ? `<div class="noinc-just">Decisão de revisão clínica — ${esc(inc.revisor)}${inc.data?`, ${esc(String(inc.data))}`:""}.</div>` : "";
   return `<div class="noinc-line" title="${esc(inc.motivoTip)}">🚫 ${eleg}Não incorporado — <b>${esc(inc.motivoLabel)}</b></div>`
     + (inc.texto?`<div class="noinc-just">${esc(inc.texto)}</div>`:"") + quem;
+}
+// ---- Notas da revisão clínica (o que o revisor ESCREVEU, visível no card) ----
+// Fonte primária: consolidacao.notas_revisao[] (intake lote 2+: {data, revisor, acao, nota,
+// nota_squad}). Fallback para o corpus do lote 1: consolidacao.correcao (texto do revisor
+// que motivou re-derivação) e consolidacao.nota_revisao (revisado com ressalva / triagem);
+// quando os dois existem, nota_revisao é a nota do SQUAD sobre a correção. A nota que já
+// aparece como motivo de não incorporação (incorporacao.nota_revisao) não é repetida.
+function notasRevisaoDe(r){
+  const c = (r && r.consolidacao) || {};
+  const inc = r ? incorporacao(r) : {texto:""};
+  const norm = t => String(t||"").trim();
+  let out = [];
+  if(Array.isArray(c.notas_revisao) && c.notas_revisao.length){
+    out = c.notas_revisao.map(n=>({nota:norm(n.nota), revisor:n.revisor||null, data:n.data||null, acao:n.acao||null, squad:norm(n.nota_squad)}));
+  } else if(c.correcao || c.nota_revisao){
+    // Lote 1 não gravou revisado_por/em em todo card: cai no decisor do lote (meta do
+    // corpus) e na data do intake (histórico step-08) — factual, e nunca em branco.
+    const rh = (EVIDENCIA && EVIDENCIA.meta && EVIDENCIA.meta.revisao_humana) || {};
+    const h = (r.historico_versoes||[]).filter(x=>/step-08|intake/.test(String(x.origem||""))).slice(-1)[0];
+    const revisor = r.revisado_por || rh.decidido_por || null;
+    const data = r.revisado_em || (h && h.data) || rh.data || null;
+    const corr = norm(c.correcao), nota = norm(c.nota_revisao);
+    if(corr && nota && /^rederivado/.test(String(c.decisao_revisao||""))){
+      out.push({nota:corr, revisor, data, acao:null, squad:nota});   // nota_revisao aqui é do SQUAD
+    } else {
+      [corr, nota].forEach(t=>{ if(t && !out.some(x=>x.nota===t)) out.push({nota:t, revisor, data, acao:null, squad:""}); });
+    }
+  }
+  return out.filter(n=>n.nota && n.nota!==norm(inc.texto));
+}
+const ACAO_NOTA_LABEL = {manter_anotar:"manter e anotar", ajustar_elegibilidade:"ajustar elegibilidade", corrigir_referencia:"corrigir referência", refutar:"refutar", outro:"outro", excluir:"excluir"};
+function notasRevisaoHtml(r){
+  const notas = notasRevisaoDe(r);
+  if(!notas.length) return "";
+  const itens = notas.map(n=>{
+    const quem = [n.revisor?esc(n.revisor):"Revisão clínica", n.data?esc(String(n.data).slice(0,10)):"", n.acao?esc(ACAO_NOTA_LABEL[n.acao]||n.acao):""].filter(Boolean).join(" · ");
+    return `<div class="rnota"><div class="rnota-txt">${esc(n.nota)}</div><div class="rnota-meta">${quem}</div>${n.squad?`<div class="rnota-squad">Nota do squad: ${esc(n.squad)}</div>`:""}</div>`;
+  }).join("");
+  return `<div class="rnotas" data-notas="${notas.length}"><div class="rnotas-h">📝 Notas da revisão clínica</div>${itens}</div>`;
 }
 // Seleção de protocolo NÃO incorporado ("informa, médico decide"): não há botão padrão;
 // quando o médico insiste, exige justificativa textual (mais forte que o confirm do
@@ -3774,6 +3827,7 @@ function renderProtos(p){
         <div class="semaphore ${sm.cls}"><span class="dot"></span>${sm.t}</div>
       </div>
       ${incPillHtml(r, status)}
+      ${notasRevisaoHtml(r)}
       ${selosLine(r)}
       <div class="rc-selo-line" style="margin:4px 0 2px">${estadoSeloHtml(r.regimen_id)}</div>
       ${benefitTeaserHtml(r)}
@@ -4042,6 +4096,16 @@ function flowRegimes(){ return REGIMES||[]; }
 const BIO_ORDER = ["HER2 positivo","Triplo negativo","HR+ / HER2−","HER2 negativo","BRCA1/2 mutado","Hormonioterapia adjuvante"];
 const CEN_ORDER = ["adjuvancia","neoadjuvancia","metastatico"];
 const CEN_LABEL = {adjuvancia:"Adjuvância", neoadjuvancia:"Neoadjuvância", metastatico:"Metastático"};
+// Rótulo do cenário POR TUMOR. O valor interno `metastatico` é taxonomia transversal da app
+// (agrupamento); em testículo o estadiamento é TNM/S (estádios I–III) + grupo IGCCCG, e
+// "metastático" não é termo do estadiamento — pedido do revisor (lote 2, re_revisao
+// rotulo_cenario_testiculo). SÓ rótulo: valor, regra e hash não mudam.
+const CEN_LABEL_TUMOR = { testiculo: { metastatico: "Avançado (estádio II-III / IGCCCG)" } };
+function cenarioRotulo(tumor, cen){
+  const t = CEN_LABEL_TUMOR[tumor]; const c = String(cen||"");
+  if(t && t[c]) return t[c];
+  return CEN_LABEL[c] || CEN_SNAP[c] || cap(c);
+}
 // Campos que representam estadiamento/linha/contexto (fazem ramificar a árvore).
 // Excluem os que DEFINEM o biomarcador (her2, rh, brca) — esses já são o nível acima.
 const FLOW_DISCRIM = new Set(["tstage","t","node","n","mstage","m","linha","linhas_previas",
@@ -4108,7 +4172,8 @@ function buildFlowTree(regs){
     [...bm.keys()].sort(cenSort).forEach(cen=>{
       const cm=bm.get(cen), ramos=[];
       [...cm.keys()].sort(ramoSort).forEach(ramo=>ramos.push({nome:ramo, regimes:cm.get(ramo)}));
-      cens.push({nome:CEN_LABEL[cen]||cap(cen), ramos, count:ramos.reduce((n,x)=>n+x.regimes.length,0)});
+      const tumorCen = (ramos[0]&&ramos[0].regimes[0]&&ramos[0].regimes[0].tumor)||null;
+      cens.push({nome:cenarioRotulo(tumorCen, cen), ramos, count:ramos.reduce((n,x)=>n+x.regimes.length,0)});
     });
     out.push({nome:bio, cenarios:cens, count:cens.reduce((n,x)=>n+x.count,0)});
   });
@@ -4334,7 +4399,7 @@ function renderSimField(s){
       ${[["false","Não"],["true","Sim"]].map(o=>`<button class="${String(val)===o[0]?'on':''}" onclick="setSim('${esc(s.campo)}','${o[0]}',this)">${o[1]}</button>`).join("")}
     </div></div>`;
   }
-  const opts=(s.opcoes||[]).map(o=>[String(o),humanOpt(o)]);
+  const opts=(s.opcoes||[]).map(o=>[String(o), s.campo==="cenario"?cenarioRotulo(s._tumor,o):humanOpt(o)]);
   const dropdown = opts.length>4 || opts.some(o=>o[1].length>8);
   if(!dropdown){
     return `<div class="pf-field"><label>${esc(shortLabel(s.label))}</label><div class="seg">
@@ -5035,10 +5100,11 @@ function renderRevisaoClinica(){
         ${revcSelBox(rid)}
         <div class="rc-card-h">
           <div><div class="rc-nome">${esc(r.nome||rid)}</div>
-            <div class="rc-meta" title="id técnico: ${esc(rid)}" data-rid="${esc(rid)}">${esc(cap(r.cenario||""))}${r.subtipo?" · "+esc(r.subtipo):""}</div></div>
+            <div class="rc-meta" title="id técnico: ${esc(rid)}" data-rid="${esc(rid)}">${esc(cenarioRotulo(r.tumor, r.cenario||""))}${r.subtipo?" · "+esc(r.subtipo):""}</div></div>
           <div class="rc-selo-wrap">${estadoSeloHtml(rid)}</div>
         </div>
         ${revcMotivoBanner(r)}
+        ${notasRevisaoHtml(r)}
         <div class="rc-evid">${revcEvidencia(r)}</div>
         ${revcFonteBuscar(r)}
         ${revcControle(r)}
@@ -5498,6 +5564,7 @@ function autPorQue(a){
       ${inc.texto?`<div class="aut-why-txt">${esc(inc.texto)}</div>`:""}
       ${inc.revisor?`<div class="aut-why-txt">Decisão de revisão clínica — ${esc(inc.revisor)}${inc.data?`, ${esc(String(inc.data))}`:""}.</div>`:""}</div>`);
   }
+  if(reg){ const nh = notasRevisaoHtml(reg); if(nh) out.push(nh); }
   if(!out.length){
     out.push(`<div class="aut-why"><span class="hint">Motivo de exceção não identificado no corpus atual (o protocolo pode ter mudado desde a solicitação) — decida pela justificativa do médico e pela evidência abaixo.</span></div>`);
   }
