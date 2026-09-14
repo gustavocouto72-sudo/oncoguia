@@ -20,6 +20,11 @@
 //    incluindo a ponta nova: o auditor leva 403 em /custos e /recursos, e mesmo assim
 //    decide. Decide MÉRITO, sem ver custo.
 //  Limpeza: apaga o paciente de teste (DELETE admin, JWT assinado).
+//  Resíduo de rodada anterior: o paciente de teste carrega uma ETIQUETA única por
+//    rodada no nome e no registro (TESTE-PORTAO-AUT-<etiqueta>), e a abertura VARRE os
+//    registros com o prefixo que sobraram de rodadas mortas (processo interrompido não
+//    chega ao finally). Assim um resíduo antigo nunca se confunde com o desta rodada, e
+//    a rodada seguinte devolve o banco ao estado que a anterior deveria ter devolvido.
 //
 // NÃO ENCADEIE com outro portão sem uma janela de ~1 min: `POST /auth/login` é limitado
 // a 5/min por IP e este portão usa 4 perfis (oncologista, auditor e admin na UI, revisor
@@ -36,7 +41,14 @@ const { exigirBancoDeDev } = require('./portao-banco');
 
 const APP = process.env.PORTAO_APP || 'http://localhost:5173/index.html';
 const API = process.env.PORTAO_API || 'http://localhost:3005/api';
-const NOME_TESTE = 'Paciente Portao Autorizacao';
+// Etiqueta única por rodada (instante em base 36): vai no nome E no registro. Dois motivos:
+// (1) um resíduo de rodada morta nunca casa com o desta rodada — todo check que procura
+// o paciente pelo nome ou pelo registro encontra SÓ o que esta rodada criou; (2) a
+// varredura da abertura reconhece resíduo pelo PREFIXO do registro, sem depender do nome.
+const ETIQUETA = Date.now().toString(36);
+const IDENT_PREFIXO = 'TESTE-PORTAO-AUT';
+const IDENT_TESTE = `${IDENT_PREFIXO}-${ETIQUETA}`;
+const NOME_TESTE = `Paciente Portao Autorizacao ${ETIQUETA}`;
 const JUST_TESTE = 'TESTE PORTAO AUT - justificativa clinica de fumaca, sera apagada';
 const PARECER_TESTE = 'TESTE PORTAO AUT - parecer do auditor, sera apagado';
 // Do corpus (backend/data/evidencia.json): um regime não incorporado e um incorporado.
@@ -118,6 +130,28 @@ async function ctxLogin(browser, perfil) {
   let tkOnco = null, tkAud = null, tkAdm = null;
 
   try {
+    // ═══ FASE 0 — varredura de resíduo de rodadas anteriores ═══
+    // O finally limpa o que ESTA rodada cria — mas não roda se o processo for morto no
+    // meio (Ctrl-C, timeout, máquina dormindo), e foi assim que um "Paciente Portao
+    // Autorizacao" de 2026-09-06 ficou 8 dias no banco de dev. A varredura torna a
+    // limpeza idempotente: o que a rodada anterior deveria ter apagado, esta apaga, e
+    // avisa em voz alta — resíduo é sinal de rodada morta, e vale saber. O critério é o
+    // PREFIXO do registro (`TESTE-PORTAO-AUT`), que só este portão escreve; o alvo é o
+    // banco de dev, garantido pelo exigirBancoDeDev() acima.
+    {
+      tkAdm = await token('admin');
+      const todos = await req('GET', '/pacientes', tkAdm);
+      const residuo = (todos.body || []).filter(p => String(p.identificador || '').startsWith(IDENT_PREFIXO));
+      for (const p of residuo) {
+        const del = await req('DELETE', `/pacientes/${p.id}`, tkAdm);
+        console.log(`AVISO: resíduo de rodada anterior removido — id=${p.id} "${p.nome}" reg=${p.identificador} → ${del.status}`);
+      }
+      // Confere DEPOIS da varredura, relendo a carteira: o que se afirma é o estado do banco.
+      const aindaSobra = ((await req('GET', '/pacientes', tkAdm)).body || []).filter(p => String(p.identificador || '').startsWith(IDENT_PREFIXO));
+      ok('Z0 varredura: nenhum paciente de teste deste portão sobrou de rodada anterior (ou foi removido agora)',
+        aindaSobra.length === 0, residuo.length ? `removidos=${residuo.length}` : 'limpo');
+    }
+
     // ═══ FASE 1 — oncologista abre a solicitação de exceção ═══
     const f1 = await ctxLogin(browser, 'oncologista');
     const page = f1.page;
@@ -134,7 +168,7 @@ async function ctxLogin(browser, perfil) {
     await page.click('button:has-text("+ Novo paciente")');
     await page.waitForSelector('#f_nome');
     await page.fill('#f_nome', NOME_TESTE);
-    await page.fill('#f_ident', 'TESTE-PORTAO-AUT');
+    await page.fill('#f_ident', IDENT_TESTE);
     await page.evaluate(() => {
       const g = agruparTumores(TUMORES).find(g => g.items.some(i => i.id === 'mama'));
       toggleSysCad(g.id); setCadTumor('mama');
@@ -465,6 +499,9 @@ async function ctxLogin(browser, perfil) {
         const admin = tkAdm || await token('admin');
         const del = await req('DELETE', `/pacientes/${pacienteId}`, admin);
         ok('Z limpeza: paciente de teste removido', del.status === 200 || del.status === 204, String(del.status));
+        // Prova, não promessa: o registro desta rodada não está mais na carteira.
+        const sobrou = ((await req('GET', '/pacientes', admin)).body || []).some(p => p.identificador === IDENT_TESTE);
+        ok('Z limpeza: o registro desta rodada não sobrou na carteira', !sobrou, IDENT_TESTE);
       } catch (e) { ok('Z limpeza: paciente de teste removido', false, e.message); }
     }
     await browser.close();

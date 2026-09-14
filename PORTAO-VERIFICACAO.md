@@ -84,6 +84,26 @@ linha de limpeza da segunda. `restaurados=0` significa que não havia nada para 
 isto é, a primeira rodada devolveu o banco vazio. Se a segunda rodada mostrar
 `restaurados>0`, a limpeza da primeira não apagou o que criou.
 
+**Resíduo de rodada morta (2026-09-14).** O `finally` só roda se o processo chegar lá:
+portão morto no meio (Ctrl-C, timeout, máquina dormindo) deixa o paciente de teste para
+trás — foi assim que um "Paciente Portao Autorizacao" (reg. `TESTE-PORTAO-AUT`, criado
+em 2026-09-06 logo após o check U3, sem nenhuma avaliação) ficou 8 dias no banco de dev.
+Removido à mão em 2026-09-14 (dependências conferidas antes: 0 avaliações, 0 retornos,
+0 seleções). Para não haver um segundo, o `portao-autorizacao` faz duas coisas:
+
+- **etiqueta única por rodada** no nome e no registro (`TESTE-PORTAO-AUT-<etiqueta>`):
+  um resíduo antigo nunca casa com o paciente desta rodada, então nenhum check que
+  procura por nome/registro pode ser enganado por ele;
+- **varredura idempotente na abertura** (check `Z0`): lista a carteira como admin, apaga
+  o que tiver o prefixo `TESTE-PORTAO-AUT` e avisa em voz alta (`AVISO: resíduo de
+  rodada anterior removido — id=…`); depois relê a carteira e afirma que nada sobrou. A
+  limpeza do fim (`Z`) também passou a **provar** relendo a carteira, não só olhar o
+  status do DELETE.
+
+`AVISO` na saída = a rodada anterior morreu; vale saber por quê. Os outros portões
+(B, retorno, recursos) ainda usam nome fixo e limpeza só no `finally` — mesmo padrão a
+aplicar quando forem tocados.
+
 **Dados frescos:** o branch dev pode ser recriado a partir do principal no console do Neon
 sempre que quiser (é barato — Neon faz copy-on-write). Ao recriar, o **endpoint muda**:
 atualize `DATABASE_URL` e `ONCOGUIA_DB_DEV_ENDPOINT` em `backend/.env`. Se esquecer, a
