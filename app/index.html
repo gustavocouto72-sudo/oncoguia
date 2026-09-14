@@ -430,6 +430,14 @@
   .lista-busca input:focus{outline:none;border-color:var(--accent)}
   .lista-busca-n{font-size:11.5px;color:var(--muted);font-weight:600}
   .lista-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+  .lista-tab th{vertical-align:top}
+  .th-t{cursor:pointer;user-select:none;display:inline-flex;align-items:center;gap:4px}
+  .th-t:hover,.th-t.on{color:var(--ink)}
+  .th-seta{font-size:9px;min-width:9px;display:inline-block}
+  .th-f{margin-top:5px}
+  .th-f select{width:100%;max-width:170px;font:inherit;font-size:11.5px;font-weight:600;text-transform:none;letter-spacing:0;color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:3px 5px;background:#fff;cursor:pointer}
+  .th-f select.on{border-color:var(--ink);color:var(--ink);background:#f3f5f9}
+  .lista-col-n a{color:var(--accent);cursor:pointer;font-weight:700}
   .tag-ni{font-size:9.5px;font-weight:800;letter-spacing:.4px;background:#fbecea;color:#a5281b;border:1px solid #f2cdc8;border-radius:5px;padding:2px 6px;white-space:nowrap}
   .tag-aut{font-size:9.5px;font-weight:800;background:var(--amberbg);color:#8a5d05;border:1px solid #f0dca6;border-radius:5px;padding:2px 6px;white-space:nowrap}
   .ret-venc{color:#a5281b;font-weight:800}
@@ -746,6 +754,7 @@ function limparEstadoDeSessao(){
   ADM_USUARIOS = null; ADM_EDIT = null; ADM_SENHA_TMP = null; ADM_ERRO = ""; ADM_OK = "";
   SIM = null; // sandbox do simulador não sobrevive à sessão
   LISTA_FILTRO = "todos"; LISTA_BUSCA = ""; // a busca da lista é texto sobre paciente: sai com a sessão
+  LISTA_COL = {tumor:"", proto:"", medico:"", sem:"", idade:"", retorno:""}; LISTA_ORD = null; // filtros de coluna e ordenação: idem, não persistem
   TRILHA = {}; RETORNO = null; SADT = null; // trilha e rascunho de retorno idem
   // Dado de paciente carregado: some junto. Vale para o logout (era vazamento: a carteira
   // ficava na memória da aba depois de sair) e vale ainda mais para a troca de chapéu.
@@ -1845,6 +1854,12 @@ function renderNav(){
 // errado ou em outro fuso. Aqui é só leitura.
 let LISTA_FILTRO = "todos";   // todos | atrasados
 let LISTA_BUSCA = "";         // busca por nome/registro — ESTADO, nunca lido do DOM
+// Filtros por coluna (estilo Excel) e ordenação escolhida no cabeçalho. ESTADO em memória,
+// nunca lido do DOM: sobrevive a qualquer re-render da lista (o badge de avaliação
+// pendente atualizando, por exemplo) e morre com a sessão — limparEstadoDeSessao().
+// "" numa coluna = "Todos". Chave "—" = valor ausente naquele paciente.
+let LISTA_COL = {tumor:"", proto:"", medico:"", sem:"", idade:"", retorno:""};
+let LISTA_ORD = null;         // {col, dir:"asc"|"desc"} | null = ordem padrão (atrasados primeiro)
 function atrasoDe(p){ return (p.retorno && p.retorno.vencido) ? p.retorno : null; }
 
 // Idade em anos completos. Vem do relógio do navegador de propósito: idade é conta de
@@ -1904,7 +1919,7 @@ function listaRetornoHtml(p){
 // Ordem padrão da lista: quem não veio primeiro (é o que exige ação hoje), depois por
 // próximo retorno mais próximo, quem não tem agenda no fim, e nome como desempate. Os
 // atrasados caem naturalmente no topo por data: a agenda deles está no passado.
-function listaOrdenada(rows){
+function listaOrdemPadrao(rows){
   const chave = p => (p.retorno && p.retorno.proximo) || null;
   return rows.slice().sort((a,b)=>{
     const aa = !!atrasoDe(a), ab = !!atrasoDe(b);
@@ -1915,6 +1930,23 @@ function listaOrdenada(rows){
     return String(a.nome||"").localeCompare(String(b.nome||""), "pt-BR");
   });
 }
+// Ordenação escolhida no cabeçalho: asc/desc pela chave de ordenação da coluna; quem não
+// tem o valor vai para o FIM nos dois sentidos (um "—" não é maior nem menor que nada);
+// nome desempata. Sem escolha (LISTA_ORD=null), vale a ordem padrão.
+function listaOrdenada(rows){
+  if(!LISTA_ORD) return listaOrdemPadrao(rows);
+  const col = LISTA_COLUNAS[LISTA_ORD.col]; if(!col) return listaOrdemPadrao(rows);
+  const dir = LISTA_ORD.dir==="desc" ? -1 : 1;
+  return rows.slice().sort((a,b)=>{
+    const ka = col.ord(a), kb = col.ord(b);
+    if((ka==null) !== (kb==null)) return ka==null ? 1 : -1;
+    if(ka!=null && ka!==kb){
+      const c = (typeof ka==="number" && typeof kb==="number") ? (ka-kb) : String(ka).localeCompare(String(kb), "pt-BR");
+      if(c) return c*dir;
+    }
+    return String(a.nome||"").localeCompare(String(b.nome||""), "pt-BR");
+  });
+}
 // Busca por nome OU registro, sem acento e sem caixa.
 function listaBuscada(rows){
   const q = normTxt(LISTA_BUSCA).trim();
@@ -1922,32 +1954,128 @@ function listaBuscada(rows){
   return rows.filter(p => normTxt(p.nome).includes(q) || normTxt(p.identificador).includes(q));
 }
 
+// ---- Filtros por coluna (estilo Excel) ----
+// Cada coluna filtrável tem: `chave(p)` (o valor discreto ou a faixa daquele paciente),
+// `rotulo(chave)` para o dropdown, `ord(p)` para ordenar, e — nas faixas — `faixas`, a
+// ordem fixa das opções (faixa não se ordena por contagem). "—" é a chave do valor
+// ausente. O dropdown lista SÓ as chaves presentes na carteira, nunca o catálogo
+// inteiro de tumores/protocolos: o filtro é sobre quem está na lista, e uma opção com
+// zero pacientes seria uma promessa vazia.
+function hojeLocalISO(){ const h = new Date(), p = n=>String(n).padStart(2,"0"); return `${h.getFullYear()}-${p(h.getMonth()+1)}-${p(h.getDate())}`; }
+// Faixa de retorno. "atrasado" é o `vencido` do SERVIDOR (a app não deriva atraso do
+// relógio local — mesma regra do badge); "esta semana" = os próximos 7 dias a partir de
+// hoje, conta de calendário sem consequência de processo, como a idade.
+function faixaRetorno(p){
+  const r = p.retorno || {};
+  if(!r.proximo) return "sem";
+  if(r.vencido) return "atrasado";
+  return r.proximo <= somarDiasISO(hojeLocalISO(), 7) ? "semana" : "futuro";
+}
+function faixaIdade(p){
+  const a = idadeAnos(p.nasc);
+  if(a==null) return "sem";
+  return a<40 ? "lt40" : a<60 ? "40-59" : a<75 ? "60-74" : "75+";
+}
+const SEM_ORDEM = {elegivel:1, atencao:2, inelegivel:3};
+const LISTA_COLUNAS = {
+  nome:    {t:"Paciente", ord:p=>p.nome||null},
+  idade:   {t:"Idade", chave:faixaIdade, ord:p=>idadeAnos(p.nasc),
+            faixas:[["lt40","até 39"],["40-59","40–59"],["60-74","60–74"],["75+","75+"],["sem","sem data"]]},
+  tumor:   {t:"Tumor", chave:p=>p.tumor||"—", rotulo:k=>k==="—"?"— não definido —":tumorNome(k), ord:p=>p.tumor?tumorNome(p.tumor):null},
+  proto:   {t:"Último protocolo", chave:p=>p.ultimo_regimen_id||"—", rotulo:k=>k==="—"?"— sem protocolo —":protocoloNome(k), ord:p=>p.ultimo_regimen_id?protocoloNome(p.ultimo_regimen_id):null},
+  medico:  {t:"Médico assistente", chave:p=>p.medico_assistente?String(p.medico_assistente.id):"—",
+            rotulo:k=>k==="—"?"— sem médico —":((patients.find(p=>p.medico_assistente&&String(p.medico_assistente.id)===k)||{}).medico_assistente||{}).nome||k,
+            ord:p=>p.medico_assistente?p.medico_assistente.nome:null},
+  retorno: {t:"Próximo retorno", chave:faixaRetorno, ord:p=>(p.retorno&&p.retorno.proximo)||null,
+            faixas:[["atrasado","atrasado"],["semana","esta semana"],["futuro","futuro"],["sem","sem agendamento"]]},
+  sem:     {t:"Semáforo", chave:p=>p.ultimo_semaforo||"—", rotulo:k=>k==="—"?"— sem avaliação —":((SEM_META[k]||{}).t||k),
+            ord:p=>p.ultimo_semaforo?(SEM_ORDEM[p.ultimo_semaforo]||9):null},
+};
+const LISTA_COLS_FILTRO = ["idade","tumor","proto","medico","retorno","sem"];
+function listaFiltroAtivo(){ return LISTA_COLS_FILTRO.some(c=>LISTA_COL[c]) || !!LISTA_ORD; }
+// Aplica os filtros de coluna, opcionalmente pulando UMA (é assim que o dropdown daquela
+// coluna conta: o que a lista mostraria se você escolhesse cada opção dela).
+function listaFiltradaPorColunas(rows, exceto){
+  return rows.filter(p => LISTA_COLS_FILTRO.every(c => c===exceto || !LISTA_COL[c] || LISTA_COLUNAS[c].chave(p)===LISTA_COL[c]));
+}
+// Opções do dropdown de uma coluna: chaves presentes em `rows` (já filtrado por tudo,
+// menos por esta coluna) com contagem; faixas em ordem fixa, discretos por rótulo, "—" no
+// fim. A opção selecionada aparece mesmo com zero — senão o <select> perderia o valor.
+function listaOpcoes(c, rows){
+  const col = LISTA_COLUNAS[c];
+  const n = {}; rows.forEach(p => { const k = col.chave(p); n[k] = (n[k]||0)+1; });
+  if(LISTA_COL[c] && !(LISTA_COL[c] in n)) n[LISTA_COL[c]] = 0;
+  if(col.faixas) return col.faixas.filter(([k])=>k in n).map(([k,t])=>({k, t, n:n[k]}));
+  return Object.keys(n).map(k=>({k, t:col.rotulo(k), n:n[k]}))
+    .sort((a,b)=> (a.k==="—")-(b.k==="—") || a.t.localeCompare(b.t, "pt-BR"));
+}
+function setListaCol(c, v){ LISTA_COL[c] = v||""; updateListaCorpo(); }
+function setListaOrd(c){
+  LISTA_ORD = (LISTA_ORD && LISTA_ORD.col===c) ? {col:c, dir: LISTA_ORD.dir==="asc"?"desc":"asc"} : {col:c, dir:"asc"};
+  updateListaCorpo();
+}
+// "Limpar filtros" = filtros de coluna E ordenação escolhida. A busca por nome e o chip
+// do topo têm os próprios controles e ficam como estão.
+function limparListaFiltros(){ LISTA_COLS_FILTRO.forEach(c=>LISTA_COL[c]=""); LISTA_ORD = null; updateListaCorpo(); }
+// Cabeçalho: título clicável (ordena; setinha na coluna ativa) e, nas colunas
+// filtráveis, o dropdown. `base` = a lista já com busca e chip, ANTES dos filtros de coluna.
+function listaTheadHtml(base){
+  const th = c => {
+    const col = LISTA_COLUNAS[c];
+    const on = LISTA_ORD && LISTA_ORD.col===c;
+    const seta = on ? (LISTA_ORD.dir==="asc" ? "▲" : "▼") : "";
+    const titulo = `<span class="th-t ${on?"on":""}" onclick="setListaOrd('${c}')" title="Ordenar por ${esc(col.t)}">${esc(col.t)}<span class="th-seta">${seta}</span></span>`;
+    if(!col.chave) return `<th data-col="${c}">${titulo}</th>`;
+    const ops = listaOpcoes(c, listaFiltradaPorColunas(base, c));
+    return `<th data-col="${c}">${titulo}<div class="th-f"><select data-col="${c}" class="${LISTA_COL[c]?"on":""}" onchange="setListaCol('${c}', this.value)" title="Filtrar por ${esc(col.t)}">
+      <option value="">Todos</option>
+      ${ops.map(o=>`<option value="${esc(o.k)}" ${LISTA_COL[c]===o.k?"selected":""}>${esc(o.t)} (${o.n})</option>`).join("")}
+    </select></div></th>`;
+  };
+  return `<thead><tr>${["nome","idade","tumor","proto","medico","retorno","sem"].map(th).join("")}</tr></thead>`;
+}
+
 // DOM persistente: o campo de busca é renderizado UMA vez por entrada na lista e nunca
 // reconstruído. Digitar reescreve só #lista-corpo (filtros + tabela) — o input mantém
 // valor, foco e posição do cursor. Mesmo padrão do cadastro e do formulário de retorno.
+// Escolher num dropdown de coluna ou clicar num título também reescreve só #lista-corpo:
+// é um commit (a lista tem de mudar), e o estado escolhido vive em LISTA_COL/LISTA_ORD, não
+// no <select> — o dropdown reconstruído nasce com o valor certo.
 function setListaBusca(v){ LISTA_BUSCA = v; updateListaCorpo(); }
 function setListaFiltro(v){ LISTA_FILTRO = v; updateListaCorpo(); }
 function updateListaCorpo(){
   const el = document.getElementById("lista-corpo");
   if(el) el.innerHTML = listaCorpoHtml(); else render();
 }
+// Ordem de composição (tudo E lógico): busca → chip do topo → filtros de coluna → ordenação.
+// Os contadores dos chips e dos dropdowns são calculados sobre o MESMO funil, cada um
+// pulando só o próprio controle — o número mostrado é o que a lista teria se você clicasse.
 function listaCorpoHtml(){
-  const base = listaBuscada(patients);
-  const atrasados = base.filter(atrasoDe);
-  const lista = listaOrdenada(LISTA_FILTRO==="atrasados" ? atrasados : base);
+  const buscada = listaBuscada(patients);
+  const comColunas = listaFiltradaPorColunas(buscada);
+  const atrasados = comColunas.filter(atrasoDe);
+  const base = LISTA_FILTRO==="atrasados" ? buscada.filter(atrasoDe) : buscada;   // p/ os dropdowns
+  const lista = listaOrdenada(LISTA_FILTRO==="atrasados" ? atrasados : comColunas);
+  const colAtivo = listaFiltroAtivo();
   const filtros = `<div class="lista-filtros">
-    <button class="${LISTA_FILTRO==="todos"?"on":""}" onclick="setListaFiltro('todos')">Todos (${base.length})</button>
+    <button class="${LISTA_FILTRO==="todos"?"on":""}" onclick="setListaFiltro('todos')">Todos (${comColunas.length})</button>
     <button class="atraso ${LISTA_FILTRO==="atrasados"?"on":""}" onclick="setListaFiltro('atrasados')">⏰ Retornos atrasados (${atrasados.length})</button>
-    ${LISTA_BUSCA.trim()? `<span class="lista-busca-n">busca “${esc(LISTA_BUSCA.trim())}” · ${base.length} de ${patients.length}</span>`:""}
+    ${LISTA_BUSCA.trim()? `<span class="lista-busca-n">busca “${esc(LISTA_BUSCA.trim())}” · ${buscada.length} de ${patients.length}</span>`:""}
+    ${colAtivo? `<span class="lista-busca-n lista-col-n">${lista.length} paciente${lista.length===1?"":"s"} · <a onclick="limparListaFiltros()">limpar filtros</a></span>`:""}
   </div>`;
-  const vazio = LISTA_BUSCA.trim()
+  const vazio = colAtivo
+    ? `Nenhum paciente com esses filtros. <a onclick="limparListaFiltros()" style="color:var(--accent);cursor:pointer">Limpar filtros</a>.`
+    : LISTA_BUSCA.trim()
     ? `Nenhum paciente para “${esc(LISTA_BUSCA.trim())}”.`
     : (LISTA_FILTRO==="atrasados"
         ? `Nenhum paciente com retorno atrasado. <a onclick="setListaFiltro('todos')" style="color:var(--accent);cursor:pointer">Ver todos</a>.`
         : "Nenhum paciente cadastrado.");
+  // A tabela (com o cabeçalho de filtros) fica mesmo com a lista vazia por filtro: é no
+  // cabeçalho que se desfaz o filtro que esvaziou a tela.
+  const mostrarTabela = lista.length || colAtivo;
   return `${patients.length? filtros : ""}
-    ${lista.length? `<table>
-      <thead><tr><th>Paciente</th><th>Idade</th><th>Tumor</th><th>Último protocolo</th><th>Médico assistente</th><th>Próximo retorno</th><th>Semáforo</th></tr></thead>
+    ${mostrarTabela? `<table class="lista-tab">
+      ${listaTheadHtml(base)}
       <tbody>${lista.map(p=>`
         <tr class="clickable" onclick="abrir(${p.id})">
           <td><b>${esc(p.nome)}</b>${p.identificador?`<div class="hint">reg. ${esc(p.identificador)}</div>`:""}</td>
@@ -1957,7 +2085,8 @@ function listaCorpoHtml(){
           <td>${p.medico_assistente? esc(p.medico_assistente.nome) : `<span class="hint">—</span>`}</td>
           <td>${listaRetornoHtml(p)}</td>
           <td>${p.ultimo_semaforo? semBadge(p.ultimo_semaforo) : `<span class="hint">—</span>`}</td>
-        </tr>`).join("")}</tbody></table>` : `<div class="empty">${vazio}</div>`}`;
+        </tr>`).join("")}</tbody></table>` : ""}
+    ${lista.length? "" : `<div class="empty">${vazio}</div>`}`;
 }
 function renderLista(){
   app().innerHTML = `

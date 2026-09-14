@@ -43,7 +43,9 @@ const fmtBR = iso => { const [y, m, d] = String(iso).split('-'); return `${d}/${
 // sai, e o cabeçalho passa a ser parte do que se verifica.
 async function linhaLista(page, nome) {
   const r = await page.evaluate(n => {
-    const heads = Array.from(document.querySelectorAll('thead th')).map(h => h.textContent.trim());
+    // O título mora em .th-t: desde os filtros por coluna o <th> também carrega o dropdown,
+    // e textContent do <th> inteiro traria as opções junto.
+    const heads = Array.from(document.querySelectorAll('thead th')).map(h => (h.querySelector('.th-t') || h).textContent.trim());
     const tr = Array.from(document.querySelectorAll('tbody tr')).find(x => x.textContent.includes(n));
     if (!tr) return null;
     const cel = {};
@@ -383,7 +385,7 @@ async function req(metodo, rota, tk, body) {
     // Cabeçalho: as sete colunas, na ordem, e a ausência das duas que saíram — a
     // "Nascimento" (virou o subtítulo da idade) e a "Última avaliação" (foi absorvida
     // pelo protocolo, como "· em dd/mm").
-    const heads = await page.evaluate(() => Array.from(document.querySelectorAll('thead th')).map(h => h.textContent.trim()));
+    const heads = await page.evaluate(() => Array.from(document.querySelectorAll('thead th')).map(h => (h.querySelector('.th-t') || h).textContent.trim()));
     ok('L1 colunas da lista, na ordem, sem "Nascimento" nem "Última avaliação" soltas',
       heads.join('|') === 'Paciente|Idade|Tumor|Último protocolo|Médico assistente|Próximo retorno|Semáforo',
       heads.join('|'));

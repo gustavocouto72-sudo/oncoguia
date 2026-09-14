@@ -11,6 +11,12 @@
 //   (re-revisão no topo, processadas recolhidas, linha expandida íntegra, contador bate
 //   com o filtro de Estado, "Tudo" intacto); parecer digitado (0 re-render), gravado e
 //   atribuído — este último na visão "Tudo", a tela de antes.
+//   B12 lista com filtros por coluna: dropdowns populados com o que está na carteira (com
+//   contagem conferida contra o payload do servidor), filtro combinado (E lógico), ordenação
+//   pelo título, busca com filtro ativo sem re-render, estado vazio por filtro, "limpar"
+//   restaurando lista e ordem padrão, chips compondo, filtro sobrevivendo ao re-render.
+//   Usa um SEGUNDO paciente de teste (outro tumor, retorno agendado) para o "E" ser
+//   provado por construção, não pelo acaso da carteira.
 // Fase 3 admin (API): /revisao/export 200 = acesso admin OK.
 // Limpeza: apaga parecer de teste (SQL) e paciente de teste (DELETE admin).
 // Credenciais de teste: .env.local via scripts/portao-credenciais.js — nada fixo aqui.
@@ -25,6 +31,7 @@ const { neon } = require(path.join(ROOT, 'backend/node_modules/@neondatabase/ser
 const APP = 'http://localhost:5173/index.html';
 const API = 'http://localhost:3005/api';
 const NOME_TESTE = 'Paciente Portao Teste B';
+const NOME_TESTE2 = 'Paciente Portao Teste B2';   // B12: segundo paciente, outro tumor, retorno marcado
 const JUST_TESTE = 'TESTE PORTAO B - parecer de fumaca, sera apagado em seguida';
 
 const R = [];
@@ -45,7 +52,7 @@ async function loginCtx(browser, perfil) {
   // Primeira linha: sobre QUE BANCO este resultado vale. Aborta se não for o de dev.
   exigirBancoDeDev('B (fluxos 5–8)');
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
-  let pacienteId = null;
+  let pacienteId = null, pacienteId2 = null;
 
   // try/finally: a limpeza ficava no fim do caminho feliz, então QUALQUER check que
   // estourasse antes dela deixava o paciente e os pareceres de teste para trás — e a
@@ -236,6 +243,160 @@ async function loginCtx(browser, perfil) {
   ok('B10 ★ toda nota vem com revisor e data', notas.n > 0 && notas.comMeta === notas.n && notas.semTexto === 0, JSON.stringify(notas));
   ok('B10 nota de não incorporação não é repetida no bloco de notas', notas.dup === 0, 'dup=' + notas.dup);
   ok('B10 nenhum texto ecoado dentro do bloco (nota × nota do squad)', notas.eco === 0, 'eco=' + notas.eco);
+
+  // ---- B12 — LISTA: filtros por coluna (estilo Excel) --------------------------------
+  // O que se afirma é a TELA contra o PAYLOAD do servidor (GET /pacientes), nunca contra
+  // as funções da própria lista: contagem do dropdown = contagem no payload, linhas na
+  // tela = quem satisfaz TODOS os filtros no payload. O segundo paciente de teste
+  // (outro tumor, retorno em 3 dias) garante que o "E" tem o que excluir e que a faixa
+  // "esta semana" tem alguém — sem depender do que a carteira tem hoje.
+  const hojeISO = (() => { const h = new Date(), p = n => String(n).padStart(2, '0'); return `${h.getFullYear()}-${p(h.getMonth() + 1)}-${p(h.getDate())}`; })();
+  const em3dias = (() => { const d = new Date(); d.setDate(d.getDate() + 3); const p = n => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`; })();
+  const em7dias = (() => { const d = new Date(); d.setDate(d.getDate() + 7); const p = n => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`; })();
+  pacienteId2 = await page.evaluate(async (a) => {
+    const t2 = (TUMORES.find(t => t.id !== 'mama') || {}).id || null;
+    const p = await api('/pacientes', { method: 'POST', body: JSON.stringify({
+      nome: a.nome, nasc: '1960-05-10', sexo: 'M', cidade: '—', operadora: OPERADORAS[0], plano: '—', carteirinha: '—',
+      identificador: 'TESTE-PORTAO-B2', sistema: t2 ? sistemaDeTumor(t2) : null, tumor: t2, subtipo: null, valores_estaveis: {},
+    }) });
+    await api(`/pacientes/${p.id}/retornos`, { method: 'POST', body: JSON.stringify({
+      data_realizada: a.hoje, com_imagem: false, conduta: 'mantem', proximo_intervalo: 'especifica', proximo_retorno: a.em3,
+    }) });
+    await carregarPacientes(); view = 'lista'; render();
+    return p.id;
+  }, { nome: NOME_TESTE2, hoje: hojeISO, em3: em3dias });
+  await page.waitForSelector('.lista-tab select[data-col="tumor"]', { timeout: 15000 });
+  ok('B12 segundo paciente de teste criado (outro tumor, retorno em 3 dias)', !!pacienteId2, 'id=' + pacienteId2);
+
+  // A verdade independente: o payload do servidor, lido pela mesma rota da lista.
+  const carteira = await page.evaluate(() => api('/pacientes'));
+  const kTumor = p => p.tumor || '—', kSem = p => p.ultimo_semaforo || '—';
+  const kRet = p => { const r = p.retorno || {}; return !r.proximo ? 'sem' : r.vencido ? 'atrasado' : (r.proximo <= em7dias ? 'semana' : 'futuro'); };
+  const contar = (rows, k) => rows.reduce((m, p) => { m[k(p)] = (m[k(p)] || 0) + 1; return m; }, {});
+  const lerDropdown = (col) => page.evaluate((c) => Array.from(document.querySelectorAll(`select[data-col="${c}"] option`))
+    .filter(o => o.value !== '').map(o => ({ k: o.value, n: +(o.textContent.match(/\((\d+)\)\s*$/) || [])[1], t: o.textContent.trim() })), col);
+  const linhasTela = () => page.evaluate(() => Array.from(document.querySelectorAll('.lista-tab tbody tr')).map(r => r.children[0].querySelector('b').textContent.trim()));
+  const ordemInicial = await linhasTela();
+  ok('B12 lista completa antes de qualquer filtro (linhas = payload)', ordemInicial.length === carteira.length, `tela=${ordemInicial.length} payload=${carteira.length}`);
+
+  const bateDropdown = (ops, esperado) => {
+    const kOps = ops.map(o => o.k).sort(), kEsp = Object.keys(esperado).sort();
+    return kOps.join('|') === kEsp.join('|') && ops.every(o => o.n === esperado[o.k]);
+  };
+  const opsTumor = await lerDropdown('tumor');
+  const espTumor = contar(carteira, kTumor);
+  ok('B12 ★ dropdown de Tumor = exatamente os tumores da carteira, com contagem do payload',
+    bateDropdown(opsTumor, espTumor) && opsTumor.length >= 2, JSON.stringify(opsTumor) + ' vs ' + JSON.stringify(espTumor));
+  ok('B12 dropdown de Tumor não lista tumor sem paciente (não é o catálogo)',
+    await page.evaluate((n) => n < TUMORES.length, opsTumor.length), `opções=${opsTumor.length} catálogo=${await page.evaluate(() => TUMORES.length)}`);
+  ok('B12 ★ dropdown de Semáforo bate com o payload', bateDropdown(await lerDropdown('sem'), contar(carteira, kSem)), JSON.stringify(await lerDropdown('sem')));
+  ok('B12 ★ dropdown de Próximo retorno (faixas) bate com o payload — inclui "esta semana" (paciente 2)',
+    bateDropdown(await lerDropdown('retorno'), contar(carteira, kRet)) && (await lerDropdown('retorno')).some(o => o.k === 'semana'), JSON.stringify(await lerDropdown('retorno')));
+  ok('B12 toda coluna filtrável tem "Todos" como primeira opção', await page.evaluate(() =>
+    ['idade', 'tumor', 'proto', 'medico', 'retorno', 'sem'].every(c => { const s = document.querySelector(`select[data-col="${c}"]`); return s && s.options[0].value === '' && /Todos/.test(s.options[0].textContent); })), '');
+
+  // Filtro combinado: Tumor=mama E Semáforo="—" (sem avaliação). O paciente 1 (mama, sem
+  // avaliação) fica; o paciente 2 (outro tumor) sai. Linhas = payload filtrado pelos dois.
+  await page.selectOption('select[data-col="tumor"]', 'mama');
+  await page.waitForTimeout(150);
+  const soMama = await linhasTela();
+  ok('B12 filtro Tumor=mama: linhas = payload com tumor mama', soMama.length === carteira.filter(p => kTumor(p) === 'mama').length && soMama.includes(NOME_TESTE) && !soMama.includes(NOME_TESTE2), `tela=${soMama.length}`);
+  await page.selectOption('select[data-col="sem"]', '—');
+  await page.waitForTimeout(150);
+  const combinado = await linhasTela();
+  const espComb = carteira.filter(p => kTumor(p) === 'mama' && kSem(p) === '—');
+  ok('B12 ★ filtro combinado Tumor=mama E Semáforo=— : só quem satisfaz os dois',
+    combinado.length === espComb.length && combinado.includes(NOME_TESTE) && !combinado.includes(NOME_TESTE2)
+    && espComb.every(p => combinado.includes(p.nome)), `tela=${combinado.length} payload=${espComb.length}`);
+  const cascata = (await lerDropdown('tumor')).find(o => o.k === 'mama');
+  ok('B12 ★ contagem do dropdown com outro filtro ativo bate com a lista (Mama (N) = N linhas)', !!cascata && cascata.n === combinado.length, JSON.stringify(cascata));
+  const resumo = await page.evaluate(() => ({ txt: (document.querySelector('.lista-col-n') || {}).textContent || '', link: !!document.querySelector('.lista-col-n a'),
+    selTumor: document.querySelector('select[data-col="tumor"]').value, selSem: document.querySelector('select[data-col="sem"]').value, todos: (document.querySelector('.lista-filtros button') || {}).textContent }));
+  ok('B12 linha "N paciente(s) · limpar filtros" com o N da tela', new RegExp(`^${combinado.length} paciente`).test(resumo.txt.trim()) && /limpar filtros/.test(resumo.txt) && resumo.link, resumo.txt);
+  ok('B12 dropdowns reconstruídos nascem com o valor escolhido', resumo.selTumor === 'mama' && resumo.selSem === '—', JSON.stringify(resumo));
+  ok('B12 chip "Todos (N)" conta com os filtros de coluna', new RegExp(`\\(${combinado.length}\\)`).test(resumo.todos), resumo.todos);
+
+  // Filtro sobrevive ao re-render da lista (badge atualizando = carregarPacientes + render).
+  await page.evaluate(() => carregarPacientes().then(() => render()));
+  await page.waitForSelector('.lista-tab select[data-col="tumor"]', { timeout: 15000 });
+  const posRender = await page.evaluate(() => ({ t: document.querySelector('select[data-col="tumor"]').value, s: document.querySelector('select[data-col="sem"]').value, n: document.querySelectorAll('.lista-tab tbody tr').length }));
+  ok('B12 ★ filtros ativos sobrevivem ao re-render da lista', posRender.t === 'mama' && posRender.s === '—' && posRender.n === combinado.length, JSON.stringify(posRender));
+
+  // Chips compõem com os filtros de coluna: "Retornos atrasados" com Tumor=mama E Sem=—.
+  await page.click('.lista-filtros button.atraso');
+  await page.waitForTimeout(150);
+  const chipComb = await linhasTela();
+  const espChip = espComb.filter(p => p.retorno && p.retorno.vencido);
+  ok('B12 chip "Retornos atrasados" compõe com os filtros de coluna', chipComb.length === espChip.length && espChip.every(p => chipComb.includes(p.nome)), `tela=${chipComb.length} payload=${espChip.length}`);
+  await page.evaluate(() => setListaFiltro('todos'));
+  await page.waitForTimeout(100);
+
+  // Busca com filtro ativo: 0 re-render (regra da casa) e o filtro continua valendo. O
+  // paciente 2 casa a busca mas NÃO o filtro de tumor → lista vazia POR FILTRO, com estado
+  // claro e o cabeçalho (onde se desfaz o filtro) ainda na tela.
+  await page.click('#lista-busca');
+  await page.evaluate(() => { window.__rc = 0; const o = window.render; window.render = function () { window.__rc++; return o.apply(this, arguments); }; });
+  await page.type('#lista-busca', 'Teste B2', { delay: 15 });
+  const buscaFiltro = await page.evaluate(() => ({
+    rc: window.__rc, foco: document.activeElement === document.getElementById('lista-busca'), valor: document.getElementById('lista-busca').value,
+    linhas: document.querySelectorAll('.lista-tab tbody tr').length, vazio: (document.querySelector('#lista-corpo .empty') || {}).textContent || '',
+    cabecalho: !!document.querySelector('.lista-tab select[data-col="tumor"]'), selTumor: (document.querySelector('select[data-col="tumor"]') || {}).value,
+  }));
+  ok('B12 ★ digitar na busca com filtro ativo: 0 re-render, campo mantém foco e valor', buscaFiltro.rc === 0 && buscaFiltro.foco && buscaFiltro.valor === 'Teste B2', JSON.stringify(buscaFiltro));
+  ok('B12 ★ lista vazia por filtro: estado claro ("Nenhum paciente com esses filtros") e cabeçalho com o filtro ainda na tela',
+    buscaFiltro.linhas === 0 && /Nenhum paciente com esses filtros/.test(buscaFiltro.vazio) && buscaFiltro.cabecalho && buscaFiltro.selTumor === 'mama', JSON.stringify(buscaFiltro));
+  await page.fill('#lista-busca', '');
+  await page.waitForTimeout(100);
+
+  // Ordenação pelo título: Paciente asc → desc, setinha na coluna; a ordem é conferida
+  // com o próprio localeCompare do node, não com a função da app.
+  await page.click('.lista-tab th[data-col="nome"] .th-t');
+  await page.waitForTimeout(100);
+  const asc = await linhasTela();
+  const ascEsp = asc.slice().sort((a, b) => a.localeCompare(b, 'pt-BR'));
+  const setaAsc = await page.evaluate(() => (document.querySelector('.lista-tab th[data-col="nome"] .th-seta') || {}).textContent);
+  ok('B12 ★ clicar no título "Paciente" ordena por nome (asc) com setinha', asc.join('|') === ascEsp.join('|') && setaAsc === '▲' && asc.length === combinado.length, `seta=${setaAsc} ${asc.join(' < ')}`);
+  await page.click('.lista-tab th[data-col="nome"] .th-t');
+  await page.waitForTimeout(100);
+  const desc = await linhasTela();
+  const setaDesc = await page.evaluate(() => (document.querySelector('.lista-tab th[data-col="nome"] .th-seta') || {}).textContent);
+  ok('B12 segundo clique inverte (desc) e a setinha acompanha', desc.join('|') === ascEsp.slice().reverse().join('|') && setaDesc === '▼', `seta=${setaDesc}`);
+  ok('B12 só a coluna ordenada mostra setinha', await page.evaluate(() => Array.from(document.querySelectorAll('.lista-tab .th-seta')).filter(e => e.textContent.trim()).length === 1), '');
+
+  // "Limpar filtros": tudo volta — filtros de coluna E ordenação padrão (a mesma ordem
+  // que a tela tinha antes de qualquer clique).
+  await page.click('.lista-col-n a');
+  await page.waitForTimeout(150);
+  const limpo = await page.evaluate(() => ({
+    sel: ['idade', 'tumor', 'proto', 'medico', 'retorno', 'sem'].map(c => document.querySelector(`select[data-col="${c}"]`).value),
+    setas: Array.from(document.querySelectorAll('.lista-tab .th-seta')).filter(e => e.textContent.trim()).length,
+    linha: !!document.querySelector('.lista-col-n'), ord: LISTA_ORD,
+  }));
+  const ordemDepois = await linhasTela();
+  ok('B12 ★ "limpar filtros" restaura a lista completa e a ordem padrão (atrasados primeiro)',
+    ordemDepois.join('|') === ordemInicial.join('|') && limpo.sel.every(v => v === '') && limpo.setas === 0 && !limpo.linha && limpo.ord === null, JSON.stringify(limpo) + ' ' + ordemDepois.length + '/' + ordemInicial.length);
+
+  // Ordenar por Idade na lista COMPLETA (numérico; "—" no fim): o paciente 2 tem
+  // nascimento e o paciente 1 não — os dois lados da regra estão na tela por construção.
+  await page.click('.lista-tab th[data-col="idade"] .th-t');
+  await page.waitForTimeout(100);
+  const idadeOrd = await page.evaluate(() => Array.from(document.querySelectorAll('.lista-tab tbody tr')).map(r => r.children[1].textContent.trim()));
+  const idades = idadeOrd.map(t => (t.match(/^(\d+)a/) || [])[1]).map(v => v == null ? null : +v);
+  const numeros = idades.filter(v => v != null), semIdade = idades.filter(v => v == null).length;
+  ok('B12 ordenar por Idade: numérico crescente, quem não tem data no fim (os dois casos presentes)',
+    numeros.length >= 2 && semIdade >= 1 && numeros.every((v, i) => i === 0 || numeros[i - 1] <= v) && idades.slice(numeros.length).every(v => v == null),
+    idadeOrd.map(t => t.slice(0, 4)).join(' | '));
+  await page.evaluate(() => limparListaFiltros());
+  await page.waitForTimeout(100);
+
+  // Faixa "esta semana" no retorno: o paciente 2 (retorno em 3 dias) aparece; contagem = payload.
+  await page.selectOption('select[data-col="retorno"]', 'semana');
+  await page.waitForTimeout(150);
+  const semana = await linhasTela();
+  const espSemana = carteira.filter(p => kRet(p) === 'semana');
+  ok('B12 filtro Próximo retorno="esta semana": paciente 2 aparece, linhas = payload', semana.includes(NOME_TESTE2) && semana.length === espSemana.length, `tela=${semana.length} payload=${espSemana.length}`);
+  await page.evaluate(() => limparListaFiltros());
+  ok('B7 console sem erro (lista com filtros por coluna)', f1.errs.length === 0, f1.errs.join(' | '));
   await f1.ctx.close();
 
   // ============ FASE 2 — revisor ============
@@ -423,9 +584,10 @@ async function loginCtx(browser, perfil) {
       const sql = neon(process.env.DATABASE_URL);
       const del = await sql`DELETE FROM revisoes WHERE justificativa LIKE ${'TESTE PORTAO B%'} RETURNING id`;
       console.log('limpeza: pareceres de teste apagados =', del.length);
-      if (pacienteId) {
-        const rDel = await fetch(`${API}/pacientes/${pacienteId}`, { method: 'DELETE', headers: { Authorization: 'Bearer ' + admin } });
-        console.log('limpeza: paciente de teste', pacienteId, '→', rDel.status);
+      for (const pid of [pacienteId, pacienteId2]) {
+        if (!pid) continue;
+        const rDel = await fetch(`${API}/pacientes/${pid}`, { method: 'DELETE', headers: { Authorization: 'Bearer ' + admin } });
+        console.log('limpeza: paciente de teste', pid, '→', rDel.status);
       }
     } catch (e) {
       // Limpeza que falha não pode mascarar o resultado dos checks — avisa alto e deixa

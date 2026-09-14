@@ -149,6 +149,38 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
    - [ ] "Tudo": todos os cards abertos, sem seção nem linha recolhida; console limpo ao
          alternar Fila ⇄ Tudo.
 
+5c. **Lista de pacientes com filtros por coluna (2026-09-14, `portao-b.js` checks B12).**
+   O cabeçalho da tabela virou linha de filtros, estilo Excel: nas colunas de valor
+   discreto — Tumor, Último protocolo, Médico assistente, Semáforo — um dropdown por
+   coluna, populado com os valores **presentes na carteira** (nunca o catálogo) e a
+   contagem; em Idade e Próximo retorno, faixas fixas (retorno: atrasado / esta semana /
+   futuro / sem agendamento — "atrasado" continua sendo o `vencido` do servidor). Os
+   filtros compõem em E entre si, com a busca por nome e com os chips do topo; clicar no
+   título ordena asc/desc (setinha); "limpar filtros" desfaz filtros de coluna E
+   ordenação (a busca e o chip têm controle próprio). Estado em memória (`LISTA_COL`,
+   `LISTA_ORD`): sobrevive ao re-render da lista, morre com a sessão. Só app — nenhum
+   endpoint ou guard mudou; a lista de 7 colunas, a ordem atrasados-primeiro e a busca
+   continuam iguais. O portão cria um **segundo paciente de teste** (outro tumor, retorno
+   em 3 dias) para o "E" ter o que excluir por construção, e confere a tela contra o
+   **payload** de `GET /pacientes`, não contra as funções da lista:
+   - [ ] dropdown de Tumor = exatamente os tumores da carteira, contagem igual à do
+         payload (e menor que o catálogo); Semáforo e faixas de retorno idem;
+   - [ ] filtro combinado (Tumor=mama E Semáforo=—) mostra só quem satisfaz os dois; a
+         contagem do dropdown com outro filtro ativo bate com as linhas ("Mama (N)" = N);
+   - [ ] linha "N paciente(s) · limpar filtros"; chips compõem; filtro sobrevive a
+         `carregarPacientes()+render()`;
+   - [ ] digitar na busca com filtro ativo: **contador de render = 0**; lista vazia por
+         filtro mostra "Nenhum paciente com esses filtros" com o cabeçalho ainda na tela;
+   - [ ] ordenar por Paciente (asc/desc, setinha só na coluna ativa) e por Idade
+         (numérico, "—" no fim, os dois casos presentes);
+   - [ ] "limpar" devolve a lista completa **na mesma ordem** de antes de qualquer clique;
+   - [ ] os dois pacientes de teste saem na limpeza — rodar 2x e conferir que a
+         carteira volta ao mesmo tamanho.
+
+   Efeito colateral em outro portão: `portao-retorno.js` (L1 e `linhaLista`) lia
+   `thead th` por `textContent`; com o dropdown dentro do `<th>` isso traria as opções
+   junto, então passou a ler o título em `.th-t`.
+
 6. **Campo de texto livre não re-renderiza a lista.** Nome do paciente, parecer do revisor, "enviar fonte" (DOI): **digitar não pode re-renderizar a lista nem resetar scroll/foco** (testar com contador de render = 0 durante a digitação). Foi o bug do nome que apagava e o da Revisão que subia.
 
 7. **Fiação.** Frontend e backend na mesma porta/base URL; app e Revisão lendo a mesma fonte. Console (F12) sem erro vermelho no load (CORS, `Failed to fetch`, `null`).
