@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RetornosController } from './retornos.controller';
+import { AgendaController } from './agenda.controller';
 import { RetornosService } from './retornos.service';
-import { Avaliacao, Paciente, Retorno } from '../database/entities';
+import { Avaliacao, EventoAdministrativo, Paciente, Retorno } from '../database/entities';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Retorno, Paciente, Avaliacao])],
-  controllers: [RetornosController],
+  imports: [TypeOrmModule.forFeature([Retorno, Paciente, Avaliacao, EventoAdministrativo])],
+  controllers: [RetornosController, AgendaController],
   providers: [RetornosService],
   exports: [RetornosService],
 })

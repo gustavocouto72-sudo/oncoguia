@@ -113,9 +113,9 @@ const trocaConcluida = (page, perfil) => page.waitForFunction(
     await pa.evaluate(() => go('admin'));
     await pa.waitForFunction(() => view === 'admin' && ADM_USUARIOS !== null, null, { timeout: 25000 });
     const caixas = await pa.evaluate(() =>
-      ['oncologista', 'revisor', 'auditor', 'admin', 'gestor']
+      ['oncologista', 'revisor', 'auditor', 'admin', 'gestor', 'secretaria']
         .filter(p => !!document.getElementById('adm_perfil_' + p)));
-    ok('A2 cadastro de usuário traz CHECKBOX para os 5 perfis', caixas.length === 5, caixas.join(','));
+    ok('A2 cadastro de usuário traz CHECKBOX para os 6 perfis', caixas.length === 6, caixas.join(','));
 
     await pa.fill('#adm_nome', NOME_X);
     await pa.fill('#adm_login', LOGIN_X);

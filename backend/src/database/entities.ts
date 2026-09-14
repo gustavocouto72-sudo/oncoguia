@@ -9,10 +9,15 @@ import {
 // projeção de compra, faturamento, margem) e NADA de clínico — não revisa protocolo,
 // não decide autorização, e não recebe NOME de paciente. A pseudonimização é do
 // SERVIDOR (a resposta não carrega o nome), não filtro de tela.
-export type Perfil = 'oncologista' | 'revisor' | 'auditor' | 'admin' | 'gestor';
+// 'secretaria' é o espelho do gestor: recebe o NOME e o cadastro (registro, nascimento,
+// convênio, médico assistente, agenda de retorno) e NADA de clínico — sem tumor, sem
+// protocolo, sem semáforo, sem trilha, sem corpus de evidência, sem dinheiro. A fronteira
+// é "administrativo = dela; clínico = nunca", e o corte é no SELECT do servidor (a
+// resposta dela não carrega tumor), não filtro de tela — mesmo padrão da pseudonimização.
+export type Perfil = 'oncologista' | 'revisor' | 'auditor' | 'admin' | 'gestor' | 'secretaria';
 
 // O vocabulário fechado, num lugar só — DTO, CHECK do banco e tela de admin leem daqui.
-export const PERFIS: Perfil[] = ['oncologista', 'revisor', 'auditor', 'admin', 'gestor'];
+export const PERFIS: Perfil[] = ['oncologista', 'revisor', 'auditor', 'admin', 'gestor', 'secretaria'];
 
 // Semáforo de elegibilidade — mesmo vocabulário do motor evalExpr (elegível/atenção/inelegível).
 export type Semaforo = 'elegivel' | 'atencao' | 'inelegivel';
@@ -554,6 +559,71 @@ export class Retorno {
 
   @CreateDateColumn({ name: 'criado_em', type: 'timestamptz' })
   criado_em: Date; // do servidor
+}
+
+// EVENTO ADMINISTRATIVO — o que a SECRETARIA registra sobre o paciente, sem tocar em nada
+// clínico. Dois tipos, na mesma tabela append-only:
+//   'reagendamento' — a DATA do próximo retorno mudou (pacientes.proximo_retorno, a coluna
+//                     mutável de agenda). `data_anterior` → `data` guardam de onde para onde,
+//                     `nota` é o motivo curto. A DECISÃO clínica de intervalo (retornos.
+//                     proximo_retorno/proximo_intervalo, congelada no registro do médico)
+//                     NÃO muda: o médico decidiu "em 1 mês"; a secretaria só moveu o dia.
+//   'contato'       — contato com paciente faltoso: `data` do contato, `meio` (telefone,
+//                     whatsapp, email, presencial, outro) e `nota` curta.
+// Append-only como avaliações e retornos: não há rota de UPDATE/DELETE; correção é linha
+// nova. Aparece na trilha do médico como evento administrativo (tipo próprio) — quem cuida
+// do paciente vê que a agenda foi mexida, por quem e por quê.
+// Quem pode registrar é whitelist de ROTA (secretaria + quem trata o paciente) — o perfil
+// ativo fica carimbado aqui como nos irmãos (Avaliacao.perfil_ativo).
+export type TipoEventoAdministrativo = 'reagendamento' | 'contato';
+export type MeioContato = 'telefone' | 'whatsapp' | 'email' | 'presencial' | 'outro';
+export const MEIOS_CONTATO: MeioContato[] = ['telefone', 'whatsapp', 'email', 'presencial', 'outro'];
+
+@Entity('eventos_administrativos')
+@Index(['paciente_id', 'criado_em'])
+export class EventoAdministrativo {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @ManyToOne(() => Paciente, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'paciente_id' })
+  paciente: Paciente;
+
+  @Column({ name: 'paciente_id' })
+  paciente_id: number;
+
+  @Column({ type: 'varchar', length: 20 })
+  tipo: TipoEventoAdministrativo;
+
+  // reagendamento: a data NOVA do retorno; contato: o dia em que o contato aconteceu.
+  @Column({ type: 'date' })
+  data: string;
+
+  // reagendamento: a data que valia antes (de onde saiu). Nulo no contato.
+  @Column({ type: 'date', nullable: true })
+  data_anterior: string | null;
+
+  // contato: por que meio. Nulo no reagendamento.
+  @Column({ type: 'varchar', length: 20, nullable: true })
+  meio: MeioContato | null;
+
+  // Motivo do reagendamento / nota do contato. CURTA de propósito: é registro
+  // administrativo, não evolução — o campo é limitado no DTO e no banco.
+  @Column({ type: 'varchar', length: 280, nullable: true })
+  nota: string | null;
+
+  @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'registrado_por' })
+  registradoPor: Usuario;
+
+  @Column({ name: 'registrado_por', nullable: true })
+  registrado_por: number; // do JWT (servidor)
+
+  @Column({ name: 'perfil_ativo', type: 'varchar', length: 20, nullable: true })
+  perfil_ativo: Perfil;
+
+  @CreateDateColumn({ name: 'criado_em', type: 'timestamptz' })
+  criado_em: Date;
 }
 
 // CUSTO POR CICLO, POR REGIME — a metade "preço" da expectativa de custo global.

@@ -2,10 +2,12 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
-  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, Paciente, Perfil, Retorno, SelecaoProtocolo, Semaforo,
+  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, EventoAdministrativo, Paciente, Perfil, Retorno,
+  SelecaoProtocolo, Semaforo,
 } from '../database/entities';
 import { EvidenciaService } from '../evidencia/evidencia.service';
 import { diaLocal, estadoReestadiamento, estadoRetorno, hojeISO, somarMeses } from '../retornos/retornos.service';
+import { mapEventoAdministrativo } from '../retornos/eventos-administrativos';
 
 // Payload de uma nova avaliação (reavaliação). data e avaliado_por são do servidor.
 export interface NovaAvaliacao {
@@ -61,11 +63,14 @@ export class PacientesService {
     @InjectRepository(SelecaoProtocolo) private selecaoRepo: Repository<SelecaoProtocolo>,
     @InjectRepository(Avaliacao) private avaliacaoRepo: Repository<Avaliacao>,
     @InjectRepository(Retorno) private retornoRepo: Repository<Retorno>,
+    @InjectRepository(EventoAdministrativo) private eventoAdmRepo: Repository<EventoAdministrativo>,
     private evidencia: EvidenciaService,
   ) {}
 
   // Lista: nome, tumor, data da última avaliação e último semáforo (por paciente).
-  async listar() {
+  // Para a SECRETARIA, a lista administrativa — outro caminho de código, outro SELECT.
+  async listar(perfil: Perfil) {
+    if (perfil === 'secretaria') return this.listarAdministrativo();
     const pacientes = await this.pacienteRepo.find({ order: { id: 'ASC' } });
     if (!pacientes.length) return [];
     // Última avaliação VIGENTE por paciente (via data máxima). Solicitação de exceção
@@ -155,6 +160,109 @@ export class PacientesService {
     });
   }
 
+  // ── SECRETARIA: payload REDUZIDO, cortado no SELECT ──────────────────────────
+  // Mesmo desenho da pseudonimização do gestor (custos/recursos): para a secretaria as
+  // colunas clínicas do paciente (tumor, sistema, subtipo, valores_estaveis) NEM SÃO
+  // SELECIONADAS, e as tabelas de avaliação/retorno são consultadas SÓ pelas colunas que
+  // resolvem o médico assistente (quem assinou o evento mais recente) — nunca regimen_id,
+  // semáforo, resposta ou conduta. Não é um filtro sobre o payload completo: é um caminho
+  // que não passa pelo dado. O teste afirmativo do portão é "a resposta dela não contém o
+  // tumor do paciente de teste".
+  //
+  // Colunas administrativas do cadastro — a lista, num lugar só.
+  private static readonly SELECT_ADMINISTRATIVO = {
+    id: true, nome: true, identificador: true, nasc: true, sexo: true, cidade: true,
+    operadora: true, plano: true, carteirinha: true, peso_kg: true, altura_cm: true,
+    proximo_retorno: true, criado_em: true, criado_por: true,
+  } as const;
+
+  // Último evento de cada paciente, SÓ com o que o médico assistente precisa: a data e o
+  // autor. `getMany` com select explícito devolve entidades parciais — regimen_id e
+  // semaforo vêm undefined porque não foram pedidos ao banco.
+  private async medicosAssistentes(): Promise<Map<number, { id: number; nome: string } | null>> {
+    const avals = await this.avaliacaoRepo
+      .createQueryBuilder('a')
+      .select(['a.id', 'a.paciente_id', 'a.data', 'ua.id', 'ua.nome'])
+      .distinctOn(['a.paciente_id'])
+      .leftJoin('a.avaliadoPor', 'ua')
+      .orderBy('a.paciente_id', 'ASC')
+      .addOrderBy('a.data', 'DESC')
+      .getMany();
+    const rets = await this.retornoRepo
+      .createQueryBuilder('r')
+      .select(['r.id', 'r.paciente_id', 'r.data_realizada', 'r.criado_em', 'ur.id', 'ur.nome'])
+      .distinctOn(['r.paciente_id'])
+      .leftJoin('r.registradoPor', 'ur')
+      .orderBy('r.paciente_id', 'ASC')
+      .addOrderBy('r.data_realizada', 'DESC')
+      .addOrderBy('r.criado_em', 'DESC')
+      .getMany();
+    const aPorPac = new Map(avals.map((a) => [a.paciente_id, a]));
+    const rPorPac = new Map(rets.map((r) => [r.paciente_id, r]));
+    const out = new Map<number, { id: number; nome: string } | null>();
+    new Set([...aPorPac.keys(), ...rPorPac.keys()]).forEach((pid) => {
+      out.set(pid, medicoAssistente(aPorPac.get(pid), rPorPac.get(pid)));
+    });
+    return out;
+  }
+
+  private mapAdministrativo(p: Paciente, medico: { id: number; nome: string } | null) {
+    return {
+      id: p.id,
+      nome: p.nome,
+      identificador: p.identificador,
+      nasc: p.nasc,
+      sexo: p.sexo,
+      cidade: p.cidade,
+      operadora: p.operadora,
+      plano: p.plano,
+      carteirinha: p.carteirinha,
+      peso_kg: p.peso_kg ?? null,
+      altura_cm: p.altura_cm ?? null,
+      retorno: estadoRetorno(p),
+      medico_assistente: medico,
+      // Marca explícita: a tela sabe que este é o payload administrativo, e o portão
+      // confere que ele vem SEM as chaves clínicas — não só com esta flag.
+      administrativo: true,
+    };
+  }
+
+  async listarAdministrativo() {
+    const pacientes = await this.pacienteRepo.find({
+      select: PacientesService.SELECT_ADMINISTRATIVO,
+      order: { id: 'ASC' },
+    });
+    if (!pacientes.length) return [];
+    const medicos = await this.medicosAssistentes();
+    return pacientes.map((p) => this.mapAdministrativo(p, medicos.get(p.id) || null));
+  }
+
+  // Ficha administrativa: cadastro + agenda + os eventos administrativos (reagendamentos e
+  // contatos), do mais recente para o mais antigo. Nada de avaliação, trilha ou reestadiamento.
+  async obterAdministrativo(id: number) {
+    const p = await this.pacienteRepo.findOne({
+      select: PacientesService.SELECT_ADMINISTRATIVO,
+      where: { id },
+    });
+    if (!p) throw new NotFoundException('Paciente não encontrado');
+    const medicos = await this.medicosAssistentes();
+    return {
+      ...this.mapAdministrativo(p, medicos.get(p.id) || null),
+      eventos_administrativos: await this.eventosAdministrativos(id),
+    };
+  }
+
+  // Eventos administrativos de um paciente, mapeados para a resposta. Compartilhado com a
+  // trilha do médico (RetornosService.trilha), que os mescla na linha do tempo.
+  async eventosAdministrativos(pacienteId: number) {
+    const rows = await this.eventoAdmRepo.find({
+      where: { paciente_id: pacienteId },
+      relations: { registradoPor: true },
+      order: { criado_em: 'DESC', id: 'DESC' },
+    });
+    return rows.map((e) => mapEventoAdministrativo(e));
+  }
+
   // Cadastro do paciente. O tumor é atributo do paciente (não escolha por visita);
   // valores_estaveis guarda os campos_primitivos com estavel:true (biologia imutável).
   criar(dados: Partial<Paciente>, usuarioId: number) {
@@ -163,12 +271,13 @@ export class PacientesService {
     );
   }
 
-  // Correção cadastral: aplica só as chaves presentes no body e devolve o paciente completo.
-  async atualizar(id: number, dados: Partial<Paciente>) {
+  // Correção cadastral: aplica só as chaves presentes no body e devolve o paciente — no
+  // formato do perfil que corrigiu (a secretaria recebe de volta a ficha administrativa).
+  async atualizar(id: number, dados: Partial<Paciente>, perfil: Perfil) {
     const p = await this.pacienteOr404(id);
     Object.assign(p, dados);
     await this.pacienteRepo.save(p);
-    return this.obter(id);
+    return this.obter(id, perfil);
   }
 
   // Remoção administrativa. Cascata explícita: avaliações e seleções do paciente saem
@@ -176,6 +285,7 @@ export class PacientesService {
   async remover(id: number) {
     await this.pacienteOr404(id);
     // retornos antes das avaliações: retornos.avaliacao_id referencia avaliacoes.
+    await this.eventoAdmRepo.delete({ paciente_id: id });
     await this.retornoRepo.delete({ paciente_id: id });
     await this.avaliacaoRepo.delete({ paciente_id: id });
     await this.selecaoRepo.delete({ paciente_id: id });
@@ -193,7 +303,9 @@ export class PacientesService {
   }
 
   // Paciente + última avaliação (o "protocolo que ele estava") + linha do tempo resumida.
-  async obter(id: number) {
+  // Para a SECRETARIA, a ficha administrativa — outro caminho de código, outro SELECT.
+  async obter(id: number, perfil: Perfil) {
+    if (perfil === 'secretaria') return this.obterAdministrativo(id);
     const p = await this.pacienteOr404(id);
     const avaliacoes = await this.avaliacaoRepo.find({
       where: { paciente_id: id },

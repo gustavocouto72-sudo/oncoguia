@@ -88,7 +88,9 @@ class ReestadiamentoDto {
 // sem ele o @ValidateNested não roda sobre nada.
 const PIPE = new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true });
 
-// Trilha do paciente. LEITURA = qualquer autenticado (JwtAuthGuard no controller).
+// Trilha do paciente. LEITURA = whitelist de perfis CLÍNICOS (LeituraClinicaGuard no
+// controller) — a secretaria leva 403 aqui, trilha e retorno são clínicos; a agenda que
+// ela mexe tem controller próprio (agenda.controller.ts).
 // ESCRITA = whitelist EXPLÍCITA ['oncologista','admin'] (OncologistaOuAdminGuard) — o
 // revisor NÃO registra seguimento, e a hierarquia do RolesGuard o deixaria passar.
 // Não existe rota de UPDATE/DELETE de retorno: o registro é imutável, correção é linha nova.

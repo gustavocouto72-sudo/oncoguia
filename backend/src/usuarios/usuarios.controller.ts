@@ -12,8 +12,10 @@ import { PERFIS, type Perfil } from '../database/entities';
 // CHECK do banco usa. 'auditor' e 'gestor' entram aqui como eixos próprios, não como
 // degraus de escada: o auditor decide solicitação de exceção (protocolo Inelegível/Não
 // incorporado) e mais nada; o gestor vê recursos (insumos, projeção de compra,
-// faturamento, margem) e mais nada — sem Revisão, sem autorização e sem nome de paciente.
-// Nenhum dos dois herda nem cede permissão de outro perfil.
+// faturamento, margem) e mais nada — sem Revisão, sem autorização e sem nome de paciente;
+// a secretaria vê o cadastro administrativo (nome, registro, convênio, agenda) e mais
+// nada — sem tumor, protocolo, trilha, corpus ou custo. Nenhum dos três herda nem cede
+// permissão de outro perfil.
 //
 // Uma pessoa recebe uma LISTA deles e veste um por vez (POST /auth/trocar-perfil). Estar
 // na lista não acumula permissão: o guard confere o perfil ATIVO, e só ele.

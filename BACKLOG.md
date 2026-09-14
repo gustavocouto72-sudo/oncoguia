@@ -38,36 +38,18 @@ sem passar pela Revisão clínica — é o alarme desta pendência.
 
 ---
 
-## 3. `/evidencia` guardado por whitelist literal, não por "qualquer autenticado"
+## 3. ~~`/evidencia` guardado por whitelist literal, não por "qualquer autenticado"~~ — FECHADO
 
-**Estado:** comportamento **fica como está** por decisão (2026-09-07). O que falta é a
-forma escrita, não o efeito.
+Fechado em 2026-09-14, na mudança de backend do perfil **secretaria** — exatamente o "próximo
+perfil novo" que a pendência previa. `backend/src/auth/corpus.guard.ts` (`CorpusGuard`):
+whitelist literal `['oncologista','revisor','auditor','gestor','admin']` no
+`EvidenciaController`, com o comentário combinado (*corpus é público interno por decisão;
+perfil novo entra conscientemente*). A secretaria é o primeiro perfil que **não** entra —
+decisão tomada, não herdada. Efeito para os cinco: inalterado.
 
-- **Gancho:** `backend/src/evidencia/evidencia.controller.ts` — hoje `@UseGuards(JwtAuthGuard)`
-  e mais nada.
-- **Efeito hoje:** qualquer perfil autenticado lê o corpus de protocolos, **gestor incluído**.
-  Isso é **deliberado** e está comentado em `carregarSessao()` (`app/index.html`): "corpus:
-  igual para todo perfil autenticado". Não é vazamento — não há dado de paciente no corpus,
-  e rebuscá-lo a cada troca de chapéu seria megabytes por nada.
-- **O que falta:** trocar `JwtAuthGuard` sozinho por uma **whitelist literal com os cinco
-  perfis** (`['oncologista','revisor','auditor','admin','gestor']`, a `PERFIS` de
-  `entities.ts`) + comentário dizendo o porquê: *"corpus é público interno por decisão;
-  perfil novo entra conscientemente"*.
-- **Por que mexer se o efeito é o mesmo:** hoje a permissão está **implícita** — ela vale
-  porque a lista de perfis é a que é. É exatamente a forma das três falhas já catalogadas na
-  seção *Check permanente* do `PORTAO-VERIFICACAO.md` (perfis hierárquicos, POST direto de
-  não incorporado, leitura clínica para o gestor): *a permissão estava implícita em alguma
-  outra coisa em vez de escrita*. O modo de falha aqui é o mesmo do
-  `LeituraClinicaGuard` antes de existir — **o próximo perfil novo nasce com acesso ao
-  corpus sem ninguém decidir isso**. Com a lista literal, ele entra de propósito ou não
-  entra.
-- **Quando fechar:** na **próxima mudança de backend**, junto com o build/restart que ela já
-  exigir. **Não merece deploy próprio** — o efeito observável não muda; o que muda é a
-  pergunta que o código faz.
-- **Como fechar:** guard de whitelist no padrão dos irmãos (`clinico.guard.ts`,
-  `gestor.guard.ts`), o comentário acima, e um check no `portao-simulador` afirmando que os
-  cinco perfis leem `/evidencia` — teste **afirmativo**, porque aqui a lista completa é a
-  intenção, não uma folga.
+**Portão:** `scripts/portao-secretaria.js`, checks `E0` (secretaria → 403) e `E1` (os cinco
+perfis → 200, **afirmativo**: a lista completa é a intenção, e um sumiço acidental de perfil
+da whitelist falha aqui, não em produção).
 
 ---
 

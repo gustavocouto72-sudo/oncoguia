@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as neon from '@neondatabase/serverless';
-import { Usuario, Paciente, SelecaoProtocolo, Avaliacao, Revisao, FonteSugerida, Retorno, CustoRegime, Insumo, Apresentacao, PremissasRecursos } from './entities';
+import { Usuario, Paciente, SelecaoProtocolo, Avaliacao, Revisao, FonteSugerida, Retorno, CustoRegime, Insumo, Apresentacao, PremissasRecursos, EventoAdministrativo } from './entities';
 import { InitialSchema1784419200000 } from './migrations/1784419200000-InitialSchema';
 import { SeguimentoAvaliacoes1784505600000 } from './migrations/1784505600000-SeguimentoAvaliacoes';
 import { RevisaoClinica1784592000000 } from './migrations/1784592000000-RevisaoClinica';
@@ -20,6 +20,7 @@ import { CustosRegime1788998400000 } from './migrations/1788998400000-CustosRegi
 import { CustoPeriodoDias1789084800000 } from './migrations/1789084800000-CustoPeriodoDias';
 import { Recursos1789171200000 } from './migrations/1789171200000-Recursos';
 import { PerfisMultiplos1789257600000 } from './migrations/1789257600000-PerfisMultiplos';
+import { PerfilSecretaria1789430400000 } from './migrations/1789430400000-PerfilSecretaria';
 
 @Module({
   imports: [
@@ -34,8 +35,8 @@ import { PerfisMultiplos1789257600000 } from './migrations/1789257600000-PerfisM
           type: 'postgres' as const,
           url,
           driver: isNeon ? neon : undefined,
-          entities: [Usuario, Paciente, SelecaoProtocolo, Avaliacao, Revisao, FonteSugerida, Retorno, CustoRegime, Insumo, Apresentacao, PremissasRecursos],
-          migrations: [InitialSchema1784419200000, SeguimentoAvaliacoes1784505600000, RevisaoClinica1784592000000, UnificaRevisao1784851200000, FontesSugeridas1785110400000, FonteArquivoNoBanco1785196800000, AcaoRevisao1787356800000, RefutarExcluir1787616000000, AplicadaEm1788566400000, SolicitacaoExcecao1788652800000, RetornoTrilha1788739200000, ProfissionalSolicitante1788825600000, ProximoRetorno1788912000000, CustosRegime1788998400000, CustoPeriodoDias1789084800000, Recursos1789171200000, PerfisMultiplos1789257600000],
+          entities: [Usuario, Paciente, SelecaoProtocolo, Avaliacao, Revisao, FonteSugerida, Retorno, CustoRegime, Insumo, Apresentacao, PremissasRecursos, EventoAdministrativo],
+          migrations: [InitialSchema1784419200000, SeguimentoAvaliacoes1784505600000, RevisaoClinica1784592000000, UnificaRevisao1784851200000, FontesSugeridas1785110400000, FonteArquivoNoBanco1785196800000, AcaoRevisao1787356800000, RefutarExcluir1787616000000, AplicadaEm1788566400000, SolicitacaoExcecao1788652800000, RetornoTrilha1788739200000, ProfissionalSolicitante1788825600000, ProximoRetorno1788912000000, CustosRegime1788998400000, CustoPeriodoDias1789084800000, Recursos1789171200000, PerfisMultiplos1789257600000, PerfilSecretaria1789430400000],
           migrationsRun: true,
           synchronize: false,
           ssl:

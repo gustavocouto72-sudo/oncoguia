@@ -1,15 +1,18 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
   Avaliacao,
   CondutaRetorno,
+  EventoAdministrativo,
+  MeioContato,
   Paciente,
   Perfil,
   Retorno,
   RespostaRetorno,
   ToxicidadeRegistrada,
 } from '../database/entities';
+import { mapEventoAdministrativo } from './eventos-administrativos';
 
 // Payload de um retorno. data_realizada vem do médico (o retorno pode ser lançado depois);
 // registrado_por e criado_em são do SERVIDOR — nunca do cliente.
@@ -126,12 +129,78 @@ export class RetornosService {
     @InjectRepository(Retorno) private retornoRepo: Repository<Retorno>,
     @InjectRepository(Paciente) private pacienteRepo: Repository<Paciente>,
     @InjectRepository(Avaliacao) private avaliacaoRepo: Repository<Avaliacao>,
+    @InjectRepository(EventoAdministrativo) private eventoAdmRepo: Repository<EventoAdministrativo>,
   ) {}
 
   private async pacienteOr404(id: number) {
     const p = await this.pacienteRepo.findOneBy({ id });
     if (!p) throw new NotFoundException('Paciente não encontrado');
     return p;
+  }
+
+  // ── AGENDA ADMINISTRATIVA (secretaria + quem trata) ─────────────────────────
+  // Reagendar = mover a DATA de `pacientes.proximo_retorno`, a agenda mutável que já
+  // existia. Duas regras, as duas do desenho do perfil:
+  //   1. Só REAGENDA o que o médico agendou: sem retorno marcado, 409. Criar retorno do
+  //      zero é decidir intervalo, e intervalo é decisão clínica — nasce só no registro
+  //      do retorno (criar()), pela mão do médico.
+  //   2. A coluna congelada NÃO muda: `retornos.proximo_retorno`/`proximo_intervalo` é o
+  //      que o médico DECIDIU naquela consulta e fica como está. Aqui só a agenda anda; o
+  //      portão confere que o último retorno do paciente continua com a data original.
+  // O movimento vira EVENTO append-only (de onde → para onde, motivo, autor, perfil) — é
+  // assim que o médico fica sabendo, na trilha, que a agenda foi mexida.
+  async reagendarRetorno(
+    pacienteId: number,
+    dados: { proximo_retorno: string; motivo: string },
+    usuarioId: number,
+    perfilAtivo: Perfil,
+  ) {
+    const p = await this.pacienteOr404(pacienteId);
+    if (!p.proximo_retorno) {
+      throw new ConflictException('Não há retorno agendado para reagendar — o intervalo do próximo retorno é decisão do médico, no registro do retorno');
+    }
+    if (dados.proximo_retorno === p.proximo_retorno) {
+      throw new BadRequestException('A nova data é igual à data atual do próximo retorno');
+    }
+    const evento = this.eventoAdmRepo.create({
+      paciente_id: pacienteId,
+      tipo: 'reagendamento',
+      data: dados.proximo_retorno,
+      data_anterior: p.proximo_retorno,
+      meio: null,
+      nota: dados.motivo,
+      registrado_por: usuarioId,
+      perfil_ativo: perfilAtivo,
+    });
+    const salvo = await this.eventoAdmRepo.save(evento);
+    await this.pacienteRepo.update({ id: pacienteId }, { proximo_retorno: dados.proximo_retorno });
+    const atualizado = await this.pacienteOr404(pacienteId);
+    const full = await this.eventoAdmRepo.findOne({ where: { id: salvo.id }, relations: { registradoPor: true } });
+    return { retorno: estadoRetorno(atualizado), evento: mapEventoAdministrativo(full) };
+  }
+
+  // Contato com paciente faltoso: linha nova, nunca editada. Não mexe na agenda — ligar
+  // para o paciente não muda a data; se mudar, é um reagendamento (evento próprio).
+  async registrarContato(
+    pacienteId: number,
+    dados: { data: string; meio: MeioContato; nota?: string },
+    usuarioId: number,
+    perfilAtivo: Perfil,
+  ) {
+    await this.pacienteOr404(pacienteId);
+    const evento = this.eventoAdmRepo.create({
+      paciente_id: pacienteId,
+      tipo: 'contato',
+      data: dados.data,
+      data_anterior: null,
+      meio: dados.meio,
+      nota: dados.nota || null,
+      registrado_por: usuarioId,
+      perfil_ativo: perfilAtivo,
+    });
+    const salvo = await this.eventoAdmRepo.save(evento);
+    const full = await this.eventoAdmRepo.findOne({ where: { id: salvo.id }, relations: { registradoPor: true } });
+    return mapEventoAdministrativo(full);
   }
 
   // Cria o retorno: EMPILHA, nunca sobrescreve (não existe rota de UPDATE/DELETE aqui —
@@ -256,9 +325,15 @@ export class RetornosService {
   // da seleção. Ver a avaliação pendente em março e a autorização em abril, cada uma no
   // seu lugar, é justamente o que a trilha existe para mostrar. A solicitação em si
   // (⏳ pendente) viaja no item da avaliação, que é onde ela nasceu.
+  //
+  // Quarto tipo: 'administrativo' — reagendamento e contato com faltoso, registrados pela
+  // secretaria (ou por quem trata). Entram na mesma linha do tempo, com o tipo visível e o
+  // autor: o médico vê que a agenda foi mexida, por quem e por quê, sem que isso se
+  // confunda com um retorno. O contato entra no DIA do contato; o reagendamento, no dia
+  // em que foi feito (não na data nova — essa é a agenda, e a agenda vive no `retorno`).
   async trilha(pacienteId: number) {
     const p = await this.pacienteOr404(pacienteId);
-    const [avaliacoes, retornos] = await Promise.all([
+    const [avaliacoes, retornos, eventosAdm] = await Promise.all([
       this.avaliacaoRepo.find({
         where: { paciente_id: pacienteId },
         relations: { avaliadoPor: true, autorizacaoAuditor: true },
@@ -269,9 +344,23 @@ export class RetornosService {
         relations: { registradoPor: true },
         order: { data_realizada: 'ASC' },
       }),
+      this.eventoAdmRepo.find({
+        where: { paciente_id: pacienteId },
+        relations: { registradoPor: true },
+        order: { criado_em: 'ASC' },
+      }),
     ]);
 
     const itens: any[] = [];
+    for (const e of eventosAdm) {
+      itens.push({
+        ...mapEventoAdministrativo(e),
+        tipo: 'administrativo',
+        evento: e.tipo, // 'reagendamento' | 'contato'
+        _dia: e.tipo === 'contato' ? e.data : diaLocal(e.criado_em),
+        _instante: new Date(e.criado_em).getTime(),
+      });
+    }
     for (const a of avaliacoes) {
       itens.push({
         tipo: 'avaliacao',
@@ -338,7 +427,7 @@ export class RetornosService {
       });
     }
     // Cronológica: dia, depois o instante do registro, depois o id (ordem de gravação).
-    const ordemTipo = { avaliacao: 0, retorno: 1, autorizacao: 2 };
+    const ordemTipo = { avaliacao: 0, retorno: 1, autorizacao: 2, administrativo: 3 };
     itens.sort((x, y) =>
       (x._dia < y._dia ? -1 : x._dia > y._dia ? 1 : 0) || x._instante - y._instante
       || x.id - y.id || ordemTipo[x.tipo] - ordemTipo[y.tipo]);

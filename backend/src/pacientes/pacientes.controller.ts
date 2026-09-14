@@ -9,6 +9,9 @@ import { JwtAuthGuard } from '../auth/jwt.guard';
 import { LeituraClinicaGuard } from '../auth/clinico.guard';
 import { Roles, RolesGuard } from '../auth/roles.guard';
 import { OncologistaOuAdminGuard } from '../auth/oncologista.guard';
+import {
+  CadastroCriarGuard, CadastroEditarGuard, LeituraCadastroGuard, recusarClinicoDaSecretaria,
+} from '../auth/cadastro.guard';
 import { PacientesService } from './pacientes.service';
 import type { Perfil, Semaforo } from '../database/entities';
 
@@ -76,42 +79,58 @@ class CriarAvaliacaoDto {
   @IsOptional() @IsInt() retorno_id?: number;
 }
 
-// Leitura = whitelist de perfis CLÍNICOS (LeituraClinicaGuard) — era "qualquer
-// autenticado", o que deixou de ser suficiente quando nasceu o perfil GESTOR: ele levava
-// 200 aqui, com nome e carteirinha de todos os pacientes. Escrita de avaliação — e, com
-// ela, a abertura de uma solicitação de exceção — = whitelist EXPLÍCITA
-// ['oncologista','admin'] (OncologistaOuAdminGuard), sem hierarquia: quem trata o
-// paciente é quem registra.
-@UseGuards(JwtAuthGuard, LeituraClinicaGuard, RolesGuard)
+// Cada rota tem a SUA whitelist literal — o controller só exige JWT. Duas famílias:
+//
+//  • CADASTRO (lista, ficha, criar, corrigir) = perfis clínicos + SECRETARIA
+//    (cadastro.guard.ts). Para a secretaria o service devolve o payload REDUZIDO — nome,
+//    registro, nascimento, convênio, médico assistente, agenda — cortado no SELECT: tumor,
+//    protocolo e semáforo NÃO SÃO LIDOS do banco para ela, não "escondidos depois". E o que
+//    ela manda de clínico no body (tumor, sistema, subtipo, valores_estaveis) é 403.
+//  • CLÍNICO (avaliações, seleções) = LeituraClinicaGuard na leitura — era o guard do
+//    controller inteiro, quando nasceu o gestor e "leitura = qualquer autenticado" deixou
+//    de bastar. Escrita de avaliação — e, com ela, a abertura de uma solicitação de
+//    exceção — = ['oncologista','admin'] (OncologistaOuAdminGuard), sem hierarquia: quem
+//    trata o paciente é quem registra.
+@UseGuards(JwtAuthGuard)
 @Controller('pacientes')
 export class PacientesController {
   constructor(private pacientesService: PacientesService) {}
 
+  @UseGuards(LeituraCadastroGuard)
   @Get()
-  listar() {
-    return this.pacientesService.listar();
+  listar(@Request() req: { user: { perfil: Perfil } }) {
+    return this.pacientesService.listar(req.user.perfil);
   }
 
+  @UseGuards(CadastroCriarGuard)
   @Post()
-  criar(@Body() dto: CriarPacienteDto, @Request() req: { user: { id: number } }) {
+  criar(@Body() dto: CriarPacienteDto, @Request() req: { user: { id: number; perfil: Perfil } }) {
+    recusarClinicoDaSecretaria(req.user.perfil, dto as unknown as Record<string, unknown>);
     return this.pacientesService.criar({ ...dto, nasc: dto.nasc || null }, req.user.id);
   }
 
+  @UseGuards(LeituraCadastroGuard)
   @Get(':id')
-  obter(@Param('id', ParseIntPipe) id: number) {
-    return this.pacientesService.obter(id);
+  obter(@Param('id', ParseIntPipe) id: number, @Request() req: { user: { perfil: Perfil } }) {
+    return this.pacientesService.obter(id, req.user.perfil);
   }
 
   // Correção de dados cadastrais (nome, identificador, contexto tumoral, valores_estaveis).
-  // Perfil oncologista e acima (hierarquia acumulativa do RolesGuard).
-  @Roles('oncologista')
+  // Whitelist literal (CadastroEditarGuard); a secretaria corrige só o administrativo.
+  @UseGuards(CadastroEditarGuard)
   @Patch(':id')
-  atualizar(@Param('id', ParseIntPipe) id: number, @Body() dto: AtualizarPacienteDto) {
-    return this.pacientesService.atualizar(id, dto);
+  atualizar(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: AtualizarPacienteDto,
+    @Request() req: { user: { perfil: Perfil } },
+  ) {
+    recusarClinicoDaSecretaria(req.user.perfil, dto as unknown as Record<string, unknown>);
+    return this.pacientesService.atualizar(id, dto, req.user.perfil);
   }
 
   // Remoção administrativa (limpeza de cadastros de teste) — perfil admin apenas.
   // Apaga em cascata as avaliações/seleções do paciente (sem FK órfã).
+  @UseGuards(RolesGuard)
   @Roles('admin')
   @Delete(':id')
   remover(@Param('id', ParseIntPipe) id: number) {
@@ -121,7 +140,7 @@ export class PacientesController {
   // Nova avaliação (reavaliação): empilha, não sobrescreve. avaliado_por/data do servidor.
   // Protocolo Inelegível/Não incorporado nasce com autorizacao_estado='pendente' — é a
   // solicitação de exceção; não conta como protocolo vigente até um auditor aprovar.
-  @UseGuards(OncologistaOuAdminGuard)
+  @UseGuards(LeituraClinicaGuard, OncologistaOuAdminGuard)
   @Post(':id/avaliacoes')
   criarAvaliacao(
     @Param('id', ParseIntPipe) id: number,
@@ -131,11 +150,13 @@ export class PacientesController {
     return this.pacientesService.criarAvaliacao(id, dto, req.user.id, req.user.perfil);
   }
 
+  @UseGuards(LeituraClinicaGuard)
   @Get(':id/avaliacoes')
   avaliacoes(@Param('id', ParseIntPipe) id: number) {
     return this.pacientesService.avaliacoes(id);
   }
 
+  @UseGuards(LeituraClinicaGuard)
   @Get(':id/selecoes')
   selecoes(@Param('id', ParseIntPipe) id: number) {
     return this.pacientesService.selecoes(id);

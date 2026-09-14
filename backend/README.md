@@ -39,7 +39,20 @@ herda as permissões do menor. Endpoints de `/revisao/*` exigem `revisor`+.
 - `GET /api/auth/perfil` · `POST /api/auth/alterar-senha`
 - `POST /api/auth/trocar-perfil` `{ perfil }` → token NOVO com outro perfil **da lista** do
   usuário; perfil fora da lista = 403 (ver *Perfis*)
-- `GET|POST /api/pacientes` · `GET /api/pacientes/:id` · `GET /api/pacientes/:id/selecoes`
+- `GET|POST /api/pacientes` · `GET|PATCH /api/pacientes/:id` · `GET /api/pacientes/:id/selecoes`
+  — cadastro: perfis clínicos + `secretaria`. Para o token de **secretaria** a lista e a
+  ficha saem **reduzidas** (nome, registro, nascimento, convênio, médico assistente, agenda;
+  sem tumor/protocolo/semáforo — cortado no SELECT), e qualquer chave clínica no body
+  (`tumor`, `sistema`, `subtipo`, `valores_estaveis`) é 403
+- `PATCH /api/pacientes/:id/agenda-retorno` `{ proximo_retorno, motivo }` — move SÓ a data da
+  agenda (`pacientes.proximo_retorno`); a decisão do médico congelada em `retornos.*` não
+  muda; sem retorno agendado = 409 (secretaria não cria retorno do zero). Whitelist
+  `['oncologista','admin','secretaria']`
+- `POST /api/pacientes/:id/contatos` `{ data, meio, nota? }` — contato com paciente faltoso,
+  append-only (sem UPDATE/DELETE); mesma whitelist. Os dois viram `eventos_administrativos`,
+  que aparecem na ficha da secretaria e na trilha do médico (`tipo: 'administrativo'`)
+- `GET /api/evidencia` — corpus, whitelist literal `['oncologista','revisor','auditor','gestor','admin']`
+  (`CorpusGuard`); `secretaria` fora de propósito
 - `POST /api/selecoes` — grava a escolha de protocolo (fotografia de `dados_clinicos` em JSONB)
 - `POST|GET /api/revisao/decisoes` — pareceres da Mesa de Revisão (perfil revisor)
 - `GET /api/revisao/export` — gera o `revisao-decisoes.json` a partir do banco
@@ -56,12 +69,15 @@ herda as permissões do menor. Endpoints de `/revisao/*` exigem `revisor`+.
 
 ## Perfis
 
-`oncologista` · `revisor` · `auditor` · `admin` · `gestor` — **whitelist, nunca hierarquia**.
-`auditor` e `gestor` são eixos próprios: o primeiro decide solicitação de exceção e mais
-nada — **sem ver dinheiro**, nem na tela nem por API; o segundo vê a camada financeira
-(`/custos` + `/recursos`) e mais nada — sem Revisão, sem autorização e sem dado clínico
-(`LeituraClinicaGuard`). Só `oncologista < revisor < admin` formam escada (`RolesGuard`), e
-quem está fora dela não herda nada.
+`oncologista` · `revisor` · `auditor` · `admin` · `gestor` · `secretaria` — **whitelist, nunca
+hierarquia**. `auditor`, `gestor` e `secretaria` são eixos próprios: o primeiro decide
+solicitação de exceção e mais nada — **sem ver dinheiro**, nem na tela nem por API; o segundo
+vê a camada financeira (`/custos` + `/recursos`) e mais nada — sem Revisão, sem autorização e
+sem dado clínico (`LeituraClinicaGuard`); a terceira vê o **cadastro administrativo** (nome,
+registro, convênio, médico assistente, agenda de retorno, faltosos) e **nada clínico** — sem
+tumor, protocolo, semáforo, trilha, corpus ou custo (`cadastro.guard.ts`: o payload dela é
+cortado no SELECT, não filtrado depois). Só `oncologista < revisor < admin` formam escada
+(`RolesGuard`), e quem está fora dela não herda nada.
 
 ### Vários chapéus, um por vez
 

@@ -389,6 +389,16 @@
   .tl-tipo.aval{background:#eaf2f8;color:#1f4b6e;border-color:#c6dcea}
   .tl-tipo.ret{background:#f1eefb;color:#4b3a86;border-color:#d6cdf0}
   .tl-tipo.aut{background:var(--amberbg);color:#9a6a08;border-color:#f0dca6}
+  .tl-tipo.adm{background:#eef6ee;color:#2f6b3a;border-color:#cfe5d2}
+  .hist-entry.adm::before{background:#3f8a4d;box-shadow:0 0 0 3px #3f8a4d26}
+  .ficha-adm .fa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px 18px;margin-top:10px}
+  .ficha-adm .fa-k{font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700}
+  .ficha-adm .fa-v{font-size:13.5px;font-weight:600;margin-top:2px}
+  .agenda-form{background:#f6f9fb;border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-top:12px}
+  .agenda-form .grid3{gap:10px}
+  .agenda-form .field{margin-bottom:8px}
+  .evt-adm{border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin-top:8px;font-size:12.5px;background:#fff}
+  .evt-adm .hm{color:var(--muted);font-size:11.5px;margin-top:3px}
   .hist-entry.ret::before{background:#6b52c4;box-shadow:0 0 0 3px #6b52c426}
   .hist-entry.pend::before{background:var(--red);box-shadow:0 0 0 3px #c0392b26}
   .tl-motivado{font-size:11px;color:#4b3a86;background:#f1eefb;border:1px solid #d6cdf0;border-radius:7px;padding:3px 9px;display:inline-block;margin-top:8px}
@@ -627,6 +637,7 @@ function rascunhoAberto(){
   if(CADASTRO) abertos.push("um cadastro de paciente em preenchimento");
   if(RETORNO) abertos.push("um retorno em preenchimento");
   if(SADT) abertos.push("uma guia SP/SADT em preenchimento");
+  if(AGENDA_FORM && ((AGENDA_FORM.motivo||"").trim() || (AGENDA_FORM.nota||"").trim())) abertos.push(AGENDA_FORM.tipo==="reagendar" ? "um reagendamento em preenchimento" : "um registro de contato em preenchimento");
   if(SIM) abertos.push("o simulador aberto");
   // Pareceres: só contam com CONTEÚDO digitado — um objeto criado por um clique de
   // seleção e depois esvaziado não é rascunho, e alertar sobre ele ensina a ignorar.
@@ -659,7 +670,7 @@ async function trocarPerfil(perfil){
     localStorage.setItem("oncoguia_usuario", JSON.stringify(USUARIO));
     limparEstadoDeSessao();
     await carregarSessao();
-    view = podeVerClinico() ? "lista" : "recursos";
+    view = viewInicial();
     TROCANDO_PERFIL = false;
     renderUserbox(); render();
     toast(`Perfil ativo: ${PERFIL_LABEL[USUARIO.perfil]||USUARIO.perfil}`);
@@ -736,7 +747,7 @@ async function doLogin(){
     localStorage.setItem("oncoguia_usuario", JSON.stringify(USUARIO));
     limparEstadoDeSessao();          // nada do usuário anterior atravessa o login
     await carregarSessao();          // corpus + carteira + selo da fila, conforme o perfil
-    renderUserbox(); view = podeVerClinico() ? "lista" : "recursos"; render();
+    renderUserbox(); view = viewInicial(); render();
   }catch(e){
     renderLogin(e.message || "Falha no login");
   }finally{
@@ -756,6 +767,7 @@ function limparEstadoDeSessao(){
   LISTA_FILTRO = "todos"; LISTA_BUSCA = ""; // a busca da lista é texto sobre paciente: sai com a sessão
   LISTA_COL = {tumor:"", proto:"", medico:"", sem:"", idade:"", retorno:""}; LISTA_ORD = null; // filtros de coluna e ordenação: idem, não persistem
   TRILHA = {}; RETORNO = null; SADT = null; // trilha e rascunho de retorno idem
+  AGENDA_FORM = null; // reagendamento/contato em preenchimento (ficha administrativa)
   // Dado de paciente carregado: some junto. Vale para o logout (era vazamento: a carteira
   // ficava na memória da aba depois de sair) e vale ainda mais para a troca de chapéu.
   patients = []; PAC_DETAIL = {}; SELECOES_CACHE = {}; REAVAL = null; CADASTRO = null; current = null;
@@ -770,12 +782,16 @@ function limparEstadoDeSessao(){
 // a terceira: o modo de falha é a cópia que esquece uma linha e deixa um perfil sem o
 // selo da fila, ou com a carteira do chapéu anterior.
 async function carregarSessao(){
-  if(!EVIDENCIA) await initEvidencia();   // corpus: igual para todo perfil autenticado
+  // Corpus: igual para os cinco perfis da whitelist (CorpusGuard). A secretaria não o
+  // recebe — 403 no servidor — e não precisa dele: a tela dela não nomeia protocolo.
+  if(!EVIDENCIA && podeVerCorpus()) await initEvidencia();
   // Dado clínico só para perfil clínico: para o GESTOR estas rotas devolvem 403
   // (LeituraClinicaGuard), e um throw aqui derrubaria a sessão inteira em doLogout().
   if(podeVerClinico()){
     await carregarPacientes();
     await carregarResumoRevisao();
+  } else if(ehSecretaria()){
+    await carregarPacientes();   // payload ADMINISTRATIVO — o servidor decide pelo perfil do token
   }
   // Fila de exceções: só o selo do menu (auditor/admin) — a lista carrega ao abrir a aba.
   if(podeAutorizar()){ try{ AUT_CONTAGEM = await api("/autorizacoes/contagem"); }catch(_){} }
@@ -1509,8 +1525,9 @@ function clauseLabel(node,primMap,tumor){
 // — assim a lista de checkboxes e a lista salva não trocam de ordem entre dois saves.
 // 'gestor' faltava aqui e em admPerfilOptions desde que o perfil nasceu: a tela de admin
 // não conseguia criar um, e a tabela imprimia "gestor" cru na coluna Perfil.
-const PERFIS_APP = ["oncologista","revisor","auditor","admin","gestor"];
-const PERFIL_LABEL = { oncologista:"Oncologista", revisor:"Revisor", auditor:"Auditor", admin:"Administrador", gestor:"Gestor" };
+// 'secretaria' (2026-09-14): cadastro administrativo sem dado clínico — ver ehSecretaria().
+const PERFIS_APP = ["oncologista","revisor","auditor","admin","gestor","secretaria"];
+const PERFIL_LABEL = { oncologista:"Oncologista", revisor:"Revisor", auditor:"Auditor", admin:"Administrador", gestor:"Gestor", secretaria:"Secretária" };
 let ADM_USUARIOS = null;   // null = ainda não carregado do backend
 let ADM_EDIT = null;       // usuário em edição (cópia) ou null
 let ADM_SENHA_TMP = null;  // {login, senha} do último usuário criado
@@ -1796,8 +1813,12 @@ function render(){
   // inclusive o fallback `view="lista"` das linhas acima, e inclusive quem chegou aqui
   // digitando a URL. O backend devolve 403 de qualquer forma; isto evita a tela em branco.
   if(!podeVerClinico()) view = podeVerRecursos() && view!=="senha" ? "recursos" : view;
+  // A SECRETARIA tem lista, cadastro, ficha administrativa e senha — e só. Fluxograma,
+  // revisão, simulador, autorizações, recursos, admin e guia SADT caem na lista, inclusive
+  // por URL/go() digitado. O backend devolve 403 de qualquer forma; isto evita tela vazia.
+  if(ehSecretaria() && !VIEWS_SECRETARIA.has(view)) view = "lista";
   renderNav();
-  if(view==="login") view = podeVerClinico() ? "lista" : "recursos";
+  if(view==="login") view = viewInicial();
   if(view==="admin") return renderAdmin();
   if(view==="senha") return renderSenha();
   if(view==="revclin") return renderRevisaoClinica();
@@ -1837,8 +1858,8 @@ function renderNav(){
   const simTab = podeSimular()
     ? `<a class="${isSim?'on':''}" onclick="go('simulador')">Simulador</a>` : "";
   nav.innerHTML = `<nav class="tabs">
-    ${podeVerClinico() ? `<a class="${isPac?'on':''}" onclick="go('lista')">Pacientes</a>
-    <a class="${isFlow?'on':''}" onclick="go('fluxograma')">Fluxograma</a>` : ""}
+    ${podeVerPacientes() ? `<a class="${isPac?'on':''}" onclick="go('lista')">Pacientes</a>` : ""}
+    ${podeVerClinico() ? `<a class="${isFlow?'on':''}" onclick="go('fluxograma')">Fluxograma</a>` : ""}
     ${USUARIO && ["revisor","admin"].includes(USUARIO.perfil) ? `<a class="${isRevc?'on':''}" onclick="go('revclin')">Revisão clínica</a>` : ""}
     ${simTab}
     ${autTab}
@@ -1992,6 +2013,24 @@ const LISTA_COLUNAS = {
             ord:p=>p.ultimo_semaforo?(SEM_ORDEM[p.ultimo_semaforo]||9):null},
 };
 const LISTA_COLS_FILTRO = ["idade","tumor","proto","medico","retorno","sem"];
+// Colunas que ESTE perfil vê, na ordem. A secretaria recebe do servidor um payload sem
+// tumor, protocolo e semáforo (cortado no SELECT) — a lista dela não tem essas colunas
+// porque o dado não chegou, não porque a tela o escondeu. Os filtros de coluna funcionam
+// no que ela vê (idade, médico, retorno); os das colunas ausentes ficam em "" e não
+// filtram nada.
+const LISTA_COLS_ADMINISTRATIVAS = ["nome","idade","medico","retorno"];
+const LISTA_COLS_CLINICAS = ["nome","idade","tumor","proto","medico","retorno","sem"];
+function listaColunas(){ return ehSecretaria() ? LISTA_COLS_ADMINISTRATIVAS : LISTA_COLS_CLINICAS; }
+// Célula de cada coluna — a linha da tabela é montada a partir de listaColunas().
+const LISTA_CELULA = {
+  nome:    p=>`<td><b>${esc(p.nome)}</b>${p.identificador?`<div class="hint">reg. ${esc(p.identificador)}</div>`:""}</td>`,
+  idade:   p=>`<td>${idadeAnos(p.nasc)!=null? `<b>${idadeAnos(p.nasc)}a</b><div class="hint">${fmtData(p.nasc)}</div>` : `<span class="hint">—</span>`}</td>`,
+  tumor:   p=>`<td>${p.tumor? `<span class="pill">${tumorNome(p.tumor)}</span>${p.subtipo?`<div class="hint">${esc(p.subtipo)}</div>`:""}` : `<span class="hint">— não definido —</span>`}</td>`,
+  proto:   p=>`<td>${listaProtoHtml(p)}</td>`,
+  medico:  p=>`<td>${p.medico_assistente? esc(p.medico_assistente.nome) : `<span class="hint">—</span>`}</td>`,
+  retorno: p=>`<td>${listaRetornoHtml(p)}</td>`,
+  sem:     p=>`<td>${p.ultimo_semaforo? semBadge(p.ultimo_semaforo) : `<span class="hint">—</span>`}</td>`,
+};
 function listaFiltroAtivo(){ return LISTA_COLS_FILTRO.some(c=>LISTA_COL[c]) || !!LISTA_ORD; }
 // Aplica os filtros de coluna, opcionalmente pulando UMA (é assim que o dropdown daquela
 // coluna conta: o que a lista mostraria se você escolhesse cada opção dela).
@@ -2032,7 +2071,7 @@ function listaTheadHtml(base){
       ${ops.map(o=>`<option value="${esc(o.k)}" ${LISTA_COL[c]===o.k?"selected":""}>${esc(o.t)} (${o.n})</option>`).join("")}
     </select></div></th>`;
   };
-  return `<thead><tr>${["nome","idade","tumor","proto","medico","retorno","sem"].map(th).join("")}</tr></thead>`;
+  return `<thead><tr>${listaColunas().map(th).join("")}</tr></thead>`;
 }
 
 // DOM persistente: o campo de busca é renderizado UMA vez por entrada na lista e nunca
@@ -2077,15 +2116,7 @@ function listaCorpoHtml(){
     ${mostrarTabela? `<table class="lista-tab">
       ${listaTheadHtml(base)}
       <tbody>${lista.map(p=>`
-        <tr class="clickable" onclick="abrir(${p.id})">
-          <td><b>${esc(p.nome)}</b>${p.identificador?`<div class="hint">reg. ${esc(p.identificador)}</div>`:""}</td>
-          <td>${idadeAnos(p.nasc)!=null? `<b>${idadeAnos(p.nasc)}a</b><div class="hint">${fmtData(p.nasc)}</div>` : `<span class="hint">—</span>`}</td>
-          <td>${p.tumor? `<span class="pill">${tumorNome(p.tumor)}</span>${p.subtipo?`<div class="hint">${esc(p.subtipo)}</div>`:""}` : `<span class="hint">— não definido —</span>`}</td>
-          <td>${listaProtoHtml(p)}</td>
-          <td>${p.medico_assistente? esc(p.medico_assistente.nome) : `<span class="hint">—</span>`}</td>
-          <td>${listaRetornoHtml(p)}</td>
-          <td>${p.ultimo_semaforo? semBadge(p.ultimo_semaforo) : `<span class="hint">—</span>`}</td>
-        </tr>`).join("")}</tbody></table>` : ""}
+        <tr class="clickable" onclick="abrir(${p.id})">${listaColunas().map(c=>LISTA_CELULA[c](p)).join("")}</tr>`).join("")}</tbody></table>` : ""}
     ${lista.length? "" : `<div class="empty">${vazio}</div>`}`;
 }
 function renderLista(){
@@ -2135,6 +2166,14 @@ function updateCadOnco(){
 function renderCadastro(){
   if(!CADASTRO) CADASTRO = {nome:"", ident:"", nasc:"", sexo:"F", cidade:"", oper:OPERADORAS[0], plano:"", cart:"", tumor:null, sysOpen:null, clin:{}, subtipo:""};
   const edit = !!CADASTRO.editId;
+  // SECRETARIA: o mesmo formulário, SÓ a parte administrativa — sem o bloco do tumor e sem
+  // biologia (o servidor recusa com 403 se ela mandar). Na edição, ela vê e corrige também
+  // nascimento/convênio/carteirinha, que a edição clínica não mostra (aquela corrige o
+  // contexto tumoral; esta, o cadastro).
+  const adm = ehSecretaria();
+  // Operadora que não está na lista fixa (cadastro antigo, digitada) continua selecionável:
+  // sem isto o <select> cairia na primeira opção e a edição trocaria o convênio em silêncio.
+  const operadoras = CADASTRO.oper && !OPERADORAS.includes(CADASTRO.oper) ? [CADASTRO.oper, ...OPERADORAS] : OPERADORAS;
   // Medidas ficam FORA do bloco só-de-cadastro: peso e altura mudam com o tempo, e a tela
   // de edição é justamente onde se corrigem. Se aparecessem só no cadastro novo, o PATCH
   // da edição mandaria null e APAGARIA as medidas do paciente sem ninguém pedir.
@@ -2144,14 +2183,14 @@ function renderCadastro(){
       <div class="field"><label>Altura (cm)</label><input id="f_altura" inputmode="decimal" placeholder="opcional — ex.: 168" value="${esc(CADASTRO.altura||"")}" oninput="CADASTRO.altura=this.value"></div>
       <div class="field"><label>&nbsp;</label><div class="hint" style="padding-top:8px">Opcionais. Refinam a dose calculada no módulo de recursos (mg/m² usa a superfície de Mosteller, que exige as duas; mg/kg usa o peso). Sem elas o cálculo usa o <b>paciente-padrão declarado</b> — e a tela de recursos diz que está usando o padrão.</div></div>
     </div>`;
-  const adminHtml = edit ? "" : `
+  const adminHtml = (edit && !adm) ? "" : `
     <div class="grid3">
       <div class="field"><label>Data de nascimento</label><input id="f_nasc" type="date" value="${esc(CADASTRO.nasc||"")}" oninput="CADASTRO.nasc=this.value"></div>
       <div class="field"><label>Sexo</label><select id="f_sexo" onchange="CADASTRO.sexo=this.value"><option value="F" ${CADASTRO.sexo!=="M"?"selected":""}>Feminino</option><option value="M" ${CADASTRO.sexo==="M"?"selected":""}>Masculino</option></select></div>
       <div class="field"><label>Cidade / UF</label><input id="f_cidade" placeholder="Belo Horizonte/MG" value="${esc(CADASTRO.cidade||"")}" oninput="CADASTRO.cidade=this.value"></div>
     </div>
     <div class="grid3">
-      <div class="field"><label>Operadora</label><select id="f_oper" onchange="CADASTRO.oper=this.value">${OPERADORAS.map(o=>`<option ${CADASTRO.oper===o?"selected":""}>${o}</option>`).join("")}</select></div>
+      <div class="field"><label>Operadora</label><select id="f_oper" onchange="CADASTRO.oper=this.value">${operadoras.map(o=>`<option ${CADASTRO.oper===o?"selected":""}>${esc(o)}</option>`).join("")}</select></div>
       <div class="field"><label>Plano</label><input id="f_plano" placeholder="Ex.: Pleno / Executivo" value="${esc(CADASTRO.plano||"")}" oninput="CADASTRO.plano=this.value"></div>
       <div class="field"><label>Carteirinha</label><input id="f_cart" placeholder="Número da carteirinha" value="${esc(CADASTRO.cart||"")}" oninput="CADASTRO.cart=this.value"></div>
     </div>`;
@@ -2159,7 +2198,10 @@ function renderCadastro(){
   <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <b>${edit?"Editar dados cadastrais":"Novo paciente"}</b></div>
   <div class="card">
     <h2>${edit?"Editar dados cadastrais":"Cadastro do paciente"}</h2>
-    <div class="sub">${edit
+    <div class="sub">${adm
+      ? (edit ? `Correção do cadastro administrativo: identificação, nascimento, convênio, carteirinha e medidas.`
+              : `Cadastro administrativo do paciente. O contexto clínico é registrado pelo médico.`)
+      : edit
       ? `Correção dos dados cadastrais: nome, identificador, contexto tumoral e biologia estável. O histórico de avaliações permanece imutável.`
       : `Dados administrativos + o <b>tumor do paciente</b> (atributo do paciente, não escolha por visita) e a <b>biologia estável</b> (imutável no tempo). O estado clínico dinâmico é registrado nas avaliações.`}</div>
     <div class="grid2">
@@ -2169,8 +2211,8 @@ function renderCadastro(){
     ${adminHtml}
     ${medidasHtml}
 
-    <div class="section-t">Tumor do paciente</div>
-    <div id="cad-onco">${cadOncoHtml()}</div>
+    ${adm ? "" : `<div class="section-t">Tumor do paciente</div>
+    <div id="cad-onco">${cadOncoHtml()}</div>`}
 
     ${edit?"":`<div class="hint" style="margin-top:14px">Vínculo sempre por operadora (saúde suplementar). A guia gerada segue o padrão TISS/ANS.</div>`}
     <div class="row-actions">
@@ -2190,6 +2232,10 @@ function editarCadastro(pid){
   CADASTRO = {
     editId: pid,
     nome: src.nome||"", ident: src.identificador||"",
+    // Administrativos: a edição da SECRETARIA os mostra (a clínica não os desenha, e
+    // então não os manda — só o que a tela corrige entra no PATCH).
+    nasc: src.nasc||"", sexo: src.sexo||"F", cidade: src.cidade||"", oper: src.operadora||OPERADORAS[0],
+    plano: src.plano||"", cart: src.carteirinha||"",
     tumor: src.tumor||null, sysOpen: undefined, subtipo: src.subtipo||"",
     clin: {...((d&&d.valores_estaveis)||{})},
     // Pré-preenchidas do DETALHE (a listagem não traz medidas). Vírgula decimal, que é
@@ -2280,6 +2326,34 @@ async function salvarCadastro(){
   const peso = medida(CADASTRO.peso, 2), altura = medida(CADASTRO.altura, 1);
   if(isNaN(peso) || isNaN(altura)){ alert("Peso e altura precisam ser números (use vírgula para decimais) — ou deixe em branco."); return; }
   try{
+    if(ehSecretaria()){
+      // SECRETARIA: só o administrativo sai daqui — nem `tumor: null` vai no body (o
+      // servidor recusa com 403 qualquer chave clínica vinda dela, inclusive nula).
+      const adm = {
+        nome, identificador:(CADASTRO.ident||"").trim()||null,
+        nasc:CADASTRO.nasc||null, sexo:CADASTRO.sexo||"F",
+        cidade:(CADASTRO.cidade||"").trim()||null, operadora:CADASTRO.oper||null,
+        plano:(CADASTRO.plano||"").trim()||null, carteirinha:(CADASTRO.cart||"").trim()||null,
+      };
+      // Medidas: com a ficha carregada a tela conhece as atuais e manda (inclusive null,
+      // que é como se apaga); sem ela, não sobrescreve às cegas — mesma cautela da clínica.
+      if(!CADASTRO.editId || CADASTRO.temEstaveis){ adm.peso_kg = peso; adm.altura_cm = altura; }
+      if(CADASTRO.editId){
+        const pid = CADASTRO.editId;
+        await api(`/pacientes/${pid}`, {method:"PATCH", body:JSON.stringify(adm)});
+        CADASTRO=null;
+        await carregarPacientes();
+        toast("Cadastro atualizado.");
+        abrir(pid);
+        return;
+      }
+      const p = await api("/pacientes", {method:"POST", body:JSON.stringify(adm)});
+      CADASTRO=null;
+      await carregarPacientes();
+      toast("Paciente cadastrado.");
+      abrir(p.id);
+      return;
+    }
     if(CADASTRO.editId){
       // Edição cadastral: PATCH só do que esta tela corrige (nome, identificador,
       // contexto tumoral, valores_estaveis). Sem o detalhe carregado, não sobrescreve
@@ -2328,6 +2402,7 @@ function podeRedesenhar(id){
   if(view!=="paciente" || current!==id) return false;
   if(RETORNO && RETORNO.pid===id) return false;
   if(REAVAL && REAVAL.pid===id) return false;
+  if(AGENDA_FORM && AGENDA_FORM.pid===id) return false;
   return true;
 }
 // Carrega o paciente + última avaliação + linha do tempo (GET /pacientes/:id).
@@ -2362,6 +2437,7 @@ function setPacTab(t){
 
 // ---- Página do paciente (tumor + formulário dinâmico + protocolos) ----
 function renderPaciente(){
+  if(ehSecretaria()) return renderFichaAdministrativa();
   const p = patients.find(x=>x.id===current);
   if(!p){ go("lista"); return; }
   const detail = PAC_DETAIL[p.id];
@@ -2455,6 +2531,141 @@ function renderPaciente(){
   app().innerHTML = `
   <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <b>${esc(p.nome)}</b></div>
   <div class="card">${headerHtml}${body}</div>`;
+}
+
+// ---- FICHA ADMINISTRATIVA (secretaria) ----
+// O que a secretaria vê de um paciente: o cadastro, o médico assistente, a agenda do
+// próximo retorno e os eventos administrativos. NADA clínico entra no DOM — e não é a tela
+// segurando: o GET /pacientes/:id dela devolve o payload administrativo (sem tumor, sem
+// avaliação, sem trilha), então não há o que esconder. Duas ações, as duas de agenda:
+//   • Reagendar — move a DATA do próximo retorno (com motivo curto). Só existe se o médico
+//     já agendou um: a secretaria não cria retorno do zero (intervalo é decisão clínica).
+//   • Registrar contato — contato com paciente faltoso (data, meio, nota curta). Append-only.
+// Os formulários guardam texto em AGENDA_FORM (estado), e digitar não re-renderiza nada:
+// abrir/fechar o formulário e gravar reescrevem só #ficha-agenda.
+let AGENDA_FORM = null; // {pid, tipo:"reagendar"|"contato", data, motivo, meio, nota}
+function renderFichaAdministrativa(){
+  const p = patients.find(x=>x.id===current);
+  if(!p){ go("lista"); return; }
+  const d = PAC_DETAIL[p.id];
+  const src = d || p;
+  const med = src.medico_assistente;
+  app().innerHTML = `
+  <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <b>${esc(p.nome)}</b></div>
+  <div class="card ficha-adm">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+      <div><h2>${esc(p.nome)}</h2><div class="sub">${idade(src.nasc)} · ${src.sexo==="F"?"Feminino":"Masculino"} · ${esc(src.cidade||"—")} · ${esc(src.operadora||"—")}${src.plano?` (${esc(src.plano)})`:""}${src.identificador?` · reg. ${esc(src.identificador)}`:""}</div></div>
+      <div style="text-align:right;flex:none"><button class="btn ghost" style="padding:5px 12px" onclick="editarCadastro(${p.id})">✎ Editar cadastro</button></div>
+    </div>
+    <div class="section-t">Cadastro</div>
+    <div class="fa-grid">
+      <div><div class="fa-k">Registro</div><div class="fa-v">${esc(src.identificador||"—")}</div></div>
+      <div><div class="fa-k">Nascimento</div><div class="fa-v">${src.nasc?`${fmtData(src.nasc)} · ${idade(src.nasc)}`:"—"}</div></div>
+      <div><div class="fa-k">Convênio</div><div class="fa-v">${esc(src.operadora||"—")}${src.plano?` · ${esc(src.plano)}`:""}</div></div>
+      <div><div class="fa-k">Carteirinha</div><div class="fa-v">${d===undefined?"⏳":esc(src.carteirinha||"—")}</div></div>
+      <div><div class="fa-k">Médico assistente</div><div class="fa-v" id="fa-medico">${med?esc(med.nome):`<span class="hint">— ainda sem atendimento registrado —</span>`}</div></div>
+      <div><div class="fa-k">Cidade</div><div class="fa-v">${esc(src.cidade||"—")}</div></div>
+    </div>
+    <div class="section-t">Agenda</div>
+    <div id="ficha-agenda">${fichaAgendaHtml(p)}</div>
+  </div>`;
+}
+function updateFichaAgenda(){
+  const el = document.getElementById("ficha-agenda");
+  const p = patients.find(x=>x.id===current);
+  if(el && p) el.innerHTML = fichaAgendaHtml(p); else render();
+}
+function fichaAgendaHtml(p){
+  const d = PAC_DETAIL[p.id];
+  const ret = (d && d.retorno) || p.retorno || {};
+  const btnContato = `<button class="btn ghost" style="padding:5px 12px" onclick="abrirAgendaForm(${p.id},'contato')">📞 Registrar contato</button>`;
+  const btnReag = ret.proximo ? `<button class="btn ghost" style="padding:5px 12px" onclick="abrirAgendaForm(${p.id},'reagendar')">📅 Reagendar data</button>` : "";
+  let agenda;
+  if(!ret.proximo){
+    agenda = `<div class="reest-ok"><span>Sem retorno agendado — o próximo retorno é definido pelo médico ao registrar a consulta.</span><span style="margin-left:auto;display:flex;gap:8px">${btnContato}</span></div>`;
+  } else if(ret.vencido){
+    agenda = `<div class="reest-venc" style="position:relative">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+        <div>
+          <div class="rv-t">⏰ Retorno atrasado — previsto ${fmtData(ret.proximo)}</div>
+          <div class="rv-s">${ret.dias_atraso} dia${ret.dias_atraso===1?"":"s"} sem retorno registrado desde a data prevista. Entre em contato com o paciente e registre aqui; se remarcar, reagende a data.</div>
+        </div>
+        <div style="display:flex;gap:8px;flex:none">${btnContato}${btnReag}</div>
+      </div>
+    </div>`;
+  } else {
+    agenda = `<div class="reest-ok"><span>🗓️ Próximo retorno: <b>${fmtData(ret.proximo)}</b></span><span style="margin-left:auto;display:flex;gap:8px">${btnContato}${btnReag}</span></div>`;
+  }
+  const f = AGENDA_FORM && AGENDA_FORM.pid===p.id ? AGENDA_FORM : null;
+  let form = "";
+  if(f && f.tipo==="reagendar"){
+    form = `<div class="agenda-form" id="agenda-form">
+      <div class="hint" style="margin-bottom:8px"><b>Reagendar o próximo retorno</b> — hoje marcado para ${fmtData(ret.proximo)}. Só a data muda; o intervalo decidido pelo médico fica registrado como está.</div>
+      <div class="grid3">
+        <div class="field"><label>Nova data</label><input id="ag_data" type="date" value="${esc(f.data||"")}" onchange="AGENDA_FORM.data=this.value"></div>
+        <div class="field" style="grid-column:span 2"><label>Motivo (curto)</label><input id="ag_motivo" maxlength="280" placeholder="Ex.: paciente pediu para remarcar — viagem" value="${esc(f.motivo||"")}" oninput="AGENDA_FORM.motivo=this.value"></div>
+      </div>
+      <div class="row-actions"><button class="btn ghost" onclick="fecharAgendaForm()">Cancelar</button><button class="btn primary" id="ag_salvar" onclick="salvarReagendamento(${p.id}, this)">Confirmar nova data</button></div>
+    </div>`;
+  } else if(f && f.tipo==="contato"){
+    form = `<div class="agenda-form" id="agenda-form">
+      <div class="hint" style="margin-bottom:8px"><b>Registrar contato com o paciente</b> — fica na ficha e na linha do tempo do médico. Não altera a agenda: se remarcar, use Reagendar.</div>
+      <div class="grid3">
+        <div class="field"><label>Data do contato</label><input id="ag_data" type="date" value="${esc(f.data||"")}" onchange="AGENDA_FORM.data=this.value"></div>
+        <div class="field"><label>Meio</label><select id="ag_meio" onchange="AGENDA_FORM.meio=this.value">${Object.keys(MEIO_CONTATO_LABEL).map(k=>`<option value="${k}" ${f.meio===k?"selected":""}>${MEIO_CONTATO_LABEL[k]}</option>`).join("")}</select></div>
+        <div class="field"><label>Nota (curta)</label><input id="ag_nota" maxlength="280" placeholder="Ex.: não atendeu; deixado recado" value="${esc(f.nota||"")}" oninput="AGENDA_FORM.nota=this.value"></div>
+      </div>
+      <div class="row-actions"><button class="btn ghost" onclick="fecharAgendaForm()">Cancelar</button><button class="btn primary" id="ag_salvar" onclick="salvarContato(${p.id}, this)">Registrar contato</button></div>
+    </div>`;
+  }
+  const evs = d ? (d.eventos_administrativos||[]) : null;
+  const lista = evs===null ? `<div class="hint" style="margin-top:10px">⏳ Carregando…</div>`
+    : evs.length ? evs.map(e=>fichaEventoHtml(e)).join("")
+    : `<div class="hint" style="margin-top:10px">Nenhum reagendamento ou contato registrado.</div>`;
+  return `${agenda}${form}
+    <div class="section-t">Reagendamentos e contatos</div>
+    <div id="ficha-eventos">${lista}</div>`;
+}
+function fichaEventoHtml(e){
+  const quem = e.por ? `${e.por.nome}${e.por.perfil?` (${PERFIL_LABEL[e.por.perfil]||e.por.perfil})`:""}` : "—";
+  const t = e.tipo==="reagendamento"
+    ? `📅 Reagendado: ${fmtData(e.data_anterior)} → <b>${fmtData(e.data)}</b>`
+    : `📞 Contato · ${esc(MEIO_CONTATO_LABEL[e.meio]||e.meio||"—")} · ${fmtData(e.data)}`;
+  return `<div class="evt-adm">${t}${e.nota?` — ${esc(e.nota)}`:""}<div class="hm">por ${esc(quem)} · ${fmtDataHora(e.criado_em)}</div></div>`;
+}
+function abrirAgendaForm(pid, tipo){
+  const ret = (PAC_DETAIL[pid] && PAC_DETAIL[pid].retorno) || {};
+  AGENDA_FORM = tipo==="reagendar"
+    ? {pid, tipo, data: ret.proximo || hojeInput(), motivo:""}
+    : {pid, tipo, data: hojeInput(), meio:"telefone", nota:""};
+  updateFichaAgenda();
+  const el = document.getElementById(tipo==="reagendar" ? "ag_motivo" : "ag_nota"); if(el) el.focus();
+}
+function fecharAgendaForm(){ AGENDA_FORM = null; updateFichaAgenda(); }
+async function salvarReagendamento(pid, btn){
+  const f = AGENDA_FORM; if(!f || f.pid!==pid) return;
+  const motivo = (f.motivo||"").trim();
+  if(!f.data){ alert("Informe a nova data do retorno."); return; }
+  if(!motivo){ alert("Informe o motivo do reagendamento (curto)."); const e=document.getElementById("ag_motivo"); if(e) e.focus(); return; }
+  if(btn) btn.disabled = true;
+  try{
+    await api(`/pacientes/${pid}/agenda-retorno`, {method:"PATCH", body:JSON.stringify({proximo_retorno:f.data, motivo})});
+    AGENDA_FORM = null;
+    toast("Próximo retorno reagendado.");
+    await carregarPacientes();   // a lista (chip de atrasados, coluna do retorno) acompanha
+    await carregarDetalhe(pid);
+  }catch(e){ if(btn) btn.disabled = false; alert("Falha ao reagendar: "+e.message); }
+}
+async function salvarContato(pid, btn){
+  const f = AGENDA_FORM; if(!f || f.pid!==pid) return;
+  if(!f.data){ alert("Informe a data do contato."); return; }
+  if(btn) btn.disabled = true;
+  try{
+    await api(`/pacientes/${pid}/contatos`, {method:"POST", body:JSON.stringify({data:f.data, meio:f.meio||"telefone", nota:(f.nota||"").trim()||undefined})});
+    AGENDA_FORM = null;
+    toast("Contato registrado.");
+    await carregarDetalhe(pid);
+  }catch(e){ if(btn) btn.disabled = false; alert("Falha ao registrar contato: "+e.message); }
 }
 
 // Resumo do último atendimento + botão Reavaliar (estado de repouso do seguimento).
@@ -2838,7 +3049,7 @@ function renderTrilhaTab(p){
   const ordenado = t.itens.slice().reverse();
   const porId = {}; t.itens.forEach(i=>{ if(i.tipo==="retorno") porId[i.id]=i; });
   return `
-    <div class="sub" style="margin-top:12px">Linha do tempo única do paciente — <b>seleções de protocolo, retornos e autorizações</b> na mesma sequência, do mais recente para o mais antigo. Tudo <b>imutável e empilhado</b>: correção é registro novo, nada é editado nem apagado. Seleção de protocolo Inelegível ou Não incorporado é uma <b>solicitação de exceção</b>: aparece com o seu estado (⏳ aguardando · ✅ autorizada · ⛔ negada) e só conta como protocolo vigente quando autorizada.</div>
+    <div class="sub" style="margin-top:12px">Linha do tempo única do paciente — <b>seleções de protocolo, retornos, autorizações e eventos administrativos</b> (reagendamento, contato com faltoso) na mesma sequência, do mais recente para o mais antigo. Tudo <b>imutável e empilhado</b>: correção é registro novo, nada é editado nem apagado. Seleção de protocolo Inelegível ou Não incorporado é uma <b>solicitação de exceção</b>: aparece com o seu estado (⏳ aguardando · ✅ autorizada · ⛔ negada) e só conta como protocolo vigente quando autorizada.</div>
     ${pend}
     <div class="hist-tl">${ordenado.map(i=>trilhaItemHtml(i, p.tumor, porId)).join("")}</div>`;
 }
@@ -2854,7 +3065,33 @@ function autExcecaoSeloHtml(a){
 function trilhaItemHtml(it, tumor, porId){
   if(it.tipo==="retorno") return retornoEntryHtml(it);
   if(it.tipo==="autorizacao") return autorizacaoEntryHtml(it);
+  if(it.tipo==="administrativo") return administrativoEntryHtml(it);
   return avalEntryHtml(it, tumor, porId);
+}
+
+// Item ADMINISTRATIVO na trilha do médico: reagendamento da data do próximo retorno ou
+// contato com paciente faltoso, registrado pela secretaria (ou por quem trata). Entra
+// com tipo próprio e autor: o médico vê que a agenda foi mexida, por quem e por quê — e
+// vê que a DECISÃO dele (o "próximo retorno marcado para" do item de retorno) continua
+// igual. É evento de agenda, não de seguimento: sem resposta, sem conduta, sem toxicidade.
+const MEIO_CONTATO_LABEL = {telefone:"Telefone", whatsapp:"WhatsApp", email:"E-mail", presencial:"Presencial", outro:"Outro"};
+function administrativoEntryHtml(it){
+  const quem = it.por ? `${it.por.nome}${it.por.perfil?` (${it.por.perfil})`:""}` : "—";
+  const ev = it.evento || it.tipo;
+  const titulo = ev==="reagendamento"
+    ? `📅 Retorno reagendado: ${fmtData(it.data_anterior)} → <b>${fmtData(it.data)}</b>`
+    : `📞 Contato com o paciente · ${esc(MEIO_CONTATO_LABEL[it.meio]||it.meio||"—")} · ${fmtData(it.data)}`;
+  return `<div class="proto hist-entry adm">
+    <div class="row1">
+      <div>
+        <span class="tl-tipo adm">Administrativo</span>
+        <div class="pname" style="margin-top:6px">${titulo}</div>
+      </div>
+      <div style="text-align:right;flex:none"><div class="hd">${fmtDataHora(it.criado_em)}</div></div>
+    </div>
+    <div class="hm">por <b>${esc(quem)}</b>${ev==="reagendamento"?" · só a data da agenda mudou; o intervalo decidido no retorno permanece":""}</div>
+    ${it.nota?`<div style="font-size:12.5px;white-space:pre-wrap;margin-top:6px">${esc(it.nota)}</div>`:""}
+  </div>`;
 }
 
 // Item de RETORNO na trilha.
@@ -5477,6 +5714,24 @@ let AUT_ERRO = "";
 // próximo perfil novo nasceria vendo tudo. Aqui é cortesia de tela; o controle é o guard.
 function podeVerRecursos(){ return !!(USUARIO && (USUARIO.perfil==="gestor" || USUARIO.perfil==="admin")); }
 function podeVerClinico(){ return !!(USUARIO && ["oncologista","revisor","auditor","admin"].includes(USUARIO.perfil)); }
+// SECRETARIA: o espelho do gestor. Recebe o cadastro (nome, registro, idade, convênio,
+// médico assistente, próximo retorno, faltosos) e NADA de clínico — sem tumor, protocolo,
+// semáforo, trilha, evidência ou custo. O corte é do SERVIDOR (GET /pacientes devolve o
+// payload administrativo, cortado no SELECT); a tela só desenha o que chega. Ela abre a
+// lista e a ficha administrativa, cadastra/corrige o administrativo, move a DATA do
+// próximo retorno e registra contato com faltoso. Não cria retorno do zero: o intervalo é
+// decisão clínica do médico, no registro do retorno.
+function ehSecretaria(){ return !!(USUARIO && USUARIO.perfil==="secretaria"); }
+// Quem abre a aba Pacientes: perfis clínicos (payload completo) + secretaria (administrativo).
+function podeVerPacientes(){ return podeVerClinico() || ehSecretaria(); }
+// Corpus de evidência: whitelist literal dos cinco (CorpusGuard no backend). A secretaria
+// está fora de propósito — buscá-lo daria 403 e derrubaria a sessão em api().
+function podeVerCorpus(){ return !!(USUARIO && ["oncologista","revisor","auditor","gestor","admin"].includes(USUARIO.perfil)); }
+// Primeira tela de cada perfil: quem vê pacientes cai na lista; o gestor, em Recursos.
+function viewInicial(){ return podeVerPacientes() ? "lista" : "recursos"; }
+// Telas que existem para a secretaria. Tudo o mais (fluxograma, revisão, simulador,
+// autorizações, recursos, admin, sadt) cai na lista — e o backend recusa de qualquer forma.
+const VIEWS_SECRETARIA = new Set(["lista","cadastro","paciente","senha"]);
 
 let CUSTO_ADM = null;      // lista de preços cadastrados (tela do admin)
 let CUSTO_FORM = {};       // rascunho do formulário de preço, por regimen_id
@@ -6607,7 +6862,7 @@ function recAvancadoConteudoHtml(){
       USUARIO = await api("/auth/perfil");
       localStorage.setItem("oncoguia_usuario", JSON.stringify(USUARIO));
       await carregarSessao();
-      view = podeVerClinico() ? "lista" : "recursos";
+      view = viewInicial();
     }catch(e){ doLogout(); }
   }
   if(!TOKEN || !USUARIO){ view = "login"; }

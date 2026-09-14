@@ -205,7 +205,47 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
 
 7. **Fiação.** Frontend e backend na mesma porta/base URL; app e Revisão lendo a mesma fonte. Console (F12) sem erro vermelho no load (CORS, `Failed to fetch`, `null`).
 
-8. **Matriz de acesso por perfil ATIVO.** Oncologista: Pacientes, Fluxograma e **Simulador** — sem aba Revisão (nem por URL). Revisor: não cria avaliação. Auditor: fila de exceção, nada de Revisão e **nada de dinheiro**. **Gestor: só Recursos** — sem Pacientes, sem Fluxograma, sem Revisão, sem autorização, sem Simulador, e **sem nome de paciente** (a resposta do servidor sai pseudonimizada). Admin: tudo. (Selo de estado do protocolo aparece pro oncologista mesmo sem a Revisão.)
+8. **Matriz de acesso por perfil ATIVO.** Oncologista: Pacientes, Fluxograma e **Simulador** — sem aba Revisão (nem por URL). Revisor: não cria avaliação. Auditor: fila de exceção, nada de Revisão e **nada de dinheiro**. **Gestor: só Recursos** — sem Pacientes, sem Fluxograma, sem Revisão, sem autorização, sem Simulador, e **sem nome de paciente** (a resposta do servidor sai pseudonimizada). **Secretaria: só Pacientes, e só o administrativo** — ver a fronteira abaixo. Admin: tudo. (Selo de estado do protocolo aparece pro oncologista mesmo sem a Revisão.)
+
+   **Secretaria = administrativo; payload reduzido é corte no servidor (2026-09-14,
+   `portao-secretaria.js`).** A fronteira: *administrativo = dela; clínico = nunca*. Ela
+   vê nome, registro, idade, convênio, carteirinha, médico assistente, próximo retorno e
+   faltosos; cadastra e corrige esses campos; **move a DATA** do próximo retorno (com
+   motivo curto) e **registra contato** com faltoso. Não vê tumor, protocolo, semáforo,
+   trilha clínica, corpus de evidência nem custo — e **não cria retorno do zero**: o
+   intervalo é decisão clínica, nasce no registro do retorno pela mão do médico.
+   - **O corte é no SELECT, não na tela.** `GET /pacientes` e `GET /pacientes/:id` para o
+     token dela passam por outro caminho de código (`PacientesService.listarAdministrativo`
+     / `obterAdministrativo`): as colunas clínicas do paciente **não são lidas do banco**, e
+     as tabelas de avaliação/retorno são consultadas só pelas colunas que resolvem o médico
+     assistente. É o mesmo desenho da pseudonimização do gestor. O portão prova por
+     **teste afirmativo**: a resposta dela **não contém** o tumor nem o protocolo do
+     paciente de teste, enquanto a do oncologista, para o **mesmo** paciente, contém.
+   - **Chave clínica no body dela é 403**, não descarte silencioso (`tumor`, `sistema`,
+     `subtipo`, `valores_estaveis` — inclusive `null`). Descartar deixaria a tela "salvar"
+     um tumor que o servidor ignorou.
+   - **Reagendar move `pacientes.proximo_retorno` e só.** `retornos.proximo_retorno` /
+     `proximo_intervalo` — a decisão do médico, congelada no registro — **fica igual**; o
+     portão confere a coluna depois de cada reagendamento (por API e pela tela). O
+     movimento vira **evento administrativo append-only** (de onde → para onde, motivo,
+     autor, perfil ativo), e é assim que o médico fica sabendo: a trilha dele ganha o tipo
+     `administrativo`, ao lado de avaliação, retorno e autorização. Sem retorno agendado,
+     **409** — não há o que reagendar.
+   - **Contato com faltoso é append-only**: sem rota de edição nem de remoção (o portão
+     bate PATCH/DELETE e exige 404, inclusive com token de admin). Aparece na ficha dela e
+     na trilha do médico.
+   - **Whitelists literais, nunca "autenticado"** (`backend/src/auth/cadastro.guard.ts`):
+     leitura do cadastro = clínicos + secretaria; criar = os quatro clínicos que já criavam
+     + secretaria (efeito de hoje preservado em lista escrita — estreitar é decisão
+     separada); corrigir = oncologista/revisor/admin (o que o `@Roles('oncologista')`
+     hierárquico dava) + secretaria; agenda e contato = `['oncologista','admin','secretaria']`.
+     Tudo o mais (avaliação, retorno, trilha, seleção, revisão, autorização, custo,
+     recursos, usuários, remoção) é **403** para ela — 16 leituras e 10 escritas na matriz.
+   - **Na tela:** só a aba Pacientes; lista com 4 colunas (os filtros de coluna funcionam
+     no que ela vê); ficha administrativa **sem nada clínico no DOM** (o portão procura
+     Trilha/Seguimento/Reavaliar/Semáforo/Protocolo/R$, o nome do tumor e o do protocolo —
+     e exige ausência); `go()` para qualquer outra tela cai na lista; `EVIDENCIA` nunca é
+     carregada na sessão dela.
 
    **Simulador para o oncologista (2026-09-07).** A aba entrou na lista dele porque é
    **leitura pura do corpus de evidência** — sem paciente, sem escrita, sem dinheiro — e é
@@ -217,10 +257,11 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
    tela do paciente já lia (`/evidencia`, `/revisoes/resumo`, `/revisoes/fontes`), tudo já
    dentro da whitelist dele; a whitelist do oncologista **não mudou uma linha**.
 
-   *(Nota de forma, não de efeito: `/evidencia` é guardado só por `JwtAuthGuard` — o corpus
-   é legível por qualquer perfil autenticado, gestor incluído, por decisão antiga. O efeito
-   fica; a **forma escrita** vira whitelist literal dos cinco perfis na próxima mudança de
-   backend — pendência **3** do `BACKLOG.md`, sem deploy próprio.)*
+   *(`/evidencia` — pendência **3** do `BACKLOG.md`, **fechada em 2026-09-14**: o corpus
+   deixou de ser "qualquer autenticado" e passou a whitelist literal dos cinco perfis
+   (`CorpusGuard`). O efeito para os cinco não mudou — e o portão prova isso de forma
+   **afirmativa** (`portao-secretaria` E1: cinco tokens, cinco 200). A secretaria é o
+   primeiro perfil que fica **fora de propósito** (E0: 403).)*
 
    > **INVARIANTE — o Simulador é somente leitura por CONTRATO.** Não há `POST`/`PUT`/
    > `PATCH`/`DELETE` em nenhum caminho da tela, e o botão "Selecionar protocolo" não
@@ -337,6 +378,41 @@ O que ele cobre, e por que cada parte existe:
   checks de antes. Recolher a UI não pode virar recolher o check.
 
 ---
+
+## Portão da SECRETARIA (`scripts/portao-secretaria.js`)
+
+`node scripts/portao-secretaria.js` — browser isolado e headless + API; 7 logins (o
+helper espera no 429; **não encadeie** com outro portão sem ~1 min de janela). A conta de
+secretaria é **descartável**: o admin a cria **pela tela** na Fase 0 (prova a caixa
+`secretaria` e a lista `[secretaria]` gravada) e o `finally` a apaga — como no
+`portao-perfis`, e por isso **não há par de variáveis dela no `.env.local`**.
+
+Fases: **Setup** (oncologista, API) cria dois pacientes com tumor, avaliação vigente e
+retorno — um com agenda futura, um **faltoso** (retorno há 60 dias, próximo em 1 mês →
+vencido). **Fase 1** (API, token dela): payload reduzido na lista e na ficha, contraprova do
+oncologista no mesmo paciente, `/evidencia` 403 para ela e 200 para os cinco, 403 em 16
+leituras e 10 escritas fora do cadastro, POST/PATCH administrativos aceitos e chave clínica
+recusada, reagendamento (400 sem motivo, 400 para a mesma data, 200 movendo a agenda,
+**coluna congelada do retorno inalterada**, 409 sem retorno agendado, revisor/gestor 403),
+contato (400 meio inválido, 201, ficha, **404 em PATCH/DELETE**), trilha do médico com os
+itens `administrativo`. **Fase 2** (tela dela): aba única, 4 colunas, filtros de coluna,
+chip e linha do faltoso, ficha sem nada clínico no DOM, reagendar e registrar contato pela
+tela com **0 re-render** ao digitar, cadastro novo sem bloco de tumor (0 re-render no nome;
+o servidor grava `tumor: null`), edição com nascimento/convênio/carteirinha, `go()` proibido
+cai na lista, `EVIDENCIA === null`, console limpo. **Fase 3** (tela do oncologista): a
+trilha mostra o reagendamento e o contato como "Administrativo" com o nome dela, o item do
+retorno continua dizendo a data **original**, e o topo mostra a agenda **nova**.
+
+> **Lição (2026-09-14) — dois CHECKs com nomes quase iguais.** `usuarios` tem
+> `CHK_usuarios_perfil` (a coluna do perfil ativo, de `SolicitacaoExcecao`, refeito em
+> `Recursos`) **e** `CHK_usuarios_perfis` (a lista, de `PerfisMultiplos`). A primeira versão
+> da migration da secretaria refez só o segundo; o pré-flight manual olhou só o segundo; o
+> boot passou; e o primeiro `Criar usuário` do portão voltou **500** — "violates check
+> constraint CHK_usuarios_perfil". A migration foi corrigida (drop-and-add dos **dois**),
+> revertida e reaplicada no dev, e o pré-flight de deploy agora lista os dois constraints
+> pelo nome e diz de cada um se já contém `secretaria`. O que fica: **vocabulário de perfil
+> vive em dois constraints; quem adiciona perfil refaz os dois** — e o portão que cria a
+> conta pela tela é o que pega isso antes do deploy.
 
 ## Decisão de papel — o auditor decide MÉRITO, não custo
 
@@ -502,6 +578,7 @@ faltar par de variáveis — em vez de virar um FAIL confuso lá na frente.
 | auditor | `portao.auditor` | `PORTAO_LOGIN_AUDITOR` / `PORTAO_SENHA_AUDITOR` | decide solicitação de exceção |
 | admin | `portao.admin` | `PORTAO_LOGIN_ADMIN` / `PORTAO_SENHA_ADMIN` | `/revisao/export` e a limpeza no fim |
 | gestor | `portao.gestor` | `PORTAO_LOGIN_GESTOR` / `PORTAO_SENHA_GESTOR` | recursos: projeção, margem e a prova da pseudonimização |
+| secretaria | *(descartável)* | — | criada pela tela de admin no próprio `portao-secretaria` e apagada no fim, como a conta do `portao-perfis` — testa a atribuição do perfil, então nasce ali |
 
 **Criar ou recriar as contas** (tudo pela tela, sem script e sem tocar no banco):
 1. Entre como administrador em **Admin › Gerenciar acessos**.
@@ -534,6 +611,12 @@ conta de robô tem de ser reconhecível à primeira vista numa auditoria de aces
   **removido antes de submeter** a próxima: sem isso a espera lia o 429 velho e dormia mais
   60s enquanto a app, já logada, tinha trocado de tela por baixo dela. Portão que falha
   pelo motivo errado ensina a ignorar portão.
+
+**Estado em 2026-09-14 (perfil secretaria):** `portao-secretaria` 93/93 (duas execuções
+seguidas, lista de checks idêntica) · `portao-perfis` 52/52 · `portao-retorno` 86/86 ·
+`portao-b` tudo passou (89) · `portao-recursos` 99/99 · `portao-autorizacao` 69/69 ·
+`portao-custo` 98/98 · `portao-simulador` 50/50 — todos contra o backend com a migration
+`PerfilSecretaria` aplicada (revertida e reaplicada no dev depois da correção dos dois CHECKs).
 
 **Estado em 2026-09-07:** `portao-perfis` 52/52 (duas execuções seguidas, lista de checks
 idêntica) · `portao-retorno` 86/86 · `portao-autorizacao` 67/67 ·
@@ -618,6 +701,8 @@ idêntica) ·
 > vez e não cabia nesta mudança; fica registrado. Onde importava (a `data_agendada`, que
 > passou a ser do servidor), o portão verifica o **valor gravado** em vez do 400 — prova
 > mais forte: mostra que o servidor manda, não só que o cliente foi barrado.
+
+*Automação (adendo 3) — perfil Secretaria:* `node scripts/portao-secretaria.js` — ver a seção *Portão da SECRETARIA* acima. Conta descartável criada pela tela e apagada no fim; 3 pacientes de teste (`TESTE-PORTAO-SECRETARIA-*`) apagados no fim.
 
 *Automação (adendo 2) — módulo Retorno/Trilha:* `node scripts/portao-retorno.js` roda o portão do seguimento em browser isolado e headless (exige app e API no ar; as portas são configuráveis por `PORTAO_APP`/`PORTAO_API`, default 5173/3005; **credenciais em `.env.local`** — ver "Contas de teste dos portões" acima). 86 checks: RECIST travado na UI **e** 400 no DTO, toxicidades vindas do regime em curso + "outra", troca de protocolo gerando avaliação **vinculada** ao retorno, trilha mesclada na sequência real do fluxo, reestadiamento agendado/reagendado/vencido, o **formulário de retorno enxuto** (sem campo de data agendada no topo, sem jargão de imutabilidade na tela — só o ⓘ; linha read-only do previsto quando o retorno veio de um agendamento), o **próximo retorno** (chips, data calculada, agendado criado na trilha, intervalo do último ciclo sugerido sem ser imposto, 0 re-render ao escolher), a **lista de Pacientes** (as sete colunas pelo rótulo do cabeçalho, e a ausência das duas que saíram; idade em anos completos calculada no check, não cravada; protocolo com linha e dia da avaliação; selo **NÃO INCORPORADO** ausente para quem é incorporado e presente no eixo do corpus; selo **⏳ aguardando autorização** com o protocolo exibido continuando a ser o **vigente**; **médico assistente** derivado batendo com o topo da trilha — inclusive quando um retorno de OUTRO profissional passa a ser o evento mais recente; **busca** por nome e por registro com **0 re-render**, foco e cursor preservados, e estado vazio próprio), o **"quem não veio"** (coluna Próximo retorno em vermelho com o atraso em dias, atrasado no topo da ordem padrão, filtro de retornos atrasados, e o atraso sumindo quando o retorno é registrado), a **guia TISS SP/SADT** (blocos e numeração conforme o *Padrão TISS — Componente de Conteúdo e Estrutura, nov/2022*, p. 423, na ordem; pré-preenchimento de beneficiário/convênio/indicação/exames/solicitante; e o contrário disso — nº de guia, senha, CNES, código na operadora e TUSS **em branco**, porque a app não os inventa; as 5 linhas fixas de procedimento do formulário oficial; edição na conferência refletida na impressão; uma página **A4 paisagem**; barra de conferência fora do papel), **0 re-render** ao digitar em observações/toxicidade/exames, ausência de rota de edição (imutabilidade) e a matriz de perfil (revisor 403 na escrita, 200 na leitura). Também fixa a interação com a autorização: o portão escolhe deliberadamente um candidato **elegível**, porque retorno pressupõe protocolo **vigente** — seleção fora do padrão nasce como exceção pendente e não é vigente até o auditor aprovar. Apaga o paciente de teste no fim.
 

@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PacientesController } from './pacientes.controller';
 import { PacientesService } from './pacientes.service';
-import { Avaliacao, Paciente, Retorno, SelecaoProtocolo } from '../database/entities';
+import { Avaliacao, EventoAdministrativo, Paciente, Retorno, SelecaoProtocolo } from '../database/entities';
 import { EvidenciaModule } from '../evidencia/evidencia.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Paciente, SelecaoProtocolo, Avaliacao, Retorno]),
+    TypeOrmModule.forFeature([Paciente, SelecaoProtocolo, Avaliacao, Retorno, EventoAdministrativo]),
     // Corpus no servidor: decide se o regime é não incorporado (→ solicitação de exceção).
     EvidenciaModule,
   ],
