@@ -103,8 +103,17 @@ ancorado em `regimen_id` + `content_hash` — quando o squad re-roda e o regime 
   **registro clínico** (não dispara reprocessamento).
 - **📎 Fonte a buscar** inline nos cards de selo `incompleto`: o que falta (lacunas) + a
   referência/DOI candidato a buscar + onde entregar o PDF (`data/input/fontes-manuais/<regimen_id>.pdf`).
-- **Filtros** por tumor, selo do squad, estado da revisão e eixo.
-- **Export pro squad (só admin)**: botões *⤓ Baixar revisadas* (todas as revisadas do filtro atual)
+- **Duas visões, um seletor no topo** (só apresentação — nada muda em dado, estado ou endpoint):
+  - **Fila de trabalho (padrão)**: *Aguardando re-revisão* PRIMEIRO — são os que travam o
+    ciclo (mudança já implementada esperando a assinatura do revisor) —, depois *Pendente de
+    revisão* por tumor. As já processadas (aprovado / contestado / ajuste) saem da rolagem e
+    viram, por tumor, uma linha recolhida **"▸ N já revisadas neste tumor"**; clicou, expande
+    os cards completos (nota + pareceres). Nada é removido, só recolhido.
+  - **Tudo**: a lista completa, todos os cards abertos — auditoria e conferência.
+- **Filtros** por tumor, selo do squad, estado da revisão e eixo — valem sobre o **conjunto
+  completo**, independente da visão (filtrar por um estado processado abre as linhas recolhidas
+  daquele estado; o contador da linha bate com o filtro).
+- **Export pro squad (só admin)**: botões *⤓ Baixar revisadas* (todas as revisadas do filtro atual, nas duas visões)
   e *⤓ Selecionadas* (checkbox nos cards revisados) → `POST /api/revisao/export` → download do
   `revisao-decisoes.json` que os Steps 08/10 reincorporam. Contestações/ajustes de natureza `dado`
   vão com `reprocessar: true` + a justificativa como correção.

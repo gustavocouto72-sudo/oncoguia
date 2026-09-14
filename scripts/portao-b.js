@@ -7,8 +7,10 @@
 //   mudar junto, TODOS os portões param de logar.
 // Fase 1 oncologista: login, console, sem aba Revisão (nem forçando view), cadastro
 //   digitando (0 re-render), salvar, re-aval ao vivo à direita.
-// Fase 2 revisor: login, Revisão visível, não cria avaliação, parecer digitado
-//   (0 re-render), gravado e atribuído.
+// Fase 2 revisor: login, Revisão visível, não cria avaliação; Mesa como fila de trabalho
+//   (re-revisão no topo, processadas recolhidas, linha expandida íntegra, contador bate
+//   com o filtro de Estado, "Tudo" intacto); parecer digitado (0 re-render), gravado e
+//   atribuído — este último na visão "Tudo", a tela de antes.
 // Fase 3 admin (API): /revisao/export 200 = acesso admin OK.
 // Limpeza: apaga parecer de teste (SQL) e paciente de teste (DELETE admin).
 // Credenciais de teste: .env.local via scripts/portao-credenciais.js — nada fixo aqui.
@@ -248,6 +250,107 @@ async function loginCtx(browser, perfil) {
     ok('B8 revisor não cria avaliação (podeAvaliar=false)', podeAv === false);
     await p2.click('a:has-text("Revisão clínica")');
     await p2.waitForSelector('.rc-b.bad', { timeout: 20000 });
+    await p2.waitForFunction(() => REVC_RESUMO_OK, { timeout: 20000 });
+    await p2.waitForTimeout(400);
+
+    // ---- B11 — MESA = fila de trabalho (só apresentação). A visão padrão abre com
+    // "Aguardando re-revisão" no topo (é o que trava o ciclo), depois "Pendente" por
+    // tumor; as processadas (aprovado/contestado/ajuste) NÃO aparecem expandidas — viram
+    // a linha recolhida "▸ N já revisadas neste tumor", que expandida mostra o card
+    // íntegro (nota + parecer). Filtro de Estado e "Baixar revisadas" valem sobre o
+    // conjunto completo nas duas visões. Os checks de sempre (B10/B6/B5.4) rodam na
+    // visão "Tudo", que é a tela de antes, intacta.
+    const PROC = ['aprovado', 'contestado', 'ajuste'];
+    const fila = await p2.evaluate((PROC) => {
+      const secs = Array.from(document.querySelectorAll('.rc-secao')).map(e => e.className);
+      const cards = Array.from(document.querySelectorAll('.rc-card'));
+      const est = {}; cards.forEach(c => { est[c.dataset.estado] = (est[c.dataset.estado] || 0) + 1; });
+      const real = {}; (REGIMES || []).forEach(r => { const e = estadoDe(r.regimen_id).estado; real[e] = (real[e] || 0) + 1; });
+      const nRe = +(document.querySelector('.rc-secao-re .rc-secao-n') || {}).textContent;
+      const nPend = +(document.querySelector('.rc-secao-pend .rc-secao-n') || {}).textContent;
+      const linhas = Array.from(document.querySelectorAll('.rc-recolhida')).map(e => ({ t: e.dataset.tumor, n: +e.dataset.n, aberta: e.classList.contains('aberta') }));
+      const somaLinhas = linhas.reduce((a, l) => a + l.n, 0);
+      const realProc = PROC.reduce((a, k) => a + (real[k] || 0), 0);
+      const seletorOn = (document.querySelector('.rc-visao-b.on') || {}).textContent || '';
+      return { visao: REVC_VISAO, seletorOn: seletorOn.trim(), secs, est, real, nRe, nPend, linhas: linhas.length, somaLinhas, realProc, revisadas: REVC_REVISADAS_FILTRO.length };
+    }, PROC);
+    ok('B11 ★ visão padrão da Mesa é a fila de trabalho', fila.visao === 'fila' && /Fila de trabalho/.test(fila.seletorOn), `visao=${fila.visao} seletor="${fila.seletorOn}"`);
+    ok('B11 ★ fila abre com "Aguardando re-revisão" no TOPO, "Pendente" em seguida',
+      fila.secs.length === 2 && /rc-secao-re/.test(fila.secs[0]) && /rc-secao-pend/.test(fila.secs[1]), fila.secs.join(' > '));
+    ok('B11 ★ contador da seção de re-revisão = re-revisão real no corpus (e > 0 neste banco)',
+      fila.nRe > 0 && fila.nRe === (fila.real.pendente_re_revisao || 0) && fila.nRe === (fila.est.pendente_re_revisao || 0), `secao=${fila.nRe} real=${fila.real.pendente_re_revisao} cards=${fila.est.pendente_re_revisao}`);
+    ok('B11 ★ nenhum card processado expandido na visão padrão',
+      PROC.every(k => !fila.est[k]), JSON.stringify(fila.est));
+    ok('B11 ★ pendentes visíveis = pendentes reais (nada some)', fila.nPend === (fila.real.pendente || 0) && fila.est.pendente === fila.real.pendente, `secao=${fila.nPend} real=${fila.real.pendente}`);
+    ok('B11 ★ soma das linhas recolhidas = processadas reais (recolhido ≠ removido)',
+      fila.realProc > 0 && fila.somaLinhas === fila.realProc && fila.linhas > 0, `linhas=${fila.linhas} soma=${fila.somaLinhas} real=${fila.realProc}`);
+    ok('B11 linhas recolhidas nascem fechadas sem filtro de Estado', fila.linhas > 0 && (await p2.evaluate(() => document.querySelectorAll('.rc-recolhida.aberta').length)) === 0, '');
+    ok('B11 "Baixar revisadas" (REVC_REVISADAS_FILTRO) conta o conjunto completo na fila', fila.revisadas === fila.realProc + (fila.real.pendente_re_revisao || 0), `revisadas=${fila.revisadas} proc+re=${fila.realProc + (fila.real.pendente_re_revisao || 0)}`);
+
+    // Expandir a linha: cards íntegros (selo de estado processado, botões, pareceres).
+    // Mira o tumor que tem NOTA em card processado — assim o check da nota não passa
+    // vazio (0 = 0) num tumor que nunca teve nota.
+    const tumorComNota = await p2.evaluate(() => {
+      const t = {}; (REGIMES || []).forEach(r => { if (['aprovado','contestado','ajuste'].includes(estadoDe(r.regimen_id).estado) && notasRevisaoDe(r).length) t[r.tumor] = 1; });
+      return Object.keys(t).find(k => document.querySelector(`.rc-recolhida[data-tumor="${k}"]`)) || null;
+    });
+    ok('B11 existe tumor com nota em card processado (senão o check da nota seria vazio)', !!tumorComNota, 'tumor=' + tumorComNota);
+    await p2.click(`.rc-recolhida[data-tumor="${tumorComNota}"] .rc-recolhida-toggle`);
+    await p2.waitForSelector('.rc-recolhida.aberta .rc-card', { timeout: 10000 });
+    const exp = await p2.evaluate((PROC) => {
+      const r = document.querySelector('.rc-recolhida.aberta');
+      const cards = Array.from(r.querySelectorAll('.rc-card'));
+      return { n: +r.dataset.n, cards: cards.length,
+        estados: cards.map(c => c.dataset.estado), selos: cards.filter(c => c.querySelector('.rc-selo-wrap .rc-selo')).length,
+        parecToggle: cards.filter(c => c.querySelector('.rc-parec-toggle')).length,
+        notasHtml: cards.filter(c => c.querySelector('.rnotas')).length,
+        tumor: r.dataset.tumor };
+    }, PROC);
+    ok('B11 ★ expandir a linha mostra exatamente N cards, todos processados', exp.cards === exp.n && exp.estados.every(e => PROC.includes(e)), JSON.stringify(exp));
+    ok('B11 ★ card expandido é íntegro: selo de estado + pareceres em todos', exp.selos === exp.cards && exp.parecToggle === exp.cards, JSON.stringify(exp));
+    await p2.click('.rc-recolhida.aberta .rc-parec-toggle');
+    await p2.waitForSelector('.rc-recolhida.aberta .rc-parec-row', { timeout: 10000 });
+    const parecExp = await p2.evaluate(() => {
+      const c = document.querySelector('.rc-recolhida.aberta .rc-card');
+      return { rows: c.querySelectorAll('.rc-parec-row').length, aindaAberta: !!document.querySelector('.rc-recolhida.aberta') };
+    });
+    ok('B11 ★ parecer do card expandido aparece e a linha continua aberta após o re-render', parecExp.rows > 0 && parecExp.aindaAberta, JSON.stringify(parecExp));
+    // Cards com nota da revisão existem no corpus (B10 prova isso em "Tudo"); se este tumor
+    // tem nota em algum processado, ela tem de estar dentro do card expandido também.
+    const notaNoTumor = await p2.evaluate((t) => (REGIMES || []).filter(r => r.tumor === t && ['aprovado','contestado','ajuste'].includes(estadoDe(r.regimen_id).estado) && notasRevisaoDe(r).length).length, exp.tumor);
+    ok('B11 ★ nota da revisão preservada no card expandido', notaNoTumor > 0 && notaNoTumor === exp.notasHtml, `tumor=${exp.tumor} comNota=${notaNoTumor} exibidas=${exp.notasHtml}`);
+    await p2.click('.rc-recolhida.aberta .rc-recolhida-toggle');
+    await p2.waitForTimeout(300);
+    ok('B11 clicar de novo recolhe', (await p2.evaluate(() => document.querySelectorAll('.rc-recolhida.aberta').length)) === 0, '');
+
+    // Filtro de Estado = aprovado: vale sobre o conjunto completo; a linha recolhida de
+    // cada tumor bate com o filtro (conta só aprovados) e nasce aberta (quem filtrou quer ver).
+    await p2.evaluate(() => setRevcFiltro('estado', 'aprovado'));
+    await p2.waitForTimeout(400);
+    const filt = await p2.evaluate(() => {
+      const linhas = Array.from(document.querySelectorAll('.rc-recolhida')).map(e => ({ t: e.dataset.tumor, n: +e.dataset.n, aberta: e.classList.contains('aberta'), cards: e.querySelectorAll('.rc-card').length }));
+      const porTumor = {}; (REGIMES || []).forEach(r => { if (estadoDe(r.regimen_id).estado === 'aprovado') porTumor[r.tumor] = (porTumor[r.tumor] || 0) + 1; });
+      const opt = Array.from(document.querySelectorAll('.rc-filtros option')).find(o => o.value === 'aprovado');
+      const optN = opt ? +(opt.textContent.match(/\((\d+)\)/) || [])[1] : -1;
+      const bate = linhas.every(l => l.n === (porTumor[l.t] || 0)) && Object.keys(porTumor).length === linhas.length;
+      const soma = linhas.reduce((a, l) => a + l.n, 0);
+      const outros = Array.from(document.querySelectorAll('.rc-card')).filter(c => c.dataset.estado !== 'aprovado').length;
+      return { linhas, bate, soma, optN, outros, todasAbertas: linhas.every(l => l.aberta && l.cards === l.n), revisadas: REVC_REVISADAS_FILTRO.length };
+    });
+    ok('B11 ★ filtro Estado=aprovado: contador de cada linha bate com o filtro', filt.bate && filt.soma === filt.optN, `soma=${filt.soma} opcao=(${filt.optN}) ${JSON.stringify(filt.linhas)}`);
+    ok('B11 filtro Estado processado abre as linhas (e só aprovados na tela)', filt.todasAbertas && filt.outros === 0, JSON.stringify({ todasAbertas: filt.todasAbertas, outros: filt.outros }));
+    ok('B11 "Baixar revisadas" segue o filtro, não a visão', filt.revisadas === filt.optN, `revisadas=${filt.revisadas} opcao=${filt.optN}`);
+    await p2.evaluate(() => setRevcFiltro('estado', 'todos'));
+
+    // Visão "Tudo" = a tela de antes, intacta: todos os cards, por tumor, sem seções nem
+    // linhas recolhidas; "Baixar revisadas" com a mesma contagem da fila.
+    await p2.click('.rc-visao-b:has-text("Tudo")');
+    await p2.waitForFunction(() => REVC_VISAO === 'tudo' && document.querySelectorAll('.rc-secao').length === 0, { timeout: 10000 });
+    const tudo = await p2.evaluate(() => ({ cards: document.querySelectorAll('.rc-card').length, regs: (REGIMES || []).length, secoes: document.querySelectorAll('.rc-secao').length, recolhidas: document.querySelectorAll('.rc-recolhida').length, revisadas: REVC_REVISADAS_FILTRO.length }));
+    ok('B11 ★ visão "Tudo": todos os cards abertos, sem seção nem linha recolhida', tudo.cards === tudo.regs && tudo.secoes === 0 && tudo.recolhidas === 0, JSON.stringify(tudo));
+    ok('B11 "Baixar revisadas" igual nas duas visões', tudo.revisadas === fila.revisadas, `tudo=${tudo.revisadas} fila=${fila.revisadas}`);
+    ok('B7 console sem erro (Mesa: fila ⇄ tudo)', f2.errs.length === 0, f2.errs.join(' | '));
+
     // ---- B10 — na Revisão clínica o card também mostra as notas; e o rótulo do cenário
     // de testículo é estadiamento (TNM/S + IGCCCG), não "metastático" (pedido do revisor,
     // lote 2). Só rótulo: o valor interno segue `metastatico` (o filtro/agrupamento não muda).

@@ -4532,6 +4532,16 @@ let REVC_SEL = new Set();          // regimen_id marcados p/ download seletivo (
 let REVC_REVISADAS_FILTRO = [];    // regimen_id revisados no filtro atual ("Baixar revisadas (N)")
 let REVC_FONTES = {};              // regimen_id -> [fontes sugeridas pelos revisores] (GET /revisoes/fontes)
 let REVC_FONTES_OK = false;
+// VISÃO da Mesa — só apresentação, nada muda em dado/estado/endpoint.
+//   "fila": fila de trabalho do revisor — "Aguardando re-revisão" PRIMEIRO (são os que
+//           travam o ciclo: mudança já implementada esperando a assinatura dele), depois
+//           "Pendente de revisão" por tumor; as já processadas (aprovado/contestado/ajuste)
+//           saem da rolagem e viram, por tumor, uma linha recolhida "▸ N já revisadas".
+//   "tudo": a tela de sempre, intacta — auditoria e conferência.
+// Filtro de Estado e "Baixar revisadas" trabalham sobre o conjunto completo nas duas.
+let REVC_VISAO = "fila";
+let REVC_EXP = new Set();          // tumores com a linha "já revisadas" expandida (visão fila)
+const REVC_ESTADOS_PROCESSADOS = ["aprovado","contestado","ajuste"];
 
 const REVC_ESTADO_META = {
   aprovado:            { t:"Aprovado",             cls:"rc-ok"  },
@@ -4583,7 +4593,13 @@ function estadoSeloHtml(rid){
   return `<span class="rc-selo ${m.cls}" title="${esc(sub)}">${m.t}${sub?`<span class="rc-selo-sub"> — ${sub}</span>`:""}</span>`;
 }
 
-function setRevcFiltro(k,v){ if(k==="reset"){ REVC_FILTRO={tumor:"todos",selo:"todos",estado:"todos",eixo:"todos",motivo:"todos"}; } else { REVC_FILTRO[k]=v; } render(); }
+function setRevcFiltro(k,v){ if(k==="reset"){ REVC_FILTRO={tumor:"todos",selo:"todos",estado:"todos",eixo:"todos",motivo:"todos"}; } else { REVC_FILTRO[k]=v; } if(k==="estado"||k==="reset") REVC_EXP.clear(); render(); }
+function setRevcVisao(v){ REVC_VISAO = v==="tudo" ? "tudo" : "fila"; render(); }
+// Linha recolhida "▸ N já revisadas neste tumor": com o filtro de Estado num estado
+// processado ela nasce ABERTA (quem filtrou por "aprovado" quer ver os aprovados) e o
+// clique fecha; sem filtro nasce fechada e o clique abre. O conjunto só guarda o desvio.
+function revcRecolhidaAberta(t){ const porFiltro = REVC_ESTADOS_PROCESSADOS.includes(REVC_FILTRO.estado); return porFiltro ? !REVC_EXP.has(t) : REVC_EXP.has(t); }
+function toggleRevcRecolhida(t){ if(REVC_EXP.has(t)) REVC_EXP.delete(t); else REVC_EXP.add(t); render(); }
 function setRevcForm(rid,k,v){ (REVC_FORM[rid]=REVC_FORM[rid]||{})[k]=v; render(); }
 // Digitação do parecer: estado local isolado — guarda o rascunho SEM re-render.
 // Re-renderizar a cada tecla reconstruía a lista inteira, resetando scroll e foco
@@ -5092,11 +5108,10 @@ function renderRevisaoClinica(){
   const porTumor = {}; filtrados.forEach(r=>{ (porTumor[r.tumor]=porTumor[r.tumor]||[]).push(r); });
   const novPorTumor = {}; novVisiveis.forEach(c=>{ (novPorTumor[c.tumor]=novPorTumor[c.tumor]||[]).push(c); });
   const tumoresGrupo = [...new Set([...Object.keys(porTumor), ...Object.keys(novPorTumor)])].sort();
-  const grupos = tumoresGrupo.map(t=>{
-    const novCards = (novPorTumor[t]||[]).map(revcNovidadeCard).join("");
-    const cards = (porTumor[t]||[]).map(r=>{
+  // Card de protocolo — o MESMO html nas duas visões (a linha recolhida só o esconde).
+  const revcCard = r=>{
       const rid=r.regimen_id;
-      return `<div class="rc-card">
+      return `<div class="rc-card" data-rid="${esc(rid)}" data-estado="${esc(estadoDe(rid).estado)}">
         ${revcSelBox(rid)}
         <div class="rc-card-h">
           <div><div class="rc-nome">${esc(r.nome||rid)}</div>
@@ -5110,10 +5125,48 @@ function renderRevisaoClinica(){
         ${revcControle(r)}
         ${revcPareceres(rid)}
       </div>`;
-    }).join("");
+  };
+  const tumorH = (t,n)=>`<div class="rc-tumor-h">${esc(typeof tumorNome==="function"?tumorNome(t):t)} <span class="rc-tumor-n">${n}</span></div>`;
+  // ---- visão "Tudo": a tela de sempre, por tumor, todos os cards abertos ----
+  const gruposTudo = ()=>tumoresGrupo.map(t=>{
+    const novCards = (novPorTumor[t]||[]).map(revcNovidadeCard).join("");
+    const cards = (porTumor[t]||[]).map(revcCard).join("");
     const n = (porTumor[t]||[]).length + (novPorTumor[t]||[]).length;
-    return `<div class="rc-tumor"><div class="rc-tumor-h">${esc(typeof tumorNome==="function"?tumorNome(t):t)} <span class="rc-tumor-n">${n}</span></div>${novCards}${cards}</div>`;
+    return `<div class="rc-tumor">${tumorH(t,n)}${novCards}${cards}</div>`;
   }).join("");
+  // ---- visão "Fila de trabalho": re-revisão no topo, pendentes por tumor, processadas recolhidas ----
+  const gruposFila = ()=>{
+    const reRev = filtrados.filter(r=>estadoDe(r.regimen_id).estado==="pendente_re_revisao");
+    const reRevPorTumor = {}; reRev.forEach(r=>{ (reRevPorTumor[r.tumor]=reRevPorTumor[r.tumor]||[]).push(r); });
+    const secRe = `<div class="rc-secao rc-secao-re">
+      <div class="rc-secao-h"><span class="rc-selo rc-re">Aguardando re-revisão</span> <span class="rc-secao-n">${reRev.length}</span>
+        <span class="rc-secao-sub">mudanças já implementadas esperando a sua assinatura — são as que travam o ciclo</span></div>
+      ${reRev.length ? Object.keys(reRevPorTumor).sort().map(t=>`<div class="rc-tumor">${tumorH(t,reRevPorTumor[t].length)}${reRevPorTumor[t].map(revcCard).join("")}</div>`).join("")
+                     : `<div class="rc-hint">Nenhum protocolo aguardando re-revisão neste filtro.</div>`}
+    </div>`;
+    const blocos = tumoresGrupo.map(t=>{
+      const todos = porTumor[t]||[];
+      const pend = todos.filter(r=>estadoDe(r.regimen_id).estado==="pendente");
+      const proc = todos.filter(r=>REVC_ESTADOS_PROCESSADOS.includes(estadoDe(r.regimen_id).estado));
+      const novCards = (novPorTumor[t]||[]).map(revcNovidadeCard).join("");
+      const n = pend.length + (novPorTumor[t]||[]).length;
+      if(!n && !proc.length) return "";              // só re-revisão neste tumor → já está na seção de cima
+      const aberta = revcRecolhidaAberta(t);
+      const recolhida = proc.length ? `<div class="rc-recolhida ${aberta?'aberta':''}" data-tumor="${esc(t)}" data-n="${proc.length}">
+          <button class="rc-recolhida-toggle" onclick="toggleRevcRecolhida('${esc(t)}')" title="Aprovadas, contestadas e ajustes já aplicados — nada foi removido, só recolhido">${aberta?"▾":"▸"} ${proc.length} já revisada${proc.length===1?"":"s"} neste tumor</button>
+          ${aberta ? `<div class="rc-recolhida-cards">${proc.map(revcCard).join("")}</div>` : ""}
+        </div>` : "";
+      return `<div class="rc-tumor">${tumorH(t,n)}${novCards}${pend.map(revcCard).join("")}${recolhida}</div>`;
+    }).join("");
+    const nPend = filtrados.filter(r=>estadoDe(r.regimen_id).estado==="pendente").length + novVisiveis.length;
+    const secPend = `<div class="rc-secao rc-secao-pend">
+      <div class="rc-secao-h"><span class="rc-selo rc-pend">Pendente de revisão</span> <span class="rc-secao-n">${nPend}</span>
+        <span class="rc-secao-sub">por tumor; as já revisadas ficam recolhidas na linha de cada tumor</span></div>
+      ${blocos || `<div class="rc-hint">Nenhum protocolo pendente neste filtro.</div>`}
+    </div>`;
+    return secRe + secPend;
+  };
+  const grupos = REVC_VISAO==="tudo" ? gruposTudo() : gruposFila();
   const totalVisiveis = filtrados.length + novVisiveis.length;
   const selOpt=(k,val,label)=>`<option value="${val}" ${F[k]===val?'selected':''}>${label}</option>`;
   // Revisadas do filtro atual (têm parecer gravado) — base do export admin "Baixar revisadas (N)".
@@ -5127,6 +5180,11 @@ function renderRevisaoClinica(){
     <div class="rev-head"><div><h2>Revisão clínica dos protocolos</h2>
       <div class="sub">Os ${regs.length} protocolos validados pelo squad, por tumor. O revisor <b>aprova · contesta · pede ajuste</b> — a decisão sobrepõe a avaliação da evidência (sem apagá-la) e fica atribuída e visível (tumor board assíncrono). Contestação/ajuste leva a <b>natureza</b> (dado | clínico) e a uma <b>ação</b> explícita — <b>refutar · corrigir referência · ajustar elegibilidade · manter e anotar · excluir (erro/duplicata) · outro</b> — que é o que o squad executa; nada destrutivo é deduzido de texto livre. <b>Refutar não apaga</b>: o regime segue visível como não incorporado (prova da completude da avaliação); só <b>excluir</b> tira do corpo, e só para dado errado.</div></div>
       <div class="rev-run">${podeRevisarClinica()?`revisor <b>${esc(USUARIO.nome)}</b>`:`<span class="hint">leitura</span>`}${exportBar}</div></div>
+    <div class="rc-visao" role="tablist" aria-label="Visão da mesa">
+      <button class="rc-visao-b ${REVC_VISAO==='fila'?'on':''}" onclick="setRevcVisao('fila')" title="Re-revisão primeiro, depois pendentes por tumor; as já revisadas ficam recolhidas">Fila de trabalho <span class="rc-visao-tag">padrão</span></button>
+      <button class="rc-visao-b ${REVC_VISAO==='tudo'?'on':''}" onclick="setRevcVisao('tudo')" title="A lista completa, todos os cards abertos — auditoria e conferência">Tudo</button>
+      <span class="rc-visao-help">Filtro de Estado e "Baixar revisadas" valem sobre o conjunto completo nas duas visões.</span>
+    </div>
     <div class="rc-filtros">
       <label>Tumor <select onchange="setRevcFiltro('tumor',this.value)"><option value="todos" ${F.tumor==='todos'?'selected':''}>Todos (${tumores.length})</option>${tumores.map(t=>`<option value="${esc(t)}" ${F.tumor===t?'selected':''}>${esc(tumorNome(t))}</option>`).join("")}</select></label>
       <label>Motivo <select onchange="setRevcFiltro('motivo',this.value)">${selOpt("motivo","todos","Todos")}${MOTIVO_FILTRO_META.map(m=>selOpt("motivo",m.k,m.t+" ("+cntMotivo(m.k)+")")).join("")}</select></label>
@@ -5149,6 +5207,22 @@ function renderRevisaoClinica(){
 .rc-count{margin-left:auto;color:#889;font-weight:600}
 .rc-filtro-help{flex-basis:100%;font-size:11px;color:#8797a5}
 .rc-filtro-help b{color:#667;text-transform:uppercase;font-size:10px;letter-spacing:.3px}
+.rc-visao{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:10px 0 0}
+.rc-visao-b{padding:6px 14px;border:1px solid var(--border,#ccd);background:#fff;border-radius:20px;font-size:13px;font-weight:700;color:#667;cursor:pointer}
+.rc-visao-b.on{background:#1c5e88;color:#fff;border-color:#1c5e88}
+.rc-visao-tag{font-weight:400;font-size:11px;opacity:.8;margin-left:4px}
+.rc-visao-help{font-size:11px;color:#8797a5;margin-left:8px}
+.rc-secao{margin-bottom:22px}
+.rc-secao-h{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;padding:8px 10px;margin-bottom:10px;background:var(--bg-sidebar,#f7f8fa);border-radius:8px;border-left:4px solid #c3d0dc}
+.rc-secao-re .rc-secao-h{border-left-color:#3a5bb3}
+.rc-secao-h .rc-selo{font-size:13px}
+.rc-secao-n{font-weight:800;font-size:15px;color:#334}
+.rc-secao-sub{font-size:12px;color:#667}
+.rc-recolhida{margin:2px 0 6px}
+.rc-recolhida-toggle{background:none;border:1px dashed var(--border,#ccd);border-radius:8px;width:100%;text-align:left;padding:7px 10px;color:#4a6da7;font-size:12.5px;font-weight:600;cursor:pointer}
+.rc-recolhida-toggle:hover{background:#f4f7fa}
+.rc-recolhida.aberta .rc-recolhida-toggle{border-style:solid;margin-bottom:8px}
+.rc-recolhida-cards{padding-left:10px;border-left:3px solid #e3e6ea}
 .rc-tumor{margin-bottom:18px}
 .rc-tumor-h{font-weight:700;font-size:14px;padding:6px 0;border-bottom:2px solid var(--border,#e3e6ea);margin-bottom:8px}
 .rc-tumor-n{color:#889;font-weight:600;font-size:12px}

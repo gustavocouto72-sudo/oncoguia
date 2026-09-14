@@ -126,6 +126,29 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
    - [ ] mudar característica clínica → protocolos re-avaliam **ao vivo** à direita
    - [ ] abrir Revisão → digitar parecer → gravar → aparece atribuído
 
+5b. **Mesa = fila de trabalho (2026-09-14, `portao-b.js` checks B11).** A Revisão clínica
+   abre na visão **Fila de trabalho**: *Aguardando re-revisão* no TOPO (o que trava o
+   ciclo), depois *Pendente* por tumor; as processadas (aprovado/contestado/ajuste) não
+   aparecem expandidas — viram a linha recolhida "▸ N já revisadas neste tumor". É
+   **só apresentação**: nenhum dado, estado ou endpoint mudou, e a visão **Tudo** é a tela
+   de antes, intacta (é nela que os checks de sempre — B10, B6 do parecer, B5.4 — rodam).
+   O portão prova, clicando:
+   - [ ] visão padrão = fila, seção de re-revisão vem antes da de pendentes, e o contador
+         da seção bate com o `REVC_RESUMO` (não com o que a tela quis mostrar);
+   - [ ] **nenhum card processado expandido** na visão padrão; pendentes visíveis =
+         pendentes reais; **soma das linhas recolhidas = processadas reais** (recolhido ≠
+         removido — se a soma não fechar, algo sumiu);
+   - [ ] expandir a linha mostra **exatamente N** cards, todos processados, cada um com
+         selo de estado, pareceres (abrindo, aparece a linha do parecer e a linha recolhida
+         **continua aberta** depois do re-render) e a **nota da revisão** — o check mira o
+         tumor que TEM nota em card processado, para não passar vazio (0 = 0);
+   - [ ] filtro **Estado = aprovado**: o contador de cada linha bate com o filtro por tumor,
+         a soma bate com o "(N)" do próprio select, só aprovados na tela, e
+         `REVC_REVISADAS_FILTRO` (o "Baixar revisadas" do admin) segue o **filtro**, não a
+         visão — mesma contagem em Fila e em Tudo;
+   - [ ] "Tudo": todos os cards abertos, sem seção nem linha recolhida; console limpo ao
+         alternar Fila ⇄ Tudo.
+
 6. **Campo de texto livre não re-renderiza a lista.** Nome do paciente, parecer do revisor, "enviar fonte" (DOI): **digitar não pode re-renderizar a lista nem resetar scroll/foco** (testar com contador de render = 0 durante a digitação). Foi o bug do nome que apagava e o da Revisão que subia.
 
 7. **Fiação.** Frontend e backend na mesma porta/base URL; app e Revisão lendo a mesma fonte. Console (F12) sem erro vermelho no load (CORS, `Failed to fetch`, `null`).
