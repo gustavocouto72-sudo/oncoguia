@@ -1,0 +1,266 @@
+{
+  "placar_por_acao": [
+    {
+      "acao": "manter_anotar",
+      "total": 7,
+      "status": {
+        "executado": 7
+      }
+    },
+    {
+      "acao": "refutar",
+      "total": 1,
+      "status": {
+        "triagem_manual": 1
+      }
+    },
+    {
+      "acao": "outro",
+      "total": 2,
+      "status": {
+        "executado": 2
+      }
+    }
+  ],
+  "resultado": [
+    {
+      "regimen_id": "pancreas-adj-gem-cape-nao-incorporado",
+      "data_decisao": "2026-09-14",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "crc-met-bevacizumabe-1l-nao-incorporado",
+      "data_decisao": "2026-09-14",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "crc-met-regorafenibe-nao-incorporado",
+      "data_decisao": "2026-09-14",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "net-altograu-platina-etoposideo",
+      "data_decisao": "2026-09-14",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "nsclc-adj-io-estagioI-nao-incluido",
+      "data_decisao": "2026-09-14",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "sclc-retratamento-mesmo-esquema",
+      "data_decisao": "2026-09-14",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
+      "data_decisao": "2026-09-14",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
+      "data_decisao": "2026-09-14",
+      "acao": "refutar",
+      "status": "triagem_manual",
+      "nota": "contradição interna (refutar × justificativa a favor); pergunta ao revisor; citação verificada; hash intacto"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-ht-isolada",
+      "data_decisao": "2026-08-16",
+      "acao": "outro",
+      "status": "executado",
+      "nota": "4 regimes novos (anastrozol, letrozol, exemestano, tamoxifeno) com pivôs verificados; card genérico mantido; hash do genérico intacto",
+      "regimes_novos": [
+        "mama-met-hrpos-1l-anastrozol",
+        "mama-met-hrpos-1l-letrozol",
+        "mama-met-hrpos-1l-exemestano",
+        "mama-met-hrpos-1l-tamoxifeno"
+      ]
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+      "data_decisao": "2026-08-16",
+      "acao": "outro",
+      "status": "executado",
+      "nota": "regra já computável (inalterada); eixo elegibilidade re-derivado (hash muda); MCBS 5×4 diverge visível"
+    }
+  ],
+  "triagem_manual": [
+    {
+      "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
+      "acao": "refutar",
+      "motivo": "contradição interna: ação refutar × justificativa a favor",
+      "pergunta_ao_revisor": "manter fora com nota da evidência emergente, ou pedir incorporação?",
+      "citacao_verificada": "10.1200/JCO.2025.43.16_suppl.5601"
+    }
+  ],
+  "regimes_novos": [
+    {
+      "regimen_id": "mama-met-hrpos-1l-anastrozol",
+      "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
+      "selo": "incompleto",
+      "doi": "10.1200/JCO.2000.18.22.3758"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-letrozol",
+      "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
+      "selo": "incompleto",
+      "doi": "10.1200/JCO.2001.19.10.2596"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-exemestano",
+      "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
+      "selo": "incompleto",
+      "doi": "10.1200/JCO.2007.14.4659"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-tamoxifeno",
+      "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
+      "selo": "incompleto",
+      "doi": "10.1200/JCO.2003.04.194"
+    }
+  ],
+  "pareceres_expirados": [
+    {
+      "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+      "decisao": "contestado",
+      "acao": "outro",
+      "data": "2026-08-16",
+      "content_hash_parecer": "8e2c5d0425e4bf3f",
+      "hash_novo": "e726e28ac1bbe812"
+    }
+  ],
+  "ja_expirados_antes": [
+    "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
+    "bexiga-met-erdafitinibe-fgfr",
+    "bexiga-mibc-adj-nivolumabe",
+    "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
+    "gastrico-met-1l-io-qt-cps",
+    "mama-adj-her2neg-act-docetaxel",
+    "mama-adj-her2neg-carbo-paclitaxel",
+    "mama-adj-her2pos-tdm1-katherine",
+    "mama-met-hrpos-2l-sacituzumab-govitecan",
+    "mama-neo-her2pos-ct1c-acth",
+    "mama-neo-her2pos-ct1c-tch",
+    "mama-neo-tnbc-acdd-ct",
+    "penis-adj-tip",
+    "prostata-mcrpc-1l-abiraterona-prednisona",
+    "renal-adj-pembrolizumab",
+    "testiculo-nsgct-eI-bep1",
+    "testiculo-refrataria-paliativo-gemox"
+  ],
+  "amostra_sorteada": [
+    {
+      "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+      "acao": "outro",
+      "texto_revisor": "APROVAR, porém,\n\nCORRIGIR ESMO = 5\n\nElegibilidade: pelo menos 2 linhas de tratamento prévio (uma tem que ser paclitaxel ou docetaxel)",
+      "nota_gravada": {
+        "lote": 3,
+        "data": "2026-08-16",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "acao": "outro",
+        "natureza": "clinico",
+        "eixo": "elegibilidade",
+        "nota": "APROVAR, porém,\n\nCORRIGIR ESMO = 5\n\nElegibilidade: pelo menos 2 linhas de tratamento prévio (uma tem que ser paclitaxel ou docetaxel)",
+        "nota_squad": "Elegibilidade computável (≥2 linhas prévias, ≥1 com taxano) confirmada — a regra já era essa; eixo re-derivado (diverge→re_derivado, mais_estreito que o ASCENT), o que muda o hash (parecer de 16/08 expira por sua própria execução). ESMO-MCBS: revisor 5 × squad 4 fica DIVERGE e visível — não sobrescrito; decisão do Portão C. Selo permanece 'divergencia' por causa do MCBS."
+      },
+      "flag_gravada": "divergencia_revisor:esmo_mcbs — revisor pede 5, squad re-derivou 4 (Form 2a); mantida visível para o Portão C"
+    },
+    {
+      "regimen_id": "crc-met-bevacizumabe-1l-nao-incorporado",
+      "acao": "manter_anotar",
+      "texto_revisor": "A adição de bevacizumabe à quimioterapia no câncer colorretal metastático produz um benefício deresposta objetiva e sobrevida livre de progressão, mas um ganho de sobrevida global mais modesto e inconsistente entre os diferentes esquemas quimioterápicos aos quais é associado",
+      "nota_gravada": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "acao": "manter_anotar",
+        "natureza": "clinico",
+        "eixo": "geral",
+        "nota": "A adição de bevacizumabe à quimioterapia no câncer colorretal metastático produz um benefício deresposta objetiva e sobrevida livre de progressão, mas um ganho de sobrevida global mais modesto e inconsistente entre os diferentes esquemas quimioterápicos aos quais é associado",
+        "nota_squad": "Nota de contexto do revisor; não incorporação mantida; pivô, selo (confirmado) e motivo inalterados."
+      },
+      "flag_gravada": "nota_revisor: bevacizumabe + QT em CCR metastático — ganho de RO e SLP, SG modesta e inconsistente entre esquemas"
+    },
+    {
+      "regimen_id": "net-altograu-platina-etoposideo",
+      "acao": "manter_anotar",
+      "texto_revisor": "Platina + etoposídeo (cisplatina ou carboplatina + etoposídeo) é o esquema de primeira linha padrão para carcinomas neuroendócrinos de alto grau (G3/NEC) gastroenteropancreáticos, extrapolado da experiência em câncer de pulmão de pequenas células, com ORR de aproximadamente 30-42%, SLP mediana de 5,4-6,4 meses e SG mediana de 10,6-19 meses conforme a série. Solicito acrescentar o esquema FOLFOX como segunda linha também. Não existe padrão estabelecido de segunda linha. FOLFOX tem evidência limitada, baseada em série retrospectiva pequena (Hadoux et al.): SLP mediana de 4,5 meses e SG mediana de 9,9 meses em 20 pacientes tratados em 2ª (n=12) ou linhas posteriores (n=8). Notavelmente, dos 9 pacientes que haviam progredido a platina, 3 tiveram resposta parcial e 3 tiveram doença estável — sugerindo resistência cruzada incompleta entre oxaliplatina e cisplatina/carboplatina",
+      "nota_gravada": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "acao": "manter_anotar",
+        "natureza": "clinico",
+        "eixo": "geral",
+        "nota": "Platina + etoposídeo (cisplatina ou carboplatina + etoposídeo) é o esquema de primeira linha padrão para carcinomas neuroendócrinos de alto grau (G3/NEC) gastroenteropancreáticos, extrapolado da experiência em câncer de pulmão de pequenas células, com ORR de aproximadamente 30-42%, SLP mediana de 5,4-6,4 meses e SG mediana de 10,6-19 meses conforme a série. Solicito acrescentar o esquema FOLFOX como segunda linha também. Não existe padrão estabelecido de segunda linha. FOLFOX tem evidência limitada, baseada em série retrospectiva pequena (Hadoux et al.): SLP mediana de 4,5 meses e SG mediana de 9,9 meses em 20 pacientes tratados em 2ª (n=12) ou linhas posteriores (n=8). Notavelmente, dos 9 pacientes que haviam progredido a platina, 3 tiveram resposta parcial e 3 tiveram doença estável — sugerindo resistência cruzada incompleta entre oxaliplatina e cisplatina/carboplatina",
+        "nota_squad": "Nota do revisor incorporada (platina+etoposídeo como 1ª linha padrão em NEC G3, extrapolado do SCLC; RO ~30–42%, SLP 5,4–6,4 m, SG 10,6–19 m). ATENÇÃO: o texto embute um PEDIDO DE REGIME NOVO ('acrescentar FOLFOX como 2ª linha', Hadoux 2015 — DOI 10.1530/ERC-15-0075 resolve no Crossref) que NÃO foi executado: a ação registrada é manter_anotar, e regime novo nunca é deduzido de texto livre. Pendência aberta em re_revisao para o revisor confirmar como ação própria."
+      },
+      "flag_gravada": "nota_revisor: platina+etoposídeo = 1ª linha padrão em NEC G3 (extrapolação do SCLC); sem padrão de 2ª linha — FOLFOX com evidência retrospectiva pequena (Hadoux 2015, n=20: SLP 4,5 m, SG 9,9 m; respostas mesmo pós-platina)"
+    }
+  ],
+  "re_revisao": [
+    {
+      "regimen_id": "net-altograu-platina-etoposideo",
+      "item": "folfox_2l_nec_regime_novo",
+      "descricao": "O parecer manter_anotar de 14/09 pede 'acrescentar FOLFOX como 2ª linha' (Hadoux 2015, série retrospectiva n=20). Regime novo não se cria a partir de manter_anotar: se o revisor confirmar, entra como ação própria (outro/regime novo) num lote seguinte, com selo incompleto honesto (evidência retrospectiva).",
+      "status": "aberto",
+      "data": "2026-09-15"
+    },
+    {
+      "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
+      "item": "motivo_nao_inclusao_pos_dellphi304",
+      "descricao": "DeLLphi-304 (fase 3, SG positiva) verificado e anexado como referência complementar. O motivo registrado no card ('MCBS 2, baixa qualidade de evidência — DeLLphi-301') não descreve mais a evidência; o revisor argumenta custo. Confirmar se o motivo passa a 'custo' e se GRADE/ESMO devem ser re-derivados do fase 3 (isso muda o hash).",
+      "status": "aberto",
+      "data": "2026-09-15"
+    },
+    {
+      "regimen_id": "mama-met-hrpos-1l-{anastrozol,letrozol,exemestano,tamoxifeno}",
+      "item": "fragilidade_e_menopausa_ht_isolada",
+      "descricao": "Quatro regimes novos de HT isolada 1ª linha. Abertos para o revisor: (1) 'fragilidade' não virou regra — quer um primitivo de julgamento clínico (como alto_risco_clinico) ou um corte (ECOG/idade)?; (2) tamoxifeno ficou sem restrição menopausal (mais_amplo que os pivôs) — confirmar; (3) IA exigem menopausa=pos — pré-menopausa com supressão ovariana ficou fora (sem primitivo); (4) ESMO-MCBS não graduado (ensaios pré-escala) — o revisor pode graduar.",
+      "status": "aberto",
+      "data": "2026-09-15"
+    },
+    {
+      "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+      "item": "esmo_mcbs_5_vs_4",
+      "descricao": "Revisor pede ESMO-MCBS 5; squad re-derivou 4 (Form 2a, SG do controle <12 m limita a 4; análise ESMO de ADCs = 4). Eixo mantido 'diverge' e visível. O revisor decide: manter 5 como decisão clínica documentada (o intake grava com status decisao_revisor) ou aceitar 4.",
+      "status": "aberto",
+      "data": "2026-09-15"
+    }
+  ],
+  "placar_selo": {
+    "re_derivado": 178,
+    "incompleto": 57,
+    "divergencia": 19,
+    "confirmado": 46
+  },
+  "total_regimes": 300,
+  "hashes_mudaram": [
+    "mama-met-tnbc-3l-sacituzumab-ascent"
+  ],
+  "aprovados": 65,
+  "aprovados_decisao_revisao_flip": 65,
+  "verificacao_dellphi304": {
+    "doi": "10.1056/NEJMoa2502099",
+    "pmid": "40454646",
+    "citacao": "MOUNTZIOS G, Sun L, Cho BC, et al; DeLLphi-304 Investigators. Tarlatamab in Small-Cell Lung Cancer after Platinum-Based Chemotherapy. N Engl J Med. 2025;393(4):349-361.",
+    "abstract": "n=509 (254 tarlatamabe, 255 QT: topotecano, lurbinectedina ou amrubicina), 2ª linha após progressão durante/depois de platina; análise interina pré-especificada (corte 29/01/2025): SG mediana 13,6 (IC95% 11,1–NA) vs 8,3 meses (7,0–10,2), HR estratificado 0,60 (IC95% 0,47–0,77; p<0,001); benefício significativo em PFS e em dispneia/tosse relacionadas ao câncer; EA grau ≥3 54% vs 80%; descontinuação por EA 5% vs 12%.",
+    "confere_com_revisor": "n=509; SG 13,6 vs 8,3 m; HR 0,60 (0,47–0,77); p<0,001 — SIM. PFS/RO citados pelo revisor não constam do abstract. Custo-efetividade citada não verificada."
+  }
+}

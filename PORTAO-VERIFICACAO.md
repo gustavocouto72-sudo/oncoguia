@@ -134,6 +134,20 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
    indeterminado da composição cair abaixo de 30%: placar bonito ali quase sempre
    significa que alguém escolheu por conta própria entre duas drogas.
 
+4. **Intake só termina quando o backend marca aplicadas.** Executar a decisão no run e
+   publicar o run é metade do ciclo; a outra metade é carimbar `revisoes.aplicada_em` no
+   backend (mesmo mecanismo do lote 1: migration com backfill por `regimen_id` + `acao` +
+   janela de `criado_em`). **O lote 2 pulou isso e o export ficou sujo:** em 15/09 o
+   `/revisao/export` mostrou 17 decisões de 12–13/09 como `triada_pendente_execucao` (e 10
+   em `aguardando_re_revisao` sem `aplicada_em`) que já estavam executadas e no ar desde
+   13/09 — a fila de trabalho do intake seguinte nasceu misturada com o já feito, e a
+   reconciliação teve que provar regime a regime, no corpus ativo, que a execução estava lá
+   antes de marcar. Regra: o relatório de um intake lista **quais decisões receberam
+   `aplicada_em` e em que data**; se a marcação não pôde rodar (backend ocupado por outra
+   frente), a migration fica pronta no run (`backend-pendente/`) e o intake é reportado como
+   **aberto**, não como concluído. `aplicada_em` só se carimba depois que a execução está
+   **publicada** (RUN_ATIVO + build-data + restart), nunca num run só em disco.
+
 ---
 
 ## Portão B — APP (código)
@@ -611,6 +625,14 @@ conta de robô tem de ser reconhecível à primeira vista numa auditoria de aces
   **removido antes de submeter** a próxima: sem isso a espera lia o 429 velho e dormia mais
   60s enquanto a app, já logada, tinha trocado de tela por baixo dela. Portão que falha
   pelo motivo errado ensina a ignorar portão.
+
+**Estado em 2026-09-15 (publicação do lote 3):** RUN_ATIVO → `2026-09-15-intake-revisao-3/v1`
+(300 regimes). Portão A no ativo exit 0 (46/46 DOIs de confirmado resolvem no Crossref) ·
+`portao-b` 89 (tudo passou) · fluxos do README-lote3 clicados (4 regimes novos de HT isolada
+no simulador e na ficha; ASCENT diverge; nota do revisor no card). Migrations `AplicadaEmLote2`
+(blocos A+B, 27) e `AplicadaEmLote3` (9) instaladas; sobre o export de produção alcançam
+27/27 e 9/9, sobrando só o dostarlimabe (triagem manual) — o intake do lote 3 fecha quando
+o deploy carimbar isso em produção.
 
 **Estado em 2026-09-14 (perfil secretaria):** `portao-secretaria` 93/93 (duas execuções
 seguidas, lista de checks idêntica) · `portao-perfis` 52/52 · `portao-retorno` 86/86 ·
