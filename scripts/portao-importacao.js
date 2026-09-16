@@ -27,6 +27,18 @@
 //    validação na ficha (linhas editáveis, trecho, pré-visualização do semáforo da APP
 //    igual ao veredito do SERVIDOR), Validar → painel some, ficha igual à do #80 (nota
 //    ⚠️, snapshot, vigente); Descartar… com motivo pela tela.
+//  LISTA DE PROBLEMAS (2026-09-16): comorbidades · medicações em uso · alergias.
+//    API: PATCH /pacientes/:id/lista-problemas é 403 para secretaria e revisor (whitelist
+//    literal), 200 para o oncologista; item manual nasce com origem "registro manual";
+//    duplicata 409; remover o que não está 404; cada mudança deixa evento 'lista_problemas'
+//    na trilha (+item / −item); a ficha e os eventos da SECRETARIA não trazem nada disso.
+//    A proposta carrega as três listas (com trecho); a VALIDAÇÃO — inclusive com a lista
+//    editada no painel — grava na ficha com origem "importação (evolução de 28/08/2026)"
+//    assinada pelo validador, e deixa o evento na trilha. UI: formulário da secretaria
+//    com as três listas (digitação sem re-render; JSON carrega); painel do oncologista com
+//    "Lista de problemas proposta" (× tira, + acrescenta, 0 render); ficha com a faixa
+//    (chips, tooltip com origem/data; vazio = "— nenhuma registrada —"; + e × só para
+//    oncologista/admin, × pede confirmação; revisor só lê).
 //  Limpeza: apaga pacientes (cascata leva propostas) e a usuária; relê a carteira.
 //
 // NÃO ENCADEIE com outro portão sem ~1 min de janela: login é 5/min por IP e este portão
@@ -80,20 +92,43 @@ const PROPOSTA_JMGM = {
     historico: 'PSA ao diagnóstico 10,24 (pré-prostatectomia, 2020); PSA atual 0,02.',
     protocolo_texto: 'Enzalutamida 160 mg VO 1x/dia + ADT',
   },
+  // Lista de problemas como o prontuário do J.M.G.M. traz (com o trecho de cada item).
+  lista_problemas: {
+    comorbidades: [
+      { texto: 'HAS', trecho: 'Comorbidades : HAS' },
+      { texto: 'DM (descompensação grave dez/25)', trecho: 'Descompensação grave de DM' },
+      { texto: 'IAM antigo (parede inferior)', trecho: 'ECG com sinais de IAM antigo' },
+    ],
+    medicacoes_uso: [
+      { texto: 'Anlodipino 5 mg 24/24h', trecho: 'Anlodipino - 5 mg - 24 em 24 horas' },
+      { texto: 'Omeprazol 20 mg (2ª, 4ª e 6ª)', trecho: 'Omeprazol - 2ª, 4ª e 6ª - 20 mg' },
+    ],
+    alergias: [
+      { texto: 'Nega alergias conhecidas', trecho: 'Nega ou Desconhece a existência de Alergias' },
+    ],
+  },
 };
+const ORIGEM_IMP = 'importação (evolução de 28/08/2026)';
+const lpTextos = (lp, k) => ((lp && lp[k]) || []).map(i => i.texto);
 const NOTA_INICIO = 'Importação retroativa — tratamento em curso desde 16/01/2026, decisão original da equipe assistente (evolução de 28/08/2026); registro criado na importação.';
 
 const R = [];
 const ok = (n, c, x) => { R.push([c, n, x]); console.log((c ? 'PASS' : 'FAIL') + '  ' + n + (x ? '  [' + String(x).slice(0, 200) + ']' : '')); };
 
+// 429 = o teto de 60 req/min por IP fazendo o trabalho dele, não defeito do código sob
+// teste: espera a janela e repete (até 3×). Sem isto, um portão que cresce vira vermelho
+// por densidade de chamadas — e vermelho que não é do código ensina a ignorar portão.
 async function req(metodo, rota, tk, body) {
-  const r = await fetch(API + rota, {
-    method: metodo,
-    headers: Object.assign(tk ? { Authorization: 'Bearer ' + tk } : {}, body ? { 'Content-Type': 'application/json' } : {}),
-    body: body ? JSON.stringify(body) : undefined,
-  });
-  let j = null; try { j = await r.json(); } catch (_) { }
-  return { status: r.status, body: j };
+  for (let i = 0; ; i++) {
+    const r = await fetch(API + rota, {
+      method: metodo,
+      headers: Object.assign(tk ? { Authorization: 'Bearer ' + tk } : {}, body ? { 'Content-Type': 'application/json' } : {}),
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    if (r.status === 429 && i < 3) { console.log(`      (429 em ${metodo} ${rota} — esperando 20 s)`); await new Promise(x => setTimeout(x, 20000)); continue; }
+    let j = null; try { j = await r.json(); } catch (_) { }
+    return { status: r.status, body: j };
+  }
 }
 const clone = o => JSON.parse(JSON.stringify(o));
 const camposDe = pl => Object.fromEntries((pl.campos || []).map(c => [c.campo, c.valor]));
@@ -208,10 +243,15 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
       && plOnco.campos.every(c => (PROPOSTA_JMGM.campos.find(x => x.campo === c.campo) || {}).trecho === c.trecho)
       && plOnco.regimen_id === RID_VERDE && plOnco.meta.medico_assistente_texto === MEDICA && plOnco.meta.sem_campo.length === 4,
       JSON.stringify(plOnco && camposDe(plOnco)));
+    ok('S2 ★ o payload carrega a LISTA DE PROBLEMAS proposta: 3 comorbidades, 2 medicações, 1 alergia, cada item com o trecho',
+      !!plOnco && !!plOnco.lista_problemas && lpTextos(plOnco.lista_problemas, 'comorbidades').join('|') === 'HAS|DM (descompensação grave dez/25)|IAM antigo (parede inferior)'
+      && lpTextos(plOnco.lista_problemas, 'medicacoes_uso').length === 2 && lpTextos(plOnco.lista_problemas, 'alergias').join() === 'Nega alergias conhecidas'
+      && plOnco.lista_problemas.comorbidades[0].trecho === 'Comorbidades : HAS', JSON.stringify(plOnco && plOnco.lista_problemas).slice(0, 200));
     const fichaAntes = await req('GET', `/pacientes/${p1}`, tkOnco);
     const avAntes = await req('GET', `/pacientes/${p1}/avaliacoes`, tkOnco);
-    ok('S3 ★ NADA clínico entrou no paciente pela proposta: tumor null, valores_estaveis vazios, 0 avaliações, sem retorno',
-      fichaAntes.body.tumor === null && Object.keys(fichaAntes.body.valores_estaveis || {}).length === 0 && (avAntes.body || []).length === 0 && fichaAntes.body.retorno.proximo === null,
+    ok('S3 ★ NADA clínico entrou no paciente pela proposta: tumor null, valores_estaveis vazios, 0 avaliações, sem retorno, listas de problemas vazias',
+      fichaAntes.body.tumor === null && Object.keys(fichaAntes.body.valores_estaveis || {}).length === 0 && (avAntes.body || []).length === 0 && fichaAntes.body.retorno.proximo === null
+      && Array.isArray(fichaAntes.body.comorbidades) && fichaAntes.body.comorbidades.length === 0 && fichaAntes.body.medicacoes_uso.length === 0 && fichaAntes.body.alergias.length === 0,
       JSON.stringify({ tumor: fichaAntes.body.tumor, ve: fichaAntes.body.valores_estaveis, av: (avAntes.body || []).length }));
     const listaO = await req('GET', '/pacientes', tkOnco);
     const listaS = await req('GET', '/pacientes', tkSec);
@@ -228,6 +268,40 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
       && (await req('POST', `/pacientes/${p1}/importacao-proposta`, tkOnco, PROPOSTA_JMGM)).status === 403);
     const dup = await req('POST', `/pacientes/${p1}/importacao-proposta`, tkSec, PROPOSTA_JMGM);
     ok('S5 ★ segunda proposta pendente para o mesmo paciente = 409', dup.status === 409 && /pendente/.test(dup.body.message || ''), `${dup.status} ${dup.body && dup.body.message}`);
+    // --- LISTA DE PROBLEMAS: whitelist, adição/remoção manual, evento, secretaria às cegas ---
+    const LP = `/pacientes/${p1}/lista-problemas`;
+    ok('L1 ★★ PATCH lista-problemas: SECRETARIA = 403 e REVISOR = 403 (whitelist literal oncologista/admin — dado clínico)',
+      (await req('PATCH', LP, tkSec, { lista: 'comorbidades', adicionar: ['HAS'] })).status === 403
+      && (await req('PATCH', LP, tkRev, { lista: 'comorbidades', adicionar: ['HAS'] })).status === 403);
+    const lpAdd = await req('PATCH', LP, tkOnco, { lista: 'medicacoes_uso', adicionar: ['AAS 100 mg'] });
+    const itemAas = lpAdd.body && (lpAdd.body.medicacoes_uso || []).find(i => i.texto === 'AAS 100 mg');
+    ok('L2 ★ oncologista adiciona "AAS 100 mg" em medicações = 200; item com origem "registro manual", autor = oncologista, data do servidor; as outras listas vêm vazias',
+      lpAdd.status === 200 && !!itemAas && itemAas.origem === 'registro manual' && itemAas.registrado_por && itemAas.registrado_por.nome === NOME_ONCO && /^\d{4}-\d{2}-\d{2}T/.test(itemAas.em || '')
+      && Array.isArray(lpAdd.body.comorbidades) && lpAdd.body.comorbidades.length === 0 && lpAdd.body.alergias.length === 0, JSON.stringify(lpAdd.body && lpAdd.body.medicacoes_uso));
+    ok('L2 ★ o PATCH devolve o evento administrativo criado: tipo lista_problemas, nota "Lista de problemas atualizada por <oncologista>: medicações em uso +AAS 100 mg"',
+      !!lpAdd.body.evento && lpAdd.body.evento.tipo === 'lista_problemas' && lpAdd.body.evento.nota === `Lista de problemas atualizada por ${NOME_ONCO}: medicações em uso +AAS 100 mg`, lpAdd.body.evento && lpAdd.body.evento.nota);
+    ok('L3 duplicata (mesmo texto, outra caixa) = 409; lista inexistente = 400; remover o que não está = 404; item vazio = 400',
+      (await req('PATCH', LP, tkOnco, { lista: 'medicacoes_uso', adicionar: ['aas 100 mg'] })).status === 409
+      && (await req('PATCH', LP, tkOnco, { lista: 'exames', adicionar: ['x'] })).status === 400
+      && (await req('PATCH', LP, tkOnco, { lista: 'alergias', remover: ['Dipirona'] })).status === 404
+      && (await req('PATCH', LP, tkOnco, { lista: 'alergias', adicionar: ['  '] })).status === 400);
+    const lpRem = await req('PATCH', LP, tkOnco, { lista: 'medicacoes_uso', remover: ['AAS 100 mg'] });
+    ok('L4 ★ remover "AAS 100 mg" = 200, lista volta vazia, evento com "−AAS 100 mg"',
+      lpRem.status === 200 && lpRem.body.medicacoes_uso.length === 0 && !!lpRem.body.evento && /medicações em uso −AAS 100 mg$/.test(lpRem.body.evento.nota), lpRem.body.evento && lpRem.body.evento.nota);
+    const trLp = await req('GET', `/pacientes/${p1}/trilha`, tkOnco);
+    const evsLp = (trLp.body.itens || []).filter(i => i.tipo === 'administrativo' && i.evento === 'lista_problemas');
+    ok('L4 ★★ trilha: os DOIS eventos (adição e remoção) estão lá, append-only, assinados pelo oncologista — a lista mudou, o rastro ficou',
+      evsLp.length === 2 && evsLp.some(e => /\+AAS 100 mg/.test(e.nota)) && evsLp.some(e => /−AAS 100 mg/.test(e.nota)) && evsLp.every(e => e.por && e.por.nome === NOME_ONCO), JSON.stringify(evsLp.map(e => e.nota)));
+    const lpGenerico = await req('PATCH', `/pacientes/${p1}`, tkOnco, { comorbidades: [{ texto: 'HACK', origem: 'x' }] });
+    const fichaGen = await req('GET', `/pacientes/${p1}`, tkOnco);
+    ok('L5 o PATCH genérico do cadastro NÃO escreve nas listas (chave fora do DTO é descartada): comorbidades continua []',
+      lpGenerico.status === 200 && Array.isArray(fichaGen.body.comorbidades) && fichaGen.body.comorbidades.length === 0, JSON.stringify(fichaGen.body.comorbidades));
+    const fichaSecLp = await req('GET', `/pacientes/${p1}`, tkSec);
+    ok('L6 ★★ SECRETARIA às cegas: a ficha dela NÃO traz comorbidades/medicacoes_uso/alergias nem os eventos de lista de problemas (só reagendamento/contato)',
+      fichaSecLp.status === 200 && !('comorbidades' in fichaSecLp.body) && !('medicacoes_uso' in fichaSecLp.body) && !('alergias' in fichaSecLp.body)
+      && (fichaSecLp.body.eventos_administrativos || []).every(e => e.tipo !== 'lista_problemas') && !JSON.stringify(fichaSecLp.body).includes('AAS 100 mg'),
+      JSON.stringify(Object.keys(fichaSecLp.body)));
+
     // --- 400s: vocabulário e tipos ---
     const c2 = await req('POST', '/pacientes', tkSec, { nome: NOME(2), identificador: IDENT(2), sexo: 'M' });
     const p2 = c2.body && c2.body.id; if (p2) pacientes.push(p2);
@@ -241,13 +315,21 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     const enumR = await req('POST', `/pacientes/${p2}/importacao-proposta`, tkSec, enumRuim);
     const dataRuim = clone(PROPOSTA_JMGM); dataRuim.meta = { data_evolucao: '28/08/2026' };
     const dataR = await req('POST', `/pacientes/${p2}/importacao-proposta`, tkSec, dataRuim);
+    const lpRuim = clone(PROPOSTA_JMGM); lpRuim.lista_problemas = { comorbidades: [{ texto: '' }] };
+    const lpRuimR = await req('POST', `/pacientes/${p2}/importacao-proposta`, tkSec, lpRuim);
+    const lpRep = clone(PROPOSTA_JMGM); lpRep.lista_problemas = { alergias: [{ texto: 'Dipirona' }, { texto: 'dipirona' }] };
+    const lpRepR = await req('POST', `/pacientes/${p2}/importacao-proposta`, tkSec, lpRep);
+    ok('S6 ★ lista de problemas na proposta: item sem texto = 400; repetido na mesma lista = 400', lpRuimR.status === 400 && lpRepR.status === 400, `${lpRuimR.status}/${lpRepR.status}`);
     ok('S6 ★ 400 em: campo fora do vocabulário · booleano como string · protocolo de outro tumor · enum fora das opções · data fora do ISO',
       semNome.status === 400 && /vocabulário/.test(semNome.body.message) && boolRuim.status === 400 && /booleano/.test(boolRuim.body.message)
       && regRuim.status === 400 && /mama/.test(regRuim.body.message) && enumR.status === 400 && dataR.status === 400,
       `${semNome.status}/${boolRuim.status}/${regRuim.status}/${enumR.status}/${dataR.status}`);
 
     // --- validação VERDE com correção (gleason 9 → 8) ---
-    const val = await req('POST', `/importacao-propostas/${prop1Id}/validar`, tkOnco, { campos: { gleason: 8 } });
+    // Lista editada no painel: tira o IAM (o médico não confirmou) e acrescenta DLP (sem trecho).
+    const LP_EDITADA = clone(PROPOSTA_JMGM.lista_problemas);
+    LP_EDITADA.comorbidades = LP_EDITADA.comorbidades.filter(i => !/IAM/.test(i.texto)).concat([{ texto: 'DLP' }]);
+    const val = await req('POST', `/importacao-propostas/${prop1Id}/validar`, tkOnco, { campos: { gleason: 8 }, lista_problemas: LP_EDITADA });
     const av = val.body && val.body.avaliacao;
     ok('V1 ★★ validar (oncologista) = 201, semáforo do SERVIDOR elegível, vigente = true, avaliação criada',
       val.status === 201 && val.body.vigente === true && val.body.semaforo && val.body.semaforo.semaforo === 'elegivel' && !!av && av.autorizacao_estado === 'nao_necessaria' && av.regimen_id === RID_VERDE,
@@ -270,6 +352,15 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     ok('V2 ★ ficha depois da validação = padrão do #80: tumor próstata, valores_estaveis com o gleason CORRIGIDO, vigente = Enzalutamida, agenda 25/09/2026, reestadiamento agendado',
       ficha1.body.tumor === TUMOR && ficha1.body.sistema === 'gu' && ficha1.body.valores_estaveis.gleason === 8 && ficha1.body.ultima_avaliacao && ficha1.body.ultima_avaliacao.id === av.id
       && ficha1.body.retorno.proximo === '2026-09-25' && !!ficha1.body.reestadiamento.proximo, JSON.stringify({ t: ficha1.body.tumor, ve: ficha1.body.valores_estaveis, ret: ficha1.body.retorno }));
+    const lpF = { c: ficha1.body.comorbidades || [], m: ficha1.body.medicacoes_uso || [], a: ficha1.body.alergias || [] };
+    ok('V2 ★★ LISTA DE PROBLEMAS gravada pela validação — a EDITADA (sem IAM, com DLP): comorbidades HAS · DM · DLP, medicações 2, alergias "Nega alergias conhecidas"',
+      lpF.c.map(i => i.texto).join('|') === 'HAS|DM (descompensação grave dez/25)|DLP' && lpF.m.length === 2 && lpF.a.map(i => i.texto).join() === 'Nega alergias conhecidas',
+      JSON.stringify({ c: lpF.c.map(i => i.texto), m: lpF.m.map(i => i.texto), a: lpF.a.map(i => i.texto) }));
+    ok(`V2 ★★ cada item com origem "${ORIGEM_IMP}", assinado pelo VALIDADOR (oncologista), com data`,
+      [...lpF.c, ...lpF.m, ...lpF.a].every(i => i.origem === ORIGEM_IMP && i.registrado_por && i.registrado_por.nome === NOME_ONCO && !!i.em), JSON.stringify(lpF.c[0]));
+    ok('V2 ★ resultado da validação relata o que entrou nas listas (lista_problemas: origem + textos por lista)',
+      !!val.body.lista_problemas && val.body.lista_problemas.origem === ORIGEM_IMP && (val.body.lista_problemas.comorbidades || []).includes('DLP') && (val.body.lista_problemas.medicacoes_uso || []).length === 2, JSON.stringify(val.body.lista_problemas));
+    ok('V2 a nota de importação NÃO repete o que foi para as listas (sem_campo segue com o que a proposta mandou em sem_campo)', !/HAS|Anlodipino/.test(av.detalhe_semaforo.ressalva));
     const g2 = await req('GET', `/pacientes/${p1}/importacao-proposta`, tkOnco);
     ok('V3 proposta agora validada, com quem/quando e o resultado (vigente, avaliacao_id, retorno_id)',
       g2.body.proposta.estado === 'validada' && g2.body.proposta.validada_por && g2.body.proposta.validada_por.nome === NOME_ONCO && !!g2.body.proposta.decidida_em
@@ -282,6 +373,9 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
       !!itProp && itProp.estado === 'validada' && itProp.por && itProp.por.nome === NOME_S && itProp.por.perfil === 'secretaria' && itProp.decidida_por && itProp.decidida_por.nome === NOME_ONCO && itProp.resultado.vigente === true
       && (tr1.body.itens || []).some(i => i.tipo === 'avaliacao' && i.id === av.id && i.por.nome === NOME_ONCO) && (tr1.body.itens || []).some(i => i.tipo === 'retorno' && i.id === ret.id),
       JSON.stringify(tr1.body.itens.map(i => i.tipo + (i.evento ? '/' + i.evento : ''))));
+    const evVal = (tr1.body.itens || []).find(i => i.evento === 'lista_problemas' && /\+DLP/.test(i.nota || ''));
+    ok('V4 ★ trilha: a validação deixou UM evento lista_problemas com as três listas (+HAS … +DLP; medicações +Anlodipino …; alergias +Nega …), assinado pelo validador',
+      !!evVal && /comorbidades \+HAS/.test(evVal.nota) && /medicações em uso \+Anlodipino/.test(evVal.nota) && /alergias \+Nega alergias/.test(evVal.nota) && evVal.por.nome === NOME_ONCO, evVal && evVal.nota);
     const reval = await req('POST', `/importacao-propostas/${prop1Id}/validar`, tkOnco, {});
     ok('V5 validar de novo = 409 (decisão única)', reval.status === 409, String(reval.status));
 
@@ -319,6 +413,12 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     const valOk = await req('POST', `/importacao-propostas/${prOk.body.id}/validar`, tkOnco, { campos: { quimio_naive: true } });
     ok('N4 ★ mesma proposta com o validador informando quimio_naive = true → verde, vigente (a correção destrava o semáforo)',
       valOk.status === 201 && valOk.body.vigente === true && valOk.body.avaliacao && valOk.body.avaliacao.snapshot_campos.quimio_naive === true && valOk.body.avaliacao.regimen_id === RID_MCRPC, `${valOk.status} ${valOk.body && valOk.body.motivo}`);
+    // P2 recebeu 4 propostas com a MESMA lista de problemas (clone do J.M.G.M.): as listas
+    // da ficha têm cada item UMA vez — revalidar não duplica, e não dá erro.
+    const ficha2b = await req('GET', `/pacientes/${p2}`, tkOnco);
+    ok('N5 ★ quatro validações com a mesma lista de problemas → cada item UMA vez na ficha (sem duplicata, sem erro); e as que já estavam lá não entram no relato da última',
+      (ficha2b.body.comorbidades || []).map(i => i.texto).join('|') === 'HAS|DM (descompensação grave dez/25)|IAM antigo (parede inferior)' && (ficha2b.body.medicacoes_uso || []).length === 2 && (ficha2b.body.alergias || []).length === 1
+      && (valOk.body.lista_problemas.comorbidades || []).length === 0, JSON.stringify((ficha2b.body.comorbidades || []).map(i => i.texto)));
 
     // --- descarte em P3 ---
     const c3 = await req('POST', '/pacientes', tkSec, { nome: NOME(3), identificador: IDENT(3), sexo: 'M' });
@@ -388,8 +488,12 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     await ps.evaluate(() => document.getElementById('imp_prox_retorno').dispatchEvent(new Event('change')));
     await ps.type('#imp_medico', MEDICA, { delay: 3 });
     await ps.type('#imp_sem_campo', 'N0\nprostatectomia = sim', { delay: 3 });
+    ok('U3 ★ formulário da secretaria tem as três listas de problemas (Comorbidades · Medicações em uso · Alergias)',
+      !!(await ps.$('#imp_lp_comorbidades')) && !!(await ps.$('#imp_lp_medicacoes_uso')) && !!(await ps.$('#imp_lp_alergias')));
+    await ps.type('#imp_lp_comorbidades', 'HAS\nDM2', { delay: 3 });
     const rcDig = await lerContador(ps);
-    ok('U3 ★ digitar trecho, médica e sem_campo: 0 re-render e os textos íntegros', rcDig === rc0 && (await ps.inputValue('#trecho_met')) === trechoTxt && (await ps.inputValue('#imp_medico')) === MEDICA, `renders=${rcDig - rc0}`);
+    ok('U3 ★ digitar trecho, médica, sem_campo e comorbidades: 0 re-render e os textos íntegros', rcDig === rc0 && (await ps.inputValue('#trecho_met')) === trechoTxt && (await ps.inputValue('#imp_medico')) === MEDICA
+      && (await ps.inputValue('#imp_lp_comorbidades')) === 'HAS\nDM2' && (await ps.evaluate(() => IMP.lp_txt.comorbidades === 'HAS\nDM2')), `renders=${rcDig - rc0}`);
     const estado = await ps.evaluate(() => JSON.stringify({ c: IMP.campos, t: IMP.trechos, r: IMP.regimen_id, m: IMP.meta }));
     ok('U3 o estado do rascunho reflete a tela (booleanos explícitos, números, trecho, meta)',
       /"metastatico":true/.test(estado) && /"convulsao_previa":false/.test(estado) && /"gleason":9/.test(estado) && /"psa":0.02/.test(estado) && estado.includes(trechoTxt) && estado.includes(RID_VERDE) && /"data_evolucao":"2026-08-28"/.test(estado), estado.slice(0, 200));
@@ -401,6 +505,9 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     await ps.waitForFunction(() => IMP && IMP.campos && IMP.campos.estadio_t === 'T3b', null, { timeout: 5000 });
     ok('U4 ★ "colar JSON de proposta" carrega tumor, protocolo, campos e meta no formulário (estadio_t T3b, 8 campos, 4 sem_campo)',
       await ps.evaluate(a => IMP.tumor === 'prostata' && IMP.regimen_id === a && Object.keys(IMP.campos).length === 8 && IMP.trechos.gleason === 'Gleason 9 (4+5)' && IMP.meta.sem_campo.split('\n').length === 4 && document.getElementById('imp_regime').value === a, RID_VERDE));
+    ok('U4 ★ … e a lista de problemas do JSON (3 comorbidades, 2 medicações, 1 alergia) — textareas preenchidas, trechos guardados por item',
+      await ps.evaluate(() => document.getElementById('imp_lp_comorbidades').value.split('\n').length === 3 && document.getElementById('imp_lp_medicacoes_uso').value.split('\n').length === 2
+        && document.getElementById('imp_lp_alergias').value === 'Nega alergias conhecidas' && IMP.lp_trechos.comorbidades['HAS'] === 'Comorbidades : HAS'));
     await ps.click('button:has-text("Cadastrar e enviar proposta")');
     await ps.waitForFunction(() => view === 'paciente' && current && IMP_PROP[current] && IMP_PROP[current].estado === 'pendente', null, { timeout: 25000 });
     const p4 = await ps.evaluate(() => current); if (p4) pacientes.push(p4);
@@ -414,6 +521,10 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     ok('U5 ★ o servidor recebeu o envelope do formulário: 8 campos com trecho, protocolo, meta e sem_campo',
       gp4.body.proposta.estado === 'pendente' && pl4.regimen_id === RID_VERDE && pl4.campos.length === 8 && pl4.campos.find(c => c.campo === 'gleason').trecho === 'Gleason 9 (4+5)' && pl4.meta.sem_campo.length === 4 && pl4.sistema === 'gu' && pl4.linha_tratamento === 1,
       JSON.stringify(camposDe(pl4)));
+    ok('U5 ★ … com a lista de problemas do formulário (3/2/1) e o trecho de cada item preservado da carga do JSON',
+      !!pl4.lista_problemas && lpTextos(pl4.lista_problemas, 'comorbidades').length === 3 && lpTextos(pl4.lista_problemas, 'medicacoes_uso').length === 2 && lpTextos(pl4.lista_problemas, 'alergias').length === 1
+      && pl4.lista_problemas.medicacoes_uso[0].trecho === 'Anlodipino - 5 mg - 24 em 24 horas', JSON.stringify(pl4.lista_problemas).slice(0, 160));
+    ok('U5 ★ ficha da secretaria NÃO tem a faixa de lista de problemas (dado clínico)', !htmlF4.includes('lp-faixa') && !htmlF4.includes('lp-chip'));
     await ps.evaluate(() => carregarPacientes().then(() => { view = 'lista'; render(); }));
     await ps.waitForSelector('tbody tr', { timeout: 25000 });
     const linha4 = await ps.evaluate(n => { const tr = Array.from(document.querySelectorAll('tbody tr')).find(x => x.textContent.includes(n)); return tr ? tr.textContent : ''; }, NOME(4));
@@ -460,6 +571,19 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     await po.fill('#impv_linha', '2');
     const rcO = await lerContador(po);
     ok('O4 corrigir gleason (9 → 8) e linha (1 → 2) no painel: 0 re-render, estado atualizado', rcO === 0 && (await po.evaluate(() => IMP_VAL.valores.gleason === 8 && String(IMP_VAL.linha) === '2')), `renders=${rcO}`);
+    // Seção "Lista de problemas proposta": itens + trechos; × tira, + acrescenta — tudo sem render global.
+    const txtLp = await po.evaluate(() => (document.getElementById('imp-lp') || {}).innerText || '');
+    ok('O4 ★★ painel tem "Lista de problemas proposta" com os itens e os trechos (HAS “Comorbidades : HAS”, Anlodipino, Nega alergias)',
+      /Lista de problemas proposta/i.test(txtLp) && /HAS/.test(txtLp) && /Comorbidades : HAS/.test(txtLp) && /Anlodipino 5 mg/.test(txtLp) && /Nega alergias conhecidas/.test(txtLp) && (await po.$$('#imp-lp .lp-chip')).length === 6, txtLp.slice(0, 120).replace(/\n/g, ' '));
+    await po.evaluate(() => { const box = document.querySelector('#imp-lp .lp-box[data-lista=comorbidades]'); const chip = Array.from(box.querySelectorAll('.lp-chip')).find(c => /IAM/.test(c.textContent)); chip.querySelector('.lp-x').click(); });
+    await po.evaluate(() => document.querySelector('#imp-lp .lp-box[data-lista=alergias] .lp-t button').click());
+    await po.waitForSelector('#imp_lp_in', { timeout: 5000 });
+    await po.type('#imp_lp_in', 'Dipirona', { delay: 4 });
+    await po.press('#imp_lp_in', 'Enter');
+    const rcLp = await lerContador(po);
+    ok('O4 ★ × tira o IAM da proposta; + em alergias, digitar "Dipirona" e Enter acrescenta: 0 re-render, estado = comorbidades 2, alergias 2',
+      rcLp === 0 && (await po.evaluate(() => IMP_VAL.lista_problemas.comorbidades.map(i => i.texto).join('|') === 'HAS|DM (descompensação grave dez/25)' && IMP_VAL.lista_problemas.alergias.map(i => i.texto).join('|') === 'Nega alergias conhecidas|Dipirona'))
+      && (await po.$$('#imp-lp .lp-chip')).length === 6, `renders=${rcLp}`);
     await po.click('#imp_validar');
     await po.waitForFunction(id => view === 'paciente' && PAC_DETAIL[id] && PAC_DETAIL[id].ultima_avaliacao && !document.getElementById('imp-painel'), p4, { timeout: 30000 });
     const txtV = await textoApp(po);
@@ -470,11 +594,48 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     ok('O5 ★ o registro gravado pela tela: correções valeram (gleason 8, 2ª linha), quimio_naive AUSENTE, assinatura do oncologista logado',
       !!av4 && av4.snapshot_campos.gleason === 8 && av4.linha_tratamento === 2 && !('quimio_naive' in av4.snapshot_campos) && av4.avaliado_por.nome === NOME_ONCO && av4.autorizacao_estado === 'nao_necessaria', JSON.stringify(av4 && av4.snapshot_campos));
     ok('O5 agenda da ficha = 25/09/2026 (retorno da meta)', txtV.includes('25/09/2026'));
+    const faixa = await po.evaluate(() => { const f = document.getElementById('lp-faixa'); if (!f) return null; const box = l => f.querySelector(`.lp-box[data-lista=${l}]`); const chips = l => Array.from(box(l).querySelectorAll('.lp-chip')).map(c => ({ t: c.firstChild.textContent, tip: c.getAttribute('title') })); return { c: chips('comorbidades'), m: chips('medicacoes_uso'), a: chips('alergias'), mais: f.querySelectorAll('.lp-t button').length, x: f.querySelectorAll('.lp-x').length }; });
+    ok('O5 ★★ FAIXA sob o cabeçalho: Comorbidades HAS · DM (o IAM tirado NÃO entrou) · Medicações 2 · Alergias "Nega alergias conhecidas" + "Dipirona" (a acrescentada entrou)',
+      !!faixa && faixa.c.map(i => i.t).join('|') === 'HAS|DM (descompensação grave dez/25)' && faixa.m.length === 2 && faixa.a.map(i => i.t).join('|') === 'Nega alergias conhecidas|Dipirona', JSON.stringify(faixa));
+    ok(`O5 ★ tooltip de cada chip traz a origem "${ORIGEM_IMP}", a data e o validador; oncologista vê os botões + (3) e × (6)`,
+      !!faixa && [...faixa.c, ...faixa.m, ...faixa.a].every(i => i.tip.includes(ORIGEM_IMP) && i.tip.includes(NOME_ONCO)) && faixa.mais === 3 && faixa.x === 6, faixa && faixa.c[0] && faixa.c[0].tip);
+    const av4lp = await req('GET', `/pacientes/${p4}`, tkOnco);
+    ok('O5 ★ o que a tela mostra é o que o servidor tem (ficha por API = mesmos textos)', (av4lp.body.comorbidades || []).map(i => i.texto).join('|') === 'HAS|DM (descompensação grave dez/25)' && (av4lp.body.alergias || []).map(i => i.texto).join('|') === 'Nega alergias conhecidas|Dipirona');
+    // Revisor/auditor SÓ LEEM: mesma função de render, perfil trocado no estado da página (sem login extra — 5/min).
+    const faixaRev = await po.evaluate(id => { const p0 = USUARIO.perfil; USUARIO.perfil = 'revisor'; const h = lpFaixaHtml(id); USUARIO.perfil = p0; return { chips: (h.match(/lp-chip/g) || []).length, mais: (h.match(/title="Adicionar"/g) || []).length, x: (h.match(/lp-x/g) || []).length }; }, p4);
+    ok('O5 ★ perfil clínico sem alçada (revisor): a faixa desenha os chips, mas SEM + e SEM ×', faixaRev.chips === 6 && faixaRev.mais === 0 && faixaRev.x === 0, JSON.stringify(faixaRev));
     await po.evaluate(id => abrir(id, 'trilha'), p4);
     await po.waitForFunction(id => view === 'paciente' && pacTab === 'trilha' && TRILHA[id] && TRILHA[id].itens, p4, { timeout: 25000 });
     const txtT = await textoApp(po);
     ok('O6 ★ trilha: "Proposta de importação por <secretária>" como Administrativo, validada, + seleção de protocolo e retorno assinados pelo oncologista',
       txtT.includes('Proposta de importação por ' + NOME_S) && txtT.includes('Validada por ' + NOME_ONCO) && txtT.includes('registrado como vigente') && txtT.includes('Seleção de protocolo') && (await htmlApp(po)).includes('tl-tipo adm'));
+    ok('O6 ★ trilha da tela: "📋 Lista de problemas atualizada" como Administrativo, com a nota (+HAS … +Dipirona)', /Lista de problemas atualizada/.test(txtT) && /\+HAS/.test(txtT) && /\+Dipirona/.test(txtT));
+    // Ficha de quem NÃO tem nada (N1): três "— nenhuma registrada —"; + e × pela tela.
+    const pN1 = n1.body.id;
+    await po.evaluate(id => abrir(id), pN1);
+    await po.waitForFunction(id => view === 'paciente' && PAC_DETAIL[id] && document.getElementById('lp-faixa') && document.getElementById('lp-faixa').querySelector('.lp-box'), pN1, { timeout: 25000 });
+    const vazios = await po.evaluate(() => Array.from(document.querySelectorAll('#lp-faixa .lp-vazio')).map(e => e.textContent.trim()));
+    ok('O9 ★ ficha SEM lista de problemas não quebra: as três caixas com "— nenhuma registrada —" (discreto), sem erro', vazios.length === 3 && vazios.every(v => v === '— nenhuma registrada —'), JSON.stringify(vazios));
+    await armarContador(po);
+    await po.evaluate(() => document.querySelector('#lp-faixa .lp-box[data-lista=comorbidades] .lp-t button').click());
+    await po.waitForSelector('#lp_in_comorbidades', { timeout: 5000 });
+    await po.type('#lp_in_comorbidades', 'DPOC', { delay: 4 });
+    const rcLp1 = await lerContador(po);
+    ok('O9 ★ + abre o campo na caixa; digitar "DPOC": 0 re-render, texto íntegro', rcLp1 === 0 && (await po.inputValue('#lp_in_comorbidades')) === 'DPOC' && (await po.evaluate(() => LP_FORM && LP_FORM.texto === 'DPOC')), `renders=${rcLp1}`);
+    await po.press('#lp_in_comorbidades', 'Enter');
+    await po.waitForFunction(() => !!document.querySelector('#lp-faixa .lp-box[data-lista=comorbidades] .lp-chip') && !document.getElementById('lp_in_comorbidades'), null, { timeout: 15000 });
+    const chipN1 = await po.evaluate(() => { const c = document.querySelector('#lp-faixa .lp-box[data-lista=comorbidades] .lp-chip'); return { t: c.firstChild.textContent, tip: c.getAttribute('title') }; });
+    const rcLp2 = await lerContador(po);
+    ok('O9 ★★ Enter grava: chip "DPOC" na faixa (só #lp-faixa repintado, 0 render global), tooltip "registro manual · <data> · por <oncologista>"',
+      chipN1.t === 'DPOC' && /^registro manual · .+ · por /.test(chipN1.tip) && chipN1.tip.includes(NOME_ONCO) && rcLp2 === 0, JSON.stringify(chipN1) + ` renders=${rcLp2}`);
+    const nDialogs = ctxO.dialogs.length;
+    await po.evaluate(() => document.querySelector('#lp-faixa .lp-box[data-lista=comorbidades] .lp-x').click());
+    await po.waitForFunction(() => !document.querySelector('#lp-faixa .lp-box[data-lista=comorbidades] .lp-chip'), null, { timeout: 15000 });
+    ok('O9 ★ × pede CONFIRMAÇÃO (confirm nomeando o item) e remove: caixa volta a "— nenhuma registrada —"',
+      ctxO.dialogs.length === nDialogs + 1 && /^confirm:Remover "DPOC"/.test(ctxO.dialogs[nDialogs]) && (await po.evaluate(() => document.querySelector('#lp-faixa .lp-box[data-lista=comorbidades] .lp-vazio').textContent.trim() === '— nenhuma registrada —')), ctxO.dialogs[nDialogs]);
+    const trN1 = await req('GET', `/pacientes/${pN1}/trilha`, tkOnco);
+    const evsN1 = (trN1.body.itens || []).filter(i => i.evento === 'lista_problemas').map(i => i.nota);
+    ok('O9 ★★ o rastro dos dois cliques está na trilha: "+DPOC" e "−DPOC", pelo oncologista logado', evsN1.length === 2 && evsN1.some(n => /\+DPOC/.test(n)) && evsN1.some(n => /−DPOC/.test(n)), JSON.stringify(evsN1));
     // Descartar pela tela (P3 recebeu outra proposta em D2).
     await po.evaluate(() => carregarPacientes());
     await po.evaluate(id => abrir(id), p3);

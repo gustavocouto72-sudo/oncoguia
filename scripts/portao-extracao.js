@@ -16,6 +16,11 @@
 //      clínicos (IA)" — todo campo tem trecho, todo trecho está literalmente no texto
 //      raspado, valores no vocabulário, e o esperado aparece (gleason 9, T3b). SEM chave
 //      os checks E ficam VERMELHOS de propósito — não passam vazios.
+//      LISTA DE PROBLEMAS (2026-09-16): a extração CATEGORIZA comorbidades, medicações em
+//      uso e alergias, cada item com trecho literal no texto raspado; no J.M.G.M. as três
+//      listas saem populadas (HAS/DM/IAM · anlodipino/omeprazol/… · "nega alergias");
+//      nada disso repete em sem_campo; a proposta enviada carrega as listas; a validação
+//      grava na ficha com origem "importação (evolução de 28/08/2026)".
 //  D   evolucao-demo.pdf (sintética, no repo): mesmo caminho; com chave, a extração tem de
 //      trazer o caminho feliz da demo (metastático, sensível à castração, nega convulsão,
 //      Enzalutamida mCSPC) → enviar proposta → oncologista valida por API → VIGENTE.
@@ -97,7 +102,22 @@ async function extrairNaTela(page) {
   await page.waitForSelector('#imp_extrair:not([disabled])', { timeout: 10000 });
   await page.click('#imp_extrair');
   await page.waitForFunction(() => (IMP.pdf && IMP.pdf.extraido) || /✖/.test((document.getElementById('imp_extrair_status') || {}).textContent || ''), null, { timeout: 180000 });
-  return page.evaluate(() => ({ extraido: IMP.pdf.extraido, descartados: IMP.pdf.descartados, campos: IMP.campos, trechos: IMP.trechos, regimen_id: IMP.regimen_id, meta: IMP.meta, status: (document.getElementById('imp_extrair_status') || {}).textContent || '', raspado: IMP.pdf.raspado }));
+  return page.evaluate(() => ({ extraido: IMP.pdf.extraido, descartados: IMP.pdf.descartados, campos: IMP.campos, trechos: IMP.trechos, regimen_id: IMP.regimen_id, meta: IMP.meta, status: (document.getElementById('imp_extrair_status') || {}).textContent || '', raspado: IMP.pdf.raspado,
+    lista_problemas: impListaProblemasPayload(), lp_txt: IMP.lp_txt }));
+}
+// Lista de problemas extraída: cada item com trecho LITERAL no texto raspado; nada dela
+// repetido em sem_campo (comorbidade/medicação/alergia vai SÓ para as listas).
+function checarListaProblemas(nome, ext) {
+  const lp = ext.lista_problemas || {};
+  const todos = ['comorbidades', 'medicacoes_uso', 'alergias'].flatMap(k => (lp[k] || []).map(i => ({ k, ...i })));
+  const semTrecho = todos.filter(i => !(i.trecho || '').trim());
+  const fora = todos.filter(i => i.trecho && !norm(ext.raspado).includes(norm(i.trecho)));
+  ok(`${nome} ★★ TODO item da lista de problemas tem trecho, e TODO trecho está LITERALMENTE no texto raspado (${todos.length} itens)`,
+    todos.length > 0 && semTrecho.length === 0 && fora.length === 0, `semTrecho=${semTrecho.map(i => i.texto).join(',') || '-'} fora=${fora.map(i => i.texto).join(',') || '-'}`);
+  const semCampo = String((ext.meta || {}).sem_campo || '').toLowerCase();
+  const repetidos = todos.filter(i => i.texto.length >= 4 && semCampo.includes(norm(i.texto).slice(0, 12)));
+  ok(`${nome} ★ o que foi para as listas NÃO repete em sem_campo`, repetidos.length === 0, repetidos.map(i => i.texto).join(',') || 'limpo');
+  console.log(`      ${nome} lista de problemas: ${JSON.stringify({ c: (lp.comorbidades || []).map(i => i.texto), m: (lp.medicacoes_uso || []).map(i => i.texto), a: (lp.alergias || []).map(i => i.texto) })}`);
 }
 function checarTrechos(nome, ext) {
   const campos = Object.keys(ext.campos || {});
@@ -211,6 +231,21 @@ function checarTrechos(nome, ext) {
         ok('E3 ★ o esperado apareceu: gleason = 9 e estadio_t = T3b, cada um com trecho', E.campos.gleason === 9 && E.campos.estadio_t === 'T3b' && !!E.trechos.gleason && !!E.trechos.estadio_t, JSON.stringify({ g: E.campos.gleason, t: E.campos.estadio_t }));
         ok('E3 ★ não inventou: convulsao_previa AUSENTE (o texto não fala em convulsão) e quimio_naive ausente', !('convulsao_previa' in E.campos) && !('quimio_naive' in E.campos), Object.keys(E.campos).join(','));
         ok('E4 meta: evolução 2026-08-28 e retorno 2026-09-25 (da extração ou do cabeçalho determinístico)', E.meta.data_evolucao === '2026-08-28' && E.meta.proximo_retorno === '2026-09-25', JSON.stringify(E.meta));
+        checarListaProblemas('E4', E);
+        const lpE = E.lista_problemas;
+        // `norm` do portão tira TODOS os espaços (é para comparar trecho) — aqui a palavra
+        // importa ("DM" dentro de "descompensação grave de DM"), então só acento e caixa.
+        const nl = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        const txt = k => (lpE[k] || []).map(i => nl(i.texto)).join(' | ');
+        // O modelo varia a REDAÇÃO entre rodadas ("HAS" / "Hipertensão arterial sistêmica",
+        // "IAM" / "infarto antigo ao ECG") — o que tem de ser estável é o FATO e a LISTA em
+        // que ele cai. Sigla ou extenso, ambos valem.
+        ok('E4 ★★ as TRÊS listas saem populadas e categorizadas: comorbidades com HAS, DM e IAM (sigla ou extenso); medicações com anlodipino e omeprazol; alergias com "nega"',
+          /\bhas\b|hipertens/.test(txt('comorbidades')) && /\bdm\b|diabetes/.test(txt('comorbidades')) && /\biam\b|infarto/.test(txt('comorbidades'))
+          && /anlodipino/.test(txt('medicacoes_uso')) && /omeprazol/.test(txt('medicacoes_uso')) && (lpE.medicacoes_uso || []).length >= 4
+          && (lpE.alergias || []).length === 1 && /nega/.test(txt('alergias')), `c=${txt('comorbidades')} · m=${txt('medicacoes_uso')} · a=${txt('alergias')}`);
+        ok('E4 ★ o antineoplásico do protocolo (Enzalutamida / Zoladex) NÃO está em medicações em uso — ele é o regimen_id', !/enzalutamida|zoladex|goserelina/.test(txt('medicacoes_uso')), txt('medicacoes_uso'));
+        ok('E4 ★ as textareas do formulário foram preenchidas com as listas (um item por linha)', String(E.lp_txt.comorbidades || '').split('\n').filter(Boolean).length === (lpE.comorbidades || []).length && String(E.lp_txt.medicacoes_uso || '').split('\n').filter(Boolean).length === (lpE.medicacoes_uso || []).length);
         // Envia a proposta como a secretaria faria e confere pelo GET do oncologista.
         await ps.fill('#f_ident', `${IDENT_PREFIXO}-JMGM-${ETIQUETA}`);
         await ps.evaluate(v => { CADASTRO.ident = v; }, `${IDENT_PREFIXO}-JMGM-${ETIQUETA}`);
@@ -221,6 +256,16 @@ function checarTrechos(nome, ext) {
         const pl = gp.body.proposta.payload;
         ok('E5 ★ proposta enviada com os campos e trechos da extração; todo trecho gravado está no texto raspado', gp.body.proposta.estado === 'pendente' && pl.campos.length === Object.keys(E.campos).length
           && pl.campos.every(c => c.trecho && norm(E.raspado).includes(norm(c.trecho))), `${pl.campos.length} campos`);
+        const plLp = pl.lista_problemas || {};
+        ok('E5 ★★ a proposta carrega a lista de problemas extraída (mesmos itens e trechos das três listas)',
+          ['comorbidades', 'medicacoes_uso', 'alergias'].every(k => (plLp[k] || []).length === (E.lista_problemas[k] || []).length && (plLp[k] || []).every((it, i) => it.texto === E.lista_problemas[k][i].texto && it.trecho === E.lista_problemas[k][i].trecho)),
+          JSON.stringify(['comorbidades', 'medicacoes_uso', 'alergias'].map(k => (plLp[k] || []).length)));
+        // Validação por API → as listas entram na ficha com a origem da importação.
+        const valJ = await req('POST', `/importacao-propostas/${gp.body.proposta.id}/validar`, tkOnco, {});
+        const fichaJ = await req('GET', `/pacientes/${pJ}`, tkOnco);
+        ok('E6 ★★ validar (oncologista) grava as três listas na FICHA com origem "importação (evolução de 28/08/2026)", assinadas pelo validador',
+          valJ.status === 201 && ['comorbidades', 'medicacoes_uso', 'alergias'].every(k => (fichaJ.body[k] || []).length === (E.lista_problemas[k] || []).length && (fichaJ.body[k] || []).every(i => i.origem === 'importação (evolução de 28/08/2026)' && i.registrado_por && i.registrado_por.id)),
+          JSON.stringify({ st: valJ.status, c: (fichaJ.body.comorbidades || []).map(i => i.texto), a: (fichaJ.body.alergias || []).map(i => i.texto) }));
       }
     }
 
@@ -246,6 +291,11 @@ function checarTrechos(nome, ext) {
         ED.campos.metastatico === true && ED.campos.sensivel_castracao === true && ED.campos.convulsao_previa === false && ED.campos.gleason === 8 && ED.campos.estadio_t === 'T3a', JSON.stringify(ED.campos));
       ok('D6 ★ demo: protocolo sugerido = Enzalutamida mCSPC (regimen_id prostata-mcspc-enzalutamida)', ED.regimen_id === 'prostata-mcspc-enzalutamida', ED.regimen_id || '-');
       ok('D6 demo: meta com evolução 2026-09-10, retorno 2026-10-08, início 2026-02-05, médica Helena', ED.meta.data_evolucao === '2026-09-10' && ED.meta.proximo_retorno === '2026-10-08' && ED.meta.data_inicio === '2026-02-05' && /Helena/.test(ED.meta.medico_assistente_texto || ''), JSON.stringify(ED.meta));
+      checarListaProblemas('D6', ED);
+      const lpD = ED.lista_problemas;
+      ok('D6 ★ demo: comorbidades com HAS e dislipidemia, medicações com losartana, alergias "nega"',
+        /\bhas\b|hipertens/.test((lpD.comorbidades || []).map(i => i.texto).join(' | ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()) && /dislipidemia/.test(norm((lpD.comorbidades || []).map(i => i.texto).join(' '))) && /losartana/.test(norm((lpD.medicacoes_uso || []).map(i => i.texto).join(' '))) && (lpD.alergias || []).length === 1 && /nega/.test(norm(lpD.alergias[0].texto)),
+        JSON.stringify({ c: (lpD.comorbidades || []).map(i => i.texto), m: (lpD.medicacoes_uso || []).map(i => i.texto), a: (lpD.alergias || []).map(i => i.texto) }));
       await ps.fill('#f_ident', `${IDENT_PREFIXO}-DEMO-${ETIQUETA}`);
       await ps.evaluate(v => { CADASTRO.ident = v; }, `${IDENT_PREFIXO}-DEMO-${ETIQUETA}`);
       await ps.click('button:has-text("Cadastrar e enviar proposta")');

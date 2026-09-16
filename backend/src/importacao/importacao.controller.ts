@@ -27,6 +27,18 @@ class CampoPropostoDto {
   @IsOptional() @IsString() @MaxLength(500) trecho?: string | null;
 }
 
+// Um item da lista de problemas proposta: texto + trecho do prontuário. Classe com @Type
+// pelo mesmo motivo do CampoPropostoDto (conversão implícita da pipe global).
+class ItemListaPropostoDto {
+  @IsString() @IsNotEmpty({ message: 'item da lista de problemas sem texto' }) @MaxLength(120) texto: string;
+  @IsOptional() @IsString() @MaxLength(500) trecho?: string | null;
+}
+class ListaProblemasPropostaDto {
+  @IsOptional() @IsArray() @ArrayMaxSize(30) @ValidateNested({ each: true }) @Type(() => ItemListaPropostoDto) comorbidades?: ItemListaPropostoDto[];
+  @IsOptional() @IsArray() @ArrayMaxSize(30) @ValidateNested({ each: true }) @Type(() => ItemListaPropostoDto) medicacoes_uso?: ItemListaPropostoDto[];
+  @IsOptional() @IsArray() @ArrayMaxSize(30) @ValidateNested({ each: true }) @Type(() => ItemListaPropostoDto) alergias?: ItemListaPropostoDto[];
+}
+
 class MetaPropostaDto {
   @IsOptional() @IsString() @MaxLength(10) data_inicio?: string | null;
   @IsOptional() @IsString() @MaxLength(10) data_evolucao?: string | null;
@@ -47,6 +59,7 @@ class CriarPropostaDto {
   @IsOptional() @IsInt() @Min(1) linha_tratamento?: number;
   @IsArray() @ArrayMaxSize(80) @ValidateNested({ each: true }) @Type(() => CampoPropostoDto) campos: CampoPropostoDto[];
   @IsOptional() @ValidateNested() @Type(() => MetaPropostaDto) meta?: MetaPropostaDto;
+  @IsOptional() @ValidateNested() @Type(() => ListaProblemasPropostaDto) lista_problemas?: ListaProblemasPropostaDto;
 }
 
 // Correções do validador. Booleano ausente NÃO vira false (o serviço só substitui o que
@@ -57,6 +70,8 @@ class ValidarPropostaDto {
   @Allow() campos?: CampoProposto[] | Record<string, any>;
   @IsOptional() @IsString() @MaxLength(160) regimen_id?: string | null;
   @IsOptional() @IsInt() @Min(1) linha_tratamento?: number;
+  // Lista de problemas editada no painel: substitui a proposta inteira (as três listas).
+  @IsOptional() @ValidateNested() @Type(() => ListaProblemasPropostaDto) lista_problemas?: ListaProblemasPropostaDto;
 }
 
 // Extração: o tumor escolhido e o texto JÁ RASPADO no navegador (sem nome, atendimento,

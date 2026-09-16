@@ -1035,3 +1035,53 @@ idêntica) ·
 *Automação (adendo 2) — módulo Retorno/Trilha:* `node scripts/portao-retorno.js` roda o portão do seguimento em browser isolado e headless (exige app e API no ar; as portas são configuráveis por `PORTAO_APP`/`PORTAO_API`, default 5173/3005; **credenciais em `.env.local`** — ver "Contas de teste dos portões" acima). 86 checks: RECIST travado na UI **e** 400 no DTO, toxicidades vindas do regime em curso + "outra", troca de protocolo gerando avaliação **vinculada** ao retorno, trilha mesclada na sequência real do fluxo, reestadiamento agendado/reagendado/vencido, o **formulário de retorno enxuto** (sem campo de data agendada no topo, sem jargão de imutabilidade na tela — só o ⓘ; linha read-only do previsto quando o retorno veio de um agendamento), o **próximo retorno** (chips, data calculada, agendado criado na trilha, intervalo do último ciclo sugerido sem ser imposto, 0 re-render ao escolher), a **lista de Pacientes** (as sete colunas pelo rótulo do cabeçalho, e a ausência das duas que saíram; idade em anos completos calculada no check, não cravada; protocolo com linha e dia da avaliação; selo **NÃO INCORPORADO** ausente para quem é incorporado e presente no eixo do corpus; selo **⏳ aguardando autorização** com o protocolo exibido continuando a ser o **vigente**; **médico assistente** derivado batendo com o topo da trilha — inclusive quando um retorno de OUTRO profissional passa a ser o evento mais recente; **busca** por nome e por registro com **0 re-render**, foco e cursor preservados, e estado vazio próprio), o **"quem não veio"** (coluna Próximo retorno em vermelho com o atraso em dias, atrasado no topo da ordem padrão, filtro de retornos atrasados, e o atraso sumindo quando o retorno é registrado), a **guia TISS SP/SADT** (blocos e numeração conforme o *Padrão TISS — Componente de Conteúdo e Estrutura, nov/2022*, p. 423, na ordem; pré-preenchimento de beneficiário/convênio/indicação/exames/solicitante; e o contrário disso — nº de guia, senha, CNES, código na operadora e TUSS **em branco**, porque a app não os inventa; as 5 linhas fixas de procedimento do formulário oficial; edição na conferência refletida na impressão; uma página **A4 paisagem**; barra de conferência fora do papel), **0 re-render** ao digitar em observações/toxicidade/exames, ausência de rota de edição (imutabilidade) e a matriz de perfil (revisor 403 na escrita, 200 na leitura). Também fixa a interação com a autorização: o portão escolhe deliberadamente um candidato **elegível**, porque retorno pressupõe protocolo **vigente** — seleção fora do padrão nasce como exceção pendente e não é vigente até o auditor aprovar. Apaga o paciente de teste no fim.
 
 *Automação (adendo):* `node scripts/portao-b.js` roda os checks 5–8 do Portão B em browser isolado e headless (Chrome do sistema; exige app em 5173 e backend em 3005): a **Fase 0** confere a tela de login deslogada (split de duas colunas com o formulário na direita, os quatro cartões, o crédito, a linha permanente, ausência do enquadramento de protótipo, e o empilhamento em 420px de largura) — inclusive os ids `#lg_login`/`#lg_senha`/`#lg_btn`, que **`portao-credenciais.js` digita**: se a tela trocar de seletor sem o portão trocar junto, todos os portões param de logar, e é melhor falhar aqui com o nome certo. Depois: login dos 3 perfis, cadastro digitado com contador de render = 0, re-avaliação ao vivo, parecer gravado/atribuído, matriz de acesso, console limpo — e **apaga os dados de teste no fim** (parecer via SQL, paciente via DELETE admin). É um check que não passa pelo agente; o click-through manual continua valendo como contraprova humana.
+
+## Lista de problemas (comorbidades · medicações em uso · alergias, 2026-09-16) — checks `L`/`V2`/`O4`–`O9` do `portao-importacao` + `E4`–`E6`/`D6` do `portao-extracao`
+
+Motivo: o oncologista assistencial usa comorbidades/medicações/alergias **de relance**; até
+aqui esses fatos só existiam dentro da nota de importação (`ressalva`/`observacoes`).
+
+- **Dado**: 3 colunas jsonb em `pacientes` (`comorbidades`, `medicacoes_uso`, `alergias`),
+  `NOT NULL DEFAULT '[]'`, item `{texto, origem, registrado_por:{id,nome}, em}`.
+  Migration `ListaProblemas1790035200000`; o CHECK de `eventos_administrativos.tipo` ganha
+  `'lista_problemas'`.
+- **Escrita**: `PATCH /pacientes/:id/lista-problemas` `{lista, adicionar?, remover?}` —
+  whitelist literal `['oncologista','admin']` (`ListaProblemasEditarGuard`). Secretaria e
+  revisor = 403. Item manual nasce com origem `registro manual`; duplicata (sem acento/
+  caixa) 409; remover o que não está 404. **Cada PATCH deixa um evento administrativo**
+  append-only na trilha: `Lista de problemas atualizada por X: comorbidades +HAS · −DM`.
+  O PATCH genérico do cadastro não toca nas listas (chave fora do DTO é descartada).
+- **Secretaria às cegas**: ficha/lista dela sem as três chaves; os eventos da ficha
+  administrativa vêm filtrados no WHERE (`tipo IN ('reagendamento','contato')`).
+- **Importação**: a extração devolve `lista_problemas` categorizada, cada item com trecho
+  literal (sem trecho = descartado); comorbidade/medicação/alergia NÃO repete em `sem_campo`;
+  o antineoplásico do protocolo não entra em medicações (é o `regimen_id`). A proposta
+  carrega as listas; o painel do oncologista mostra "Lista de problemas proposta" (× tira,
+  + acrescenta, 0 render) e a **validação** grava na ficha com origem `importação (evolução
+  de dd/mm/aaaa)`, assinada pelo validador, pelo MESMO caminho do PATCH (evento na trilha).
+  Revalidar com a mesma lista não duplica nem dá erro.
+- **Tela**: faixa `#lp-faixa` sob o cabeçalho (3 caixas, chips, tooltip origem · data · por);
+  vazio = "— nenhuma registrada —"; + e × só oncologista/admin (× pede confirm); digitação
+  sem re-render, gravar repinta só a faixa.
+
+Checks: `L1` 403 secretaria/revisor · `L2` adição manual com origem/autor/evento · `L3`
+409/400/404 · `L4` remoção + os dois eventos na trilha · `L5` PATCH genérico não escreve ·
+`L6` secretaria sem chaves nem eventos · `S2`/`S3`/`S6` proposta carrega/valida as listas ·
+`V2` validação grava a lista EDITADA com a origem da importação · `V4` evento da validação ·
+`N5` 4 validações iguais = cada item uma vez · `U3`–`U5` formulário da secretaria ·
+`O4` painel editável · `O5` faixa + tooltip + revisor só lê · `O6`/`O9` trilha, ficha vazia,
++/× pela tela. Extração real (J.M.G.M.): `E4` três listas populadas (HAS/DM/IAM — sigla ou
+extenso, a redação do modelo varia entre rodadas; o fato e a lista não), `E5` proposta,
+`E6` validação → ficha.
+
+**SQLs de conferência do Neon (após o deploy do backend):**
+```sql
+SELECT column_name, data_type, column_default, is_nullable FROM information_schema.columns
+ WHERE table_name = 'pacientes' AND column_name IN ('comorbidades','medicacoes_uso','alergias');
+-- 3 linhas: jsonb · '[]'::jsonb · NO
+SELECT pg_get_constraintdef(oid) FROM pg_constraint WHERE conname = 'CHK_eventos_administrativos_tipo';
+-- CHECK ((tipo)::text = ANY (ARRAY['reagendamento','contato','lista_problemas']))
+SELECT name FROM migrations ORDER BY id DESC LIMIT 1;  -- ListaProblemas1790035200000
+```
+Depois do deploy: **repovoar o #80 em produção pela tela** (o oncologista adiciona os itens
+— viram registro dele, origem `registro manual`).

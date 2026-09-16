@@ -1,9 +1,9 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository } from 'typeorm';
+import { EntityManager, In, Repository } from 'typeorm';
 import {
-  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, EventoAdministrativo, ImportacaoProposta, Paciente, Perfil,
-  Retorno, SelecaoProtocolo, Semaforo,
+  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, EventoAdministrativo, ImportacaoProposta, ItemListaProblemas,
+  LISTAS_PROBLEMAS, ListaProblemas, Paciente, Perfil, Retorno, SelecaoProtocolo, Semaforo,
 } from '../database/entities';
 import { EvidenciaService } from '../evidencia/evidencia.service';
 import { diaLocal, estadoReestadiamento, estadoRetorno, hojeISO, somarMeses } from '../retornos/retornos.service';
@@ -24,6 +24,26 @@ export interface NovaAvaliacao {
   // retorno → troca: a avaliação nova não fica solta na trilha.
   retorno_id?: number;
 }
+
+// Mudança na lista de problemas: itens que entram e itens que saem (por texto), numa das
+// três listas. Um PATCH = um evento administrativo na trilha com os +/−.
+export interface MudancaListaProblemas {
+  lista: ListaProblemas;
+  adicionar?: string[];
+  remover?: string[];
+}
+// Comparação de item: sem acento, sem caixa, espaços colapsados — "HAS" e "has" são o
+// mesmo problema; "Anlodipino 5 mg" e "anlodipino  5mg" não são tratados como iguais de
+// propósito (a dose faz parte do fato).
+const normItem = (s: string) => String(s || '')
+  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase().replace(/\s+/g, ' ').trim();
+const ROTULO_LISTA: Record<ListaProblemas, string> = {
+  comorbidades: 'comorbidades', medicacoes_uso: 'medicações em uso', alergias: 'alergias',
+};
+// Nota do evento administrativo: "Lista de problemas atualizada por X: comorbidades +HAS · −DM".
+// varchar(280) no banco — corta com marca quando não cabe (a lista em si é a fonte).
+const NOTA_EVENTO_MAX = 280;
 
 // Médico assistente do paciente: o profissional do EVENTO MAIS RECENTE — a última
 // avaliação (qualquer estado de autorização: registrar já é ato clínico) ou o último
@@ -269,15 +289,21 @@ export class PacientesService {
     const importPend = await this.comImportacaoPendente();
     return {
       ...this.mapAdministrativo(p, medicos.get(p.id) || null, importPend),
-      eventos_administrativos: await this.eventosAdministrativos(id),
+      // SÓ os eventos de agenda (reagendamento, contato). O evento 'lista_problemas'
+      // carrega texto clínico na nota ("comorbidades +HAS") — fica fora do payload dela,
+      // cortado no WHERE, não escondido depois.
+      eventos_administrativos: await this.eventosAdministrativos(id, true),
     };
   }
 
   // Eventos administrativos de um paciente, mapeados para a resposta. Compartilhado com a
   // trilha do médico (RetornosService.trilha), que os mescla na linha do tempo.
-  async eventosAdministrativos(pacienteId: number) {
+  // `somenteAgenda`: a ficha da secretaria — sem o evento de lista de problemas (clínico).
+  async eventosAdministrativos(pacienteId: number, somenteAgenda = false) {
     const rows = await this.eventoAdmRepo.find({
-      where: { paciente_id: pacienteId },
+      where: somenteAgenda
+        ? { paciente_id: pacienteId, tipo: In(['reagendamento', 'contato']) }
+        : { paciente_id: pacienteId },
       relations: { registradoPor: true },
       order: { criado_em: 'DESC', id: 'DESC' },
     });
@@ -389,6 +415,11 @@ export class PacientesService {
       peso_kg: p.peso_kg ?? null,
       altura_cm: p.altura_cm ?? null,
       valores_estaveis: p.valores_estaveis || {},
+      // Lista de problemas — de relance na ficha. Sempre as três chaves, sempre lista (a
+      // tela não distingue "sem lista" de "vazia": vazia mostra "— nenhuma registrada —").
+      comorbidades: p.comorbidades || [],
+      medicacoes_uso: p.medicacoes_uso || [],
+      alergias: p.alergias || [],
       // Agenda de reestadiamento com "vencido" já derivado do relógio do SERVIDOR — a app
       // não decide o que está vencido a partir da data da máquina do usuário.
       reestadiamento: estadoReestadiamento(p),
@@ -412,6 +443,91 @@ export class PacientesService {
         autorizacao_decidida_em: a.autorizacao_decidida_em,
       })),
     };
+  }
+
+  // ── LISTA DE PROBLEMAS (comorbidades · medicações em uso · alergias) ──────────
+  // Escrita direta pela ficha (whitelist literal oncologista/admin, no guard). Adição e
+  // remoção por texto; o item nasce com origem "registro manual", autor e instante do
+  // servidor. Duplicata (mesmo texto, sem acento/caixa) = 409; remover o que não está = 404.
+  // A mudança vira EVENTO administrativo append-only na trilha ("Lista de problemas
+  // atualizada por X: comorbidades +HAS · −DM") — as listas são estado mutável, o rastro
+  // não. Devolve as três listas e o evento.
+  async atualizarListaProblemas(
+    pacienteId: number,
+    mudanca: MudancaListaProblemas,
+    autor: { id: number; nome: string },
+    perfilAtivo: Perfil,
+  ) {
+    await this.pacienteOr404(pacienteId);
+    const r = await this.aplicarListaProblemas(pacienteId, [{ ...mudanca, origem: 'registro manual' }], autor, perfilAtivo);
+    return {
+      comorbidades: r.paciente.comorbidades, medicacoes_uso: r.paciente.medicacoes_uso, alergias: r.paciente.alergias,
+      evento: r.evento ? mapEventoAdministrativo(r.evento) : null,
+    };
+  }
+
+  // Núcleo compartilhado: a validação de uma proposta de importação chama o MESMO caminho
+  // (com origem "importação (evolução de …)" e o EntityManager da transação) — um jeito só
+  // de escrever nas listas, um jeito só de deixar rastro. Várias listas numa chamada = um
+  // evento só, com os +/− de todas. Sem mudança efetiva (tudo já estava lá) = sem evento.
+  async aplicarListaProblemas(
+    pacienteId: number,
+    mudancas: (MudancaListaProblemas & { origem: string })[],
+    autor: { id: number; nome: string },
+    perfilAtivo: Perfil,
+    em?: EntityManager,
+    opcoes: { ignorarDuplicata?: boolean } = {},
+  ): Promise<{ paciente: Paciente; evento: EventoAdministrativo | null; entraram: number; sairam: number }> {
+    const pacienteRepo = em ? em.getRepository(Paciente) : this.pacienteRepo;
+    const eventoRepo = em ? em.getRepository(EventoAdministrativo) : this.eventoAdmRepo;
+    const p = await pacienteRepo.findOne({ where: { id: pacienteId }, select: { id: true, comorbidades: true, medicacoes_uso: true, alergias: true } });
+    if (!p) throw new NotFoundException('Paciente não encontrado');
+    const agora = new Date().toISOString();
+    const partes: string[] = [];
+    const patch: Partial<Paciente> = {};
+    let entraram = 0, sairam = 0;
+    for (const m of mudancas) {
+      if (!LISTAS_PROBLEMAS.includes(m.lista)) throw new BadRequestException(`Lista "${m.lista}" não existe (comorbidades | medicacoes_uso | alergias)`);
+      const atual: ItemListaProblemas[] = [...((patch[m.lista] as ItemListaProblemas[]) || p[m.lista] || [])];
+      const mais: string[] = [], menos: string[] = [];
+      for (const raw of m.remover || []) {
+        const idx = atual.findIndex((i) => normItem(i.texto) === normItem(raw));
+        if (idx < 0) throw new NotFoundException(`"${raw}" não está em ${ROTULO_LISTA[m.lista]}`);
+        menos.push(atual[idx].texto);
+        atual.splice(idx, 1);
+      }
+      for (const raw of m.adicionar || []) {
+        const texto = String(raw || '').replace(/\s+/g, ' ').trim().slice(0, 120);
+        if (!texto) throw new BadRequestException('Item vazio');
+        if (atual.some((i) => normItem(i.texto) === normItem(texto))) {
+          if (opcoes.ignorarDuplicata) continue;
+          throw new ConflictException(`"${texto}" já está em ${ROTULO_LISTA[m.lista]}`);
+        }
+        atual.push({ texto, origem: m.origem, registrado_por: { id: autor.id, nome: autor.nome }, em: agora });
+        mais.push(texto);
+      }
+      if (!mais.length && !menos.length) continue;
+      entraram += mais.length; sairam += menos.length;
+      (patch as any)[m.lista] = atual;
+      partes.push(`${ROTULO_LISTA[m.lista]} ${[...mais.map((t) => `+${t}`), ...menos.map((t) => `−${t}`)].join(' · ')}`);
+    }
+    if (!partes.length) return { paciente: p, evento: null, entraram, sairam };
+    await pacienteRepo.update({ id: pacienteId }, patch);
+    let nota = `Lista de problemas atualizada por ${autor.nome}: ${partes.join('; ')}`;
+    if (nota.length > NOTA_EVENTO_MAX) nota = nota.slice(0, NOTA_EVENTO_MAX - 2) + ' …';
+    const evento = await eventoRepo.save(eventoRepo.create({
+      paciente_id: pacienteId,
+      tipo: 'lista_problemas',
+      data: hojeISO(),
+      data_anterior: null,
+      meio: null,
+      nota,
+      registrado_por: autor.id,
+      perfil_ativo: perfilAtivo,
+    }));
+    const full = await eventoRepo.findOne({ where: { id: evento.id }, relations: { registradoPor: true } });
+    const depois = await pacienteRepo.findOne({ where: { id: pacienteId }, select: { id: true, comorbidades: true, medicacoes_uso: true, alergias: true } });
+    return { paciente: depois || p, evento: full, entraram, sairam };
   }
 
   // Histórico completo, ordem cronológica (mais antiga → mais recente).

@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
-import { ImportacaoProposta, Paciente, Perfil } from '../database/entities';
+import { ImportacaoProposta, Paciente, Perfil, Usuario } from '../database/entities';
 import { EvidenciaService } from '../evidencia/evidencia.service';
 import { PacientesService } from '../pacientes/pacientes.service';
 import { RetornosService } from '../retornos/retornos.service';
@@ -20,6 +20,14 @@ export interface MetaProposta {
   historico?: string | null;               // resumo livre do histórico
   protocolo_texto?: string | null;         // o protocolo como está escrito no PDF
 }
+// Item proposto para a lista de problemas: o texto e o trecho do prontuário que o sustenta.
+export interface ItemListaProposto { texto: string; trecho?: string | null }
+export interface ListaProblemasProposta {
+  comorbidades: ItemListaProposto[];
+  medicacoes_uso: ItemListaProposto[];
+  alergias: ItemListaProposto[];
+}
+const LISTAS = ['comorbidades', 'medicacoes_uso', 'alergias'] as const;
 export interface PropostaPayload {
   tumor: string;
   sistema?: string | null;
@@ -28,6 +36,10 @@ export interface PropostaPayload {
   linha_tratamento?: number | null;
   campos: CampoProposto[];
   meta?: MetaProposta | null;
+  // Lista de problemas categorizada (comorbidades · medicações em uso · alergias). É
+  // carga da proposta, não registro: quem grava nas listas do paciente é a VALIDAÇÃO,
+  // com origem "importação (evolução de …)". Ausente = três listas vazias.
+  lista_problemas?: Partial<ListaProblemasProposta> | null;
 }
 
 // Correções do validador: campo a campo (o que vier SUBSTITUI o proposto; `valor: null`
@@ -37,6 +49,9 @@ export interface CorrecoesValidacao {
   campos?: CampoProposto[] | Record<string, any>;
   regimen_id?: string | null;
   linha_tratamento?: number | null;
+  // Lista de problemas EDITADA no painel antes de validar: o que vier SUBSTITUI a lista
+  // proposta inteira (a tela manda as três; item removido some, item novo entra sem trecho).
+  lista_problemas?: Partial<ListaProblemasProposta> | null;
 }
 
 const ISO_DIA = /^\d{4}-\d{2}-\d{2}$/;
@@ -108,6 +123,33 @@ export class ImportacaoService {
     return String(r.regimen_id);
   }
 
+  // Lista de problemas do envelope: três listas (ausentes = vazias), item = {texto, trecho?}.
+  // Texto vazio é 400 (a secretaria "enviou" um item que não existe); repetido dentro da
+  // mesma lista é 400 pelo mesmo motivo. Até 30 por lista, texto até 120, trecho até 500.
+  private validarListaProblemas(lp?: Partial<ListaProblemasProposta> | null): ListaProblemasProposta {
+    const out: ListaProblemasProposta = { comorbidades: [], medicacoes_uso: [], alergias: [] };
+    if (lp == null) return out;
+    if (typeof lp !== 'object' || Array.isArray(lp)) throw new BadRequestException('lista_problemas deve ser um objeto {comorbidades, medicacoes_uso, alergias}');
+    for (const k of LISTAS) {
+      const itens = (lp as any)[k];
+      if (itens == null) continue;
+      if (!Array.isArray(itens)) throw new BadRequestException(`lista_problemas.${k} deve ser uma lista`);
+      if (itens.length > 30) throw new BadRequestException(`lista_problemas.${k}: no máximo 30 itens`);
+      const vistos = new Set<string>();
+      for (const it of itens) {
+        const texto = String((it && typeof it === 'object') ? it.texto : it || '').replace(/\s+/g, ' ').trim();
+        if (!texto) throw new BadRequestException(`lista_problemas.${k}: item sem texto`);
+        if (texto.length > 120) throw new BadRequestException(`lista_problemas.${k}: "${texto.slice(0, 30)}…" passa de 120 caracteres`);
+        const key = texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        if (vistos.has(key)) throw new BadRequestException(`lista_problemas.${k}: "${texto}" repetido`);
+        vistos.add(key);
+        const trecho = it && typeof it === 'object' && typeof it.trecho === 'string' ? it.trecho.slice(0, 500) : null;
+        out[k].push({ texto, trecho });
+      }
+    }
+    return out;
+  }
+
   private validarMeta(meta?: MetaProposta | null): MetaProposta {
     const m = meta || {};
     for (const k of ['data_inicio', 'data_evolucao', 'proximo_retorno'] as const) {
@@ -140,6 +182,7 @@ export class ImportacaoService {
     const campos = this.validarCampos(tumor, payload.campos || []);
     const regimen_id = this.validarRegime(tumor, payload.regimen_id);
     const meta = this.validarMeta(payload.meta);
+    const lista_problemas = this.validarListaProblemas(payload.lista_problemas);
     const linha = payload.linha_tratamento != null ? Number(payload.linha_tratamento) : null;
     if (linha != null && (!Number.isInteger(linha) || linha < 1)) throw new BadRequestException('linha_tratamento deve ser inteiro ≥ 1');
 
@@ -158,6 +201,7 @@ export class ImportacaoService {
         linha_tratamento: linha,
         campos,
         meta,
+        lista_problemas,
       },
       estado: 'pendente',
       criada_por: usuarioId,
@@ -240,6 +284,8 @@ export class ImportacaoService {
     if (!prop) throw new NotFoundException('Proposta não encontrada');
     if (prop.estado !== 'pendente') throw new ConflictException(`Proposta #${id} já foi ${prop.estado} — nada a validar`);
     const paciente = await this.pacienteOr404(prop.paciente_id);
+    const validador = await this.dataSource.getRepository(Usuario).findOne({ where: { id: usuarioId }, select: { id: true, nome: true } });
+    if (!validador) throw new NotFoundException('Validador não encontrado');
     const payload = prop.payload as PropostaPayload;
     const tumor = String(payload.tumor);
     if (paciente.tumor && paciente.tumor !== tumor) {
@@ -271,6 +317,11 @@ export class ImportacaoService {
     const linha = correcoes?.linha_tratamento != null ? Number(correcoes.linha_tratamento) : (payload.linha_tratamento ?? 1);
     if (!Number.isInteger(linha) || linha < 1) throw new BadRequestException('linha_tratamento deve ser inteiro ≥ 1');
     const meta = this.validarMeta(payload.meta);
+    // Lista de problemas: a editada no painel substitui a proposta; senão, a proposta.
+    const lista_problemas = this.validarListaProblemas(
+      correcoes?.lista_problemas !== undefined && correcoes?.lista_problemas !== null ? correcoes.lista_problemas : payload.lista_problemas,
+    );
+    const origemLista = `importação (evolução de ${meta.data_evolucao ? fmtBR(meta.data_evolucao) : 'data não informada'})`;
 
     // O semáforo é calculado ANTES de qualquer escrita (só lê o corpus e os valores).
     const nota = ImportacaoService.montarNota(meta);
@@ -314,6 +365,9 @@ export class ImportacaoService {
       retorno_id: null,
       motivo,
       nota,
+      // O que a validação gravou nas listas do paciente (por lista: os textos que entraram;
+      // o que já estava lá não conta duas vezes).
+      lista_problemas: { origem: origemLista, comorbidades: [] as string[], medicacoes_uso: [] as string[], alergias: [] as string[] },
     };
     let avaliacao: any = null;
     let retorno: any = null;
@@ -362,6 +416,21 @@ export class ImportacaoService {
           observacoes: nota,
         }, usuarioId, perfilAtivo, em);
         resultado.retorno_id = retorno.id;
+      }
+      // 3b) lista de problemas → listas do paciente, com a origem da importação, assinada
+      // pelo validador, pelo MESMO caminho da ficha (evento administrativo na trilha).
+      // Item que já estava na lista (revalidação de outra evolução, registro manual
+      // anterior) não vira duplicata nem erro — simplesmente não entra de novo.
+      const antes = await em.getRepository(Paciente).findOne({ where: { id: paciente.id }, select: { id: true, comorbidades: true, medicacoes_uso: true, alergias: true } });
+      const mudancas = LISTAS
+        .map((k) => ({ lista: k, adicionar: lista_problemas[k].map((i) => i.texto), origem: origemLista }))
+        .filter((m) => m.adicionar.length);
+      if (mudancas.length) {
+        const r = await this.pacientes.aplicarListaProblemas(paciente.id, mudancas, { id: usuarioId, nome: validador.nome }, perfilAtivo, em, { ignorarDuplicata: true });
+        for (const k of LISTAS) {
+          const jaTinha = new Set(((antes && antes[k]) || []).map((i) => i.texto));
+          resultado.lista_problemas[k] = (r.paciente[k] || []).map((i) => i.texto).filter((t) => !jaTinha.has(t));
+        }
       }
       // 4) proposta validada — quem e quando, e o que a validação produziu.
       await em.getRepository(ImportacaoProposta).update({ id: prop.id }, {

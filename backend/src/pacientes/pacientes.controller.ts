@@ -2,7 +2,7 @@ import {
   Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Request, UseGuards,
 } from '@nestjs/common';
 import {
-  IsIn, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, Max, MaxLength, Min,
+  ArrayMaxSize, IsArray, IsIn, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, Max, MaxLength, Min,
   ValidateIf,
 } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
@@ -12,8 +12,10 @@ import { OncologistaOuAdminGuard } from '../auth/oncologista.guard';
 import {
   CadastroCriarGuard, CadastroEditarGuard, LeituraCadastroGuard, recusarClinicoDaSecretaria,
 } from '../auth/cadastro.guard';
+import { ListaProblemasEditarGuard } from '../auth/lista-problemas.guard';
 import { PacientesService } from './pacientes.service';
-import type { Perfil, Semaforo } from '../database/entities';
+import { LISTAS_PROBLEMAS } from '../database/entities';
+import type { ListaProblemas, Perfil, Semaforo } from '../database/entities';
 
 class CriarPacienteDto {
   @IsString() @IsNotEmpty({ message: 'Nome obrigatório' }) @MaxLength(160) nome: string;
@@ -61,6 +63,14 @@ class AtualizarPacienteDto {
   @IsOptional() @ValidateIf((_, v) => v !== null)
   @IsNumber({ maxDecimalPlaces: 1 }) @Min(30) @Max(250) altura_cm?: number | null;
   @IsOptional() @IsObject() valores_estaveis?: Record<string, any>;
+}
+
+// Lista de problemas: UMA das três listas por PATCH, itens que entram e itens que saem
+// (por texto). Texto curto de propósito: é chip de ficha, não evolução.
+class AtualizarListaProblemasDto {
+  @IsIn(LISTAS_PROBLEMAS) lista: ListaProblemas;
+  @IsOptional() @IsArray() @ArrayMaxSize(30) @IsString({ each: true }) @MaxLength(120, { each: true }) adicionar?: string[];
+  @IsOptional() @IsArray() @ArrayMaxSize(30) @IsString({ each: true }) @MaxLength(120, { each: true }) remover?: string[];
 }
 
 class CriarAvaliacaoDto {
@@ -126,6 +136,20 @@ export class PacientesController {
   ) {
     recusarClinicoDaSecretaria(req.user.perfil, dto as unknown as Record<string, unknown>);
     return this.pacientesService.atualizar(id, dto, req.user.perfil);
+  }
+
+  // LISTA DE PROBLEMAS (comorbidades · medicações em uso · alergias) — escrita direta na
+  // ficha. Whitelist literal ['oncologista','admin'] (ListaProblemasEditarGuard): é dado
+  // clínico, alçada médica. A secretaria transporta pela proposta de importação; o revisor
+  // lê a ficha e não escreve. Cada PATCH deixa um evento administrativo na trilha.
+  @UseGuards(ListaProblemasEditarGuard)
+  @Patch(':id/lista-problemas')
+  atualizarListaProblemas(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: AtualizarListaProblemasDto,
+    @Request() req: { user: { id: number; nome: string; perfil: Perfil } },
+  ) {
+    return this.pacientesService.atualizarListaProblemas(id, dto, { id: req.user.id, nome: req.user.nome }, req.user.perfil);
   }
 
   // Remoção administrativa (limpeza de cadastros de teste) — perfil admin apenas.

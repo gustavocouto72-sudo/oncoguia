@@ -91,6 +91,18 @@ const dinheiro = {
 // LGPD: nesta fase os pacientes são FICTÍCIOS (validação). O schema já nasce no
 // padrão de produção — dados administrativos mínimos, sem dado clínico solto na
 // tabela; o clínico entra estruturado em selecoes_protocolo.dados_clinicos.
+// Item de uma das três listas de problemas do paciente. `registrado_por` é uma fotografia
+// (id + nome) — a lista é lida direto da ficha, sem join; e o nome do autor no momento do
+// registro é o que a trilha também mostra.
+export interface ItemListaProblemas {
+  texto: string;
+  origem: string;
+  registrado_por: { id: number; nome: string } | null;
+  em: string; // ISO timestamp
+}
+export type ListaProblemas = 'comorbidades' | 'medicacoes_uso' | 'alergias';
+export const LISTAS_PROBLEMAS: ListaProblemas[] = ['comorbidades', 'medicacoes_uso', 'alergias'];
+
 @Entity('pacientes')
 export class Paciente {
   @PrimaryGeneratedColumn()
@@ -148,6 +160,22 @@ export class Paciente {
   // uma avaliação (essa é o snapshot_campos da própria Avaliacao).
   @Column({ type: 'jsonb', nullable: true })
   valores_estaveis: Record<string, any>;
+
+  // ---- LISTA DE PROBLEMAS (comorbidades · medicações em uso · alergias) ----
+  // O que o oncologista assistencial olha de relance antes de decidir. Cada item guarda
+  // de onde veio (`origem`: "registro manual" na ficha, ou "importação (evolução de …)"
+  // quando a validação de uma proposta o gravou), quem gravou e quando. É estado MUTÁVEL
+  // (item entra e sai pela ficha) — o rastro de cada mudança vai para a trilha como evento
+  // administrativo 'lista_problemas', append-only. Dado CLÍNICO: fora do payload da
+  // secretaria (não entra no SELECT_ADMINISTRATIVO) e escrita só por quem trata.
+  @Column({ type: 'jsonb', default: () => `'[]'::jsonb` })
+  comorbidades: ItemListaProblemas[];
+
+  @Column({ type: 'jsonb', default: () => `'[]'::jsonb` })
+  medicacoes_uso: ItemListaProblemas[];
+
+  @Column({ type: 'jsonb', default: () => `'[]'::jsonb` })
+  alergias: ItemListaProblemas[];
 
   // ---- Agenda de reestadiamento (LEMBRETE, não registro clínico) ----
   // Diferente de avaliacoes/retornos (append-only), a agenda é ESTADO MUTÁVEL e descartável:
@@ -575,7 +603,7 @@ export class Retorno {
 // do paciente vê que a agenda foi mexida, por quem e por quê.
 // Quem pode registrar é whitelist de ROTA (secretaria + quem trata o paciente) — o perfil
 // ativo fica carimbado aqui como nos irmãos (Avaliacao.perfil_ativo).
-export type TipoEventoAdministrativo = 'reagendamento' | 'contato';
+export type TipoEventoAdministrativo = 'reagendamento' | 'contato' | 'lista_problemas';
 export type MeioContato = 'telefone' | 'whatsapp' | 'email' | 'presencial' | 'outro';
 export const MEIOS_CONTATO: MeioContato[] = ['telefone', 'whatsapp', 'email', 'presencial', 'outro'];
 

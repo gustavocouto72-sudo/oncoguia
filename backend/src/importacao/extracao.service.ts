@@ -21,12 +21,17 @@ import { ProvedorNaoConfigurado, provedorDoAmbiente } from './provedor-llm';
 //     "Não inferir" vira mecânica, não pedido.
 // Processa e descarta: nem o texto nem a resposta são gravados ou logados — o log só
 // registra modelo, contagem de tokens e quantos campos saíram.
+export interface ItemListaExtraido { texto: string; trecho: string }
 export interface ResultadoExtracao {
   proposta: {
     tumor: string;
     regimen_id: string | null;
     campos: { campo: string; valor: any; trecho: string }[];
     meta: Record<string, any>;
+    // Lista de problemas categorizada — cada item com o trecho que o sustenta (a mesma
+    // trava dos campos: sem trecho literal no texto, fora). Vai na proposta e, na
+    // validação, para as listas do paciente com origem "importação (evolução de …)".
+    lista_problemas: { comorbidades: ItemListaExtraido[]; medicacoes_uso: ItemListaExtraido[]; alergias: ItemListaExtraido[] };
   };
   descartados: { campo: string; motivo: string; valor?: any; trecho?: string }[];
   modelo: string;
@@ -77,6 +82,7 @@ export class ExtracaoService {
       '5. Protocolo em curso: se o texto DECLARAR o tratamento atual, informe `regimen_id` escolhendo, entre os regimes abaixo, o que combina com o FÁRMACO E com o cenário clínico descrito (sensível vs. resistente à castração, metastático ou não). Se o fármaco está claro mas o cenário não, deixe `regimen_id` nulo e preencha só `protocolo_texto`. Sempre com trecho.',
       '6. Meta: `data_evolucao` (data da evolução/consulta, ISO YYYY-MM-DD), `proximo_retorno` (data do retorno previsto, ISO), `data_inicio` (início do tratamento em curso, ISO), `medico_assistente_texto` (nome do médico como aparece), `historico` (resumo curto e factual da história oncológica, em até 600 caracteres — este é o único campo que pode ser redigido por você), `sem_campo` (fatos clínicos relevantes que NÃO têm campo na lista — ex.: linfonodos, cirurgias, hormonioterapia — uma frase curta cada). Datas e nomes vêm com trecho.',
       '7. Se o texto tiver uma data em formato brasileiro (dd/mm/aaaa), converta para ISO no valor e mantenha o original no trecho.',
+      '8. LISTA DE PROBLEMAS — `lista_problemas` com três listas categorizadas, cada item {texto, trecho}: `comorbidades` (doenças de base e eventos relevantes fora do tumor: HAS, DM, IAM prévio, DPOC, IRC…), `medicacoes_uso` (medicamentos de uso contínuo NÃO oncológicos, com dose/posologia quando o texto trouxer — ex.: "Anlodipino 5 mg 24/24h"; o antineoplásico/hormonioterapia do protocolo em curso NÃO entra aqui, ele já é o `regimen_id`), `alergias` (alergias declaradas; se o texto NEGA alergias explicitamente, inclua um item "Nega alergias conhecidas" com o trecho da negativa; se não fala em alergia, lista vazia). `texto` curto (até 120 caracteres), um item por fato; `trecho` LITERAL como nos campos. Comorbidade, medicação e alergia vão SÓ aqui — NÃO as repita em `sem_campo`; `sem_campo` fica para o resto (cirurgias, linfonodos, exames…).',
       '',
       'CAMPOS DO TUMOR:',
       campos,
@@ -94,10 +100,18 @@ export class ExtracaoService {
       type: 'object', additionalProperties: false, required: ['valor', 'trecho'],
       properties: { valor, trecho: { type: 'string' } },
     });
+    const listaItens = {
+      type: 'array',
+      items: { type: 'object', additionalProperties: false, required: ['texto', 'trecho'], properties: { texto: { type: 'string' }, trecho: { type: 'string' } } },
+    };
     return {
       type: 'object', additionalProperties: false,
-      required: ['campos', 'protocolo', 'meta'],
+      required: ['campos', 'protocolo', 'meta', 'lista_problemas'],
       properties: {
+        lista_problemas: {
+          type: 'object', additionalProperties: false, required: ['comorbidades', 'medicacoes_uso', 'alergias'],
+          properties: { comorbidades: listaItens, medicacoes_uso: listaItens, alergias: listaItens },
+        },
         campos: {
           type: 'array',
           items: {
@@ -211,8 +225,25 @@ export class ExtracaoService {
       sem_campo: (Array.isArray(m.sem_campo) ? m.sem_campo : []).map((x: any) => String(x).slice(0, 200)).filter(Boolean).slice(0, 20),
       protocolo_texto,
     };
+    // lista de problemas: a mesma trava dos campos — item sem trecho literal no texto é
+    // descartado (listado em `descartados` como "lista_problemas.<lista>"); texto vazio ou
+    // repetido dentro da lista também sai. Até 30 itens por lista.
+    const lp = resposta.json?.lista_problemas || {};
+    const lista_problemas: ResultadoExtracao['proposta']['lista_problemas'] = { comorbidades: [], medicacoes_uso: [], alergias: [] };
+    for (const k of ['comorbidades', 'medicacoes_uso', 'alergias'] as const) {
+      const vistosLp = new Set<string>();
+      for (const it of (Array.isArray(lp[k]) ? lp[k] : [])) {
+        const texto = String(it?.texto || '').replace(/\s+/g, ' ').trim().slice(0, 120);
+        if (!texto) continue;
+        if (vistosLp.has(norm(texto))) { descartados.push({ campo: `lista_problemas.${k}`, motivo: 'repetido', valor: texto }); continue; }
+        if (!noTexto(it?.trecho)) { descartados.push({ campo: `lista_problemas.${k}`, motivo: 'trecho não encontrado literalmente no texto', valor: texto, trecho: it?.trecho }); continue; }
+        vistosLp.add(norm(texto));
+        lista_problemas[k].push({ texto, trecho: String(it.trecho).trim().slice(0, 500) });
+        if (lista_problemas[k].length >= 30) break;
+      }
+    }
     // Só metadados no log — nunca o texto nem a resposta.
-    this.log.log(`extração ${tumor}: modelo=${resposta.modelo} campos=${campos.length} descartados=${descartados.length} tokens=${resposta.uso ? `${resposta.uso.entrada}/${resposta.uso.saida}` : '?'}`);
-    return { proposta: { tumor, regimen_id, campos, meta }, descartados, modelo: resposta.modelo, uso: resposta.uso };
+    this.log.log(`extração ${tumor}: modelo=${resposta.modelo} campos=${campos.length} lista_problemas=${lista_problemas.comorbidades.length}/${lista_problemas.medicacoes_uso.length}/${lista_problemas.alergias.length} descartados=${descartados.length} tokens=${resposta.uso ? `${resposta.uso.entrada}/${resposta.uso.saida}` : '?'}`);
+    return { proposta: { tumor, regimen_id, campos, meta, lista_problemas }, descartados, modelo: resposta.modelo, uso: resposta.uso };
   }
 }

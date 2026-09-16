@@ -475,6 +475,27 @@
   .imp-pdf-cab{background:#f6f9fb;border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-top:8px;font-size:12.5px}
   .imp-raspado{width:100%;min-height:180px;max-height:320px;font-family:ui-monospace,Menlo,monospace;font-size:11px;margin-top:6px;background:#fff;color:#333}
   .ret-venc{color:#a5281b;font-weight:800}
+  /* ---- Lista de problemas: faixa compacta sob o cabeçalho da ficha ---- */
+  .lp-faixa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+  @media (max-width:760px){.lp-faixa{grid-template-columns:1fr}}
+  .lp-box{background:#f6f9fb;border:1px solid var(--line);border-radius:9px;padding:8px 10px;min-width:0}
+  .lp-box .lp-t{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700}
+  .lp-box .lp-t button{border:1px solid var(--line);background:#fff;border-radius:6px;width:22px;height:22px;line-height:1;font-weight:800;color:var(--accent);cursor:pointer;font-size:14px;padding:0}
+  .lp-box .lp-t button:hover{border-color:var(--accent)}
+  .lp-itens{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;min-height:22px}
+  .lp-chip{display:inline-flex;align-items:center;gap:4px;max-width:100%;font-size:11.5px;padding:3px 8px;border-radius:6px;font-weight:600;border:1px solid #cdd8e2;background:#eef2f7;color:#41607a;cursor:help}
+  .lp-chip.alergia{background:var(--redbg);color:#a5281b;border-color:#f0c3bd}
+  .lp-chip.nega{background:var(--greenbg);color:#157a49;border-color:#bfe6cf}
+  .lp-chip .lp-x{border:0;background:transparent;color:inherit;opacity:.55;cursor:pointer;font-weight:800;padding:0 0 0 2px;font-size:12px;line-height:1}
+  .lp-chip .lp-x:hover{opacity:1}
+  .lp-vazio{font-size:11.5px;color:var(--muted);font-style:italic;padding:3px 0}
+  .lp-form{display:flex;gap:6px;margin-top:6px}
+  .lp-form input{flex:1;min-width:0;font-size:12px;padding:5px 8px;height:30px}
+  .lp-form button{height:30px;padding:0 10px;font-size:12px}
+  .lp-prop{margin-top:10px}
+  .lp-prop .lp-box{background:#fff}
+  .lp-prop .lp-chip{cursor:default}
+  .lp-prop .lp-trecho{display:block;font-size:11px;color:var(--muted);font-weight:400;font-style:italic;margin-top:2px;white-space:normal}
   /* ---- Reestadiamento: lembrete e item pendente ---- */
   .reest-ok{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);background:#f6f9fb;border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin-top:12px}
   .reest-venc{background:var(--redbg);border:1px solid #f0c3bd;border-radius:9px;padding:11px 13px;margin-top:12px}
@@ -662,6 +683,7 @@ function rascunhoAberto(){
   if(RETORNO) abertos.push("um retorno em preenchimento");
   if(SADT) abertos.push("uma guia SP/SADT em preenchimento");
   if(AGENDA_FORM && ((AGENDA_FORM.motivo||"").trim() || (AGENDA_FORM.nota||"").trim())) abertos.push(AGENDA_FORM.tipo==="reagendar" ? "um reagendamento em preenchimento" : "um registro de contato em preenchimento");
+  if(LP_FORM && (LP_FORM.texto||"").trim()) abertos.push("um item da lista de problemas digitado");
   if(SIM) abertos.push("o simulador aberto");
   // Pareceres: só contam com CONTEÚDO digitado — um objeto criado por um clique de
   // seleção e depois esvaziado não é rascunho, e alertar sobre ele ensina a ignorar.
@@ -2473,7 +2495,7 @@ async function salvarCadastro(){
   }catch(e){ alert("Falha ao salvar paciente: "+e.message); }
 }
 function abrir(id, tab){
-  current=id; pacTab=tab||"dados"; REAVAL=null; RETORNO=null; SADT=null; view="paciente"; render();
+  current=id; pacTab=tab||"dados"; REAVAL=null; RETORNO=null; SADT=null; LP_FORM=null; view="paciente"; render();
   carregarDetalhe(id);
 }
 // Uma recarga que chega DEPOIS não pode redesenhar por cima de um rascunho aberto
@@ -2485,6 +2507,7 @@ function podeRedesenhar(id){
   if(RETORNO && RETORNO.pid===id) return false;
   if(REAVAL && REAVAL.pid===id) return false;
   if(AGENDA_FORM && AGENDA_FORM.pid===id) return false;
+  if(LP_FORM && LP_FORM.pid===id) return false;
   return true;
 }
 // Carrega o paciente + última avaliação + linha do tempo (GET /pacientes/:id).
@@ -2538,6 +2561,7 @@ function renderPaciente(){
       <div><h2>${esc(p.nome)}</h2><div class="sub">${idade(p.nasc)} · ${p.sexo==="F"?"Feminino":"Masculino"} · ${esc(p.cidade||"—")} · ${esc(p.operadora||"—")}${p.plano?` (${esc(p.plano)})`:""}${p.identificador?` · reg. ${esc(p.identificador)}`:""}</div></div>
       <div style="text-align:right;flex:none">${tumorPill}${USUARIO&&(USUARIO.perfil==="oncologista"||USUARIO.perfil==="admin")?`<div style="margin-top:8px"><button class="btn ghost" style="padding:5px 12px" onclick="editarCadastro(${p.id})">✎ Editar dados cadastrais</button></div>`:""}</div>
     </div>
+    <div id="lp-faixa">${lpFaixaHtml(p.id)}</div>
     <nav class="tabs pac-tabs">
       <a class="${pacTab==='trilha'?'':'on'}" onclick="setPacTab('dados')">Seguimento</a>
       <a class="${pacTab==='trilha'?'on':''}" onclick="setPacTab('trilha')">Trilha${histCount?`<span class="n hist-n">${histCount}</span>`:""}${reestVenc?` <span title="Reestadiamento vencido">⏰</span>`:""}</a>
@@ -2615,6 +2639,82 @@ function renderPaciente(){
   app().innerHTML = `
   <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <b>${esc(p.nome)}</b></div>
   <div class="card">${headerHtml}${body}</div>`;
+}
+
+// =================== LISTA DE PROBLEMAS (comorbidades · medicações em uso · alergias) ===================
+// Faixa compacta sob o cabeçalho da ficha — o que o oncologista assistencial olha de
+// relance antes de decidir. Vem do GET /pacientes/:id (três listas, sempre presentes);
+// a secretaria nunca chega aqui (renderFichaAdministrativa) e o payload dela não traz as
+// listas. Oncologista/admin veem + e × (remover pede confirmação); os demais perfis
+// clínicos só leem. Cada mudança é um PATCH dedicado e deixa evento na trilha.
+// Digitar o item novo NÃO re-renderiza (LP_FORM guarda o texto); gravar repinta só #lp-faixa.
+let LP_FORM = null; // {pid, lista, texto} — formulário inline de adição aberto
+const LP_META = {
+  comorbidades:   {t:"Comorbidades",       vazio:"nenhuma registrada", ph:"Ex.: HAS, DM2, IAM prévio"},
+  medicacoes_uso: {t:"Medicações em uso",  vazio:"nenhuma registrada", ph:"Ex.: Anlodipino 5 mg 24/24h"},
+  alergias:       {t:"Alergias",           vazio:"nenhuma registrada", ph:"Ex.: Dipirona · ou: Nega alergias"},
+};
+function podeEditarLP(){ return !!(USUARIO && (USUARIO.perfil==="oncologista"||USUARIO.perfil==="admin")); }
+function lpChipClass(lista, texto){
+  if(lista!=="alergias") return "";
+  return /^nega\b|^sem alergia|^desconhece/i.test(String(texto||"")) ? " nega" : " alergia";
+}
+function lpTooltip(it){
+  const quem = it.registrado_por && it.registrado_por.nome ? it.registrado_por.nome : "—";
+  return `${it.origem||"—"} · ${it.em?fmtDataHora(it.em):"—"} · por ${quem}`;
+}
+function lpFaixaHtml(pid){
+  const d = PAC_DETAIL[pid];
+  if(!d || ehSecretaria()) return "";
+  const edita = podeEditarLP();
+  return `<div class="lp-faixa">${Object.keys(LP_META).map(lista=>{
+    const itens = Array.isArray(d[lista]) ? d[lista] : [];
+    const m = LP_META[lista];
+    const form = LP_FORM && LP_FORM.pid===pid && LP_FORM.lista===lista;
+    return `<div class="lp-box" data-lista="${lista}">
+      <div class="lp-t"><span>${m.t}${itens.length?` <span class="hint" style="text-transform:none;letter-spacing:0">(${itens.length})</span>`:""}</span>${edita&&!form?`<button title="Adicionar" onclick="lpAbrirForm(${pid},'${lista}')">+</button>`:""}</div>
+      <div class="lp-itens">${itens.length
+        ? itens.map(it=>`<span class="lp-chip${lpChipClass(lista,it.texto)}" title="${esc(lpTooltip(it))}">${esc(it.texto)}${edita?`<button class="lp-x" title="Remover" onclick="lpRemover(${pid},'${lista}',this)" data-texto="${esc(it.texto)}">×</button>`:""}</span>`).join("")
+        : `<span class="lp-vazio">— ${m.vazio} —</span>`}</div>
+      ${form?`<div class="lp-form"><input id="lp_in_${lista}" maxlength="120" placeholder="${esc(m.ph)}" value="${esc(LP_FORM.texto||"")}" oninput="LP_FORM.texto=this.value" onkeydown="if(event.key==='Enter'){event.preventDefault();lpAdicionar(${pid});}else if(event.key==='Escape'){lpFecharForm();}"><button class="btn primary" onclick="lpAdicionar(${pid})">Adicionar</button><button class="btn ghost" onclick="lpFecharForm()">✕</button></div>`:""}
+    </div>`;
+  }).join("")}</div>`;
+}
+function lpRepintar(pid){ const el=document.getElementById("lp-faixa"); if(el && current===pid) el.innerHTML = lpFaixaHtml(pid); }
+function lpAbrirForm(pid, lista){
+  LP_FORM = {pid, lista, texto:""};
+  lpRepintar(pid);
+  const el=document.getElementById("lp_in_"+lista); if(el) el.focus();
+}
+function lpFecharForm(){ const pid = LP_FORM && LP_FORM.pid; LP_FORM = null; if(pid) lpRepintar(pid); }
+async function lpAdicionar(pid){
+  const f = LP_FORM; if(!f || f.pid!==pid) return;
+  const texto = (f.texto||"").trim();
+  if(!texto){ const el=document.getElementById("lp_in_"+f.lista); if(el) el.focus(); return; }
+  const btn = document.querySelector(`#lp-faixa .lp-box[data-lista="${f.lista}"] .lp-form button`); if(btn) btn.disabled = true;
+  try{
+    const r = await api(`/pacientes/${pid}/lista-problemas`, {method:"PATCH", body:JSON.stringify({lista:f.lista, adicionar:[texto]})});
+    lpAplicarResposta(pid, r);
+    LP_FORM = null;
+    lpRepintar(pid);
+    toast(`${LP_META[f.lista].t}: "${texto}" registrado.`);
+  }catch(e){ if(btn) btn.disabled = false; alert("Falha ao registrar: "+e.message); }
+}
+async function lpRemover(pid, lista, btn){
+  const texto = btn && btn.getAttribute("data-texto"); if(!texto) return;
+  if(!confirm(`Remover "${texto}" de ${LP_META[lista].t.toLowerCase()}?\n\nA remoção fica registrada na trilha do paciente.`)) return;
+  try{
+    const r = await api(`/pacientes/${pid}/lista-problemas`, {method:"PATCH", body:JSON.stringify({lista, remover:[texto]})});
+    lpAplicarResposta(pid, r);
+    lpRepintar(pid);
+    toast(`${LP_META[lista].t}: "${texto}" removido.`);
+  }catch(e){ alert("Falha ao remover: "+e.message); }
+}
+// A resposta do PATCH traz as três listas atualizadas: entram no cache do detalhe (sem
+// recarregar a ficha) e a trilha, se já estava carregada, é recarregada para mostrar o evento.
+function lpAplicarResposta(pid, r){
+  const d = PAC_DETAIL[pid]; if(d){ d.comorbidades=r.comorbidades||[]; d.medicacoes_uso=r.medicacoes_uso||[]; d.alergias=r.alergias||[]; }
+  if(TRILHA[pid]!=null) carregarTrilha(pid);
 }
 
 // ---- FICHA ADMINISTRATIVA (secretaria) ----
@@ -2810,7 +2910,19 @@ function carregarProposta(pid){
     .catch(()=>{ IMP_PROP[pid] = null; })
     .then(()=>{ if(current===pid && view==="paciente"){ const el=document.getElementById("imp-slot"); if(el) el.innerHTML = impSlotHtml(pid); } });
 }
-function impNovoRascunho(){ return {tumor:null, regimen_id:"", linha:"1", subtipo:"", protocolo_texto:"", campos:{}, trechos:{}, meta:{data_inicio:"", data_evolucao:"", proximo_retorno:"", medico_assistente_texto:"", sem_campo:"", historico:""}, json:""}; }
+// lp_txt: as três listas como texto (um item por linha) — é o que a secretaria edita;
+// lp_trechos: lista → {texto → trecho}, preservado da extração para o item cujo texto não mudou.
+function impNovoRascunho(){ return {tumor:null, regimen_id:"", linha:"1", subtipo:"", protocolo_texto:"", campos:{}, trechos:{}, meta:{data_inicio:"", data_evolucao:"", proximo_retorno:"", medico_assistente_texto:"", sem_campo:"", historico:""}, lp_txt:{comorbidades:"", medicacoes_uso:"", alergias:""}, lp_trechos:{comorbidades:{}, medicacoes_uso:{}, alergias:{}}, json:""}; }
+// Lista de problemas do rascunho → envelope: cada linha vira {texto, trecho} (trecho só
+// quando a extração o trouxe para aquele texto exato).
+function impListaProblemasPayload(){
+  const out = {};
+  Object.keys(LP_META).forEach(l=>{
+    const tr = (IMP.lp_trechos&&IMP.lp_trechos[l])||{};
+    out[l] = String((IMP.lp_txt&&IMP.lp_txt[l])||"").split("\n").map(x=>x.trim()).filter(Boolean).map(t=>({texto:t, trecho: tr[t]||null}));
+  });
+  return out;
+}
 function setCadModo(m){
   CADASTRO.modo = m;
   if(m==="importar" && !IMP) IMP = impNovoRascunho();
@@ -2892,6 +3004,11 @@ function impFormHtml(){
       <div class="field"><label>Fatos sem campo no sistema (um por linha)</label><textarea id="imp_sem_campo" rows="3" placeholder="Ex.: N0&#10;prostatectomia = sim" oninput="IMP.meta.sem_campo=this.value">${esc(m.sem_campo||"")}</textarea></div>
     </div>
     <div class="field"><label>Histórico resumido (opcional)</label><textarea id="imp_historico" rows="3" maxlength="4000" oninput="IMP.meta.historico=this.value">${esc(m.historico||"")}</textarea></div>
+    <div class="section-t">Lista de problemas (um item por linha)</div>
+    <div class="hint" style="margin-bottom:6px">Comorbidades, medicações de uso contínuo e alergias como estão no prontuário. A extração preenche com o trecho de cada item; o médico confere e pode editar antes de validar.</div>
+    <div class="grid3">
+      ${Object.keys(LP_META).map(l=>`<div class="field"><label>${LP_META[l].t}</label><textarea id="imp_lp_${l}" rows="3" placeholder="${esc(LP_META[l].ph)}" oninput="IMP.lp_txt.${l}=this.value">${esc((IMP.lp_txt&&IMP.lp_txt[l])||"")}</textarea></div>`).join("")}
+    </div>
     <details class="imp-json"><summary>Ou colar o JSON da proposta</summary>
       <div class="hint">Formato: <code>{"tumor":"prostata","regimen_id":"…","campos":[{"campo":"metastatico","valor":true,"trecho":"…"}],"meta":{"data_evolucao":"2026-08-28",…}}</code>. Carregar preenche o formulário acima (o que estiver no JSON substitui o digitado).</div>
       <textarea id="imp_json" rows="5" spellcheck="false" oninput="IMP.json=this.value">${esc(IMP.json||"")}</textarea>
@@ -2909,6 +3026,12 @@ function impCarregarJson(){
   r.meta = {data_inicio:m.data_inicio||"", data_evolucao:m.data_evolucao||"", proximo_retorno:m.proximo_retorno||"", medico_assistente_texto:m.medico_assistente_texto||"",
     sem_campo:Array.isArray(m.sem_campo)?m.sem_campo.join("\n"):(m.sem_campo||""), historico:m.historico||""};
   r.protocolo_texto = m.protocolo_texto||"";
+  const lp = (j.lista_problemas && typeof j.lista_problemas==="object") ? j.lista_problemas : {};
+  Object.keys(LP_META).forEach(l=>{
+    const itens = (Array.isArray(lp[l])?lp[l]:[]).map(it=>typeof it==="string"?{texto:it}:it).filter(it=>it&&it.texto);
+    r.lp_txt[l] = itens.map(it=>String(it.texto).trim()).filter(Boolean).join("\n");
+    r.lp_trechos[l] = {}; itens.forEach(it=>{ if(it.trecho) r.lp_trechos[l][String(it.texto).trim()] = String(it.trecho); });
+  });
   IMP = r; updateImpClin();
 }
 // Envelope a partir do rascunho — só o INFORMADO entra em `campos`.
@@ -2926,6 +3049,7 @@ function impPayload(){
       medico_assistente_texto:(m.medico_assistente_texto||"").trim()||null,
       sem_campo:(m.sem_campo||"").split("\n").map(x=>x.trim()).filter(Boolean),
       historico:(m.historico||"").trim()||null, protocolo_texto:(IMP.protocolo_texto||"").trim()||null},
+    lista_problemas: impListaProblemasPayload(),
   };
 }
 // ---- slot da proposta na ficha (secretaria: resumo; oncologista/admin: painel de validação) ----
@@ -2950,7 +3074,8 @@ function impPainelHtml(pid, pr){
   const pl = pr.payload||{};
   if(!IMP_VAL || IMP_VAL.id!==pr.id){
     const valores = {}; (pl.campos||[]).forEach(c=>{ if(c.valor!==null&&c.valor!==undefined) valores[c.campo]=c.valor; });
-    IMP_VAL = {pid, id:pr.id, tumor:pl.tumor, valores, regimen_id:pl.regimen_id||"", linha:pl.linha_tratamento||1};
+    IMP_VAL = {pid, id:pr.id, tumor:pl.tumor, valores, regimen_id:pl.regimen_id||"", linha:pl.linha_tratamento||1,
+      lista_problemas: impLpClone(pl.lista_problemas), lp_form:null};
   }
   const tumor = pl.tumor;
   const specs = primFieldsFor(tumor)||[];
@@ -2988,6 +3113,7 @@ function impPainelHtml(pid, pr){
       <div class="field"><label>Linha</label><input id="impv_linha" type="number" min="1" value="${esc(String(IMP_VAL.linha||1))}" oninput="IMP_VAL.linha=this.value"></div>
     </div>
     <table class="imp-tab"><thead><tr><th>Campo</th><th>Valor proposto (edite se precisar)</th><th>Trecho do prontuário</th></tr></thead><tbody>${rows}</tbody></table>
+    <div id="imp-lp">${impLpHtml(pid)}</div>
     <div id="imp-preview">${impPreviewHtml()}</div>
     <div class="row-actions" style="margin-top:12px">
       <button class="btn ghost" id="imp_descartar" onclick="impDescartar(${pid}, ${pr.id}, this)">Descartar…</button>
@@ -2995,6 +3121,40 @@ function impPainelHtml(pid, pr){
     </div>
   </div>`;
 }
+// ---- Lista de problemas PROPOSTA (painel de validação) ----
+// Os itens que a proposta trouxe (comorbidades · medicações · alergias), cada um com o
+// trecho do prontuário; editável ANTES de validar: × tira o item (nada foi gravado ainda,
+// não pede confirmação), + acrescenta (sem trecho — é o médico afirmando). Ao Validar,
+// o que estiver aqui vai para as listas do paciente com origem "importação (evolução de …)".
+// Estado em IMP_VAL.lista_problemas; digitar não re-renderiza; gravar repinta só #imp-lp.
+function impLpClone(lp){
+  const out = {}; Object.keys(LP_META).forEach(l=>{ out[l] = ((lp&&Array.isArray(lp[l]))?lp[l]:[]).map(it=>({texto:String(it.texto||""), trecho:it.trecho||null})).filter(it=>it.texto); }); return out;
+}
+function impLpHtml(pid){
+  if(!IMP_VAL) return "";
+  const lp = IMP_VAL.lista_problemas, f = IMP_VAL.lp_form;
+  const total = Object.keys(LP_META).reduce((n,l)=>n+lp[l].length,0);
+  return `<div class="section-t" style="margin-top:12px">Lista de problemas proposta${total?` <span class="hint" style="font-weight:400">(${total} item(ns) — vão para a ficha ao validar)</span>`:""}</div>
+    <div class="lp-faixa lp-prop" style="margin-top:6px">${Object.keys(LP_META).map(l=>`<div class="lp-box" data-lista="${l}">
+      <div class="lp-t"><span>${LP_META[l].t}</span>${f&&f.lista===l?"":`<button title="Adicionar" onclick="impLpAbrir('${l}')">+</button>`}</div>
+      <div class="lp-itens" style="flex-direction:column;align-items:flex-start">${lp[l].length
+        ? lp[l].map((it,i)=>`<span class="lp-chip${lpChipClass(l,it.texto)}" style="white-space:normal;text-align:left">${esc(it.texto)}<button class="lp-x" title="Tirar da proposta" onclick="impLpRemover('${l}',${i})">×</button>${it.trecho?`<span class="lp-trecho">“${esc(it.trecho)}”</span>`:""}</span>`).join("")
+        : `<span class="lp-vazio">— nenhuma proposta —</span>`}</div>
+      ${f&&f.lista===l?`<div class="lp-form"><input id="imp_lp_in" maxlength="120" placeholder="${esc(LP_META[l].ph)}" value="${esc(f.texto||"")}" oninput="IMP_VAL.lp_form.texto=this.value" onkeydown="if(event.key==='Enter'){event.preventDefault();impLpAdicionar();}else if(event.key==='Escape'){impLpFechar();}"><button class="btn primary" onclick="impLpAdicionar()">Adicionar</button><button class="btn ghost" onclick="impLpFechar()">✕</button></div>`:""}
+    </div>`).join("")}</div>`;
+}
+function impLpRepintar(){ const el=document.getElementById("imp-lp"); if(el && IMP_VAL) el.innerHTML = impLpHtml(IMP_VAL.pid); }
+function impLpAbrir(lista){ if(!IMP_VAL) return; IMP_VAL.lp_form = {lista, texto:""}; impLpRepintar(); const el=document.getElementById("imp_lp_in"); if(el) el.focus(); }
+function impLpFechar(){ if(!IMP_VAL) return; IMP_VAL.lp_form = null; impLpRepintar(); }
+function impLpAdicionar(){
+  const f = IMP_VAL && IMP_VAL.lp_form; if(!f) return;
+  const texto = (f.texto||"").trim(); if(!texto){ const el=document.getElementById("imp_lp_in"); if(el) el.focus(); return; }
+  const lista = IMP_VAL.lista_problemas[f.lista];
+  if(lista.some(it=>_norm(it.texto)===_norm(texto))){ alert(`"${texto}" já está na lista.`); return; }
+  lista.push({texto, trecho:null}); IMP_VAL.lp_form = null; impLpRepintar();
+}
+function impLpRemover(lista, i){ if(!IMP_VAL) return; IMP_VAL.lista_problemas[lista].splice(i,1); impLpRepintar(); }
+
 // Pré-visualização do semáforo com o MESMO interpretador da app, mas só com os valores
 // informados (sem primDefault) — é o que o servidor vai calcular. Cortesia de tela: o
 // veredito que vale é o do servidor, devolvido na validação.
@@ -3024,6 +3184,10 @@ function impCorrecoes(pr){
   if((IMP_VAL.regimen_id||"")!==((pr.payload||{}).regimen_id||"")) body.regimen_id = IMP_VAL.regimen_id||null;
   const linha = parseInt(IMP_VAL.linha,10);
   if(!isNaN(linha) && linha!==((pr.payload||{}).linha_tratamento||1)) body.linha_tratamento = linha;
+  // Lista de problemas: só viaja se o médico mexeu (a proposta inteira é substituída).
+  const lpProp = impLpClone((pr.payload||{}).lista_problemas);
+  const chave = lp => JSON.stringify(Object.keys(LP_META).map(l=>lp[l].map(it=>it.texto)));
+  if(chave(lpProp)!==chave(IMP_VAL.lista_problemas)) body.lista_problemas = IMP_VAL.lista_problemas;
   return body;
 }
 async function impValidar(pid, id, btn){
@@ -3032,7 +3196,8 @@ async function impValidar(pid, id, btn){
   try{
     const r = await api(`/importacao-propostas/${id}/validar`, {method:"POST", body:JSON.stringify(impCorrecoes(pr))});
     IMP_VAL = null;
-    toast(r.vigente ? `Proposta validada — ${protocoloNome(r.regimen_id)} registrado como vigente.` : `Proposta validada — primitivos gravados, sem protocolo vigente.`);
+    const nLp = r.lista_problemas ? Object.keys(LP_META).reduce((n,l)=>n+((r.lista_problemas[l]||[]).length),0) : 0;
+    toast((r.vigente ? `Proposta validada — ${protocoloNome(r.regimen_id)} registrado como vigente.` : `Proposta validada — primitivos gravados, sem protocolo vigente.`) + (nLp?` Lista de problemas: ${nLp} item(ns) na ficha.`:""));
     if(!r.vigente && r.motivo) alert("Validado sem seleção de protocolo:\n\n"+r.motivo);
     await carregarPacientes();
     await carregarDetalhe(pid);
@@ -3203,7 +3368,7 @@ function impPdfHtml(){
         <button class="btn primary" id="imp_extrair" ${IMP.tumor?"":"disabled title='escolha o tumor abaixo'"} onclick="impExtrair(this)">Extrair dados clínicos (IA)</button>
         <span class="hint" id="imp_extrair_status">${IMP.tumor?"":"Escolha o tumor abaixo para habilitar."}</span>
       </div>
-      ${p.extraido?`<div class="hint" style="margin-top:6px;color:#1f5c33">✔ Extração aplicada ao formulário: ${p.extraido.campos} campo(s) com trecho${p.extraido.regimen_id?`, protocolo sugerido`:""}. <b>Confira cada valor contra o trecho</b> antes de enviar.${p.descartados&&p.descartados.length?`<br>Descartados pelo servidor (sem trecho literal no texto ou fora do vocabulário): ${p.descartados.map(d=>`${esc(d.campo)} (${esc(d.motivo)})`).join("; ")}.`:""}</div>`:""}
+      ${p.extraido?`<div class="hint" style="margin-top:6px;color:#1f5c33">✔ Extração aplicada ao formulário: ${p.extraido.campos} campo(s) com trecho${p.extraido.regimen_id?`, protocolo sugerido`:""}${p.extraido.lista_problemas?`, lista de problemas ${p.extraido.lista_problemas[0]} comorbidade(s) · ${p.extraido.lista_problemas[1]} medicação(ões) · ${p.extraido.lista_problemas[2]} alergia(s)`:""}. <b>Confira cada valor contra o trecho</b> antes de enviar.${p.descartados&&p.descartados.length?`<br>Descartados pelo servidor (sem trecho literal no texto ou fora do vocabulário): ${p.descartados.map(d=>`${esc(d.campo)} (${esc(d.motivo)})`).join("; ")}.`:""}</div>`:""}
     </div>` : "";
   return `<div class="section-t">Ler PDF da evolução</div>
     <div class="hint" style="margin-bottom:6px">O PDF é lido <b>aqui, no seu navegador</b>. O cabeçalho vira cadastro (nome → só as iniciais), a narrativa é raspada dos identificadores e mostrada abaixo antes de qualquer envio.</div>
@@ -3230,9 +3395,11 @@ function impAplicarExtracao(res){
   if(!meta.data_evolucao && cab.data_evolucao_br) meta.data_evolucao = brParaIso(cab.data_evolucao_br);
   if(!meta.proximo_retorno && cab.retorno_br) meta.proximo_retorno = brParaIso(cab.retorno_br);
   if(!meta.medico_assistente_texto && cab.medico) meta.medico_assistente_texto = cab.medico;
-  const json = {tumor: IMP.tumor, regimen_id: prop.regimen_id||null, campos: prop.campos||[], meta};
+  const lp = prop.lista_problemas||{};
+  const json = {tumor: IMP.tumor, regimen_id: prop.regimen_id||null, campos: prop.campos||[], meta, lista_problemas: lp};
   IMP.json = JSON.stringify(json, null, 1);
-  IMP.pdf.extraido = {campos: (prop.campos||[]).length, regimen_id: prop.regimen_id||null};
+  IMP.pdf.extraido = {campos: (prop.campos||[]).length, regimen_id: prop.regimen_id||null,
+    lista_problemas: Object.keys(LP_META).map(l=>(lp[l]||[]).length)};
   IMP.pdf.descartados = res.descartados||[];
   impCarregarJson();
 }
@@ -3650,6 +3817,8 @@ function administrativoEntryHtml(it){
   if(ev==="proposta_importacao") return propostaEntryHtml(it);
   const titulo = ev==="reagendamento"
     ? `📅 Retorno reagendado: ${fmtData(it.data_anterior)} → <b>${fmtData(it.data)}</b>`
+    : ev==="lista_problemas"
+    ? `📋 Lista de problemas atualizada`
     : `📞 Contato com o paciente · ${esc(MEIO_CONTATO_LABEL[it.meio]||it.meio||"—")} · ${fmtData(it.data)}`;
   return `<div class="proto hist-entry adm">
     <div class="row1">
