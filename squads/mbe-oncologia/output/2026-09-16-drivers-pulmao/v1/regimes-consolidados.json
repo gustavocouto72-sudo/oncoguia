@@ -1,14 +1,14 @@
 {
   "meta": {
-    "titulo": "Protocolos de Oncologia 2025 — consolidado + intake revisão lote 3 (export 15/09/2026: 14/09 + pendências de 16/08) (re-run 2026-07-22, 25 tumores)",
-    "gerado_em": "2026-09-15",
+    "titulo": "Protocolos de Oncologia 2025 — consolidado + ajuste dos drivers de pulmão (EGFR/ALK/ROS1/histologia, decisão do revisor 16/09/2026) (re-run 2026-07-22, 25 tumores)",
+    "gerado_em": "2026-09-16",
     "total_tumores": 25,
-    "total_regimes": 300,
+    "total_regimes": 301,
     "distribuicao_selo": {
-      "re_derivado": 178,
+      "re_derivado": 181,
       "incompleto": 57,
       "divergencia": 19,
-      "confirmado": 46
+      "confirmado": 44
     },
     "por_tumor": [
       {
@@ -23,11 +23,10 @@
       },
       {
         "tumor": "pulmao-nsclc",
-        "regimes": 21,
+        "regimes": 22,
         "selo": {
-          "re_derivado": 16,
-          "incompleto": 3,
-          "confirmado": 2
+          "re_derivado": 19,
+          "incompleto": 3
         }
       },
       {
@@ -219,402 +218,463 @@
       }
     ],
     "politica": "selo por confronto real + política conservadora; reparo de DOI (Crossref/PubMed por nome); mapa ordinal canônico de estadiamento; custo=estimativa; diretriz=re_derivado.",
-    "substitui": "2026-09-13-intake-revisao-2/v1",
-    "publicacao": "NÃO publicado: RUN_ATIVO intocado; aguarda (1) frente da secretária liberar o backend, (2) Portão A (--check-dois) neste run, (3) autorização humana. Só então: build-data, restart, migration de aplicada_em (backend-pendente/).",
+    "substitui": "2026-09-15-intake-revisao-3/v1",
+    "publicacao": "NÃO publicado: RUN_ATIVO intocado; aguarda Portão A neste run, Portão B em DEV (app + semaforo.ts com 'indeterminado') e comando humano. Publicação em produção sequenciada DEPOIS do deploy da importação (nunca dois deploys juntos).",
     "revisao_humana": {
-      "lote": 3,
+      "lote": "drivers-pulmao",
       "status": "aplicada",
-      "data": "2026-09-15",
+      "data": "2026-09-16",
       "decidido_por": "Gustavo Drummond Pinho Ribeiro",
-      "arquivo": "revisao-decisoes.json",
-      "reconciliacao_lote2": {
-        "decisoes_conferidas": 27,
-        "re_executadas": 0,
-        "nota": "27 decisões de 12–13/09 (17 triada_pendente_execucao + 10 aguardando_re_revisao) conferidas no corpus ativo: hash, notas_revisao[lote=2], historico intake-lote2 e prova por ação. Marcação de aplicada_em preparada em backend-pendente/ — entra quando o backend estiver livre."
+      "origem": "decisão clínica do revisor via WhatsApp (16/09/2026), transmitida por Gustavo Couto; Fase B aprovada integralmente em 16/09/2026; pareceres da Fase A a registrar em produção com a mesma origem",
+      "decisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+      "vocabulario": {
+        "tumor": "pulmao-nsclc",
+        "aposentados": [
+          "egfr_alk",
+          "egfr_mutado",
+          "egfr_negativo",
+          "egfr_exon20",
+          "alk_positivo",
+          "ros1_positivo",
+          "mutacao_acionavel"
+        ],
+        "novos": [
+          "histologia",
+          "egfr_status",
+          "alk_status",
+          "ros1_status"
+        ],
+        "criterio_nomeado": "drivers_negativos_ou_escamoso",
+        "antes": [
+          "ressecavel",
+          "egfr_alk",
+          "pdl1_pos",
+          "ressecado",
+          "estadio",
+          "egfr_mutado",
+          "alk_positivo",
+          "pdl1_alto",
+          "egfr_negativo",
+          "metastatico",
+          "mutacao_acionavel",
+          "alto_volume_ou_snc",
+          "egfr_exon20",
+          "ros1_positivo",
+          "segunda_linha",
+          "io_previa",
+          "linha_subsequente"
+        ],
+        "depois": [
+          "ressecavel",
+          "histologia",
+          "egfr_status",
+          "alk_status",
+          "ros1_status",
+          "pdl1_pos",
+          "ressecado",
+          "estadio",
+          "pdl1_alto",
+          "metastatico",
+          "alto_volume_ou_snc",
+          "segunda_linha",
+          "io_previa",
+          "linha_subsequente"
+        ],
+        "nunca_usados_em_regra": []
       },
-      "decisoes_lote": 75,
-      "aprovados_registrados": 65,
-      "aprovados_decisao_revisao_flip": 65,
-      "placar_por_acao": [
+      "elegibilidade_resultado": [
         {
-          "acao": "manter_anotar",
-          "total": 7,
-          "status": {
-            "executado": 7
-          }
+          "regimen_id": "nsclc-neoadj-nivolumabe-qt",
+          "tipo": "conteudo",
+          "antes": "{\"and\": [{\"eq\": [\"ressecavel\", true]}, {\"eq\": [\"egfr_alk\", \"negativos\"]}, {\"eq\": [\"pdl1_pos\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"ressecavel\", true]}, {\"eq\": [\"pdl1_pos\", true]}, {\"ref\": \"drivers_negativos_ou_escamoso\"}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "egfr_alk='negativos' (enum de opção única) → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos)."
         },
         {
-          "acao": "refutar",
-          "total": 1,
-          "status": {
-            "triagem_manual": 1
-          }
+          "regimen_id": "nsclc-periop-pembrolizumabe-qt",
+          "tipo": "conteudo",
+          "antes": "{\"and\": [{\"eq\": [\"ressecavel\", true]}, {\"eq\": [\"egfr_alk\", \"negativos\"]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"ressecavel\", true]}, {\"ref\": \"drivers_negativos_ou_escamoso\"}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "egfr_alk='negativos' → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos)."
         },
         {
-          "acao": "outro",
-          "total": 2,
-          "status": {
-            "executado": 2
-          }
+          "regimen_id": "nsclc-def-crt-durvalumab",
+          "tipo": "conteudo",
+          "antes": "{\"and\": [{\"eq\": [\"estadio\", \"III_irressecavel\"]}, {\"eq\": [\"egfr_negativo\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"estadio\", \"III_irressecavel\"]}, {\"or\": [{\"eq\": [\"histologia\", \"escamoso\"]}, {\"eq\": [\"egfr_status\", \"negativo\"]}]}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "egfr_negativo=true (booleano) → (histologia=escamoso ∨ egfr_status=negativo), inline e fiel ao texto (só EGFR). PD-L1≥1% do texto segue fora da regra — item separado para o revisor."
+        },
+        {
+          "regimen_id": "nsclc-adj-atezolizumabe-pdl1",
+          "tipo": "conteudo",
+          "antes": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"pdl1_alto\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"pdl1_alto\", true]}, {\"ref\": \"drivers_negativos_ou_escamoso\"}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "Texto-fonte exige EGFR/ALK/ROS1 negativos e a regra não cobrava nenhum driver (verde sem perguntar) → critério nomeado drivers_negativos_ou_escamoso."
+        },
+        {
+          "regimen_id": "nsclc-met-io-mono-pdl1alto",
+          "tipo": "conteudo",
+          "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"pdl1_alto\", true]}, {\"eq\": [\"mutacao_acionavel\", false]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"pdl1_alto\", true]}, {\"ref\": \"drivers_negativos_ou_escamoso\"}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "mutacao_acionavel=false (booleano composto presumido false) → critério nomeado: escamoso só PD-L1; não-escamoso PD-L1 + drivers negativos. KEYNOTE-024 (PMID 27718847) excluiu EGFR/ALK; ROS1 entra pela decisão (b) — PENDÊNCIA DE REFERENDO."
+        },
+        {
+          "regimen_id": "nsclc-met-io-qt-pdl1baixo",
+          "tipo": "conteudo",
+          "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"mutacao_acionavel\", false]}, {\"eq\": [\"pdl1_alto\", false]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"pdl1_alto\", false]}, {\"eq\": [\"histologia\", \"nao_escamoso\"]}, {\"eq\": [\"egfr_status\", \"negativo\"]}, {\"eq\": [\"alk_status\", \"negativo\"]}, {\"eq\": [\"ros1_status\", \"negativo\"]}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "Regime conjunto KEYNOTE-189/407 separado: este id fica com o KEYNOTE-189 (não-escamoso, pemetrexede + platina, drivers negativos — histologia aqui é população, não condição). KEYNOTE-407 nasce como regime próprio. ROS1 além do abstract (EGFR/ALK) — PENDÊNCIA DE REFERENDO."
+        },
+        {
+          "regimen_id": "nsclc-adj-osimertinibe-egfr",
+          "tipo": "vocabulario",
+          "antes": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"egfr_mutado\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"egfr_status\", \"mutado_sensibilizante\"]}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R)."
+        },
+        {
+          "regimen_id": "nsclc-met-osimertinibe-egfr",
+          "tipo": "vocabulario",
+          "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_mutado\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_status\", \"mutado_sensibilizante\"]}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R)."
+        },
+        {
+          "regimen_id": "nsclc-met-osi-qt-egfr",
+          "tipo": "vocabulario",
+          "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_mutado\", true]}, {\"eq\": [\"alto_volume_ou_snc\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_status\", \"mutado_sensibilizante\"]}, {\"eq\": [\"alto_volume_ou_snc\", true]}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "egfr_mutado=true → egfr_status=mutado_sensibilizante."
+        },
+        {
+          "regimen_id": "nsclc-met-amivantamab-nao-incluido",
+          "tipo": "vocabulario",
+          "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_mutado\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_status\", \"mutado_sensibilizante\"]}]}",
+          "selo_antes": "confirmado",
+          "selo_depois": "re_derivado",
+          "nota": "egfr_mutado=true → egfr_status=mutado_sensibilizante (MARIPOSA: ex19del/L858R). Segue NÃO incluído."
+        },
+        {
+          "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
+          "tipo": "vocabulario",
+          "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_exon20\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_status\", \"mutado_exon20\"]}]}",
+          "selo_antes": "confirmado",
+          "selo_depois": "re_derivado",
+          "nota": "egfr_exon20=true → egfr_status=mutado_exon20. Segue NÃO incluído."
+        },
+        {
+          "regimen_id": "nsclc-adj-alectinibe-alk",
+          "tipo": "vocabulario",
+          "antes": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"alk_positivo\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"alk_status\", \"rearranjado\"]}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "alk_positivo=true → alk_status=rearranjado."
+        },
+        {
+          "regimen_id": "nsclc-met-alectinibe-alk",
+          "tipo": "vocabulario",
+          "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"alk_positivo\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"alk_status\", \"rearranjado\"]}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "alk_positivo=true → alk_status=rearranjado."
+        },
+        {
+          "regimen_id": "nsclc-met-crizotinibe-ros1",
+          "tipo": "vocabulario",
+          "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"ros1_positivo\", true]}]}",
+          "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"ros1_status\", \"rearranjado\"]}]}",
+          "selo_antes": "re_derivado",
+          "selo_depois": "re_derivado",
+          "nota": "ros1_positivo=true → ros1_status=rearranjado."
         }
       ],
-      "resultado": [
-        {
-          "regimen_id": "pancreas-adj-gem-cape-nao-incorporado",
-          "data_decisao": "2026-09-14",
-          "acao": "manter_anotar",
-          "status": "executado",
-          "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
-        },
-        {
-          "regimen_id": "crc-met-bevacizumabe-1l-nao-incorporado",
-          "data_decisao": "2026-09-14",
-          "acao": "manter_anotar",
-          "status": "executado",
-          "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
-        },
-        {
-          "regimen_id": "crc-met-regorafenibe-nao-incorporado",
-          "data_decisao": "2026-09-14",
-          "acao": "manter_anotar",
-          "status": "executado",
-          "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
-        },
-        {
-          "regimen_id": "net-altograu-platina-etoposideo",
-          "data_decisao": "2026-09-14",
-          "acao": "manter_anotar",
-          "status": "executado",
-          "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
-        },
-        {
-          "regimen_id": "nsclc-adj-io-estagioI-nao-incluido",
-          "data_decisao": "2026-09-14",
-          "acao": "manter_anotar",
-          "status": "executado",
-          "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
-        },
-        {
-          "regimen_id": "sclc-retratamento-mesmo-esquema",
-          "data_decisao": "2026-09-14",
-          "acao": "manter_anotar",
-          "status": "executado",
-          "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
-        },
-        {
-          "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
-          "data_decisao": "2026-09-14",
-          "acao": "manter_anotar",
-          "status": "executado",
-          "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
-        },
-        {
-          "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
-          "data_decisao": "2026-09-14",
-          "acao": "refutar",
-          "status": "triagem_manual",
-          "nota": "contradição interna (refutar × justificativa a favor); pergunta ao revisor; citação verificada; hash intacto"
-        },
-        {
-          "regimen_id": "mama-met-hrpos-1l-ht-isolada",
-          "data_decisao": "2026-08-16",
-          "acao": "outro",
-          "status": "executado",
-          "nota": "4 regimes novos (anastrozol, letrozol, exemestano, tamoxifeno) com pivôs verificados; card genérico mantido; hash do genérico intacto",
-          "regimes_novos": [
-            "mama-met-hrpos-1l-anastrozol",
-            "mama-met-hrpos-1l-letrozol",
-            "mama-met-hrpos-1l-exemestano",
-            "mama-met-hrpos-1l-tamoxifeno"
-          ]
-        },
-        {
-          "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
-          "data_decisao": "2026-08-16",
-          "acao": "outro",
-          "status": "executado",
-          "nota": "regra já computável (inalterada); eixo elegibilidade re-derivado (hash muda); MCBS 5×4 diverge visível"
-        }
-      ],
-      "triagem_manual": [
-        {
-          "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
-          "acao": "refutar",
-          "motivo": "contradição interna: ação refutar × justificativa a favor",
-          "pergunta_ao_revisor": "manter fora com nota da evidência emergente, ou pedir incorporação?",
-          "citacao_verificada": "10.1200/JCO.2025.43.16_suppl.5601"
-        }
-      ],
-      "refutados": [],
-      "excluidos": [],
       "regimes_novos": [
         {
-          "regimen_id": "mama-met-hrpos-1l-anastrozol",
-          "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
-          "selo": "incompleto",
-          "doi": "10.1200/JCO.2000.18.22.3758"
-        },
-        {
-          "regimen_id": "mama-met-hrpos-1l-letrozol",
-          "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
-          "selo": "incompleto",
-          "doi": "10.1200/JCO.2001.19.10.2596"
-        },
-        {
-          "regimen_id": "mama-met-hrpos-1l-exemestano",
-          "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
-          "selo": "incompleto",
-          "doi": "10.1200/JCO.2007.14.4659"
-        },
-        {
-          "regimen_id": "mama-met-hrpos-1l-tamoxifeno",
-          "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
-          "selo": "incompleto",
-          "doi": "10.1200/JCO.2003.04.194"
+          "regimen_id": "nsclc-met-io-qt-pdl1baixo-escamoso",
+          "origem_decisao": "nsclc-met-io-qt-pdl1baixo",
+          "selo": "re_derivado",
+          "doi": "10.1056/NEJMoa1810865"
         }
       ],
       "referencias_verificadas": [
         {
-          "doi": "10.1056/NEJMoa2502099",
+          "doi": "10.1056/NEJMoa1801005",
           "congruente": true,
-          "primeiro_autor": "Mountzios",
-          "ano": 2025,
-          "estudo": "DeLLphi-304",
-          "tema": "tarlatamabe vs quimioterapia (topotecano, lurbinectedina ou amrubicina) em 2ª linha de SCLC após platina — fase 3 aberto, n=509, desfecho primário SG"
+          "pmid": "29658856",
+          "primeiro_autor": "Gandhi",
+          "ano": 2018,
+          "estudo": "KEYNOTE-189",
+          "tema": "fase 3, CPNPC metastático NÃO-ESCAMOSO sem mutação sensibilizante de EGFR ou ALK, pembrolizumabe + pemetrexede + platina vs placebo + QT",
+          "abstract_trecho": "metastatic nonsquamous NSCLC without sensitizing EGFR or ALK mutations"
         },
         {
-          "doi": "10.1200/JCO.2000.18.22.3758",
+          "doi": "10.1056/NEJMoa1810865",
           "congruente": true,
-          "primeiro_autor": "Nabholtz",
-          "ano": 2000,
-          "estudo": "Arimidex Study Group — North American trial (anastrozol vs tamoxifeno, 1ª linha)",
-          "tema": "anastrozol 1 mg/dia vs tamoxifeno 20 mg/dia, 1ª linha, pós-menopausa, RH+ ou desconhecido — RCT duplo-cego, n=353"
+          "pmid": "30280635",
+          "primeiro_autor": "Paz-Ares",
+          "ano": 2018,
+          "estudo": "KEYNOTE-407",
+          "tema": "fase 3 duplo-cego, n=559, CPNPC metastático ESCAMOSO não tratado, pembrolizumabe 200 mg (até 35 ciclos) + carboplatina + paclitaxel ou nab-paclitaxel (4 ciclos) vs placebo + QT; desfechos primários SG e SLP",
+          "abstract_trecho": "median overall survival 15.9 months vs 11.3 months (hazard ratio for death, 0.64); median progression-free survival 6.4 months vs 4.8 months (hazard ratio 0.56)"
         },
         {
-          "doi": "10.1200/JCO.2000.18.22.3748",
+          "doi": "10.1056/NEJMoa1606774",
           "congruente": true,
-          "primeiro_autor": "Bonneterre",
-          "ano": 2000,
-          "estudo": "TARGET (anastrozol vs tamoxifeno, 1ª linha)",
-          "tema": "anastrozol 1 mg/dia vs tamoxifeno 20 mg/dia, 1ª linha, pós-menopausa — RCT duplo-cego, n=668"
-        },
-        {
-          "doi": "10.1200/JCO.2001.19.10.2596",
-          "congruente": true,
-          "primeiro_autor": "Mouridsen",
-          "ano": 2001,
-          "estudo": "P025 / International Letrozole Breast Cancer Group (letrozol vs tamoxifeno, 1ª linha)",
-          "tema": "letrozol 2,5 mg/dia vs tamoxifeno 20 mg/dia, 1ª linha, pós-menopausa, RH+ ou desconhecido — RCT fase 3, n=907, desfecho primário TTP"
-        },
-        {
-          "doi": "10.1200/JCO.2003.04.194",
-          "congruente": true,
-          "primeiro_autor": "Mouridsen",
-          "ano": 2003,
-          "estudo": "P025 — atualização de eficácia e sobrevida",
-          "tema": "atualização (seguimento mediano 32 meses; n=916): TTP 9,4 vs 6,0 meses; SG mediana 34 vs 30 meses (não significativa; ~50% de cross-over)"
-        },
-        {
-          "doi": "10.1200/JCO.2007.14.4659",
-          "congruente": true,
-          "primeiro_autor": "Paridaens",
-          "ano": 2008,
-          "estudo": "EORTC 10951 (exemestano vs tamoxifeno, 1ª linha)",
-          "tema": "exemestano 25 mg/dia vs tamoxifeno 20 mg/dia, 1ª linha hormonal, pós-menopausa, doença hormônio-sensível — RCT fase 3 aberto, n=371, desfecho primário PFS"
-        },
-        {
-          "doi": "10.1093/jnci/djj357",
-          "congruente": true,
-          "primeiro_autor": "Mauri",
-          "ano": 2006,
-          "estudo": "Mauri 2006 (metanálise IA/inativadores vs HT padrão em doença avançada)",
-          "tema": "25 comparações, n=8.504: IA de 3ª geração vs HT padrão (tamoxifeno/progestágenos) — SG RH 0,87 (IC95% 0,82–0,93); em 1ª linha vs tamoxifeno, redução de 11% (IC 1–19%)"
-        },
-        {
-          "doi": "10.1200/JCO.2025.43.16_suppl.5601",
-          "congruente": true,
-          "primeiro_autor": "Mathews",
-          "ano": 2025,
-          "estudo": "RUBY — TFST/TSST (ASCO 2025, abstract 5601)",
-          "tema": "análise post hoc do RUBY (2º interino, corte 22/09/2023): TFST e TSST no geral, dMMR/MSI-H e MMRp/MSS — em MMRp/MSS, TFST mediana 2,5 meses maior e TSST 8,1 meses maior com dostarlimabe; HRs consistentes entre TFST e TSST"
-        },
-        {
-          "doi": "10.1530/ERC-15-0075",
-          "congruente": true,
-          "primeiro_autor": "Hadoux",
-          "ano": 2015,
-          "estudo": "Hadoux 2015 (FOLFOX pós-1ª linha em NEC G3)",
-          "tema": "série retrospectiva de FOLFOX após 1ª linha em carcinoma neuroendócrino G3 (citada pelo revisor; DOI resolve no Crossref — abstract não conferido nesta rodada)"
-        }
-      ],
-      "primitivos_novos": [],
-      "elegibilidade_resultado": [
-        {
-          "id": "mama-met-hrpos-1l-anastrozol",
-          "mudou": true,
-          "antes": null,
-          "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"rh\", \"positivo\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"contraindicacao_icdk46\", true]}, {\"eq\": [\"menopausa\", \"pos\"]}]}",
-          "texto_revisor": "COLOCAR AS DIFERENTES HORMONIOTEPIAS EM PRIMEIRA LINHA (ANASTROZOL, LETROZOL, EXEMESTANO, TAMOXIFENO) - MEDICAÇÕES PADROES EM 1ª LINHA QUE A GENTE USAVA NA ERA PRE ICDK4/6. HOJE USA PARA PACIENTES QUE SÃO FRÁGEIS OU TEM CONTRAINDICAÇÃO A ICDK4/6",
-          "novosPrim": []
-        },
-        {
-          "id": "mama-met-hrpos-1l-letrozol",
-          "mudou": true,
-          "antes": null,
-          "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"rh\", \"positivo\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"contraindicacao_icdk46\", true]}, {\"eq\": [\"menopausa\", \"pos\"]}]}",
-          "texto_revisor": "COLOCAR AS DIFERENTES HORMONIOTEPIAS EM PRIMEIRA LINHA (ANASTROZOL, LETROZOL, EXEMESTANO, TAMOXIFENO) - MEDICAÇÕES PADROES EM 1ª LINHA QUE A GENTE USAVA NA ERA PRE ICDK4/6. HOJE USA PARA PACIENTES QUE SÃO FRÁGEIS OU TEM CONTRAINDICAÇÃO A ICDK4/6",
-          "novosPrim": []
-        },
-        {
-          "id": "mama-met-hrpos-1l-exemestano",
-          "mudou": true,
-          "antes": null,
-          "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"rh\", \"positivo\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"contraindicacao_icdk46\", true]}, {\"eq\": [\"menopausa\", \"pos\"]}]}",
-          "texto_revisor": "COLOCAR AS DIFERENTES HORMONIOTEPIAS EM PRIMEIRA LINHA (ANASTROZOL, LETROZOL, EXEMESTANO, TAMOXIFENO) - MEDICAÇÕES PADROES EM 1ª LINHA QUE A GENTE USAVA NA ERA PRE ICDK4/6. HOJE USA PARA PACIENTES QUE SÃO FRÁGEIS OU TEM CONTRAINDICAÇÃO A ICDK4/6",
-          "novosPrim": []
-        },
-        {
-          "id": "mama-met-hrpos-1l-tamoxifeno",
-          "mudou": true,
-          "antes": null,
-          "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"rh\", \"positivo\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"contraindicacao_icdk46\", true]}]}",
-          "texto_revisor": "COLOCAR AS DIFERENTES HORMONIOTEPIAS EM PRIMEIRA LINHA (ANASTROZOL, LETROZOL, EXEMESTANO, TAMOXIFENO) - MEDICAÇÕES PADROES EM 1ª LINHA QUE A GENTE USAVA NA ERA PRE ICDK4/6. HOJE USA PARA PACIENTES QUE SÃO FRÁGEIS OU TEM CONTRAINDICAÇÃO A ICDK4/6",
-          "novosPrim": []
-        },
-        {
-          "id": "mama-met-tnbc-3l-sacituzumab-ascent",
-          "mudou": false,
-          "antes": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"rh\", \"negativo\"]}, {\"ref\": \"duas_linhas_taxano\"}]}",
-          "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"rh\", \"negativo\"]}, {\"ref\": \"duas_linhas_taxano\"}]}",
-          "texto_revisor": "APROVAR, porém,\n\nCORRIGIR ESMO = 5\n\nElegibilidade: pelo menos 2 linhas de tratamento prévio (uma tem que ser paclitaxel ou docetaxel)",
-          "novosPrim": []
+          "pmid": "27718847",
+          "primeiro_autor": "Reck",
+          "ano": 2016,
+          "estudo": "KEYNOTE-024",
+          "tema": "fase 3, CPNPC avançado PD-L1≥50%, pembrolizumabe vs QT à base de platina",
+          "abstract_trecho": "no sensitizing mutation of the epidermal growth factor receptor gene or translocation of the anaplastic lymphoma kinase gene"
         }
       ],
       "rehash": [
         {
-          "regimen_id": "pancreas-adj-gem-cape-nao-incorporado",
-          "content_hash_antes": "893114435fac404b",
-          "content_hash_depois": "893114435fac404b",
-          "mudou": false
+          "regimen_id": "nsclc-neoadj-nivolumabe-qt",
+          "content_hash_antes": "39dc6393e34ced2f",
+          "content_hash_depois": "c1723334ffdcc1e6"
         },
         {
-          "regimen_id": "crc-met-bevacizumabe-1l-nao-incorporado",
-          "content_hash_antes": "423f4f3a274cfb14",
-          "content_hash_depois": "423f4f3a274cfb14",
-          "mudou": false
+          "regimen_id": "nsclc-periop-pembrolizumabe-qt",
+          "content_hash_antes": "8fbad50a6fdb987b",
+          "content_hash_depois": "0466c1fb17f556e6"
         },
         {
-          "regimen_id": "crc-met-regorafenibe-nao-incorporado",
-          "content_hash_antes": "8dedd438f101c97a",
-          "content_hash_depois": "8dedd438f101c97a",
-          "mudou": false
+          "regimen_id": "nsclc-def-crt-durvalumab",
+          "content_hash_antes": "99c4e803e970906c",
+          "content_hash_depois": "cb801038c2fe52a9"
         },
         {
-          "regimen_id": "net-altograu-platina-etoposideo",
-          "content_hash_antes": "a4ef8e77e62a2e2a",
-          "content_hash_depois": "a4ef8e77e62a2e2a",
-          "mudou": false
+          "regimen_id": "nsclc-adj-atezolizumabe-pdl1",
+          "content_hash_antes": "c7554fbbfd75748a",
+          "content_hash_depois": "1011d5ccf0be273a"
         },
         {
-          "regimen_id": "nsclc-adj-io-estagioI-nao-incluido",
-          "content_hash_antes": "ec1787d73be47bc8",
-          "content_hash_depois": "ec1787d73be47bc8",
-          "mudou": false
+          "regimen_id": "nsclc-met-io-mono-pdl1alto",
+          "content_hash_antes": "a44c6a230627f26f",
+          "content_hash_depois": "28ef622348f3c33c"
         },
         {
-          "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
-          "content_hash_antes": "e764943f53a489df",
-          "content_hash_depois": "e764943f53a489df",
-          "mudou": false
+          "regimen_id": "nsclc-met-io-qt-pdl1baixo",
+          "content_hash_antes": "ef87fcd25bb978d0",
+          "content_hash_depois": "966311b700b5a046"
         },
         {
-          "regimen_id": "sclc-retratamento-mesmo-esquema",
-          "content_hash_antes": "c85e56543a3347b7",
-          "content_hash_depois": "c85e56543a3347b7",
-          "mudou": false
+          "regimen_id": "nsclc-adj-osimertinibe-egfr",
+          "content_hash_antes": "237ebdac6de385cf",
+          "content_hash_depois": "2352961b36f4d531"
         },
         {
-          "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
-          "content_hash_antes": "e6ae39643b628464",
-          "content_hash_depois": "e6ae39643b628464",
-          "mudou": false
+          "regimen_id": "nsclc-met-osimertinibe-egfr",
+          "content_hash_antes": "ac32baebacf0d1de",
+          "content_hash_depois": "5c17901321863384"
         },
         {
-          "regimen_id": "mama-met-hrpos-1l-ht-isolada",
-          "content_hash_antes": "0af9870b04da5e2f",
-          "content_hash_depois": "0af9870b04da5e2f",
-          "mudou": false
+          "regimen_id": "nsclc-met-osi-qt-egfr",
+          "content_hash_antes": "af6d014b4c7993c2",
+          "content_hash_depois": "5fdb21434074fba0"
         },
         {
-          "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
-          "content_hash_antes": "8e2c5d0425e4bf3f",
-          "content_hash_depois": "e726e28ac1bbe812",
-          "mudou": true
+          "regimen_id": "nsclc-met-amivantamab-nao-incluido",
+          "content_hash_antes": "6b3c3f28fd653c1c",
+          "content_hash_depois": "77bb665d0ee0b59e"
+        },
+        {
+          "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
+          "content_hash_antes": "928611043ef290de",
+          "content_hash_depois": "5c1e23bc9e53063d"
+        },
+        {
+          "regimen_id": "nsclc-adj-alectinibe-alk",
+          "content_hash_antes": "3c7cafa7a6941b5f",
+          "content_hash_depois": "67f66e0f27ae9bf5"
+        },
+        {
+          "regimen_id": "nsclc-met-alectinibe-alk",
+          "content_hash_antes": "2e57080eeec827d3",
+          "content_hash_depois": "c73e9cc7d798de6b"
+        },
+        {
+          "regimen_id": "nsclc-met-crizotinibe-ros1",
+          "content_hash_antes": "31885972a8276e90",
+          "content_hash_depois": "fb2f6db8a43d5c98"
         }
       ],
-      "pareceres_expirados": [
+      "aprovacoes_expiradas": [
         {
-          "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
-          "decisao": "contestado",
-          "acao": "outro",
-          "data": "2026-08-16",
-          "content_hash_parecer": "8e2c5d0425e4bf3f",
-          "hash_novo": "e726e28ac1bbe812"
+          "regimen_id": "nsclc-neoadj-nivolumabe-qt",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "39dc6393e34ced2f"
+          },
+          "hash_novo": "c1723334ffdcc1e6"
+        },
+        {
+          "regimen_id": "nsclc-periop-pembrolizumabe-qt",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "8fbad50a6fdb987b"
+          },
+          "hash_novo": "0466c1fb17f556e6"
+        },
+        {
+          "regimen_id": "nsclc-def-crt-durvalumab",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "99c4e803e970906c"
+          },
+          "hash_novo": "cb801038c2fe52a9"
+        },
+        {
+          "regimen_id": "nsclc-adj-atezolizumabe-pdl1",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "c7554fbbfd75748a"
+          },
+          "hash_novo": "1011d5ccf0be273a"
+        },
+        {
+          "regimen_id": "nsclc-met-io-mono-pdl1alto",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "a44c6a230627f26f"
+          },
+          "hash_novo": "28ef622348f3c33c"
+        },
+        {
+          "regimen_id": "nsclc-met-io-qt-pdl1baixo",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "ef87fcd25bb978d0"
+          },
+          "hash_novo": "966311b700b5a046"
+        },
+        {
+          "regimen_id": "nsclc-adj-osimertinibe-egfr",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "237ebdac6de385cf"
+          },
+          "hash_novo": "2352961b36f4d531"
+        },
+        {
+          "regimen_id": "nsclc-met-osimertinibe-egfr",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "ac32baebacf0d1de"
+          },
+          "hash_novo": "5c17901321863384"
+        },
+        {
+          "regimen_id": "nsclc-met-osi-qt-egfr",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "af6d014b4c7993c2"
+          },
+          "hash_novo": "5fdb21434074fba0"
+        },
+        {
+          "regimen_id": "nsclc-met-amivantamab-nao-incluido",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "6b3c3f28fd653c1c"
+          },
+          "hash_novo": "77bb665d0ee0b59e"
+        },
+        {
+          "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "928611043ef290de"
+          },
+          "hash_novo": "5c1e23bc9e53063d"
+        },
+        {
+          "regimen_id": "nsclc-adj-alectinibe-alk",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "3c7cafa7a6941b5f"
+          },
+          "hash_novo": "67f66e0f27ae9bf5"
+        },
+        {
+          "regimen_id": "nsclc-met-alectinibe-alk",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "2e57080eeec827d3"
+          },
+          "hash_novo": "c73e9cc7d798de6b"
+        },
+        {
+          "regimen_id": "nsclc-met-crizotinibe-ros1",
+          "aprovacao": {
+            "lote": 3,
+            "data": "2026-09-14",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "31885972a8276e90"
+          },
+          "hash_novo": "fb2f6db8a43d5c98"
         }
       ],
-      "pareceres_ja_expirados_antes_do_lote": [
-        "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
-        "bexiga-met-erdafitinibe-fgfr",
-        "bexiga-mibc-adj-nivolumabe",
-        "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
-        "gastrico-met-1l-io-qt-cps",
-        "mama-adj-her2neg-act-docetaxel",
-        "mama-adj-her2neg-carbo-paclitaxel",
-        "mama-adj-her2pos-tdm1-katherine",
-        "mama-met-hrpos-2l-sacituzumab-govitecan",
-        "mama-neo-her2pos-ct1c-acth",
-        "mama-neo-her2pos-ct1c-tch",
-        "mama-neo-tnbc-acdd-ct",
-        "penis-adj-tip",
-        "prostata-mcrpc-1l-abiraterona-prednisona",
-        "renal-adj-pembrolizumab",
-        "testiculo-nsgct-eI-bep1",
-        "testiculo-refrataria-paliativo-gemox"
-      ],
-      "re_revisao": [
-        {
-          "regimen_id": "net-altograu-platina-etoposideo",
-          "item": "folfox_2l_nec_regime_novo",
-          "descricao": "O parecer manter_anotar de 14/09 pede 'acrescentar FOLFOX como 2ª linha' (Hadoux 2015, série retrospectiva n=20). Regime novo não se cria a partir de manter_anotar: se o revisor confirmar, entra como ação própria (outro/regime novo) num lote seguinte, com selo incompleto honesto (evidência retrospectiva).",
-          "status": "aberto",
-          "data": "2026-09-15"
-        },
-        {
-          "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
-          "item": "motivo_nao_inclusao_pos_dellphi304",
-          "descricao": "DeLLphi-304 (fase 3, SG positiva) verificado e anexado como referência complementar. O motivo registrado no card ('MCBS 2, baixa qualidade de evidência — DeLLphi-301') não descreve mais a evidência; o revisor argumenta custo. Confirmar se o motivo passa a 'custo' e se GRADE/ESMO devem ser re-derivados do fase 3 (isso muda o hash).",
-          "status": "aberto",
-          "data": "2026-09-15"
-        },
-        {
-          "regimen_id": "mama-met-hrpos-1l-{anastrozol,letrozol,exemestano,tamoxifeno}",
-          "item": "fragilidade_e_menopausa_ht_isolada",
-          "descricao": "Quatro regimes novos de HT isolada 1ª linha. Abertos para o revisor: (1) 'fragilidade' não virou regra — quer um primitivo de julgamento clínico (como alto_risco_clinico) ou um corte (ECOG/idade)?; (2) tamoxifeno ficou sem restrição menopausal (mais_amplo que os pivôs) — confirmar; (3) IA exigem menopausa=pos — pré-menopausa com supressão ovariana ficou fora (sem primitivo); (4) ESMO-MCBS não graduado (ensaios pré-escala) — o revisor pode graduar.",
-          "status": "aberto",
-          "data": "2026-09-15"
-        },
-        {
-          "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
-          "item": "esmo_mcbs_5_vs_4",
-          "descricao": "Revisor pede ESMO-MCBS 5; squad re-derivou 4 (Form 2a, SG do controle <12 m limita a 4; análise ESMO de ADCs = 4). Eixo mantido 'diverge' e visível. O revisor decide: manter 5 como decisão clínica documentada (o intake grava com status decisao_revisor) ou aceitar 4.",
-          "status": "aberto",
-          "data": "2026-09-15"
-        }
+      "pendencias_referendo": [
+        "ROS1 nos metastáticos: KEYNOTE-024/189 excluíram EGFR/ALK; ROS1 entra pela decisão (b) 'qualquer driver'",
+        "ROS1/ALK nos curativos: CheckMate 816 e KEYNOTE-671 herdam o critério único do tumor (inclui ROS1); PACIFIC ficou inline só com EGFR (fiel ao texto)",
+        "KEYNOTE-407: corte pdl1_alto=false herdado do card institucional — o ensaio incluiu qualquer PD-L1",
+        "PACIFIC: PD-L1≥1% consta do texto e não da regra (fora deste lote)",
+        "mutado_outra em FLAURA/ADAURA: hoje 🔴 (≠ sensibilizante) — decisão clínica do revisor",
+        "referência do card mono cita 'EMPOWER-Lung 3' (combinação); mono é o EMPOWER-Lung 1 — candidato a corrigir_referencia, fora deste lote"
       ],
       "app_pendencias": [
-        "consolidacao.referencias_complementares[] (DeLLphi-304 no tarlatamabe; CheckMate 9DW no HCC) não é renderizado pela app — está no dado; exibir é mudança de app (portão B)",
-        "verificacao.esmo_mcbs.divergencia_revisor (ASCENT 5×4) não é renderizado — a app mostra o eixo como 'diverge' (flag divergencia_revisor visível nas flags)",
-        "rótulo do enum `cenario` para testículo (pendência do lote 2, segue aberta)"
+        "motor (app evalExpr/missingFields e backend semaforo.ts evalExpr/camposFaltando): token em `indeterminado` da spec → null (🟡)",
+        "rótulos de opção (`rotulos` da spec) nos widgets do simulador, da reavaliação, da importação e nos chips; endpoint /importacao/vocabulario passa `indeterminado` e `rotulos`"
       ]
     },
     "revisao_humana_lotes_anteriores": [
@@ -2132,6 +2192,402 @@
               "efeito": "manter: METEOR mantido, regra inalterada; DOI do parecer (CABOSUN Q-TWiST, 1ª linha) não entra"
             }
           }
+        ]
+      },
+      {
+        "lote": 3,
+        "status": "aplicada",
+        "data": "2026-09-15",
+        "decidido_por": "Gustavo Drummond Pinho Ribeiro",
+        "arquivo": "revisao-decisoes.json",
+        "reconciliacao_lote2": {
+          "decisoes_conferidas": 27,
+          "re_executadas": 0,
+          "nota": "27 decisões de 12–13/09 (17 triada_pendente_execucao + 10 aguardando_re_revisao) conferidas no corpus ativo: hash, notas_revisao[lote=2], historico intake-lote2 e prova por ação. Marcação de aplicada_em preparada em backend-pendente/ — entra quando o backend estiver livre."
+        },
+        "decisoes_lote": 75,
+        "aprovados_registrados": 65,
+        "aprovados_decisao_revisao_flip": 65,
+        "placar_por_acao": [
+          {
+            "acao": "manter_anotar",
+            "total": 7,
+            "status": {
+              "executado": 7
+            }
+          },
+          {
+            "acao": "refutar",
+            "total": 1,
+            "status": {
+              "triagem_manual": 1
+            }
+          },
+          {
+            "acao": "outro",
+            "total": 2,
+            "status": {
+              "executado": 2
+            }
+          }
+        ],
+        "resultado": [
+          {
+            "regimen_id": "pancreas-adj-gem-cape-nao-incorporado",
+            "data_decisao": "2026-09-14",
+            "acao": "manter_anotar",
+            "status": "executado",
+            "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+          },
+          {
+            "regimen_id": "crc-met-bevacizumabe-1l-nao-incorporado",
+            "data_decisao": "2026-09-14",
+            "acao": "manter_anotar",
+            "status": "executado",
+            "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+          },
+          {
+            "regimen_id": "crc-met-regorafenibe-nao-incorporado",
+            "data_decisao": "2026-09-14",
+            "acao": "manter_anotar",
+            "status": "executado",
+            "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+          },
+          {
+            "regimen_id": "net-altograu-platina-etoposideo",
+            "data_decisao": "2026-09-14",
+            "acao": "manter_anotar",
+            "status": "executado",
+            "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+          },
+          {
+            "regimen_id": "nsclc-adj-io-estagioI-nao-incluido",
+            "data_decisao": "2026-09-14",
+            "acao": "manter_anotar",
+            "status": "executado",
+            "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+          },
+          {
+            "regimen_id": "sclc-retratamento-mesmo-esquema",
+            "data_decisao": "2026-09-14",
+            "acao": "manter_anotar",
+            "status": "executado",
+            "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+          },
+          {
+            "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
+            "data_decisao": "2026-09-14",
+            "acao": "manter_anotar",
+            "status": "executado",
+            "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+          },
+          {
+            "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
+            "data_decisao": "2026-09-14",
+            "acao": "refutar",
+            "status": "triagem_manual",
+            "nota": "contradição interna (refutar × justificativa a favor); pergunta ao revisor; citação verificada; hash intacto"
+          },
+          {
+            "regimen_id": "mama-met-hrpos-1l-ht-isolada",
+            "data_decisao": "2026-08-16",
+            "acao": "outro",
+            "status": "executado",
+            "nota": "4 regimes novos (anastrozol, letrozol, exemestano, tamoxifeno) com pivôs verificados; card genérico mantido; hash do genérico intacto",
+            "regimes_novos": [
+              "mama-met-hrpos-1l-anastrozol",
+              "mama-met-hrpos-1l-letrozol",
+              "mama-met-hrpos-1l-exemestano",
+              "mama-met-hrpos-1l-tamoxifeno"
+            ]
+          },
+          {
+            "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+            "data_decisao": "2026-08-16",
+            "acao": "outro",
+            "status": "executado",
+            "nota": "regra já computável (inalterada); eixo elegibilidade re-derivado (hash muda); MCBS 5×4 diverge visível"
+          }
+        ],
+        "triagem_manual": [
+          {
+            "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
+            "acao": "refutar",
+            "motivo": "contradição interna: ação refutar × justificativa a favor",
+            "pergunta_ao_revisor": "manter fora com nota da evidência emergente, ou pedir incorporação?",
+            "citacao_verificada": "10.1200/JCO.2025.43.16_suppl.5601"
+          }
+        ],
+        "refutados": [],
+        "excluidos": [],
+        "regimes_novos": [
+          {
+            "regimen_id": "mama-met-hrpos-1l-anastrozol",
+            "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
+            "selo": "incompleto",
+            "doi": "10.1200/JCO.2000.18.22.3758"
+          },
+          {
+            "regimen_id": "mama-met-hrpos-1l-letrozol",
+            "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
+            "selo": "incompleto",
+            "doi": "10.1200/JCO.2001.19.10.2596"
+          },
+          {
+            "regimen_id": "mama-met-hrpos-1l-exemestano",
+            "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
+            "selo": "incompleto",
+            "doi": "10.1200/JCO.2007.14.4659"
+          },
+          {
+            "regimen_id": "mama-met-hrpos-1l-tamoxifeno",
+            "origem_decisao": "mama-met-hrpos-1l-ht-isolada (2026-08-16)",
+            "selo": "incompleto",
+            "doi": "10.1200/JCO.2003.04.194"
+          }
+        ],
+        "referencias_verificadas": [
+          {
+            "doi": "10.1056/NEJMoa2502099",
+            "congruente": true,
+            "primeiro_autor": "Mountzios",
+            "ano": 2025,
+            "estudo": "DeLLphi-304",
+            "tema": "tarlatamabe vs quimioterapia (topotecano, lurbinectedina ou amrubicina) em 2ª linha de SCLC após platina — fase 3 aberto, n=509, desfecho primário SG"
+          },
+          {
+            "doi": "10.1200/JCO.2000.18.22.3758",
+            "congruente": true,
+            "primeiro_autor": "Nabholtz",
+            "ano": 2000,
+            "estudo": "Arimidex Study Group — North American trial (anastrozol vs tamoxifeno, 1ª linha)",
+            "tema": "anastrozol 1 mg/dia vs tamoxifeno 20 mg/dia, 1ª linha, pós-menopausa, RH+ ou desconhecido — RCT duplo-cego, n=353"
+          },
+          {
+            "doi": "10.1200/JCO.2000.18.22.3748",
+            "congruente": true,
+            "primeiro_autor": "Bonneterre",
+            "ano": 2000,
+            "estudo": "TARGET (anastrozol vs tamoxifeno, 1ª linha)",
+            "tema": "anastrozol 1 mg/dia vs tamoxifeno 20 mg/dia, 1ª linha, pós-menopausa — RCT duplo-cego, n=668"
+          },
+          {
+            "doi": "10.1200/JCO.2001.19.10.2596",
+            "congruente": true,
+            "primeiro_autor": "Mouridsen",
+            "ano": 2001,
+            "estudo": "P025 / International Letrozole Breast Cancer Group (letrozol vs tamoxifeno, 1ª linha)",
+            "tema": "letrozol 2,5 mg/dia vs tamoxifeno 20 mg/dia, 1ª linha, pós-menopausa, RH+ ou desconhecido — RCT fase 3, n=907, desfecho primário TTP"
+          },
+          {
+            "doi": "10.1200/JCO.2003.04.194",
+            "congruente": true,
+            "primeiro_autor": "Mouridsen",
+            "ano": 2003,
+            "estudo": "P025 — atualização de eficácia e sobrevida",
+            "tema": "atualização (seguimento mediano 32 meses; n=916): TTP 9,4 vs 6,0 meses; SG mediana 34 vs 30 meses (não significativa; ~50% de cross-over)"
+          },
+          {
+            "doi": "10.1200/JCO.2007.14.4659",
+            "congruente": true,
+            "primeiro_autor": "Paridaens",
+            "ano": 2008,
+            "estudo": "EORTC 10951 (exemestano vs tamoxifeno, 1ª linha)",
+            "tema": "exemestano 25 mg/dia vs tamoxifeno 20 mg/dia, 1ª linha hormonal, pós-menopausa, doença hormônio-sensível — RCT fase 3 aberto, n=371, desfecho primário PFS"
+          },
+          {
+            "doi": "10.1093/jnci/djj357",
+            "congruente": true,
+            "primeiro_autor": "Mauri",
+            "ano": 2006,
+            "estudo": "Mauri 2006 (metanálise IA/inativadores vs HT padrão em doença avançada)",
+            "tema": "25 comparações, n=8.504: IA de 3ª geração vs HT padrão (tamoxifeno/progestágenos) — SG RH 0,87 (IC95% 0,82–0,93); em 1ª linha vs tamoxifeno, redução de 11% (IC 1–19%)"
+          },
+          {
+            "doi": "10.1200/JCO.2025.43.16_suppl.5601",
+            "congruente": true,
+            "primeiro_autor": "Mathews",
+            "ano": 2025,
+            "estudo": "RUBY — TFST/TSST (ASCO 2025, abstract 5601)",
+            "tema": "análise post hoc do RUBY (2º interino, corte 22/09/2023): TFST e TSST no geral, dMMR/MSI-H e MMRp/MSS — em MMRp/MSS, TFST mediana 2,5 meses maior e TSST 8,1 meses maior com dostarlimabe; HRs consistentes entre TFST e TSST"
+          },
+          {
+            "doi": "10.1530/ERC-15-0075",
+            "congruente": true,
+            "primeiro_autor": "Hadoux",
+            "ano": 2015,
+            "estudo": "Hadoux 2015 (FOLFOX pós-1ª linha em NEC G3)",
+            "tema": "série retrospectiva de FOLFOX após 1ª linha em carcinoma neuroendócrino G3 (citada pelo revisor; DOI resolve no Crossref — abstract não conferido nesta rodada)"
+          }
+        ],
+        "primitivos_novos": [],
+        "elegibilidade_resultado": [
+          {
+            "id": "mama-met-hrpos-1l-anastrozol",
+            "mudou": true,
+            "antes": null,
+            "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"rh\", \"positivo\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"contraindicacao_icdk46\", true]}, {\"eq\": [\"menopausa\", \"pos\"]}]}",
+            "texto_revisor": "COLOCAR AS DIFERENTES HORMONIOTEPIAS EM PRIMEIRA LINHA (ANASTROZOL, LETROZOL, EXEMESTANO, TAMOXIFENO) - MEDICAÇÕES PADROES EM 1ª LINHA QUE A GENTE USAVA NA ERA PRE ICDK4/6. HOJE USA PARA PACIENTES QUE SÃO FRÁGEIS OU TEM CONTRAINDICAÇÃO A ICDK4/6",
+            "novosPrim": []
+          },
+          {
+            "id": "mama-met-hrpos-1l-letrozol",
+            "mudou": true,
+            "antes": null,
+            "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"rh\", \"positivo\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"contraindicacao_icdk46\", true]}, {\"eq\": [\"menopausa\", \"pos\"]}]}",
+            "texto_revisor": "COLOCAR AS DIFERENTES HORMONIOTEPIAS EM PRIMEIRA LINHA (ANASTROZOL, LETROZOL, EXEMESTANO, TAMOXIFENO) - MEDICAÇÕES PADROES EM 1ª LINHA QUE A GENTE USAVA NA ERA PRE ICDK4/6. HOJE USA PARA PACIENTES QUE SÃO FRÁGEIS OU TEM CONTRAINDICAÇÃO A ICDK4/6",
+            "novosPrim": []
+          },
+          {
+            "id": "mama-met-hrpos-1l-exemestano",
+            "mudou": true,
+            "antes": null,
+            "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"rh\", \"positivo\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"contraindicacao_icdk46\", true]}, {\"eq\": [\"menopausa\", \"pos\"]}]}",
+            "texto_revisor": "COLOCAR AS DIFERENTES HORMONIOTEPIAS EM PRIMEIRA LINHA (ANASTROZOL, LETROZOL, EXEMESTANO, TAMOXIFENO) - MEDICAÇÕES PADROES EM 1ª LINHA QUE A GENTE USAVA NA ERA PRE ICDK4/6. HOJE USA PARA PACIENTES QUE SÃO FRÁGEIS OU TEM CONTRAINDICAÇÃO A ICDK4/6",
+            "novosPrim": []
+          },
+          {
+            "id": "mama-met-hrpos-1l-tamoxifeno",
+            "mudou": true,
+            "antes": null,
+            "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"rh\", \"positivo\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"contraindicacao_icdk46\", true]}]}",
+            "texto_revisor": "COLOCAR AS DIFERENTES HORMONIOTEPIAS EM PRIMEIRA LINHA (ANASTROZOL, LETROZOL, EXEMESTANO, TAMOXIFENO) - MEDICAÇÕES PADROES EM 1ª LINHA QUE A GENTE USAVA NA ERA PRE ICDK4/6. HOJE USA PARA PACIENTES QUE SÃO FRÁGEIS OU TEM CONTRAINDICAÇÃO A ICDK4/6",
+            "novosPrim": []
+          },
+          {
+            "id": "mama-met-tnbc-3l-sacituzumab-ascent",
+            "mudou": false,
+            "antes": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"rh\", \"negativo\"]}, {\"ref\": \"duas_linhas_taxano\"}]}",
+            "depois": "{\"and\": [{\"eq\": [\"cenario\", \"metastatico\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"rh\", \"negativo\"]}, {\"ref\": \"duas_linhas_taxano\"}]}",
+            "texto_revisor": "APROVAR, porém,\n\nCORRIGIR ESMO = 5\n\nElegibilidade: pelo menos 2 linhas de tratamento prévio (uma tem que ser paclitaxel ou docetaxel)",
+            "novosPrim": []
+          }
+        ],
+        "rehash": [
+          {
+            "regimen_id": "pancreas-adj-gem-cape-nao-incorporado",
+            "content_hash_antes": "893114435fac404b",
+            "content_hash_depois": "893114435fac404b",
+            "mudou": false
+          },
+          {
+            "regimen_id": "crc-met-bevacizumabe-1l-nao-incorporado",
+            "content_hash_antes": "423f4f3a274cfb14",
+            "content_hash_depois": "423f4f3a274cfb14",
+            "mudou": false
+          },
+          {
+            "regimen_id": "crc-met-regorafenibe-nao-incorporado",
+            "content_hash_antes": "8dedd438f101c97a",
+            "content_hash_depois": "8dedd438f101c97a",
+            "mudou": false
+          },
+          {
+            "regimen_id": "net-altograu-platina-etoposideo",
+            "content_hash_antes": "a4ef8e77e62a2e2a",
+            "content_hash_depois": "a4ef8e77e62a2e2a",
+            "mudou": false
+          },
+          {
+            "regimen_id": "nsclc-adj-io-estagioI-nao-incluido",
+            "content_hash_antes": "ec1787d73be47bc8",
+            "content_hash_depois": "ec1787d73be47bc8",
+            "mudou": false
+          },
+          {
+            "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
+            "content_hash_antes": "e764943f53a489df",
+            "content_hash_depois": "e764943f53a489df",
+            "mudou": false
+          },
+          {
+            "regimen_id": "sclc-retratamento-mesmo-esquema",
+            "content_hash_antes": "c85e56543a3347b7",
+            "content_hash_depois": "c85e56543a3347b7",
+            "mudou": false
+          },
+          {
+            "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
+            "content_hash_antes": "e6ae39643b628464",
+            "content_hash_depois": "e6ae39643b628464",
+            "mudou": false
+          },
+          {
+            "regimen_id": "mama-met-hrpos-1l-ht-isolada",
+            "content_hash_antes": "0af9870b04da5e2f",
+            "content_hash_depois": "0af9870b04da5e2f",
+            "mudou": false
+          },
+          {
+            "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+            "content_hash_antes": "8e2c5d0425e4bf3f",
+            "content_hash_depois": "e726e28ac1bbe812",
+            "mudou": true
+          }
+        ],
+        "pareceres_expirados": [
+          {
+            "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+            "decisao": "contestado",
+            "acao": "outro",
+            "data": "2026-08-16",
+            "content_hash_parecer": "8e2c5d0425e4bf3f",
+            "hash_novo": "e726e28ac1bbe812"
+          }
+        ],
+        "pareceres_ja_expirados_antes_do_lote": [
+          "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
+          "bexiga-met-erdafitinibe-fgfr",
+          "bexiga-mibc-adj-nivolumabe",
+          "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
+          "gastrico-met-1l-io-qt-cps",
+          "mama-adj-her2neg-act-docetaxel",
+          "mama-adj-her2neg-carbo-paclitaxel",
+          "mama-adj-her2pos-tdm1-katherine",
+          "mama-met-hrpos-2l-sacituzumab-govitecan",
+          "mama-neo-her2pos-ct1c-acth",
+          "mama-neo-her2pos-ct1c-tch",
+          "mama-neo-tnbc-acdd-ct",
+          "penis-adj-tip",
+          "prostata-mcrpc-1l-abiraterona-prednisona",
+          "renal-adj-pembrolizumab",
+          "testiculo-nsgct-eI-bep1",
+          "testiculo-refrataria-paliativo-gemox"
+        ],
+        "re_revisao": [
+          {
+            "regimen_id": "net-altograu-platina-etoposideo",
+            "item": "folfox_2l_nec_regime_novo",
+            "descricao": "O parecer manter_anotar de 14/09 pede 'acrescentar FOLFOX como 2ª linha' (Hadoux 2015, série retrospectiva n=20). Regime novo não se cria a partir de manter_anotar: se o revisor confirmar, entra como ação própria (outro/regime novo) num lote seguinte, com selo incompleto honesto (evidência retrospectiva).",
+            "status": "aberto",
+            "data": "2026-09-15"
+          },
+          {
+            "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
+            "item": "motivo_nao_inclusao_pos_dellphi304",
+            "descricao": "DeLLphi-304 (fase 3, SG positiva) verificado e anexado como referência complementar. O motivo registrado no card ('MCBS 2, baixa qualidade de evidência — DeLLphi-301') não descreve mais a evidência; o revisor argumenta custo. Confirmar se o motivo passa a 'custo' e se GRADE/ESMO devem ser re-derivados do fase 3 (isso muda o hash).",
+            "status": "aberto",
+            "data": "2026-09-15"
+          },
+          {
+            "regimen_id": "mama-met-hrpos-1l-{anastrozol,letrozol,exemestano,tamoxifeno}",
+            "item": "fragilidade_e_menopausa_ht_isolada",
+            "descricao": "Quatro regimes novos de HT isolada 1ª linha. Abertos para o revisor: (1) 'fragilidade' não virou regra — quer um primitivo de julgamento clínico (como alto_risco_clinico) ou um corte (ECOG/idade)?; (2) tamoxifeno ficou sem restrição menopausal (mais_amplo que os pivôs) — confirmar; (3) IA exigem menopausa=pos — pré-menopausa com supressão ovariana ficou fora (sem primitivo); (4) ESMO-MCBS não graduado (ensaios pré-escala) — o revisor pode graduar.",
+            "status": "aberto",
+            "data": "2026-09-15"
+          },
+          {
+            "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
+            "item": "esmo_mcbs_5_vs_4",
+            "descricao": "Revisor pede ESMO-MCBS 5; squad re-derivou 4 (Form 2a, SG do controle <12 m limita a 4; análise ESMO de ADCs = 4). Eixo mantido 'diverge' e visível. O revisor decide: manter 5 como decisão clínica documentada (o intake grava com status decisao_revisor) ou aceitar 4.",
+            "status": "aberto",
+            "data": "2026-09-15"
+          }
+        ],
+        "app_pendencias": [
+          "consolidacao.referencias_complementares[] (DeLLphi-304 no tarlatamabe; CheckMate 9DW no HCC) não é renderizado pela app — está no dado; exibir é mudança de app (portão B)",
+          "verificacao.esmo_mcbs.divergencia_revisor (ASCENT 5×4) não é renderizado — a app mostra o eixo como 'diverge' (flag divergencia_revisor visível nas flags)",
+          "rótulo do enum `cenario` para testículo (pendência do lote 2, segue aberta)"
         ]
       }
     ],
@@ -19253,7 +19709,45 @@
       ],
       "elegibilidade_protocolo": "CPNPC ressecável estágio II-IIIA, EGFR e ALK negativos, PD-L1≥1%, tratamento neoadjuvante.",
       "elegibilidade": {
-        "criterios": [],
+        "criterios": [
+          {
+            "id": "drivers_negativos_ou_escamoso",
+            "label": "Sem driver acionável (ou histologia escamosa)",
+            "expr": {
+              "or": [
+                {
+                  "eq": [
+                    "histologia",
+                    "escamoso"
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        "egfr_status",
+                        "negativo"
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "alk_status",
+                        "negativo"
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "ros1_status",
+                        "negativo"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "nota": "Escamoso passa sem drivers (adendo do revisor). Não-escamoso: os três negativos; qualquer 'nao_testado' → indeterminado (🟡); qualquer positivo → falso (🔴). Um terceiro valor de histologia, se um dia existir, cai no lado que exige drivers."
+          }
+        ],
         "regra": {
           "and": [
             {
@@ -19264,15 +19758,12 @@
             },
             {
               "eq": [
-                "egfr_alk",
-                "negativos"
-              ]
-            },
-            {
-              "eq": [
                 "pdl1_pos",
                 true
               ]
+            },
+            {
+              "ref": "drivers_negativos_ou_escamoso"
             }
           ]
         }
@@ -19347,12 +19838,12 @@
               "valor": true
             },
             {
-              "campo": "egfr_alk",
+              "campo": "pdl1_pos",
               "operador": "=",
-              "valor": "negativos"
+              "valor": true
             },
             {
-              "campo": "pdl1_pos",
+              "campo": "drivers_negativos_ou_escamoso",
               "operador": "=",
               "valor": true
             }
@@ -19360,8 +19851,10 @@
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: CheckMate 816 em ressecável PD-L1≥1%, EGFR/ALK neg.",
-          "justificativa": "Concorda: CheckMate 816 em ressecável PD-L1≥1%, EGFR/ALK neg.",
-          "fonte": "https://doi.org/10.1056/NEJMoa2202170"
+          "justificativa": "Concorda: CheckMate 816 em ressecável PD-L1≥1%, EGFR/ALK neg. | 2026-09-16: egfr_alk='negativos' (enum de opção única) → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos).",
+          "fonte": "https://doi.org/10.1056/NEJMoa2202170",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -19370,7 +19863,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -19378,12 +19871,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "39dc6393e34ced2f"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "egfr_alk='negativos' (enum de opção única) → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos)."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -19402,6 +19908,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (conteudo)",
+          "mudanca": "Drivers por marcador (EGFR/ALK/ROS1) em três estados + histologia: egfr_alk='negativos' (enum de opção única) → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos).",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -19459,7 +19976,45 @@
       ],
       "elegibilidade_protocolo": "CPNPC ressecável estágio Ib-IIIA, EGFR e ALK negativos, tratamento perioperatório.",
       "elegibilidade": {
-        "criterios": [],
+        "criterios": [
+          {
+            "id": "drivers_negativos_ou_escamoso",
+            "label": "Sem driver acionável (ou histologia escamosa)",
+            "expr": {
+              "or": [
+                {
+                  "eq": [
+                    "histologia",
+                    "escamoso"
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        "egfr_status",
+                        "negativo"
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "alk_status",
+                        "negativo"
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "ros1_status",
+                        "negativo"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "nota": "Escamoso passa sem drivers (adendo do revisor). Não-escamoso: os três negativos; qualquer 'nao_testado' → indeterminado (🟡); qualquer positivo → falso (🔴). Um terceiro valor de histologia, se um dia existir, cai no lado que exige drivers."
+          }
+        ],
         "regra": {
           "and": [
             {
@@ -19469,10 +20024,7 @@
               ]
             },
             {
-              "eq": [
-                "egfr_alk",
-                "negativos"
-              ]
+              "ref": "drivers_negativos_ou_escamoso"
             }
           ]
         }
@@ -19546,16 +20098,18 @@
               "valor": true
             },
             {
-              "campo": "egfr_alk",
+              "campo": "drivers_negativos_ou_escamoso",
               "operador": "=",
-              "valor": "negativos"
+              "valor": true
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: KEYNOTE-671 em ressecável Ib-IIIA.",
-          "justificativa": "Concorda: KEYNOTE-671 em ressecável Ib-IIIA.",
-          "fonte": "https://doi.org/10.1056/NEJMoa2302983"
+          "justificativa": "Concorda: KEYNOTE-671 em ressecável Ib-IIIA. | 2026-09-16: egfr_alk='negativos' → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos).",
+          "fonte": "https://doi.org/10.1056/NEJMoa2302983",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -19564,7 +20118,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -19572,12 +20126,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "8fbad50a6fdb987b"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "egfr_alk='negativos' → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos)."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -19587,6 +20154,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (conteudo)",
+          "mudanca": "Drivers por marcador (EGFR/ALK/ROS1) em três estados + histologia: egfr_alk='negativos' → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos).",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -20050,8 +20628,8 @@
             },
             {
               "eq": [
-                "egfr_mutado",
-                true
+                "egfr_status",
+                "mutado_sensibilizante"
               ]
             }
           ]
@@ -20115,16 +20693,18 @@
               "valor": true
             },
             {
-              "campo": "egfr_mutado",
+              "campo": "egfr_status",
               "operador": "=",
-              "valor": true
+              "valor": "mutado_sensibilizante"
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: ADAURA em EGFR mutado ressecado.",
-          "justificativa": "Concorda: ADAURA em EGFR mutado ressecado.",
-          "fonte": "https://doi.org/10.1056/NEJMoa2027071"
+          "justificativa": "Concorda: ADAURA em EGFR mutado ressecado. | 2026-09-16: egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R).",
+          "fonte": "https://doi.org/10.1056/NEJMoa2027071",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -20133,7 +20713,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -20141,12 +20721,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "237ebdac6de385cf"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R)."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -20165,6 +20758,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (vocabulario)",
+          "mudanca": "Migração de vocabulário (semântica idêntica): egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R).",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -20225,8 +20829,8 @@
             },
             {
               "eq": [
-                "alk_positivo",
-                true
+                "alk_status",
+                "rearranjado"
               ]
             }
           ]
@@ -20290,16 +20894,18 @@
               "valor": true
             },
             {
-              "campo": "alk_positivo",
+              "campo": "alk_status",
               "operador": "=",
-              "valor": true
+              "valor": "rearranjado"
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: ALINA em ALK+ ressecado (protocolo sinaliza SG imatura).",
-          "justificativa": "Concorda: ALINA em ALK+ ressecado (protocolo sinaliza SG imatura).",
-          "fonte": "https://doi.org/10.1056/NEJMoa2310532"
+          "justificativa": "Concorda: ALINA em ALK+ ressecado (protocolo sinaliza SG imatura). | 2026-09-16: alk_positivo=true → alk_status=rearranjado.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2310532",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -20308,7 +20914,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -20316,12 +20922,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "3c7cafa7a6941b5f"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "alk_positivo=true → alk_status=rearranjado."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -20340,6 +20959,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (vocabulario)",
+          "mudanca": "Migração de vocabulário (semântica idêntica): alk_positivo=true → alk_status=rearranjado.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -20389,7 +21019,45 @@
       ],
       "elegibilidade_protocolo": "CPNPC ressecado estágio II-IIIA (AJCC 7), EGFR/ALK/ROS1 negativos, PD-L1≥50% (após QT adjuvante).",
       "elegibilidade": {
-        "criterios": [],
+        "criterios": [
+          {
+            "id": "drivers_negativos_ou_escamoso",
+            "label": "Sem driver acionável (ou histologia escamosa)",
+            "expr": {
+              "or": [
+                {
+                  "eq": [
+                    "histologia",
+                    "escamoso"
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        "egfr_status",
+                        "negativo"
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "alk_status",
+                        "negativo"
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "ros1_status",
+                        "negativo"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "nota": "Escamoso passa sem drivers (adendo do revisor). Não-escamoso: os três negativos; qualquer 'nao_testado' → indeterminado (🟡); qualquer positivo → falso (🔴). Um terceiro valor de histologia, se um dia existir, cai no lado que exige drivers."
+          }
+        ],
         "regra": {
           "and": [
             {
@@ -20403,6 +21071,9 @@
                 "pdl1_alto",
                 true
               ]
+            },
+            {
+              "ref": "drivers_negativos_ou_escamoso"
             }
           ]
         }
@@ -20467,13 +21138,20 @@
               "campo": "pdl1_alto",
               "operador": "=",
               "valor": true
+            },
+            {
+              "campo": "drivers_negativos_ou_escamoso",
+              "operador": "=",
+              "valor": true
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: protocolo restringe a PD-L1≥50%, uso adversarialmente correto do biomarcador.",
-          "justificativa": "Concorda: protocolo restringe a PD-L1≥50%, uso adversarialmente correto do biomarcador.",
-          "fonte": "https://doi.org/10.1016/S0140-6736(21)02098-5"
+          "justificativa": "Concorda: protocolo restringe a PD-L1≥50%, uso adversarialmente correto do biomarcador. | 2026-09-16: Texto-fonte exige EGFR/ALK/ROS1 negativos e a regra não cobrava nenhum driver (verde sem perguntar) → critério nomeado drivers_negativos_ou_escamoso.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(21)02098-5",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -20482,7 +21160,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -20490,12 +21168,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "c7554fbbfd75748a"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "Texto-fonte exige EGFR/ALK/ROS1 negativos e a regra não cobrava nenhum driver (verde sem perguntar) → critério nomeado drivers_negativos_ou_escamoso."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -20505,6 +21196,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (conteudo)",
+          "mudanca": "Drivers por marcador (EGFR/ALK/ROS1) em três estados + histologia: Texto-fonte exige EGFR/ALK/ROS1 negativos e a regra não cobrava nenhum driver (verde sem perguntar) → critério nomeado drivers_negativos_ou_escamoso.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -20743,9 +21445,19 @@
               ]
             },
             {
-              "eq": [
-                "egfr_negativo",
-                true
+              "or": [
+                {
+                  "eq": [
+                    "histologia",
+                    "escamoso"
+                  ]
+                },
+                {
+                  "eq": [
+                    "egfr_status",
+                    "negativo"
+                  ]
+                }
               ]
             }
           ]
@@ -20820,16 +21532,18 @@
               "valor": "III_irressecavel"
             },
             {
-              "campo": "egfr_negativo",
+              "campo": "egfr_status",
               "operador": "=",
-              "valor": true
+              "valor": "negativo"
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: PACIFIC em estágio III irressecável EGFR neg.",
-          "justificativa": "Concorda: PACIFIC em estágio III irressecável EGFR neg.",
-          "fonte": "https://doi.org/10.1056/NEJMoa1709937"
+          "justificativa": "Concorda: PACIFIC em estágio III irressecável EGFR neg. | 2026-09-16: egfr_negativo=true (booleano) → (histologia=escamoso ∨ egfr_status=negativo), inline e fiel ao texto (só EGFR). PD-L1≥1% do texto segue fora da regra — item separado para o revisor.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1709937",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -20838,7 +21552,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -20846,12 +21560,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "99c4e803e970906c"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "egfr_negativo=true (booleano) → (histologia=escamoso ∨ egfr_status=negativo), inline e fiel ao texto (só EGFR). PD-L1≥1% do texto segue fora da regra — item separado para o revisor."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -20861,6 +21588,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (conteudo)",
+          "mudanca": "Drivers por marcador (EGFR/ALK/ROS1) em três estados + histologia: egfr_negativo=true (booleano) → (histologia=escamoso ∨ egfr_status=negativo), inline e fiel ao texto (só EGFR). PD-L1≥1% do texto segue fora da regra — item separado para o revisor.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -20937,7 +21675,45 @@
       ],
       "elegibilidade_protocolo": "CPNPC metastático sem mutações acionáveis, PD-L1≥50%, 1ª linha (imunoterapia isolada; considerar QT+imuno se necessária taxa de resposta).",
       "elegibilidade": {
-        "criterios": [],
+        "criterios": [
+          {
+            "id": "drivers_negativos_ou_escamoso",
+            "label": "Sem driver acionável (ou histologia escamosa)",
+            "expr": {
+              "or": [
+                {
+                  "eq": [
+                    "histologia",
+                    "escamoso"
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        "egfr_status",
+                        "negativo"
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "alk_status",
+                        "negativo"
+                      ]
+                    },
+                    {
+                      "eq": [
+                        "ros1_status",
+                        "negativo"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "nota": "Escamoso passa sem drivers (adendo do revisor). Não-escamoso: os três negativos; qualquer 'nao_testado' → indeterminado (🟡); qualquer positivo → falso (🔴). Um terceiro valor de histologia, se um dia existir, cai no lado que exige drivers."
+          }
+        ],
         "regra": {
           "and": [
             {
@@ -20953,10 +21729,7 @@
               ]
             },
             {
-              "eq": [
-                "mutacao_acionavel",
-                false
-              ]
+              "ref": "drivers_negativos_ou_escamoso"
             }
           ]
         }
@@ -21023,16 +21796,18 @@
               "valor": true
             },
             {
-              "campo": "mutacao_acionavel",
+              "campo": "drivers_negativos_ou_escamoso",
               "operador": "=",
-              "valor": false
+              "valor": true
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: restrito a PD-L1≥50%, uso adversarialmente correto do biomarcador.",
-          "justificativa": "Concorda: restrito a PD-L1≥50%, uso adversarialmente correto do biomarcador.",
-          "fonte": "https://doi.org/10.1056/NEJMoa1606774"
+          "justificativa": "Concorda: restrito a PD-L1≥50%, uso adversarialmente correto do biomarcador. | 2026-09-16: mutacao_acionavel=false (booleano composto presumido false) → critério nomeado: escamoso só PD-L1; não-escamoso PD-L1 + drivers negativos. KEYNOTE-024 (PMID 27718847) excluiu EGFR/ALK; ROS1 entra pela decisão (b) — PENDÊNCIA DE REFERENDO.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1606774",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -21041,7 +21816,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -21049,12 +21824,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "a44c6a230627f26f"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "mutacao_acionavel=false (booleano composto presumido false) → critério nomeado: escamoso só PD-L1; não-escamoso PD-L1 + drivers negativos. KEYNOTE-024 (PMID 27718847) excluiu EGFR/ALK; ROS1 entra pela decisão (b) — PENDÊNCIA DE REFERENDO."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -21064,6 +21852,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (conteudo)",
+          "mudanca": "Drivers por marcador (EGFR/ALK/ROS1) em três estados + histologia: mutacao_acionavel=false (booleano composto presumido false) → critério nomeado: escamoso só PD-L1; não-escamoso PD-L1 + drivers negativos. KEYNOTE-024 (PMID 27718847) excluiu EGFR/ALK; ROS1 entra pela decisão (b) — PENDÊNCIA DE REFERENDO.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -21118,9 +21917,9 @@
       "regimen_id": "nsclc-met-io-qt-pdl1baixo",
       "tumor": "pulmao-nsclc",
       "cenario": "metastatico",
-      "subtipo": "CPNPC metastático sem mutação acionável, PD-L1<50% — 1ª linha (QT+IO)",
-      "nome": "Pembrolizumabe (ou Cemiplimabe) + Quimioterapia",
-      "esquema": "Pembrolizumabe 200 mg + carboplatina/cisplatina + pemetrexede (não escamoso) ou paclitaxel (escamoso), 21/21d x4 → manutenção",
+      "subtipo": "CPNPC metastático NÃO-ESCAMOSO sem driver acionável, PD-L1<50% — 1ª linha (QT+IO)",
+      "nome": "Pembrolizumabe + Pemetrexede + Platina (KEYNOTE-189) — não-escamoso",
+      "esquema": "Pembrolizumabe 200 mg + carboplatina/cisplatina + pemetrexede, 21/21d x4 → manutenção (pembrolizumabe + pemetrexede)",
       "farmacos": [
         {
           "nome": "Pembrolizumabe",
@@ -21129,8 +21928,8 @@
           "frequencia": "21/21d"
         },
         {
-          "nome": "Platina + Pemetrexede/Paclitaxel",
-          "dose": "conforme histologia",
+          "nome": "Platina + Pemetrexede",
+          "dose": "conforme protocolo",
           "via": "EV",
           "frequencia": "21/21d x4"
         }
@@ -21148,25 +21947,51 @@
             },
             {
               "eq": [
-                "mutacao_acionavel",
+                "pdl1_alto",
                 false
               ]
             },
             {
               "eq": [
-                "pdl1_alto",
-                false
+                "histologia",
+                "nao_escamoso"
+              ]
+            },
+            {
+              "eq": [
+                "egfr_status",
+                "negativo"
+              ]
+            },
+            {
+              "eq": [
+                "alk_status",
+                "negativo"
+              ]
+            },
+            {
+              "eq": [
+                "ros1_status",
+                "negativo"
               ]
             }
           ]
         }
       },
       "referencia": {
-        "citacao": "GANDHI L et al. Pembrolizumab plus chemotherapy in metastatic NSCLC (KEYNOTE-189). N Engl J Med. 2018;378(22):2078-2092. PAZ-ARES L et al. KEYNOTE-407 (escamoso). N Engl J Med. 2018;379:2040.",
+        "citacao": "GANDHI L et al. Pembrolizumab plus Chemotherapy in Metastatic Non-Small-Cell Lung Cancer. N Engl J Med. 2018;378:2078-2092.",
         "doi": "10.1056/NEJMoa1801005",
-        "pmid": null,
-        "estudo": "KEYNOTE-189 / KEYNOTE-407",
-        "ano": 2018
+        "pmid": "29658856",
+        "estudo": "KEYNOTE-189",
+        "ano": 2018,
+        "primeiro_autor": "Gandhi",
+        "verificacao": {
+          "registro": "Crossref + PubMed",
+          "data": "2026-09-16",
+          "congruente": true,
+          "tema": "fase 3, CPNPC metastático NÃO-ESCAMOSO sem mutação sensibilizante de EGFR ou ALK, pembrolizumabe + pemetrexede + platina vs placebo + QT"
+        },
+        "nota": "Regime conjunto 189/407 separado por decisão do revisor (16/09/2026); KEYNOTE-407 agora em nsclc-met-io-qt-pdl1baixo-escamoso."
       },
       "afirmado_protocolo": {
         "grade": null,
@@ -21175,7 +22000,7 @@
       },
       "beneficio": {
         "desfecho_principal": "↑ sobrevida global vs quimioterapia",
-        "magnitude": "KEYNOTE-189: SG HR 0,49; KEYNOTE-407: SG HR 0,64",
+        "magnitude": "KEYNOTE-189: SG HR 0,49",
         "fonte": "10.1056/NEJMoa1801005"
       },
       "toxicidades": [
@@ -21203,14 +22028,14 @@
           "status": "re_derivado",
           "valor_rederivado": "1A",
           "afirmado_protocolo": null,
-          "justificativa": "KEYNOTE-189/407 (fase 3): QT+pembrolizumabe superior à QT. Recomendação forte independentemente de PD-L1.",
+          "justificativa": "KEYNOTE-189 (fase 3, não-escamoso): QT+pembrolizumabe superior à QT. Recomendação forte independentemente de PD-L1.",
           "fonte": "https://doi.org/10.1056/NEJMoa1801005"
         },
         "esmo_mcbs": {
           "status": "re_derivado",
           "valor_rederivado": "4",
           "afirmado_protocolo": null,
-          "justificativa": "Ganho de SG (HR 0,49-0,64) → ESMO-MCBS 4.",
+          "justificativa": "Ganho de SG (HR 0,49) → ESMO-MCBS 4 (derivação do squad para o componente 189 do antigo card conjunto).",
           "fonte": "https://doi.org/10.1056/NEJMoa1801005"
         },
         "nccn_affordability": {
@@ -21230,21 +22055,38 @@
               "valor": true
             },
             {
-              "campo": "mutacao_acionavel",
+              "campo": "pdl1_alto",
               "operador": "=",
               "valor": false
             },
             {
-              "campo": "pdl1_alto",
+              "campo": "histologia",
               "operador": "=",
-              "valor": false
+              "valor": "nao_escamoso"
+            },
+            {
+              "campo": "egfr_status",
+              "operador": "=",
+              "valor": "negativo"
+            },
+            {
+              "campo": "alk_status",
+              "operador": "=",
+              "valor": "negativo"
+            },
+            {
+              "campo": "ros1_status",
+              "operador": "=",
+              "valor": "negativo"
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
-          "divergencia_vs_protocolo": "Concorda: KEYNOTE-189/407 em metastático sem mutação.",
-          "justificativa": "Concorda: KEYNOTE-189/407 em metastático sem mutação.",
-          "fonte": "https://doi.org/10.1056/NEJMoa1801005"
+          "divergencia_vs_protocolo": "Concorda: KEYNOTE-189 em metastático não-escamoso sem driver.",
+          "justificativa": "Concorda: KEYNOTE-189/407 em metastático sem mutação. | 2026-09-16: Regime conjunto KEYNOTE-189/407 separado: este id fica com o KEYNOTE-189 (não-escamoso, pemetrexede + platina, drivers negativos — histologia aqui é população, não condição). KEYNOTE-407 nasce como regime próprio. ROS1 além do abstract (EGFR/ALK) — PENDÊNCIA DE REFERENDO.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1801005",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -21252,8 +22094,10 @@
         "selo_confianca": "re_derivado",
         "eixos_diverge": [],
         "lacunas": [],
-        "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "flags": [
+          "separado_do_conjunto_189_407: escamoso (KEYNOTE-407) agora é regime próprio (nsclc-met-io-qt-pdl1baixo-escamoso); doses de platina/pemetrexede seguem 'conforme protocolo' — não inventadas pelo intake"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -21261,12 +22105,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "ef87fcd25bb978d0"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "Regime conjunto KEYNOTE-189/407 separado: este id fica com o KEYNOTE-189 (não-escamoso, pemetrexede + platina, drivers negativos — histologia aqui é população, não condição). KEYNOTE-407 nasce como regime próprio. ROS1 além do abstract (EGFR/ALK) — PENDÊNCIA DE REFERENDO."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -21276,9 +22133,31 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (conteudo)",
+          "mudanca": "Drivers por marcador (EGFR/ALK/ROS1) em três estados + histologia: Regime conjunto KEYNOTE-189/407 separado: este id fica com o KEYNOTE-189 (não-escamoso, pemetrexede + platina, drivers negativos — histologia aqui é população, não condição). KEYNOTE-407 nasce como regime próprio. ROS1 além do abstract (EGFR/ALK) — PENDÊNCIA DE REFERENDO.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:separacao_189_407",
+          "mudanca": "Card conjunto KEYNOTE-189/407 separado: este id passa a ser só o KEYNOTE-189 (não-escamoso; pemetrexede + platina). Nome, esquema, fármacos, referência (verificada), benefício e justificativas ajustados; composição re-derivada pelas regras mecânicas; expectativa de uso (PFS 8,8 m do 189) mantida.",
+          "eixos_afetados": [],
+          "fonte": "10.1056/NEJMoa1801005",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
-      "flags": [],
+      "flags": [
+        "separado_do_conjunto_189_407: escamoso (KEYNOTE-407) agora é regime próprio (nsclc-met-io-qt-pdl1baixo-escamoso); doses de platina/pemetrexede seguem 'conforme protocolo' — não inventadas pelo intake"
+      ],
       "expectativa_uso": {
         "tipo": "ate_progressao",
         "duracao_mediana_tratamento_meses": null,
@@ -21326,9 +22205,254 @@
             "dias_do_ciclo": null,
             "indeterminado": true,
             "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Carboplatina … Cisplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 3 de 4 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "nsclc-met-io-qt-pdl1baixo-escamoso",
+      "tumor": "pulmao-nsclc",
+      "cenario": "metastatico",
+      "subtipo": "CPNPC metastático ESCAMOSO, PD-L1<50% — 1ª linha (QT+IO; sem exigência de drivers — adendo do revisor)",
+      "nome": "Pembrolizumabe + Carboplatina + (nab-)Paclitaxel (KEYNOTE-407) — escamoso",
+      "esquema": "Pembrolizumabe 200 mg + carboplatina + paclitaxel ou nab-paclitaxel, 21/21d x4 → manutenção (pembrolizumabe)",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Carboplatina + Paclitaxel/nab-Paclitaxel",
+          "dose": "conforme protocolo",
+          "via": "EV",
+          "frequencia": "21/21d x4"
+        }
+      ],
+      "elegibilidade_protocolo": "CPNPC metastático escamoso, PD-L1 1-49% ou <1%, 1ª linha (QT + imunoterapia). Card criado por decisão do revisor (16/09/2026) ao separar o card institucional conjunto 'sem mutações acionáveis, PD-L1 1-49% ou <1%, conforme histologia': 'para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' — sem exigência de drivers.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_alto",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "histologia",
+                "escamoso"
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PAZ-ARES L et al. Pembrolizumab plus Chemotherapy for Squamous Non-Small-Cell Lung Cancer. N Engl J Med. 2018;379:2040-2051.",
+        "doi": "10.1056/NEJMoa1810865",
+        "pmid": "30280635",
+        "estudo": "KEYNOTE-407",
+        "ano": 2018,
+        "primeiro_autor": "Paz-Ares",
+        "verificacao": {
+          "registro": "Crossref + PubMed",
+          "data": "2026-09-16",
+          "congruente": true,
+          "tema": "fase 3 duplo-cego, n=559, CPNPC metastático ESCAMOSO não tratado, pembrolizumabe 200 mg (até 35 ciclos) + carboplatina + paclitaxel ou nab-paclitaxel (4 ciclos) vs placebo + QT; desfechos primários SG e SLP"
+        }
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs quimioterapia",
+        "magnitude": "KEYNOTE-407: SG mediana 15,9 vs 11,3 m, HR 0,64; SLP 6,4 vs 4,8 m, HR 0,56 (abstract, PMID 30280635)",
+        "fonte": "10.1056/NEJMoa1810865"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Náusea/fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados (pneumonite, colite, endocrinopatias)",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "KEYNOTE-407 (fase 3 duplo-cego, n=559, escamoso): QT+pembrolizumabe superior à QT em SG e SLP. Recomendação forte independentemente de PD-L1.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1810865"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (HR 0,64) → ESMO-MCBS 4 — derivação do squad já existente para o componente 407 do antigo card conjunto ('HR 0,49-0,64 → 4'); transcrita, não re-graduada pelo intake.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1810865"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "QT + imunoterapia de custo alto (driver: IO). Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "pdl1_alto",
+              "operador": "=",
+              "valor": false
+            },
+            {
+              "campo": "histologia",
+              "operador": "=",
+              "valor": "escamoso"
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: KEYNOTE-407 em metastático escamoso. Sem exigência de drivers por decisão do revisor (o ensaio não exigiu teste em escamoso).",
+          "justificativa": "Derivado da decisão do revisor (16/09/2026) confrontada com a população do pivô (escamoso, não tratado, qualquer PD-L1). O corte pdl1_alto=false é o do card institucional (mono-IO para ≥50%), mantido — o ensaio incluiu qualquer PD-L1: PENDÊNCIA DE REFERENDO.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1810865",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "regime_separado_pelo_revisor: nasce do card conjunto KEYNOTE-189/407 (nsclc-met-io-qt-pdl1baixo) por decisão de 16/09/2026; escamoso sem exigência de drivers",
+          "pendencia_referendo: corte pdl1_alto=false herdado do card institucional — o KEYNOTE-407 incluiu qualquer PD-L1",
+          "doses de carboplatina/(nab-)paclitaxel 'conforme protocolo' — não inventadas pelo intake (ver pivô)"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "outro (regime novo)",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "Regime criado ao separar o card conjunto 189/407. Pivô verificado no Crossref/PubMed; GRADE/ESMO-MCBS transcritos da derivação já existente do squad para o componente 407; elegibilidade re-derivada."
+          }
+        ],
+        "origem": {
+          "decisao_em": "nsclc-met-io-qt-pdl1baixo",
+          "lote": "drivers-pulmao",
+          "data": "2026-09-16",
+          "revisor": "Gustavo Drummond Pinho Ribeiro"
+        }
+      },
+      "versao": 1,
+      "atualizado_em": "2026-09-16",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:outro (regime novo)",
+          "mudanca": "Criado por decisão do revisor (16/09/2026): KEYNOTE-407 (escamoso) separado do card conjunto 189/407; regra metastatico ∧ pdl1_alto=false ∧ histologia=escamoso, sem drivers. Pivô verificado; benefício transcrito do abstract.",
+          "eixos_afetados": [
+            "grade",
+            "esmo_mcbs",
+            "nccn_affordability",
+            "elegibilidade"
+          ],
+          "fonte": "10.1056/NEJMoa1810865",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        }
+      ],
+      "flags": [
+        "regime_separado_pelo_revisor: nasce do card conjunto KEYNOTE-189/407 (nsclc-met-io-qt-pdl1baixo) por decisão de 16/09/2026; escamoso sem exigência de drivers",
+        "pendencia_referendo: corte pdl1_alto=false herdado do card institucional — o KEYNOTE-407 incluiu qualquer PD-L1",
+        "doses de carboplatina/(nab-)paclitaxel 'conforme protocolo' — não inventadas pelo intake (ver pivô)"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 6.4,
+        "fonte_doi": "10.1056/NEJMoa1810865",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço pembrolizumabe+QT (KEYNOTE-407, abstract PMID 30280635); inclui indução 4 ciclos + manutenção",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Pembrolizumabe",
+            "dose_valor": 200.0,
+            "dose_unidade": "mg",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
           },
           {
             "farmaco": "Paclitaxel",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Nab-paclitaxel",
             "dose_valor": null,
             "dose_unidade": null,
             "via": null,
@@ -21339,7 +22463,7 @@
         ],
         "completa": false,
         "indeterminado": true,
-        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Carboplatina … Cisplatina; Pemetrexede … Paclitaxel) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 4 de 5 itens indeterminados",
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Paclitaxel … Nab-paclitaxel) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 3 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
       }
@@ -21748,8 +22872,8 @@
             },
             {
               "eq": [
-                "egfr_mutado",
-                true
+                "egfr_status",
+                "mutado_sensibilizante"
               ]
             }
           ]
@@ -21812,16 +22936,18 @@
               "valor": true
             },
             {
-              "campo": "egfr_mutado",
+              "campo": "egfr_status",
               "operador": "=",
-              "valor": true
+              "valor": "mutado_sensibilizante"
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: FLAURA em EGFR mutado 1ª linha.",
-          "justificativa": "Concorda: FLAURA em EGFR mutado 1ª linha.",
-          "fonte": "https://doi.org/10.1056/NEJMoa1913662"
+          "justificativa": "Concorda: FLAURA em EGFR mutado 1ª linha. | 2026-09-16: egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R).",
+          "fonte": "https://doi.org/10.1056/NEJMoa1913662",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -21830,7 +22956,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -21838,12 +22964,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "ac32baebacf0d1de"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R)."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -21853,6 +22992,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (vocabulario)",
+          "mudanca": "Migração de vocabulário (semântica idêntica): egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R).",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -21919,8 +23069,8 @@
             },
             {
               "eq": [
-                "egfr_mutado",
-                true
+                "egfr_status",
+                "mutado_sensibilizante"
               ]
             },
             {
@@ -22001,9 +23151,9 @@
               "valor": true
             },
             {
-              "campo": "egfr_mutado",
+              "campo": "egfr_status",
               "operador": "=",
-              "valor": true
+              "valor": "mutado_sensibilizante"
             },
             {
               "campo": "alto_volume_ou_snc",
@@ -22014,8 +23164,10 @@
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: FLAURA2 em EGFR mutado alto volume/SNC.",
-          "justificativa": "Concorda: FLAURA2 em EGFR mutado alto volume/SNC.",
-          "fonte": "https://doi.org/10.1056/NEJMoa2306434"
+          "justificativa": "Concorda: FLAURA2 em EGFR mutado alto volume/SNC. | 2026-09-16: egfr_mutado=true → egfr_status=mutado_sensibilizante.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2306434",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -22024,7 +23176,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -22032,12 +23184,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "af6d014b4c7993c2"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "egfr_mutado=true → egfr_status=mutado_sensibilizante."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -22047,6 +23212,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (vocabulario)",
+          "mudanca": "Migração de vocabulário (semântica idêntica): egfr_mutado=true → egfr_status=mutado_sensibilizante.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -22125,8 +23301,8 @@
             },
             {
               "eq": [
-                "egfr_mutado",
-                true
+                "egfr_status",
+                "mutado_sensibilizante"
               ]
             }
           ]
@@ -22195,27 +23371,29 @@
               "valor": true
             },
             {
-              "campo": "egfr_mutado",
+              "campo": "egfr_status",
               "operador": "=",
-              "valor": true
+              "valor": "mutado_sensibilizante"
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: benefício marginal/toxicidade frente a osimertinibe sustentam a não inclusão.",
-          "justificativa": "Concorda: benefício marginal/toxicidade frente a osimertinibe sustentam a não inclusão.",
-          "fonte": "https://doi.org/10.1056/NEJMoa2403614"
+          "justificativa": "Concorda: benefício marginal/toxicidade frente a osimertinibe sustentam a não inclusão. | 2026-09-16: egfr_mutado=true → egfr_status=mutado_sensibilizante (MARIPOSA: ex19del/L858R). Segue NÃO incluído.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2403614",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
-        "status": "confirmado",
-        "selo_confianca": "confirmado",
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [
           "nao_incluido: benefício incremental marginal + toxicidade (MARIPOSA/MARIPOSA2, MCBS 2)"
         ],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -22223,12 +23401,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "6b3c3f28fd653c1c"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "egfr_mutado=true → egfr_status=mutado_sensibilizante (MARIPOSA: ex19del/L858R). Segue NÃO incluído."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -22238,6 +23429,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (vocabulario)",
+          "mudanca": "Migração de vocabulário (semântica idêntica): egfr_mutado=true → egfr_status=mutado_sensibilizante (MARIPOSA: ex19del/L858R). Segue NÃO incluído.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [
@@ -22318,8 +23520,8 @@
             },
             {
               "eq": [
-                "egfr_exon20",
-                true
+                "egfr_status",
+                "mutado_exon20"
               ]
             }
           ]
@@ -22394,28 +23596,30 @@
               "valor": true
             },
             {
-              "campo": "egfr_exon20",
+              "campo": "egfr_status",
               "operador": "=",
-              "valor": true
+              "valor": "mutado_exon20"
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda com o MCBS afirmado (3). ATENÇÃO: PAPILLON é o único alvo específico para EGFR exon 20; a não inclusão deixa esse subgrupo raro apenas com QT — lacuna de cobertura a revisar quando a SG amadurecer.",
-          "justificativa": "Concorda com o MCBS afirmado (3). ATENÇÃO: PAPILLON é o único alvo específico para EGFR exon 20; a não inclusão deixa esse subgrupo raro apenas com QT — lacuna de cobertura a revisar quando a SG amadurecer.",
-          "fonte": "https://doi.org/10.1056/NEJMoa2306441"
+          "justificativa": "Concorda com o MCBS afirmado (3). ATENÇÃO: PAPILLON é o único alvo específico para EGFR exon 20; a não inclusão deixa esse subgrupo raro apenas com QT — lacuna de cobertura a revisar quando a SG amadurecer. | 2026-09-16: egfr_exon20=true → egfr_status=mutado_exon20. Segue NÃO incluído.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2306441",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
-        "status": "confirmado",
-        "selo_confianca": "confirmado",
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [
           "nao_incluido: SG imatura, MCBS 3 (PAPILLON)",
           "cobertura: único alvo para EGFR exon 20; não inclusão deixa subgrupo raro só com QT — revisar com SG madura"
         ],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -22423,12 +23627,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "928611043ef290de"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "egfr_exon20=true → egfr_status=mutado_exon20. Segue NÃO incluído."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -22438,6 +23655,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (vocabulario)",
+          "mudanca": "Migração de vocabulário (semântica idêntica): egfr_exon20=true → egfr_status=mutado_exon20. Segue NÃO incluído.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [
@@ -22519,8 +23747,8 @@
             },
             {
               "eq": [
-                "alk_positivo",
-                true
+                "alk_status",
+                "rearranjado"
               ]
             }
           ]
@@ -22583,16 +23811,18 @@
               "valor": true
             },
             {
-              "campo": "alk_positivo",
+              "campo": "alk_status",
               "operador": "=",
-              "valor": true
+              "valor": "rearranjado"
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: ALEX/CROWN em ALK+ 1ª linha.",
-          "justificativa": "Concorda: ALEX/CROWN em ALK+ 1ª linha.",
-          "fonte": "https://doi.org/10.1056/NEJMoa1704795"
+          "justificativa": "Concorda: ALEX/CROWN em ALK+ 1ª linha. | 2026-09-16: alk_positivo=true → alk_status=rearranjado.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1704795",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -22601,7 +23831,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -22609,12 +23839,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "2e57080eeec827d3"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "alk_positivo=true → alk_status=rearranjado."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -22624,6 +23867,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (vocabulario)",
+          "mudanca": "Migração de vocabulário (semântica idêntica): alk_positivo=true → alk_status=rearranjado.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],
@@ -22702,8 +23956,8 @@
             },
             {
               "eq": [
-                "ros1_positivo",
-                true
+                "ros1_status",
+                "rearranjado"
               ]
             }
           ]
@@ -22766,16 +24020,18 @@
               "valor": true
             },
             {
-              "campo": "ros1_positivo",
+              "campo": "ros1_status",
               "operador": "=",
-              "valor": true
+              "valor": "rearranjado"
             }
           ],
           "criterios_exclusao": [],
           "amplitude": null,
           "divergencia_vs_protocolo": "Concorda: crizotinibe em ROS1+.",
-          "justificativa": "Concorda: crizotinibe em ROS1+.",
-          "fonte": "https://doi.org/10.1056/NEJMoa1406766"
+          "justificativa": "Concorda: crizotinibe em ROS1+. | 2026-09-16: ros1_positivo=true → ros1_status=rearranjado.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1406766",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "intake-drivers-pulmao:verificador-elegibilidade"
         }
       },
       "consolidacao": {
@@ -22784,7 +24040,7 @@
         "eixos_diverge": [],
         "lacunas": [],
         "flags": [],
-        "decisao_revisao": "aprovado_revisao_clinica",
+        "decisao_revisao": "rederivado_aguarda_revisao",
         "aprovacoes": [
           {
             "lote": 3,
@@ -22792,12 +24048,25 @@
             "revisor": "Gustavo Drummond Pinho Ribeiro",
             "content_hash": "31885972a8276e90"
           }
+        ],
+        "nota_revisao": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+        "notas_revisao": [
+          {
+            "lote": "drivers-pulmao",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (relato via WhatsApp em 16/09/2026, transmitida por Gustavo Couto): (a) um campo por marcador genético — EGFR, ALK e ROS1 separados; (b) qualquer driver positivo exclui imunoterapia de 1ª linha, e a regra expressa isso por marcador; (c) três estados por driver (mutado/alterado · negativo · não testado), com 'não testado' NUNCA liberando verde — fica no amarelo pedindo o dado. Adendo: 'Para CEC de pulmão só vale a pena ter PD-L1; o resto pouco importa' → histologia {não-escamoso, escamoso}; exigência de drivers só para não-escamoso. Fase B (proposta técnica) aprovada integralmente em 16/09/2026. Referendo formal do revisor pela própria fila: o ajuste expira o hash e o regime volta para re-revisão.",
+            "nota_squad": "ros1_positivo=true → ros1_status=rearranjado."
+          }
         ]
       },
-      "versao": 1,
-      "atualizado_em": "2026-07-22",
+      "versao": 2,
+      "atualizado_em": "2026-09-16",
       "revisado_por": "Gustavo Drummond Pinho Ribeiro",
-      "revisado_em": "2026-09-14",
+      "revisado_em": "2026-09-16",
       "historico_versoes": [
         {
           "versao": 1,
@@ -22807,6 +24076,17 @@
           "eixos_afetados": [],
           "fonte": null,
           "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-16",
+          "origem": "intake-drivers-pulmao:ajustar_elegibilidade (vocabulario)",
+          "mudanca": "Migração de vocabulário (semântica idêntica): ros1_positivo=true → ros1_status=rearranjado.",
+          "eixos_afetados": [
+            "elegibilidade"
+          ],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
         }
       ],
       "flags": [],

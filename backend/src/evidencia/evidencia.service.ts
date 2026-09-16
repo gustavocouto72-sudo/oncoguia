@@ -105,6 +105,8 @@ export class EvidenciaService {
         campos: (this.primitivos(t) || []).map((s) => ({
           campo: s.campo, tipo: s.tipo, opcoes: s.opcoes ?? null, label: s.label ?? s.campo,
           secao: s.secao ?? null, estavel: !!s.estavel, unidade: s.unidade ?? null,
+          // vocabulário declarado no dado: token indeterminado (🟡) e rótulo por opção
+          indeterminado: s.indeterminado ?? null, rotulos: s.rotulos ?? null,
         })),
         // Nome + cenário/subtipo/esquema: o mínimo para distinguir dois regimes com o
         // mesmo nome (três "Enzalutamida" em próstata: mCSPC, nmCRPC, mCRPC 1L). Continua

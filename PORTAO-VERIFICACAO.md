@@ -691,6 +691,32 @@ extração com o caminho feliz (metastático, sensível à castração, nega con
 > no plano Hobby o teto é 60 s; se a chamada passar disso o cliente vê erro e nada é
 > gravado (o resultado só existe quando volta). Conferir o plano antes do deploy.
 
+## Portão dos DRIVERS DE PULMÃO (`scripts/portao-drivers-pulmao.js`)
+
+Decisão do revisor de 16/09/2026 (EGFR/ALK/ROS1 por marcador, três estados, "não testado"
+nunca libera verde; adendo: escamoso só PD-L1). O que o portão prova, em browser isolado e
+por API, **somente leitura** (nenhum POST sai do simulador; nada é criado no banco):
+
+- **D1 vocabulário**: `pulmao-nsclc` expõe `histologia`, `egfr_status`, `alk_status`,
+  `ros1_status` (com `rotulos` e `indeterminado` vindos do dado, inclusive em
+  `/importacao/vocabulario`) e não expõe mais nenhum dos 7 aposentados.
+- **D2 default**: o simulador nasce `nao_escamoso` + drivers `nao_testado` → KEYNOTE-024 em
+  🟡 com "faltam: EGFR, ALK, ROS1" no painel de calculados. Verde por presunção é FALHA.
+- **D3/D4 tabela de verdade clicada**: escamoso → 024 🟢 sem drivers, 407 🟢, 189 🔴;
+  não-escamoso três negativos → 024/189 🟢, FLAURA 🔴; EGFR sensibilizante → 024 🔴,
+  FLAURA 🟢; ALK rearranjado com o resto não testado → 024 🔴 (positivo vence o
+  indeterminado); PACIFIC inline (escamoso ∨ EGFR negativo).
+- **D5 tela**: rótulos do dado ("Não testado", "Escamoso (CEC)"), nenhum rótulo cru de
+  campo aposentado, linha "Sem driver acionável (ou histologia escamosa)" nos calculados.
+- **D6 corpus/fila**: 301 regimes; `nsclc-met-io-qt-pdl1baixo-escamoso` (KEYNOTE-407) existe
+  e o 189 manteve o id; os 14 ajustados carregam aprovação de 14/09 num hash que não é mais o
+  atual e não têm decisão no hash novo (DEV: pendente; PROD: aguardando re-revisão); 407 pendente.
+- **D7 paridade**: app × `semaforo.ts` compilado dão o mesmo veredito em 30 combinações.
+
+Roda 2×. Em produção (`PORTAO_API=https://oncoguia-backend.vercel.app/api`) só depois de
+publicado; D6 então tem de mostrar os 14 em *Aguardando re-revisão*. Se o `semaforo.ts` ou o
+`evalExpr` da app mudarem, é este portão (D7) que acusa a dessincronia — junto com o da importação.
+
 ## Decisão de papel — o auditor decide MÉRITO, não custo
 
 **Regra permanente: a tela de Autorizações não mostra dinheiro para NINGUÉM — nem para o

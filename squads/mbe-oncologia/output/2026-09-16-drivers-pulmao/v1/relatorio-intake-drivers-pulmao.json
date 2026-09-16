@@ -1,0 +1,466 @@
+{
+  "total_regimes": 301,
+  "placar_selo": {
+    "re_derivado": 181,
+    "incompleto": 57,
+    "divergencia": 19,
+    "confirmado": 44
+  },
+  "vocabulario": {
+    "tumor": "pulmao-nsclc",
+    "aposentados": [
+      "egfr_alk",
+      "egfr_mutado",
+      "egfr_negativo",
+      "egfr_exon20",
+      "alk_positivo",
+      "ros1_positivo",
+      "mutacao_acionavel"
+    ],
+    "novos": [
+      "histologia",
+      "egfr_status",
+      "alk_status",
+      "ros1_status"
+    ],
+    "criterio_nomeado": "drivers_negativos_ou_escamoso",
+    "antes": [
+      "ressecavel",
+      "egfr_alk",
+      "pdl1_pos",
+      "ressecado",
+      "estadio",
+      "egfr_mutado",
+      "alk_positivo",
+      "pdl1_alto",
+      "egfr_negativo",
+      "metastatico",
+      "mutacao_acionavel",
+      "alto_volume_ou_snc",
+      "egfr_exon20",
+      "ros1_positivo",
+      "segunda_linha",
+      "io_previa",
+      "linha_subsequente"
+    ],
+    "depois": [
+      "ressecavel",
+      "histologia",
+      "egfr_status",
+      "alk_status",
+      "ros1_status",
+      "pdl1_pos",
+      "ressecado",
+      "estadio",
+      "pdl1_alto",
+      "metastatico",
+      "alto_volume_ou_snc",
+      "segunda_linha",
+      "io_previa",
+      "linha_subsequente"
+    ],
+    "nunca_usados_em_regra": []
+  },
+  "elegibilidade_resultado": [
+    {
+      "regimen_id": "nsclc-neoadj-nivolumabe-qt",
+      "tipo": "conteudo",
+      "antes": "{\"and\": [{\"eq\": [\"ressecavel\", true]}, {\"eq\": [\"egfr_alk\", \"negativos\"]}, {\"eq\": [\"pdl1_pos\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"ressecavel\", true]}, {\"eq\": [\"pdl1_pos\", true]}, {\"ref\": \"drivers_negativos_ou_escamoso\"}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "egfr_alk='negativos' (enum de opção única) → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos)."
+    },
+    {
+      "regimen_id": "nsclc-periop-pembrolizumabe-qt",
+      "tipo": "conteudo",
+      "antes": "{\"and\": [{\"eq\": [\"ressecavel\", true]}, {\"eq\": [\"egfr_alk\", \"negativos\"]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"ressecavel\", true]}, {\"ref\": \"drivers_negativos_ou_escamoso\"}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "egfr_alk='negativos' → critério nomeado drivers_negativos_ou_escamoso. Texto-fonte cita EGFR e ALK; ROS1 entra pelo critério único do tumor — PENDÊNCIA DE REFERENDO (ROS1 nos curativos)."
+    },
+    {
+      "regimen_id": "nsclc-def-crt-durvalumab",
+      "tipo": "conteudo",
+      "antes": "{\"and\": [{\"eq\": [\"estadio\", \"III_irressecavel\"]}, {\"eq\": [\"egfr_negativo\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"estadio\", \"III_irressecavel\"]}, {\"or\": [{\"eq\": [\"histologia\", \"escamoso\"]}, {\"eq\": [\"egfr_status\", \"negativo\"]}]}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "egfr_negativo=true (booleano) → (histologia=escamoso ∨ egfr_status=negativo), inline e fiel ao texto (só EGFR). PD-L1≥1% do texto segue fora da regra — item separado para o revisor."
+    },
+    {
+      "regimen_id": "nsclc-adj-atezolizumabe-pdl1",
+      "tipo": "conteudo",
+      "antes": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"pdl1_alto\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"pdl1_alto\", true]}, {\"ref\": \"drivers_negativos_ou_escamoso\"}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "Texto-fonte exige EGFR/ALK/ROS1 negativos e a regra não cobrava nenhum driver (verde sem perguntar) → critério nomeado drivers_negativos_ou_escamoso."
+    },
+    {
+      "regimen_id": "nsclc-met-io-mono-pdl1alto",
+      "tipo": "conteudo",
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"pdl1_alto\", true]}, {\"eq\": [\"mutacao_acionavel\", false]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"pdl1_alto\", true]}, {\"ref\": \"drivers_negativos_ou_escamoso\"}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "mutacao_acionavel=false (booleano composto presumido false) → critério nomeado: escamoso só PD-L1; não-escamoso PD-L1 + drivers negativos. KEYNOTE-024 (PMID 27718847) excluiu EGFR/ALK; ROS1 entra pela decisão (b) — PENDÊNCIA DE REFERENDO."
+    },
+    {
+      "regimen_id": "nsclc-met-io-qt-pdl1baixo",
+      "tipo": "conteudo",
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"mutacao_acionavel\", false]}, {\"eq\": [\"pdl1_alto\", false]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"pdl1_alto\", false]}, {\"eq\": [\"histologia\", \"nao_escamoso\"]}, {\"eq\": [\"egfr_status\", \"negativo\"]}, {\"eq\": [\"alk_status\", \"negativo\"]}, {\"eq\": [\"ros1_status\", \"negativo\"]}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "Regime conjunto KEYNOTE-189/407 separado: este id fica com o KEYNOTE-189 (não-escamoso, pemetrexede + platina, drivers negativos — histologia aqui é população, não condição). KEYNOTE-407 nasce como regime próprio. ROS1 além do abstract (EGFR/ALK) — PENDÊNCIA DE REFERENDO."
+    },
+    {
+      "regimen_id": "nsclc-adj-osimertinibe-egfr",
+      "tipo": "vocabulario",
+      "antes": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"egfr_mutado\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"egfr_status\", \"mutado_sensibilizante\"]}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R)."
+    },
+    {
+      "regimen_id": "nsclc-met-osimertinibe-egfr",
+      "tipo": "vocabulario",
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_mutado\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_status\", \"mutado_sensibilizante\"]}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "egfr_mutado=true → egfr_status=mutado_sensibilizante (texto-fonte: ex19del/L858R)."
+    },
+    {
+      "regimen_id": "nsclc-met-osi-qt-egfr",
+      "tipo": "vocabulario",
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_mutado\", true]}, {\"eq\": [\"alto_volume_ou_snc\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_status\", \"mutado_sensibilizante\"]}, {\"eq\": [\"alto_volume_ou_snc\", true]}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "egfr_mutado=true → egfr_status=mutado_sensibilizante."
+    },
+    {
+      "regimen_id": "nsclc-met-amivantamab-nao-incluido",
+      "tipo": "vocabulario",
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_mutado\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_status\", \"mutado_sensibilizante\"]}]}",
+      "selo_antes": "confirmado",
+      "selo_depois": "re_derivado",
+      "nota": "egfr_mutado=true → egfr_status=mutado_sensibilizante (MARIPOSA: ex19del/L858R). Segue NÃO incluído."
+    },
+    {
+      "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
+      "tipo": "vocabulario",
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_exon20\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"egfr_status\", \"mutado_exon20\"]}]}",
+      "selo_antes": "confirmado",
+      "selo_depois": "re_derivado",
+      "nota": "egfr_exon20=true → egfr_status=mutado_exon20. Segue NÃO incluído."
+    },
+    {
+      "regimen_id": "nsclc-adj-alectinibe-alk",
+      "tipo": "vocabulario",
+      "antes": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"alk_positivo\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"ressecado\", true]}, {\"eq\": [\"alk_status\", \"rearranjado\"]}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "alk_positivo=true → alk_status=rearranjado."
+    },
+    {
+      "regimen_id": "nsclc-met-alectinibe-alk",
+      "tipo": "vocabulario",
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"alk_positivo\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"alk_status\", \"rearranjado\"]}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "alk_positivo=true → alk_status=rearranjado."
+    },
+    {
+      "regimen_id": "nsclc-met-crizotinibe-ros1",
+      "tipo": "vocabulario",
+      "antes": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"ros1_positivo\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"metastatico\", true]}, {\"eq\": [\"ros1_status\", \"rearranjado\"]}]}",
+      "selo_antes": "re_derivado",
+      "selo_depois": "re_derivado",
+      "nota": "ros1_positivo=true → ros1_status=rearranjado."
+    }
+  ],
+  "regime_novo": [
+    {
+      "regimen_id": "nsclc-met-io-qt-pdl1baixo-escamoso",
+      "origem_decisao": "nsclc-met-io-qt-pdl1baixo",
+      "selo": "re_derivado",
+      "doi": "10.1056/NEJMoa1810865"
+    }
+  ],
+  "rehash": [
+    {
+      "regimen_id": "nsclc-neoadj-nivolumabe-qt",
+      "content_hash_antes": "39dc6393e34ced2f",
+      "content_hash_depois": "c1723334ffdcc1e6"
+    },
+    {
+      "regimen_id": "nsclc-periop-pembrolizumabe-qt",
+      "content_hash_antes": "8fbad50a6fdb987b",
+      "content_hash_depois": "0466c1fb17f556e6"
+    },
+    {
+      "regimen_id": "nsclc-def-crt-durvalumab",
+      "content_hash_antes": "99c4e803e970906c",
+      "content_hash_depois": "cb801038c2fe52a9"
+    },
+    {
+      "regimen_id": "nsclc-adj-atezolizumabe-pdl1",
+      "content_hash_antes": "c7554fbbfd75748a",
+      "content_hash_depois": "1011d5ccf0be273a"
+    },
+    {
+      "regimen_id": "nsclc-met-io-mono-pdl1alto",
+      "content_hash_antes": "a44c6a230627f26f",
+      "content_hash_depois": "28ef622348f3c33c"
+    },
+    {
+      "regimen_id": "nsclc-met-io-qt-pdl1baixo",
+      "content_hash_antes": "ef87fcd25bb978d0",
+      "content_hash_depois": "966311b700b5a046"
+    },
+    {
+      "regimen_id": "nsclc-adj-osimertinibe-egfr",
+      "content_hash_antes": "237ebdac6de385cf",
+      "content_hash_depois": "2352961b36f4d531"
+    },
+    {
+      "regimen_id": "nsclc-met-osimertinibe-egfr",
+      "content_hash_antes": "ac32baebacf0d1de",
+      "content_hash_depois": "5c17901321863384"
+    },
+    {
+      "regimen_id": "nsclc-met-osi-qt-egfr",
+      "content_hash_antes": "af6d014b4c7993c2",
+      "content_hash_depois": "5fdb21434074fba0"
+    },
+    {
+      "regimen_id": "nsclc-met-amivantamab-nao-incluido",
+      "content_hash_antes": "6b3c3f28fd653c1c",
+      "content_hash_depois": "77bb665d0ee0b59e"
+    },
+    {
+      "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
+      "content_hash_antes": "928611043ef290de",
+      "content_hash_depois": "5c1e23bc9e53063d"
+    },
+    {
+      "regimen_id": "nsclc-adj-alectinibe-alk",
+      "content_hash_antes": "3c7cafa7a6941b5f",
+      "content_hash_depois": "67f66e0f27ae9bf5"
+    },
+    {
+      "regimen_id": "nsclc-met-alectinibe-alk",
+      "content_hash_antes": "2e57080eeec827d3",
+      "content_hash_depois": "c73e9cc7d798de6b"
+    },
+    {
+      "regimen_id": "nsclc-met-crizotinibe-ros1",
+      "content_hash_antes": "31885972a8276e90",
+      "content_hash_depois": "fb2f6db8a43d5c98"
+    }
+  ],
+  "aprovacoes_expiradas": [
+    {
+      "regimen_id": "nsclc-neoadj-nivolumabe-qt",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "39dc6393e34ced2f"
+      },
+      "hash_novo": "c1723334ffdcc1e6"
+    },
+    {
+      "regimen_id": "nsclc-periop-pembrolizumabe-qt",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "8fbad50a6fdb987b"
+      },
+      "hash_novo": "0466c1fb17f556e6"
+    },
+    {
+      "regimen_id": "nsclc-def-crt-durvalumab",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "99c4e803e970906c"
+      },
+      "hash_novo": "cb801038c2fe52a9"
+    },
+    {
+      "regimen_id": "nsclc-adj-atezolizumabe-pdl1",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "c7554fbbfd75748a"
+      },
+      "hash_novo": "1011d5ccf0be273a"
+    },
+    {
+      "regimen_id": "nsclc-met-io-mono-pdl1alto",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "a44c6a230627f26f"
+      },
+      "hash_novo": "28ef622348f3c33c"
+    },
+    {
+      "regimen_id": "nsclc-met-io-qt-pdl1baixo",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "ef87fcd25bb978d0"
+      },
+      "hash_novo": "966311b700b5a046"
+    },
+    {
+      "regimen_id": "nsclc-adj-osimertinibe-egfr",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "237ebdac6de385cf"
+      },
+      "hash_novo": "2352961b36f4d531"
+    },
+    {
+      "regimen_id": "nsclc-met-osimertinibe-egfr",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "ac32baebacf0d1de"
+      },
+      "hash_novo": "5c17901321863384"
+    },
+    {
+      "regimen_id": "nsclc-met-osi-qt-egfr",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "af6d014b4c7993c2"
+      },
+      "hash_novo": "5fdb21434074fba0"
+    },
+    {
+      "regimen_id": "nsclc-met-amivantamab-nao-incluido",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "6b3c3f28fd653c1c"
+      },
+      "hash_novo": "77bb665d0ee0b59e"
+    },
+    {
+      "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "928611043ef290de"
+      },
+      "hash_novo": "5c1e23bc9e53063d"
+    },
+    {
+      "regimen_id": "nsclc-adj-alectinibe-alk",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "3c7cafa7a6941b5f"
+      },
+      "hash_novo": "67f66e0f27ae9bf5"
+    },
+    {
+      "regimen_id": "nsclc-met-alectinibe-alk",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "2e57080eeec827d3"
+      },
+      "hash_novo": "c73e9cc7d798de6b"
+    },
+    {
+      "regimen_id": "nsclc-met-crizotinibe-ros1",
+      "aprovacao": {
+        "lote": 3,
+        "data": "2026-09-14",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "content_hash": "31885972a8276e90"
+      },
+      "hash_novo": "fb2f6db8a43d5c98"
+    }
+  ],
+  "selos_que_mudaram": [
+    {
+      "regimen_id": "nsclc-met-amivantamab-nao-incluido",
+      "de": "confirmado",
+      "para": "re_derivado"
+    },
+    {
+      "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
+      "de": "confirmado",
+      "para": "re_derivado"
+    }
+  ],
+  "pendencias_referendo": [
+    "ROS1 nos metastáticos: KEYNOTE-024/189 excluíram EGFR/ALK; ROS1 entra pela decisão (b) 'qualquer driver'",
+    "ROS1/ALK nos curativos: CheckMate 816 e KEYNOTE-671 herdam o critério único do tumor (inclui ROS1); PACIFIC ficou inline só com EGFR (fiel ao texto)",
+    "KEYNOTE-407: corte pdl1_alto=false herdado do card institucional — o ensaio incluiu qualquer PD-L1",
+    "PACIFIC: PD-L1≥1% consta do texto e não da regra (fora deste lote)",
+    "mutado_outra em FLAURA/ADAURA: hoje 🔴 (≠ sensibilizante) — decisão clínica do revisor",
+    "referência do card mono cita 'EMPOWER-Lung 3' (combinação); mono é o EMPOWER-Lung 1 — candidato a corrigir_referencia, fora deste lote"
+  ],
+  "referencias_verificadas": [
+    {
+      "doi": "10.1056/NEJMoa1801005",
+      "congruente": true,
+      "pmid": "29658856",
+      "primeiro_autor": "Gandhi",
+      "ano": 2018,
+      "estudo": "KEYNOTE-189",
+      "tema": "fase 3, CPNPC metastático NÃO-ESCAMOSO sem mutação sensibilizante de EGFR ou ALK, pembrolizumabe + pemetrexede + platina vs placebo + QT",
+      "abstract_trecho": "metastatic nonsquamous NSCLC without sensitizing EGFR or ALK mutations"
+    },
+    {
+      "doi": "10.1056/NEJMoa1810865",
+      "congruente": true,
+      "pmid": "30280635",
+      "primeiro_autor": "Paz-Ares",
+      "ano": 2018,
+      "estudo": "KEYNOTE-407",
+      "tema": "fase 3 duplo-cego, n=559, CPNPC metastático ESCAMOSO não tratado, pembrolizumabe 200 mg (até 35 ciclos) + carboplatina + paclitaxel ou nab-paclitaxel (4 ciclos) vs placebo + QT; desfechos primários SG e SLP",
+      "abstract_trecho": "median overall survival 15.9 months vs 11.3 months (hazard ratio for death, 0.64); median progression-free survival 6.4 months vs 4.8 months (hazard ratio 0.56)"
+    },
+    {
+      "doi": "10.1056/NEJMoa1606774",
+      "congruente": true,
+      "pmid": "27718847",
+      "primeiro_autor": "Reck",
+      "ano": 2016,
+      "estudo": "KEYNOTE-024",
+      "tema": "fase 3, CPNPC avançado PD-L1≥50%, pembrolizumabe vs QT à base de platina",
+      "abstract_trecho": "no sensitizing mutation of the epidermal growth factor receptor gene or translocation of the anaplastic lymphoma kinase gene"
+    }
+  ]
+}

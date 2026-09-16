@@ -26,6 +26,8 @@ export interface CampoPrimitivo {
   tipo: 'boolean' | 'enum' | 'integer' | 'number' | 'score' | string;
   opcoes?: any[];
   ordinal?: Record<string, number>;
+  indeterminado?: any[];               // tokens que o motor trata como NÃO informado (ex.: "nao_testado")
+  rotulos?: Record<string, string>;    // rótulo por opção (só apresentação)
   label?: string;
   secao?: string;
   estavel?: boolean;
@@ -38,6 +40,12 @@ const CMP_OPS: Record<string, 1> = { eq: 1, ne: 1, gt: 1, gte: 1, lt: 1, lte: 1,
 const OP_SYM: Record<string, string> = { eq: '=', ne: '≠', gt: '>', gte: '≥', lt: '<', lte: '≤', in: '∈' };
 
 function vazio(v: any): boolean { return v === undefined || v === null || v === ''; }
+// Token INDETERMINADO declarado no vocabulário do squad (spec.indeterminado): vale como vazio
+// → null (🟡). "Não testado" nunca libera verde, e nenhuma regra clínica mora aqui — o dado diz
+// qual token é o vazio. Espelha `_indet` da app.
+function indet(spec: CampoPrimitivo | undefined, v: any): boolean {
+  return !!(spec && Array.isArray(spec.indeterminado) && spec.indeterminado.map(String).includes(String(v)));
+}
 
 function eqv(a: any, b: any): boolean {
   if (typeof b === 'boolean') return Boolean(a) === b;
@@ -79,19 +87,20 @@ export function evalExpr(node: any, vals: Record<string, any>, critMap: CritMap,
   if (k === 'or') { let unk = false; for (const c of v) { const r = evalExpr(c, vals, critMap, primMap, seen); if (r === true) return true; if (r === null) unk = true; } return unk ? null : false; }
   if (k === 'not') { const r = evalExpr(v, vals, critMap, primMap, seen); return r === null ? null : !r; }
   if (k === 'ref') { if (seen && seen.has(v)) return null; const e = critMap && critMap[v]; if (!e) return null; const s = new Set(seen || []); s.add(v); return evalExpr(e, vals, critMap, primMap, s); }
-  if (CMP_OPS[k]) { const [campo, cval] = v; const pv = vals[campo]; if (vazio(pv)) return null; return cmpOp(k, pv, cval, primMap && primMap[campo]); }
+  if (CMP_OPS[k]) { const [campo, cval] = v; const pv = vals[campo]; const sp = primMap && primMap[campo]; if (vazio(pv) || indet(sp, pv)) return null; return cmpOp(k, pv, cval, sp); }
   return null;
 }
 
-// Primitivos referenciados pela regra que estão VAZIOS — é o "por quê" de um indeterminado,
-// e o que o validador precisa preencher para sair do amarelo.
-export function camposFaltando(node: any, vals: Record<string, any>, critMap: CritMap, seen: Set<string> | null, out: string[]): void {
+// Primitivos referenciados pela regra que estão VAZIOS ou em token indeterminado — é o "por
+// quê" de um 🟡, e o que o validador precisa preencher para sair do amarelo.
+export function camposFaltando(node: any, vals: Record<string, any>, critMap: CritMap, seen: Set<string> | null, out: string[], primMap?: PrimMap): void {
   if (!node || typeof node !== 'object') return;
   const k = Object.keys(node)[0], v = node[k];
-  if (k === 'and' || k === 'or') { v.forEach((c: any) => camposFaltando(c, vals, critMap, seen, out)); return; }
-  if (k === 'not') { camposFaltando(v, vals, critMap, seen, out); return; }
-  if (k === 'ref') { if (seen && seen.has(v)) return; const e = critMap && critMap[v]; if (!e) return; const s = new Set(seen || []); s.add(v); camposFaltando(e, vals, critMap, s, out); return; }
-  if (CMP_OPS[k]) { const [campo] = v; if (vazio(vals[campo]) && !out.includes(campo)) out.push(campo); }
+  if (k === 'or' && evalExpr(node, vals, critMap, primMap, seen || undefined) === true) return;   // ramo já satisfeito: nada falta
+  if (k === 'and' || k === 'or') { v.forEach((c: any) => camposFaltando(c, vals, critMap, seen, out, primMap)); return; }
+  if (k === 'not') { camposFaltando(v, vals, critMap, seen, out, primMap); return; }
+  if (k === 'ref') { if (seen && seen.has(v)) return; const e = critMap && critMap[v]; if (!e) return; const s = new Set(seen || []); s.add(v); camposFaltando(e, vals, critMap, s, out, primMap); return; }
+  if (CMP_OPS[k]) { const [campo] = v; const pv = vals[campo]; if ((vazio(pv) || indet(primMap && primMap[campo], pv)) && !out.includes(campo)) out.push(campo); }
 }
 
 // ---- rótulos (só apresentação; espelham os da app) ----
@@ -106,8 +115,13 @@ function fieldLabel(campo: string, primMap: PrimMap): string {
   const s = primMap && primMap[campo];
   return shortLabel((s && s.label) || campo.replace(/_/g, ' ').replace(/^\w/, (m) => m.toUpperCase()));
 }
+function optLabel(spec: CampoPrimitivo | undefined, v: any): string {
+  if (spec && spec.rotulos && Object.prototype.hasOwnProperty.call(spec.rotulos, String(v))) return String(spec.rotulos[String(v)]);
+  return humanOpt(v);
+}
 function leafLabel(campo: string, op: string, valor: any, primMap: PrimMap): string {
-  const val = Array.isArray(valor) ? '[' + valor.map(humanOpt).join(', ') + ']' : humanOpt(valor);
+  const sp = primMap && primMap[campo];
+  const val = Array.isArray(valor) ? '[' + valor.map((x) => optLabel(sp, x)).join(', ') + ']' : optLabel(sp, valor);
   return `${fieldLabel(campo, primMap)} ${OP_SYM[op] || op} ${val}`;
 }
 export function clauseLabel(node: any, primMap: PrimMap, critLabels: Record<string, string>): string {
@@ -147,11 +161,11 @@ export function classificarRegra(
     const r = evalExpr(cl, vals, critMap, primMap);
     const st: 'ok' | 'warn' | 'bad' = r === true ? 'ok' : r === false ? 'bad' : 'warn';
     const falta: string[] = [];
-    if (r === null) camposFaltando(cl, vals, critMap, null, falta);
+    if (r === null) camposFaltando(cl, vals, critMap, null, falta, primMap);
     const detail = falta.length ? `não informado: ${falta.map((c) => fieldLabel(c, primMap)).join(', ')}` : '';
     return { label: clauseLabel(cl, primMap, critLabels), status: st, detail };
   });
   const faltando: string[] = [];
-  if (regra) camposFaltando(regra, vals, critMap, null, faltando);
+  if (regra) camposFaltando(regra, vals, critMap, null, faltando, primMap);
   return { semaforo: STATUS_TO_SEM[status], status, crits, faltando };
 }

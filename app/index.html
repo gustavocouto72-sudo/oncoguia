@@ -1285,7 +1285,20 @@ function primFieldsFor(t){ const l = CAMPOS_PRIM_POR_TUMOR[t] || null; if(l) l.f
 function primValLabel(campo, v, primMap){
   const s = primMap && primMap[campo];
   if(campo==="cenario" && s && s._tumor) return cenarioRotulo(s._tumor, v);
+  return optLabel(s, v);
+}
+// Rótulo de UMA opção de primitivo: `rotulos` declarado no vocabulário do squad (dado, não
+// código) vence; senão o prettify genérico. Cenário continua com o rótulo por tumor.
+function optLabel(s, v){
+  if(s && s.campo==="cenario" && s._tumor) return cenarioRotulo(s._tumor, v);
+  if(s && s.rotulos && Object.prototype.hasOwnProperty.call(s.rotulos, String(v))) return String(s.rotulos[String(v)]);
   return humanOpt(v);
+}
+// Token INDETERMINADO declarado no dado (spec.indeterminado, ex.: "nao_testado"): o motor o
+// trata como não informado → null (🟡). É assim que "não testado" nunca libera verde sem que
+// nenhuma regra clínica seja escrita aqui — o vocabulário do squad diz qual token é o vazio.
+function _indet(spec, v){
+  return !!(spec && Array.isArray(spec.indeterminado) && spec.indeterminado.map(String).includes(String(v)));
 }
 function usaPrim(t){ return HAS_PRIM_FORMAT && !!primFieldsFor(t); }
 function primByCampo(t){ const m={}; (primFieldsFor(t)||[]).forEach(s=>m[s.campo]=s); return m; }
@@ -1341,7 +1354,7 @@ function evalExpr(node,vals,critMap,primMap,seen){
   if(k==="or"){  let unk=false; for(const c of v){ const r=evalExpr(c,vals,critMap,primMap,seen); if(r===true)return true; if(r===null)unk=true; } return unk?null:false; }
   if(k==="not"){ const r=evalExpr(v,vals,critMap,primMap,seen); return r===null?null:!r; }
   if(k==="ref"){ if(seen&&seen.has(v))return null; const e=critMap&&critMap[v]; if(!e)return null; const s=new Set(seen||[]); s.add(v); return evalExpr(e,vals,critMap,primMap,s); }
-  if(CMP_OPS[k]){ const [campo,cval]=v; const pv=vals[campo]; if(_empty(pv))return null; return cmpOp(k,pv,cval,primMap&&primMap[campo]); }
+  if(CMP_OPS[k]){ const [campo,cval]=v; const pv=vals[campo]; const sp=primMap&&primMap[campo]; if(_empty(pv)||_indet(sp,pv))return null; return cmpOp(k,pv,cval,sp); }
   return null;
 }
 // Comparações-folha VERDADEIRAS (para o "porquê": quais primitivos dispararam).
@@ -1351,16 +1364,17 @@ function firedLeaves(node,vals,critMap,primMap,seen,out){
   if(k==="and"||k==="or"){ v.forEach(c=>firedLeaves(c,vals,critMap,primMap,seen,out)); return; }
   if(k==="not"){ firedLeaves(v,vals,critMap,primMap,seen,out); return; }
   if(k==="ref"){ if(seen&&seen.has(v))return; const e=critMap&&critMap[v]; if(!e)return; const s=new Set(seen||[]); s.add(v); firedLeaves(e,vals,critMap,primMap,s,out); return; }
-  if(CMP_OPS[k]){ const [campo,cval]=v; const pv=vals[campo]; if(_empty(pv))return; if(cmpOp(k,pv,cval,primMap&&primMap[campo])===true) out.push({campo,op:k,valor:cval,pv}); }
+  if(CMP_OPS[k]){ const [campo,cval]=v; const pv=vals[campo]; const sp=primMap&&primMap[campo]; if(_empty(pv)||_indet(sp,pv))return; if(cmpOp(k,pv,cval,sp)===true) out.push({campo,op:k,valor:cval,pv}); }
 }
-// Primitivos referenciados que estão VAZIOS (para explicar um indeterminado).
-function missingFields(node,vals,critMap,seen,out){
+// Primitivos referenciados que estão VAZIOS ou em token indeterminado (para explicar um 🟡).
+function missingFields(node,vals,critMap,seen,out,primMap){
   if(!node||typeof node!=="object") return;
   const k=Object.keys(node)[0], v=node[k];
-  if(k==="and"||k==="or"){ v.forEach(c=>missingFields(c,vals,critMap,seen,out)); return; }
-  if(k==="not"){ missingFields(v,vals,critMap,seen,out); return; }
-  if(k==="ref"){ if(seen&&seen.has(v))return; const e=critMap&&critMap[v]; if(!e)return; const s=new Set(seen||[]); s.add(v); missingFields(e,vals,critMap,s,out); return; }
-  if(CMP_OPS[k]){ const [campo]=v; if(_empty(vals[campo]) && !out.includes(campo)) out.push(campo); }
+  if(k==="or" && evalExpr(node,vals,critMap,primMap,seen)===true) return;   // ramo já satisfeito: nada falta
+  if(k==="and"||k==="or"){ v.forEach(c=>missingFields(c,vals,critMap,seen,out,primMap)); return; }
+  if(k==="not"){ missingFields(v,vals,critMap,seen,out,primMap); return; }
+  if(k==="ref"){ if(seen&&seen.has(v))return; const e=critMap&&critMap[v]; if(!e)return; const s=new Set(seen||[]); s.add(v); missingFields(e,vals,critMap,s,out,primMap); return; }
+  if(CMP_OPS[k]){ const [campo]=v; const pv=vals[campo]; if((_empty(pv)||_indet(primMap&&primMap[campo],pv)) && !out.includes(campo)) out.push(campo); }
 }
 
 function humanOpt(v){ const s=String(v); if(s==="true")return"Sim"; if(s==="false")return"Não"; if(/^-?\d+(\.\d+)?$/.test(s))return s; return s.replace(/_/g," ").replace(/\b\w/g,m=>m.toUpperCase()); }
@@ -1413,7 +1427,7 @@ function renderPrimField(p,s){
     </div></div>`;
   }
   // enum / integer(opcoes) → segmentado (≤4 opções curtas) senão dropdown
-  const opts=(s.opcoes||[]).map(o=>[String(o), s.campo==="cenario"?cenarioRotulo(s._tumor,o):humanOpt(o)]);
+  const opts=(s.opcoes||[]).map(o=>[String(o), optLabel(s,o)]);
   const dropdown = opts.length>4 || opts.some(o=>o[1].length>8);
   if(!dropdown){
     return `<div class="pf-field"><label>${esc(shortLabel(s.label))}${lockTag}</label><div class="seg" style="${lockStyle}">
@@ -1504,7 +1518,7 @@ function renderCalcPanel(p){
     const res=evalExpr(c.expr,vals,critMap,primMap);
     let why;
     if(res===true||res===false){ const f=[]; firedLeaves(c.expr,vals,critMap,primMap,null,f); why=f.length?f.map(x=>leafText(x,primMap)).join("; "):(res===false?"nenhum primitivo satisfez":""); }
-    else { const m=[]; missingFields(c.expr,vals,critMap,null,m); why="faltam: "+(m.map(x=>fieldLabel(x,primMap)).join(", ")||"dados"); }
+    else { const m=[]; missingFields(c.expr,vals,critMap,null,m,primMap); why="faltam: "+(m.map(x=>fieldLabel(x,primMap)).join(", ")||"dados"); }
     const st=res===true?"ok":res===false?"bad":"warn";
     const tag=res===true?"Sim":res===false?"Não":"—";
     return `<div class="calc-row ${st}"><span class="calc-l">${esc(c.label||humanizeKey(c.id))}</span><span class="calc-v">${tag}</span>${why?`<span class="calc-why">${esc(why)}</span>`:""}</div>`;
@@ -2323,7 +2337,7 @@ function renderCadCampo(s){
       ${[["false","Não"],["true","Sim"]].map(o=>`<button class="${String(val)===o[0]?'on':''}" onclick="setCadClin('${esc(s.campo)}','${o[0]}',this)">${o[1]}</button>`).join("")}
     </div></div>`;
   }
-  const opts=(s.opcoes||[]).map(o=>[String(o), s.campo==="cenario"?cenarioRotulo(s._tumor,o):humanOpt(o)]);
+  const opts=(s.opcoes||[]).map(o=>[String(o), optLabel(s,o)]);
   const dropdown = opts.length>4 || opts.some(o=>o[1].length>8);
   if(!dropdown){
     return `<div class="pf-field"><label>${esc(shortLabel(s.label))}</label><div class="seg">
@@ -2826,7 +2840,7 @@ function impWidget(alvo, s, val){
     return `<div class="seg">${[["","—"],["false","Não"],["true","Sim"]].map(o=>`<button class="${on(o[0])}" title="${o[0]===""?"não informado":""}" onclick="impSetValor('${alvo}','${esc(s.campo)}','${o[0]}',this)">${o[1]}</button>`).join("")}</div>`;
   }
   if(s.tipo==="enum" || (s.opcoes&&s.opcoes.length)){
-    return `<select onchange="impSetValor('${alvo}','${esc(s.campo)}',this.value)"><option value="">— não informado —</option>${(s.opcoes||[]).map(o=>`<option value="${esc(String(o))}" ${sv===String(o)?"selected":""}>${esc(humanOpt(o))}</option>`).join("")}</select>`;
+    return `<select onchange="impSetValor('${alvo}','${esc(s.campo)}',this.value)"><option value="">— não informado —</option>${(s.opcoes||[]).map(o=>`<option value="${esc(String(o))}" ${sv===String(o)?"selected":""}>${esc(optLabel(s,o))}</option>`).join("")}</select>`;
   }
   return `<input type="number" inputmode="decimal" step="any" placeholder="não informado" value="${esc(sv)}" onchange="impSetValor('${alvo}','${esc(s.campo)}',this.value)">`;
 }
@@ -2993,7 +3007,7 @@ function impPreviewHtml(){
   const regra = r.elegibilidade && r.elegibilidade.regra;
   const res = regra ? evalExpr(regra, IMP_VAL.valores, critMap, primMap) : true;
   const sem = res===true?"elegivel":res===false?"inelegivel":"atencao";
-  const falta=[]; if(regra) missingFields(regra, IMP_VAL.valores, critMap, null, falta);
+  const falta=[]; if(regra) missingFields(regra, IMP_VAL.valores, critMap, null, falta, primMap);
   const inc = incorporacao(r).incorporado;
   const verde = sem==="elegivel" && inc;
   return `<div class="hint" style="margin-top:8px">Pré-visualização (o servidor reconfere): ${semBadge(sem)}${inc?"":` <span class="tag-ni">NÃO INCORPORADO</span>`}
@@ -3378,7 +3392,7 @@ function renderReavalField(s){
       ${[["false","Não"],["true","Sim"]].map(o=>`<button class="${String(val)===o[0]?'on':''}" ${dis} onclick="setReaval('${esc(s.campo)}','${o[0]}',this)">${o[1]}</button>`).join("")}
     </div></div>`;
   }
-  const opts=(s.opcoes||[]).map(o=>[String(o), s.campo==="cenario"?cenarioRotulo(s._tumor,o):humanOpt(o)]);
+  const opts=(s.opcoes||[]).map(o=>[String(o), optLabel(s,o)]);
   const dropdown = opts.length>4 || opts.some(o=>o[1].length>8);
   if(!dropdown){
     return `<div class="pf-field"><label>${label}</label><div class="seg" style="${lockStyle}">
@@ -4433,7 +4447,7 @@ function snapshotChipsFor(snap, tumor){
   return keys.map(k=>{
     const spec = prim[k]||{};
     const label = shortLabel(spec.label||CAMPO_LABEL[k]||rotuloCampo(k));
-    const v = humanOpt(dc[k]);
+    const v = optLabel(spec.campo?spec:null, dc[k]);
     const uni = spec.unidade ? " "+spec.unidade : "";
     const estavel = spec.estavel ? " 🔒" : "";
     return `<span class="chip snap">${esc(label)}${estavel}: ${esc(String(v))}${esc(uni)}</span>`;
@@ -5344,7 +5358,7 @@ function renderSimField(s){
       ${[["false","Não"],["true","Sim"]].map(o=>`<button class="${String(val)===o[0]?'on':''}" onclick="setSim('${esc(s.campo)}','${o[0]}',this)">${o[1]}</button>`).join("")}
     </div></div>`;
   }
-  const opts=(s.opcoes||[]).map(o=>[String(o), s.campo==="cenario"?cenarioRotulo(s._tumor,o):humanOpt(o)]);
+  const opts=(s.opcoes||[]).map(o=>[String(o), optLabel(s,o)]);
   const dropdown = opts.length>4 || opts.some(o=>o[1].length>8);
   if(!dropdown){
     return `<div class="pf-field"><label>${esc(shortLabel(s.label))}</label><div class="seg">
