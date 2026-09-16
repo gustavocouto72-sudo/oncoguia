@@ -173,6 +173,26 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     const c1 = await req('POST', '/pacientes', tkSec, { nome: NOME(1), identificador: IDENT(1), sexo: 'M', nasc: '1958-02-08', operadora: 'Unimed', plano: 'Única', peso_kg: 110.5, altura_cm: 171 });
     const p1 = c1.body && c1.body.id; if (p1) pacientes.push(p1);
     ok('S1 secretaria cadastra o paciente pela rota normal (administrativo)', c1.status === 201 && !!p1, String(c1.status));
+    // ── REGISTRO ÚNICO (2026-09-16): o mesmo nº de atendimento não cria outro paciente ──
+    const dupSec = await req('POST', '/pacientes', tkSec, { nome: 'Copia ' + NOME(1), identificador: IDENT(1), sexo: 'M' });
+    ok('R1 ★★ importação (secretaria): cadastrar de novo o registro de P1 = 409, mensagem NOMEIA o existente (nome e #id)',
+      dupSec.status === 409 && new RegExp(`Registro ${IDENT(1)} já cadastrado: ${NOME(1)} \\(#${p1}\\)`).test(dupSec.body && dupSec.body.message || ''), `${dupSec.status} ${dupSec.body && dupSec.body.message}`);
+    const dupOnco = await req('POST', '/pacientes', tkOnco, { nome: 'Copia manual', identificador: IDENT(1), sexo: 'M', tumor: TUMOR });
+    ok('R1 ★ cadastro manual (oncologista) com o mesmo registro = 409 também', dupOnco.status === 409 && /já cadastrado/.test(dupOnco.body && dupOnco.body.message || ''), String(dupOnco.status));
+    const dupEspaco = await req('POST', '/pacientes', tkSec, { nome: 'Copia com espaco', identificador: `  ${IDENT(1)}  `, sexo: 'M' });
+    ok('R1 registro com espaços em volta é o mesmo registro (409)', dupEspaco.status === 409, String(dupEspaco.status));
+    const n1 = await req('POST', '/pacientes', tkSec, { nome: NOME('N1'), sexo: 'M' });
+    const n2 = await req('POST', '/pacientes', tkSec, { nome: NOME('N2'), identificador: null, sexo: 'M' });
+    const n3 = await req('POST', '/pacientes', tkSec, { nome: NOME('N3'), identificador: '', sexo: 'M' });
+    [n1, n2, n3].forEach(x => { if (x.body && x.body.id) pacientes.push(x.body.id); });
+    ok('R2 ★ sem registro (ausente, null, vazio) continua permitido n vezes: 3 × 201', n1.status === 201 && n2.status === 201 && n3.status === 201, `${n1.status}/${n2.status}/${n3.status}`);
+    ok('R2 os três nasceram sem registro (null), não com string vazia', [n1, n2, n3].every(x => x.body && (x.body.identificador === null || x.body.identificador === undefined)), JSON.stringify([n1, n2, n3].map(x => x.body && x.body.identificador)));
+    const patchDup = await req('PATCH', `/pacientes/${n1.body.id}`, tkSec, { identificador: IDENT(1) });
+    ok('R3 ★ corrigir o cadastro de outro paciente PARA um registro existente = 409', patchDup.status === 409 && /já cadastrado/.test(patchDup.body && patchDup.body.message || ''), String(patchDup.status));
+    const patchOk = await req('PATCH', `/pacientes/${p1}`, tkSec, { identificador: IDENT(1) });
+    ok('R3 corrigir o próprio paciente mantendo o mesmo registro = 200 (não conflita consigo)', patchOk.status === 200, String(patchOk.status));
+    const patchNovo = await req('PATCH', `/pacientes/${n1.body.id}`, tkSec, { identificador: IDENT('N1') });
+    ok('R3 dar um registro NOVO a quem não tinha = 200', patchNovo.status === 200 && patchNovo.body.identificador === IDENT('N1'), String(patchNovo.status));
     const pr1 = await req('POST', `/pacientes/${p1}/importacao-proposta`, tkSec, PROPOSTA_JMGM);
     const prop1Id = pr1.body && pr1.body.id;
     ok('S1 ★ POST importacao-proposta (secretaria) = 201, estado pendente, autora = secretaria', pr1.status === 201 && !!prop1Id && pr1.body.estado === 'pendente'

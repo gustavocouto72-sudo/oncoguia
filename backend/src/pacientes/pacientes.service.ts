@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
 import {
@@ -284,20 +284,54 @@ export class PacientesService {
     return rows.map((e) => mapEventoAdministrativo(e));
   }
 
+  // REGISTRO ÚNICO: o nº de atendimento/registro identifica o doente. Cadastrar de novo
+  // um registro existente não cria outro paciente — devolve 409 NOMEANDO quem já está lá,
+  // para a tela poder oferecer "abrir a ficha do existente". Vale para o cadastro manual e
+  // para a importação (a proposta nasce sobre o paciente, e o paciente nasce por aqui).
+  // Nulo/vazio segue livre (n vezes): a trava é sobre o registro, não sobre a ausência dele.
+  // A trava que vale é o índice único parcial UQ_pacientes_identificador; esta checagem
+  // existe para a mensagem — e a violação do índice (corrida) também vira 409 abaixo.
+  private async exigirRegistroLivre(identificador: string | null | undefined, excetoId?: number) {
+    const reg = String(identificador ?? '').trim();
+    if (!reg) return null;
+    const existente = await this.pacienteRepo.findOne({ where: { identificador: reg }, select: { id: true, nome: true } });
+    if (existente && existente.id !== excetoId) {
+      throw new ConflictException(`Registro ${reg} já cadastrado: ${existente.nome} (#${existente.id})`);
+    }
+    return reg;
+  }
+
+  private static ehViolacaoRegistro(e: any): boolean {
+    return e && e.code === '23505' && /UQ_pacientes_identificador/.test(String(e.constraint || e.message || ''));
+  }
+
   // Cadastro do paciente. O tumor é atributo do paciente (não escolha por visita);
   // valores_estaveis guarda os campos_primitivos com estavel:true (biologia imutável).
-  criar(dados: Partial<Paciente>, usuarioId: number) {
-    return this.pacienteRepo.save(
-      this.pacienteRepo.create({ ...dados, criado_por: usuarioId }),
-    );
+  async criar(dados: Partial<Paciente>, usuarioId: number) {
+    const reg = await this.exigirRegistroLivre(dados.identificador);
+    try {
+      return await this.pacienteRepo.save(
+        this.pacienteRepo.create({ ...dados, identificador: reg, criado_por: usuarioId }),
+      );
+    } catch (e) {
+      if (PacientesService.ehViolacaoRegistro(e)) throw new ConflictException(`Registro ${reg} já cadastrado`);
+      throw e;
+    }
   }
 
   // Correção cadastral: aplica só as chaves presentes no body e devolve o paciente — no
   // formato do perfil que corrigiu (a secretaria recebe de volta a ficha administrativa).
+  // Trocar o registro para um que já é de outro paciente é o mesmo 409 do cadastro.
   async atualizar(id: number, dados: Partial<Paciente>, perfil: Perfil) {
     const p = await this.pacienteOr404(id);
+    if (dados.identificador !== undefined) dados.identificador = await this.exigirRegistroLivre(dados.identificador, id);
     Object.assign(p, dados);
-    await this.pacienteRepo.save(p);
+    try {
+      await this.pacienteRepo.save(p);
+    } catch (e) {
+      if (PacientesService.ehViolacaoRegistro(e)) throw new ConflictException(`Registro ${dados.identificador} já cadastrado`);
+      throw e;
+    }
     return this.obter(id, perfil);
   }
 

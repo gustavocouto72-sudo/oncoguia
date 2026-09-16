@@ -585,6 +585,49 @@ navegador (pdf.js) e extração dos clínicos por endpoint que chama a API do Cl
 prompt fixo por tumor. Nesta entrega a proposta nasce do formulário guiado ou do JSON
 colado — o `impCarregarJson` é o ponto onde a extração vai plugar.
 
+## Registro único (`UQ_pacientes_identificador`, 2026-09-16) — checks `R` do `portao-importacao`
+
+O nº de atendimento/registro identifica o doente: **cadastrar de novo um registro
+existente não cria outro paciente**. Motivo concreto: testando a mesma evolução mais de
+uma vez em produção, o J.M.G.M. nasceu duas vezes (#80 e #82) — cada cópia com trilha,
+agenda e protocolo próprios, um "branch" do mesmo doente.
+
+- **A trava é do banco**: índice único **parcial** em `pacientes.identificador`
+  (`WHERE identificador IS NOT NULL AND identificador <> ''`), padrão da UQ das
+  propostas. Nulo/vazio segue livre n vezes (seed, testes, cadastro sem registro).
+- **O serviço devolve 409 nomeando quem já está lá** — `Registro 2525705 já cadastrado:
+  J.M.G.M. (#80)` — no `POST /pacientes` (manual e importação: a proposta nasce sobre o
+  paciente, e o paciente nasce por aqui) e no `PATCH` que tenta trocar o registro para um
+  que é de outro. Espaços em volta são o mesmo registro (trim). A violação do índice
+  numa corrida também vira 409.
+- **Migration com pré-flight** (`RegistroUnico1789862400000`, padrão PerfilSecretaria):
+  duplicata existente → aborta com a lista, e com ela o boot — em vez do erro genérico do
+  `CREATE UNIQUE INDEX`. Em dev não havia; em produção a #82 saiu antes do deploy.
+- **Parte 2 (tela) fica para depois** da Fase C do pulmão commitar: checar o registro ao
+  sair do campo e oferecer "abrir a ficha do existente" em vez de criar.
+
+Checks (`portao-importacao`, `R1`–`R3`): secretaria repete o registro de P1 → 409 com
+nome e #id; oncologista manual → 409; com espaços → 409; ausente/null/vazio → 3 × 201 e
+gravados como null; PATCH de outro paciente para o registro existente → 409; PATCH do
+próprio mantendo o registro → 200; dar registro novo a quem não tinha → 200.
+
+> **Lição (2026-09-16) — dois portões iguais, um banco só.** Duas sessões rodaram o
+> `portao-importacao` ao mesmo tempo contra o dev: a varredura `Z0` de uma apagou os
+> pacientes e a usuária da rodada da outra (mesmo prefixo, ids 312–318). Os checks
+> vermelhos eram 404, não código. A varredura por prefixo é correta para resíduo de rodada
+> **morta**; não distingue rodada **viva** de outra sessão. Antes de rodar um portão, `pgrep
+> -f scripts/portao-<nome>` — e sessões paralelas combinam a pista (aqui, por mensagem
+> entre sessões). A etiqueta única por rodada protege os checks, não a limpeza alheia.
+
+**SELECT de conferência do índice novo (dev e produção):**
+```sql
+SELECT indexdef FROM pg_indexes WHERE indexname = 'UQ_pacientes_identificador';
+-- CREATE UNIQUE INDEX "UQ_pacientes_identificador" ON public.pacientes USING btree (identificador)
+--   WHERE ((identificador IS NOT NULL) AND ((identificador)::text <> ''::text))
+SELECT identificador, count(*) FROM pacientes WHERE identificador IS NOT NULL AND identificador <> ''
+ GROUP BY identificador HAVING count(*) > 1;                       -- vazio
+```
+
 ## Portão da EXTRAÇÃO (`scripts/portao-extracao.js`) — entrega 2
 
 `node scripts/portao-extracao.js` — tela da secretaria (browser isolado) + API; 5 logins.
