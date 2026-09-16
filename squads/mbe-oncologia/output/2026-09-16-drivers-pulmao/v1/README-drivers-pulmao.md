@@ -1,4 +1,4 @@
-# Ajuste dos drivers de pulmão (run `2026-09-16-drivers-pulmao/v1`) — EXECUTADO EM DEV em 2026-09-16, NÃO publicado
+# Ajuste dos drivers de pulmão (run `2026-09-16-drivers-pulmao/v1`) — PUBLICADO em 2026-09-16 (autorização por mensagem)
 
 Cópia (só dados) do run ativo `2026-09-15-intake-revisao-3/v1` + `intake-drivers-pulmao.py` rodado
 uma vez. Origem: decisão clínica do revisor Gustavo Drummond Pinho Ribeiro (WhatsApp, 16/09/2026,
@@ -33,7 +33,7 @@ re-revisão".
   `confirmado → re_derivado` (MARIPOSA, PAPILLON — eixo elegibilidade re-derivado; o intake nunca
   reatribui `confirmado`); 407 nasce `re_derivado` e pendente na fila.
 
-## Código que acompanha (árvore de trabalho, não commitado)
+## Código que acompanha (commit `94dc6cd`)
 
 - `app/index.html`: `_indet()` no `evalExpr`/`firedLeaves`/`missingFields` (token indeterminado →
   null); `optLabel()` (rótulo de opção declarado no dado) nos 4 widgets, na importação e nos chips;
@@ -77,3 +77,17 @@ ROS1 nos metastáticos (024/189 excluíram só EGFR/ALK) · ROS1/ALK nos curativ
 critério único; PACIFIC só EGFR) · 407 mantém `pdl1_alto=false`? (o ensaio incluiu qualquer PD-L1) ·
 PACIFIC sem `pdl1_pos` na regra · `mutado_outra` em FLAURA/ADAURA (hoje 🔴) · card mono cita
 "EMPOWER-Lung 3" (é o de combinação; mono é o 1).
+
+## Publicação (2026-09-16, autorizada por mensagem — véspera de demo, corrigindo erro clínico real em prod)
+
+1. Fase A gravada em produção ANTES: pareceres ids 256–261 (`ajuste_solicitado` /
+   `ajustar_elegibilidade` / dado / elegibilidade), chapéu `revisor`, 17:43 UTC, cada um no hash
+   então vigente de prod (dry-run conferiu os 6 hashes antes de gravar).
+2. Commit `94dc6cd` com paths explícitos (15 arquivos) → deploy do backend → deploy do app, um por vez.
+3. Pós-deploy: Portão A no ativo sem caminho (exit 0, `Corpus` = `RUN_ATIVO`); `portao-drivers-pulmao`
+   contra produção (API + app publicado) **25/25** — D6 em prod: os 14 em `pendente_re_revisao`,
+   KEYNOTE-407 `pendente`, `hashes_carregados` 301.
+4. Migration `AplicadaEmDriversPulmao1789948800000` instalada (commit `81b8bee`), mecânica provada no
+   dev (0 linhas alcançadas, como esperado), segundo deploy do backend; `/revisao/export` de prod
+   mostra os 6 com `aplicada_em = 2026-09-16` e `hash_atual` = hash novo.
+5. Fila do revisor em prod: 14 regimes em *Aguardando re-revisão* + KEYNOTE-407 em *Pendente*.
