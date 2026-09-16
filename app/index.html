@@ -3080,10 +3080,18 @@ async function pdfParaTexto(arrayBuffer){
       if(!it.str || !it.str.trim()) return;
       const y = Math.round(it.transform[5]/2)*2, x = it.transform[4];
       if(!linhas.has(y)) linhas.set(y, []);
-      linhas.get(y).push({x, s: it.str});
+      linhas.get(y).push({x, w: it.width||0, s: it.str});
     });
+    // Itens da mesma linha: espaço só quando há VÃO entre eles. pdf.js entrega ligaduras
+    // ("fi", "fl") como item separado, colado ao anterior — juntar sempre com espaço vira
+    // "fi sicamente", e o trecho citado pelo modelo deixa de ser literal.
     const ys = [...linhas.keys()].sort((a,b)=>b-a);
-    paginas.push(ys.map(y=>linhas.get(y).sort((a,b)=>a.x-b.x).map(i=>i.s).join(" ").replace(/\s+/g," ").trim()).join("\n"));
+    paginas.push(ys.map(y=>{
+      const its = linhas.get(y).sort((a,b)=>a.x-b.x);
+      let out = "", fim = null;
+      its.forEach(i=>{ const vao = fim===null ? 0 : i.x - fim; out += (fim!==null && vao > 1.2 ? " " : "") + i.s; fim = i.x + i.w; });
+      return out.replace(/\s+/g," ").trim();
+    }).join("\n"));
   }
   return paginas.join("\n");
 }

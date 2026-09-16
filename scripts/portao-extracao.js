@@ -56,7 +56,7 @@ async function req(metodo, rota, tk, body, base = API) {
   let j = null; try { j = await r.json(); } catch (_) { }
   return { status: r.status, body: j };
 }
-const norm = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+const norm = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '');
 
 async function ctxLogin(browser, quem) {
   const ctx = await browser.newContext();

@@ -1,0 +1,3855 @@
+{
+  "meta": {
+    "titulo": "Protocolos — prostata (re-extração 2026-07-22)",
+    "tumor": "prostata",
+    "gerado_em": "2026-09-15",
+    "total_regimes": 18,
+    "distribuicao_selo": {
+      "re_derivado": 13,
+      "confirmado": 2,
+      "incompleto": 3
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 0,
+      "incongruentes": 0
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [
+      {
+        "campo": "estadio_t",
+        "estadiamento": "T",
+        "opcoes": [
+          "Tis",
+          "Ta",
+          "T1",
+          "T1a",
+          "T1b",
+          "T1c",
+          "T2",
+          "T2a",
+          "T2b",
+          "T3",
+          "T3a",
+          "T3b",
+          "T4",
+          "T4a",
+          "T4b",
+          "T4c",
+          "T4d"
+        ]
+      }
+    ],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "lote 3 aplicado",
+      "data": "2026-09-15"
+    },
+    "derivado_de": "2026-09-15-intake-revisao-3/v1 (agregado; lote 3 de revisão)",
+    "nota": "Fatia por tumor do agregado deste run (vocabulário para o check de órfãos). Idêntica ao agregado."
+  },
+  "campos_primitivos": [
+    {
+      "campo": "estadio_t",
+      "tipo": "enum",
+      "label": "Estadio t",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "Tis",
+        "Ta",
+        "T1",
+        "T1a",
+        "T1b",
+        "T1c",
+        "T2",
+        "T2a",
+        "T2b",
+        "T3",
+        "T3a",
+        "T3b",
+        "T4",
+        "T4a",
+        "T4b",
+        "T4c",
+        "T4d"
+      ],
+      "ordinal": {
+        "Tis": 0,
+        "Ta": 0,
+        "T1": 1,
+        "T1a": 1.1,
+        "T1b": 1.2,
+        "T1c": 1.3,
+        "T2": 2,
+        "T2a": 2.1,
+        "T2b": 2.2,
+        "T3": 3,
+        "T3a": 3.1,
+        "T3b": 3.2,
+        "T4": 4,
+        "T4a": 4.1,
+        "T4b": 4.2,
+        "T4c": 4.3,
+        "T4d": 4.4
+      },
+      "estadiamento": "T"
+    },
+    {
+      "campo": "gleason",
+      "tipo": "integer",
+      "label": "Gleason",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "psa",
+      "tipo": "integer",
+      "label": "Psa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastase_distancia",
+      "tipo": "boolean",
+      "label": "Metastase distancia",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "psa_nadir_pos_pr",
+      "tipo": "number",
+      "label": "Psa nadir pos pr",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "sensivel_castracao",
+      "tipo": "boolean",
+      "label": "Sensivel castracao",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "variante_neuroendocrina",
+      "tipo": "boolean",
+      "label": "Variante neuroendocrina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "convulsao_previa",
+      "tipo": "boolean",
+      "label": "Convulsao previa",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "candidato_docetaxel",
+      "tipo": "boolean",
+      "label": "Candidato docetaxel",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ecog",
+      "tipo": "integer",
+      "label": "Ecog",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "ari_ou_abiraterona_previo",
+      "tipo": "boolean",
+      "label": "Ari ou abiraterona previo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "resistente_castracao",
+      "tipo": "boolean",
+      "label": "Resistente castracao",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "psadt_meses",
+      "tipo": "integer",
+      "label": "Psadt meses",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "quimio_naive",
+      "tipo": "boolean",
+      "label": "Quimio naive",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "assintomatico_ou_pouco_sintomatico",
+      "tipo": "boolean",
+      "label": "Assintomatico ou pouco sintomatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastase_visceral",
+      "tipo": "boolean",
+      "label": "Metastase visceral",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "mutacao_brca",
+      "tipo": "boolean",
+      "label": "Mutacao brca",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "progressao_pos_docetaxel",
+      "tipo": "boolean",
+      "label": "Progressao pos docetaxel",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "variante_agressiva",
+      "tipo": "boolean",
+      "label": "Variante agressiva",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "histologia_pequenas_celulas",
+      "tipo": "boolean",
+      "label": "Histologia pequenas celulas",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastase_ossea",
+      "tipo": "boolean",
+      "label": "Metastase ossea",
+      "secao": "Critérios de elegibilidade"
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "prostata-loc-altorisco-ebrt-tda",
+      "tumor": "prostata",
+      "cenario": "localmente-avancado",
+      "subtipo": "Alto / muito alto risco",
+      "nome": "EBRT + TDA (LHRH agonista/antagonista) 18–36 meses",
+      "esquema": "Radioterapia externa (EBRT) + Terapia de Deprivação Androgênica (agonista/antagonista LHRH) concomitante e adjuvante por 18 a 36 meses",
+      "farmacos": [
+        {
+          "nome": "Agonista/antagonista LHRH (leuprolida/gosserrelina/triptorrelina/degarelix)",
+          "dose": "conforme apresentação",
+          "via": "SC/IM",
+          "frequencia": "18–36 meses"
+        }
+      ],
+      "elegibilidade_protocolo": "Alto risco (≥T3a, Gleason ≥8/ISUP 4-5, PSA ≥20 ng/mL) ou muito alto risco (cT3b/cT4, Gleason primário 5, 2-3 critérios de alto risco).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "gte": [
+                "estadio_t",
+                "T3a"
+              ]
+            },
+            {
+              "gte": [
+                "gleason",
+                8
+              ]
+            },
+            {
+              "gte": [
+                "psa",
+                20
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "metastase_distancia",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ROACH M 3rd et al. RTOG 8610. J Clin Oncol. 2008;26(4):585-591. LAWTON CAF et al. RTOG 9202. Int J Radiat Oncol Biol Phys. 2017;98(2):296-303.",
+        "doi": "10.1200/JCO.2007.13.9881",
+        "pmid": null,
+        "estudo": "RTOG 8610 / RTOG 9202",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e câncer-específica com adição de TDA à RT",
+        "magnitude": "RTOG 8610: melhora de SG e mortalidade câncer-específica; RTOG 9202: TDA longa superior à curta em alto risco",
+        "fonte": "10.1200/JCO.2007.13.9881"
+      },
+      "toxicidades": [
+        {
+          "nome": "Sintomas de hipogonadismo/fogachos",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: agonista LHRH"
+        },
+        {
+          "nome": "Perda de massa óssea",
+          "severidade": "moderada",
+          "conduta": "cálcio+vit D; densitometria",
+          "fonte": "Bula/ficha técnica: agonista LHRH"
+        },
+        {
+          "nome": "Eventos cardiovasculares",
+          "severidade": "grave",
+          "conduta": "avaliação cardiológica",
+          "fonte": "Bula/ficha técnica: agonista LHRH"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "RCTs de longo prazo (RTOG 8610/9202) mostram ganho de SG com adição de TDA à RT em alto risco. Sem afirmação explícita do protocolo; re-derivação sólida.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9881"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo/localmente avançado com ganho de SG → formulário A/B curativo qualitativo; sem scorecard discreto oficial.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9881"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Agonista/antagonista LHRH de baixo custo (genéricos); TDA incorporada ao SUS.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "TDA no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "estadio_t",
+              "operador": ">=",
+              "valor": "T3a"
+            },
+            {
+              "campo": "gleason",
+              "operador": ">=",
+              "valor": 8
+            },
+            {
+              "campo": "psa",
+              "operador": ">=",
+              "valor": 20
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "metastase_distancia",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: protocolo aplica em alto/muito alto risco localmente avançado, população dos RTOG 8610/9202.",
+          "justificativa": "Concorda: protocolo aplica em alto/muito alto risco localmente avançado, população dos RTOG 8610/9202.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.13.9881"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "12070e6385e59129"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "esquema declara faixa de 18 a 36 meses de TDA; duração única não derivável",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "nenhum fármaco do léxico reconhecido no esquema; texto usa termo genérico (agonista lhrh, antagonista lhrh)",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-rb-rt-salvamento-tda",
+      "tumor": "prostata",
+      "cenario": "localmente-avancado",
+      "subtipo": "Recidiva bioquímica pós-prostatectomia (sem metástase à distância)",
+      "nome": "RT de salvamento (EBRT) + TDA concomitante",
+      "esquema": "Radioterapia de salvamento (EBRT) + Terapia de Deprivação Androgênica concomitante",
+      "farmacos": [
+        {
+          "nome": "Agonista LHRH",
+          "dose": "conforme apresentação",
+          "via": "SC/IM",
+          "frequencia": "concomitante à RT de salvamento"
+        }
+      ],
+      "elegibilidade_protocolo": "Recidiva bioquímica pós-prostatectomia radical (PSA ≥0,2 ng/mL confirmado), sem metástases à distância.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "gte": [
+                "psa_nadir_pos_pr",
+                0.2
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "metastase_distancia",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "PARKER CC et al. RADICALS-RT. Lancet. 2020;396(10260):1413-1421. PEARSE M et al. RAVES rationale. BJU Int. 2014;113:7-12.",
+        "doi": "10.1016/S0140-6736(20)31553-1",
+        "pmid": null,
+        "estudo": "RADICALS-RT / RAVES",
+        "ano": 2020
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "RT de salvamento precoce não inferior à RT adjuvante de rotina, com menos toxicidade",
+        "magnitude": "RADICALS-RT: sem diferença em controle bioquímico; salvamento poupa RT em parte dos pacientes",
+        "fonte": "10.1016/S0140-6736(20)31553-1"
+      },
+      "toxicidades": [
+        {
+          "nome": "Cistite/proctite actínica",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Perfil de RT pélvica"
+        },
+        {
+          "nome": "Sintomas de hipogonadismo (TDA)",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: agonista LHRH"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "RADICALS-RT (fase 3, N≈1.396) fundamenta salvamento precoce vs RT adjuvante de rotina. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(20)31553-1"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "B (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário de salvamento; benefício em controle bioquímico. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(20)31553-1"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "RT + TDA de baixo custo, no SUS.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "RT e TDA no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "psa_nadir_pos_pr",
+              "operador": ">=",
+              "valor": 0.2
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "metastase_distancia",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda com a população do RADICALS-RT.",
+          "justificativa": "Concorda com a população do RADICALS-RT.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(20)31553-1"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "9011aae9bd885ae3"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "TDA concomitante à RT de salvamento, sem duração declarada no esquema",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "nenhum fármaco do léxico reconhecido no esquema",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-mcspc-abiraterona-prednisona",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Abiraterona + Prednisona",
+      "esquema": "Abiraterona 1.000 mg VO 1x/dia + Prednisona 5 mg VO 1x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Abiraterona",
+          "dose": "1.000 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        },
+        {
+          "nome": "Prednisona",
+          "dose": "5 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "variante_neuroendocrina",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FIZAZI K et al. LATITUDE. N Engl J Med. 2017;377(4):352-360. ATTARD G et al. STAMPEDE meta-analysis. Lancet. 2022;399(10323):447-460.",
+        "doi": "10.1056/NEJMoa1704174",
+        "pmid": null,
+        "estudo": "LATITUDE / STAMPEDE",
+        "ano": 2017
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "LATITUDE: SG HR 0,62; STAMPEDE (M1): SG HR ~0,60",
+        "fonte": "10.1056/NEJMoa1704174"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hipertensão",
+          "severidade": "grave",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        },
+        {
+          "nome": "Hipocalemia",
+          "severidade": "moderada",
+          "conduta": "reposição K",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        },
+        {
+          "nome": "Hepatotoxicidade",
+          "severidade": "grave",
+          "conduta": "monitorar transaminases",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "LATITUDE (fase 3, N=1.199) + STAMPEDE: ganho robusto de SG. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1704174"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Doença metastática com SG HR 0,62 → ESMO-MCBS 4 (alto benefício).",
+          "fonte": "https://doi.org/10.1056/NEJMoa1704174"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 2,
+          "afirmado_protocolo": null,
+          "justificativa": "Abiraterona genérica disponível; custo intermediário-alto mitigado por genérico.",
+          "fonte": "Abiraterona genérica",
+          "flag_contexto_br": "Abiraterona genérica no Brasil."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "sensivel_castracao",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "variante_neuroendocrina",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "LATITUDE restringiu a alto risco; STAMPEDE amplia para M1 geral, cobrindo a indicação ampla do protocolo. Concorda.",
+          "justificativa": "LATITUDE restringiu a alto risco; STAMPEDE amplia para M1 geral, cobrindo a indicação ampla do protocolo. Concorda.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1704174"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "7136667cf754b827"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 33.0,
+        "fonte_doi": "10.1056/NEJMoa1704174",
+        "indeterminado": false,
+        "nota": "rPFS mediana do braço abiraterona (LATITUDE) — sobrevida livre de progressão radiográfica",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Abiraterona",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          },
+          {
+            "farmaco": "Prednisona",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "2 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-mcspc-enzalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Enzalutamida",
+      "esquema": "Enzalutamida 160 mg VO 1x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Enzalutamida",
+          "dose": "160 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "convulsao_previa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ARMSTRONG AJ et al. ARCHES. J Clin Oncol. 2019;37(32):2974-2986. DAVIS ID et al. ENZAMET. N Engl J Med. 2019;381(2):121-131.",
+        "doi": "10.1200/JCO.19.00799",
+        "pmid": null,
+        "estudo": "ARCHES / ENZAMET",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ rPFS e ↑ sobrevida global",
+        "magnitude": "ARCHES: rPFS HR 0,39; ENZAMET: SG HR 0,67",
+        "fonte": "10.1200/JCO.19.00799"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        },
+        {
+          "nome": "Convulsão (rara)",
+          "severidade": "grave",
+          "conduta": "evitar em risco de convulsão",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "monitorar PA",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "ARCHES (rPFS HR 0,39) e ENZAMET (SG HR 0,67), fase 3. Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.19.00799"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG em doença metastática → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1903835"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Enzalutamida de alto custo; incorporação SUS limitada.",
+          "fonte": "Custo alto",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "sensivel_castracao",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "convulsao_previa",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ARCHES/ENZAMET incluíram mCSPC de alto e baixo volume.",
+          "justificativa": "Concorda: ARCHES/ENZAMET incluíram mCSPC de alto e baixo volume.",
+          "fonte": "https://doi.org/10.1200/JCO.19.00799"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "f68067c6f3e9d2cd"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Enzalutamida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-mcspc-apalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Apalutamida",
+      "esquema": "Apalutamida 240 mg VO 1x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Apalutamida",
+          "dose": "240 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "CHI KN et al. TITAN. N Engl J Med. 2019;381(1):13-24.",
+        "doi": "10.1056/NEJMoa1903307",
+        "pmid": null,
+        "estudo": "TITAN",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e ↑ rPFS",
+        "magnitude": "TITAN: SG HR 0,67; rPFS HR 0,48",
+        "fonte": "10.1056/NEJMoa1903307"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash cutâneo",
+          "severidade": "moderada",
+          "conduta": "corticoide tópico",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        },
+        {
+          "nome": "Hipotireoidismo",
+          "severidade": "leve",
+          "conduta": "levotiroxina",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "TITAN (fase 3, N=1.052): SG HR 0,67 em alto e baixo volume. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1903307"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1903307"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Apalutamida de alto custo; incorporação SUS limitada.",
+          "fonte": "Custo alto",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "sensivel_castracao",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: TITAN incluiu mCSPC amplo.",
+          "justificativa": "Concorda: TITAN incluiu mCSPC amplo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1903307"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "90724cfe39059272"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "TITAN reporta rPFS em 24 meses (taxa), não mediana",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Apalutamida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-mcspc-tripla-docetaxel-darolutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Terapia tripla: TDA + Docetaxel + Darolutamida",
+      "esquema": "TDA + Docetaxel 75 mg/m² EV 21/21d (6 ciclos) + Darolutamida 600 mg VO 12/12h contínuo",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias x6"
+        },
+        {
+          "nome": "Darolutamida",
+          "dose": "600 mg",
+          "via": "VO",
+          "frequencia": "12/12h"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "candidato_docetaxel",
+                true
+              ]
+            },
+            {
+              "lte": [
+                "ecog",
+                1
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "ari_ou_abiraterona_previo",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SMITH MR et al. ARASENS. N Engl J Med. 2022;386(12):1132-1142.",
+        "doi": "10.1056/NEJMoa2119115",
+        "pmid": null,
+        "estudo": "ARASENS",
+        "ano": 2022
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global",
+        "magnitude": "ARASENS: SG HR 0,68 vs docetaxel+TDA",
+        "fonte": "10.1056/NEJMoa2119115"
+      },
+      "toxicidades": [
+        {
+          "nome": "Neutropenia febril",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Darolutamida"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de docetaxel",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "ARASENS (fase 3, N=1.306): SG HR 0,68 com tripla vs docetaxel+TDA. Recomendação forte, preferencial em alto volume/risco.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2119115"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2119115"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Docetaxel barato (genérico); darolutamida de alto custo é o driver.",
+          "fonte": "Darolutamida de alto custo",
+          "flag_contexto_br": "Docetaxel no SUS; darolutamida cara."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "sensivel_castracao",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "candidato_docetaxel",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "ecog",
+              "operador": "<=",
+              "valor": 1
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "ari_ou_abiraterona_previo",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "ARASENS exigiu candidatos a ADT+docetaxel, ECOG 0-1, sem AR-inhibitor/abiraterona prévios (critérios reais NCT02799602). Protocolo indica preferencialmente alto volume/alto risco — concorda com a população estudada.",
+          "justificativa": "ARASENS exigiu candidatos a ADT+docetaxel, ECOG 0-1, sem AR-inhibitor/abiraterona prévios (critérios reais NCT02799602). Protocolo indica preferencialmente alto volume/alto risco — concorda com a população estudada.",
+          "fonte": "https://doi.org/10.1056/NEJMoa2119115"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "05d1fcfa7ea1b8f0"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "terapia contínua (darolutamida + TDA) com docetaxel 6 ciclos embutido; pivotal não reporta duração mediana nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Docetaxel",
+            "dose_valor": 75.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Darolutamida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-mcspc-docetaxel",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático sensível à castração (mCSPC)",
+      "nome": "Docetaxel (quimio-hormonioterapia)",
+      "esquema": "Docetaxel 75 mg/m² EV a cada 21 dias por 6 ciclos, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias x6"
+        }
+      ],
+      "elegibilidade_protocolo": "Doença metastática sensível à castração (mCSPC); associar bloqueio androgênico (castração cirúrgica ou LHRH).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "sensivel_castracao",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "KYRIAKOPOULOS CE et al. CHAARTED long-term. J Clin Oncol. 2018;36(11):1080-1087.",
+        "doi": "10.1200/JCO.2017.75.3657",
+        "pmid": null,
+        "estudo": "CHAARTED (E3805)",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global (predomínio no alto volume)",
+        "magnitude": "CHAARTED: SG HR 0,72 global; benefício concentrado em alto volume",
+        "fonte": "10.1200/JCO.2017.75.3657"
+      },
+      "toxicidades": [
+        {
+          "nome": "Neutropenia febril",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        },
+        {
+          "nome": "Alopecia",
+          "severidade": "leve",
+          "conduta": null,
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CHAARTED (fase 3): SG HR 0,72, benefício maior em alto volume. Recomendação forte nesse subgrupo.",
+          "fonte": "https://doi.org/10.1200/JCO.2017.75.3657"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG em alto volume → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1200/JCO.2017.75.3657"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Docetaxel genérico, barato, no SUS.",
+          "fonte": "Docetaxel no SUS",
+          "flag_contexto_br": "Docetaxel no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "sensivel_castracao",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "CHAARTED mostrou benefício de SG sobretudo em alto volume; protocolo lista docetaxel em mCSPC geral. Concorda em critérios, com nota de magnitude concentrada no alto volume.",
+          "justificativa": "CHAARTED mostrou benefício de SG sobretudo em alto volume; protocolo lista docetaxel em mCSPC geral. Concorda em critérios, com nota de magnitude concentrada no alto volume.",
+          "fonte": "https://doi.org/10.1200/JCO.2017.75.3657"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "magnitude_subgrupo: benefício de SG concentrado em doença de alto volume (CHAARTED)",
+          "magnitude_subgrupo: benefício de SG concentrado em doença de alto volume (CHAARTED)"
+        ],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "40e6d209de828ee7"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "magnitude_subgrupo: benefício de SG concentrado em doença de alto volume (CHAARTED)",
+        "magnitude_subgrupo: benefício de SG concentrado em doença de alto volume (CHAARTED)"
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos de docetaxel; a TDA de base é contínua e não está contabilizada aqui",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Docetaxel",
+            "dose_valor": 75.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": true,
+        "indeterminado": false,
+        "nota": null,
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-nmcrpc-enzalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Não-metastático resistente à castração (nmCRPC), PSADT ≤10 meses",
+      "nome": "Enzalutamida",
+      "esquema": "Enzalutamida 160 mg VO 1x/dia contínuo",
+      "farmacos": [
+        {
+          "nome": "Enzalutamida",
+          "dose": "160 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "nmCRPC de alto risco de progressão (PSADT ≤10 meses), sobre TDA contínua.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "lte": [
+                "psadt_meses",
+                10
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "convulsao_previa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HUSSAIN M et al. PROSPER. N Engl J Med. 2018;378(26):2465-2474.",
+        "doi": "10.1056/NEJMoa1800536",
+        "pmid": null,
+        "estudo": "PROSPER",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de metástases",
+        "magnitude": "PROSPER: SLM HR 0,29 (36,6 vs 14,7 meses); SG posteriormente positiva",
+        "fonte": "10.1056/NEJMoa1800536"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "monitorar PA",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "PROSPER (fase 3) demonstrou ganho de sobrevida livre de metástases e, em atualização, de SG em nmCRPC com PSADT ≤10 meses. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1800536"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "PROSPER: ganho de SLM e SG → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1800536"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Alto custo; incorporação SUS limitada.",
+          "fonte": "Custo alto",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": false
+            },
+            {
+              "campo": "resistente_castracao",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "psadt_meses",
+              "operador": "<=",
+              "valor": 10
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "convulsao_previa",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: PROSPER exigiu nmCRPC com PSADT ≤10 meses, exatamente a indicação do protocolo.",
+          "justificativa": "Concorda: PROSPER exigiu nmCRPC com PSADT ≤10 meses, exatamente a indicação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1800536"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "f1ed8b87352de07b"
+          },
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "f1ed8b87352de07b"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Enzalutamida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-nmcrpc-apalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Não-metastático resistente à castração (nmCRPC), PSADT ≤10 meses",
+      "nome": "Apalutamida",
+      "esquema": "Apalutamida 240 mg VO 1x/dia contínuo",
+      "farmacos": [
+        {
+          "nome": "Apalutamida",
+          "dose": "240 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "nmCRPC de alto risco de progressão (PSADT ≤10 meses), sobre TDA contínua.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "lte": [
+                "psadt_meses",
+                10
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SMITH MR et al. SPARTAN. N Engl J Med. 2018;378(15):1408-1418.",
+        "doi": "10.1056/NEJMoa1715546",
+        "pmid": null,
+        "estudo": "SPARTAN",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de metástases",
+        "magnitude": "SPARTAN: SLM HR 0,28 (40,5 vs 16,2 meses); SG posteriormente positiva",
+        "fonte": "10.1056/NEJMoa1715546"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash cutâneo",
+          "severidade": "moderada",
+          "conduta": "corticoide tópico",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Apalutamida"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "SPARTAN (fase 3) demonstrou ganho de sobrevida livre de metástases e, em atualização, de SG em nmCRPC com PSADT ≤10 meses. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1715546"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "SPARTAN: ganho de SLM e SG → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1715546"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Alto custo; incorporação SUS limitada.",
+          "fonte": "Custo alto",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": false
+            },
+            {
+              "campo": "resistente_castracao",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "psadt_meses",
+              "operador": "<=",
+              "valor": 10
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: SPARTAN exigiu nmCRPC com PSADT ≤10 meses, exatamente a indicação do protocolo.",
+          "justificativa": "Concorda: SPARTAN exigiu nmCRPC com PSADT ≤10 meses, exatamente a indicação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1715546"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "298778d4ef6fb1bd"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Apalutamida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-nmcrpc-darolutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Não-metastático resistente à castração (nmCRPC), PSADT ≤10 meses",
+      "nome": "Darolutamida",
+      "esquema": "Darolutamida 600 mg VO 12/12h contínuo",
+      "farmacos": [
+        {
+          "nome": "Darolutamida",
+          "dose": "600 mg",
+          "via": "VO",
+          "frequencia": "12/12h"
+        }
+      ],
+      "elegibilidade_protocolo": "nmCRPC de alto risco de progressão (PSADT ≤10 meses), sobre TDA contínua.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                false
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "lte": [
+                "psadt_meses",
+                10
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FIZAZI K et al. ARAMIS. N Engl J Med. 2019;380(13):1235-1246.",
+        "doi": "10.1056/NEJMoa1815671",
+        "pmid": null,
+        "estudo": "ARAMIS",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de metástases e ↑ sobrevida global",
+        "magnitude": "ARAMIS: SLM HR 0,41 (40,4 vs 18,4 meses); SG HR 0,69",
+        "fonte": "10.1056/NEJMoa1815671"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Darolutamida"
+        },
+        {
+          "nome": "Perfil favorável de SNC",
+          "severidade": "leve",
+          "conduta": null,
+          "fonte": "Bula/ficha técnica: Darolutamida"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "ARAMIS (fase 3) demonstrou ganho de sobrevida livre de metástases e, em atualização, de SG em nmCRPC com PSADT ≤10 meses. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1815671"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "ARAMIS: ganho de SLM e SG → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1815671"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Alto custo; acesso limitado no SUS.",
+          "fonte": "Custo alto",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": false
+            },
+            {
+              "campo": "resistente_castracao",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "psadt_meses",
+              "operador": "<=",
+              "valor": 10
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: ARAMIS exigiu nmCRPC com PSADT ≤10 meses, exatamente a indicação do protocolo.",
+          "justificativa": "Concorda: ARAMIS exigiu nmCRPC com PSADT ≤10 meses, exatamente a indicação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1815671"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "b95ac198d45f8b8a"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Darolutamida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-abiraterona-prednisona",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático resistente à castração (mCRPC) — 1ª linha",
+      "nome": "Abiraterona + Prednisona",
+      "esquema": "Abiraterona 1.000 mg VO 1x/dia + Prednisona 5 mg VO 2x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Abiraterona",
+          "dose": "1.000 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        },
+        {
+          "nome": "Prednisona",
+          "dose": "5 mg",
+          "via": "VO",
+          "frequencia": "2x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC em 1ª linha; TDA contínua + terapia óssea + reposição Ca/Vit D.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FIZAZI K, Scher HI, Molina A, et al. Abiraterone acetate for treatment of metastatic castration-resistant prostate cancer: final overall survival analysis of the COU-AA-301 randomised, double-blind, placebo-controlled phase 3 study. Lancet Oncol. 2012;13(10):983-992. + RYAN CJ et al. COU-AA-302 final overall survival. Lancet Oncol. 2015;16(2):152-160 (pivô secundário, cenário quimio-naive).",
+        "doi": "10.1016/S1470-2045(12)70379-0",
+        "pmid": "22995653",
+        "estudo": "COU-AA-301",
+        "ano": 2012,
+        "primeiro_autor": "Fizazi",
+        "verificacao": {
+          "registro": "Crossref + PubMed",
+          "data": "2026-09-13",
+          "congruente": true,
+          "tema": "abiraterona + prednisona em mCRPC pós-docetaxel — SG final"
+        },
+        "nota_troca": "Revisor: COU-AA-301 (pós-docetaxel) incluiu doença visceral (32% vs 25%) com benefício de SG consistente em subgrupos; troca vem JUNTO da ampliação da elegibilidade a todo mCRPC. COU-AA-302 (cenário pré-quimioterapia do card) fica como pivô secundário em referencia.pivos.",
+        "pivos": [
+          {
+            "papel": "principal (decisão do revisor)",
+            "estudo": "COU-AA-301",
+            "doi": "10.1016/S1470-2045(12)70379-0",
+            "ano": 2012,
+            "primeiro_autor": "Fizazi",
+            "populacao": "mCRPC pós-docetaxel, com doença visceral admitida"
+          },
+          {
+            "papel": "secundário (cenário pré-quimioterapia do card)",
+            "estudo": "COU-AA-302",
+            "doi": "10.1016/S1470-2045(14)71205-7",
+            "ano": 2015,
+            "primeiro_autor": "Ryan",
+            "populacao": "mCRPC quimio-naive, assintomático/pouco sintomático, sem doença visceral"
+          }
+        ]
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global (COU-AA-301 pós-docetaxel; COU-AA-302 quimio-naive)",
+        "magnitude": "COU-AA-301: SG 15,8 vs 11,2 meses, HR 0,74 (0,64–0,86). COU-AA-302: SG 34,7 vs 30,3 meses, HR 0,81.",
+        "fonte": "10.1016/S1470-2045(12)70379-0"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hipertensão",
+          "severidade": "grave",
+          "conduta": "anti-hipertensivo",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        },
+        {
+          "nome": "Hipocalemia",
+          "severidade": "moderada",
+          "conduta": "reposição",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        },
+        {
+          "nome": "Hepatotoxicidade",
+          "severidade": "grave",
+          "conduta": "monitorar transaminases",
+          "fonte": "Bula/ficha técnica: Abiraterona"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "COU-AA-301 (Fizazi 2012; PMID 22995653): fase 3, n=1.195 mCRPC em progressão pós-docetaxel, 2:1 abiraterona+prednisona vs placebo+prednisona; SG mediana 15,8 vs 11,2 meses, HR 0,74 (IC95% 0,64–0,86; p<0,0001); rPFS 5,6 vs 3,6 meses (HR 0,66); tempo a progressão de PSA HR 0,63. Em conjunto com COU-AA-302 (quimio-naive), dois RCTs de SG sustentam recomendação FORTE para mCRPC. A QUALIDADE é rebaixada um nível por indirecionalidade de população: o card é 1ª linha (quimio-naive) e a regra passa a admitir sintomáticos e/ou com doença visceral nesse cenário — subgrupo que nenhum dos dois ensaios estudou diretamente (301 é pós-docetaxel; 302 excluiu visceral). 1B, não 1A.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(12)70379-0"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "COU-AA-301: ganho de SG de 4,6 meses (HR 0,74) em doença metastática → ESMO-MCBS 4 (mesmo grau derivado antes de COU-AA-302).",
+          "fonte": "https://doi.org/10.1016/S1470-2045(12)70379-0"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 2,
+          "afirmado_protocolo": null,
+          "justificativa": "Abiraterona genérica disponível.",
+          "fonte": "Abiraterona genérica",
+          "flag_contexto_br": "Abiraterona genérica no Brasil."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "resistente_castracao",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": "mais_amplo",
+          "divergencia_vs_protocolo": "Regra do revisor: todo mCRPC ('incluir para todos no cenário de resistência à castração'). Cobertura pelos pivôs: pós-docetaxel (COU-AA-301, visceral admitida) e quimio-naive assintomático sem visceral (COU-AA-302). Fica FORA de ambos o quimio-naive sintomático e/ou com doença visceral — extensão clínica do revisor, sinalizada como mais_amplo (direção insegura), não como divergência: a decisão é explícita e fundamentada.",
+          "justificativa": "Re-derivado de COU-AA-301 + COU-AA-302 após a spec do revisor.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(12)70379-0",
+          "rederivado_em": "2026-09-13",
+          "rederivado_por": "intake-lote2:verificador-elegibilidade"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "elegibilidade:mais_amplo (quimio-naive sintomático/visceral não estudado em 301 nem 302 — extensão do revisor)"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
+        "spec_revisor_resultado": "aplicada",
+        "nota_revisao": "Diferente do COU-AA-302 (pré-quimioterapia, sem doença visceral), o COU-AA-301 (pós-docetaxel) incluiu pacientes com metástase visceral — 32% do braço abiraterona e 25% do braço placebo tinham doença visceral ao basal. \nNesse cenário pós-quimioterapia, portanto, há respaldo direto de ensaio clínico para uso de abiraterona em pacientes com metástase visceral, e o benefício de sobrevida global foi consistente em todos os subgrupos pré-especificados, incluindo aqueles com doença visceral, com HRs <1 em toda a análise de subgrupos. Ou seja, incluir para todos no cenário de resistencia a castração. Referencia: https://pubmed.ncbi.nlm.nih.gov/22995653/",
+        "notas_revisao": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "corrigir_referencia",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Diferente do COU-AA-302 (pré-quimioterapia, sem doença visceral), o COU-AA-301 (pós-docetaxel) incluiu pacientes com metástase visceral — 32% do braço abiraterona e 25% do braço placebo tinham doença visceral ao basal. \nNesse cenário pós-quimioterapia, portanto, há respaldo direto de ensaio clínico para uso de abiraterona em pacientes com metástase visceral, e o benefício de sobrevida global foi consistente em todos os subgrupos pré-especificados, incluindo aqueles com doença visceral, com HRs <1 em toda a análise de subgrupos. Ou seja, incluir para todos no cenário de resistencia a castração. Referencia: https://pubmed.ncbi.nlm.nih.gov/22995653/",
+            "nota_squad": null
+          }
+        ]
+      },
+      "versao": 2,
+      "atualizado_em": "2026-09-13",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-13",
+          "origem": "intake-lote2:corrigir_referencia+ajustar_elegibilidade",
+          "mudanca": "Pacote: referência principal → COU-AA-301 (302 vira pivô secundário); regra ampliada a todo mCRPC por decisão do revisor; GRADE/ESMO/elegibilidade re-derivados; selo divergencia→re_derivado.",
+          "eixos_afetados": [
+            "grade",
+            "esmo_mcbs",
+            "elegibilidade"
+          ],
+          "fonte": "10.1016/S1470-2045(12)70379-0",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        }
+      ],
+      "flags": [
+        "elegibilidade:mais_amplo (quimio-naive sintomático/visceral não estudado em 301 nem 302 — extensão do revisor)"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Abiraterona",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          },
+          {
+            "farmaco": "Prednisona",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "2 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      },
+      "referencia_anterior": {
+        "citacao": "RYAN CJ et al. COU-AA-302 final overall survival. Lancet Oncol. 2015;16(2):152-160.",
+        "doi": "10.1016/S1470-2045(14)71205-7",
+        "pmid": null,
+        "estudo": "COU-AA-302",
+        "ano": 2015
+      }
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-enzalutamida",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático resistente à castração (mCRPC) — 1ª linha",
+      "nome": "Enzalutamida",
+      "esquema": "Enzalutamida 160 mg VO 1x/dia contínuo, sobre TDA",
+      "farmacos": [
+        {
+          "nome": "Enzalutamida",
+          "dose": "160 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC em 1ª linha; TDA contínua + terapia óssea + reposição Ca/Vit D.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "quimio_naive",
+                true
+              ]
+            },
+            {
+              "not": {
+                "eq": [
+                  "convulsao_previa",
+                  true
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BEER TM/EVANS CP. PREVAIL. N Engl J Med 2014;371:424-433 / Eur Urol 2016;70(4):675-683.",
+        "doi": "10.1056/NEJMoa1405095",
+        "pmid": null,
+        "estudo": "PREVAIL",
+        "ano": 2014
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e ↑ rPFS",
+        "magnitude": "PREVAIL: SG HR 0,71; rPFS HR 0,19",
+        "fonte": "10.1056/NEJMoa1405095"
+      },
+      "toxicidades": [
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        },
+        {
+          "nome": "Hipertensão",
+          "severidade": "moderada",
+          "conduta": "monitorar PA",
+          "fonte": "Bula/ficha técnica: Enzalutamida"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "PREVAIL (fase 3, N=1.717, chemo-naive mCRPC): SG HR 0,71. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1405095"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1405095"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Enzalutamida de alto custo; acesso limitado no SUS.",
+          "fonte": "Custo alto",
+          "flag_contexto_br": "Custo alto no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "resistente_castracao",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "quimio_naive",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [
+            {
+              "campo": "convulsao_previa",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: PREVAIL incluiu mCRPC chemo-naive (inclusive metástase visceral), coerente com a 1ª linha.",
+          "justificativa": "Concorda: PREVAIL incluiu mCRPC chemo-naive (inclusive metástase visceral), coerente com a 1ª linha.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1405095"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "cf0f4d4354b7c628"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "PREVAIL reporta rPFS em 12 meses (taxa), não mediana",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Enzalutamida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-docetaxel-prednisona",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Metastático resistente à castração (mCRPC) — 1ª linha",
+      "nome": "Docetaxel + Prednisona",
+      "esquema": "Docetaxel 75 mg/m² EV D1 21/21d (6 ciclos) + Prednisona 5 mg VO 2x/dia contínuo",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias x6"
+        },
+        {
+          "nome": "Prednisona",
+          "dose": "5 mg",
+          "via": "VO",
+          "frequencia": "2x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC em 1ª linha (opção quimioterápica), sobretudo sintomáticos/alto volume.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BERTHOLD DR et al. TAX 327 updated survival. J Clin Oncol. 2008;26(2):242-245.",
+        "doi": "10.1200/JCO.2007.12.4008",
+        "pmid": null,
+        "estudo": "TAX 327",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs mitoxantrona",
+        "magnitude": "TAX 327: SG HR 0,79 (18,9 vs 16,5 meses)",
+        "fonte": "10.1200/JCO.2007.12.4008"
+      },
+      "toxicidades": [
+        {
+          "nome": "Neutropenia febril",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "TAX 327 (fase 3): ganho de SG vs mitoxantrona; estabeleceu docetaxel como padrão em mCRPC. Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.12.4008"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.12.4008"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Docetaxel genérico, barato, no SUS.",
+          "fonte": "Docetaxel no SUS",
+          "flag_contexto_br": "Docetaxel no SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "resistente_castracao",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: TAX 327 incluiu mCRPC, com maior benefício em sintomáticos.",
+          "justificativa": "Concorda: TAX 327 incluiu mCRPC, com maior benefício em sintomáticos.",
+          "fonte": "https://doi.org/10.1200/JCO.2007.12.4008"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "33607a0cbfe9fbf7"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos de docetaxel; a prednisona contínua e a TDA de base não estão contabilizadas aqui",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Docetaxel",
+            "dose_valor": 75.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Prednisona",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-mcrpc-1l-parp-nao-incorporado",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "mCRPC com mutação BRCA1/2 (HRR) — inibidores de PARP",
+      "nome": "Olaparibe+Abiraterona / Talazoparibe+Enzalutamida (NÃO incorporado)",
+      "esquema": "Combinações inibidor de PARP + NHA (olaparibe+abiraterona; talazoparibe+enzalutamida) — não incorporadas pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Olaparibe (ou Talazoparibe)",
+          "dose": "conforme estudo",
+          "via": "VO",
+          "frequencia": "contínuo"
+        },
+        {
+          "nome": "Abiraterona (ou Enzalutamida)",
+          "dose": "conforme estudo",
+          "via": "VO",
+          "frequencia": "contínuo"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC com mutação BRCA1/2 (protocolo NÃO incorporou PARP; justificativa: benefício em rPFS sem ganho de SG, ESMO MCBS 2, ICER elevado).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "mutacao_brca",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SAAD F et al. PROpel final OS. Lancet Oncol. 2023;24(10):1094-1108. AGARWAL N et al. TALAPRO-2. Lancet. 2023;402(10398):291-303.",
+        "doi": "10.1016/S1470-2045(23)00382-0",
+        "pmid": null,
+        "estudo": "PROpel / TALAPRO-2",
+        "ano": 2023
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ rPFS; SG sem ganho estatisticamente robusto na população geral",
+        "magnitude": "PROpel: rPFS HR 0,66; SG final sem significância formal. TALAPRO-2: rPFS positiva.",
+        "fonte": "10.1016/S1470-2045(23)00382-0"
+      },
+      "toxicidades": [
+        {
+          "nome": "Anemia",
+          "severidade": "grave",
+          "conduta": "ajuste/transfusão; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: inibidor de PARP"
+        },
+        {
+          "nome": "Fadiga",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: inibidor de PARP"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2B",
+          "afirmado_protocolo": null,
+          "justificativa": "Fase 3 com desfecho primário de rPFS; SG imatura/sem significância formal na população geral → certeza moderada, recomendação condicional. Coerente com não incorporar.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(23)00382-0"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": "2",
+          "justificativa": "Protocolo afirma ESMO-MCBS 2. Re-derivação: benefício em rPFS sem ganho de SG robusto → MCBS 2-3; concorda com o afirmado (2).",
+          "fonte": "https://doi.org/10.1016/S1470-2045(23)00382-0"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Combinação PARP+NHA de custo muito alto; ICER elevado. Affordability baixa — sustenta a não incorporação.",
+          "fonte": "análise de custo-efetividade (protocolo)",
+          "flag_contexto_br": "Custo muito alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "resistente_castracao",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "mutacao_brca",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: população BRCA-mutada; a decisão de não incorporar é consistente com MCBS 2 e ICER elevado.",
+          "justificativa": "Concorda: população BRCA-mutada; a decisão de não incorporar é consistente com MCBS 2 e ICER elevado.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(23)00382-0"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado",
+          "evidencia_atualizada: TALAPRO-2 SG final (Agarwal 2025, Lancet) positiva — HR 0,80; HRR-deficientes HR 0,55 — diverge da justificativa do revisor; candidato a re-revisão/vigilância"
+        ],
+        "decisao_revisao": "refutado_revisao_clinica",
+        "nota_revisao": "Confirmo não incorporar, porém, a justificativa é: Talazoparibe + enzalutamida (TALAPRO-2), em pacientes com alterações em HRR: SG em 3 anos de 78% vs. 72% com placebo + enzalutamida (HR 0,77; IC 95% 0,56–1,04) — favorável, mas não estatisticamente significativo e com dados ainda imaturos",
+        "notas_revisao": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "refutar",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Confirmo não incorporar, porém, a justificativa é: Talazoparibe + enzalutamida (TALAPRO-2), em pacientes com alterações em HRR: SG em 3 anos de 78% vs. 72% com placebo + enzalutamida (HR 0,77; IC 95% 0,56–1,04) — favorável, mas não estatisticamente significativo e com dados ainda imaturos",
+            "nota_squad": "VERIFICAÇÃO DO SQUAD (não altera a decisão do revisor): a SG final do TALAPRO-2 já foi publicada — AGARWAL N, Azad AA, Carles J, et al. Talazoparib plus enzalutamide in men with metastatic castration-resistant prostate cancer: final overall survival results from the randomised, placebo-controlled, phase 3 TALAPRO-2 trial. Lancet. 2025;406(10502):447-460. (PMID 40683290; Crossref 200). Resultado: coorte não selecionada (n=805), seguimento mediano 52,5 meses: SG HR 0,80 (IC95% 0,66–0,96; p=0,016), mediana 45,8 vs 37,0 meses; HRR-deficientes (n=169) HR 0,55 (0,36–0,83; p=0,0035); HRR não-deficiente/desconhecido HR 0,88 (0,71–1,08). Os números da justificativa do revisor (SG 3 anos 78% vs 72%; HR 0,77, IC 0,56–1,04; 'não significativo, dados imaturos') NÃO correspondem a esta publicação final — parecem vir de uma análise interina anterior. A não-incorporação é decisão do revisor e fica; a justificativa numérica precisa de re-revisão à luz da SG final."
+          }
+        ]
+      },
+      "versao": 2,
+      "atualizado_em": "2026-09-13",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-13",
+          "origem": "intake-lote2:refutar",
+          "mudanca": "Não-incorporação confirmada pelo revisor (bloco incorporacao explícito); justificativa substituída pela do revisor (TALAPRO-2) com citação verificada; nota de verificação do squad registra que a SG final de 2025 diverge dos números do revisor. Eixos NÃO reprocessados (refutar não reprocessa).",
+          "eixos_afetados": [],
+          "fonte": "10.1016/S0140-6736(25)00684-1",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        }
+      ],
+      "flags": [
+        "nao_incorporado",
+        "evidencia_atualizada: TALAPRO-2 SG final (Agarwal 2025, Lancet) positiva — HR 0,80; HRR-deficientes HR 0,55 — diverge da justificativa do revisor; candidato a re-revisão/vigilância"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Olaparibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Abiraterona",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Talazoparibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Enzalutamida",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "4 de 4 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      },
+      "incorporacao": {
+        "status": "nao_incorporado",
+        "motivo": "refutado",
+        "nota_revisao": "Confirmo não incorporar, porém, a justificativa é: Talazoparibe + enzalutamida (TALAPRO-2), em pacientes com alterações em HRR: SG em 3 anos de 78% vs. 72% com placebo + enzalutamida (HR 0,77; IC 95% 0,56–1,04) — favorável, mas não estatisticamente significativo e com dados ainda imaturos",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "data": "2026-09-12",
+        "citacao_verificada": {
+          "estudo": "TALAPRO-2 (SG final)",
+          "doi": "10.1016/S0140-6736(25)00684-1",
+          "pmid": "40683290",
+          "citacao": "AGARWAL N, Azad AA, Carles J, et al. Talazoparib plus enzalutamide in men with metastatic castration-resistant prostate cancer: final overall survival results from the randomised, placebo-controlled, phase 3 TALAPRO-2 trial. Lancet. 2025;406(10502):447-460.",
+          "verificado_em": "2026-09-13"
+        },
+        "nota_verificacao_squad": "VERIFICAÇÃO DO SQUAD (não altera a decisão do revisor): a SG final do TALAPRO-2 já foi publicada — AGARWAL N, Azad AA, Carles J, et al. Talazoparib plus enzalutamide in men with metastatic castration-resistant prostate cancer: final overall survival results from the randomised, placebo-controlled, phase 3 TALAPRO-2 trial. Lancet. 2025;406(10502):447-460. (PMID 40683290; Crossref 200). Resultado: coorte não selecionada (n=805), seguimento mediano 52,5 meses: SG HR 0,80 (IC95% 0,66–0,96; p=0,016), mediana 45,8 vs 37,0 meses; HRR-deficientes (n=169) HR 0,55 (0,36–0,83; p=0,0035); HRR não-deficiente/desconhecido HR 0,88 (0,71–1,08). Os números da justificativa do revisor (SG 3 anos 78% vs 72%; HR 0,77, IC 0,56–1,04; 'não significativo, dados imaturos') NÃO correspondem a esta publicação final — parecem vir de uma análise interina anterior. A não-incorporação é decisão do revisor e fica; a justificativa numérica precisa de re-revisão à luz da SG final."
+      }
+    },
+    {
+      "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "mCRPC pós-docetaxel — 2ª linha",
+      "nome": "Cabazitaxel (NÃO incorporado)",
+      "esquema": "Cabazitaxel 20–25 mg/m² EV 21/21d + prednisona — não incorporado pelo protocolo",
+      "farmacos": [
+        {
+          "nome": "Cabazitaxel",
+          "dose": "20–25 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias"
+        },
+        {
+          "nome": "Prednisona",
+          "dose": "10 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC pós-docetaxel (NÃO incorporado; justificativa: TROPIC benefício modesto em SG/SLP, ESMO-MCBS 2, alta toxicidade hematológica).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "progressao_pos_docetaxel",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "OUDARD S. TROPIC (fase III cabazitaxel). Future Oncol. 2011;7(4):497-506.",
+        "doi": "10.2217/fon.11.23",
+        "pmid": null,
+        "estudo": "TROPIC",
+        "ano": 2011
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "2",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global modesta vs mitoxantrona",
+        "magnitude": "TROPIC: SG HR 0,70 (15,1 vs 12,7 meses); ganho ~2,4 meses",
+        "fonte": "10.2217/fon.11.23"
+      },
+      "toxicidades": [
+        {
+          "nome": "Neutropenia (inclusive febril)",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: Cabazitaxel"
+        },
+        {
+          "nome": "Diarreia",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: Cabazitaxel"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "TROPIC (fase 3) mostrou ganho de SG significativo mas de magnitude modesta, com toxicidade hematológica relevante.",
+          "fonte": "https://doi.org/10.2217/fon.11.23"
+        },
+        "esmo_mcbs": {
+          "status": "concorda",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": "2",
+          "justificativa": "Protocolo afirma ESMO-MCBS 2. Re-derivação: ganho de SG ~2,4 meses (HR 0,70) sem melhora de qualidade de vida → MCBS 2. Concorda.",
+          "fonte": "https://doi.org/10.2217/fon.11.23"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Cabazitaxel de alto custo com toxicidade que demanda suporte; affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "resistente_castracao",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "progressao_pos_docetaxel",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: TROPIC estudou mCRPC pós-docetaxel; a não incorporação é coerente com MCBS 2.",
+          "justificativa": "Concorda: TROPIC estudou mCRPC pós-docetaxel; a não incorporação é coerente com MCBS 2.",
+          "fonte": "https://doi.org/10.2217/fon.11.23"
+        }
+      },
+      "consolidacao": {
+        "status": "confirmado",
+        "selo_confianca": "confirmado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado"
+        ],
+        "decisao_revisao": "refutado_revisao_clinica",
+        "nota_revisao": "Manter não incorporar, trocar a justificativa (Não de forma generalizada) — depende do comparador. Frente à troca de um segundo inibidor da via do receptor androgênico (ARSI), o benefício do cabazitaxel é robusto e clinicamente relevante (CARD); já frente à radioligand therapy com lutécio-177-PSMA-617, o cabazitaxel não perde em sobrevida global (SG), mas perde em resposta e qualidade de vida (TheraP).\nNa prática, o cabazitaxel continua sendo terapia com benefício de sobrevida bem estabelecido frente à troca de ARSI, e permanece opção validada (e não inferior em SG) frente ao Lu-PSMA-617 em pacientes PSMA-positivos pós-docetaxel, sendo particularmente relevante quando a doença é PSMA-negativa/discordante em FDG-PET, quando a radioligand therapy não está disponível, ou quando há contraindicação a ela",
+        "notas_revisao": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "refutar (balde confirmado pelo humano; acao original ajustar_elegibilidade)",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Manter não incorporar, trocar a justificativa (Não de forma generalizada) — depende do comparador. Frente à troca de um segundo inibidor da via do receptor androgênico (ARSI), o benefício do cabazitaxel é robusto e clinicamente relevante (CARD); já frente à radioligand therapy com lutécio-177-PSMA-617, o cabazitaxel não perde em sobrevida global (SG), mas perde em resposta e qualidade de vida (TheraP).\nNa prática, o cabazitaxel continua sendo terapia com benefício de sobrevida bem estabelecido frente à troca de ARSI, e permanece opção validada (e não inferior em SG) frente ao Lu-PSMA-617 em pacientes PSMA-positivos pós-docetaxel, sendo particularmente relevante quando a doença é PSMA-negativa/discordante em FDG-PET, quando a radioligand therapy não está disponível, ou quando há contraindicação a ela",
+            "nota_squad": "Ação registrada como ajustar_elegibilidade; o texto pedia 'manter não incorporar, trocar a justificativa'. Balde refutar confirmado pelo humano em 2026-09-13 (pendência do lote 2). Sem primitivo novo, eixos não reprocessados."
+          }
+        ]
+      },
+      "versao": 2,
+      "atualizado_em": "2026-09-13",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 1,
+          "data": "2026-09-13",
+          "origem": "intake-lote2:ajustar_elegibilidade",
+          "mudanca": "Spec não computável; balde proposto = refutar (troca de justificativa). Triagem manual — nada mudou no dado.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-13",
+          "origem": "intake-lote2:refutar (pendência confirmada)",
+          "mudanca": "Triagem manual resolvida pelo humano: executa como refutar — não-incorporação mantida com a justificativa do revisor verbatim (bloco incorporacao). Eixos, regra e referência intactos.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        }
+      ],
+      "flags": [
+        "nao_incorporado"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cabazitaxel",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "Prednisona",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "2 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      },
+      "incorporacao": {
+        "status": "nao_incorporado",
+        "motivo": "refutado",
+        "nota_revisao": "Manter não incorporar, trocar a justificativa (Não de forma generalizada) — depende do comparador. Frente à troca de um segundo inibidor da via do receptor androgênico (ARSI), o benefício do cabazitaxel é robusto e clinicamente relevante (CARD); já frente à radioligand therapy com lutécio-177-PSMA-617, o cabazitaxel não perde em sobrevida global (SG), mas perde em resposta e qualidade de vida (TheraP).\nNa prática, o cabazitaxel continua sendo terapia com benefício de sobrevida bem estabelecido frente à troca de ARSI, e permanece opção validada (e não inferior em SG) frente ao Lu-PSMA-617 em pacientes PSMA-positivos pós-docetaxel, sendo particularmente relevante quando a doença é PSMA-negativa/discordante em FDG-PET, quando a radioligand therapy não está disponível, ou quando há contraindicação a ela",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "data": "2026-09-12",
+        "nota_squad": "Ação registrada como ajustar_elegibilidade; o texto pedia 'manter não incorporar, trocar a justificativa'. Balde refutar confirmado pelo humano em 2026-09-13 (pendência do lote 2). Sem primitivo novo, eixos não reprocessados."
+      }
+    },
+    {
+      "regimen_id": "prostata-variante-agressiva-carbo-taxano",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Variante histológica agressiva (anaplásico/pequenas células/neuroendócrino)",
+      "nome": "Carboplatina + Docetaxel/Paclitaxel",
+      "esquema": "Carboplatina AUC 5 + Docetaxel 75 mg/m² EV D1 a cada 3 semanas (ou Paclitaxel)",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": "AUC 5",
+          "via": "EV",
+          "frequencia": "21/21 dias"
+        },
+        {
+          "nome": "Docetaxel",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21 dias"
+        }
+      ],
+      "elegibilidade_protocolo": "Variantes histológicas agressivas: pequenas células, metástases viscerais exclusivas, lesões líticas, marcadores neuroendócrinos elevados, intervalo <6 meses de resposta à TDA.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "variante_agressiva",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Estudo-pivô não especificado no protocolo para este esquema (prática/consenso em variantes agressivas).",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Carboplatina, Docetaxel"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Docetaxel"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "",
+          "afirmado_protocolo": null,
+          "justificativa": "Protocolo não cita estudo-pivô para este esquema; sem fonte primária recuperável para re-derivar GRADE. Lacuna real.",
+          "fonte": ""
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Sem estudo-pivô com desfecho graduável; não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 2,
+          "afirmado_protocolo": null,
+          "justificativa": "Carboplatina e docetaxel genéricos, baratos, no SUS — mas eixo de evidência incompleto.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "QT de platina barata."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "variante_agressiva",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Sem estudo-pivô específico para confrontar elegibilidade.",
+          "justificativa": "Sem estudo-pivô específico para confrontar elegibilidade.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "referencia_ausente: esquema sem estudo-pivô citado no protocolo",
+          "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto"
+        ],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "fd094e4f28d4753d"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "referencia_ausente: esquema sem estudo-pivô citado no protocolo",
+        "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": 5.0,
+            "dose_unidade": "AUC",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Docetaxel",
+            "dose_valor": 75.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Paclitaxel",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Docetaxel … Paclitaxel) — somar as doses seria ler escolha como combinação; dias do ciclo escritos para parte dos fármacos (Docetaxel) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-variante-agressiva-cisplatina-etoposideo",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "Variante histológica agressiva (pequenas células/neuroendócrino)",
+      "nome": "Cisplatina + Etoposídeo",
+      "esquema": "Cisplatina 25 mg/m² D1-D3 + Etoposídeo 120 mg/m² EV D1-D3 a cada 3 semanas",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "25 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D3 21/21 dias"
+        },
+        {
+          "nome": "Etoposídeo",
+          "dose": "120 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D3 21/21 dias"
+        }
+      ],
+      "elegibilidade_protocolo": "Variantes histológicas agressivas (histologia de pequenas células/neuroendócrino).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "histologia_pequenas_celulas",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Estudo-pivô não especificado (extrapolação do carcinoma de pequenas células).",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "grave",
+          "conduta": "hidratação; monitorar creatinina",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF; monitorar hemograma",
+          "fonte": "Bula/ficha técnica: Etoposídeo"
+        },
+        {
+          "nome": "Náusea/vômito",
+          "severidade": "moderada",
+          "conduta": "antiemético",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "",
+          "afirmado_protocolo": null,
+          "justificativa": "Extrapolação do carcinoma de pequenas células; protocolo não cita estudo-pivô próprio. Lacuna de fonte primária.",
+          "fonte": ""
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Sem estudo-pivô com desfecho graduável; não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Cisplatina e etoposídeo genéricos, baratos, no SUS — eixo de evidência incompleto.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "QT de platina barata."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "histologia_pequenas_celulas",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Sem estudo-pivô específico para confrontar elegibilidade.",
+          "justificativa": "Sem estudo-pivô específico para confrontar elegibilidade.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "referencia_ausente: esquema sem estudo-pivô citado no protocolo",
+          "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto"
+        ],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "b3361725c5d056b5"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "referencia_ausente: esquema sem estudo-pivô citado no protocolo",
+        "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 25.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Etoposídeo",
+            "dose_valor": 120.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1,
+              2,
+              3
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina)",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "prostata-mcrpc-terapia-ossea-zoledronico",
+      "tumor": "prostata",
+      "cenario": "metastatico",
+      "subtipo": "mCRPC com metástases ósseas — prevenção de eventos ósseos",
+      "nome": "Ácido Zoledrônico",
+      "esquema": "Ácido Zoledrônico 4 mg EV D1 a cada 3 meses + Vitamina D e Cálcio",
+      "farmacos": [
+        {
+          "nome": "Ácido Zoledrônico",
+          "dose": "4 mg",
+          "via": "EV",
+          "frequencia": "a cada 3 meses"
+        },
+        {
+          "nome": "Vitamina D",
+          "dose": "1.000–2.000 UI",
+          "via": "VO",
+          "frequencia": "diário"
+        },
+        {
+          "nome": "Cálcio",
+          "dose": "1.000 mg",
+          "via": "VO",
+          "frequencia": "diário"
+        }
+      ],
+      "elegibilidade_protocolo": "mCRPC com metástases ósseas; manter TDA contínua, associar terapia óssea e reposição Ca/Vit D.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "resistente_castracao",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "metastase_ossea",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Estudo-pivô não especificado no protocolo (uso consolidado de agente ósseo em mCRPC ósseo).",
+        "doi": null,
+        "pmid": null,
+        "estudo": null,
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Osteonecrose de mandíbula",
+          "severidade": "grave",
+          "conduta": "avaliação odontológica prévia",
+          "fonte": "Bula/ficha técnica: Ácido Zoledrônico"
+        },
+        {
+          "nome": "Hipocalcemia",
+          "severidade": "moderada",
+          "conduta": "reposição Ca/Vit D",
+          "fonte": "Bula/ficha técnica: Ácido Zoledrônico"
+        },
+        {
+          "nome": "Nefrotoxicidade",
+          "severidade": "moderada",
+          "conduta": "ajuste por função renal",
+          "fonte": "Bula/ficha técnica: Ácido Zoledrônico"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "",
+          "afirmado_protocolo": null,
+          "justificativa": "Protocolo não cita estudo-pivô específico; benefício de prevenção de eventos ósseos é padrão consolidado mas sem fonte primária citada. Lacuna de fonte.",
+          "fonte": ""
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Suporte/prevenção de eventos esqueléticos, não desfecho de sobrevida; não graduável por ESMO-MCBS.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Ácido zoledrônico genérico, barato, no SUS.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Ácido zoledrônico no SUS."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "resistente_castracao",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "metastase_ossea",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Suporte ósseo; sem estudo-pivô citado para confronto.",
+          "justificativa": "Suporte ósseo; sem estudo-pivô citado para confronto.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "suporte: agente ósseo, não terapia antineoplásica com desfecho de sobrevida",
+          "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto",
+          "contexto_revisor: sem benefício em mHSPC (STAMPEDE; CALGB 90202 negativo para ERE e SG) — uso restrito ao cenário resistente à castração"
+        ],
+        "decisao_revisao": "aprovado_com_ressalva_regra_ja_computavel",
+        "spec_revisor_resultado": "ja_satisfeita",
+        "nota_revisao": "Ausência de benefício no câncer de próstata hormônio-sensível metastático (mHSPC). O estudo STAMPEDE, com quase 3.000 pacientes com mHSPC, não mostrou ganho de sobrevida com a adição de ácido zoledrônico à ADT (isoladamente ou associado a docetaxel), e o CALGB 90202 (início precoce vs. padrão de ácido zoledrônico) também foi negativo para tempo ao primeiro ERE e sobrevida global",
+        "notas_revisao": [
+          {
+            "lote": 2,
+            "data": "2026-09-12",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "ajustar_elegibilidade",
+            "natureza": "dado",
+            "eixo": "elegibilidade",
+            "nota": "Ausência de benefício no câncer de próstata hormônio-sensível metastático (mHSPC). O estudo STAMPEDE, com quase 3.000 pacientes com mHSPC, não mostrou ganho de sobrevida com a adição de ácido zoledrônico à ADT (isoladamente ou associado a docetaxel), e o CALGB 90202 (início precoce vs. padrão de ácido zoledrônico) também foi negativo para tempo ao primeiro ERE e sobrevida global",
+            "nota_squad": "Regra já exigia resistente_castracao=true + metastase_ossea=true (mHSPC já excluído); STAMPEDE/CALGB 90202 citados pelo revisor ficam como contexto (não entram como referência — não foram verificados nem pedidos como fonte). Hash intacto."
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-09-13",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-12",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (próstata) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 1,
+          "data": "2026-09-13",
+          "origem": "intake-lote2:ajustar_elegibilidade",
+          "mudanca": "Pedido do revisor (só mCRPC com metástase óssea) já estava na regra; registrado sem mudança de regra.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        }
+      ],
+      "flags": [
+        "suporte: agente ósseo, não terapia antineoplásica com desfecho de sobrevida",
+        "doi_nao_reparado: sem match resolvível+congruente para '' (Estudo-pivô None); mantém incompleto",
+        "contexto_revisor: sem benefício em mHSPC (STAMPEDE; CALGB 90202 negativo para ERE e SG) — uso restrito ao cenário resistente à castração"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração; terapia óssea de suporte, sem duração declarada",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Ácido zoledrônico",
+            "dose_valor": 4.0,
+            "dose_unidade": "mg",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "cobertura curta: 1 item(ns) derivados para 3 fármaco(s) cadastrados no regime",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    }
+  ]
+}

@@ -33,9 +33,12 @@ export interface ResultadoExtracao {
   uso: { entrada: number; saida: number } | null;
 }
 
+// Comparação de trecho: sem acento, sem caixa e SEM espaço nenhum — o texto de um PDF chega
+// com quebras de linha e ligaduras separadas ("fi sicamente"), e o trecho do modelo vem
+// com o espaçamento normal; as LETRAS e a ORDEM continuam tendo de ser idênticas.
 const norm = (s: string) => String(s || '')
-  .normalize('NFD').replace(/[̀-ͯ]/g, '')
-  .toLowerCase().replace(/\s+/g, ' ').trim();
+  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase().replace(/\s+/g, '');
 
 @Injectable()
 export class ExtracaoService {
