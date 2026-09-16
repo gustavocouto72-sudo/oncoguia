@@ -846,6 +846,15 @@ conta de robô tem de ser reconhecível à primeira vista numa auditoria de aces
   60s enquanto a app, já logada, tinha trocado de tela por baixo dela. Portão que falha
   pelo motivo errado ensina a ignorar portão.
 
+**Estado em 2026-09-16 (entregas 1+2 EM PRODUÇÃO — commits `e1189bb` + `74b9090`):**
+`portao-extracao` 36/36 ×3 (extração real; a 3ª após o conserto das ligaduras) ·
+`portao-importacao` 72/72 · `secretaria` 93/93 · `b` ✓. Deploy: backend (migration
+`ImportacaoPropostas` aplicada no boot — provado pela API: `GET /pacientes/80/importacao-proposta`
+= `{proposta:null}`) e app (`impLerPdf` no ar). Smoke em produção com a demo sintética:
+extração 201 em 17,9 s / 19,0 s (teto 60 s), 11 campos, 0 descartes, paciente demo #81
+criado, proposta #1 validada → Enzalutamida mCSPC vigente, retorno 08/10/2026. Env de
+produção: `ANTHROPIC_API_KEY` e `IMPORTACAO_MODELO` presentes (`vercel env ls`).
+
 **Estado em 2026-09-16 (importação, entrega 1 — DEV, sem deploy):** máquina acordada
 (`caffeinate -d -i -s`, tampa aberta) · `portao-importacao` **72/72 e 72/72** em rodadas
 seguidas (3 min cada; sem `AVISO` de resíduo na segunda = a limpeza da primeira devolveu o
