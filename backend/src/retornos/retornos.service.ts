@@ -1,10 +1,11 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import {
   Avaliacao,
   CondutaRetorno,
   EventoAdministrativo,
+  ImportacaoProposta,
   MeioContato,
   Paciente,
   Perfil,
@@ -13,6 +14,7 @@ import {
   ToxicidadeRegistrada,
 } from '../database/entities';
 import { mapEventoAdministrativo } from './eventos-administrativos';
+import { mapPropostaTrilha } from '../importacao/proposta-trilha';
 
 // Payload de um retorno. data_realizada vem do médico (o retorno pode ser lançado depois);
 // registrado_por e criado_em são do SERVIDOR — nunca do cliente.
@@ -130,6 +132,7 @@ export class RetornosService {
     @InjectRepository(Paciente) private pacienteRepo: Repository<Paciente>,
     @InjectRepository(Avaliacao) private avaliacaoRepo: Repository<Avaliacao>,
     @InjectRepository(EventoAdministrativo) private eventoAdmRepo: Repository<EventoAdministrativo>,
+    @InjectRepository(ImportacaoProposta) private propostaRepo: Repository<ImportacaoProposta>,
   ) {}
 
   private async pacienteOr404(id: number) {
@@ -205,8 +208,14 @@ export class RetornosService {
 
   // Cria o retorno: EMPILHA, nunca sobrescreve (não existe rota de UPDATE/DELETE aqui —
   // corrigir um retorno é registrar outro). registrado_por e criado_em são do servidor.
-  async criar(pacienteId: number, dados: NovoRetorno, usuarioId: number, perfilAtivo: Perfil) {
-    const paciente = await this.pacienteOr404(pacienteId);
+  // `em` opcional: dentro de uma transação (validação de proposta de importação), as
+  // escritas usam o EntityManager de quem chamou — mesmo commit, mesmo rollback.
+  async criar(pacienteId: number, dados: NovoRetorno, usuarioId: number, perfilAtivo: Perfil, em?: EntityManager) {
+    const retornoRepo = em ? em.getRepository(Retorno) : this.retornoRepo;
+    const avaliacaoRepo = em ? em.getRepository(Avaliacao) : this.avaliacaoRepo;
+    const pacienteRepo = em ? em.getRepository(Paciente) : this.pacienteRepo;
+    const paciente = em ? await pacienteRepo.findOneBy({ id: pacienteId }) : await this.pacienteOr404(pacienteId);
+    if (!paciente) throw new NotFoundException('Paciente não encontrado');
 
     // Regra RECIST, segunda trava (a primeira é o DTO, a terceira é o CHECK do banco):
     // sem imagem não há resposta a afirmar.
@@ -223,12 +232,12 @@ export class RetornosService {
     // padrão, o protocolo em curso (última avaliação).
     let avaliacao: Avaliacao | null = null;
     if (dados.avaliacao_id != null) {
-      avaliacao = await this.avaliacaoRepo.findOneBy({ id: dados.avaliacao_id });
+      avaliacao = await avaliacaoRepo.findOneBy({ id: dados.avaliacao_id });
       if (!avaliacao || avaliacao.paciente_id !== pacienteId) {
         throw new BadRequestException('avaliacao_id não pertence a este paciente');
       }
     } else {
-      avaliacao = await this.avaliacaoRepo.findOne({
+      avaliacao = await avaliacaoRepo.findOne({
         where: { paciente_id: pacienteId },
         order: { data: 'DESC' },
       });
@@ -245,7 +254,7 @@ export class RetornosService {
       dados.data_realizada, dados.proximo_intervalo, dados.proximo_retorno,
     );
 
-    const novo = this.retornoRepo.create({
+    const novo = retornoRepo.create({
       paciente_id: pacienteId,
       avaliacao_id: avaliacao ? avaliacao.id : null,
       regimen_id: avaliacao ? avaliacao.regimen_id : null,
@@ -264,7 +273,7 @@ export class RetornosService {
       registrado_por: usuarioId,
       perfil_ativo: perfilAtivo,   // com que chapéu — do JWT, nunca do cliente
     });
-    const salvo = await this.retornoRepo.save(novo);
+    const salvo = await retornoRepo.save(novo);
 
     // A agenda do paciente passa a apontar para o que foi decidido AGORA (inclusive para
     // null): o retorno que estava previsto foi cumprido por esta consulta.
@@ -274,9 +283,9 @@ export class RetornosService {
       const proximo = somarMeses(salvo.data_realizada, paciente.intervalo_reestadiamento_meses ?? 3);
       if (proximo) patch.proximo_reestadiamento = proximo;
     }
-    await this.pacienteRepo.update({ id: pacienteId }, patch);
+    await pacienteRepo.update({ id: pacienteId }, patch);
 
-    const full = await this.retornoRepo.findOne({
+    const full = await retornoRepo.findOne({
       where: { id: salvo.id },
       relations: { registradoPor: true },
     });
@@ -331,9 +340,14 @@ export class RetornosService {
   // autor: o médico vê que a agenda foi mexida, por quem e por quê, sem que isso se
   // confunda com um retorno. O contato entra no DIA do contato; o reagendamento, no dia
   // em que foi feito (não na data nova — essa é a agenda, e a agenda vive no `retorno`).
+  //
+  // Também administrativo: a PROPOSTA DE IMPORTAÇÃO — "proposta de importação por
+  // <secretária> em <data>", no dia em que foi enviada, com o desfecho (validada → vigente
+  // ou não, e por quê; descartada → motivo) quando já decidida. Lida de
+  // `importacao_propostas`, não de eventos_administrativos: a proposta é a própria fonte.
   async trilha(pacienteId: number) {
     const p = await this.pacienteOr404(pacienteId);
-    const [avaliacoes, retornos, eventosAdm] = await Promise.all([
+    const [avaliacoes, retornos, eventosAdm, propostas] = await Promise.all([
       this.avaliacaoRepo.find({
         where: { paciente_id: pacienteId },
         relations: { avaliadoPor: true, autorizacaoAuditor: true },
@@ -349,9 +363,21 @@ export class RetornosService {
         relations: { registradoPor: true },
         order: { criado_em: 'ASC' },
       }),
+      this.propostaRepo.find({
+        where: { paciente_id: pacienteId },
+        relations: { criadaPor: true, validadaPor: true },
+        order: { criada_em: 'ASC' },
+      }),
     ]);
 
     const itens: any[] = [];
+    for (const pr of propostas) {
+      itens.push({
+        ...mapPropostaTrilha(pr),
+        _dia: diaLocal(pr.criada_em),
+        _instante: new Date(pr.criada_em).getTime(),
+      });
+    }
     for (const e of eventosAdm) {
       itens.push({
         ...mapEventoAdministrativo(e),

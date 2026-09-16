@@ -13,6 +13,7 @@ import { RetornosModule } from './retornos/retornos.module';
 import { EvidenciaModule } from './evidencia/evidencia.module';
 import { CustosModule } from './custos/custos.module';
 import { RecursosModule } from './recursos/recursos.module';
+import { ImportacaoModule } from './importacao/importacao.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { RecursosModule } from './recursos/recursos.module';
     EvidenciaModule,
     CustosModule,
     RecursosModule,
+    ImportacaoModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })

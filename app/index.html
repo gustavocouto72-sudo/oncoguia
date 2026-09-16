@@ -450,6 +450,30 @@
   .lista-col-n a{color:var(--accent);cursor:pointer;font-weight:700}
   .tag-ni{font-size:9.5px;font-weight:800;letter-spacing:.4px;background:#fbecea;color:#a5281b;border:1px solid #f2cdc8;border-radius:5px;padding:2px 6px;white-space:nowrap}
   .tag-aut{font-size:9.5px;font-weight:800;background:var(--amberbg);color:#8a5d05;border:1px solid #f0dca6;border-radius:5px;padding:2px 6px;white-space:nowrap}
+  .tag-imp{font-size:9.5px;font-weight:800;background:#eaf3fb;color:#1f5f8b;border:1px solid #c9e0f2;border-radius:5px;padding:2px 6px;white-space:nowrap}
+  /* ---- Importação de pacientes: formulário (secretaria) e painel de validação (médico) ---- */
+  .cad-modo{display:flex;gap:6px;margin:6px 0 14px}
+  .cad-modo button{flex:none;min-width:150px}
+  .imp-tab{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
+  .imp-tab th{font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+  .imp-tab td{padding:5px 8px;border-bottom:1px solid #eef1f4;vertical-align:middle}
+  .imp-tab td:first-child{width:26%;font-weight:600}
+  .imp-tab td:nth-child(2){width:30%}
+  .imp-tab .seg button{height:28px;font-size:11px;min-width:0;padding:0 8px;flex:none}
+  .imp-tab select,.imp-tab input[type=number]{padding:5px 8px;font-size:12.5px;height:30px;width:100%;max-width:220px}
+  .imp-tab .imp-trecho{width:100%;font-size:12px;padding:5px 8px}
+  .imp-tab tr.imp-sec td{background:#f6f9fb;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700;padding:5px 8px}
+  .imp-tab tr.imp-vazio td{color:var(--muted)}
+  .imp-trecho-cel{font-size:12px;color:#55606b;font-style:italic}
+  .imp-json{margin-top:12px}
+  .imp-json summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--muted)}
+  .imp-json textarea{width:100%;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;margin-top:6px}
+  .imp-painel{background:var(--amberbg);border:1px solid #f0dca6;border-radius:9px;padding:12px 14px;margin-top:12px}
+  .imp-painel .imp-tab{background:#fff;border-radius:7px}
+  .imp-status.pendente{border-color:#f0dca6;background:var(--amberbg);color:#6b4a03}
+  .imp-status.validada{border-color:#cfe8d6;background:#eef8f1;color:#1f5c33}
+  .imp-pdf-cab{background:#f6f9fb;border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-top:8px;font-size:12.5px}
+  .imp-raspado{width:100%;min-height:180px;max-height:320px;font-family:ui-monospace,Menlo,monospace;font-size:11px;margin-top:6px;background:#fff;color:#333}
   .ret-venc{color:#a5281b;font-weight:800}
   /* ---- Reestadiamento: lembrete e item pendente ---- */
   .reest-ok{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);background:#f6f9fb;border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin-top:12px}
@@ -1920,6 +1944,10 @@ function listaProtoHtml(p){
     selos.push(`<span class="tag-ni" title="Protocolo avaliado que a instituição NÃO oferece — selecionado por exceção">NÃO INCORPORADO</span>`);
   if(p.ultima_avaliacao_pendente)
     selos.push(`<span class="tag-aut" title="A última avaliação é uma solicitação de exceção aguardando autorização do auditor — só vira protocolo vigente se for aprovada">⏳ aguardando autorização</span>`);
+  // Proposta de importação (secretaria) esperando um oncologista validar: nada do que ela
+  // propôs é registro ainda — o selo é o convite para abrir a ficha e decidir.
+  if(p.importacao_pendente)
+    selos.push(`<span class="tag-imp" title="Proposta de importação enviada pela secretaria — os dados clínicos só viram registro quando um oncologista validar">⏳ aguardando validação clínica</span>`);
   const selosHtml = selos.length? `<div class="lista-tags">${selos.join("")}</div>` : "";
   if(!p.ultimo_regimen_id) return `<span class="hint">—</span>${selosHtml}`;
   const sub = [
@@ -2003,7 +2031,10 @@ const LISTA_COLUNAS = {
   idade:   {t:"Idade", chave:faixaIdade, ord:p=>idadeAnos(p.nasc),
             faixas:[["lt40","até 39"],["40-59","40–59"],["60-74","60–74"],["75+","75+"],["sem","sem data"]]},
   tumor:   {t:"Tumor", chave:p=>p.tumor||"—", rotulo:k=>k==="—"?"— não definido —":tumorNome(k), ord:p=>p.tumor?tumorNome(p.tumor):null},
-  proto:   {t:"Último protocolo", chave:p=>p.ultimo_regimen_id||"—", rotulo:k=>k==="—"?"— sem protocolo —":protocoloNome(k), ord:p=>p.ultimo_regimen_id?protocoloNome(p.ultimo_regimen_id):null},
+  // "⏳imp" = proposta de importação pendente: entra como chave própria do dropdown (com
+  // contagem) — quem está esperando validação quase sempre ainda não tem protocolo, e é
+  // isso que o médico quer filtrar.
+  proto:   {t:"Último protocolo", chave:p=>p.importacao_pendente?"⏳imp":(p.ultimo_regimen_id||"—"), rotulo:k=>k==="⏳imp"?"⏳ aguardando validação clínica":k==="—"?"— sem protocolo —":protocoloNome(k), ord:p=>p.ultimo_regimen_id?protocoloNome(p.ultimo_regimen_id):null},
   medico:  {t:"Médico assistente", chave:p=>p.medico_assistente?String(p.medico_assistente.id):"—",
             rotulo:k=>k==="—"?"— sem médico —":((patients.find(p=>p.medico_assistente&&String(p.medico_assistente.id)===k)||{}).medico_assistente||{}).nome||k,
             ord:p=>p.medico_assistente?p.medico_assistente.nome:null},
@@ -2023,7 +2054,7 @@ const LISTA_COLS_CLINICAS = ["nome","idade","tumor","proto","medico","retorno","
 function listaColunas(){ return ehSecretaria() ? LISTA_COLS_ADMINISTRATIVAS : LISTA_COLS_CLINICAS; }
 // Célula de cada coluna — a linha da tabela é montada a partir de listaColunas().
 const LISTA_CELULA = {
-  nome:    p=>`<td><b>${esc(p.nome)}</b>${p.identificador?`<div class="hint">reg. ${esc(p.identificador)}</div>`:""}</td>`,
+  nome:    p=>`<td><b>${esc(p.nome)}</b>${p.identificador?`<div class="hint">reg. ${esc(p.identificador)}</div>`:""}${(p.administrativo&&p.importacao_pendente)?`<div class="lista-tags"><span class="tag-imp">⏳ aguardando validação clínica</span></div>`:""}</td>`,
   idade:   p=>`<td>${idadeAnos(p.nasc)!=null? `<b>${idadeAnos(p.nasc)}a</b><div class="hint">${fmtData(p.nasc)}</div>` : `<span class="hint">—</span>`}</td>`,
   tumor:   p=>`<td>${p.tumor? `<span class="pill">${tumorNome(p.tumor)}</span>${p.subtipo?`<div class="hint">${esc(p.subtipo)}</div>`:""}` : `<span class="hint">— não definido —</span>`}</td>`,
   proto:   p=>`<td>${listaProtoHtml(p)}</td>`,
@@ -2194,10 +2225,23 @@ function renderCadastro(){
       <div class="field"><label>Plano</label><input id="f_plano" placeholder="Ex.: Pleno / Executivo" value="${esc(CADASTRO.plano||"")}" oninput="CADASTRO.plano=this.value"></div>
       <div class="field"><label>Carteirinha</label><input id="f_cart" placeholder="Número da carteirinha" value="${esc(CADASTRO.cart||"")}" oninput="CADASTRO.cart=this.value"></div>
     </div>`;
+  // SECRETARIA, cadastro novo: "Cadastrar manualmente | Importar". Importar = o mesmo
+  // cadastro administrativo + a seção "dados clínicos para validação médica", que vira
+  // PROPOSTA (envelope) — nada clínico entra no paciente por ela. Ver bloco IMPORTAÇÃO.
+  const importar = adm && !edit && CADASTRO.modo==="importar";
+  const modoHtml = (adm && !edit) ? `<div class="seg cad-modo">
+      <button id="cad_modo_manual" class="${importar?"":"on"}" onclick="setCadModo('manual')">Cadastrar manualmente</button>
+      <button id="cad_modo_importar" class="${importar?"on":""}" onclick="setCadModo('importar')">Importar (com dados clínicos para validação)</button>
+    </div>` : "";
+  const importarHtml = importar ? `
+    <div class="section-t">Dados clínicos para validação médica</div>
+    <div class="hint" style="margin-bottom:8px">O que você preencher aqui <b>não vira registro clínico</b>: fica como <b>proposta pendente</b> até o médico abrir o paciente, conferir cada valor contra o trecho do prontuário e validar. Você verá apenas "proposta enviada, aguardando validação".</div>
+    <div id="imp-clin">${impFormHtml()}</div>` : "";
   app().innerHTML = `
-  <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <b>${edit?"Editar dados cadastrais":"Novo paciente"}</b></div>
+  <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <b>${edit?"Editar dados cadastrais":importar?"Importar paciente":"Novo paciente"}</b></div>
   <div class="card">
-    <h2>${edit?"Editar dados cadastrais":"Cadastro do paciente"}</h2>
+    <h2>${edit?"Editar dados cadastrais":importar?"Importar paciente":"Cadastro do paciente"}</h2>
+    ${modoHtml}
     <div class="sub">${adm
       ? (edit ? `Correção do cadastro administrativo: identificação, nascimento, convênio, carteirinha e medidas.`
               : `Cadastro administrativo do paciente. O contexto clínico é registrado pelo médico.`)
@@ -2210,6 +2254,7 @@ function renderCadastro(){
     </div>
     ${adminHtml}
     ${medidasHtml}
+    ${importarHtml}
 
     ${adm ? "" : `<div class="section-t">Tumor do paciente</div>
     <div id="cad-onco">${cadOncoHtml()}</div>`}
@@ -2217,12 +2262,12 @@ function renderCadastro(){
     ${edit?"":`<div class="hint" style="margin-top:14px">Vínculo sempre por operadora (saúde suplementar). A guia gerada segue o padrão TISS/ANS.</div>`}
     <div class="row-actions">
       <button class="btn ghost" onclick="cancelarCadastro()">Cancelar</button>
-      <button class="btn primary" onclick="salvarCadastro()">${edit?"Salvar correções":"Salvar e abrir paciente"}</button>
+      <button class="btn primary" onclick="salvarCadastro()">${edit?"Salvar correções":importar?"Cadastrar e enviar proposta":"Salvar e abrir paciente"}</button>
     </div>
   </div>`;
 }
-function novoCadastro(){ CADASTRO={nome:"", ident:"", nasc:"", sexo:"F", cidade:"", oper:OPERADORAS[0], plano:"", cart:"", tumor:null, sysOpen:null, clin:{}, subtipo:""}; go('cadastro'); }
-function cancelarCadastro(){ const eid=CADASTRO&&CADASTRO.editId; CADASTRO=null; if(eid) abrir(eid); else go('lista'); }
+function novoCadastro(){ CADASTRO={nome:"", ident:"", nasc:"", sexo:"F", cidade:"", oper:OPERADORAS[0], plano:"", cart:"", tumor:null, sysOpen:null, clin:{}, subtipo:"", modo:"manual"}; IMP=null; go('cadastro'); }
+function cancelarCadastro(){ const eid=CADASTRO&&CADASTRO.editId; CADASTRO=null; IMP=null; if(eid) abrir(eid); else go('lista'); }
 // Edição cadastral (oncologista/admin): reusa a tela de cadastro em modo edição.
 // Pré-preenche do detalhe do seguimento (PAC_DETAIL) — ou, sem ele, da lista.
 function editarCadastro(pid){
@@ -2347,6 +2392,29 @@ async function salvarCadastro(){
         abrir(pid);
         return;
       }
+      if(CADASTRO.modo==="importar"){
+        // IMPORTAR: cadastro pela rota normal + proposta pela rota nova. Se a proposta
+        // falhar (JSON colado com valor fora do vocabulário, por exemplo), o paciente já
+        // existe: a tela fica aberta e a próxima tentativa envia SÓ a proposta.
+        if(!IMP || !IMP.tumor){ alert("Selecione o tumor do paciente para enviar a proposta (ou volte para Cadastrar manualmente)."); return; }
+        const payload = impPayload();
+        let pid = CADASTRO.pacienteCriadoId;
+        if(!pid){
+          const p = await api("/pacientes", {method:"POST", body:JSON.stringify(adm)});
+          pid = p.id; CADASTRO.pacienteCriadoId = pid;
+        }
+        try{
+          await api(`/pacientes/${pid}/importacao-proposta`, {method:"POST", body:JSON.stringify(payload)});
+        }catch(e){
+          alert("Paciente cadastrado, mas a proposta NÃO foi enviada: "+e.message+"\n\nCorrija e clique de novo em \"Cadastrar e enviar proposta\" — só a proposta será reenviada.");
+          return;
+        }
+        CADASTRO=null; IMP=null;
+        await carregarPacientes();
+        toast("Proposta enviada — aguardando validação clínica.");
+        abrir(pid);
+        return;
+      }
       const p = await api("/pacientes", {method:"POST", body:JSON.stringify(adm)});
       CADASTRO=null;
       await carregarPacientes();
@@ -2410,6 +2478,7 @@ function podeRedesenhar(id){
 // protocolo, por exemplo, lê PAC_DETAIL logo depois).
 function carregarDetalhe(id){
   delete PAC_DETAIL[id]; // undefined = carregando
+  carregarProposta(id);  // proposta de importação (se o perfil lê) — repinta só o slot dela
   return api(`/pacientes/${id}`)
     .then(d=>{ PAC_DETAIL[id]=d; seedClinDoSeguimento(id,d); if(podeRedesenhar(id)) render(); })
     .catch(()=>{ PAC_DETAIL[id]=null; if(podeRedesenhar(id)) render(); });
@@ -2477,9 +2546,10 @@ function renderPaciente(){
       <button class="btn ghost" style="margin-left:8px;padding:4px 10px" onclick="carregarDetalhe(${p.id})">Tentar de novo</button></div>`);
   }
   else if(!detail.tumor){
-    // Sem tumor persistido (paciente legado ou backend antigo que não gravou o contexto):
-    // oferece a exploração client-side (escolher tumor + mudar características + recalcular).
-    body = renderExploracaoClient(p, `<div class="prim-fallback">Este paciente ainda não tem tumor definido no cadastro. Explore os protocolos abaixo escolhendo o tumor — ao <b>Selecionar protocolo</b>, a app oferece definir o tumor explorado como contexto do paciente e já registra a avaliação.</div>`);
+    // Sem tumor persistido (paciente legado, ou cadastrado pela secretaria — que não grava
+    // tumor): oferece a exploração client-side (escolher tumor + mudar características +
+    // recalcular). Se há proposta de importação pendente, o painel de validação vem antes.
+    body = `<div id="imp-slot">${impSlotHtml(p.id)}</div>` + renderExploracaoClient(p, `<div class="prim-fallback">Este paciente ainda não tem tumor definido no cadastro. Explore os protocolos abaixo escolhendo o tumor — ao <b>Selecionar protocolo</b>, a app oferece definir o tumor explorado como contexto do paciente e já registra a avaliação.</div>`);
   }
   else if(RETORNO && RETORNO.pid===p.id){
     app().innerHTML = `
@@ -2516,7 +2586,7 @@ function renderPaciente(){
         <div id="pac-calc-live">${renderCalcPanel(pseudo)}</div>`;
       app().innerHTML = `
       <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <b>${esc(p.nome)}</b></div>
-      <div class="card">${headerHtml}${renderSeguimentoResumo(p, detail)}
+      <div class="card">${headerHtml}<div id="imp-slot">${impSlotHtml(p.id)}</div>${renderSeguimentoResumo(p, detail)}
         <div class="pac-cols" style="margin-top:18px">
           <div class="pac-left">${leftHtml}</div>
           <div class="pac-right"><div class="section-t">Protocolos candidatos (elegibilidade ao vivo)</div><div id="pac-protos-live">${bundle.cards}</div></div>
@@ -2525,7 +2595,7 @@ function renderPaciente(){
       <div id="pac-extra-live">${bundle.refsHtml}${bundle.appendixHtml}</div>`;
       return;
     }
-    body = renderSeguimentoResumo(p, detail);
+    body = `<div id="imp-slot">${impSlotHtml(p.id)}</div>` + renderSeguimentoResumo(p, detail);
   }
 
   app().innerHTML = `
@@ -2566,6 +2636,7 @@ function renderFichaAdministrativa(){
       <div><div class="fa-k">Médico assistente</div><div class="fa-v" id="fa-medico">${med?esc(med.nome):`<span class="hint">— ainda sem atendimento registrado —</span>`}</div></div>
       <div><div class="fa-k">Cidade</div><div class="fa-v">${esc(src.cidade||"—")}</div></div>
     </div>
+    <div id="imp-slot">${impSlotHtml(p.id)}</div>
     <div class="section-t">Agenda</div>
     <div id="ficha-agenda">${fichaAgendaHtml(p)}</div>
   </div>`;
@@ -2666,6 +2737,482 @@ async function salvarContato(pid, btn){
     toast("Contato registrado.");
     await carregarDetalhe(pid);
   }catch(e){ if(btn) btn.disabled = false; alert("Falha ao registrar contato: "+e.message); }
+}
+
+// =================== IMPORTAÇÃO DE PACIENTES — duas alçadas, um ponto de digitação ===================
+// A secretaria importa o paciente inteiro: o cadastro vai pela rota normal (POST /pacientes,
+// só administrativo) e os dados clínicos vão como PROPOSTA PENDENTE (POST
+// /pacientes/:id/importacao-proposta) — envelope, não registro. Ela vê só "proposta enviada,
+// aguardando validação". O oncologista abre o paciente, vê a tabela pronta (campo, valor
+// proposto, trecho do prontuário), corrige o que precisar e VALIDA: o clique dele é o que
+// grava os primitivos, roda o semáforo NO SERVIDOR e — só no verde — cria a avaliação
+// vigente com a nota de importação (o servidor monta a nota; a tela só mostra os fatos).
+//
+// Vocabulário: a secretaria não lê /evidencia (403; EVIDENCIA fica nula na sessão dela).
+// O formulário dela desenha tumores, campos primitivos e NOMES de protocolo a partir de
+// GET /importacao/vocabulario — dicionário de formulário, não corpus: sem critério,
+// referência, grade ou custo. O agrupamento por sistema e os nomes de tumor vêm das
+// constantes da app (SISTEMAS, TUMOR_META), que não dependem do corpus.
+//
+// Digitação NUNCA re-renderiza: cada input escreve no estado (IMP / IMP_VAL) por oninput;
+// só a troca de tumor (modo importar) reconstrói o bloco #imp-clin, e a pré-visualização
+// do semáforo repinta só #imp-preview. Mesma regra do cadastro e da agenda.
+let IMP = null;        // rascunho do formulário de importação (secretaria)
+let IMP_VOCAB = null;  // GET /importacao/vocabulario (null = não carregado)
+let IMP_PROP = {};     // pid -> proposta mais recente (GET) | null (nenhuma) | undefined (carregando)
+let IMP_VAL = null;    // painel de validação aberto: {pid, id, tumor, valores:{campo→valor}, regimen_id, linha}
+function podeLerProposta(){ return !!(USUARIO && ["oncologista","admin","secretaria"].includes(USUARIO.perfil)); }
+function podeProporImportacao(){ return !!(USUARIO && ["secretaria","admin"].includes(USUARIO.perfil)); }
+
+async function carregarVocabImportacao(){
+  if(IMP_VOCAB) return IMP_VOCAB;
+  IMP_VOCAB = await api("/importacao/vocabulario");
+  return IMP_VOCAB;
+}
+// Rótulo de regime para <option>: "Nome — cenário/contexto" (ex.: "Enzalutamida — Metastático
+// sensível à castração (mCSPC)"). Sem isto, os três "Enzalutamida" de próstata (mCSPC, nmCRPC,
+// mCRPC 1L) saem idênticos no dropdown. Nome + subtipo é único no corpus; sem subtipo, cai no
+// rótulo do cenário (o mesmo do Simulador — cenarioRotulo).
+function impRegimeRotulo(r){
+  const nome = String(r.nome||r.regimen_id);
+  const ctx = r.subtipo ? String(r.subtipo) : (r.cenario ? cenarioRotulo(r.tumor, r.cenario) : "");
+  return ctx ? `${nome} — ${ctx}` : nome;
+}
+function impTumorVocab(t){ return (IMP_VOCAB && IMP_VOCAB.tumores.find(x=>x.id===t)) || null; }
+// Proposta do paciente: carregada junto com a ficha, repinta SÓ o slot dela na chegada.
+function carregarProposta(pid){
+  if(!podeLerProposta()) return Promise.resolve(null);
+  // Só pede ao servidor quando há o que ver: a lista já diz se existe proposta pendente
+  // (`importacao_pendente`), e depois de decidida quem recarrega é impValidar/impDescartar.
+  // Para o perfil clínico, sem pendência e sem proposta já carregada, não há requisição —
+  // abrir uma ficha não pode custar uma chamada a mais por paciente (o teto é 60 req/min
+  // por IP, e o portão de retorno esbarrou nele quando esta chamada era incondicional).
+  // A secretaria pede sempre: a ficha dela mostra também "validada"/"descartada".
+  const row = patients.find(x=>x.id===pid);
+  if(!ehSecretaria() && !(row && row.importacao_pendente) && !IMP_PROP[pid]){ IMP_PROP[pid] = null; return Promise.resolve(null); }
+  IMP_PROP[pid] = undefined;
+  return api(`/pacientes/${pid}/importacao-proposta`)
+    .then(r=>{ IMP_PROP[pid] = r.proposta || null; })
+    .catch(()=>{ IMP_PROP[pid] = null; })
+    .then(()=>{ if(current===pid && view==="paciente"){ const el=document.getElementById("imp-slot"); if(el) el.innerHTML = impSlotHtml(pid); } });
+}
+function impNovoRascunho(){ return {tumor:null, regimen_id:"", linha:"1", subtipo:"", protocolo_texto:"", campos:{}, trechos:{}, meta:{data_inicio:"", data_evolucao:"", proximo_retorno:"", medico_assistente_texto:"", sem_campo:"", historico:""}, json:""}; }
+function setCadModo(m){
+  CADASTRO.modo = m;
+  if(m==="importar" && !IMP) IMP = impNovoRascunho();
+  render();
+  if(m==="importar" && !IMP_VOCAB) carregarVocabImportacao().then(()=>updateImpClin()).catch(e=>{ const el=document.getElementById("imp-clin"); if(el) el.innerHTML = `<div class="login-err">Não foi possível carregar o vocabulário de importação: ${esc(e.message)}</div>`; });
+}
+function updateImpClin(){ const el=document.getElementById("imp-clin"); if(el) el.innerHTML = impFormHtml(); }
+function impSetTumor(t){ IMP.tumor = t||null; IMP.regimen_id=""; IMP.campos={}; IMP.trechos={}; updateImpClin(); }
+// Valor de um primitivo: "" = não informado (a chave sai do envelope). Booleano é
+// tri-estado (— / Não / Sim): ausente NÃO vira false — é regra do servidor, e a tela
+// respeita. Só estado + destaque do botão; nenhum re-render.
+function impSetValor(alvo, campo, raw, el){
+  const dest = alvo==="val" ? IMP_VAL.valores : IMP.campos;
+  let v = raw;
+  if(raw==="" || raw==null) v = undefined;
+  else if(raw==="true") v = true; else if(raw==="false") v = false;
+  else if(/^-?\d+([.,]\d+)?$/.test(String(raw))) v = +String(raw).replace(",",".");
+  if(v===undefined) delete dest[campo]; else dest[campo]=v;
+  if(el&&el.tagName==="BUTTON"&&el.parentElement) [...el.parentElement.children].forEach(b=>b.classList.toggle("on",b===el));
+  if(alvo==="val") impRepintarPreview();
+}
+// Widget de um primitivo com estado "não informado" explícito.
+function impWidget(alvo, s, val){
+  const sv = (val===undefined||val===null) ? "" : String(val);
+  const on = o => sv===o ? "on" : "";
+  if(s.tipo==="boolean"){
+    return `<div class="seg">${[["","—"],["false","Não"],["true","Sim"]].map(o=>`<button class="${on(o[0])}" title="${o[0]===""?"não informado":""}" onclick="impSetValor('${alvo}','${esc(s.campo)}','${o[0]}',this)">${o[1]}</button>`).join("")}</div>`;
+  }
+  if(s.tipo==="enum" || (s.opcoes&&s.opcoes.length)){
+    return `<select onchange="impSetValor('${alvo}','${esc(s.campo)}',this.value)"><option value="">— não informado —</option>${(s.opcoes||[]).map(o=>`<option value="${esc(String(o))}" ${sv===String(o)?"selected":""}>${esc(humanOpt(o))}</option>`).join("")}</select>`;
+  }
+  return `<input type="number" inputmode="decimal" step="any" placeholder="não informado" value="${esc(sv)}" onchange="impSetValor('${alvo}','${esc(s.campo)}',this.value)">`;
+}
+// ---- formulário da secretaria (modo Importar) ----
+function impFormHtml(){
+  if(!IMP_VOCAB) return `<div class="hint">⏳ Carregando vocabulário…</div>`;
+  const grupos = agruparTumores(IMP_VOCAB.tumores.map(t=>({id:t.id, nome:tumorNome(t.id)})));
+  const selTumor = `<div class="field"><label>Tumor (como está no prontuário)</label>
+    <select id="imp_tumor" onchange="impSetTumor(this.value)"><option value="">— selecione —</option>
+      ${grupos.map(g=>`<optgroup label="${esc(g.nome)}">${g.items.map(t=>`<option value="${esc(t.id)}" ${IMP.tumor===t.id?"selected":""}>${esc(t.nome)}</option>`).join("")}</optgroup>`).join("")}
+    </select></div>`;
+  const tv = IMP.tumor ? impTumorVocab(IMP.tumor) : null;
+  let clin = "";
+  if(tv){
+    const regs = tv.regimes.slice().sort((a,b)=>impRegimeRotulo(a).localeCompare(impRegimeRotulo(b),"pt-BR"));
+    const secs=[], bySec={};
+    tv.campos.forEach(s=>{ const sec=s.secao||"Outros"; if(!bySec[sec]){bySec[sec]=[];secs.push(sec);} bySec[sec].push(s); });
+    clin = `
+      <div class="grid3" style="margin-top:12px">
+        <div class="field" style="grid-column:span 2"><label>Protocolo em curso (catálogo)</label>
+          <select id="imp_regime" onchange="IMP.regimen_id=this.value"><option value="">— não identificado —</option>
+            ${regs.map(r=>`<option value="${esc(r.regimen_id)}" ${IMP.regimen_id===r.regimen_id?"selected":""}>${esc(impRegimeRotulo({...r, tumor:IMP.tumor}))}${r.incorporado?"":" (não incorporado)"}</option>`).join("")}
+          </select></div>
+        <div class="field"><label>Linha de tratamento</label><input id="imp_linha" type="number" min="1" value="${esc(IMP.linha||"1")}" oninput="IMP.linha=this.value"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Protocolo como está escrito no prontuário</label><input id="imp_proto_txt" value="${esc(IMP.protocolo_texto||"")}" placeholder="Ex.: Enzalutamida 160 mg/dia + ADT" oninput="IMP.protocolo_texto=this.value"></div>
+        <div class="field"><label>Subtipo (opcional)</label><input id="imp_subtipo" value="${esc(IMP.subtipo||"")}" placeholder="Ex.: mCSPC" oninput="IMP.subtipo=this.value"></div>
+      </div>
+      <div class="hint" style="margin:8px 0 4px">Preencha só o que estiver no prontuário — o que ficar em branco <b>fica de fora</b> da proposta (o médico completa na validação). Ao lado de cada valor, cole o <b>trecho</b> de onde ele foi tirado.</div>
+      <table class="imp-tab"><thead><tr><th>Campo</th><th>Valor</th><th>Trecho do prontuário (evidência)</th></tr></thead><tbody>
+        ${secs.map(sec=>`<tr class="imp-sec"><td colspan="3">${esc(sec)}</td></tr>`+bySec[sec].map(s=>`<tr>
+          <td>${esc(shortLabel(s.label||s.campo))}${s.unidade?` <span class="hint">(${esc(s.unidade)})</span>`:""}${s.estavel?` <span class="hint" title="biologia estável">🔒</span>`:""}</td>
+          <td>${impWidget("form", s, IMP.campos[s.campo])}</td>
+          <td><input class="imp-trecho" maxlength="500" placeholder="opcional" value="${esc(IMP.trechos[s.campo]||"")}" oninput="IMP.trechos['${esc(s.campo)}']=this.value"></td>
+        </tr>`).join("")).join("")}
+      </tbody></table>`;
+  }
+  const m = IMP.meta;
+  const meta = `
+    <div class="section-t">Contexto da importação</div>
+    <div class="grid3">
+      <div class="field"><label>Início do tratamento em curso</label><input id="imp_data_inicio" type="date" value="${esc(m.data_inicio||"")}" onchange="IMP.meta.data_inicio=this.value"></div>
+      <div class="field"><label>Data da evolução de onde os dados vieram</label><input id="imp_data_evolucao" type="date" value="${esc(m.data_evolucao||"")}" onchange="IMP.meta.data_evolucao=this.value"></div>
+      <div class="field"><label>Próximo retorno já marcado</label><input id="imp_prox_retorno" type="date" value="${esc(m.proximo_retorno||"")}" onchange="IMP.meta.proximo_retorno=this.value"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>Médico(a) assistente (como no prontuário)</label><input id="imp_medico" maxlength="200" value="${esc(m.medico_assistente_texto||"")}" placeholder="Ex.: Dra. Fulana" oninput="IMP.meta.medico_assistente_texto=this.value"></div>
+      <div class="field"><label>Fatos sem campo no sistema (um por linha)</label><textarea id="imp_sem_campo" rows="3" placeholder="Ex.: N0&#10;prostatectomia = sim" oninput="IMP.meta.sem_campo=this.value">${esc(m.sem_campo||"")}</textarea></div>
+    </div>
+    <div class="field"><label>Histórico resumido (opcional)</label><textarea id="imp_historico" rows="3" maxlength="4000" oninput="IMP.meta.historico=this.value">${esc(m.historico||"")}</textarea></div>
+    <details class="imp-json"><summary>Ou colar o JSON da proposta</summary>
+      <div class="hint">Formato: <code>{"tumor":"prostata","regimen_id":"…","campos":[{"campo":"metastatico","valor":true,"trecho":"…"}],"meta":{"data_evolucao":"2026-08-28",…}}</code>. Carregar preenche o formulário acima (o que estiver no JSON substitui o digitado).</div>
+      <textarea id="imp_json" rows="5" spellcheck="false" oninput="IMP.json=this.value">${esc(IMP.json||"")}</textarea>
+      <div class="row-actions" style="margin-top:6px"><button class="btn ghost" onclick="impCarregarJson()">Carregar JSON no formulário</button></div>
+    </details>`;
+  return `${impPdfHtml()}${selTumor}${clin}${meta}`;
+}
+function impCarregarJson(){
+  let j; try{ j = JSON.parse(IMP.json||""); }catch(e){ alert("JSON inválido: "+e.message); return; }
+  if(!j || typeof j!=="object"){ alert("JSON precisa ser um objeto."); return; }
+  const r = impNovoRascunho(); r.json = IMP.json; r.pdf = IMP.pdf || null;
+  r.tumor = j.tumor||null; r.regimen_id = j.regimen_id||""; r.linha = j.linha_tratamento!=null?String(j.linha_tratamento):"1"; r.subtipo = j.subtipo||"";
+  (Array.isArray(j.campos)?j.campos:[]).forEach(c=>{ if(c&&c.campo){ if(c.valor!==undefined&&c.valor!==null&&c.valor!=="") r.campos[c.campo]=c.valor; if(c.trecho) r.trechos[c.campo]=String(c.trecho); } });
+  const m = j.meta||{};
+  r.meta = {data_inicio:m.data_inicio||"", data_evolucao:m.data_evolucao||"", proximo_retorno:m.proximo_retorno||"", medico_assistente_texto:m.medico_assistente_texto||"",
+    sem_campo:Array.isArray(m.sem_campo)?m.sem_campo.join("\n"):(m.sem_campo||""), historico:m.historico||""};
+  r.protocolo_texto = m.protocolo_texto||"";
+  IMP = r; updateImpClin();
+}
+// Envelope a partir do rascunho — só o INFORMADO entra em `campos`.
+function impPayload(){
+  const tv = impTumorVocab(IMP.tumor);
+  const campos = [];
+  (tv?tv.campos:[]).forEach(s=>{ const v = IMP.campos[s.campo]; if(v!==undefined&&v!==null&&v!=="") campos.push({campo:s.campo, valor:v, trecho:(IMP.trechos[s.campo]||"").trim()||null}); });
+  const m = IMP.meta;
+  const linha = parseInt(IMP.linha,10);
+  return {
+    tumor: IMP.tumor, sistema: sistemaDeTumor(IMP.tumor), subtipo:(IMP.subtipo||"").trim()||null,
+    regimen_id: IMP.regimen_id||null, linha_tratamento: isNaN(linha)?1:linha,
+    campos,
+    meta: {data_inicio:m.data_inicio||null, data_evolucao:m.data_evolucao||null, proximo_retorno:m.proximo_retorno||null,
+      medico_assistente_texto:(m.medico_assistente_texto||"").trim()||null,
+      sem_campo:(m.sem_campo||"").split("\n").map(x=>x.trim()).filter(Boolean),
+      historico:(m.historico||"").trim()||null, protocolo_texto:(IMP.protocolo_texto||"").trim()||null},
+  };
+}
+// ---- slot da proposta na ficha (secretaria: resumo; oncologista/admin: painel de validação) ----
+function impSlotHtml(pid){
+  const pr = IMP_PROP[pid];
+  if(pr===undefined) return "";
+  if(ehSecretaria()){
+    if(!pr) return "";
+    const t = pr.estado==="pendente" ? `⏳ <b>Proposta de importação enviada</b> em ${fmtDataHora(pr.criada_em)} — aguardando validação clínica.`
+      : pr.estado==="validada" ? `✅ Proposta de importação <b>validada</b> pelo médico em ${fmtDataHora(pr.decidida_em)}.`
+      : `🗑️ Proposta de importação <b>descartada</b> pelo médico em ${fmtDataHora(pr.decidida_em)}.`;
+    return `<div class="reest-ok imp-status ${pr.estado}"><span>${t}</span></div>`;
+  }
+  if(!pr || pr.estado!=="pendente") return "";
+  if(!podeAvaliar()) return `<div class="reest-ok imp-status pendente"><span>⏳ Proposta de importação por <b>${esc(pr.criada_por?pr.criada_por.nome:"—")}</b> aguardando validação de um oncologista.</span></div>`;
+  return impPainelHtml(pid, pr);
+}
+// Painel de validação: tabela campo | valor proposto | trecho, cada linha editável, protocolo
+// e linha, pré-visualização do semáforo (mesmo motor da app, SÓ com o informado — como o
+// servidor fará), e os dois botões. O estado é IMP_VAL; os widgets escrevem nele.
+function impPainelHtml(pid, pr){
+  const pl = pr.payload||{};
+  if(!IMP_VAL || IMP_VAL.id!==pr.id){
+    const valores = {}; (pl.campos||[]).forEach(c=>{ if(c.valor!==null&&c.valor!==undefined) valores[c.campo]=c.valor; });
+    IMP_VAL = {pid, id:pr.id, tumor:pl.tumor, valores, regimen_id:pl.regimen_id||"", linha:pl.linha_tratamento||1};
+  }
+  const tumor = pl.tumor;
+  const specs = primFieldsFor(tumor)||[];
+  const primMap = primByCampo(tumor);
+  const trechoDe = {}; (pl.campos||[]).forEach(c=>{ trechoDe[c.campo] = c; });
+  const regs = REGIMES.filter(r=>r.tumor===tumor).slice().sort((a,b)=>impRegimeRotulo(a).localeCompare(impRegimeRotulo(b),"pt-BR"));
+  const m = pl.meta||{};
+  const fatos = [
+    m.data_inicio?`tratamento em curso desde <b>${fmtData(m.data_inicio)}</b>`:"",
+    m.data_evolucao?`evolução de <b>${fmtData(m.data_evolucao)}</b>`:"",
+    m.proximo_retorno?`próximo retorno marcado para <b>${fmtData(m.proximo_retorno)}</b>`:"",
+    m.medico_assistente_texto?`médico(a) assistente: <b>${esc(m.medico_assistente_texto)}</b>`:"",
+    m.protocolo_texto?`protocolo no prontuário: <b>${esc(m.protocolo_texto)}</b>`:"",
+  ].filter(Boolean).join(" · ");
+  const rows = specs.map(s=>{
+    const c = trechoDe[s.campo];
+    const proposto = c && c.valor!==null && c.valor!==undefined;
+    return `<tr class="${proposto?"":"imp-vazio"}">
+      <td>${esc(shortLabel(s.label||s.campo))}${s.estavel?` <span class="hint">🔒</span>`:""}</td>
+      <td>${impWidget("val", s, IMP_VAL.valores[s.campo])}${proposto?"":`<div class="hint">não proposto</div>`}</td>
+      <td class="imp-trecho-cel">${c&&c.trecho?`“${esc(c.trecho)}”`:`<span class="hint">—</span>`}</td>
+    </tr>`;
+  }).join("");
+  return `<div class="imp-painel" id="imp-painel">
+    <div class="rv-t" style="color:#8a5d05">⏳ Proposta de importação aguardando a sua validação</div>
+    <div class="hint" style="margin-top:4px">Enviada por <b>${esc(pr.criada_por?pr.criada_por.nome:"—")}</b> em ${fmtDataHora(pr.criada_em)}. Nada abaixo é registro clínico ainda: ao <b>Validar</b>, os primitivos são gravados no paciente, o semáforo é conferido no servidor e, <b>só se verde</b> (elegível + incorporado), o protocolo entra como vigente com a nota de importação — assinado por você. Qualquer outra cor: nada é selecionado e o motivo volta aqui.</div>
+    ${fatos?`<div class="hint" style="margin-top:6px">${fatos}</div>`:""}
+    ${m.sem_campo&&m.sem_campo.length?`<div class="hint" style="margin-top:4px">Sem campo no sistema (vai para a nota): ${m.sem_campo.map(esc).join("; ")}</div>`:""}
+    ${m.historico?`<div class="hint" style="margin-top:4px;white-space:pre-wrap">${esc(m.historico)}</div>`:""}
+    <div class="grid3" style="margin-top:10px">
+      <div class="field" style="grid-column:span 2"><label>Protocolo proposto</label>
+        <select id="impv_regime" onchange="IMP_VAL.regimen_id=this.value; impRepintarPreview()"><option value="">— nenhum (só grava primitivos) —</option>
+          ${regs.map(r=>`<option value="${esc(r.regimen_id)}" ${IMP_VAL.regimen_id===r.regimen_id?"selected":""}>${esc(impRegimeRotulo(r))}${incorporacao(r).incorporado?"":" (não incorporado)"}</option>`).join("")}
+        </select></div>
+      <div class="field"><label>Linha</label><input id="impv_linha" type="number" min="1" value="${esc(String(IMP_VAL.linha||1))}" oninput="IMP_VAL.linha=this.value"></div>
+    </div>
+    <table class="imp-tab"><thead><tr><th>Campo</th><th>Valor proposto (edite se precisar)</th><th>Trecho do prontuário</th></tr></thead><tbody>${rows}</tbody></table>
+    <div id="imp-preview">${impPreviewHtml()}</div>
+    <div class="row-actions" style="margin-top:12px">
+      <button class="btn ghost" id="imp_descartar" onclick="impDescartar(${pid}, ${pr.id}, this)">Descartar…</button>
+      <button class="btn primary" id="imp_validar" onclick="impValidar(${pid}, ${pr.id}, this)">Validar e gravar</button>
+    </div>
+  </div>`;
+}
+// Pré-visualização do semáforo com o MESMO interpretador da app, mas só com os valores
+// informados (sem primDefault) — é o que o servidor vai calcular. Cortesia de tela: o
+// veredito que vale é o do servidor, devolvido na validação.
+function impPreviewHtml(){
+  if(!IMP_VAL) return "";
+  const rid = IMP_VAL.regimen_id;
+  if(!rid) return `<div class="hint" style="margin-top:8px">Sem protocolo: a validação grava os primitivos e não seleciona nada.</div>`;
+  const r = REGIMES.find(x=>x.regimen_id===rid); if(!r) return "";
+  const tumor = IMP_VAL.tumor, primMap = primByCampo(tumor), critMap = CRIT_EXPR_POR_TUMOR[tumor]||{};
+  const regra = r.elegibilidade && r.elegibilidade.regra;
+  const res = regra ? evalExpr(regra, IMP_VAL.valores, critMap, primMap) : true;
+  const sem = res===true?"elegivel":res===false?"inelegivel":"atencao";
+  const falta=[]; if(regra) missingFields(regra, IMP_VAL.valores, critMap, null, falta);
+  const inc = incorporacao(r).incorporado;
+  const verde = sem==="elegivel" && inc;
+  return `<div class="hint" style="margin-top:8px">Pré-visualização (o servidor reconfere): ${semBadge(sem)}${inc?"":` <span class="tag-ni">NÃO INCORPORADO</span>`}
+    ${verde?` → <b>vira vigente</b> ao validar.`:` → <b>não será selecionado</b> ao validar${falta.length?` — não informado: ${falta.map(c=>esc(fieldLabel(c,primMap))).join(", ")}`:""}.`}</div>`;
+}
+function impRepintarPreview(){ const el=document.getElementById("imp-preview"); if(el) el.innerHTML = impPreviewHtml(); }
+// Correções = só o que DIFERE do proposto (valor null = remover). Booleano ausente segue ausente.
+function impCorrecoes(pr){
+  const proposto = {}; ((pr.payload||{}).campos||[]).forEach(c=>{ if(c.valor!==null&&c.valor!==undefined) proposto[c.campo]=c.valor; });
+  const campos = {};
+  Object.keys(IMP_VAL.valores).forEach(k=>{ if(proposto[k]!==IMP_VAL.valores[k]) campos[k]=IMP_VAL.valores[k]; });
+  Object.keys(proposto).forEach(k=>{ if(IMP_VAL.valores[k]===undefined) campos[k]=null; });
+  const body = {campos};
+  if((IMP_VAL.regimen_id||"")!==((pr.payload||{}).regimen_id||"")) body.regimen_id = IMP_VAL.regimen_id||null;
+  const linha = parseInt(IMP_VAL.linha,10);
+  if(!isNaN(linha) && linha!==((pr.payload||{}).linha_tratamento||1)) body.linha_tratamento = linha;
+  return body;
+}
+async function impValidar(pid, id, btn){
+  const pr = IMP_PROP[pid]; if(!pr || pr.id!==id || !IMP_VAL) return;
+  if(btn) btn.disabled = true;
+  try{
+    const r = await api(`/importacao-propostas/${id}/validar`, {method:"POST", body:JSON.stringify(impCorrecoes(pr))});
+    IMP_VAL = null;
+    toast(r.vigente ? `Proposta validada — ${protocoloNome(r.regimen_id)} registrado como vigente.` : `Proposta validada — primitivos gravados, sem protocolo vigente.`);
+    if(!r.vigente && r.motivo) alert("Validado sem seleção de protocolo:\n\n"+r.motivo);
+    await carregarPacientes();
+    await carregarDetalhe(pid);
+    if(TRILHA[pid]!=null) await carregarTrilha(pid);
+    await carregarProposta(pid);
+    render();
+  }catch(e){ if(btn) btn.disabled = false; alert("Falha ao validar a proposta: "+e.message); }
+}
+async function impDescartar(pid, id, btn){
+  const motivo = prompt("Motivo do descarte (obrigatório):"); if(motivo===null) return;
+  if(!motivo.trim()){ alert("O motivo é obrigatório."); return; }
+  if(btn) btn.disabled = true;
+  try{
+    await api(`/importacao-propostas/${id}/descartar`, {method:"POST", body:JSON.stringify({motivo:motivo.trim()})});
+    IMP_VAL = null;
+    toast("Proposta descartada.");
+    await carregarPacientes();
+    if(TRILHA[pid]!=null) await carregarTrilha(pid);
+    await carregarProposta(pid);
+    render();
+  }catch(e){ if(btn) btn.disabled = false; alert("Falha ao descartar: "+e.message); }
+}
+
+// =================== LER PDF (entrega 2) — pdf.js local + cabeçalho + raspagem + extração ===================
+// O PDF NUNCA sobe: pdf.js lê o arquivo NA MÁQUINA da secretaria. Daí saem duas coisas:
+//  1. o CABEÇALHO Orizonti, extraído de forma determinística (regex sobre as linhas):
+//     nome → INICIAIS calculadas aqui (o nome completo é descartado na hora), atendimento,
+//     nascimento, sexo, convênio, peso/altura, e o que mais o layout já traz pronto
+//     (data da evolução, retorno previsto, médico da assinatura, tipo de tumor);
+//  2. a NARRATIVA RASPADA: todas as ocorrências dos tokens do nome, do nº de atendimento,
+//     do prontuário e da data de nascimento (e telefones) viram "[REMOVIDO]" — ANTES de
+//     qualquer envio. O texto raspado fica visível ("isto será enviado para análise"), e
+//     só ele viaja para POST /importacao/extrair quando ela clicar.
+// A extração PREENCHE o formulário guiado (via impCarregarJson) — nunca envia proposta
+// sozinha; a secretaria confere e envia, o oncologista valida como na entrega 1.
+const PDFJS_URL = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+const PDFJS_WORKER = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const PARTICULAS = new Set(["de","da","do","das","dos","e","del","di","du","la","le","van","von"]);
+function carregarPdfJs(){
+  if(window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  return new Promise((res, rej)=>{
+    const s=document.createElement("script"); s.src=PDFJS_URL; s.async=true;
+    s.onload=()=>{ try{ window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER; res(window.pdfjsLib); }catch(e){ rej(e); } };
+    s.onerror=()=>rej(new Error("não foi possível carregar o leitor de PDF (pdf.js)"));
+    document.head.appendChild(s);
+  });
+}
+// Texto do PDF em LINHAS: itens agrupados pela coordenada y (arredondada) e ordenados por x —
+// o layout do Orizonti é tabular, e a ordem do fluxo de conteúdo nem sempre é a de leitura.
+async function pdfParaTexto(arrayBuffer){
+  const pdfjs = await carregarPdfJs();
+  const doc = await pdfjs.getDocument({data: arrayBuffer}).promise;
+  const paginas = [];
+  for(let n=1; n<=doc.numPages; n++){
+    const page = await doc.getPage(n);
+    const tc = await page.getTextContent();
+    const linhas = new Map();
+    tc.items.forEach(it=>{
+      if(!it.str || !it.str.trim()) return;
+      const y = Math.round(it.transform[5]/2)*2, x = it.transform[4];
+      if(!linhas.has(y)) linhas.set(y, []);
+      linhas.get(y).push({x, s: it.str});
+    });
+    const ys = [...linhas.keys()].sort((a,b)=>b-a);
+    paginas.push(ys.map(y=>linhas.get(y).sort((a,b)=>a.x-b.x).map(i=>i.s).join(" ").replace(/\s+/g," ").trim()).join("\n"));
+  }
+  return paginas.join("\n");
+}
+function iniciaisDe(nome){
+  return String(nome||"").trim().split(/\s+/).filter(t=>t && !PARTICULAS.has(t.toLowerCase())).map(t=>t[0].toUpperCase()+".").join("");
+}
+function brParaIso(d){ const m=String(d||"").match(/(\d{2})\/(\d{2})\/(\d{4})/); return m?`${m[3]}-${m[2]}-${m[1]}`:""; }
+// Cabeçalho Orizonti — só regex, nada de modelo. Campo que não casar fica vazio.
+function lerCabecalhoOrizonti(texto){
+  const g = (re)=>{ const m=texto.match(re); return m?(m[1]||"").trim():""; };
+  const nome = g(/^Paciente\s+(.+?)\s+Atendimento\b/mi) || g(/^Paciente\s+(.+?)$/mi);
+  const conv = g(/Conv[êe]nio\s+(.+?)(?=\s+Leito|\s*$)/mi);
+  const oper = OPERADORAS.find(o=>conv.toLowerCase().startsWith(o.toLowerCase().split(" ")[0]));
+  const tumorTxt = g(/Tipo de tumor\s*:\s*(.+?)\s*$/mi);
+  const tumorId = tumorTxt ? (Object.keys(TUMOR_META).find(id=>_norm(TUMOR_META[id].nome)===_norm(tumorTxt)) || null) : null;
+  return {
+    nome_completo: nome,                       // descartado depois de calcular as iniciais e a raspagem
+    iniciais: iniciaisDe(nome),
+    atendimento: g(/Atendimento\s+([\d.]+)/i),
+    prontuario: g(/Prontu[áa]rio\s+([\d.]+)/i),
+    nasc_br: g(/Data Nascto\.?\s+(\d{2}\/\d{2}\/\d{4})/i),
+    sexo: /^Sexo\s+Masculino/mi.test(texto) ? "M" : /^Sexo\s+Feminino/mi.test(texto) ? "F" : "",
+    convenio: conv, operadora: oper||"", plano: oper ? conv.slice(oper.split(" ")[0].length).trim() : conv,
+    telefone: g(/^Telefone\s+([\d\s()+-]{8,})/mi),
+    peso: g(/Peso\s*:\s*([\d.,]+)\s*kg/i), altura: g(/Altura\s*:\s*([\d.,]+)\s*cm/i),
+    data_evolucao_br: g(/Dt\.?\s*Entrada\s+(\d{2}\/\d{2}\/\d{4})/i) || g(/Data evolu[çc][ãa]o[^\n]*\n[^\n]*?(\d{2}\/\d{2}\/\d{4})/i),
+    retorno_br: g(/Data prov[áa]vel do retorno\s*:\s*(\d{2}\/\d{2}\/\d{4})/i),
+    medico: g(/^\s*([A-ZÀ-Ú][^\n]{4,80}?)\s*\n\s*Conselho\s*:/m) || g(/Usu[áa]rio[^\n]*\n[^\n]*?(?:M[ée]dico|Evolu[çc][ãa]o)\s+(?:Evolu[çc][ãa]o\s+)?([A-ZÀ-Ú][a-zà-ú]+(?:\s+[A-ZÀ-Ú][a-zà-ú]+){1,4})/),
+    tumor_texto: tumorTxt, tumor_id: tumorId,
+  };
+}
+// Regex acento-insensível para um token: cada letra vira a classe das suas variantes.
+function tokenRegex(tok){
+  const M = {a:"aáàâãä", e:"eéèêë", i:"iíìîï", o:"oóòôõö", u:"uúùûü", c:"cç", n:"nñ"};
+  const esc = s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  const corpo = [...String(tok)].map(ch=>{ const b=_norm(ch); const cls=M[b]; return cls?`[${cls}${cls.toUpperCase()}]`:esc(ch); }).join("");
+  return new RegExp(`(?<![\\p{L}\\p{N}])${corpo}(?![\\p{L}\\p{N}])`, "giu");
+}
+// Raspagem: remove nome (inteiro e por token), atendimento, prontuário, nascimento e telefone.
+// Devolve o texto raspado e a contagem por identificador — o portão confere que zerou.
+function rasparNarrativa(texto, cab){
+  const alvos = [];
+  if(cab.nome_completo) alvos.push(cab.nome_completo);
+  String(cab.nome_completo||"").split(/\s+/).forEach(t=>{ if(t.length>=3 && !PARTICULAS.has(t.toLowerCase())) alvos.push(t); });
+  const numVar = n=>{ const d=String(n||"").replace(/\D/g,""); return d ? [String(n), d, d.replace(/\B(?=(\d{3})+(?!\d))/g,".")] : []; };
+  numVar(cab.atendimento).forEach(v=>alvos.push(v));
+  numVar(cab.prontuario).forEach(v=>alvos.push(v));
+  if(cab.nasc_br){ alvos.push(cab.nasc_br); alvos.push(brParaIso(cab.nasc_br)); alvos.push(cab.nasc_br.replace(/\//g,"-")); }
+  if(cab.telefone) alvos.push(cab.telefone.trim());
+  let out = texto, removidos = 0;
+  [...new Set(alvos.filter(Boolean))].sort((a,b)=>b.length-a.length).forEach(a=>{
+    out = out.replace(tokenRegex(a), ()=>{ removidos++; return "[REMOVIDO]"; });
+  });
+  // telefones soltos (qualquer formato brasileiro)
+  out = out.replace(/\(?\b\d{2}\)?\s?9?\d{4}-?\d{4}\b/g, m=>{ removidos++; return "[REMOVIDO]"; });
+  return {texto: out, removidos};
+}
+async function impLerPdf(input){
+  const f = input && input.files && input.files[0]; if(!f) return;
+  const st = document.getElementById("imp_pdf_status"); if(st) st.textContent = "⏳ Lendo o PDF localmente…";
+  try{
+    const buf = await f.arrayBuffer();
+    const texto = await pdfParaTexto(buf);
+    const cab = lerCabecalhoOrizonti(texto);
+    const r = rasparNarrativa(texto, cab);
+    // Só o que a tela precisa fica no estado: iniciais, identificadores administrativos e o
+    // texto RASPADO. O texto original e o nome completo NÃO ficam guardados.
+    const {nome_completo, ...cabSemNome} = cab;
+    IMP.pdf = {arquivo: f.name, paginas: (texto.match(/Página:\s*\d+\/(\d+)/)||[])[1]||"?", cab: cabSemNome, raspado: r.texto, removidos: r.removidos, extraido: null, descartados: null};
+    if(cab.tumor_id && !IMP.tumor) IMP.tumor = cab.tumor_id;
+    impPrefillCadastro(cabSemNome);
+    updateImpClin();
+  }catch(e){ if(st) st.textContent = "✖ "+e.message; else alert("Falha ao ler o PDF: "+e.message); }
+}
+// Cadastro administrativo a partir do cabeçalho — no ESTADO e nos inputs já desenhados
+// (o bloco cadastral é DOM persistente: não se reconstrói, então se escreve nele).
+function impPrefillCadastro(cab){
+  const set = (k, id, v)=>{ if(v===undefined||v===null||v==="") return; CADASTRO[k]=v; const el=document.getElementById(id); if(el) el.value=v; };
+  set("nome","f_nome",cab.iniciais);
+  set("ident","f_ident",String(cab.atendimento||"").replace(/\D/g,""));
+  set("nasc","f_nasc",brParaIso(cab.nasc_br));
+  if(cab.sexo){ set("sexo","f_sexo",cab.sexo); }
+  if(cab.operadora){ set("oper","f_oper",cab.operadora); set("plano","f_plano",cab.plano||""); }
+  set("peso","f_peso",cab.peso); set("altura","f_altura",cab.altura);
+}
+function impPdfHtml(){
+  const p = IMP.pdf;
+  const lido = p ? `
+    <div class="imp-pdf-cab">
+      <div><b>${esc(p.arquivo)}</b> · ${esc(String(p.paginas))} página(s) · lido no seu navegador — o arquivo <b>não foi enviado</b>.</div>
+      <div class="hint" style="margin-top:4px">Cabeçalho lido: iniciais <b>${esc(p.cab.iniciais||"—")}</b> · atendimento <b>${esc(String(p.cab.atendimento||"—").replace(/\D/g,""))}</b> · nascimento <b>${esc(p.cab.nasc_br||"—")}</b> · sexo <b>${esc(p.cab.sexo||"—")}</b> · convênio <b>${esc(p.cab.convenio||"—")}</b>${p.cab.peso?` · peso ${esc(p.cab.peso)} kg`:""}${p.cab.altura?` · altura ${esc(p.cab.altura)} cm`:""}${p.cab.tumor_texto?` · tipo de tumor <b>${esc(p.cab.tumor_texto)}</b>`:""}. Preenchido no cadastro acima — confira.</div>
+      <div class="hint" style="margin-top:6px"><b>Isto será enviado para análise</b> (identificadores removidos: ${p.removidos} ocorrência(s) — nome, atendimento, prontuário, nascimento, telefone):</div>
+      <textarea id="imp_raspado" class="imp-raspado" readonly spellcheck="false">${esc(p.raspado)}</textarea>
+      <div class="row-actions" style="margin-top:6px;justify-content:flex-start">
+        <button class="btn primary" id="imp_extrair" ${IMP.tumor?"":"disabled title='escolha o tumor abaixo'"} onclick="impExtrair(this)">Extrair dados clínicos (IA)</button>
+        <span class="hint" id="imp_extrair_status">${IMP.tumor?"":"Escolha o tumor abaixo para habilitar."}</span>
+      </div>
+      ${p.extraido?`<div class="hint" style="margin-top:6px;color:#1f5c33">✔ Extração aplicada ao formulário: ${p.extraido.campos} campo(s) com trecho${p.extraido.regimen_id?`, protocolo sugerido`:""}. <b>Confira cada valor contra o trecho</b> antes de enviar.${p.descartados&&p.descartados.length?`<br>Descartados pelo servidor (sem trecho literal no texto ou fora do vocabulário): ${p.descartados.map(d=>`${esc(d.campo)} (${esc(d.motivo)})`).join("; ")}.`:""}</div>`:""}
+    </div>` : "";
+  return `<div class="section-t">Ler PDF da evolução</div>
+    <div class="hint" style="margin-bottom:6px">O PDF é lido <b>aqui, no seu navegador</b>. O cabeçalho vira cadastro (nome → só as iniciais), a narrativa é raspada dos identificadores e mostrada abaixo antes de qualquer envio.</div>
+    <input type="file" id="imp_pdf" accept="application/pdf" onchange="impLerPdf(this)"> <span class="hint" id="imp_pdf_status"></span>
+    ${lido}`;
+}
+async function impExtrair(btn){
+  const p = IMP.pdf; if(!p || !IMP.tumor) return;
+  const st = document.getElementById("imp_extrair_status");
+  if(btn) btn.disabled = true; if(st) st.textContent = "⏳ Analisando o texto raspado…";
+  try{
+    const res = await api("/importacao/extrair", {method:"POST", body:JSON.stringify({tumor: IMP.tumor, texto_raspado: p.raspado})});
+    impAplicarExtracao(res);
+  }catch(e){
+    if(st) st.textContent = "✖ "+e.message; if(btn) btn.disabled = false;
+  }
+}
+// Resultado → formulário. Passa pelo MESMO caminho do "colar JSON" (impCarregarJson) e
+// completa a meta com o que o cabeçalho já trouxe de forma determinística.
+function impAplicarExtracao(res){
+  const prop = res.proposta || {};
+  const cab = IMP.pdf.cab || {};
+  const meta = Object.assign({}, prop.meta||{});
+  if(!meta.data_evolucao && cab.data_evolucao_br) meta.data_evolucao = brParaIso(cab.data_evolucao_br);
+  if(!meta.proximo_retorno && cab.retorno_br) meta.proximo_retorno = brParaIso(cab.retorno_br);
+  if(!meta.medico_assistente_texto && cab.medico) meta.medico_assistente_texto = cab.medico;
+  const json = {tumor: IMP.tumor, regimen_id: prop.regimen_id||null, campos: prop.campos||[], meta};
+  IMP.json = JSON.stringify(json, null, 1);
+  IMP.pdf.extraido = {campos: (prop.campos||[]).length, regimen_id: prop.regimen_id||null};
+  IMP.pdf.descartados = res.descartados||[];
+  impCarregarJson();
 }
 
 // Resumo do último atendimento + botão Reavaliar (estado de repouso do seguimento).
@@ -3078,6 +3625,7 @@ const MEIO_CONTATO_LABEL = {telefone:"Telefone", whatsapp:"WhatsApp", email:"E-m
 function administrativoEntryHtml(it){
   const quem = it.por ? `${it.por.nome}${it.por.perfil?` (${it.por.perfil})`:""}` : "—";
   const ev = it.evento || it.tipo;
+  if(ev==="proposta_importacao") return propostaEntryHtml(it);
   const titulo = ev==="reagendamento"
     ? `📅 Retorno reagendado: ${fmtData(it.data_anterior)} → <b>${fmtData(it.data)}</b>`
     : `📞 Contato com o paciente · ${esc(MEIO_CONTATO_LABEL[it.meio]||it.meio||"—")} · ${fmtData(it.data)}`;
@@ -3091,6 +3639,29 @@ function administrativoEntryHtml(it){
     </div>
     <div class="hm">por <b>${esc(quem)}</b>${ev==="reagendamento"?" · só a data da agenda mudou; o intervalo decidido no retorno permanece":""}</div>
     ${it.nota?`<div style="font-size:12.5px;white-space:pre-wrap;margin-top:6px">${esc(it.nota)}</div>`:""}
+  </div>`;
+}
+
+// Proposta de importação na trilha: evento ADMINISTRATIVO ("proposta de importação por
+// <secretária> em <data>") com o desfecho — validada (vigente ou não, e por quê) ou
+// descartada (motivo). O registro clínico que a validação criou aparece nos itens dele
+// (avaliação, retorno), assinados pelo validador — este item só conta a origem.
+function propostaEntryHtml(it){
+  const quem = it.por ? `${it.por.nome}${it.por.perfil?` (${PERFIL_LABEL[it.por.perfil]||it.por.perfil})`:""}` : "—";
+  const dec = it.decidida_por ? esc(it.decidida_por.nome) : "—";
+  let desfecho;
+  if(it.estado==="pendente") desfecho = `<span class="tag-imp">⏳ aguardando validação clínica</span>`;
+  else if(it.estado==="validada") desfecho = `✅ Validada por <b>${dec}</b> em ${fmtDataHora(it.decidida_em)}${it.resultado?(it.resultado.vigente?` — <b>${esc(protocoloNome(it.resultado.regimen_id))}</b> registrado como vigente`:` — sem protocolo vigente${it.resultado.motivo?`: ${esc(it.resultado.motivo)}`:""}`):""}`;
+  else desfecho = `🗑️ Descartada por <b>${dec}</b> em ${fmtDataHora(it.decidida_em)}${it.motivo_descarte?` — ${esc(it.motivo_descarte)}`:""}`;
+  return `<div class="proto hist-entry adm">
+    <div class="row1">
+      <div>
+        <span class="tl-tipo adm">Administrativo</span>
+        <div class="pname" style="margin-top:6px">📥 Proposta de importação por ${esc(quem)} em ${fmtDataHora(it.criado_em)}</div>
+      </div>
+      <div style="text-align:right;flex:none"><div class="hd">${fmtDataHora(it.criado_em)}</div></div>
+    </div>
+    <div class="hm" style="margin-top:6px">${desfecho}</div>
   </div>`;
 }
 

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import {
-  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, EventoAdministrativo, Paciente, Perfil, Retorno,
-  SelecaoProtocolo, Semaforo,
+  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, EventoAdministrativo, ImportacaoProposta, Paciente, Perfil,
+  Retorno, SelecaoProtocolo, Semaforo,
 } from '../database/entities';
 import { EvidenciaService } from '../evidencia/evidencia.service';
 import { diaLocal, estadoReestadiamento, estadoRetorno, hojeISO, somarMeses } from '../retornos/retornos.service';
@@ -64,8 +64,21 @@ export class PacientesService {
     @InjectRepository(Avaliacao) private avaliacaoRepo: Repository<Avaliacao>,
     @InjectRepository(Retorno) private retornoRepo: Repository<Retorno>,
     @InjectRepository(EventoAdministrativo) private eventoAdmRepo: Repository<EventoAdministrativo>,
+    @InjectRepository(ImportacaoProposta) private propostaRepo: Repository<ImportacaoProposta>,
     private evidencia: EvidenciaService,
   ) {}
+
+  // Pacientes com proposta de importação PENDENTE — o selo "⏳ aguardando validação
+  // clínica" da lista. Estado administrativo (existe/não existe), não conteúdo clínico:
+  // entra nos dois payloads, o clínico e o da secretaria (que quer saber se o que enviou
+  // já foi validado).
+  private async comImportacaoPendente(): Promise<Set<number>> {
+    const rows = await this.propostaRepo.createQueryBuilder('p')
+      .select('p.paciente_id', 'paciente_id')
+      .where('p.estado = :e', { e: 'pendente' })
+      .getRawMany<{ paciente_id: number }>();
+    return new Set(rows.map((r) => Number(r.paciente_id)));
+  }
 
   // Lista: nome, tumor, data da última avaliação e último semáforo (por paciente).
   // Para a SECRETARIA, a lista administrativa — outro caminho de código, outro SELECT.
@@ -123,6 +136,7 @@ export class PacientesService {
     const ultimoRetornoPorPac = new Map(ultimosRetornos.map((r) => [r.paciente_id, r]));
     const ultimaPorPac = new Map(ultimas.map((a) => [a.paciente_id, a]));
     const totalPorPac = new Map(totais.map((t) => [Number(t.paciente_id), Number(t.total)]));
+    const importPend = await this.comImportacaoPendente();
     return pacientes.map((p) => {
       const u = ultimaPorPac.get(p.id);
       const uq = ultimaQualquerPorPac.get(p.id);
@@ -156,6 +170,8 @@ export class PacientesService {
         ultimo_semaforo: u ? u.semaforo : null,
         ultimo_regimen_id: u ? u.regimen_id : null,
         ultima_linha: u ? u.linha_tratamento : null,
+        // Proposta de importação aguardando validação clínica (selo ⏳ na lista).
+        importacao_pendente: importPend.has(p.id),
       };
     });
   }
@@ -206,7 +222,7 @@ export class PacientesService {
     return out;
   }
 
-  private mapAdministrativo(p: Paciente, medico: { id: number; nome: string } | null) {
+  private mapAdministrativo(p: Paciente, medico: { id: number; nome: string } | null, importPend?: Set<number>) {
     return {
       id: p.id,
       nome: p.nome,
@@ -221,6 +237,9 @@ export class PacientesService {
       altura_cm: p.altura_cm ?? null,
       retorno: estadoRetorno(p),
       medico_assistente: medico,
+      // Proposta de importação enviada e ainda não validada (existe/não existe — nada do
+      // conteúdo). É como a secretaria vê, na lista, o que ainda espera o médico.
+      importacao_pendente: importPend ? importPend.has(p.id) : false,
       // Marca explícita: a tela sabe que este é o payload administrativo, e o portão
       // confere que ele vem SEM as chaves clínicas — não só com esta flag.
       administrativo: true,
@@ -234,7 +253,8 @@ export class PacientesService {
     });
     if (!pacientes.length) return [];
     const medicos = await this.medicosAssistentes();
-    return pacientes.map((p) => this.mapAdministrativo(p, medicos.get(p.id) || null));
+    const importPend = await this.comImportacaoPendente();
+    return pacientes.map((p) => this.mapAdministrativo(p, medicos.get(p.id) || null, importPend));
   }
 
   // Ficha administrativa: cadastro + agenda + os eventos administrativos (reagendamentos e
@@ -246,8 +266,9 @@ export class PacientesService {
     });
     if (!p) throw new NotFoundException('Paciente não encontrado');
     const medicos = await this.medicosAssistentes();
+    const importPend = await this.comImportacaoPendente();
     return {
-      ...this.mapAdministrativo(p, medicos.get(p.id) || null),
+      ...this.mapAdministrativo(p, medicos.get(p.id) || null, importPend),
       eventos_administrativos: await this.eventosAdministrativos(id),
     };
   }
@@ -286,6 +307,7 @@ export class PacientesService {
     await this.pacienteOr404(id);
     // retornos antes das avaliações: retornos.avaliacao_id referencia avaliacoes.
     await this.eventoAdmRepo.delete({ paciente_id: id });
+    await this.propostaRepo.delete({ paciente_id: id });
     await this.retornoRepo.delete({ paciente_id: id });
     await this.avaliacaoRepo.delete({ paciente_id: id });
     await this.selecaoRepo.delete({ paciente_id: id });
@@ -370,7 +392,11 @@ export class PacientesService {
   }
 
   // Cria uma nova avaliação: EMPILHA, nunca sobrescreve. data e avaliado_por do servidor.
-  async criarAvaliacao(pacienteId: number, dados: NovaAvaliacao, usuarioId: number, perfilAtivo: Perfil) {
+  // `em` opcional: quem chama de dentro de uma TRANSAÇÃO (a validação de uma proposta de
+  // importação, que grava primitivos + avaliação + retorno + proposta num ato só) passa o
+  // EntityManager dela, e as escritas daqui entram no mesmo commit — ou no mesmo rollback.
+  async criarAvaliacao(pacienteId: number, dados: NovaAvaliacao, usuarioId: number, perfilAtivo: Perfil, em?: EntityManager) {
+    const avaliacaoRepo = em ? em.getRepository(Avaliacao) : this.avaliacaoRepo;
     const paciente = await this.pacienteOr404(pacienteId);
     // Solicitação de exceção — decidida NO SERVIDOR, não pela app. A app manda
     // 'pendente' (é o que pinta o botão "Selecionar mesmo assim"), mas os dois eixos que
@@ -385,7 +411,7 @@ export class PacientesService {
       dados.semaforo === 'inelegivel' ||
       this.evidencia.naoIncorporado(dados.regimen_id);
     const autorizacao_estado: AutorizacaoEstado = exigeAutorizacao ? 'pendente' : 'nao_necessaria';
-    const nova = this.avaliacaoRepo.create({
+    const nova = avaliacaoRepo.create({
       paciente_id: pacienteId,
       avaliado_por: usuarioId,
       // Com que chapéu esta avaliação foi feita — do JWT, nunca do cliente. Ver
@@ -399,16 +425,16 @@ export class PacientesService {
       autorizacao_estado,
       retorno_id: dados.retorno_id ?? null,
     });
-    const salva = await this.avaliacaoRepo.save(nova);
+    const salva = await avaliacaoRepo.save(nova);
     // Selecionar protocolo agenda o reestadiamento (padrão 3 meses, ajustável por paciente).
     // O relógio conta do dia da seleção; um retorno com imagem depois o reancora.
     // SÓ quando a avaliação já é o protocolo vigente: solicitação de exceção pendente pode
     // ser negada, e agendar antes marcaria o calendário por um tratamento que talvez nunca
     // comece. Aprovada, quem agenda é o AutorizacoesService (é ali que ela vira vigente).
     if (autorizacao_estado === 'nao_necessaria') {
-      await this.agendarReestadiamento(pacienteId, paciente.intervalo_reestadiamento_meses);
+      await this.agendarReestadiamento(pacienteId, paciente.intervalo_reestadiamento_meses, em);
     }
-    const full = await this.avaliacaoRepo.findOne({
+    const full = await avaliacaoRepo.findOne({
       where: { id: salva.id },
       relations: { avaliadoPor: true, autorizacaoAuditor: true },
     });
@@ -417,13 +443,14 @@ export class PacientesService {
 
   // Agenda o próximo reestadiamento a partir de hoje. Público porque a aprovação de uma
   // exceção (AutorizacoesService) também precisa dele: é lá que a avaliação vira vigente.
-  async agendarReestadiamento(pacienteId: number, intervaloMeses?: number) {
+  async agendarReestadiamento(pacienteId: number, intervaloMeses?: number, em?: EntityManager) {
+    const pacienteRepo = em ? em.getRepository(Paciente) : this.pacienteRepo;
     const meses = intervaloMeses
-      ?? (await this.pacienteRepo.findOneBy({ id: pacienteId }))?.intervalo_reestadiamento_meses
+      ?? (await pacienteRepo.findOneBy({ id: pacienteId }))?.intervalo_reestadiamento_meses
       ?? 3;
     const proximo = somarMeses(hojeISO(), meses);
     if (proximo) {
-      await this.pacienteRepo.update({ id: pacienteId }, { proximo_reestadiamento: proximo });
+      await pacienteRepo.update({ id: pacienteId }, { proximo_reestadiamento: proximo });
     }
     return proximo;
   }

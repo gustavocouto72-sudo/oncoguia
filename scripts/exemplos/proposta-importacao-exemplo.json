@@ -1,0 +1,31 @@
+{
+  "tumor": "prostata",
+  "sistema": "gu",
+  "subtipo": "Metastático sensível à castração (mCSPC)",
+  "regimen_id": "prostata-mcspc-enzalutamida",
+  "linha_tratamento": 1,
+  "campos": [
+    { "campo": "metastatico",         "valor": true,   "trecho": "doença metastática óssea" },
+    { "campo": "sensivel_castracao",  "valor": true,   "trecho": "mCSPC em ADT" },
+    { "campo": "resistente_castracao","valor": false,  "trecho": "sem critério de resistência" },
+    { "campo": "gleason",             "valor": 9,      "trecho": "Gleason 9 (4+5)" },
+    { "campo": "estadio_t",           "valor": "T3b",  "trecho": "pT3b (prostatectomia 2020)" },
+    { "campo": "metastase_distancia", "valor": true,   "trecho": "cintilografia: lesões ósseas" },
+    { "campo": "psa",                 "valor": 0.02,   "trecho": "PSA 0,02 (28/08/2026)" },
+    { "campo": "convulsao_previa",    "valor": false,  "trecho": "nega convulsão" }
+  ],
+  "meta": {
+    "data_inicio": "2026-01-16",
+    "data_evolucao": "2026-08-28",
+    "proximo_retorno": "2026-09-25",
+    "medico_assistente_texto": "Dr(a). — como está no prontuário",
+    "sem_campo": [
+      "N0",
+      "hormonioterapia iniciada = sim",
+      "prostatectomia = sim",
+      "pT3b gravado como T3b (opções não distinguem c/p)"
+    ],
+    "historico": "PSA ao diagnóstico 10,24 (pré-prostatectomia, 2020); PSA atual 0,02.",
+    "protocolo_texto": "Enzalutamida 160 mg VO 1x/dia + ADT"
+  }
+}

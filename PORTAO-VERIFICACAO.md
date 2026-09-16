@@ -255,6 +255,8 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
      hierárquico dava) + secretaria; agenda e contato = `['oncologista','admin','secretaria']`.
      Tudo o mais (avaliação, retorno, trilha, seleção, revisão, autorização, custo,
      recursos, usuários, remoção) é **403** para ela — 16 leituras e 10 escritas na matriz.
+   - **Importação (2026-09-15):** ela envia a proposta de importação e lê só o estado dela
+     (sem payload); quem valida é o oncologista — ver o Portão da IMPORTAÇÃO abaixo.
    - **Na tela:** só a aba Pacientes; lista com 4 colunas (os filtros de coluna funcionam
      no que ela vê); ficha administrativa **sem nada clínico no DOM** (o portão procura
      Trilha/Seguimento/Reavaliar/Semáforo/Protocolo/R$, o nome do tumor e o do protocolo —
@@ -427,6 +429,224 @@ retorno continua dizendo a data **original**, e o topo mostra a agenda **nova**.
 > pelo nome e diz de cada um se já contém `secretaria`. O que fica: **vocabulário de perfil
 > vive em dois constraints; quem adiciona perfil refaz os dois** — e o portão que cria a
 > conta pela tela é o que pega isso antes do deploy.
+
+## Portão da IMPORTAÇÃO (`scripts/portao-importacao.js`)
+
+`node scripts/portao-importacao.js` — browser isolado e headless + API; 6 logins (4 por API,
+2 na tela; o helper espera no 429 — **não encadeie** sem ~1 min de janela). A conta de
+secretaria é **descartável** (criada por API na Fase 0, apagada no `finally`, como no
+`portao-secretaria`). Etiqueta única por rodada (`TESTE-PORTAO-IMP-<n>-<etiqueta>` no
+registro, `portao.imp.<etiqueta>` no login) e varredura idempotente `Z0` na abertura, pelo
+prefixo — pacientes **e** usuárias de rodada morta.
+
+**O desenho sob teste (2026-09-15, entrega 1).** Duas alçadas, UM ponto de digitação:
+
+- a **secretaria importa o paciente inteiro** — o cadastro vai pela rota normal (só
+  administrativo, como sempre) e os dados clínicos vão como **PROPOSTA PENDENTE**
+  (`POST /pacientes/:id/importacao-proposta`, tabela `importacao_propostas`). Proposta é
+  **envelope, não registro**: nada é lido por motor, snapshot ou trilha clínica, e ela
+  continua proibida de escrever primitivo pelas rotas normais. Ela vê só "proposta
+  enviada, aguardando validação" — o `GET` dela devolve `{id, estado, criada_em,
+  criada_por, decidida_em}` **sem `payload`**, inclusive do que ela mesma postou;
+- o **oncologista (ou admin) valida**: abre o paciente, vê a tabela campo | valor
+  proposto | trecho do prontuário, corrige o que precisar e clica **Validar**. O servidor
+  então, nesta ordem: grava os primitivos no paciente (tumor, sistema, subtipo,
+  `valores_estaveis` só com o estável informado) → calcula o **semáforo no servidor**
+  (`backend/src/evidencia/semaforo.ts`, porte do `evalExpr` da app) → **verde**
+  (elegível + incorporado) cria a avaliação vigente com a nota de importação em
+  `detalhe_semaforo.ressalva`; **qualquer outra cor** não seleciona nada e devolve o
+  motivo (**nunca** nasce exceção automática — 🔴 e "não incorporado" ficam para a
+  reavaliação, pela mão do médico) → se a meta trouxer `data_evolucao`, cria o retorno
+  (data realizada = evolução, próximo = o da meta, `observacoes` = nota; padrão do #80) →
+  marca a proposta `validada` com quem/quando e o `resultado`. **Assinaturas** (avaliação,
+  retorno) são do **validador**; a proposta aparece na trilha como evento
+  `administrativo`/`proposta_importacao` com o nome da secretaria e o desfecho.
+
+**Duas regras do semáforo do servidor que diferem da tela de reavaliação, de propósito:**
+
+1. **Só o INFORMADO entra** — sem default por tipo. A app, ao desenhar o formulário,
+   presume `false` para booleano ausente e a primeira opção para enum (conveniência de
+   tela). Na importação um booleano ausente é **indeterminado** → 🟡, nunca `false`, nunca
+   verde. Foi a regra do piloto #80 e é o que o check `V1 ★★` / `N1 ★★` provam:
+   `quimio_naive` fora do envelope → fora do snapshot, e a regra do mCRPC que o exige
+   fica em ATENÇÃO com o motivo nomeando o campo. O validador **preenche** (correção
+   `{campos:{quimio_naive:true}}`) e o mesmo envelope vira verde (`N4`).
+2. **Correção substitui, ausência não apaga**: `campos` da validação é `{campo: valor}`;
+   o que vier substitui o proposto, `null` remove, e o que não vier fica como proposto.
+   O `resultado.correcoes` guarda `de → para` de cada uma.
+
+**Terceira cópia de uma regra.** O interpretador da elegibilidade agora vive na app
+(`evalExpr`), no servidor (`semaforo.ts`) e o eixo "não incorporado" já vivia nos dois
+(`EvidenciaService.naoIncorporado`). Dívida conhecida, mesma justificativa do irmão: o
+servidor não pode confiar no semáforo que a app manda. O portão **compara os dois**: a
+pré-visualização do painel (motor da app, só com o informado — `impPreviewHtml`) tem de
+dar o mesmo veredito que o servidor deu por API para os mesmos dados (`O3 ★★` vs `V1`).
+Se a regra mudar num lado só, é aqui que quebra.
+
+**Vocabulário sem corpus.** A secretaria não lê `/evidencia` (403; o `portao-secretaria`
+exige `EVIDENCIA === null` na sessão dela, e continua exigindo). O formulário dela desenha
+tumores, campos primitivos e **nomes** de protocolo a partir de
+`GET /importacao/vocabulario` (whitelist literal `['secretaria','admin']`,
+`ImportacaoVocabularioGuard`) — dicionário de formulário, não corpus: o portão confere
+que a resposta **não contém** `regra`, `referencia`, `beneficio`, `custo` nem `doi`
+(`A1 ★`), e que revisor e gestor levam 403 nela.
+
+**Whitelists literais** (`backend/src/auth/importacao.guard.ts`): propor =
+`['secretaria','admin']` (o oncologista **não** propõe — ele registra direto, e passar
+pela proposta seria assinar duas vezes); ler = `['oncologista','admin','secretaria']`
+(o serviço corta o payload para a secretaria); decidir (validar/descartar) =
+`['oncologista','admin']` — mesma lista da escrita de avaliação, **escrita de novo** em
+vez de importada, para que estreitar uma não estreite a outra por acidente.
+
+**Validação é TUDO ou NADA.** Primitivos, avaliação, retorno e o carimbo da proposta
+entram num commit só (`dataSource.transaction`; `criarAvaliacao` e `RetornosService.criar`
+aceitam o `EntityManager` da transação como último parâmetro opcional — fora dela, nada
+muda). O motivo é concreto: na primeira suíte (2026-09-15) o driver WebSocket do Neon
+derrubou a conexão duas vezes em 30 min (`QueryFailedError: [object ErrorEvent]`), uma
+delas no meio de um `validar`. Sem transação, o corte poderia deixar tumor gravado e
+avaliação criada com a proposta ainda `pendente` — e a revalidação duplicaria a
+avaliação. Com ela, o 500 é só um 500: nada meio-escrito, revalidar é seguro. O portão
+faz o `DELETE` da limpeza tentar uma segunda vez num 5xx pelo mesmo motivo.
+
+**Invariantes no banco, não só no serviço:** `estado` em CHECK literal
+(`pendente|validada|descartada`); **uma pendente por paciente** por índice único parcial
+(`UQ_importacao_propostas_pendente`) — o serviço devolve 409 legível, mas a trava que vale
+é a do índice; cascata no paciente (o `DELETE /pacientes/:id` da limpeza leva as
+propostas), SET NULL nos autores.
+
+Fases e o que cada uma prova:
+- **Fase 1 (API):** vocabulário (A1); secretaria cadastra + propõe o **J.M.G.M. do piloto
+  #80** como massa (S1); resposta e GET dela sem payload, contraprova do oncologista lendo
+  **exatamente** os campos, valores e trechos enviados (S2 ★★); **nada clínico** no
+  paciente depois da proposta — tumor null, `valores_estaveis` vazio, 0 avaliações, sem
+  agenda (S3 ★); `importacao_pendente` nos dois payloads de lista; 403 para secretaria
+  validar/descartar, revisor ler/validar/propor e oncologista propor (S4); segunda pendente
+  = 409 (S5); 400 em campo fora do vocabulário, booleano como string, protocolo de outro
+  tumor, enum fora das opções e data fora do ISO (S6); validação verde com correção
+  `gleason 9→8` — vigente, assinatura do validador, nota montada pelo servidor com início,
+  evolução, médica e `sem_campo`, correção valendo, **booleano ausente ausente**, `psa 0.02`
+  decimal preservado (V1); retorno com as datas da meta e `observacoes` = nota (V2); ficha
+  no padrão do #80 (V2); proposta `validada` com `resultado` (V3); trilha (V4); revalidar =
+  409 (V5); três **não-verdes** — atenção por campo faltando (N1), inelegível (N2), não
+  incorporado (N3) — sem vigente, **0 avaliações** (nenhuma exceção nasceu), motivo
+  devolvido, primitivos gravados; correção que destrava (N4); descarte sem motivo = 400,
+  com motivo grava quem/quando/motivo, paciente segue sem tumor, validar depois = 409
+  (D1); depois do descarte pode-se propor de novo (D2).
+- **Fase 2 (tela da secretaria):** "Cadastrar manualmente | Importar" (U1); modo Importar
+  com o formulário administrativo + "Dados clínicos para validação médica", `EVIDENCIA`
+  ainda nula (U1); escolher o tumor reconstrói **só** `#imp-clin` (0 render global, nome
+  íntegro) e o select de protocolo lista os regimes do tumor pelo nome (U2); botões
+  **tri-estado** (— / Não / Sim) com destaque in place (U3); digitar trecho, médica e
+  `sem_campo` com **0 re-render** (U3 ★); "colar JSON" preenche o formulário (U4);
+  "Cadastrar e enviar proposta" → ficha administrativa diz "Proposta de importação
+  enviada… aguardando validação clínica" e **continua sem nada clínico no DOM** — nem o
+  protocolo que ela acabou de propor (U5 ★★); o servidor recebeu o envelope inteiro (U5);
+  lista dela com o selo (U6); console limpo (U7).
+- **Fase 3 (tela do oncologista):** selo "⏳ aguardando validação clínica" na linha, opção
+  própria no filtro da coluna "Último protocolo" com a contagem batendo com o payload e
+  o filtro deixando só quem espera (O1); painel na ficha com autora, tabela e trechos
+  (O2); proposto marcado, **não proposto marcado como "—"** (não como "Não") (O2);
+  pré-visualização = 🟢 "vira vigente", igual ao servidor (O3 ★★); corrigir Metastatico
+  para Não repinta **só** `#imp-preview` para 🔴 (O3); corrigir gleason e linha com 0
+  re-render (O4); Validar → painel some e a ficha é a do #80: vigente, nota ⚠️, fotografia
+  clínica com o valor corrigido (O5 ★★); registro com correções, booleano ausente e
+  assinatura do logado (O5); trilha com a proposta como Administrativo + seleção e retorno
+  do validador (O6); Descartar… pela tela pede motivo no `prompt` e grava (O7); console
+  limpo (O8).
+
+> **Lição (2026-09-15) — array de interface some na ValidationPipe.** A pipe global roda
+> com `enableImplicitConversion: true`; um DTO com `campos: CampoProposto[]` (interface,
+> sem classe) chega ao serviço como `[[]]` — cada objeto vira um array vazio na conversão
+> implícita, e o serviço recusava "campo sem nome" num envelope perfeitamente válido. A
+> cura é a de sempre no repositório (`ToxicidadeDto` no retorno): classe + `@Type(() =>
+> CampoPropostoDto)` + `@ValidateNested({ each: true })`. Vale para qualquer array de
+> objeto num body: **interface no DTO é dado perdido em silêncio.**
+
+> **Lição (2026-09-15/16) — suíte longa exige a máquina ACORDADA.** A primeira suíte
+> completa desta entrega correu à noite e três portões intocados (retorno, custo, recursos)
+> mais a secretaria voltaram vermelhos com `QueryFailedError: [object ErrorEvent]` — 500
+> em rotas que não mudaram. `pmset -g log` mostrou o Mac entrando em *Idle Sleep* a cada
+> ~2 min desde 18:29, e **cada erro do backend bate ao segundo com um DarkWake**
+> (19:23:19, 19:36:13, 20:49:00, 22:01:25, 22:31:02, 22:53:01, 23:11:25). O WebSocket do
+> driver do Neon morre no sleep; a primeira query depois do wake falha. Um portão que
+> atravessa um ciclo de sleep não vale nada — nem verde nem vermelho. A suíte roda com
+> `caffeinate -i -s node scripts/portao-X.js` (ou o laptop na tomada com a tampa aberta), e
+> um vermelho com `[object ErrorEvent]` no log do backend se descarta e se repete acordado.
+> Foi isto que motivou a transação na validação (acima): a mesma queda, no meio de um
+> `validar`, teria deixado registro pela metade.
+
+> **Lição — `pkill -f "node dist/main"` não é "reiniciar o backend".** Três projetos desta
+> máquina sobem Nest com o mesmo comando; o padrão casa com qualquer um deles (e com o
+> próprio shell que o dispara). Reiniciar é `lsof -nP -iTCP:3005 -sTCP:LISTEN -t` → conferir
+> `ps -p <PID> -o command=` → `kill <PID>` — pela **porta**, nunca pelo nome do comando.
+
+**O que a entrega 1 deixa de fora (por desenho, para a entrega 2):** leitura do PDF no
+navegador (pdf.js) e extração dos clínicos por endpoint que chama a API do Claude com
+prompt fixo por tumor. Nesta entrega a proposta nasce do formulário guiado ou do JSON
+colado — o `impCarregarJson` é o ponto onde a extração vai plugar.
+
+## Portão da EXTRAÇÃO (`scripts/portao-extracao.js`) — entrega 2
+
+`node scripts/portao-extracao.js` — tela da secretaria (browser isolado) + API; 5 logins.
+Precisa de DUAS coisas fora do repo, e diz no cabeçalho se as tem: o **PDF real do
+J.M.G.M.** em dev (`PORTAO_PDF_JMGM`, default `~/Downloads/paciente exemplo.pdf` — **nunca
+entra no repo**) e a **`ANTHROPIC_API_KEY` em `backend/.env`** (a extração real custa
+centavos por rodada). Sem chave, os checks `E`/`D4+` ficam **vermelhos de propósito** —
+"não executado" nunca passa verde.
+
+**O desenho (2026-09-16).** Nada do arquivo sobe:
+- **pdf.js lê o PDF no navegador** (`pdfParaTexto`: itens agrupados por y, ordenados por
+  x — o layout do Orizonti é tabular). O **cabeçalho** sai por regex, determinístico
+  (`lerCabecalhoOrizonti`): nome → **só as iniciais** (`iniciaisDe`, particulas
+  de/da/dos ignoradas; o nome completo é descartado na hora), atendimento (dígitos),
+  nascimento, sexo, convênio → operadora/plano, peso/altura, e o que o layout já traz
+  pronto (Dt. Entrada = data da evolução, "Data provável do retorno", a assinatura antes
+  de "Conselho:", "Tipo de tumor" → pré-seleciona o tumor). Vai direto para o cadastro
+  administrativo.
+- **Raspagem determinística antes de qualquer envio** (`rasparNarrativa`): nome inteiro e
+  cada token do nome (acento-insensível, `tokenRegex`), atendimento e prontuário com e
+  sem pontos, nascimento em três formatos, telefone → `[REMOVIDO]`. O texto raspado fica
+  **visível** ("Isto será enviado para análise") com a contagem do que foi removido; só ele
+  viaja. O estado da app guarda iniciais + texto raspado — **não** o nome, **não** o texto
+  original (o portão confere as chaves).
+- **`POST /importacao/extrair`** `{tumor, texto_raspado}` — whitelist literal
+  `['secretaria','admin']` (a mesma de quem propõe). Adaptador de provedor
+  (`backend/src/importacao/provedor-llm.ts`): `ANTHROPIC_API_KEY`, `IMPORTACAO_MODELO`
+  (padrão `claude-sonnet-5`), `IMPORTACAO_PROVEDOR` (hoje só `anthropic`; trocar de
+  fornecedor = outra classe + env). **Processa e descarta**: nem texto nem resposta são
+  gravados ou logados — o log tem modelo, tokens e contagens. Sem chave → **503** com
+  instrução; o resto da importação segue de pé (o portão prova os dois num backend
+  efêmero em outra porta com a chave vazia).
+- **Prompt fixo montado do vocabulário** do tumor (campos, tipos, opções; regimes com
+  id/nome/cenário/esquema — três "Enzalutamida" em próstata se distinguem pelo cenário) e
+  **saída JSON estrita** por schema (structured outputs). E a trava que não depende do
+  modelo: **todo valor vem com trecho literal, e o servidor confere que o trecho está no
+  texto** (`ExtracaoService.extrair`, comparação sem acento/espaços) — campo sem trecho,
+  trecho parafraseado, valor fora das opções ou booleano não explícito é **descartado** e
+  listado em `descartados` (a tela mostra). "Não inferir" vira mecânica.
+- A extração **preenche o formulário guiado** pelo mesmo caminho do "colar JSON"
+  (`impAplicarExtracao` → `impCarregarJson`), completando a meta com o que o cabeçalho já
+  deu de forma determinística. **Nunca envia proposta sozinha**: a secretaria confere e
+  envia; o oncologista valida como na entrega 1.
+
+Checks: `A1` 403 oncologista/revisor · `A2` 400 · `A3 ★` 503 sem chave + vocabulário 200
+no mesmo backend · `P1 ★` **afirmativo**: o texto original (extraído pelo portão com o
+mesmo pdf.js, e que fica só nele) contém nome/atendimento/prontuário/nascimento · `P2 ★`
+cabeçalho → cadastro (J.M.G.M., 2525705, 1958-02-08, M, Unimed/Única, 110,5 kg, 171 cm,
+Próstata, 28/08, 25/09, a médica) · `P3 ★★` raspado sem nenhum identificador, removidos>0,
+estado sem nome/original, texto visível antes do clique, narrativa preservada · `E1–E5`
+extração real no J.M.G.M.: todo campo com trecho literal no raspado, gleason 9 e T3b
+presentes, **convulsao_previa e quimio_naive AUSENTES** (o texto não os declara), meta
+28/08 e 25/09, proposta enviada com os trechos · `D1–D7` a **demo sintética**
+(`scripts/exemplos/evolucao-demo.pdf`, paciente fictício A.C.F.L., gerada por
+`gerar-evolucao-demo.js` com Chrome headless no layout do Orizonti): cabeçalho, raspagem,
+extração com o caminho feliz (metastático, sensível à castração, nega convulsão, Gleason
+8, T3a, Enzalutamida mCSPC, datas, médica) e validação por API → **vigente**.
+
+> **Sobre a produção (Vercel).** A extração é a primeira rota que espera dezenas de
+> segundos por um terceiro. `backend/vercel.json` ganhou `maxDuration: 60` no builder —
+> no plano Hobby o teto é 60 s; se a chamada passar disso o cliente vê erro e nada é
+> gravado (o resultado só existe quando volta). Conferir o plano antes do deploy.
 
 ## Decisão de papel — o auditor decide MÉRITO, não custo
 
@@ -625,6 +845,14 @@ conta de robô tem de ser reconhecível à primeira vista numa auditoria de aces
   **removido antes de submeter** a próxima: sem isso a espera lia o 429 velho e dormia mais
   60s enquanto a app, já logada, tinha trocado de tela por baixo dela. Portão que falha
   pelo motivo errado ensina a ignorar portão.
+
+**Estado em 2026-09-16 (importação, entrega 1 — DEV, sem deploy):** máquina acordada
+(`caffeinate -d -i -s`, tampa aberta) · `portao-importacao` **72/72 e 72/72** em rodadas
+seguidas (3 min cada; sem `AVISO` de resíduo na segunda = a limpeza da primeira devolveu o
+banco) · `portao-retorno` 86/86 · `portao-custo` 98/98 · `portao-recursos` 99/99 ·
+`portao-secretaria` 93/93 · `portao-b` 89 e `autorizacao` 69/69, `perfis` 52/52,
+`simulador` 50/50 na véspera. Zero `ERROR` novo no log do backend durante a rodada — os
+vermelhos da noite anterior eram todos sleep/wake (ver lição acima).
 
 **Estado em 2026-09-15 (publicação do lote 3):** RUN_ATIVO → `2026-09-15-intake-revisao-3/v1`
 (300 regimes). Portão A no ativo exit 0 (46/46 DOIs de confirmado resolvem no Crossref) ·

@@ -626,6 +626,82 @@ export class EventoAdministrativo {
   criado_em: Date;
 }
 
+// PROPOSTA DE IMPORTAÇÃO — o envelope administrativo do paciente que entra pronto.
+//
+// Duas alçadas, UM ponto de digitação: a secretaria importa o paciente inteiro (cadastro
+// pela rota normal + esta proposta), e os dados clínicos ficam aqui como PROPOSTA
+// PENDENTE — não são registro clínico, não são lidos por nenhum motor, não aparecem em
+// snapshot nenhum. O oncologista abre o paciente, vê a tabela pronta (campo, valor
+// proposto, trecho de evidência do prontuário), corrige o que precisar e VALIDA: o clique
+// dele é o que grava os primitivos no paciente, roda o semáforo NO SERVIDOR e — só no
+// verde (elegível + incorporado) — cria a avaliação vigente. Qualquer outra cor devolve o
+// motivo e não seleciona nada; nunca nasce exceção automática. As assinaturas (avaliação,
+// retorno) são do VALIDADOR; a proposta aparece na trilha como evento administrativo com
+// o nome de quem a enviou.
+//
+// `payload` é o envelope como a secretaria (ou, na entrega 2, a extração) o enviou —
+// imutável depois de criado: { tumor, regimen_id?, campos:[{campo,valor,trecho}],
+// meta:{data_inicio, data_evolucao, proximo_retorno, medico_assistente_texto, sem_campo[],
+// historico, protocolo_texto} }. `resultado` é o que a validação produziu (correções
+// aplicadas, semáforo, ids criados, motivo de não-seleção) — para a ficha e a trilha
+// contarem o que aconteceu sem recalcular nada.
+//
+// No máximo UMA proposta pendente por paciente (índice parcial + checagem no serviço → 409).
+// `validada_por`/`validada_em` = quem decidiu e quando, nos DOIS desfechos (validada ou
+// descartada); o desfecho está em `estado`, e o motivo do descarte em `motivo_descarte`.
+export type EstadoProposta = 'pendente' | 'validada' | 'descartada';
+export const ESTADOS_PROPOSTA: EstadoProposta[] = ['pendente', 'validada', 'descartada'];
+
+@Entity('importacao_propostas')
+@Index(['paciente_id', 'criada_em'])
+export class ImportacaoProposta {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @ManyToOne(() => Paciente, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'paciente_id' })
+  paciente: Paciente;
+
+  @Column({ name: 'paciente_id' })
+  paciente_id: number;
+
+  @Column({ type: 'jsonb' })
+  payload: Record<string, any>;
+
+  @Column({ type: 'varchar', length: 20, default: 'pendente' })
+  estado: EstadoProposta;
+
+  @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'criada_por' })
+  criadaPor: Usuario;
+
+  @Column({ name: 'criada_por', nullable: true })
+  criada_por: number; // do JWT
+
+  // Chapéu de quem ENVIOU (secretaria ou admin) — como nos irmãos, do JWT.
+  @Column({ name: 'perfil_ativo', type: 'varchar', length: 20, nullable: true })
+  perfil_ativo: Perfil;
+
+  @CreateDateColumn({ name: 'criada_em', type: 'timestamptz' })
+  criada_em: Date;
+
+  @ManyToOne(() => Usuario, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'validada_por' })
+  validadaPor: Usuario;
+
+  @Column({ name: 'validada_por', nullable: true })
+  validada_por: number; // do JWT do validador (servidor)
+
+  @Column({ name: 'validada_em', type: 'timestamptz', nullable: true })
+  validada_em: Date;
+
+  @Column({ name: 'motivo_descarte', type: 'text', nullable: true })
+  motivo_descarte: string;
+
+  @Column({ type: 'jsonb', nullable: true })
+  resultado: Record<string, any>;
+}
+
 // CUSTO POR CICLO, POR REGIME — a metade "preço" da expectativa de custo global.
 // (A metade "tempo" é `expectativa_uso`, que vem do corpus do squad e NÃO mora no banco.)
 //
