@@ -56,3 +56,11 @@ portao-*-erro.png
 # datas e série de exames) e não têm anonimização que resista ao contexto da instituição.
 # Ficam fora do repositório — a cópia de trabalho vive em ~/Downloads/oncoguia-mockups/.
 app/mockups/
+
+# Fontes cruas das ondas de re-derivação do GRADE: respostas de Crossref/Europe PMC/OpenAlex/
+# Unpaywall (com abstract) e texto integral de artigos (.html PMC/OA). Texto de editora,
+# regenerável pelos abrir_fontes*.py de cada onda — mesma família do cache de abstracts acima.
+# O que se versiona é o MANIFESTO.md de cada pasta (DOI, PMCID, título, data, licença), gerado
+# por output/<run>/gerar_manifesto_fontes.py.
+squads/**/fontes/*
+!squads/**/fontes/MANIFESTO.md

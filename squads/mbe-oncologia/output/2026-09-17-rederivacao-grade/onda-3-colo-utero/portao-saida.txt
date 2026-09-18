@@ -1,0 +1,28 @@
+= Portão de dados — 8 regimes de 1 arquivo(s) =
+= Corpus: /Users/gustavocouto/Antigravity/OncoGuia/squads/mbe-oncologia/output/2026-09-17-rederivacao-grade/onda-3-colo-utero/regimes-consolidados.json
+
+!!! ATENÇÃO: este caminho NÃO é o RUN_ATIVO (2026-09-17-intake-revisao-4/v1). Você está validando
+!!! um corpus que NÃO é o publicado — o veredito não vale para o que está no ar.
+
+Placar: confirmado=2 · re_derivado=6
+Tumores: 1
+
+✓ [1] Nenhum confirmado com DOI ausente.
+✓ [3] Nenhum custo confirmado sem lastro (todos coerentes).
+~ [4] SKIP órfãos: campos_primitivos não encontrado (arquivo por-tumor ausente).
+✓ [5] Nenhuma comparação ordinal de estadiamento crua detectada.
+✓ [7] Contrato de incorporação ok — soma: 8 total = 7 candidatos + 1 não incorporados (visíveis).
+✓ [9] expectativa_uso em 8/8 — fixa 2, fixa indet 1, até-progressão c/ duração 0, c/ proxy PFS 1, indet 4 (62% indeterminado).
+✓ [10] composicao em 8/8 — 1 completas, 7 indeterminadas (87%); itens 25, resolvidos 9.
+       por tumor (completas/total): colo-utero 1/8
+✓ [11] GRADE schema 2 em 8/8 (legado 0) — certeza A=3 · B=3 · indet=2 — recomendação condicional/contra=1 · forte/a_favor=5
+
+====================================================
+⚠ WARN: tumores com 0 incompletos (olhe se é honesto) (1)
+   colo-utero
+⚠ WARN: GRADE schema 2 — exceções/propostas declaradas que o referendo precisa ver (10)
+   colo-adj-cisplatina-crt: C7: referência ADICIONAL proposta: 10.1200/JCO.2000.18.8.1606 — Peters 2000 (SWOG 8797/GOG 109): SG HR 1,96 (RT vs RT+QT), P=0,007; SLP 4 a 80% vs 63%, colo-adj-cisplatina-crt: C7: referência ADICIONAL proposta: 10.1002/14651858.cd008285 — CCCMAC (Cochrane 2010): QRT vs RT em 13 RCTs HR 0,81; sem diferença por dose/esquema de QT, colo-adj-cisplatina-crt: C9: certeza avaliada sobre corpo de evidência 10.1002/14651858.cd005342.pub4 (cochrane; QT combinada com RT vs RT adjuvante, colo inicial pós-cirurgia (SG); declarada: moderada), colo-qrt-induction-interlace: C1: eventos=120 deduzido de SG 5 a 80% × 250 (≈ 50 óbitos) + 72% × 250 (≈ 70) = 120, colo-qrt-io-keynote-a18: C1: eventos=226 deduzido de SG 36 m 82,6% × 529 (≈ 92 óbitos) + 74,8% × 531 (≈ 134) = 226, colo-qrt-io-keynote-a18: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1016/s0140-6736(24)01808-7 (C4: 2ª interina com SG significativa (fonte registrada: 1ª interina, SG HR 0,73; 0,49–1,07 não significativa)), colo-met-1l-pembrolizumabe-qt-cps1: C1: eventos=274 deduzido de medianas de SG atingidas nos dois braços (28,6 e 16,5 m) → ≥ 50% de 548 = ≥ 274 (limite inferior), colo-met-cemiplimabe-refrataria: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1016/j.ejca.2024.115146 (C4: análise final de SG do mesmo ensaio (fonte registrada: NEJM 2022, HR 0,69; 0,56–0,84)), colo-met-bevacizumabe-nao-incluido: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1016/s0140-6736(17)31607-0 (C4: análise final de SG (fonte registrada: NEJM 2014, HR 0,71; IC 98% 0,54–0,95)), colo-met-bevacizumabe-nao-incluido: C7: referência ADICIONAL proposta: 10.1002/14651858.cd013348.pub2 — Cochrane CD013348 (2021): mesmo ensaio, SG HR 0,77 (0,62–0,95) graduado BAIXA certeza (1 estudo, 452 pts) — divergência a registrar
+====================================================
+
+RESULTADO: passou os invariantes offline. (rode com --check-dois pra fechar os DOIs)
+Lembrete: isto cobre a forma, não o mérito clínico — esse é do oncologista na Revisão.

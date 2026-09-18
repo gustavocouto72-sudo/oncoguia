@@ -15,7 +15,8 @@ Une os quatro vereditos por regime, aplica o selo de confiança e escreve o rela
 
 ## Process
 1. Para cada regime, anexar os 4 vereditos ao bloco `verificacao` do schema:
-   - **grade / esmo_mcbs / nccn_affordability** → mapear `{status, valor_rederivado, justificativa, fonte}` de cada verificação.
+   - **esmo_mcbs / nccn_affordability** → mapear `{status, valor_rederivado, justificativa, fonte}` de cada verificação.
+   - **grade** → transportar o bloco **inteiro** do `verificacao-grade.json` (schema 2: `desfecho_critico`, `desenho`, `efeito`, `pivo`, `dominios`, `certeza`, `recomendacao`, `valor_rederivado`, …). Achatar em `{status, valor_rederivado, justificativa, fonte}` destrói o que o Portão A (check [11]) verifica.
    - **elegibilidade** → NÃO é uma nota: transportar as listas `criterios_inclusao` / `criterios_exclusao` (formato `{campo, operador, valor}`) e `divergencia_vs_protocolo` do `verificacao-elegibilidade.json` para `verificacao.elegibilidade` do schema. É o campo que o app consome — não resumir nem achatar em texto.
 2. **Validar cada DOI-fonte (HTTP + Crossref).** Antes de selar, resolver todo DOI citado como fonte (referência do pivô e fontes dos eixos). Se algum não resolver (404) → `flag: doi_nao_resolvido: <DOI>` e o regime não pode ser `confirmado`.
 3. Selo (confronto real; ver a precedência completa em `pipeline/steps/step-07-consolidar.md`):

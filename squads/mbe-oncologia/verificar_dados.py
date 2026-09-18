@@ -24,6 +24,7 @@ Getters afinados ao schema do squad mbe-oncologia (2026-07):
   - doi:             regime.referencia.doi
   - regra:           regime.elegibilidade.regra   (JSON-logic: and/or/not/eq/...)
   - custo:           regime.verificacao.nccn_affordability
+  - grade (schema 2): regime.verificacao.grade  -> check [11], só blocos com schema==2
   - campos válidos:  campos_primitivos NO TOPO DO ARQUIVO (por tumor),
                      mapeados tumor -> {campos} no load e consultados por regime.
 Duplicatas (ex.: um agregado v1 que repete todos os tumores) são removidas
@@ -334,6 +335,467 @@ def dose_no_esquema(esq, valor, unidade):
     return False
 
 
+# ---- não incorporado: a MESMA regra do app (incorporacao.status, flag nao_*, sufixo do id) ---
+def eh_nao_incorporado(r):
+    inc = r.get("incorporacao") or {}
+    flags_top = [str(f) for f in (r.get("flags") or [])]
+    tem_flag = any(re.match(r"^nao_(incorporad|inclu)", f, re.I) for f in flags_top)
+    return bool(inc.get("status") == "nao_incorporado" or tem_flag
+                or re.search(r"-nao-(incorporad|inclu)", str(get_id(r))))
+
+# ---- [11] GRADE estruturado (schema 2): o modelo preenche, o script barra -------
+# Origem: auditoria de 2026-09-17 (177/301 em 1A pelo atalho "fase 3 + SG -> 1A", sem
+# nenhum domínio avaliado; "1" lido como qualidade do ensaio, não força/direção). As
+# 7 regras estão na task agents/verificador-evidencia/tasks/rederivar-grade.md. Aqui
+# elas viram aritmética: nada abaixo é juízo clínico, é forma — o portão recalcula a
+# certeza a partir dos domínios, confere se os números do efeito estão de fato na
+# frase transcrita da fonte, e barra força/direção incompatível com MCBS/incorporação.
+# Só blocos com `schema: 2` são julgados; os legados são contados e ignorados, para o
+# portão do RUN_ATIVO continuar valendo enquanto as ondas de re-derivação correm.
+# C8 (2026-09-17): em cenário CURATIVO, SLD/iDFS/SLE/SLR/controle local são desfecho crítico DURO
+# (primário aceito por agência; esperar SG leva uma década). Em doença METASTÁTICA só SG/mortalidade
+# são duros — e um regime metastático não pode declarar desfecho de cenário curativo.
+DESFECHOS_DUROS_SEMPRE = {"SG", "mortalidade"}
+DESFECHOS_DUROS_CURATIVO = {"SLD", "iDFS", "SLE", "SLR", "controle_local"}
+DESFECHOS_DUROS = DESFECHOS_DUROS_SEMPRE | DESFECHOS_DUROS_CURATIVO
+DESFECHOS_SUBSTITUTOS = {"SLP", "SLPr", "ORR", "RCp", "MFS", "TTP", "DoR", "outro_substituto"}
+CENARIOS_CURATIVOS = {"adjuvancia", "neoadjuvancia", "localmente-avancado", "localizado"}
+# C5 (calibração 2026-09-17): RCT parte de A independente da fase — fase II randomizado cai por
+# imprecisão (−2 quando cumpre os critérios da ficha), não por "partir de C".
+DESENHO_INICIAL = {"rct_fase3": "A", "rct_fase2_3": "A", "rct_fase2": "A", "meta_analise_rct": "A",
+                   "fase2_braco_unico": "C", "basket": "C", "observacional": "C", "serie_casos": "C"}
+ANALISES = {"final", "atualizada", "interina"}
+# C9 (2026-09-17): quando o valor depende de um CORPO de evidência (Cochrane / meta-análise / RS), a
+# revisão entra como referência de corpo e a certeza é avaliada sobre ela — e nunca acima da que a
+# própria revisão declara. Corpo ALEGADO no texto sem referência continua rebaixando.
+TIPOS_CORPO = {"cochrane", "meta_analise", "revisao_sistematica"}
+CERTEZA_DECLARADA = {"alta": "A", "moderada": "B", "baixa": "C", "muito_baixa": "D"}
+CORPO_RE = re.compile(r"corpo de evid|meta-?an[áa]lise|metan[áa]lise|revis[ãa]o sistem|cochrane", re.I)
+CEGAMENTOS = {"duplo_cego", "aberto", "nao_informado"}
+MEDIDAS_RAZAO = {"HR", "RR", "OR"}
+MEDIDAS_DIF = {"diferenca_absoluta", "diferenca_medianas"}
+FONTES_TRANSCRICAO = {"europepmc_abstract", "europepmc_fulltext", "pmc_fulltext", "pubmed_abstract",
+                      "oa_pdf", "crossref_abstract", "pdf_fornecido_revisor"}
+DOMINIOS_GRADE = ("risco_vies", "inconsistencia", "indireta", "imprecisao", "vies_publicacao")
+ELEVACOES_GRADE = {"magnitude_grande": 1, "magnitude_muito_grande": 2,
+                   "dose_resposta": 1, "confusao_oposta": 1}
+CERTEZA_NUM = {"D": 1, "C": 2, "B": 3, "A": 4}
+NUM_CERTEZA = {v: k for k, v in CERTEZA_NUM.items()}
+SUBSTITUTO_EXCECOES = {"crossover_documentado", "substituto_validado_no_tumor"}
+STATUS_GRADE = {"concorda", "diverge", "re_derivado", "indeterminado"}
+FORCAS = {"forte", "condicional"}
+DIRECOES = {"a_favor", "contra", "pendente_revisor"}   # pendente = Portão C (C6)
+
+
+def parse_mcbs(v):
+    """Lê o valor heterogêneo do eixo ESMO-MCBS: '4' -> ('paliativo', 4);
+    'A (curativo)' -> ('curativo', 'A'); '2-3' -> ('paliativo', 2) (faixa = piso);
+    '4 (ribo); 3 (palbo)' -> primeiro segmento; 'n/a...' -> None."""
+    t = str(v if v is not None else "").strip()
+    if not t or t.lower().startswith("n/a") or t in ("—", "-"):
+        return None
+    seg = t.split(";")[0]
+    if re.match(r"^\s*[1-5]\b", seg):
+        nums = [int(x) for x in re.findall(r"\b([1-5])\b", seg)]
+        return ("paliativo", min(nums))
+    m = re.match(r"^\s*([A-C])\b", seg, re.I)
+    if m:
+        return ("curativo", m.group(1).upper())
+    return ("?", t)
+
+
+def mcbs_sustenta_forte(p):
+    if p is None:
+        return False
+    escala, val = p
+    return (escala == "paliativo" and val >= 3) or (escala == "curativo" and val in ("A", "B"))
+
+
+def _num_no_texto(v, texto):
+    """O número do efeito aparece na frase transcrita? Aceita '.', ',' e o ponto
+    mediano da Lancet ('0·72'); 0.7 também casa '0.70'."""
+    if v is None or not isinstance(v, (int, float)):
+        return False
+    t = (texto or "").replace("\u00b7", ".").replace(",", ".")
+    cands = {("%g" % v), ("%.1f" % v), ("%.2f" % v), ("%.3f" % v)}
+    for lit in cands:
+        if re.search(r"(?<![\d.])" + re.escape(lit) + r"(?![\d])", t):
+            return True
+    return False
+
+
+def _ic(efeito):
+    ic = efeito.get("ic95")
+    if isinstance(ic, list) and len(ic) == 2 and all(isinstance(x, (int, float)) for x in ic):
+        return ic[0], ic[1]
+    return None
+
+
+def ic_exclui_nulo(efeito):
+    ic = _ic(efeito)
+    if not ic:
+        return False
+    lo, hi = ic
+    nulo = 1 if efeito.get("medida") in MEDIDAS_RAZAO else 0
+    return hi < nulo if efeito.get("sentido_beneficio") == "menor" else lo > nulo
+
+
+def efeito_grande(efeito):
+    """RRR >= 30% com IC estreito (limite conservador <= 0,85) — só para medida de razão."""
+    ic = _ic(efeito)
+    v = efeito.get("valor")
+    if not ic or efeito.get("medida") not in MEDIDAS_RAZAO or not isinstance(v, (int, float)):
+        return False
+    lo, hi = ic
+    if efeito.get("sentido_beneficio") == "menor":
+        return v <= 0.70 and hi <= 0.85
+    return v >= 1 / 0.70 and lo >= 1 / 0.85
+
+
+def imprecisao_obrigatoria(efeito):
+    """Regra 4: IC encostando no nulo, ou < 300 eventos sem efeito grande.
+    C3: o colchão (0,95 / 1,05) só se aplica a IC de exatamente 95%; um IC mais largo
+    (98,89%, 99,8%) que ainda exclui o nulo é evidência MAIS segura — só o nulo conta."""
+    ic = _ic(efeito)
+    if not ic:
+        return True, "IC ausente/malformado"
+    lo, hi = ic
+    med, sent = efeito.get("medida"), efeito.get("sentido_beneficio")
+    nivel = efeito.get("ic_nivel", 95)
+    folga = (nivel == 95)
+    if med in MEDIDAS_RAZAO:
+        if sent == "menor" and (hi > 0.95 if folga else hi >= 1):
+            return True, f"limite superior do IC {hi} {'> 0,95' if folga else '≥ 1 (IC ' + str(nivel) + '%)'}"
+        if sent == "maior" and (lo < 1.05 if folga else lo <= 1):
+            return True, f"limite inferior do IC {lo} {'< 1,05' if folga else '≤ 1 (IC ' + str(nivel) + '%)'}"
+    else:
+        if (sent == "menor" and hi >= 0) or (sent == "maior" and lo <= 0):
+            return True, "IC da diferença inclui 0"
+    ev = efeito.get("eventos")
+    if isinstance(ev, (int, float)) and ev < 300 and not efeito_grande(efeito):
+        return True, f"{int(ev)} eventos < 300 sem efeito grande"
+    return False, ""
+
+
+def imprecisao_muito_seria(efeito):
+    """C5: eventos < 300 E IC que não exclui o nulo a 95% (ou reportado abaixo de 95%) —
+    critérios da ficha cumpridos → −2 obrigatório, qualquer desenho."""
+    ev = efeito.get("eventos")
+    if not (isinstance(ev, (int, float)) and ev < 300):
+        return False
+    return (not ic_exclui_nulo(efeito)) or efeito.get("ic_nivel", 95) < 95
+
+
+def _norm_farmaco(s):
+    return re.sub(r"[^a-z0-9]+", " ", _sem_acento(str(s or ""))).strip()
+
+
+def check_grade_schema2(r, bugs, warns_nominais):
+    """Aplica as 7 regras a UM bloco grade schema 2. Acrescenta a `bugs` (FALHA) e a
+    `warns_nominais` (exceções declaradas que o referendo precisa ver)."""
+    rid = get_id(r)
+    g = (r.get("verificacao") or {}).get("grade") or {}
+    B = lambda msg: bugs.append(f"{rid}: {msg}")
+    W = lambda msg: warns_nominais.append(f"{rid}: {msg}")
+
+    status = g.get("status")
+    if status not in STATUS_GRADE:
+        B(f"status '{status}' fora do vocabulário"); return
+    if status == "concorda" and g.get("afirmado_protocolo") is None:
+        B("status 'concorda' com afirmado_protocolo null — sem afirmação não há confronto")
+
+    # --- indeterminado: nada derivado pode sobrar ---
+    if status == "indeterminado":
+        if not g.get("motivo_indeterminado"):
+            B("indeterminado sem motivo_indeterminado (quais degraus da escada falharam)")
+        for k in ("certeza", "recomendacao", "valor_rederivado"):
+            if g.get(k) is not None:
+                B(f"indeterminado com {k} preenchido ({g.get(k)!r})")
+        return
+
+    # --- regra 7: efeito transcrito da fonte ---
+    ef = g.get("efeito")
+    if not isinstance(ef, dict):
+        B("regra 7: sem bloco efeito — sem transcrição da fonte o status é indeterminado"); return
+    tr = ef.get("transcricao") or ""
+    if not tr.strip():
+        B("regra 7: efeito.transcricao vazia — sem transcrição da fonte o status é indeterminado")
+    if ef.get("fonte_transcricao") not in FONTES_TRANSCRICAO:
+        B(f"regra 7: fonte_transcricao '{ef.get('fonte_transcricao')}' não é degrau da escada")
+    if ef.get("fonte_transcricao") == "pdf_fornecido_revisor":
+        prov = ef.get("proveniencia") or ""
+        if "conferido contra DOI" not in prov:
+            B("regra 7: pdf_fornecido_revisor exige proveniencia 'PDF fornecido pelo revisor metodológico, conferido contra DOI <x>'")
+        else:
+            W("regra 7: efeito transcrito de PDF fornecido pelo revisor (repescagem)")
+    # nível do IC: a fonte pode reportar 80% (fase II), 98,89%/99,8% (interinas). Nível < 95 não
+    # demonstra exclusão do nulo a 95% -> imprecisão obrigatória e A barrado; o nível tem de
+    # estar escrito na transcrição (senão é chute).
+    ic_nivel = ef.get("ic_nivel", 95)
+    if not isinstance(ic_nivel, (int, float)) or not (50 <= ic_nivel < 100):
+        B(f"efeito.ic_nivel '{ic_nivel}' inválido (número entre 50 e 99,9; omitir = 95)")
+        ic_nivel = 95
+    elif ic_nivel != 95 and tr.strip() and not _num_no_texto(ic_nivel, tr):
+        B(f"regra 7: ic_nivel={ic_nivel} NÃO aparece na transcrição da fonte")
+    if ef.get("medida") not in MEDIDAS_RAZAO | MEDIDAS_DIF:
+        B(f"efeito.medida '{ef.get('medida')}' fora do vocabulário")
+    if ef.get("sentido_beneficio") not in ("menor", "maior"):
+        B(f"efeito.sentido_beneficio '{ef.get('sentido_beneficio')}' fora do vocabulário")
+    ic = _ic(ef)
+    if ic is None:
+        B("efeito.ic95 ausente/malformado (esperado [lo, hi] numéricos)")
+    if tr.strip():
+        for nome, val in (("valor", ef.get("valor")),) + ((("ic95[0]", ic[0]), ("ic95[1]", ic[1])) if ic else ()):
+            if not _num_no_texto(val, tr):
+                B(f"regra 7: {nome}={val} NÃO aparece na transcrição da fonte")
+        # C1: nº de eventos transcrito em algarismo OU deduzido do publicado (N × taxa, mediana
+        # atingida, tabela) com o cálculo escrito em eventos_por — o dado existe nos dois casos.
+        ev = ef.get("eventos")
+        if isinstance(ev, (int, float)) and not _num_no_texto(ev, tr):
+            if not str(ef.get("eventos_por") or "").lower().startswith("deduzido de"):
+                B(f"regra 7/C1: eventos={ev} não está na transcrição e eventos_por não começa com 'deduzido de <cálculo>'")
+            else:
+                W(f"C1: eventos={int(ev)} {ef.get('eventos_por')}")
+    # C4: a análise é final/atualizada/interina; só a interina (sem versão mais madura) rebaixa
+    analise = ef.get("analise")
+    if analise not in ANALISES:
+        B(f"efeito.analise '{analise}' fora do vocabulário (final|atualizada|interina)")
+
+    # --- desfecho, desenho ---
+    desf = g.get("desfecho_critico")
+    if desf not in DESFECHOS_DUROS | DESFECHOS_SUBSTITUTOS:
+        B(f"desfecho_critico '{desf}' fora do vocabulário")
+    if desf in DESFECHOS_DUROS_CURATIVO and r.get("cenario") not in CENARIOS_CURATIVOS:
+        B(f"C8: desfecho '{desf}' é duro só em cenário curativo — regime é '{r.get('cenario')}' (metastático: só SG/mortalidade são duros; SLP/ORR são substitutos)")
+    des = g.get("desenho") or {}
+    inicial = DESENHO_INICIAL.get(des.get("tipo"))
+    if inicial is None:
+        B(f"desenho.tipo '{des.get('tipo')}' fora do vocabulário")
+    if des.get("cegamento") not in CEGAMENTOS:
+        B(f"desenho.cegamento '{des.get('cegamento')}' fora do vocabulário")
+
+    # --- domínios: 5 sempre, nota em {0,-1,-2}, frase sempre ---
+    dom = g.get("dominios") or {}
+    notas = {}
+    for d in DOMINIOS_GRADE:
+        item = dom.get(d)
+        if not isinstance(item, dict):
+            B(f"domínio '{d}' ausente"); continue
+        n = item.get("nota")
+        if n not in (0, -1, -2):
+            B(f"domínio '{d}': nota {n!r} fora de {{0,-1,-2}}"); continue
+        if not (item.get("por") or "").strip():
+            B(f"domínio '{d}': nota {n} sem frase ('por') — 'não rebaixei' também se justifica")
+        notas[d] = n
+    extras = set(dom) - set(DOMINIOS_GRADE)
+    if extras:
+        B(f"domínios fora do vocabulário: {sorted(extras)}")
+
+    # --- elevações: só quando a inicial é C ---
+    elev = g.get("elevacoes") or []
+    soma_elev = 0
+    for e in elev:
+        tipo = (e or {}).get("tipo")
+        if tipo not in ELEVACOES_GRADE:
+            B(f"elevacao '{tipo}' fora do vocabulário"); continue
+        if not (e.get("por") or "").strip():
+            B(f"elevacao '{tipo}' sem frase")
+        soma_elev += ELEVACOES_GRADE[tipo]
+    if elev and inicial == "A":
+        B("regra 3: elevações só se aplicam a desenho que parte de C (fase II/observacional)")
+    if elev and any(n < 0 for n in notas.values()):
+        B("regra 3: elevação com domínio rebaixado — guia de prompts §7: elevar só quando não houve rebaixamento")
+
+    # --- certeza = aritmética ---
+    certeza = g.get("certeza")
+    if certeza not in CERTEZA_NUM:
+        B(f"certeza '{certeza}' fora de A/B/C/D"); return
+    if inicial and len(notas) == 5:
+        calc = max(1, min(4, CERTEZA_NUM[inicial] + sum(notas.values()) + soma_elev))
+        if NUM_CERTEZA[calc] != certeza:
+            B(f"certeza {certeza} ≠ aritmética {NUM_CERTEZA[calc]} (inicial {inicial} "
+              f"{'+'.join(str(n) for n in notas.values())}{' +%d' % soma_elev if soma_elev else ''})")
+
+    # --- regra 3: fase II / observacional nunca A; B só com elevação ---
+    if inicial == "C":
+        if certeza == "A":
+            B(f"regra 3: desenho '{des.get('tipo')}' parte de C — nunca A")
+        elif certeza == "B" and not elev:
+            B(f"regra 3: desenho '{des.get('tipo')}' em B sem elevacoes declaradas")
+
+    # --- regra 2: substituto sem SG -> indireta <= -1 e teto B ---
+    exc = g.get("substituto_excecao")
+    if desf in DESFECHOS_SUBSTITUTOS:
+        if isinstance(exc, dict) and exc.get("tipo") in SUBSTITUTO_EXCECOES and (exc.get("por") or "").strip():
+            W(f"regra 2: exceção '{exc['tipo']}' para desfecho substituto {desf} (certeza {certeza}) — referendo")
+        else:
+            if exc:
+                B(f"regra 2: substituto_excecao malformada ({exc!r}) — tipo em {sorted(SUBSTITUTO_EXCECOES)} + por")
+            if notas.get("indireta", 0) > -1:
+                B(f"regra 2: desfecho crítico {desf} é substituto sem SG — indireta tem de ser ≤ -1")
+            if CERTEZA_NUM[certeza] > CERTEZA_NUM["B"]:
+                B(f"regra 2: desfecho crítico {desf} é substituto sem SG — teto B (está {certeza})")
+    elif exc:
+        B("substituto_excecao declarada com desfecho crítico duro — não se aplica")
+
+    # --- regra 4: imprecisão automática ---
+    obrig, motivo = imprecisao_obrigatoria(ef)
+    if ic_nivel < 95 and not obrig:
+        obrig, motivo = True, f"IC reportado é de {ic_nivel}% — exclusão do nulo a 95% não demonstrada"
+    if analise == "interina" and not obrig:
+        obrig, motivo = True, "análise interina sem versão mais madura (C4)"
+    if obrig and notas.get("imprecisao", 0) > -1:
+        B(f"regra 4: imprecisão tem de ser ≤ -1 ({motivo})")
+    if imprecisao_muito_seria(ef) and notas.get("imprecisao", 0) > -2:
+        B(f"regra 4/C5: eventos {int(ef.get('eventos'))} < 300 e IC que não exclui o nulo a 95% — imprecisão tem de ser -2")
+
+    # --- regra 6: pivô sustenta ---
+    pv = g.get("pivo") or {}
+    farm_reg = [_norm_farmaco(f.get("nome") if isinstance(f, dict) else f) for f in (r.get("farmacos") or [])]
+    farm_reg = [f for f in farm_reg if f]
+    interv = [_norm_farmaco(x) for x in (pv.get("intervencao") or [])]
+    nao_cobre = pv.get("intervencao_nao_cobre") or {}
+    declarados = {_norm_farmaco(x) for x in (nao_cobre.get("farmacos") or [])}
+    faltam = [f for f in farm_reg if not any(f in i or i in f for i in interv)]
+    nao_declarados = [f for f in faltam if f not in declarados]
+    if not interv:
+        B("regra 6: pivo.intervencao vazia")
+    if nao_declarados:
+        B(f"regra 6: fármaco(s) do regime ausente(s) da intervenção do pivô: {nao_declarados}")
+    if faltam and declarados:
+        if not (nao_cobre.get("por") or "").strip():
+            B("regra 6: intervencao_nao_cobre sem frase")
+        if notas.get("indireta", 0) > -1:
+            B("regra 6: intervencao_nao_cobre declarada exige indireta ≤ -1")
+        W(f"regra 6: pivô não cobre {sorted(declarados)} — declarado como indireta de intervenção")
+    for k in ("comparador_padrao_epoca", "comparador_padrao_atual", "primario_positivo", "sustenta"):
+        if not isinstance(pv.get(k), bool):
+            B(f"regra 6: pivo.{k} tem de ser true/false")
+    if all(isinstance(pv.get(k), bool) for k in ("comparador_padrao_epoca", "primario_positivo", "sustenta")):
+        sustenta_calc = (not nao_declarados) and pv["comparador_padrao_epoca"] and pv["primario_positivo"]
+        if pv["sustenta"] != sustenta_calc:
+            B(f"regra 6: pivo.sustenta={pv['sustenta']} contradiz cobertura/comparador da época/primário "
+              f"(calculado {sustenta_calc})")
+        if bool(g.get("pivo_nao_sustenta")) != (not sustenta_calc):
+            B(f"regra 6: pivo_nao_sustenta tem de ser {not sustenta_calc}")
+        if not sustenta_calc:
+            if certeza == "A":
+                B("regra 6: pivô não sustenta o regime — certeza ≤ B até trocar a referência")
+            W("regra 6: pivô NÃO sustenta (" + ("primário negativo; " if not pv["primario_positivo"] else "")
+              + ("comparador não era padrão da época; " if not pv["comparador_padrao_epoca"] else "")
+              + ("fármaco ausente; " if nao_declarados else "") + f"{pv.get('por','')})")
+    # C2: comparador obsoleto rebaixa SÓ quando muda a decisão de hoje (declarado e justificado)
+    if pv.get("comparador_padrao_atual") is False:
+        if not isinstance(pv.get("comparador_muda_decisao"), bool):
+            B("C2: comparador_padrao_atual=false exige comparador_muda_decisao true/false (com o porquê em pivo.por)")
+        elif pv["comparador_muda_decisao"] and notas.get("indireta", 0) > -1:
+            B("C2: comparador obsoleto que muda a decisão de hoje — indireta tem de ser ≤ -1")
+    # C4: referência atualizada = versão mais madura do MESMO estudo; a fonte do veredito passa a ser ela
+    ra = pv.get("referencia_atualizada")
+    if ra:
+        if not (isinstance(ra, dict) and ra.get("doi") and (ra.get("por") or "").strip()):
+            B("C4: referencia_atualizada exige {doi, por}")
+        else:
+            W(f"C4: fonte do card passa a ser a versão madura do mesmo estudo: {ra['doi']} ({ra['por']})")
+    # C7: referências propostas são ADICIONAIS, nunca substituem a existente
+    for extra in (pv.get("referencias_adicionais") or []):
+        if not (isinstance(extra, dict) and extra.get("doi") and (extra.get("papel") or "").strip()):
+            B("C7: referencias_adicionais[] exige {doi, papel}")
+        else:
+            W(f"C7: referência ADICIONAL proposta: {extra['doi']} — {extra['papel']}")
+    if pv.get("referencia_proposta"):
+        B("campo 'referencia_proposta' aposentado — use referencia_atualizada (C4) ou referencias_adicionais (C7)")
+
+    # --- C9: referência de corpo ---
+    rc = pv.get("referencia_corpo")
+    corpo_ok = False
+    if rc:
+        if not (isinstance(rc, dict) and rc.get("doi") and rc.get("tipo") in TIPOS_CORPO
+                and (rc.get("comparacao") or "").strip() and (rc.get("por") or "").strip()):
+            B("C9: referencia_corpo exige {doi, tipo ∈ cochrane|meta_analise|revisao_sistematica, comparacao, por}")
+        else:
+            corpo_ok = True
+            if des.get("tipo") != "meta_analise_rct":
+                B("C9: com referencia_corpo o desenho tem de ser 'meta_analise_rct' (o efeito é o agregado da revisão)")
+            decl = rc.get("certeza_declarada")
+            if decl not in CERTEZA_DECLARADA and decl is not None:
+                B(f"C9: certeza_declarada '{decl}' fora de alta|moderada|baixa|muito_baixa (ou null se a revisão não gradua)")
+            teto = CERTEZA_DECLARADA.get(decl, "B")   # revisão que não gradua → teto B
+            if CERTEZA_NUM[certeza] > CERTEZA_NUM[teto]:
+                B(f"C9: certeza {certeza} acima do teto da revisão ({'declarada ' + decl if decl else 'sem grau declarado → B'})")
+            W(f"C9: certeza avaliada sobre corpo de evidência {rc['doi']} ({rc['tipo']}; {rc['comparacao']}; declarada: {decl})")
+    textos = " ".join([str(g.get("justificativa") or "")] + [str((dom.get(d) or {}).get("por") or "") for d in DOMINIOS_GRADE])
+    if CORPO_RE.search(textos) and not rc:
+        if certeza == "A":
+            B("C9: corpo de evidência / meta-análise alegado no texto sem pivo.referencia_corpo — não sustenta A")
+        else:
+            W("C9: corpo de evidência mencionado sem referencia_corpo (só menção; não sustenta a certeza)")
+
+    # --- regra 1: A só com tudo em ordem ---
+    if certeza == "A":
+        if inicial != "A":
+            B("regra 1: certeza A com desenho que não parte de A")
+        if desf in DESFECHOS_SUBSTITUTOS and not exc:
+            B("regra 1: certeza A com desfecho crítico substituto")
+        if not ic_exclui_nulo(ef):
+            B("regra 1: certeza A com IC que não exclui o nulo")
+        if ic_nivel < 95:
+            B(f"regra 1: certeza A com IC de {ic_nivel}% — precisão a 95% não demonstrada na fonte")
+        ev = ef.get("eventos")
+        ois_corpo = corpo_ok and (rc or {}).get("certeza_declarada") == "alta"
+        if not ((isinstance(ev, (int, float)) and ev >= 300) or efeito_grande(ef) or ois_corpo):
+            B(f"regra 1: certeza A exige eventos ≥ 300 ou efeito grande (RRR ≥ 30%, IC sup ≤ 0,85) ou corpo com certeza declarada alta — eventos={ev}")
+        if any(n < 0 for n in notas.values()):
+            B("regra 1: certeza A com domínio rebaixado")
+
+    # --- regra 5: força/direção vs MCBS e incorporação ---
+    rec = g.get("recomendacao") or {}
+    forca, direcao = rec.get("forca"), rec.get("direcao")
+    if forca not in FORCAS:
+        B(f"recomendacao.forca '{forca}' fora do vocabulário")
+    if direcao not in DIRECOES:
+        B(f"recomendacao.direcao '{direcao}' fora do vocabulário")
+    if not (rec.get("base") or "").strip():
+        B("recomendacao.base vazia")
+    if direcao == "pendente_revisor":
+        W("C6: direção da recomendação pendente do revisor (Portão C)")
+    nao_inc = eh_nao_incorporado(r)
+    if nao_inc and direcao == "a_favor":
+        B("regra 5: regime NÃO incorporado com direção a_favor — a instituição não o recomenda; direção é contra")
+    if forca == "forte" and direcao == "a_favor":
+        if CERTEZA_NUM[certeza] < CERTEZA_NUM["B"]:
+            B(f"regra 5: forte a favor exige certeza ≥ B (está {certeza})")
+        mcbs = parse_mcbs(((r.get("verificacao") or {}).get("esmo_mcbs") or {}).get("valor_rederivado"))
+        if mcbs is None:
+            if not (rec.get("sem_mcbs_por") or "").strip():
+                B("regra 5: forte a favor com MCBS n/a exige recomendacao.sem_mcbs_por")
+        elif not mcbs_sustenta_forte(mcbs):
+            B(f"regra 5: forte a favor com ESMO-MCBS {mcbs[1]} ({mcbs[0]}) — exige ≥ 3 paliativo / A-B curativo")
+        if pv.get("sustenta") is False:
+            B("regra 5/6: forte a favor com pivô que não sustenta o regime")
+
+    # --- valor_rederivado derivado ---
+    esperado = ("1" if forca == "forte" else "2") + certeza
+    if g.get("valor_rederivado") != esperado:
+        B(f"valor_rederivado '{g.get('valor_rederivado')}' ≠ derivado '{esperado}' (força {forca} + certeza {certeza})")
+
+    # --- fonte = DOI do regime ---
+    doi = (get_doi(r) or "").lower()
+    fonte = str(g.get("fonte") or "").lower()
+    doi_ra = str((ra or {}).get("doi") or "").lower() if isinstance(ra, dict) else ""
+    doi_rc = str((rc or {}).get("doi") or "").lower() if isinstance(rc, dict) else ""
+    if doi_rc:
+        if doi_rc not in fonte:
+            B(f"C9: com referencia_corpo a fonte tem de ser o DOI da revisão ({doi_rc}); está '{g.get('fonte')}'")
+    elif doi_ra:
+        if doi_ra not in fonte:
+            B(f"C4: com referencia_atualizada a fonte tem de ser o DOI madura ({doi_ra}); está '{g.get('fonte')}'")
+    elif doi and doi not in fonte:
+        B(f"fonte '{g.get('fonte')}' não é o DOI do regime ({get_doi(r)}) — versão madura do mesmo estudo é pivo.referencia_atualizada (C4)")
+    if not (g.get("justificativa") or "").strip():
+        B("justificativa vazia")
+
+
 def run_ativo_rel():
     try:
         with open(RUN_ATIVO_FILE, encoding="utf-8") as fh:
@@ -477,9 +939,7 @@ def main():
         flags_top = [str(f) for f in (r.get("flags") or [])]
         flags_cons = [str(f) for f in (r.get("consolidacao", {}).get("flags") or [])]
         tem_flag = lambda fl: any(re.match(r"^nao_(incorporad|inclu)", f, re.I) for f in fl)
-        eh_nao_inc = (inc.get("status") == "nao_incorporado" or tem_flag(flags_top)
-                      or re.search(r"-nao-(incorporad|inclu)", str(get_id(r))))
-        if eh_nao_inc:
+        if eh_nao_incorporado(r):
             n_nao_inc += 1
         if inc.get("status") == "nao_incorporado":
             if inc.get("motivo") not in MOTIVOS_INCORP:
@@ -668,6 +1128,35 @@ def main():
             warns.append(("placar de composicao com pouquíssimo indeterminado — o texto "
                           "dos esquemas é cheio de faixa e alternativa; suspeite de "
                           "escolha feita pelo extrator", [f"{n - n_comp}/{n} indeterminadas"]))
+
+    # 11) GRADE estruturado (schema 2) — as 7 regras determinísticas da task
+    #     rederivar-grade. Só julga blocos schema 2; legado é contado, não julgado.
+    g_bug, g_warn = [], []
+    n_s2 = n_leg = 0
+    dist_cert, dist_rec = {}, {}
+    for r in regimes:
+        g = (r.get("verificacao") or {}).get("grade") or {}
+        if g.get("schema") != 2:
+            n_leg += 1; continue
+        n_s2 += 1
+        check_grade_schema2(r, g_bug, g_warn)
+        if g.get("status") == "indeterminado":
+            dist_cert["indet"] = dist_cert.get("indet", 0) + 1
+        else:
+            c = g.get("certeza"); rec = g.get("recomendacao") or {}
+            dist_cert[c] = dist_cert.get(c, 0) + 1
+            k = f"{rec.get('forca')}/{rec.get('direcao')}"
+            dist_rec[k] = dist_rec.get(k, 0) + 1
+    if g_bug:
+        fails.append(("GRADE schema 2 viola as regras determinísticas", g_bug))
+    if n_s2 and not g_bug:
+        print(f"✓ [11] GRADE schema 2 em {n_s2}/{len(regimes)} (legado {n_leg}) — certeza "
+              + " · ".join(f"{k}={v}" for k, v in sorted(dist_cert.items(), key=lambda kv: str(kv[0])))
+              + " — recomendação " + " · ".join(f"{k}={v}" for k, v in sorted(dist_rec.items())))
+    elif not n_s2:
+        print(f"~ [11] SKIP GRADE schema 2: nenhum bloco schema 2 ({n_leg} legado) — as regras não se aplicam ao valor livre antigo.")
+    if g_warn:
+        warns.append(("GRADE schema 2 — exceções/propostas declaradas que o referendo precisa ver", g_warn))
 
     # 6) DOIs de confirmado resolvem (opcional, rede)
     if check_dois:

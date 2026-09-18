@@ -1,0 +1,28 @@
+= Portão de dados — 19 regimes de 1 arquivo(s) =
+= Corpus: /Users/gustavocouto/Antigravity/OncoGuia/squads/mbe-oncologia/output/2026-09-17-rederivacao-grade/onda-1-esofago-estomago/regimes-consolidados.json
+
+!!! ATENÇÃO: este caminho NÃO é o RUN_ATIVO (2026-09-17-intake-revisao-4/v1). Você está validando
+!!! um corpus que NÃO é o publicado — o veredito não vale para o que está no ar.
+
+Placar: confirmado=4 · re_derivado=15
+Tumores: 1
+
+✓ [1] Nenhum confirmado com DOI ausente.
+✓ [3] Nenhum custo confirmado sem lastro (todos coerentes).
+~ [4] SKIP órfãos: campos_primitivos não encontrado (arquivo por-tumor ausente).
+✓ [5] Nenhuma comparação ordinal de estadiamento crua detectada.
+✓ [7] Contrato de incorporação ok — soma: 19 total = 16 candidatos + 3 não incorporados (visíveis).
+✓ [9] expectativa_uso em 19/19 — fixa 3, fixa indet 3, até-progressão c/ duração 0, c/ proxy PFS 3, indet 10 (68% indeterminado).
+✓ [10] composicao em 19/19 — 1 completas, 18 indeterminadas (94%); itens 34, resolvidos 13.
+       por tumor (completas/total): esofago-estomago 1/19
+✓ [11] GRADE schema 2 em 19/19 (legado 0) — certeza A=5 · B=8 · C=2 · indet=4 — recomendação condicional/a_favor=3 · condicional/contra=3 · forte/a_favor=9
+
+====================================================
+⚠ WARN: tumores com 0 incompletos (olhe se é honesto) (1)
+   esofago-estomago
+⚠ WARN: GRADE schema 2 — exceções/propostas declaradas que o referendo precisa ver (22)
+   eso-perioperatorio-flot: C1: eventos=358 deduzido de medianas de SG atingidas nos dois braços (50 e 35 m) → ≥ 50% de 356 + ≥ 50% de 360 = ≥ 358 (limite inferior), eso-neoadj-crt-carbo-paclitaxel: C1: eventos=251 deduzido de SG 10 a 38% × 178 (≈ 110 óbitos) + 25% × 188 (≈ 141) = 251 (N por braço da publicação primária, NEJM 2012), eso-neoadj-crt-carbo-paclitaxel: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1200/jco.20.03614 (C4: desfecho de 10 anos do mesmo ensaio (fonte registrada: NEJM 2012)), eso-def-crt-cisplatina-5fu: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1001/jama.281.17.1623 (C4: seguimento de 5 anos do mesmo ensaio (fonte registrada: NEJM 1992)), gastrico-adj-nivolumabe: C1: eventos=397 deduzido de medianas de SLD atingidas nos dois braços (22,4 e 11,0 m) → ≥ 50% de 532 + ≥ 50% de 262 = ≥ 397 (limite inferior), gastrico-adj-capox: C1: eventos=342 deduzido de 139 + 203 eventos de SLD transcritos = 342, gastrico-adj-capox: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1016/s1470-2045(14)70473-5 (C4: seguimento de 5 anos do mesmo ensaio (fonte registrada: Lancet 2012, 3 anos)), gastrico-met-2l-irinotecano-folfiri: regra 6: pivô não cobre ['5 fu leucovorina'] — declarado como indireta de intervenção, gastrico-met-2l-irinotecano-folfiri: C7: referência ADICIONAL proposta: 10.1016/j.ejca.2011.06.002 — Thuss-Patience 2011 — irinotecano vs BSC em 2ª linha (N=40, HR 0,48; 0,25–0,92): ensaio direto do cenário, subdimensionado, gastrico-met-2l-irinotecano-folfiri: C9: certeza avaliada sobre corpo de evidência 10.1002/14651858.cd004064.pub4 (cochrane; regimes com irinotecano vs sem irinotecano (SG); declarada: alta), gastrico-met-docetaxel: C7: referência ADICIONAL proposta: 10.1016/S1470-2045(13)70549-7 — COUGAR-02 — docetaxel vs controle ativo de sintomas, 2ª linha: SG HR 0,67 (0,49–0,92), 161 óbitos, gastrico-met-docetaxel: C9: certeza avaliada sobre corpo de evidência 10.1002/14651858.cd004063.pub4 (cochrane; terapia paliativa (QT e/ou alvo) vs BSC, esôfago/JEG, incl. 2ª linha (SG); declarada: alta) ...
+====================================================
+
+RESULTADO: passou os invariantes offline. (rode com --check-dois pra fechar os DOIs)
+Lembrete: isto cobre a forma, não o mérito clínico — esse é do oncologista na Revisão.

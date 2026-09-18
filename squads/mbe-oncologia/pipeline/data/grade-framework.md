@@ -1,5 +1,10 @@
 # Framework — GRADE (força da recomendação + qualidade da evidência)
 
+> **Desde 2026-09-17 o eixo é estruturado (schema 2).** A saída não é mais só `valor_rederivado` + frase:
+> é desfecho crítico + desenho + efeito transcrito + 5 domínios com nota + certeza + recomendação
+> (força **e direção**), com 7 regras determinísticas barradas pelo Portão A. Especificação completa:
+> `agents/verificador-evidencia/tasks/rederivar-grade.md`. Este arquivo continua como resumo conceitual.
+
 Objetivo: re-derivar, para cada regime, a **qualidade da evidência** e a **força da
 recomendação**, devolvendo no formato número+letra usado pelo protocolo.
 

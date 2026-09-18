@@ -1,0 +1,30 @@
+= Portão de dados — 13 regimes de 1 arquivo(s) =
+= Corpus: /Users/gustavocouto/Antigravity/OncoGuia/squads/mbe-oncologia/output/2026-09-17-rederivacao-grade/fundacao/casos-sinteticos/regimes-consolidados.json
+
+!!! ATENÇÃO: este caminho NÃO é o RUN_ATIVO (2026-09-16-drivers-pulmao/v1). Você está validando
+!!! um corpus que NÃO é o publicado — o veredito não vale para o que está no ar.
+
+Placar: confirmado=12 · re_derivado=1
+Tumores: 3
+
+✓ [1] Nenhum confirmado com DOI ausente.
+✓ [3] Nenhum custo confirmado sem lastro (todos coerentes).
+~ [4] SKIP órfãos: campos_primitivos não encontrado (arquivo por-tumor ausente).
+✓ [5] Nenhuma comparação ordinal de estadiamento crua detectada.
+✓ [7] Contrato de incorporação ok — soma: 13 total = 12 candidatos + 1 não incorporados (visíveis).
+✓ [9] expectativa_uso em 13/13 — fixa 0, fixa indet 0, até-progressão c/ duração 0, c/ proxy PFS 12, indet 1 (7% indeterminado).
+✓ [10] composicao em 13/13 — 1 completas, 12 indeterminadas (92%); itens 25, resolvidos 14.
+       por tumor (completas/total): mama 1/1 · pancreas 0/1 · renal 0/11
+
+====================================================
+⚠ WARN: tumores com 0 incompletos (olhe se é honesto) (3)
+   renal, pancreas, mama
+⚠ WARN: placar de expectativa_uso com pouquíssimo indeterminado — abstract raramente reporta duração de tratamento; suspeite de número inventado (1)
+   1/13 indeterminados
+⚠ WARN: GRADE schema 2 — exceções/propostas declaradas que o referendo precisa ver (2)
+   sint-06a-regra6-farmaco-fora-do-pivo: regra 6: pivô NÃO sustenta (fármaco ausente; SINTÉTICO — braço experimental = regime; primário SG positivo), sint-06b-regra6-primario-negativo: regra 6: pivô NÃO sustenta (primário negativo; SINTÉTICO — braço experimental = regime; primário SG positivo)
+✗ FALHA: GRADE schema 2 viola as regras determinísticas (21)
+   sint-01-regra1-A-sem-eventos: regra 1: certeza A exige eventos ≥ 300 ou efeito grande (RRR ≥ 30%, IC sup ≤ 0,85) — eventos=None, sint-02-regra2-SLP-sem-SG-em-A: regra 2: desfecho crítico SLP é substituto sem SG — indireta tem de ser ≤ -1, sint-02-regra2-SLP-sem-SG-em-A: regra 2: desfecho crítico SLP é substituto sem SG — teto B (está A), sint-02-regra2-SLP-sem-SG-em-A: regra 1: certeza A com desfecho crítico substituto, sint-03-regra3-faseII-em-A: regra 3: desenho 'rct_fase2' parte de C — nunca A, sint-03-regra3-faseII-em-A: regra 1: certeza A com desenho que não parte de A, sint-04-regra4-IC-cruza-nulo-imprecisao-0: regra 4: imprecisão tem de ser ≤ -1 (limite superior do IC 1.0 > 0,95), sint-05a-regra5-nao-incorporado-a-favor-nao-incorporado: regra 5: regime NÃO incorporado com direção a_favor — a instituição não o recomenda; direção é contra, sint-05b-regra5-forte-com-MCBS-baixo: regra 5: forte a favor com ESMO-MCBS 2 (paliativo) — exige ≥ 3 paliativo / A-B curativo, sint-06a-regra6-farmaco-fora-do-pivo: regra 6: fármaco(s) do regime ausente(s) da intervenção do pivô: ['axitinibe'], sint-06a-regra6-farmaco-fora-do-pivo: regra 6: pivo.sustenta=True contradiz cobertura/comparador da época/primário (calculado False), sint-06a-regra6-farmaco-fora-do-pivo: regra 6: pivo_nao_sustenta tem de ser True ...
+====================================================
+
+RESULTADO: 1 check(s) FALHARAM — NÃO confie neste lote. Volta pro agente.

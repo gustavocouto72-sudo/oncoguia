@@ -1,0 +1,28 @@
+= Portão de dados — 10 regimes de 1 arquivo(s) =
+= Corpus: /Users/gustavocouto/Antigravity/OncoGuia/squads/mbe-oncologia/output/2026-09-17-rederivacao-grade/piloto-renal/regimes-consolidados.json
+
+!!! ATENÇÃO: este caminho NÃO é o RUN_ATIVO (2026-09-16-drivers-pulmao/v1). Você está validando
+!!! um corpus que NÃO é o publicado — o veredito não vale para o que está no ar.
+
+Placar: confirmado=3 · divergencia=2 · re_derivado=5
+Tumores: 1
+
+✓ [1] Nenhum confirmado com DOI ausente.
+✓ [3] Nenhum custo confirmado sem lastro (todos coerentes).
+~ [4] SKIP órfãos: campos_primitivos não encontrado (arquivo por-tumor ausente).
+✓ [5] Nenhuma comparação ordinal de estadiamento crua detectada.
+✓ [7] Contrato de incorporação ok — soma: 10 total = 10 candidatos + 0 não incorporados (visíveis).
+✓ [9] expectativa_uso em 10/10 — fixa 1, fixa indet 0, até-progressão c/ duração 0, c/ proxy PFS 6, indet 3 (30% indeterminado).
+✓ [10] composicao em 10/10 — 1 completas, 9 indeterminadas (90%); itens 15, resolvidos 5.
+       por tumor (completas/total): renal 1/10
+✓ [11] GRADE schema 2 em 10/10 (legado 0) — certeza A=2 · B=3 · C=3 · D=2 — recomendação condicional/a_favor=6 · forte/a_favor=4
+
+====================================================
+⚠ WARN: tumores com 0 incompletos (olhe se é honesto) (1)
+   renal
+⚠ WARN: GRADE schema 2 — exceções/propostas declaradas que o referendo precisa ver (6)
+   renal-adj-pembrolizumab: regra 6: referência proposta para troca: 10.1056/nejmoa2312695 — Choueiri 2024 NEJM (SG do KEYNOTE-564): a justificativa antiga cita ganho de SG que NÃO está na fonte registrada — decisão do revisor, renal-met-favoravel-pazopanibe: regra 6: referência proposta para troca: 10.1200/jco.2009.23.9764 — Sternberg 2010 JCO (pazopanibe vs placebo, fase 3): a base de eficácia absoluta do pazopanibe, ausente do corpus — decisão do revisor, renal-met-favoravel-sunitinibe: regra 6: referência proposta para troca: 10.1200/jco.2008.20.1293 — Motzer 2009 JCO (SG final do mesmo ensaio): fecharia o desfecho duro — decisão do revisor, renal-met-favoravel-ipilimumabe-nivolumabe: regra 6: referência proposta para troca: 10.1016/j.annonc.2024.07.727 — Tannir 2024 Ann Oncol (8 anos; já citado no corpus sem DOI) — decisão do revisor, renal-met-intalto-ipilimumabe-nivolumabe: regra 6: referência proposta para troca: 10.1016/j.annonc.2024.07.727 — Tannir 2024 Ann Oncol (8 anos): eventos maduros; provável retorno a A na repescagem — decisão do revisor, renal-met-2l-pos-io-cabozantinibe: regra 6: referência proposta para troca: 10.1016/s1470-2045(16)30107-3 — Choueiri 2016 Lancet Oncol (METEOR final): SG madura — decisão do revisor
+====================================================
+
+RESULTADO: passou os invariantes offline. (rode com --check-dois pra fechar os DOIs)
+Lembrete: isto cobre a forma, não o mérito clínico — esse é do oncologista na Revisão.

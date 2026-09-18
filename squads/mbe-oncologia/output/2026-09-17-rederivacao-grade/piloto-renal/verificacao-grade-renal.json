@@ -1,0 +1,812 @@
+[
+ {
+  "regimen_id": "renal-adj-pembrolizumab",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": null,
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SLD",
+  "desenho": {
+   "tipo": "rct_fase3",
+   "cegamento": "duplo_cego",
+   "n": 994,
+   "descricao": "KEYNOTE-564 — pembrolizumabe vs placebo pós-nefrectomia, fase 3 duplo-cego, N=994; SLD primária (já atingida na 1ª interina), atualizada a 57,2 m; SG secundária-chave positiva na mesma análise"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 0.72,
+   "ic95": [
+    0.59,
+    0.87
+   ],
+   "sentido_beneficio": "menor",
+   "eventos": null,
+   "eventos_por": null,
+   "analise": "atualizada",
+   "transcricao": "A total of 496 participants were assigned to receive pembrolizumab and 498 to receive placebo. | The disease-free survival benefit was consistent with that in previous analyses (hazard ratio for recurrence or death, 0.72; 95% confidence interval [CI], 0.59 to 0.87). | A significant improvement in overall survival was observed with pembrolizumab as compared with placebo (hazard ratio for death, 0.62; 95% CI, 0.44 to 0.87;",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Pembrolizumab"
+   ],
+   "comparador": "placebo",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": true,
+   "primario_positivo": true,
+   "sustenta": true,
+   "por": "braço experimental = regime; placebo era e é o comparador em adjuvância; primário SLD positivo (0,63 na 1ª interina → 0,72 a 57 m) e SG secundária-chave positiva (0,62; 0,44–0,87) na mesma publicação",
+   "referencia_atualizada": {
+    "doi": "10.1056/nejmoa2312695",
+    "pmid": "38631003",
+    "por": "C4: análise mais madura do mesmo ensaio (57 m; SLD atualizada + SG) — a fonte registrada (Lancet Oncol 2022) era a de 30 m"
+   }
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "duplo-cego com placebo, ITT, randomização central"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "ensaio único; SLD consistente entre as análises (0,63 → 0,72)"
+   },
+   "indireta": {
+    "nota": 0,
+    "por": "população = critérios do protocolo; comparador placebo; SLD é desfecho crítico duro em adjuvância (C8)"
+   },
+   "imprecisao": {
+    "nota": -1,
+    "por": "IC 0,59–0,87 exclui o nulo, mas RRR 28% < 30% (convenção do squad para efeito grande) e nº de eventos de SLD não transcrito nem dedutível do abstract — OIS não demonstrável; pedido de texto completo (upgrade)"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "registro prévio (NCT03142334)"
+   }
+  },
+  "certeza": "B",
+  "recomendacao": {
+   "forca": "forte",
+   "direcao": "a_favor",
+   "base": "incorporado; SLD HR 0,72 e SG HR 0,62 duplo-cego; ESMO-MCBS A (curativo)",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "1B",
+  "justificativa": "KEYNOTE-564 a 57 m (NEJM 2024): SLD HR 0,72 (0,59–0,87) como desfecho crítico duro (C8). −1 imprecisão só por OIS não demonstrável (eventos de SLD não estão no abstract; RRR 28% fica abaixo da convenção de 30%). Forte a favor. Com a SLD de 30 m (0,63; 0,50–0,80) seria A; com a contagem de eventos do texto completo, provavelmente A.",
+  "fonte": "https://doi.org/10.1056/nejmoa2312695"
+ },
+ {
+  "regimen_id": "renal-met-favoravel-pazopanibe",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": null,
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SLP",
+  "desenho": {
+   "tipo": "rct_fase3",
+   "cegamento": "aberto",
+   "n": 1110,
+   "descricao": "COMPARZ — pazopanibe vs sunitinibe, fase 3 aberto de NÃO-INFERIORIDADE, N=1.110; SLP por revisão independente"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 1.05,
+   "ic95": [
+    0.9,
+    1.22
+   ],
+   "sentido_beneficio": "menor",
+   "eventos": null,
+   "eventos_por": null,
+   "analise": "final",
+   "transcricao": "Pazopanib was noninferior to sunitinib with respect to progression-free survival (hazard ratio for progression of disease or death from any cause, 1.05; 95% confidence interval [CI], 0.90 to 1.22), meeting the predefined noninferiority margin (upper bound of the 95% confidence interval, <1.25). Overall survival was similar (hazard ratio for death with pazopanib, 0.91; 95% CI, 0.76 to 1.08).",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Pazopanibe"
+   ],
+   "comparador": "sunitinibe",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": true,
+   "primario_positivo": true,
+   "sustenta": true,
+   "por": "desenho de não-inferioridade: o pivô sustenta EQUIVALÊNCIA ao sunitinibe (margem 1,25 atingida), não superioridade; TKI mono segue opção em risco favorável. Atualização de SG (NEJM 2014) é carta sem abstract — não transcritível",
+   "referencias_adicionais": [
+    {
+     "doi": "10.1200/jco.2009.23.9764",
+     "papel": "Sternberg 2010 JCO — pazopanibe vs placebo (fase 3): eficácia absoluta do pazopanibe, ausente do corpus (C7)"
+    }
+   ]
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "aberto, mas SLP por revisão independente; ITT"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "ensaio único; sem contradição citada"
+   },
+   "indireta": {
+    "nota": -1,
+    "por": "SLP é substituto; SG 'similar' (HR 0,91; 0,76–1,08) não demonstra benefício"
+   },
+   "imprecisao": {
+    "nota": -1,
+    "por": "não-inferioridade com limite superior 1,22 encostado na margem 1,25; IC inclui o nulo (regra 4)"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "registro prévio (NCT00720941)"
+   }
+  },
+  "certeza": "C",
+  "recomendacao": {
+   "forca": "condicional",
+   "direcao": "a_favor",
+   "base": "TKI oral equivalente ao sunitinibe (NI) com melhor tolerabilidade/QoL; certeza C pela fonte registrada (NI + substituto); MCBS n/a",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "2C",
+  "justificativa": "RCT fase 3 aberto de não-inferioridade (N=1.110): SLP HR 1,05 (0,90–1,22). −1 indireta (substituto), −1 imprecisão (limite 1,22 vs margem 1,25). Condicional a favor. Inalterado da v1.",
+  "fonte": "https://doi.org/10.1056/NEJMoa1303989"
+ },
+ {
+  "regimen_id": "renal-met-favoravel-sunitinibe",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": {
+   "tipo": "crossover_documentado",
+   "por": "JCO 2009 (transcrito): Median overall survival was greater in the sunitinib group than in the IFN-alpha group (26.4 v 21.8 months, respectively; hazard ratio [HR] = 0.821; 95% CI, 0.673 to 1.001; | Within the IFN-alpha group, 33% of patients received sunitinib, and 32% received other vascular endothelial growth factor-signaling inhibitors after discontinuation from the trial."
+  },
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SLP",
+  "desenho": {
+   "tipo": "rct_fase3",
+   "cegamento": "aberto",
+   "n": 750,
+   "descricao": "Motzer 2007 — sunitinibe vs interferon-α, fase 3 aberto, N=750, população toda-risco; SLP primária. SG final (JCO 2009) com 33% de crossover para sunitinibe + 32% para outros anti-VEGF"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 0.42,
+   "ic95": [
+    0.32,
+    0.54
+   ],
+   "sentido_beneficio": "menor",
+   "eventos": null,
+   "eventos_por": null,
+   "analise": "final",
+   "transcricao": "The median progression-free survival was significantly longer in the sunitinib group (11 months) than in the interferon alfa group (5 months), corresponding to a hazard ratio of 0.42 (95% confidence interval, 0.32 to 0.54; P<0.001).",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Sunitinibe"
+   ],
+   "comparador": "interferon-α",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": false,
+   "comparador_muda_decisao": true,
+   "primario_positivo": true,
+   "sustenta": true,
+   "por": "braço experimental = regime; IFN-α era o padrão em 2007; hoje ninguém escolhe contra IFN em 1ª linha — o comparador muda a decisão (C2 → indireta). Primário SLP positivo. A SG final (JCO 2009: HR 0,821; 0,673–1,001) está contaminada por crossover documentado (33% + 32%) — exceção da regra 2, transcrita abaixo",
+   "referencias_adicionais": [
+    {
+     "doi": "10.1200/jco.2008.20.1293",
+     "papel": "Motzer 2009 JCO — SG final e documentação do crossover (33% para sunitinibe, 32% para outros anti-VEGF): base da exceção 'crossover_documentado' (C7: adicional, o pivô da SLP segue sendo o de 2007)"
+    }
+   ]
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "aberto; SLP — revisão independente não afirmada no abstract (registrado, não penalizado)"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "ensaio único vs IFN; sem contradição citada"
+   },
+   "indireta": {
+    "nota": -1,
+    "por": "comparador IFN-α obsoleto que muda a decisão de hoje (C2); população toda-risco vs regime restrito a favorável. (SLP como substituto NÃO rebaixa: crossover documentado — exceção da regra 2)"
+   },
+   "imprecisao": {
+    "nota": 0,
+    "por": "IC 0,32–0,54 exclui o nulo com folga; RRR 58% = efeito grande"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "registro prévio (NCT00098657)"
+   }
+  },
+  "certeza": "B",
+  "recomendacao": {
+   "forca": "condicional",
+   "direcao": "a_favor",
+   "base": "TKI de referência histórica em risco favorável; escolha frente a IO-TKI sensível a preferência/custo; MCBS n/a (comparador histórico)",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "2B",
+  "justificativa": "RCT fase 3 aberto (N=750): SLP HR 0,42 (0,32–0,54) vs IFN-α. SG final contaminada por crossover documentado (33%+32%, JCO 2009) → exceção da regra 2, SLP não rebaixa. −1 indireta (IFN muda a decisão, C2). Condicional a favor. = gabarito da auditoria (2B).",
+  "fonte": "https://doi.org/10.1056/NEJMoa065044"
+ },
+ {
+  "regimen_id": "renal-met-favoravel-ipilimumabe-nivolumabe",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": null,
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SG",
+  "desenho": {
+   "tipo": "rct_fase3",
+   "cegamento": "aberto",
+   "n": 1096,
+   "descricao": "CheckMate 214, 8 anos (99,1 m) — nivo+ipi vs sunitinibe; primários em int/alto; risco FAVORÁVEL (N=249) é desfecho EXPLORATÓRIO"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 0.82,
+   "ic95": [
+    0.6,
+    1.13
+   ],
+   "sentido_beneficio": "menor",
+   "eventos": null,
+   "eventos_por": null,
+   "analise": "atualizada",
+   "transcricao": "the hazard ratio [HR; 95% confidence interval (CI)] for OS with NIVO+IPI versus SUN was 0.72 (0.62-0.83) in ITT patients, 0.69 (0.59-0.81) in I/P patients, and 0.82 (0.60-1.13) in FAV patients. | PFS probabilities at 90 months were 22.8% versus 10.8% (ITT), 25.4% versus 8.5% (I/P), and 12.7% versus 17.0% (FAV), respectively. | ORR with NIVO+IPI versus SUN was 39.5% versus 33.0% (ITT), 42.4% versus 27.5% (I/P), and 29.6% versus 51.6% (FAV).",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Ipilimumabe",
+    "Nivolumabe"
+   ],
+   "comparador": "sunitinibe",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": true,
+   "primario_positivo": true,
+   "sustenta": true,
+   "por": "cobertura e comparador ok; primário positivo em OUTRA população (int/alto). No subgrupo favorável, a 8 anos: SG HR 0,82 (IC inclui o nulo), SLP a 90 m 12,7% vs 17,0% e TRO 29,6% vs 51,6% a favor do sunitinibe; RC 12,8% vs 6,5% a favor de nivo+ipi",
+   "referencia_atualizada": {
+    "doi": "10.1016/j.annonc.2024.07.727",
+    "pmid": "39098455",
+    "por": "C4: seguimento de 8 anos do mesmo ensaio (já citado no corpus sem DOI)"
+   }
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "aberto; SG"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "ensaio único; direção do efeito no subgrupo estável entre a 1ª interina e os 8 anos"
+   },
+   "indireta": {
+    "nota": -1,
+    "por": "desfecho exploratório em subgrupo (249 pts) fora do primário; SLP e TRO favorecem o sunitinibe"
+   },
+   "imprecisao": {
+    "nota": -1,
+    "por": "IC 0,60–1,13 inclui o nulo (regra 4); óbitos não transcritos nem dedutíveis do abstract"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "—"
+   }
+  },
+  "certeza": "C",
+  "recomendacao": {
+   "forca": "condicional",
+   "direcao": "pendente_revisor",
+   "base": "C6/Portão C: o protocolo lista o regime em risco favorável; a fonte madura mostra SG sem diferença demonstrada e SLP/TRO a favor do sunitinibe, com mais RC para nivo+ipi — direção é decisão clínica do revisor; MCBS 2 (subgrupo)",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "2C",
+  "justificativa": "8 anos do CheckMate 214, subgrupo favorável: SG HR 0,82 (0,60–1,13); SLP/TRO a favor do sunitinibe. −1 indireta (exploratório), −1 imprecisão. Condicional; direção pendente do revisor (C6).",
+  "fonte": "https://doi.org/10.1016/j.annonc.2024.07.727"
+ },
+ {
+  "regimen_id": "renal-met-intalto-ipilimumabe-nivolumabe",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": null,
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SG",
+  "desenho": {
+   "tipo": "rct_fase3",
+   "cegamento": "aberto",
+   "n": 1096,
+   "descricao": "CheckMate 214, 8 anos (99,1 m) — nivo+ipi vs sunitinibe; SG coprimária em risco int/alto (N=847)"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 0.69,
+   "ic95": [
+    0.59,
+    0.81
+   ],
+   "sentido_beneficio": "menor",
+   "eventos": null,
+   "eventos_por": null,
+   "analise": "atualizada",
+   "transcricao": "Patients with aRCC (N = 1096) were randomized to NIVO 3 mg/kg plus IPI 1 mg/kg Q3W × four doses, followed by NIVO (3 mg/kg or 240 mg Q2W or 480 mg Q4W); or SUN (50 mg) once daily for 4 weeks on, 2 weeks off. | With 8 years (99.1 months) of median follow-up, the hazard ratio [HR; 95% confidence interval (CI)] for OS with NIVO+IPI versus SUN was 0.72 (0.62-0.83) in ITT patients, 0.69 (0.59-0.81) in I/P patients,",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Ipilimumabe",
+    "Nivolumabe"
+   ],
+   "comparador": "sunitinibe",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": true,
+   "primario_positivo": true,
+   "sustenta": true,
+   "por": "braço experimental = regime; sunitinibe era o padrão em 2018 e segue referência de comparação; coprimário SG positivo na população do regime, mantido a 8 anos",
+   "referencia_atualizada": {
+    "doi": "10.1016/j.annonc.2024.07.727",
+    "pmid": "39098455",
+    "por": "C4: seguimento de 8 anos do mesmo ensaio — a fonte registrada (NEJM 2018) era a 1ª interina com IC 99,8%"
+   }
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "aberto; SG"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "ensaio único; efeito estável da 1ª interina (0,63) aos 8 anos (0,69)"
+   },
+   "indireta": {
+    "nota": 0,
+    "por": "população int/alto = regime; comparador sunitinibe padrão da época"
+   },
+   "imprecisao": {
+    "nota": 0,
+    "por": "IC 0,59–0,81 exclui o nulo com folga; RRR 31% com limite ≤ 0,85 = efeito grande (regra 1); 8 anos de seguimento"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "registro prévio (NCT02231749)"
+   }
+  },
+  "certeza": "A",
+  "recomendacao": {
+   "forca": "forte",
+   "direcao": "a_favor",
+   "base": "incorporado; SG HR 0,69 a 8 anos; ESMO-MCBS 4; padrão de 1ª linha em int/alto",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "1A",
+  "justificativa": "8 anos do CheckMate 214, int/alto: SG HR 0,69 (0,59–0,81), efeito grande. Nenhum domínio rebaixado. Forte a favor. (v1: 1B pela 1ª interina — C4 resolve.)",
+  "fonte": "https://doi.org/10.1016/j.annonc.2024.07.727"
+ },
+ {
+  "regimen_id": "renal-met-intalto-axitinibe-pembrolizumabe",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": null,
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SG",
+  "desenho": {
+   "tipo": "rct_fase3",
+   "cegamento": "aberto",
+   "n": 861,
+   "descricao": "KEYNOTE-426, 43 m — pembro+axitinibe vs sunitinibe, fase 3 aberto, N=861, ITT toda-risco; análise final pré-especificada"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 0.73,
+   "ic95": [
+    0.6,
+    0.88
+   ],
+   "sentido_beneficio": "menor",
+   "eventos": null,
+   "eventos_por": null,
+   "analise": "final",
+   "transcricao": "We report results of the final protocol-prespecified analysis of KEYNOTE-426. | The median study follow-up was 43 (range, 36-51) mo. Benefit with pembrolizumab plus axitinib versus sunitinib was maintained for OS (hazard ratio [HR], 0.73 [95% confidence interval {CI}, 0.60-0.88]),",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Axitinibe",
+    "Pembrolizumabe"
+   ],
+   "comparador": "sunitinibe",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": true,
+   "primario_positivo": true,
+   "sustenta": true,
+   "por": "braço experimental = regime; sunitinibe padrão em 2019; coprimário SG positivo, mantido na análise final",
+   "referencia_atualizada": {
+    "doi": "10.1016/j.eururo.2023.06.006",
+    "pmid": "37500340",
+    "por": "C4: análise final (43 m) do mesmo ensaio — a fonte registrada (NEJM 2019) era a 1ª interina (HR 0,53)"
+   }
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "aberto; SG"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "ensaio único; efeito atenuado da interina (0,53) à final (0,73) — esperado, não contraditório"
+   },
+   "indireta": {
+    "nota": 0,
+    "por": "ITT toda-risco; benefício declarado em todos os grupos IMDC (fonte de 2019); regime int/alto ⊂ população"
+   },
+   "imprecisao": {
+    "nota": -1,
+    "por": "RRR 27% < 30% e óbitos não transcritos nem dedutíveis do abstract (sem taxas/medianas) — OIS não demonstrável; pedido de texto completo (upgrade)"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "registro prévio (NCT02853331)"
+   }
+  },
+  "certeza": "B",
+  "recomendacao": {
+   "forca": "forte",
+   "direcao": "a_favor",
+   "base": "incorporado; SG HR 0,73 na análise final; ESMO-MCBS 4",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "1B",
+  "justificativa": "Análise final do KEYNOTE-426 (43 m): SG HR 0,73 (0,60–0,88). −1 imprecisão (óbitos não dedutíveis do abstract; RRR < 30%). Forte a favor. (v1: 1A pela interina de 2019 — C4 usa a madura; converge com Cochrane 'moderada'.)",
+  "fonte": "https://doi.org/10.1016/j.eururo.2023.06.006"
+ },
+ {
+  "regimen_id": "renal-met-intalto-nivolumabe-cabozantinibe",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": null,
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SG",
+  "desenho": {
+   "tipo": "rct_fase3",
+   "cegamento": "aberto",
+   "n": 651,
+   "descricao": "CheckMate 9ER, 44 m — nivo+cabozantinibe vs sunitinibe, fase 3 aberto, N=651; primário SLP (BICR); SG secundária"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 0.7,
+   "ic95": [
+    0.56,
+    0.87
+   ],
+   "sentido_beneficio": "menor",
+   "eventos": 326,
+   "eventos_por": "deduzido de medianas de SG atingidas nos DOIS braços (49,5 e 35,5 m) → ≥ 50% de 323 + ≥ 50% de 328 = ≥ 326 óbitos (limite inferior)",
+   "analise": "atualizada",
+   "transcricao": "Overall, 323 patients were randomised to NIVO + CABO and 328 to SUN. | median OS favoured NIVO + CABO versus SUN (49.5 versus 35.5 months; HR 0.70; 95% CI 0.56-0.87).",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Nivolumabe",
+    "Cabozantinibe"
+   ],
+   "comparador": "sunitinibe",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": true,
+   "primario_positivo": true,
+   "sustenta": true,
+   "por": "braço experimental = regime; sunitinibe padrão em 2021; primário SLP positivo (HR 0,59; 0,49–0,71 a 44 m) e SG secundária positiva",
+   "referencia_atualizada": {
+    "doi": "10.1016/j.esmoop.2024.102994",
+    "pmid": "38642472",
+    "por": "C4: seguimento de 44 m do mesmo ensaio — a fonte registrada (NEJM 2021) só tinha IC 98,89% e mediana não atingida"
+   }
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "aberto; SG (SLP por BICR)"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "ensaio único; efeito estável (0,60 → 0,70) com maturação"
+   },
+   "indireta": {
+    "nota": 0,
+    "por": "ITT toda-risco; benefício em int, alto e int/alto declarado; comparador padrão"
+   },
+   "imprecisao": {
+    "nota": 0,
+    "por": "≥ 326 óbitos (deduzido, C1) ≥ 300; IC 0,56–0,87 exclui o nulo"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "registro prévio (NCT03141177)"
+   }
+  },
+  "certeza": "A",
+  "recomendacao": {
+   "forca": "forte",
+   "direcao": "a_favor",
+   "base": "incorporado; SG HR 0,70 e SLP HR 0,59 a 44 m; ESMO-MCBS 4 re-derivado (protocolo afirmou 1 — divergência do eixo MCBS já registrada)",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "1A",
+  "justificativa": "44 m do CheckMate 9ER: SG HR 0,70 (0,56–0,87), ≥ 326 óbitos (deduzido das medianas). Nenhum domínio rebaixado. Forte a favor. (v1: 1B por IC 98,89% e óbitos não escritos — C1/C3/C4 resolvem.)",
+  "fonte": "https://doi.org/10.1016/j.esmoop.2024.102994"
+ },
+ {
+  "regimen_id": "renal-met-2l-pos-vegfr-nivolumabe",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": null,
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SG",
+  "desenho": {
+   "tipo": "rct_fase3",
+   "cegamento": "aberto",
+   "n": 821,
+   "descricao": "CheckMate 025 — nivolumabe vs everolimo pós-antiangiogênico, fase 3 aberto, N=821; primário SG; seguimento mínimo 64 m"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 0.73,
+   "ic95": [
+    0.62,
+    0.85
+   ],
+   "sentido_beneficio": "menor",
+   "eventos": 640,
+   "eventos_por": "deduzido de SG 5 anos 26% × 410 (≈ 303 óbitos) + 18% × 411 (≈ 337 óbitos) = 640",
+   "analise": "atualizada",
+   "transcricao": "Eight hundred twenty-one patients were randomized to nivolumab (n = 410) or everolimus (n = 411); | With a minimum follow-up of 64 months (median, 72 months), nivolumab maintained an OS benefit in comparison with everolimus (median, 25.8 months [95% CI, 22.2-29.8 months] vs 19.7 months [95% CI, 17.6-22.1 months]; hazard ratio [HR], 0.73; 95% CI, 0.62-0.85) with 5-year OS probabilities of 26% and 18%, respectively.",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Nivolumabe"
+   ],
+   "comparador": "everolimo",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": false,
+   "comparador_muda_decisao": false,
+   "primario_positivo": true,
+   "sustenta": true,
+   "por": "braço experimental = regime; everolimo era o padrão de 2ª linha pós-TKI em 2015 e a indicação do regime é exatamente essa (2ª linha pós-TKI VEGFR); o nivolumabe É o padrão que substituiu o comparador — não muda a decisão de hoje (C2: sem segunda punição). Primário SG positivo"
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "aberto; SG"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "consistente com a análise primária do mesmo ensaio (HR 0,73; 0,57–0,93)"
+   },
+   "indireta": {
+    "nota": 0,
+    "por": "população (pós-1–2 antiangiogênicos) = regime; comparador da época segue referência para esta pergunta (C2)"
+   },
+   "imprecisao": {
+    "nota": 0,
+    "por": "≈640 óbitos (deduzido, C1) ≥ 300; IC 0,62–0,85 exclui o nulo; 5 anos"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "registro prévio (NCT01668784)"
+   }
+  },
+  "certeza": "A",
+  "recomendacao": {
+   "forca": "forte",
+   "direcao": "a_favor",
+   "base": "incorporado; SG HR 0,73 mantida a 5 anos; ESMO-MCBS 5",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "1A",
+  "justificativa": "CheckMate 025, 5 anos: SG HR 0,73 (0,62–0,85), ≈640 óbitos (deduzido das taxas de SG). Nenhum domínio rebaixado. Forte a favor. (v1: 2C por eventos não escritos + comparador obsoleto — C1/C2 resolvem.)",
+  "fonte": "https://doi.org/10.1002/cncr.33033"
+ },
+ {
+  "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": null,
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SG",
+  "desenho": {
+   "tipo": "rct_fase3",
+   "cegamento": "aberto",
+   "n": 658,
+   "descricao": "METEOR final — cabozantinibe vs everolimo após terapia anti-VEGFR, fase 3 aberto, N=658; SG (secundária) na análise final, seguimento 18,7 m"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 0.66,
+   "ic95": [
+    0.53,
+    0.83
+   ],
+   "sentido_beneficio": "menor",
+   "eventos": 329,
+   "eventos_por": "deduzido de medianas de SG atingidas nos DOIS braços (21,4 e 16,5 m) → ≥ 50% de 330 + ≥ 50% de 328 = ≥ 329 óbitos (limite inferior)",
+   "analise": "final",
+   "transcricao": "Between Aug 8, 2013, and Nov 24, 2014, 658 patients were randomly assigned to receive cabozantinib (n=330) or everolimus (n=328). | Median overall survival was 21·4 months (95% CI 18·7-not estimable) with cabozantinib and 16·5 months (14·7-18·8) with everolimus (hazard ratio [HR] 0·66 [95% CI 0·53-0·83];",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Cabozantinibe"
+   ],
+   "comparador": "everolimo",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": false,
+   "comparador_muda_decisao": false,
+   "primario_positivo": true,
+   "sustenta": true,
+   "por": "braço experimental = regime (60 mg/d); everolimo padrão de 2ª linha em 2015; primário SLP positivo. A lacuna relevante é de POPULAÇÃO (ensaio pós-TKI VEGFR; regime = 2ª linha PÓS-IMUNOTERAPIA — nota do revisor 13/09 'METEOR mantido'), tratada em indireta; o comparador não recebe segunda punição (C2)",
+   "referencia_atualizada": {
+    "doi": "10.1016/s1470-2045(16)30107-3",
+    "pmid": "27279544",
+    "por": "C4: análise final de SG do mesmo ensaio — a fonte registrada (NEJM 2015) era a interina com 202 óbitos"
+   }
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "aberto; SG"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "ensaio único; efeito estável da interina (0,67) à final (0,66)"
+   },
+   "indireta": {
+    "nota": -1,
+    "por": "população pós-TKI ≠ regime pós-IO — extrapolação"
+   },
+   "imprecisao": {
+    "nota": 0,
+    "por": "≥ 329 óbitos (deduzido, C1); IC 0,53–0,83 exclui o nulo; RRR 34% com limite ≤ 0,85 = efeito grande"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "registro prévio (NCT01865747)"
+   }
+  },
+  "certeza": "B",
+  "recomendacao": {
+   "forca": "forte",
+   "direcao": "a_favor",
+   "base": "incorporado em 2ª linha (nota do revisor); SG HR 0,66 na análise final; ESMO-MCBS 3; evidência indireta para o cenário pós-IO",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "1B",
+  "justificativa": "METEOR final: SG HR 0,66 (0,53–0,83), ≥ 329 óbitos (deduzido). −1 indireta (população pós-TKI → pós-IO). Forte a favor. (v1: 2C pela interina + comparador — C4/C2 resolvem; a indireta de população permanece.)",
+  "fonte": "https://doi.org/10.1016/s1470-2045(16)30107-3"
+ },
+ {
+  "regimen_id": "renal-naoclaras-sunitinibe-pazopanibe",
+  "eixo": "a qualidade da evidência e a força da recomendação",
+  "schema": 2,
+  "status": "re_derivado",
+  "afirmado_protocolo": null,
+  "elevacoes": [],
+  "substituto_excecao": null,
+  "pivo_nao_sustenta": false,
+  "motivo_indeterminado": null,
+  "desfecho_critico": "SLP",
+  "desenho": {
+   "tipo": "rct_fase2",
+   "cegamento": "aberto",
+   "n": 108,
+   "descricao": "ASPEN — everolimo vs sunitinibe em não-células claras (papilífero/cromófobo/inclassificado), fase 2 randomizado aberto, N=108, 87 eventos; desenhado com IC 80%"
+  },
+  "efeito": {
+   "medida": "HR",
+   "valor": 1.41,
+   "ic95": [
+    1.03,
+    1.92
+   ],
+   "ic_nivel": 80,
+   "sentido_beneficio": "maior",
+   "eventos": 87,
+   "eventos_por": "transcrito",
+   "analise": "final",
+   "transcricao": "108 patients were randomly assigned to receive either sunitinib (n=51) or everolimus (n=57). | As of December, 2014, 87 progression-free survival events had occurred with two remaining active patients, and the trial was closed for the primary analysis. Sunitinib significantly increased progression-free survival compared with everolimus (8·3 months [80% CI 5·8-11·4] vs 5·6 months [5·5-6·0]; hazard ratio 1·41 [80% CI 1·03-1·92]; p=0·16)",
+   "fonte_transcricao": "europepmc_abstract"
+  },
+  "pivo": {
+   "intervencao": [
+    "Sunitinibe"
+   ],
+   "comparador": "everolimo",
+   "comparador_padrao_epoca": true,
+   "comparador_padrao_atual": false,
+   "comparador_muda_decisao": false,
+   "primario_positivo": true,
+   "sustenta": true,
+   "intervencao_nao_cobre": {
+    "farmacos": [
+     "Pazopanibe"
+    ],
+    "por": "ASPEN testou só sunitinibe; pazopanibe no regime é extrapolação de classe"
+   },
+   "por": "sunitinibe = braço do ensaio; HR 1,41 é do everolimo em relação ao sunitinibe (>1 favorece sunitinibe); critério do desenho (IC 80%) atingido, p=0,16. Comparador everolimo: não havia padrão; a pergunta 'sunitinibe vs everolimo' segue válida em não-células claras sem cabozantinibe disponível — não muda a decisão por si (C2); a lacuna vai para indireta (pazopanibe, população mista)"
+  },
+  "dominios": {
+   "risco_vies": {
+    "nota": 0,
+    "por": "aberto; SLP RECIST 1.1; ITT; banco fechado aos 87 eventos por financiamento (poder 82%)"
+   },
+   "inconsistencia": {
+    "nota": 0,
+    "por": "ensaio único; heterogeneidade por histologia notada no abstract (não penalizada aqui — vai para indireta)"
+   },
+   "indireta": {
+    "nota": -1,
+    "por": "SLP substituto (SG não diferente: HR 1,12; 0,7–2,1 no texto completo); pazopanibe não testado; população mista vs regime 'papilífero'"
+   },
+   "imprecisao": {
+    "nota": -2,
+    "por": "muito séria (C5): 87 eventos < 300 E IC reportado a 80% (1,03–1,92; p=0,16) — o IC 95% inclui o nulo"
+   },
+   "vies_publicacao": {
+    "nota": 0,
+    "por": "—"
+   }
+  },
+  "certeza": "D",
+  "recomendacao": {
+   "forca": "condicional",
+   "direcao": "a_favor",
+   "base": "opção em não-células claras na ausência de padrão; certeza muito baixa; MCBS n/a (fase 2, comparador ativo)",
+   "sem_mcbs_por": null
+  },
+  "valor_rederivado": "2D",
+  "justificativa": "Fase 2 randomizado (N=108): SLP HR 1,41 (IC 80% 1,03–1,92; p=0,16), 87 eventos. C5 ortodoxo: RCT parte de A, −1 indireta, −2 imprecisão (muito séria) → D. Mesmo resultado da v1 (2D), agora pelo caminho ortodoxo.",
+  "fonte": "https://doi.org/10.1016/S1470-2045(15)00515-X"
+ }
+]

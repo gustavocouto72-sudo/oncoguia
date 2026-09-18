@@ -1,0 +1,27 @@
+= Portão de dados — 13 regimes de 1 arquivo(s) =
+= Corpus: /Users/gustavocouto/Antigravity/OncoGuia/squads/mbe-oncologia/output/2026-09-17-rederivacao-grade/onda-2-colorretal/regimes-consolidados.json
+
+!!! ATENÇÃO: este caminho NÃO é o RUN_ATIVO (2026-09-17-intake-revisao-4/v1). Você está validando
+!!! um corpus que NÃO é o publicado — o veredito não vale para o que está no ar.
+
+Placar: confirmado=3 · incompleto=1 · re_derivado=9
+Tumores: 1
+
+✓ [1] Nenhum confirmado com DOI ausente.
+✓ [2] Todo tumor tem incompleto > 0.
+✓ [3] Nenhum custo confirmado sem lastro (todos coerentes).
+~ [4] SKIP órfãos: campos_primitivos não encontrado (arquivo por-tumor ausente).
+✓ [5] Nenhuma comparação ordinal de estadiamento crua detectada.
+✓ [7] Contrato de incorporação ok — soma: 13 total = 10 candidatos + 3 não incorporados (visíveis).
+✓ [9] expectativa_uso em 13/13 — fixa 1, fixa indet 4, até-progressão c/ duração 0, c/ proxy PFS 4, indet 4 (61% indeterminado).
+✓ [10] composicao em 13/13 — 1 completas, 12 indeterminadas (92%); itens 30, resolvidos 4.
+       por tumor (completas/total): colorretal 1/13
+✓ [11] GRADE schema 2 em 13/13 (legado 0) — certeza A=4 · B=5 · C=1 · indet=3 — recomendação condicional/a_favor=1 · condicional/contra=3 · forte/a_favor=6
+
+====================================================
+⚠ WARN: GRADE schema 2 — exceções/propostas declaradas que o referendo precisa ver (18)
+   colon-adj-fluoropirimidina-stageII: C7: referência ADICIONAL proposta: 10.1093/annonc/mdr366 — X-ACT final (Ann Oncol 2012) — capecitabina vs 5-FU/LV em estádio III: SLD HR 0,88 (0,77–1,01), NI; sustenta a alternativa oral, colon-adj-fluoropirimidina-stageII: C9: certeza avaliada sobre corpo de evidência 10.1002/14651858.cd005390.pub2 (cochrane; adjuvância vs observação, cólon estádio II (SLD); declarada: None), colon-adj-oxaliplatina-stageIII: C1: eventos=648 deduzido de 295 + 353 eventos de SLD transcritos na publicação primária (JCO 2011, 57 m) = 648 (a 7 anos, mais), colon-adj-oxaliplatina-stageIII: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1200/jco.2015.60.9107 (C4: análise final (7 anos) do mesmo ensaio (fonte registrada: JCO 2011, 57 m)), colon-adj-oxaliplatina-stageIII: C7: referência ADICIONAL proposta: 10.1200/jco.2015.63.4238 — MOSAIC 10 anos — FOLFOX4 vs LV5FU2: SG 10 a estádio III HR 0,80 (p=0,016); sustenta a forma FOLFOX, colon-adj-oxaliplatina-stageIII: C7: referência ADICIONAL proposta: 10.1056/nejmoa1713709 — IDEA (NEJM 2018) — 3 vs 6 meses: NI para CAPOX (HR 0,95; 0,85–1,06), não para FOLFOX; base do 'considerar 3 meses', crc-met-folfoxiri: C1: eventos=254 deduzido de medianas de SG atingidas nos dois braços (29,8 e 25,8 m) → ≥ 50% de 508 = ≥ 254 (limite inferior), crc-met-folfoxiri: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1016/s1470-2045(15)00122-9 (C4: análise de SG madura do mesmo ensaio (fonte registrada: NEJM 2014, SG HR 0,79; 0,63–1,00 não significativa)), crc-met-anti-egfr: C7: referência ADICIONAL proposta: 10.1016/j.ejca.2012.02.057 — CRYSTAL + OPUS pooled (KRAS wt, N=845): SG HR 0,81 (p=0,0062), crc-met-anti-egfr: C7: referência ADICIONAL proposta: 10.1093/annonc/mdu141 — PRIME final (panitumumabe + FOLFOX4, KRAS wt): SG HR 0,88 (0,73–1,06); atualizada HR 0,83 (0,70–0,98), crc-met-anti-egfr: C7: referência ADICIONAL proposta: 10.1056/NEJMoa0805019 — CRYSTAL (fonte registrada): SLP KRAS wt HR 0,68 (0,50–0,94), crc-met-anti-egfr: C9: certeza avaliada sobre corpo de evidência 10.1002/14651858.cd007047.pub2 (cochrane; anti-EGFR MAb + terapia padrão vs terapia padrão, RAS wt estendido (SG); declarada: alta) ...
+====================================================
+
+RESULTADO: passou os invariantes offline. (rode com --check-dois pra fechar os DOIs)
+Lembrete: isto cobre a forma, não o mérito clínico — esse é do oncologista na Revisão.

@@ -1,0 +1,6366 @@
+{
+ "meta": {
+  "titulo": "CASOS SINTÉTICOS — prova do check [11]; NÃO é corpus",
+  "sintetico": true
+ },
+ "regimes": [
+  {
+   "regimen_id": "sint-00-controle",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "PASSA"
+  },
+  {
+   "regimen_id": "sint-01-regra1-A-sem-eventos",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.78,
+      "ic95": [
+       0.65,
+       0.93
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": null,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: hazard ratio for death, 0.78; 95% CI, 0.65 to 0.93.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "IC exclui nulo"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 1"
+  },
+  {
+   "regimen_id": "sint-02-regra2-SLP-sem-SG-em-A",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SLP",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: progression-free survival hazard ratio 0.68 (95% CI 0.55–0.84), 420 events.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 2"
+  },
+  {
+   "regimen_id": "sint-03-regra3-faseII-em-A",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase2",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [
+      {
+       "tipo": "magnitude_muito_grande",
+       "valor": 2,
+       "por": "SINTÉTICO — RR < 0,2"
+      }
+     ],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 3"
+  },
+  {
+   "regimen_id": "sint-04-regra4-IC-cruza-nulo-imprecisao-0",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.82,
+      "ic95": [
+       0.67,
+       1.0
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 380,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: hazard ratio for death 0.82 (95% CI 0.67–1.00), 380 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": -1,
+       "por": "SINTÉTICO — perdas de seguimento"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "B",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1B",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 4"
+  },
+  {
+   "regimen_id": "sint-05a-regra5-nao-incorporado-a-favor-nao-incorporado",
+   "tumor": "pancreas",
+   "cenario": "metastatico",
+   "subtipo": "Adenocarcinoma de pâncreas avançado — 1ª linha (não incorporado)",
+   "nome": "Nab-Paclitaxel + Gemcitabina (NÃO incorporado)",
+   "esquema": "Nab-paclitaxel 125 mg/m² + Gemcitabina 1.000 mg/m² D1,D8,D15 a cada 28 dias — não inclusão pelo protocolo",
+   "farmacos": [
+    {
+     "nome": "Nab-paclitaxel",
+     "dose": "125 mg/m²",
+     "via": "EV",
+     "frequencia": "D1,D8,D15 28/28d"
+    },
+    {
+     "nome": "Gemcitabina",
+     "dose": "1.000 mg/m²",
+     "via": "EV",
+     "frequencia": "D1,D8,D15"
+    }
+   ],
+   "elegibilidade_protocolo": "Adenocarcinoma de pâncreas avançado, 1ª linha (protocolo NÃO inclui: sem comparação direta com FOLFIRINOX; meta-análise em rede (Mastrantoni 2024) e dados reais (Papneja 2020) favorecem FOLFIRINOX em SG).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "VON HOFF DD et al. Increased survival in pancreatic cancer with nab-paclitaxel plus gemcitabine (MPACT). N Engl J Med. 2013;369(18):1691-1703.",
+    "doi": "10.1056/NEJMoa1304369",
+    "pmid": null,
+    "estudo": "MPACT",
+    "ano": 2013
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global vs gemcitabina",
+    "magnitude": "MPACT: SG 8,5 vs 6,7 meses; HR 0,72 (regime é positivo; não incorporado por preferência ao FOLFIRINOX)",
+    "fonte": "10.1056/NEJMoa1304369"
+   },
+   "toxicidades": [
+    {
+     "nome": "Mielossupressão",
+     "severidade": "grave",
+     "conduta": "G-CSF conforme risco; monitorar hemograma",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Náusea/vômito/diarreia",
+     "severidade": "moderada",
+     "conduta": "antiemético; suporte",
+     "fonte": "Bula/ficha técnica: quimioterapia"
+    },
+    {
+     "nome": "Neuropatia periférica (nab-paclitaxel)",
+     "severidade": "grave",
+     "conduta": "ajuste de dose",
+     "fonte": "Bula/ficha técnica: Nab-paclitaxel"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Nab-paclitaxel",
+       "Gemcitabina"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1304369",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "re_derivado",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": null,
+     "justificativa": "Ganho de SG (HR 0,72) → ESMO-MCBS 4. O regime é graduável e positivo.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1304369"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Nab-paclitaxel de custo alto (driver). Affordability baixa; FOLFIRINOX (genérico) é preferido por custo e eficácia.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo alto (nab-paclitaxel)."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Elegibilidade concorda (MPACT em metastático). ATENÇÃO: a não inclusão total remove uma opção validada para pacientes INELEGÍVEIS ao FOLFIRINOX (mas com performance intermediária) — lacuna de cobertura a revisar.",
+     "justificativa": "Elegibilidade concorda (MPACT em metastático). ATENÇÃO: a não inclusão total remove uma opção validada para pacientes INELEGÍVEIS ao FOLFIRINOX (mas com performance intermediária) — lacuna de cobertura a revisar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1304369"
+    }
+   },
+   "consolidacao": {
+    "status": "re_derivado",
+    "selo_confianca": "re_derivado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [
+     "cobertura: nab-pac+gem é padrão para inelegíveis a FOLFIRINOX (MPACT positivo); não inclusão total pode deixar subgrupo sem opção intermediária — revisar",
+     "nao_incorporado_por_preferencia: FOLFIRINOX preferido por custo/eficácia indireta"
+    ],
+    "decisao_revisao": "aprovado_revisao_clinica",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+   "revisado_em": "2026-09-14",
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (pâncreas) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [
+    "cobertura: nab-pac+gem é padrão para inelegíveis a FOLFIRINOX (MPACT positivo); não inclusão total pode deixar subgrupo sem opção intermediária — revisar",
+    "nao_incorporado_por_preferencia: FOLFIRINOX preferido por custo/eficácia indireta"
+   ],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 5.5,
+    "fonte_doi": "10.1056/NEJMoa1304369",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço nab-paclitaxel+gencitabina (MPACT)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Nab-paclitaxel",
+      "dose_valor": 125.0,
+      "dose_unidade": "mg_m2",
+      "via": null,
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     },
+     {
+      "farmaco": "Gemcitabina",
+      "dose_valor": 1000.0,
+      "dose_unidade": "mg_m2",
+      "via": null,
+      "dias_do_ciclo": [
+       1,
+       8,
+       15
+      ],
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "dias do ciclo escritos para parte dos fármacos (Gemcitabina) — o texto não diz se valem para os demais",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 5 (direção)"
+  },
+  {
+   "regimen_id": "sint-05b-regra5-forte-com-MCBS-baixo",
+   "tumor": "mama",
+   "cenario": "metastatico",
+   "subtipo": "HR+ / HER2 negativo — 2ª linha ou mais",
+   "nome": "Eribulina",
+   "esquema": "Eribulina 1,4 mg/m² D1 e D8 a cada 21 dias",
+   "farmacos": [
+    {
+     "nome": "Eribulina",
+     "dose": "1,4 mg/m²",
+     "via": null,
+     "frequencia": "D1 e D8 a cada 21 dias"
+    }
+   ],
+   "elegibilidade_protocolo": "Discutir individualmente. Pequena magnitude do benefício em cenário com opções escassas de tratamento (linhas tardias). Pacientes com uso prévio de pelo menos duas linhas de quimioterapia para doença avançada, incluindo antracíclico e taxano.",
+   "referencia": {
+    "citacao": "Cortes J, O'Shaughnessy J, Loesch D, Blum JL, Vahdat LT, Petrakova K, et al; EMBRACE investigators. Eribulin monotherapy versus treatment of physician's choice in patients with metastatic breast cancer (EMBRACE): a phase 3 open-label randomised study. Lancet. 2011 Mar 12;377(9769):914-23.",
+    "doi": "10.1016/S0140-6736(11)60070-6",
+    "pmid": "21376385",
+    "estudo": "EMBRACE",
+    "ano": 2011
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": null,
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global em linhas tardias (magnitude pequena)",
+    "magnitude": "EMBRACE: SG 13,1 vs 10,6 meses (HR 0,81) vs escolha do médico",
+    "fonte": "10.1016/S0140-6736(11)60070-6"
+   },
+   "toxicidades": [
+    {
+     "nome": "Neutropenia",
+     "severidade": "grave",
+     "conduta": "hemograma; G-CSF se indicado",
+     "fonte": "Bula/ficha técnica: Eribulina"
+    },
+    {
+     "nome": "Neuropatia periférica",
+     "severidade": "moderada",
+     "conduta": null,
+     "fonte": "Bula/ficha técnica: Eribulina"
+    },
+    {
+     "nome": "Fadiga",
+     "severidade": "moderada",
+     "conduta": null,
+     "fonte": "Bula/ficha técnica: Eribulina"
+    },
+    {
+     "nome": "Alopecia",
+     "severidade": "leve",
+     "conduta": null,
+     "fonte": "Bula/ficha técnica: Eribulina"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Eribulina"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(11)60070-6",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "re_derivado",
+     "valor_rederivado": "2",
+     "afirmado_protocolo": null,
+     "formulario": "nao-curativo (5/4/3/2/1)",
+     "justificativa": "EMBRACE (eribulina vs escolha do médico, ≥2 linhas prévias): SG 13,1 vs 10,6 m (ganho 2,5 m; HR 0,81; IC 0,66–0,99). Ganho absoluto <3 m e HR >0,70 => Form 2a grau 2 (magnitude pequena, coerente com o próprio protocolo). Sem_afirmacao_protocolo.",
+     "fonte": "https://doi.org/10.1016/S0140-6736(11)60070-6"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 3,
+     "afirmado_protocolo": null,
+     "justificativa": "Eribulina — citotóxico de marca (não genérico amplo), monoterapia EV D1/D8. Aquisição mais cara que os taxanos/antraciclinas genéricos, porém sem os custos de biológico/ADC; administração ambulatorial. Affordability intermediária.",
+     "flag_contexto_br": "Eribulina de marca; disponibilidade no SUS mais limitada que a QT genérica clássica — possível barreira de acesso parcial no Brasil (sinalização de direção, sem número).",
+     "fonte": "estudo EMBRACE / estimativa qualitativa"
+    },
+    "elegibilidade": {
+     "status": "concorda",
+     "criterios_inclusao": [
+      {
+       "campo": "linhas_previas_qt_doenca_avancada",
+       "operador": ">=",
+       "valor": 2
+      },
+      {
+       "campo": "antraciclina_previa",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "taxano_previo",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "criterios_exclusao": [],
+     "amplitude": "equivalente",
+     "divergencia_vs_protocolo": "O EMBRACE incluiu 2-5 esquemas prévios de QT (com antraciclina e taxano), >=2 para doença localmente recorrente/metastática. O protocolo ('>=2 linhas para doença avançada, incluindo antraciclina e taxano') é equivalente. Ponto menor: protocolo não fixa o teto de 5 linhas do estudo (leve afrouxamento superior, sem relevância clínica).",
+     "justificativa": "Critérios re-derivados de eligibility do EMBRACE (Cortes 2011).",
+     "fonte": "https://doi.org/10.1016/S0140-6736(11)60070-6"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "aprovado_revisao_clinica",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+   "revisado_em": "2026-08-16",
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-18",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (mama) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "dois_taxano_antraciclico",
+      "label": "≥2 linhas prévias de QT no cenário avançado, incluindo taxano",
+      "expr": {
+       "and": [
+        {
+         "gte": [
+          "linhas_previas",
+          2
+         ]
+        },
+        {
+         "eq": [
+          "exposicao_previa_taxano",
+          true
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "cenario",
+        "metastatico"
+       ]
+      },
+      {
+       "eq": [
+        "rh",
+        "positivo"
+       ]
+      },
+      {
+       "eq": [
+        "her2",
+        "negativo"
+       ]
+      },
+      {
+       "ref": "dois_taxano_antraciclico"
+      }
+     ]
+    }
+   },
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": null,
+    "pfs_mediana_meses": null,
+    "fonte_doi": null,
+    "indeterminado": true,
+    "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Eribulina",
+      "dose_valor": 1.4,
+      "dose_unidade": "mg_m2",
+      "via": null,
+      "dias_do_ciclo": [
+       1,
+       8
+      ],
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": true,
+    "indeterminado": false,
+    "nota": null,
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 5 (MCBS)"
+  },
+  {
+   "regimen_id": "sint-06a-regra6-farmaco-fora-do-pivo",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 6 (cobertura)"
+  },
+  {
+   "regimen_id": "sint-06b-regra6-primario-negativo",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": false,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 6 (sustenta)"
+  },
+  {
+   "regimen_id": "sint-07a-regra7-valor-fora-da-transcricao",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.53,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 7"
+  },
+  {
+   "regimen_id": "sint-07b-regra7-sem-transcricao",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 7"
+  },
+  {
+   "regimen_id": "sint-09-regra3-elevacao-com-rebaixamento",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "observacional",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": -1,
+       "por": "SINTÉTICO — confusão residual"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [
+      {
+       "tipo": "magnitude_muito_grande",
+       "valor": 2,
+       "por": "SINTÉTICO"
+      }
+     ],
+     "certeza": "B",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1B",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 3 (elevação c/ rebaixamento)"
+  },
+  {
+   "regimen_id": "sint-C1-eventos-sem-deducao-declarada",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 640,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract",
+      "eventos_por": "estimativa"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 7 (C1)"
+  },
+  {
+   "regimen_id": "sint-C2-comparador-obsoleto-sem-decisao",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": false,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA C2"
+  },
+  {
+   "regimen_id": "sint-C4-interina-sem-rebaixar",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "interina",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 4 (C4)"
+  },
+  {
+   "regimen_id": "sint-C5-faseII-imprecisao-muito-seria",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase2",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.78,
+      "ic95": [
+       0.55,
+       1.1
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 87,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: hazard ratio 0.78 (95% CI 0.55-1.10), 87 events.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": -1,
+       "por": "SINTÉTICO"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "B",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1B",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA regra 4 (C5)"
+  },
+  {
+   "regimen_id": "sint-C8a-adjuvante-SLD-duro-em-A",
+   "tumor": "renal",
+   "cenario": "adjuvancia",
+   "subtipo": "CCRcc ressecado de alto risco de recidiva",
+   "nome": "Pembrolizumab adjuvante",
+   "esquema": "Pembrolizumab 200 mg EV a cada 3 semanas por 1 ano",
+   "farmacos": [
+    {
+     "nome": "Pembrolizumab",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas, 1 ano"
+    }
+   ],
+   "elegibilidade_protocolo": "Carcinoma de células renais claras (CCRcc) completamente ressecado, alto risco (critérios KEYNOTE-564: pT2 grau 4/sarcomatoide N0M0; pT3 qualquer grau N0M0; qualquer pT N+M0; ou M1 sem evidência de doença após ressecção).",
+   "elegibilidade": {
+    "criterios": [
+     {
+      "id": "kn564_intermediario_alto",
+      "label": "Risco intermediário-alto: pT2 G4/sarcomatoide N0 M0, ou pT3 qualquer grau N0 M0",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "metastatico",
+          false
+         ]
+        },
+        {
+         "eq": [
+          "pn_positivo",
+          false
+         ]
+        },
+        {
+         "or": [
+          {
+           "and": [
+            {
+             "gte": [
+              "estadio_pt",
+              "pT2"
+             ]
+            },
+            {
+             "lt": [
+              "estadio_pt",
+              "pT3"
+             ]
+            },
+            {
+             "or": [
+              {
+               "gte": [
+                "grau_nuclear",
+                4
+               ]
+              },
+              {
+               "eq": [
+                "diferenciacao_sarcomatoide",
+                true
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "and": [
+            {
+             "gte": [
+              "estadio_pt",
+              "pT3"
+             ]
+            },
+            {
+             "lt": [
+              "estadio_pt",
+              "pT4"
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "id": "kn564_alto",
+      "label": "Risco alto: pT4 N0 M0, ou qualquer pT com N+ M0",
+      "expr": {
+       "and": [
+        {
+         "eq": [
+          "metastatico",
+          false
+         ]
+        },
+        {
+         "or": [
+          {
+           "gte": [
+            "estadio_pt",
+            "pT4"
+           ]
+          },
+          {
+           "eq": [
+            "pn_positivo",
+            true
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "id": "kn564_m1_ressecado",
+      "label": "M1 ressecado (NED)",
+      "expr": {
+       "eq": [
+        "m1_ressecado",
+        true
+       ]
+      }
+     }
+    ],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "ressecado_completo",
+        true
+       ]
+      },
+      {
+       "or": [
+        {
+         "ref": "kn564_intermediario_alto"
+        },
+        {
+         "ref": "kn564_alto"
+        },
+        {
+         "ref": "kn564_m1_ressecado"
+        }
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "POWLES T, Tomczak P, Park SH, et al. Pembrolizumab versus placebo as post-nephrectomy adjuvant therapy for clear cell renal cell carcinoma (KEYNOTE-564): 30-month follow-up. Lancet Oncol. 2022;23:1133-1144.",
+    "doi": "10.1016/S1470-2045(22)00487-9",
+    "pmid": null,
+    "estudo": "KEYNOTE-564",
+    "ano": 2022
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "A",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida livre de doença e (atualização) ↑ sobrevida global",
+    "magnitude": "KEYNOTE-564: DFS HR 0,63-0,68; atualização de 2024 com ganho de SG",
+    "fonte": "10.1016/S1470-2045(22)00487-9"
+   },
+   "toxicidades": [
+    {
+     "nome": "Eventos imunomediados (tireoidite, colite, hepatite, pneumonite)",
+     "severidade": "grave",
+     "conduta": "corticoide; suspender conforme grau",
+     "fonte": "Bula/ficha técnica: Pembrolizumab"
+    },
+    {
+     "nome": "Fadiga",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Pembrolizumab"
+    },
+    {
+     "nome": "Hipotireoidismo",
+     "severidade": "leve",
+     "conduta": "levotiroxina",
+     "fonte": "Bula/ficha técnica: Pembrolizumab"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SLD",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: disease-free survival hazard ratio 0.68 (95% CI 0.55-0.84), 420 events.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Pembrolizumab"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — adjuvante, MCBS A",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(22)00487-9",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "A",
+     "afirmado_protocolo": "A",
+     "justificativa": "Protocolo afirma ESMO-MCBS A. Re-derivação: cenário adjuvante com DFS e posterior SG positivas → formulário curativo A. Concorda.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(22)00487-9"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Pembrolizumab por 1 ano de alto custo; incorporação SUS limitada para adjuvância renal.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "ressecado_completo",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "estadio_pt",
+       "operador": "∈",
+       "valor": "pT2 (grau 4 ou sarcomatoide) | pT3 | pT4"
+      },
+      {
+       "campo": "pn_positivo",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "m1_ressecado",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": false
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda com KEYNOTE-564 (Powles 2022): os três grupos da spec do revisor são exatamente os estratos de elegibilidade do ensaio (intermediário-alto, alto, M1 NED). O booleano composto alto_risco_recidiva foi substituído por critérios explícitos. 'pT2' casa pT2/pT2a/pT2b; 'pT3' casa pT3/pT3a/b/c (mapa ordinal).",
+     "justificativa": "Re-derivado da spec do revisor, que reproduz os critérios do KEYNOTE-564.",
+     "fonte": "https://doi.org/10.1016/S1470-2045(22)00487-9",
+     "rederivado_em": "2026-09-13",
+     "rederivado_por": "intake-lote2:verificador-elegibilidade"
+    }
+   },
+   "consolidacao": {
+    "status": "re_derivado",
+    "selo_confianca": "re_derivado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "aprovado_revisao_clinica",
+    "aprovacoes": [],
+    "spec_revisor_resultado": "aplicada",
+    "nota_revisao": "Incluir apenas com esses critérios:\n1) Risco intermediário-alto: estágio patológico pT2 com grau nuclear 4 ou diferenciação sarcomatoide, N0, M0; ou pT3 de qualquer grau, N0, M0.\n2) Risco alto: pT4 de qualquer grau, N0, M0; ou qualquer pT e grau, com linfonodos positivos (N+), M0.\n3) M1 ressecado: doença M1 no diagnóstico, com metástases completamente ressecadas (metastasectomia) de forma síncrona à nefrectomia ou em até 1 ano após esta, mantendo status livre de doença.",
+    "notas_revisao": [
+     {
+      "lote": 2,
+      "data": "2026-09-12",
+      "revisor": "Gustavo Drummond Pinho Ribeiro",
+      "acao": "ajustar_elegibilidade",
+      "natureza": "dado",
+      "eixo": "elegibilidade",
+      "nota": "Incluir apenas com esses critérios:\n1) Risco intermediário-alto: estágio patológico pT2 com grau nuclear 4 ou diferenciação sarcomatoide, N0, M0; ou pT3 de qualquer grau, N0, M0.\n2) Risco alto: pT4 de qualquer grau, N0, M0; ou qualquer pT e grau, com linfonodos positivos (N+), M0.\n3) M1 ressecado: doença M1 no diagnóstico, com metástases completamente ressecadas (metastasectomia) de forma síncrona à nefrectomia ou em até 1 ano após esta, mantendo status livre de doença.",
+      "nota_squad": null
+     }
+    ]
+   },
+   "versao": 2,
+   "atualizado_em": "2026-09-13",
+   "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+   "revisado_em": "2026-09-16",
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    },
+    {
+     "versao": 2,
+     "data": "2026-09-13",
+     "origem": "intake-lote2:ajustar_elegibilidade",
+     "mudanca": "Regra re-derivada em três ramos (KEYNOTE-564) a partir da spec do revisor; primitivos novos: estadio_pt, pn_positivo, grau_nuclear, diferenciacao_sarcomatoide, m1_ressecado; selo confirmado→re_derivado (política conservadora).",
+     "eixos_afetados": [
+      "elegibilidade"
+     ],
+     "fonte": null,
+     "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "fixa",
+    "ciclos": 17,
+    "periodicidade_dias": 21,
+    "duracao_total_semanas": 51.0,
+    "fonte": "esquema",
+    "indeterminado": false,
+    "nota": "nº de ciclos derivado da duração declarada no esquema (~52 semanas) dividida pela periodicidade de 21 dias",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": true,
+    "indeterminado": false,
+    "nota": null,
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "PASSA"
+  },
+  {
+   "regimen_id": "sint-C8b-metastatico-declara-SLD",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SLD",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: disease-free survival hazard ratio 0.68 (95% CI 0.55-0.84), 420 events.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA C8"
+  },
+  {
+   "regimen_id": "sint-C9a-corpo-alegado-sem-referencia",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.78,
+      "ic95": [
+       0.65,
+       0.93
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": null,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: hazard ratio for death, 0.78; 95% CI, 0.65 to 0.93.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "eventos < 300 no ensaio, mas o corpo de evidência (meta-análise) sustenta A"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA C9"
+  },
+  {
+   "regimen_id": "sint-C9b-corpo-moderada-em-A",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "meta_analise_rct",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.81,
+      "ic95": [
+       0.71,
+       0.92
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": null,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: pooled HR 0.81 (95% CI 0.71 to 0.92), 750 participants, moderate-quality evidence.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo",
+      "referencia_corpo": {
+       "doi": "10.1002/14651858.cd000000",
+       "tipo": "cochrane",
+       "comparacao": "SINTÉTICO 2L vs BSC",
+       "certeza_declarada": "moderada",
+       "por": "SINTÉTICO"
+      }
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1002/14651858.cd000000",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA C9"
+  },
+  {
+   "regimen_id": "sint-C9c-corpo-alta-em-A",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "meta_analise_rct",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.81,
+      "ic95": [
+       0.71,
+       0.92
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": null,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: pooled HR 0.81 (95% CI 0.71 to 0.92), 750 participants, high-quality evidence.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo",
+      "referencia_corpo": {
+       "doi": "10.1002/14651858.cd000000",
+       "tipo": "cochrane",
+       "comparacao": "SINTÉTICO 2L vs BSC",
+       "certeza_declarada": "alta",
+       "por": "SINTÉTICO"
+      }
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": 0,
+       "por": "420 eventos; IC 0,55–0,84 exclui nulo com folga"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1002/14651858.cd000000",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "PASSA"
+  },
+  {
+   "regimen_id": "sint-08-forma-certeza-nao-e-aritmetica",
+   "tumor": "renal",
+   "cenario": "metastatico",
+   "subtipo": "CCRcc avançado/metastático — risco intermediário/alto, 1ª linha",
+   "nome": "Axitinibe + Pembrolizumabe",
+   "esquema": "Axitinibe 5 mg VO 2x/dia contínuo + Pembrolizumabe 200 mg EV a cada 3 semanas",
+   "farmacos": [
+    {
+     "nome": "Axitinibe",
+     "dose": "5 mg",
+     "via": "VO",
+     "frequencia": "2x/dia"
+    },
+    {
+     "nome": "Pembrolizumabe",
+     "dose": "200 mg",
+     "via": "EV",
+     "frequencia": "a cada 3 semanas"
+    }
+   ],
+   "elegibilidade_protocolo": "CCRcc metastático de risco intermediário/alto, 1ª linha (protocolo afirma ESMO-MCBS 4).",
+   "elegibilidade": {
+    "criterios": [],
+    "regra": {
+     "and": [
+      {
+       "eq": [
+        "histologia_ccrcc",
+        true
+       ]
+      },
+      {
+       "eq": [
+        "metastatico",
+        true
+       ]
+      },
+      {
+       "in": [
+        "risco_imdc",
+        [
+         "intermediario",
+         "alto"
+        ]
+       ]
+      },
+      {
+       "not": {
+        "eq": [
+         "doenca_autoimune_ativa",
+         true
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "referencia": {
+    "citacao": "RINI BI et al. Pembrolizumab plus axitinib versus sunitinib for advanced renal-cell carcinoma (KEYNOTE-426). N Engl J Med. 2019;380:1116-1127. PLIMACK ER et al. 43-month follow-up. Eur Urol. 2023;84:449-454.",
+    "doi": "10.1056/NEJMoa1816714",
+    "pmid": null,
+    "estudo": "KEYNOTE-426",
+    "ano": 2019
+   },
+   "afirmado_protocolo": {
+    "grade": null,
+    "esmo_mcbs": "4",
+    "nccn_affordability": null
+   },
+   "beneficio": {
+    "desfecho_principal": "↑ sobrevida global e ↑ SLP",
+    "magnitude": "KEYNOTE-426: SG HR 0,53 (inicial); benefício mantido em 43 meses",
+    "fonte": "10.1056/NEJMoa1816714"
+   },
+   "toxicidades": [
+    {
+     "nome": "Hepatotoxicidade (combinada TKI+IO)",
+     "severidade": "grave",
+     "conduta": "monitorar; diferenciar causa (TKI vs imunomediada)",
+     "fonte": "Bula/ficha técnica: Axitinibe/Pembrolizumabe"
+    },
+    {
+     "nome": "Hipertensão",
+     "severidade": "moderada",
+     "conduta": "anti-hipertensivo",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    },
+    {
+     "nome": "Diarreia",
+     "severidade": "moderada",
+     "conduta": "suporte",
+     "fonte": "Bula/ficha técnica: Axitinibe"
+    }
+   ],
+   "verificacao": {
+    "grade": {
+     "schema": 2,
+     "status": "re_derivado",
+     "afirmado_protocolo": null,
+     "desfecho_critico": "SG",
+     "desenho": {
+      "tipo": "rct_fase3",
+      "cegamento": "aberto",
+      "n": 861,
+      "descricao": "SINTÉTICO — RCT fase 3 aberto, N=861"
+     },
+     "efeito": {
+      "medida": "HR",
+      "valor": 0.68,
+      "ic95": [
+       0.55,
+       0.84
+      ],
+      "sentido_beneficio": "menor",
+      "eventos": 420,
+      "analise": "final",
+      "transcricao": "SINTÉTICO: overall survival was longer with the experimental arm (hazard ratio for death, 0.68; 95% CI, 0.55 to 0.84; P<0.001), 420 deaths.",
+      "fonte_transcricao": "europepmc_abstract"
+     },
+     "pivo": {
+      "intervencao": [
+       "Axitinibe",
+       "Pembrolizumabe"
+      ],
+      "comparador": "padrão da época",
+      "comparador_padrao_epoca": true,
+      "comparador_padrao_atual": true,
+      "primario_positivo": true,
+      "sustenta": true,
+      "por": "SINTÉTICO — braço experimental = regime; primário SG positivo"
+     },
+     "dominios": {
+      "risco_vies": {
+       "nota": 0,
+       "por": "aberto, desfecho duro (SG)"
+      },
+      "inconsistencia": {
+       "nota": 0,
+       "por": "ensaio único, sem contradição"
+      },
+      "indireta": {
+       "nota": 0,
+       "por": "PICO = protocolo"
+      },
+      "imprecisao": {
+       "nota": -1,
+       "por": "SINTÉTICO"
+      },
+      "vies_publicacao": {
+       "nota": 0,
+       "por": "registro prévio"
+      }
+     },
+     "elevacoes": [],
+     "certeza": "A",
+     "substituto_excecao": null,
+     "pivo_nao_sustenta": false,
+     "recomendacao": {
+      "forca": "forte",
+      "direcao": "a_favor",
+      "base": "SINTÉTICO — incorporado, MCBS 4",
+      "sem_mcbs_por": null
+     },
+     "valor_rederivado": "1A",
+     "justificativa": "SINTÉTICO — controle que deve passar.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714",
+     "motivo_indeterminado": null
+    },
+    "esmo_mcbs": {
+     "status": "concorda",
+     "valor_rederivado": "4",
+     "afirmado_protocolo": "4",
+     "justificativa": "Protocolo afirma ESMO-MCBS 4. Re-derivação: ganho de SG (HR 0,53) → MCBS 4-5; concorda com 4.",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    },
+    "nccn_affordability": {
+     "status": "estimativa",
+     "valor_rederivado": 4,
+     "afirmado_protocolo": null,
+     "justificativa": "Combinação TKI+IO de custo muito alto. Affordability baixa.",
+     "fonte": "estimativa qualitativa",
+     "flag_contexto_br": "Custo muito alto no SUS."
+    },
+    "elegibilidade": {
+     "status": "re_derivado",
+     "criterios_inclusao": [
+      {
+       "campo": "histologia_ccrcc",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "metastatico",
+       "operador": "=",
+       "valor": true
+      },
+      {
+       "campo": "risco_imdc",
+       "operador": "in",
+       "valor": [
+        "intermediario",
+        "alto"
+       ]
+      }
+     ],
+     "criterios_exclusao": [
+      {
+       "campo": "doenca_autoimune_ativa",
+       "operador": "=",
+       "valor": true
+      }
+     ],
+     "amplitude": null,
+     "divergencia_vs_protocolo": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "justificativa": "Concorda: KEYNOTE-426 incluiu CCRcc metastático (todos os riscos IMDC).",
+     "fonte": "https://doi.org/10.1056/NEJMoa1816714"
+    }
+   },
+   "consolidacao": {
+    "status": "confirmado",
+    "selo_confianca": "confirmado",
+    "eixos_diverge": [],
+    "lacunas": [],
+    "flags": [],
+    "decisao_revisao": "auto_confirmado_pendente_publicacao",
+    "aprovacoes": []
+   },
+   "versao": 1,
+   "atualizado_em": "2026-07-22",
+   "revisado_por": null,
+   "revisado_em": null,
+   "historico_versoes": [
+    {
+     "versao": 1,
+     "data": "2026-07-21",
+     "origem": "extracao-inicial",
+     "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (renal) e confronto adversarial dos quatro eixos contra a fonte primária.",
+     "eixos_afetados": [],
+     "fonte": null,
+     "decidido_por": null
+    }
+   ],
+   "flags": [],
+   "expectativa_uso": {
+    "tipo": "ate_progressao",
+    "duracao_mediana_tratamento_meses": null,
+    "proxy": "pfs",
+    "pfs_mediana_meses": 15.1,
+    "fonte_doi": "10.1056/NEJMoa1816714",
+    "indeterminado": false,
+    "nota": "PFS mediana do braço pembrolizumabe+axitinibe (KEYNOTE-426)",
+    "selo": "estimativa"
+   },
+   "composicao": {
+    "itens": [
+     {
+      "farmaco": "Axitinibe",
+      "dose_valor": null,
+      "dose_unidade": null,
+      "via": "VO",
+      "dias_do_ciclo": null,
+      "indeterminado": true,
+      "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+     },
+     {
+      "farmaco": "Pembrolizumabe",
+      "dose_valor": 200.0,
+      "dose_unidade": "mg",
+      "via": "EV",
+      "dias_do_ciclo": null,
+      "indeterminado": false,
+      "nota": null
+     }
+    ],
+    "completa": false,
+    "indeterminado": true,
+    "nota": "1 de 2 itens indeterminados",
+    "fonte": "esquema",
+    "selo": "estimativa"
+   },
+   "_esperado": "FALHA aritmética"
+  }
+ ]
+}

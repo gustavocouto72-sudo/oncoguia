@@ -1,0 +1,84 @@
+
+
+######## C4 — candidatos a versão madura
+## FLOT4
+   2026 | 10.3390/medicina62081612 | PMID 42654509 | None | Clinicopathological Predictors of Pathological Response and Survival in Older Patients Undergoing Perioperativ | abs 2194
+   2025 | 10.1016/j.esmogo.2025.100223 | PMID 41647973 | None | Impact of nutritional status on pathological response and recurrence-free survival in locally advanced oesopha | abs 1835
+   2023 | 10.3390/nu15194156 | PMID 37836440 | None | Pretreatment Modified Glasgow Prognostic Score for Predicting Prognosis and Survival in Elderly Patients with  | abs 1512
+   2023 | 10.1007/s00432-023-04636-y | PMID 36795195 | None | Pattern of recurrence and overall survival in esophagogastric cancer after perioperative FLOT and clinical out | abs 1785
+   2023 | 10.1016/j.ejrad.2023.110843 | PMID 37119707 | None | Prognostic value of [<sup>18</sup>F]FDG PET/CT on treatment response and progression-free survival of gastroes | abs 2266
+   2022 | 10.1055/s-0041-1733349 | PMID 36466971 | None | An Analysis of Tolerance and Early Survival Outcomes with Perioperative Modified FLOT in Gastric Cancers. | abs 1739
+   2021 | 10.1186/s12893-020-01035-9 | PMID 33435947 | None | Perioperative FLOT chemotherapy plus surgery for oligometastatic esophagogastric adenocarcinoma: surgical outc | abs 1577
+   2020 | 10.3390/jcm9082654 | PMID 32824326 | None | Pattern of Recurrence and Patient Survival after Perioperative Chemotherapy with 5-FU, Leucovorin, Oxaliplatin | abs 1903
+## CROSS
+   2021 | 10.1007/s00104-021-01444-3 | PMID 34191048 | None | [Long-term results of neoadjuvant chemoradiotherapy of esophageal cancer (CROSS trial)]. | abs 0
+   2021 | 10.1200/jco.20.03614 | PMID 33891478 | None | Ten-Year Outcome of Neoadjuvant Chemoradiotherapy Plus Surgery for Esophageal Cancer: The Randomized Controlle | abs 2051
+   2021 | 10.1080/0284186x.2020.1870246 | PMID 33491513 | None | Impact of pathological tumor response after CROSS neoadjuvant chemoradiotherapy followed by surgery on long-te | abs 2174
+   2019 | 10.1245/s10434-018-07097-7 | PMID 30547330 | None | Cross-Sectional Study on MRI Restaging After Chemoradiotherapy and Interval to Surgery in Rectal Cancer: Influ | abs 1823
+   2018 | 10.1093/annonc/mdx726 | PMID 29126244 | None | Impact of neoadjuvant chemoradiotherapy on health-related quality of life in long-term survivors of esophageal | abs 2248
+   2015 | 10.1016/s1470-2045(15)00040-6 | PMID 26254683 | None | Neoadjuvant chemoradiotherapy plus surgery versus surgery alone for oesophageal or junctional cancer (CROSS):  | abs 3596
+   2015 | 10.1186/s13014-015-0479-4 | PMID 26264590 | None | Long-term effects of neoadjuvant chemoradiotherapy followed by sphincter-preserving resection on anal sphincte | abs 2410
+   2014 | 10.1002/hed.23265 | PMID 23559543 | None | Nutritional status, food intake, and dysphagia in long-term survivors with head and neck cancer treated with c | abs 1066
+## RTOG 85-01
+   2006 | None | PMID 17153442 | None | The intergroup/RTOG 85-01 concurrent chemoradiation regimen for Japanese esophageal cancer. | abs 1107
+   1999 | 10.1016/s0360-3016(99)00100-5 | PMID 10421537 | None | Does race influence survival for esophageal cancer patients treated on the radiation and chemotherapy arm of R | abs 2089
+   1999 | 10.1001/jama.281.17.1623 | PMID 10235156 | None | Chemoradiotherapy of locally advanced esophageal cancer: long-term follow-up of a prospective randomized trial | abs 2653
+## CheckMate 577
+## CLASSIC
+   2014 | 10.1016/s1470-2045(14)70473-5 | PMID 25439693 | None | Adjuvant capecitabine plus oxaliplatin for gastric cancer after D2 gastrectomy (CLASSIC): 5-year follow-up of  | abs 2669
+## CheckMate 649
+   2026 | 10.1016/j.annonc.2026.02.003 | PMID 41687718 | None | Nivolumab plus chemotherapy as first-line treatment for advanced gastric, gastroesophageal junction, and esoph | abs 1999
+   2025 | 10.1007/s10120-025-01634-6 | PMID 40632415 | None | Q-TWiST analysis of first-line nivolumab plus chemotherapy versus chemotherapy in patients with advanced gastr | abs 1960
+   2024 | 10.1200/jco.23.01601 | PMID 38382001 | None | First-Line Nivolumab Plus Chemotherapy for Advanced Gastric, Gastroesophageal Junction, and Esophageal Adenoca | abs 1918
+## KEYNOTE-811
+   2026 | 10.1080/21645515.2026.2659505 | PMID 41987583 | None | Cost-effectiveness of pembrolizumab plus trastuzumab and chemotherapy for HER2-positive gastric or gastro-oeso | abs 2240
+   2026 | 10.1080/14737140.2026.2628069 | PMID 41640060 | None | An evaluation of pembrolizumab with trastuzumab, fluoropyrimidine- and platinum-containing chemotherapy for HE | abs 1583
+   2026 | 10.1158/1078-0432.ccr-25-3726 | PMID 41790455 | None | FDA Approval Summary: Pembrolizumab for the Treatment of HER2-Positive Gastric Cancer. | abs 1876
+   2026 | 10.1016/j.esmogo.2025.100294 | PMID 41994020 | None | DESTINY-Gastric05 phase III trial of first-line trastuzumab deruxtecan, chemotherapy, and pembrolizumab in HER | abs 1628
+   2025 | 10.1002/cam4.71379 | PMID 41263467 | None | Cost-Effectiveness of Pembrolizumab Plus Trastuzumab and Chemotherapy Versus Trastuzumab Plus Chemotherapy as  | abs 1902
+   2025 | 10.1016/j.esmoop.2025.105542 | PMID 41033280 | None | Pembrolizumab with trastuzumab and chemotherapy for HER2-positive advanced gastric cancer: health-related qual | abs 2103
+   2025 | 10.1158/1078-0432.ccr-24-3528 | PMID 40100100 | None | Determinants of Response to Sequential Pembrolizumab with Trastuzumab plus Platinum/5-FU in HER2-Positive Gast | abs 1922
+   2025 | 10.1177/17588359251378294 | PMID 41031208 | None | Cost-effectiveness of sequential treatment strategies involving first-line pembrolizumab with trastuzumab and  | abs 2321
+## DESTINY-Gastric01
+## SPOTLIGHT
+## GLOW
+   2026 | 10.1007/s10120-026-01738-7 | PMID 42095986 | None | Zolbetuximab plus chemotherapy in Japanese patients with claudin 18.2-positive gastric or gastroesophageal jun | abs 1891
+   2026 | 10.1016/j.esmoop.2025.105931 | PMID 41741112 | None | Impact and effective management of nausea/vomiting on patients treated with zolbetuximab + chemotherapy: insig | abs 2365
+   2025 | 10.4143/crt.2025.935 | PMID 41381060 | None | Zolbetuximab Plus Chemotherapy as First-Line Treatment in Patients with Claudin 18.2-Positive, HER2-Negative,  | abs 1882
+   2023 | 10.1038/s41591-023-02465-7 | PMID 37524953 | None | Zolbetuximab plus CAPOX in CLDN18.2-positive gastric or gastroesophageal junction adenocarcinoma: the randomiz | abs 1443
+## TAGS
+   2022 | 10.1007/s10120-021-01271-9 | PMID 34997449 | None | Efficacy and safety of trifluridine/tipiracil in older and younger patients with metastatic gastric or gastroe | abs 1721
+   2021 | 10.1016/j.esmoop.2021.100200 | PMID 34175675 | None | Trifluridine/tipiracil versus placebo for third or later lines of treatment in metastatic gastric cancer: an e | abs 1996
+   2021 | 10.1007/s10120-021-01156-x | PMID 33713215 | None | Trifluridine/tipiracil in patients with metastatic gastroesophageal junction cancer: a subgroup analysis from  | abs 1617
+## REGARD
+   2018 | 10.1111/ajco.12829 | PMID 29318751 | None | Subgroup analysis of East Asian patients in REGARD: A phase III trial of ramucirumab and best supportive care  | abs 1442
+   2018 | 10.1111/jgh.14007 | PMID 28960444 | None | Age does not influence efficacy of ramucirumab in advanced gastric cancer: Subgroup analyses of REGARD and RAI | abs 1770
+   2017 | 10.5230/jgc.2017.17.e16 | PMID 28680718 | None | Prognostic Factor Analysis of Overall Survival in Gastric Cancer from Two Phase III Studies of Second-line Ram | abs 2173
+   2016 | 10.1038/bjc.2016.293 | PMID 27623234 | None | Biomarker analyses in REGARD gastric/GEJ carcinoma patients treated with VEGFR2-targeted antibody ramucirumab. | abs 1590
+   2014 | 10.2217/fon.14.106 | PMID 25145426 | None | Ramucirumab for metastatic gastric or gastroesophageal junction cancer: results and implications of the REGARD | abs 845
+   2014 | 10.1016/s0140-6736(13)61719-5 | PMID 24094768 | None | Ramucirumab monotherapy for previously treated advanced gastric or gastro-oesophageal junction adenocarcinoma  | abs 2384
+## Glimelius gastrico 1997
+   1997 | 10.1023/a:1008243606668 | PMID 9093725 | None | Randomized comparison between chemotherapy plus best supportive care with best supportive care in advanced gas | abs 2012
+## RTOG 85-01 Cooper 1999
+   1999 | 10.1001/jama.281.17.1623 | PMID 10235156 | None | Chemoradiotherapy of locally advanced esophageal cancer: long-term follow-up of a prospective randomized trial | abs 2653
+## CROSS 10-year
+   2021 | 10.1200/jco.20.03614 | PMID 33891478 | None | Ten-Year Outcome of Neoadjuvant Chemoradiotherapy Plus Surgery for Esophageal Cancer: The Randomized Controlle | abs 2051
+## CLASSIC 5-year
+   2014 | 10.1016/s1470-2045(14)70473-5 | PMID 25439693 | None | Adjuvant capecitabine plus oxaliplatin for gastric cancer after D2 gastrectomy (CLASSIC): 5-year follow-up of  | abs 2669
+## CheckMate 577 update
+   2026 | 10.1245/s10434-026-19914-5 | PMID 42307822 | None | ASO Visual Abstract: Clinical Outcomes of First-Line Immune Checkpoint Inhibitor-Based Therapy for Postoperati | abs 0
+   2026 | 10.1245/s10434-026-19818-4 | PMID 42159877 | None | Clinical Outcomes of First-Line Immune Checkpoint Inhibitor-Based Therapy for Postoperative Recurrence After A | abs 1905
+   2026 | 10.1002/ijc.70686 | PMID 42572384 | None | Tolerability of Adjuvant Nivolumab in Esophageal or Gastroesophageal Junction Cancer: A Real-World Study. | abs 1720
+   2026 | 10.1245/s10434-026-19802-y | PMID 42144493 | None | Beyond CheckMate 577: Risk Stratification of Postoperative Recurrence after Adjuvant Nivolumab in Esophageal C | abs 0
+   2026 | 10.1245/s10434-026-19749-0 | PMID 42071086 | None | Correction: Risk Stratification of Postoperative Recurrence After Adjuvant Nivolumab for Resected Locally Adva | abs 0
+   2026 | 10.1245/s10434-026-19709-8 | PMID 42020916 | None | ASO Visual Abstract: Risk Stratification of Postoperative Recurrence After Adjuvant Nivolumab for Resected Loc | abs 0
+   2026 | 10.1245/s10434-026-19648-4 | PMID 41979848 | None | Risk Stratification of Postoperative Recurrence After Adjuvant Nivolumab for Resected Locally Advanced Esophag | abs 1963
+   2026 | 10.1007/s00595-025-03187-8 | PMID 41324667 | None | Clinical outcomes of adjuvant nivolumab following neoadjuvant chemotherapy and esophagectomy in patients with  | abs 1645
+## KEYNOTE-859
+   2026 | 10.1016/j.esmoop.2026.108536 | PMID 42748509 | None | Pembrolizumab plus chemotherapy as first-line therapy for advanced HER2-negative gastric or gastroesophageal j | abs 1967
+   2026 | 10.1080/1750743x.2026.2647579 | PMID 41964430 | None | Pembrolizumab plus chemotherapy for advanced HER2-negative gastric or gastroesophageal junction cancer: KEYNOT | abs 1469
+   2025 | 10.1016/j.ejca.2025.115807 | PMID 41175805 | None | First-line pembrolizumab plus chemotherapy for advanced HER2-negative gastric or gastroesophageal junction ade | abs 1842
+   2025 | 10.1007/s10147-025-02847-6 | PMID 40750941 | None | First-line pembrolizumab plus chemotherapy for participants in Japan with gastric or gastroesophageal junction | abs 1895
+   2025 | 10.1007/s12325-024-03069-4 | PMID 40025394 | None | First-Line Pembrolizumab Plus Chemotherapy for HER2-Negative Advanced Gastric Cancer: China Subgroup Analysis  | abs 2382
+   2023 | 10.1016/s1470-2045(23)00515-6 | PMID 37875143 | None | Pembrolizumab plus chemotherapy versus placebo plus chemotherapy for HER2-negative advanced gastric cancer (KE | abs 4138
+   2021 | 10.2217/fon-2021-0176 | PMID 33975465 | None | KEYNOTE-859: a Phase III study of pembrolizumab plus chemotherapy in gastric/gastroesophageal junction adenoca | abs 1141

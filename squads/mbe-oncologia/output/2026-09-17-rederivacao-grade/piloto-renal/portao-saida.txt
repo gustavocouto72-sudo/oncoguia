@@ -1,0 +1,28 @@
+= Portão de dados — 10 regimes de 1 arquivo(s) =
+= Corpus: /Users/gustavocouto/Antigravity/OncoGuia/squads/mbe-oncologia/output/2026-09-17-rederivacao-grade/piloto-renal/regimes-consolidados.json
+
+!!! ATENÇÃO: este caminho NÃO é o RUN_ATIVO (2026-09-17-intake-revisao-4/v1). Você está validando
+!!! um corpus que NÃO é o publicado — o veredito não vale para o que está no ar.
+
+Placar: confirmado=3 · divergencia=2 · re_derivado=5
+Tumores: 1
+
+✓ [1] Nenhum confirmado com DOI ausente.
+✓ [3] Nenhum custo confirmado sem lastro (todos coerentes).
+~ [4] SKIP órfãos: campos_primitivos não encontrado (arquivo por-tumor ausente).
+✓ [5] Nenhuma comparação ordinal de estadiamento crua detectada.
+✓ [7] Contrato de incorporação ok — soma: 10 total = 10 candidatos + 0 não incorporados (visíveis).
+✓ [9] expectativa_uso em 10/10 — fixa 1, fixa indet 0, até-progressão c/ duração 0, c/ proxy PFS 6, indet 3 (30% indeterminado).
+✓ [10] composicao em 10/10 — 1 completas, 9 indeterminadas (90%); itens 15, resolvidos 5.
+       por tumor (completas/total): renal 1/10
+✓ [11] GRADE schema 2 em 10/10 (legado 0) — certeza A=3 · B=4 · C=2 · D=1 — recomendação condicional/a_favor=3 · condicional/pendente_revisor=1 · forte/a_favor=6
+
+====================================================
+⚠ WARN: tumores com 0 incompletos (olhe se é honesto) (1)
+   renal
+⚠ WARN: GRADE schema 2 — exceções/propostas declaradas que o referendo precisa ver (13)
+   renal-adj-pembrolizumab: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1056/nejmoa2312695 (C4: análise mais madura do mesmo ensaio (57 m; SLD atualizada + SG) — a fonte registrada (Lancet Oncol 2022) era a de 30 m), renal-met-favoravel-pazopanibe: C7: referência ADICIONAL proposta: 10.1200/jco.2009.23.9764 — Sternberg 2010 JCO — pazopanibe vs placebo (fase 3): eficácia absoluta do pazopanibe, ausente do corpus (C7), renal-met-favoravel-sunitinibe: regra 2: exceção 'crossover_documentado' para desfecho substituto SLP (certeza B) — referendo, renal-met-favoravel-sunitinibe: C7: referência ADICIONAL proposta: 10.1200/jco.2008.20.1293 — Motzer 2009 JCO — SG final e documentação do crossover (33% para sunitinibe, 32% para outros anti-VEGF): base da exceção 'crossover_documentado' (C7: adicional, o pivô da SLP segue sendo o de 2007), renal-met-favoravel-ipilimumabe-nivolumabe: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1016/j.annonc.2024.07.727 (C4: seguimento de 8 anos do mesmo ensaio (já citado no corpus sem DOI)), renal-met-favoravel-ipilimumabe-nivolumabe: C6: direção da recomendação pendente do revisor (Portão C), renal-met-intalto-ipilimumabe-nivolumabe: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1016/j.annonc.2024.07.727 (C4: seguimento de 8 anos do mesmo ensaio — a fonte registrada (NEJM 2018) era a 1ª interina com IC 99,8%), renal-met-intalto-axitinibe-pembrolizumabe: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1016/j.eururo.2023.06.006 (C4: análise final (43 m) do mesmo ensaio — a fonte registrada (NEJM 2019) era a 1ª interina (HR 0,53)), renal-met-intalto-nivolumabe-cabozantinibe: C1: eventos=326 deduzido de medianas de SG atingidas nos DOIS braços (49,5 e 35,5 m) → ≥ 50% de 323 + ≥ 50% de 328 = ≥ 326 óbitos (limite inferior), renal-met-intalto-nivolumabe-cabozantinibe: C4: fonte do card passa a ser a versão madura do mesmo estudo: 10.1016/j.esmoop.2024.102994 (C4: seguimento de 44 m do mesmo ensaio — a fonte registrada (NEJM 2021) só tinha IC 98,89% e mediana não atingida), renal-met-2l-pos-vegfr-nivolumabe: C1: eventos=640 deduzido de SG 5 anos 26% × 410 (≈ 303 óbitos) + 18% × 411 (≈ 337 óbitos) = 640, renal-met-2l-pos-io-cabozantinibe: C1: eventos=329 deduzido de medianas de SG atingidas nos DOIS braços (21,4 e 16,5 m) → ≥ 50% de 330 + ≥ 50% de 328 = ≥ 329 óbitos (limite inferior) ...
+====================================================
+
+RESULTADO: passou os invariantes offline. (rode com --check-dois pra fechar os DOIs)
+Lembrete: isto cobre a forma, não o mérito clínico — esse é do oncologista na Revisão.

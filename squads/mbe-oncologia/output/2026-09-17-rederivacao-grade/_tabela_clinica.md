@@ -1,0 +1,56 @@
+| # | regime | antes | depois | certeza · força · direção | o que muda na prática | domínio decisivo | fonte do card | ✓/✗ |
+|---|---|---|---|---|---|---|---|---|
+| **Renal (piloto v2.1)** | | | | | | | | |
+| 1 | `renal-adj-pembrolizumab` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 · C4 madura | 10.1056/nejmoa2312695 | ☐ concordo ☐ discordo |
+| 2 | `renal-met-favoravel-pazopanibe` | 1A | **2C** | C · condicional · a favor | força 1→2; certeza A→C | indireta -1, imprecisao -1 | 10.1056/NEJMoa1303989 | ☐ concordo ☐ discordo |
+| 3 | `renal-met-favoravel-sunitinibe` | 1A | **2B** | B · condicional · a favor | força 1→2; certeza A→B | indireta -1 · exceção crossover | 10.1056/NEJMoa065044 | ☐ concordo ☐ discordo |
+| 4 | `renal-met-favoravel-ipilimumabe-nivolumabe` | 1B | **2C** | C · condicional · pendente revisor | **direção pendente (C6)**; força 1→2; certeza B→C | indireta -1, imprecisao -1 · C4 madura | 10.1016/j.annonc.2024.07.727 | ☐ concordo ☐ discordo |
+| 5 | `renal-met-intalto-ipilimumabe-nivolumabe` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado · C4 madura | 10.1016/j.annonc.2024.07.727 | ☐ concordo ☐ discordo |
+| 6 | `renal-met-intalto-axitinibe-pembrolizumabe` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 · C4 madura | 10.1016/j.eururo.2023.06.006 | ☐ concordo ☐ discordo |
+| 7 | `renal-met-intalto-nivolumabe-cabozantinibe` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado · C4 madura | 10.1016/j.esmoop.2024.102994 | ☐ concordo ☐ discordo |
+| 8 | `renal-met-2l-pos-vegfr-nivolumabe` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado | 10.1002/cncr.33033 | ☐ concordo ☐ discordo |
+| 9 | `renal-met-2l-pos-io-cabozantinibe` | 1A | **1B** | B · forte · a favor | certeza A→B | indireta -1 · C4 madura | 10.1016/s1470-2045(16)30107-3 | ☐ concordo ☐ discordo |
+| 10 | `renal-naoclaras-sunitinibe-pazopanibe` | 2B | **2D** | D · condicional · a favor | certeza B→D | indireta -1, imprecisao -2 | 10.1016/S1470-2045(15)00515-X | ☐ concordo ☐ discordo |
+| **Esôfago-estômago (onda 1)** | | | | | | | | |
+| 11 | `eso-perioperatorio-flot` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado | 10.1016/S0140-6736(18)32557-1 | ☐ concordo ☐ discordo |
+| 12 | `eso-neoadj-crt-carbo-paclitaxel` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 · C4 madura | 10.1200/jco.20.03614 | ☐ concordo ☐ discordo |
+| 13 | `eso-def-crt-cisplatina-5fu` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 · C4 madura | 10.1001/jama.281.17.1623 | ☐ concordo ☐ discordo |
+| 14 | `gastrico-adj-nivolumabe` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado | 10.1056/NEJMoa2032125 | ☐ concordo ☐ discordo |
+| 15 | `gastrico-adj-capox` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado · C4 madura | 10.1016/s1470-2045(14)70473-5 | ☐ concordo ☐ discordo |
+| 16 | `gastrico-adj-crt-5fu-lv` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 | 10.1200/JCO.2011.36.7136 | ☐ concordo ☐ discordo |
+| 17 | `gastrico-met-1l-cisplatina-5fu` | 1A | **indet.** | — | **virou indeterminado** — o pivô registrado não sustenta / não traz efeito | fonte_inacessivel: o DOI registrado (10.1093/oxfordjournals.annonc.a010676, 'doi_reparado' no corpus) resolve para Glimelius 1996 — QT vs BSC em câncer de PÂNCR | 10.1093/oxfordjournals.annonc.a010676 | ☐ concordo ☐ discordo |
+| 18 | `gastrico-met-1l-folfox` | 1A | **indet.** | — | **virou indeterminado** — o pivô registrado não sustenta / não traz efeito | fonte_inacessivel: o abstract do pivô registrado (Al-Batran 2008, FLO vs FLP, N=220) não traz HR/IC — SLP 5,8 vs 3,9 m com p=0,077 e SG 'sem diferença significa | 10.1200/JCO.2007.13.9378 | ☐ concordo ☐ discordo |
+| 19 | `gastrico-met-1l-capox` | 1A | **indet.** | — | **virou indeterminado** — o pivô registrado não sustenta / não traz efeito | fonte_inacessivel: o abstract do pivô registrado (Al-Batran 2008, FLO vs FLP, N=220) não traz HR/IC — SLP 5,8 vs 3,9 m com p=0,077 e SG 'sem diferença significa | 10.1200/JCO.2007.13.9378 | ☐ concordo ☐ discordo |
+| 20 | `gastrico-met-2l-paclitaxel` | 1A | **indet.** | — | **virou indeterminado** — o pivô registrado não sustenta / não traz efeito | fonte_inacessivel: o pivô registrado (RAINBOW) testa ramucirumabe; paclitaxel é o backbone dos DOIS braços — a fonte não contém nenhum efeito do paclitaxel isol | 10.1016/S1470-2045(14)70420-6 | ☐ concordo ☐ discordo |
+| 21 | `gastrico-met-2l-irinotecano-folfiri` | 1A | **2B** | B · condicional · a favor | força 1→2; certeza A→B | indireta -1 · C9 corpo | 10.1002/14651858.cd004064.pub4 | ☐ concordo ☐ discordo |
+| 22 | `gastrico-met-docetaxel` | 1A | **1B** | B · forte · a favor | certeza A→B | indireta -1 · C9 corpo | 10.1002/14651858.cd004063.pub4 | ☐ concordo ☐ discordo |
+| 23 | `gastrico-met-1l-io-qt-cps` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado · C4 madura | 10.1016/j.annonc.2026.02.003 | ☐ concordo ☐ discordo |
+| 24 | `gastrico-met-her2-trastuzumabe-qt` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 | 10.1016/S0140-6736(10)61121-X | ☐ concordo ☐ discordo |
+| 25 | `gastrico-met-her2-pembro-tras-qt` | 1A | **2C** | C · condicional · a favor | força 1→2; certeza A→C | indireta -1, imprecisao -1 | 10.1016/S0140-6736(23)02033-0 | ☐ concordo ☐ discordo |
+| 26 | `gastrico-met-her2-2l-tdxd` | 1A | **2C** | C · condicional · a favor | força 1→2; certeza A→C | indireta -1, imprecisao -1 | 10.1056/NEJMoa2004413 | ☐ concordo ☐ discordo |
+| 27 | `gastrico-tas102-nao-rotineiro` | 1B | **2A** | A · condicional · contra | **direção: contra** (não incorporado); força 1→2; certeza B→A | nenhum domínio rebaixado | 10.1016/S1470-2045(18)30739-3 | ☐ concordo ☐ discordo |
+| 28 | `gastrico-ramucirumabe-nao-incorporado` | 1A | **2B** | B · condicional · contra | **direção: contra** (não incorporado); força 1→2; certeza A→B | imprecisao -1 | 10.1016/S1470-2045(14)70420-6 | ☐ concordo ☐ discordo |
+| 29 | `gastrico-zolbetuximabe-nao-incorporado` | 1A | **2B** | B · condicional · contra | **direção: contra** (não incorporado); força 1→2; certeza A→B | imprecisao -1 | 10.1016/S0140-6736(23)00620-7 | ☐ concordo ☐ discordo |
+| **Colorretal (onda 2)** | | | | | | | | |
+| 30 | `retal-neoadj-crt-capecitabina` | 1A | **indet.** | — | **virou indeterminado** — o pivô registrado não sustenta / não traz efeito | fonte_inacessivel: o abstract (Lancet Oncol 2012, NI, N=392) traz SG 5 a 76% [67–82] vs 67% [58–74] (NI p=0,0004; superioridade post-hoc p=0,05) e SLD 3 a 75% v | 10.1016/S1470-2045(12)70116-X | ☐ concordo ☐ discordo |
+| 31 | `retal-tnt-folfox-capox` | 1A | **indet.** | — | **virou indeterminado** — o pivô registrado não sustenta / não traz efeito | fonte_inacessivel: OPRA (fase 2 randomizado, N=324) compara indução→QRT vs QRT→consolidação — ambos os braços são TNT; SLD 5 a 71% vs 69% (p=0,68), sobrevida li | 10.1200/JCO.23.01208 | ☐ concordo ☐ discordo |
+| 32 | `retal-tnt-folfirinox` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 | 10.1016/j.annonc.2024.06.019 | ☐ concordo ☐ discordo |
+| 33 | `colon-adj-fluoropirimidina-stageII` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 · C9 corpo | 10.1002/14651858.cd005390.pub2 | ☐ concordo ☐ discordo |
+| 34 | `colon-adj-oxaliplatina-stageIII` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado · C4 madura | 10.1200/jco.2015.60.9107 | ☐ concordo ☐ discordo |
+| 35 | `crc-met-quimio-doublet` | 1A | **indet.** | — | **virou indeterminado** — o pivô registrado não sustenta / não traz efeito | fonte_inacessivel: o abstract (FOLFOX4 vs LV5FU2, N=420) traz SLP mediana 9,0 vs 6,2 m (p=0,0003) e SG 16,2 vs 14,7 m (p=0,12, não significativa) — sem HR nem I | 10.1200/JCO.2000.18.16.2938 | ☐ concordo ☐ discordo |
+| 36 | `crc-met-folfoxiri` | 1B | **2C** | C · condicional · a favor | força 1→2; certeza B→C | indireta -1, imprecisao -1 · C4 madura | 10.1016/s1470-2045(15)00122-9 | ☐ concordo ☐ discordo |
+| 37 | `crc-met-anti-egfr` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado · C9 corpo | 10.1002/14651858.cd007047.pub2 | ☐ concordo ☐ discordo |
+| 38 | `crc-met-pembrolizumabe-msi` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado · exceção crossover | 10.1016/j.annonc.2024.11.012 | ☐ concordo ☐ discordo |
+| 39 | `crc-met-tas-bevacizumab` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado | 10.1056/NEJMoa2214963 | ☐ concordo ☐ discordo |
+| 40 | `crc-met-bevacizumabe-1l-nao-incorporado` | 1A | **2B** | B · condicional · contra | **direção: contra** (não incorporado); força 1→2; certeza A→B | inconsistencia -1 · C9 corpo | 10.1002/14651858.cd005392.pub3 | ☐ concordo ☐ discordo |
+| 41 | `crc-met-aflibercepte-nao-incorporado` | 1A | **2B** | B · condicional · contra | **direção: contra** (não incorporado); força 1→2; certeza A→B | imprecisao -1 · C4 madura | 10.1200/jco.2012.42.8201 | ☐ concordo ☐ discordo |
+| 42 | `crc-met-regorafenibe-nao-incorporado` | 1A | **2B** | B · condicional · contra | **direção: contra** (não incorporado); força 1→2; certeza A→B | imprecisao -1 | 10.1016/S0140-6736(12)61900-X | ☐ concordo ☐ discordo |
+| **Colo de útero (onda 3)** | | | | | | | | |
+| 43 | `colo-adj-cisplatina-crt` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 · C9 corpo | 10.1002/14651858.cd005342.pub4 | ☐ concordo ☐ discordo |
+| 44 | `colo-qrt-induction-interlace` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 | 10.1016/S0140-6736(24)01438-7 | ☐ concordo ☐ discordo |
+| 45 | `colo-qrt-io-keynote-a18` | 1A | **1B** | B · forte · a favor | certeza A→B | imprecisao -1 · C4 madura | 10.1016/s0140-6736(24)01808-7 | ☐ concordo ☐ discordo |
+| 46 | `colo-met-1l-pembrolizumabe-qt-cps1` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado | 10.1200/JCO.23.00914 | ☐ concordo ☐ discordo |
+| 47 | `colo-met-1l-qt-cps-neg` | 1A | **indet.** | — | **virou indeterminado** — o pivô registrado não sustenta / não traz efeito | fonte_inacessivel: o pivô registrado (GOG-169, Moore 2004: cisplatina ± paclitaxel, N=264) traz TRO 36% vs 19% (p=0,002) e SLP mediana 4,8 vs 2,8 m (p<0,001) SE | 10.1200/JCO.2004.04.170 | ☐ concordo ☐ discordo |
+| 48 | `colo-met-cemiplimabe-refrataria` | 1A | **1A** | A · forte · a favor | mesmo valor | nenhum domínio rebaixado · C4 madura | 10.1016/j.ejca.2024.115146 | ☐ concordo ☐ discordo |
+| 49 | `colo-met-bevacizumabe-nao-incluido` | 1A | **2A** | A · condicional · contra | **direção: contra** (não incorporado); força 1→2 | nenhum domínio rebaixado · C4 madura | 10.1016/s0140-6736(17)31607-0 | ☐ concordo ☐ discordo |
+| 50 | `colo-met-2l-monoterapia` | 2C | **indet.** | — | **virou indeterminado** — o pivô registrado não sustenta / não traz efeito | fonte_inacessivel: o pivô registrado (McGuire 1996, GOG) é fase 2 de braço único de paclitaxel com TRO 17% (2 RC + 7 RP) sem IC — não há efeito comparativo tran | 10.1200/JCO.1996.14.3.792 | ☐ concordo ☐ discordo |
