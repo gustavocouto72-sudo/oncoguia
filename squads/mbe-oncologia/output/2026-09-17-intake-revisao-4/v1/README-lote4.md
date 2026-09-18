@@ -131,3 +131,16 @@ salivar · dostarlimabe MSS (14/09, sem resposta) · 39 regimes em *Aguardando r
    Aprendizado do portão: no simulador booleano não marcado vale `false` (🔴), não 🟡 — 🟡 só
    existe para enum com `indeterminado`; "Custo 4/5" é o rótulo do eixo NCCN, presente em todo
    card — o check de alçada olha o bloco de incorporação, não o card inteiro.
+5. Commit `dfc1c50` (48 arquivos, paths explícitos; a rodada do GRADE ficou intocada na árvore) →
+   deploy do backend (`vercel --prod` em backend/, alias oncoguia-backend.vercel.app) → deploy da app
+   (`vercel --prod` em app/, alias oncoguia-app.vercel.app; `motivoNaAlcada` presente na página publicada).
+   A Rodada C já estava em produção antes (deploys dela conferidos).
+6. Pós-deploy: `/evidencia` de prod = 304 regimes, fonte este run, vocabulário salivar; **`/revisao/export`
+   de prod mostra os 9 com `aplicada_em = 2026-09-18`** (dia UTC do boot — 21h30 BRT), 4 em
+   *Aguardando re-revisão* (A18, TCH, carbo+pacli, toripalimabe; o `aprovado` do carbo+pacli também
+   expirou, como previsto) e 5 em *triada_aplicada*; dostarlimabe segue `null`. `portao-lote4.js`
+   contra produção (app publicada + API, só leitura): **30/30**. Portão A sem caminho: `Corpus` =
+   `RUN_ATIVO`, exit 0. O export de prod já tinha 347 decisões (13 novas desde o export 4: 3
+   `triada_pendente_execucao` novas + dostarlimabe) — fila do **lote 5**.
+7. Fila do revisor em prod: +3 salivar em *Pendente*; 44 em *Aguardando re-revisão* (39 anteriores
+   + 4 deste lote + 1 do próprio trabalho dele).
