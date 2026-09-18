@@ -1,0 +1,4492 @@
+{
+  "meta": {
+    "titulo": "Protocolos — cabeca-pescoco (re-extração 2026-07-22)",
+    "tumor": "cabeca-pescoco",
+    "gerado_em": "2026-09-17",
+    "total_regimes": 21,
+    "distribuicao_selo": {
+      "re_derivado": 15,
+      "divergencia": 1,
+      "incompleto": 5
+    },
+    "origem_run": "2026-07-22-refeito-completo",
+    "reparo_doi": {
+      "reparados": 2,
+      "incongruentes": 1
+    },
+    "indirectness_rebaixados": 0,
+    "estadiamento_campos": [],
+    "estadiamento_avisos": [],
+    "revisao_humana": {
+      "status": "lote 4 + salivar (D7) aplicados",
+      "data": "2026-09-17"
+    },
+    "derivado_de": "2026-09-17-intake-revisao-4/v1 (agregado; lote 4 + salivar D7)",
+    "nota": "Fatia por tumor do agregado deste run (vocabulário para o check de órfãos). Idêntica ao agregado."
+  },
+  "campos_primitivos": [
+    {
+      "campo": "tumor",
+      "tipo": "enum",
+      "label": "Tumor",
+      "secao": "Critérios de elegibilidade",
+      "opcoes": [
+        "cec_cabeca_pescoco",
+        "nasofaringe",
+        "tireoide_diferenciado",
+        "tireoide_medular",
+        "tireoide_anaplasico",
+        "glandula_salivar"
+      ],
+      "rotulos": {
+        "glandula_salivar": "Carcinoma de glândula salivar (maior ou menor)"
+      }
+    },
+    {
+      "campo": "definitivo_crt",
+      "tipo": "boolean",
+      "label": "Definitivo crt",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "inelegivel_cisplatina",
+      "tipo": "boolean",
+      "label": "Inelegivel cisplatina",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "inducao",
+      "tipo": "boolean",
+      "label": "Inducao",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "adjuvante_alto_risco",
+      "tipo": "boolean",
+      "label": "Adjuvante alto risco",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "metastatico",
+      "tipo": "boolean",
+      "label": "Metastatico",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "pdl1_cps1",
+      "tipo": "boolean",
+      "label": "Pdl1 cps1",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "segunda_linha",
+      "tipo": "boolean",
+      "label": "Segunda linha",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "cps1_ou_hpv_pos",
+      "tipo": "boolean",
+      "label": "Cps1 ou hpv pos",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "crt",
+      "tipo": "boolean",
+      "label": "Crt",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "inducao_iii_iva",
+      "tipo": "boolean",
+      "label": "Inducao iii iva",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "refratario_iodo",
+      "tipo": "boolean",
+      "label": "Refratario iodo",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "avancado",
+      "tipo": "boolean",
+      "label": "Avancado",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "quimioterapia",
+      "tipo": "boolean",
+      "label": "Quimioterapia",
+      "secao": "Critérios de elegibilidade"
+    },
+    {
+      "campo": "histologia_salivar",
+      "tipo": "enum",
+      "label": "Histologia (glândula salivar)",
+      "secao": "Biologia molecular",
+      "opcoes": [
+        "nao_informada",
+        "adenoide_cistico",
+        "ductal_salivar",
+        "adenocarcinoma_nos",
+        "mucoepidermoide",
+        "outra"
+      ],
+      "indeterminado": [
+        "nao_informada"
+      ],
+      "rotulos": {
+        "nao_informada": "Não informada",
+        "adenoide_cistico": "Adenoide cístico",
+        "ductal_salivar": "Ductal salivar",
+        "adenocarcinoma_nos": "Adenocarcinoma NOS",
+        "mucoepidermoide": "Mucoepidermoide",
+        "outra": "Outra"
+      },
+      "nota": "Registrado, mas NÃO condiciona nenhuma das 3 regras nesta proposta (o revisor não restringiu por histologia e as fontes misturam histologias). Fica no dado para (a) o oncologista ver a ressalva certa no card e (b) o revisor poder restringir depois sem vocabulário novo. Seção 'Biologia molecular' → estavel:true pelo classificador do build-data."
+    }
+  ],
+  "regimes": [
+    {
+      "regimen_id": "cp-cec-def-cisplatina-crt",
+      "tumor": "cabeca-pescoco",
+      "cenario": "localmente-avancado",
+      "subtipo": "CEC de cavidade oral/orofaringe/hipofaringe/laringe — quimiorradioterapia definitiva",
+      "nome": "Cisplatina 100 mg/m² (21/21d) + RT",
+      "esquema": "Cisplatina 100 mg/m² D1, D22, D43 concomitante à radioterapia",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D22,D43 (concomitante à RT)"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço estádio III/IVA, sítio oculto, irressecável ou borderline; preferencial na preservação de órgão do câncer de laringe.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "definitivo_crt",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ADELSTEIN DJ et al. An intergroup phase III comparison of standard radiation therapy and two schedules of concurrent chemoradiotherapy in unresectable squamous cell head and neck cancer. J Clin Oncol. 2003;21(1):92-98.",
+        "doi": "10.1200/JCO.2003.01.008",
+        "pmid": null,
+        "estudo": "Adelstein (Intergroup)",
+        "ano": 2003
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida com quimiorradioterapia (cisplatina) vs RT isolada",
+        "magnitude": "Adelstein: ganho de SG com cisplatina concomitante",
+        "fonte": "10.1200/JCO.2003.01.008"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Adelstein (fase 3): cisplatina 100 mg/m² concomitante é o padrão curativo. Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.2003.01.008"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1200/JCO.2003.01.008"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Cisplatina genérica + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "definitivo_crt",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: cisplatina 100 q21 + RT (preferencial em laringe).",
+          "justificativa": "Concorda: cisplatina 100 q21 + RT (preferencial em laringe).",
+          "fonte": "https://doi.org/10.1200/JCO.2003.01.008"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "567cf1a2c5df2225"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 3,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 9.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "3 doses de cisplatina (D1, D22, D43) concomitantes à RT — intervalo de 21 dias explícito nos dias declarados",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              22,
+              43
+            ],
+            "indeterminado": true,
+            "nota": "dias escritos em contagem corrida do tratamento (D43) e não do ciclo de 21 dias"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-cec-def-cisplatina-semanal",
+      "tumor": "cabeca-pescoco",
+      "cenario": "localmente-avancado",
+      "subtipo": "CEC de cabeça e pescoço — quimiorradioterapia com cisplatina semanal",
+      "nome": "Cisplatina 40 mg/m² semanal + RT",
+      "esquema": "Cisplatina 40 mg/m² a cada 7 dias concomitante à radioterapia",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "40 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal (concomitante à RT)"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço candidato a quimiorradioterapia definitiva (cisplatina semanal, melhor perfil de toxicidade).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "definitivo_crt",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Bauml JM et al. Cisplatin Every 3 Weeks Versus Weekly With Definitive Concurrent Radiotherapy for SCC of the Head and Neck. JNCI. 2018. DOI 10.1093/jnci/djy133. 2ª ref: ConCERT.",
+        "doi": "10.1093/jnci/djy133",
+        "pmid": null,
+        "estudo": "Bauml (meta cisplatina 3/3 vs semanal) / ConCERT",
+        "ano": 2018
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "SG não inferior com melhor perfil de toxicidade",
+        "magnitude": "Cisplatina semanal: SG não inferior à cisplatina 3/3 semanas, com menor toxicidade",
+        "fonte": "10.1093/jnci/djy133"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Cisplatina semanal com SG não inferior e melhor tolerância (Bauml + ConCERT). Recomendação forte.",
+          "fonte": "https://doi.org/10.1093/jnci/djy133"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1093/jnci/djy133"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Cisplatina genérica + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "definitivo_crt",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: cisplatina semanal como alternativa ao esquema 3/3 semanas.",
+          "justificativa": "Concorda: cisplatina semanal como alternativa ao esquema 3/3 semanas.",
+          "fonte": "https://doi.org/10.1093/jnci/djy133"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "c96334ae5a217300"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 7,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "cisplatina semanal durante a RT; nº de semanas não declarado no esquema",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 40.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina)",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-cec-def-cetuximabe-rt",
+      "tumor": "cabeca-pescoco",
+      "cenario": "localmente-avancado",
+      "subtipo": "CEC de cabeça e pescoço inelegível a cisplatina — cetuximabe + RT",
+      "nome": "Cetuximabe + RT (Bonner)",
+      "esquema": "Cetuximabe 400 mg/m² (ataque, 1 semana antes) → 250 mg/m² semanal durante a radioterapia",
+      "farmacos": [
+        {
+          "nome": "Cetuximabe",
+          "dose": "400 → 250 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal (com RT)"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço inelegível à cisplatina (DRC, baixa acuidade auditiva, neuropatia, PS≥2, doença cardiovascular não controlada, idade avançada).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "inelegivel_cisplatina",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BONNER JA et al. Radiotherapy plus cetuximab for squamous-cell carcinoma of the head and neck. N Engl J Med. 2006;354(6):567-578.",
+        "doi": "10.1056/NEJMoa053422",
+        "pmid": null,
+        "estudo": "Bonner",
+        "ano": 2006
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ controle locorregional e sobrevida vs RT isolada",
+        "magnitude": "Bonner: ganho de SG com cetuximabe + RT vs RT isolada",
+        "fonte": "10.1056/NEJMoa053422"
+      },
+      "toxicidades": [
+        {
+          "nome": "Rash acneiforme (cetuximabe)",
+          "severidade": "moderada",
+          "conduta": "tetraciclina; corticoide tópico",
+          "fonte": "Bula/ficha técnica: Cetuximabe"
+        },
+        {
+          "nome": "Mucosite/radiodermite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Perfil de RT"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Bonner (fase 3): cetuximabe + RT superior à RT isolada. Alternativa validada para inelegíveis a cisplatina. Recomendação forte nesse subgrupo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa053422"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa053422"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Cetuximabe de custo intermediário-alto. Affordability intermediária.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo intermediário."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "inelegivel_cisplatina",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: cetuximabe+RT em inelegíveis a cisplatina.",
+          "justificativa": "Concorda: cetuximabe+RT em inelegíveis a cisplatina.",
+          "fonte": "https://doi.org/10.1056/NEJMoa053422"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nota_revisor: inelegibilidade a cisplatina = ClCr <60 mL/min, perda auditiva (aparelho auditivo ou queda ≥25 dB em 2 frequências contíguas) ou neuropatia periférica ≥G1 (definição do NRG-HN004)",
+          "pedido_embutido_nao_executado: critérios computáveis de inelegibilidade a cisplatina (3 primitivos novos) — aguarda ação própria do revisor"
+        ],
+        "decisao_revisao": "revisado_com_ressalva",
+        "referencias_complementares": [
+          {
+            "estudo": "NRG-HN004",
+            "doi": "10.1016/s1470-2045(24)00507-2",
+            "pmid": "39551064",
+            "citacao": "MELL LK, Torres-Saavedra PA, Wong SJ, et al. Radiotherapy with cetuximab or durvalumab for locoregionally advanced head and neck cancer in patients with a contraindication to cisplatin (NRG-HN004): an open-label, multicentre, parallel-group, randomised, phase 2/3 trial. Lancet Oncol. 2024;25(12):1576-1588.",
+            "papel": "Fonte dos critérios de inelegibilidade a cisplatina que o revisor transcreveu (definição operacional do ensaio; protocolo NCT03258554 §3.2) — contexto; NÃO altera o pivô (Bonner 2006) nem os eixos.",
+            "verificado_em": "2026-09-17",
+            "tipo": "artigo",
+            "definicao_no_protocolo": "Protocolo NRG-HN004 (NCT03258554, v. 09/03/2022, §3.2, ClinicalTrials.gov): contraindicação absoluta ou relativa a cisplatina = ≥1 de: clearance de creatinina >30 e <60 mL/min (Cockcroft-Gault); Zubrod PS 2; neuropatia periférica pré-existente grau ≥1; história de perda auditiva (necessidade de aparelho auditivo OU queda ≥25 dB em 2 frequências contíguas no audiograma pré-tratamento); ≥70 anos com comorbidade moderada/grave; <70 anos com comorbidade grave."
+          }
+        ],
+        "nota_revisao": "Acrescentar os critérios de inegibilidade a cisplatina para aprovar o paciente:\n1) Insuficiência renal: clearance de creatinina < 60 mL/min \n2) Perda auditiva: necessidade prévia de aparelho auditivo ou queda ≥ 25 decibéis em duas frequências contíguas no audiograma pré-tratamento \n3) Neuropatia periférica grau 1 ou superior",
+        "notas_revisao": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "manter_anotar",
+            "natureza": "clinico",
+            "eixo": "elegibilidade",
+            "nota": "Acrescentar os critérios de inegibilidade a cisplatina para aprovar o paciente:\n1) Insuficiência renal: clearance de creatinina < 60 mL/min \n2) Perda auditiva: necessidade prévia de aparelho auditivo ou queda ≥ 25 decibéis em duas frequências contíguas no audiograma pré-tratamento \n3) Neuropatia periférica grau 1 ou superior",
+            "nota_squad": "Os 3 critérios do revisor são a definição operacional de contraindicação a cisplatina do NRG-HN004 (protocolo NCT03258554 §3.2; Mell 2024, Lancet Oncol — verificado): ClCr >30 e <60 mL/min (Cockcroft-Gault); aparelho auditivo ou queda ≥25 dB em 2 frequências contíguas; neuropatia periférica grau ≥1 — o ensaio ainda lista PS 2 e ≥70 anos com comorbidade moderada/grave (o texto do protocolo institucional já cita PS≥2, doença cardiovascular e idade). A ação registrada é manter_anotar; o texto pede 'acrescentar os critérios para aprovar o paciente' = pedido embutido de regra computável, que NÃO foi executado (regra nunca nasce de texto livre). Decisão humana D6 (17/09): nota literal agora; primitivos desenhados (clearance_creatinina numérico, perda_auditiva_clinica booleano com a definição NRG, neuropatia_grau ordinal 0–4; critério nomeado inelegivel_cisplatina_criterios = clcr<60 ∨ perda_auditiva ∨ neuropatia≥1 ∨ inelegivel_cisplatina) ficam em re_revisao para o revisor confirmar como ação própria (ajustar_elegibilidade) num lote seguinte."
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-09-17",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 1,
+          "data": "2026-09-17",
+          "origem": "intake-lote4:manter_anotar",
+          "mudanca": "Nota do revisor incorporada ao card (revisado com ressalva); dado, selo, motivo e eixos inalterados — hash intacto.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        }
+      ],
+      "flags": [
+        "nota_revisor: inelegibilidade a cisplatina = ClCr <60 mL/min, perda auditiva (aparelho auditivo ou queda ≥25 dB em 2 frequências contíguas) ou neuropatia periférica ≥G1 (definição do NRG-HN004)",
+        "pedido_embutido_nao_executado: critérios computáveis de inelegibilidade a cisplatina (3 primitivos novos) — aguarda ação própria do revisor"
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 7,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "cetuximabe semanal durante a RT; nº de semanas não declarado no esquema",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cetuximabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-cec-inducao-dcf",
+      "tumor": "cabeca-pescoco",
+      "cenario": "localmente-avancado",
+      "subtipo": "CEC de cabeça e pescoço — quimioterapia de indução (TPF/DCF)",
+      "nome": "DCF/TPF (indução)",
+      "esquema": "Docetaxel 75 mg/m² D1 + Cisplatina 75 mg/m² D1 + 5-FU 750 mg/m²/dia D1-D5, a cada 21 dias, 3 ciclos, com G-CSF, seguido de quimiorradiação",
+      "farmacos": [
+        {
+          "nome": "Docetaxel",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d x3"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "75 mg/m²",
+          "via": "EV",
+          "frequencia": "D1"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "750 mg/m²/dia",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço em pacientes jovens, sem comorbidades relevantes, com tumores primários de grande volume e/ou acometimento linfonodal extenso, HPV negativo (indução).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "inducao",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Blanchard P et al. Taxane-Cisplatin-Fluorouracil As Induction Chemotherapy in Locally Advanced Head and Neck Cancers: IPD Meta-Analysis (MACH-NC). J Clin Oncol. 2013. DOI 10.1200/JCO.2012.47.7802. 2º pivô: GSTTC (Ghi 2014).",
+        "doi": "10.1200/JCO.2012.47.7802",
+        "pmid": null,
+        "estudo": "Blanchard (meta TPF indução, MACH-NC) / GSTTC (Ghi)",
+        "ano": 2013
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ resposta/sobrevida em subgrupos de alto volume",
+        "magnitude": "Indução TPF com benefício em subgrupos selecionados (alto volume/linfonodal)",
+        "fonte": "10.1200/JCO.2012.47.7802"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        },
+        {
+          "nome": "Neutropenia febril",
+          "severidade": "grave",
+          "conduta": "G-CSF profilático",
+          "fonte": "Bula/ficha técnica: TPF"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "Indução TPF (GSTTC + meta-análise) com benefício em subgrupos de alto volume/linfonodal. Recomendação em pacientes selecionados.",
+          "fonte": "https://doi.org/10.1200/JCO.2012.47.7802"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "B (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo (indução); benefício em subgrupos. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1200/JCO.2012.47.7802"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Fármacos genéricos + G-CSF, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "inducao",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: indução TPF em pacientes selecionados de alto volume.",
+          "justificativa": "Concorda: indução TPF em pacientes selecionados de alto volume.",
+          "fonte": "https://doi.org/10.1200/JCO.2012.47.7802"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "a85042c4226d33fa"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 3,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 9.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": null,
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Docetaxel",
+            "dose_valor": 75.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 75.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "5-Fluorouracil",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "G-CSF",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 2 de 4 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-cec-adj-cisplatina-crt",
+      "tumor": "cabeca-pescoco",
+      "cenario": "adjuvancia",
+      "subtipo": "CEC de cabeça e pescoço pós-operatório de alto risco — quimiorradioterapia adjuvante",
+      "nome": "Cisplatina + RT (adjuvante)",
+      "esquema": "Cisplatina 40 mg/m² semanal (preferencial, JCOG1008) ou 100 mg/m² D1,D22,D43, concomitante à radioterapia",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "40 mg/m² semanal (ou 100 mg/m² 3/3 sem)",
+          "via": "EV",
+          "frequencia": "concomitante à RT"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço pós-cirurgia com margens positivas ou extensão extranodal (outras: primário avançado T3/T4, múltiplos linfonodos, invasão perineural/linfovascular).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "adjuvante_alto_risco",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "KIYOTA N et al. Weekly cisplatin plus radiation for postoperative head and neck cancer (JCOG1008): a noninferiority phase II/III trial. J Clin Oncol. 2022;40(18):1980-1990.",
+        "doi": "10.1200/JCO.21.01293",
+        "pmid": null,
+        "estudo": "JCOG1008 / Bernier / Cooper",
+        "ano": 2022
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida com cisplatina adjuvante (semanal não inferior ao esquema 3/3 sem)",
+        "magnitude": "JCOG1008: cisplatina semanal não inferior à cisplatina 3/3 semanas no adjuvante",
+        "fonte": "10.1200/JCO.21.01293"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "JCOG1008 + Bernier/Cooper (fase 3): quimiorradioterapia adjuvante com cisplatina; semanal não inferior ao esquema trissemanal. Recomendação forte.",
+          "fonte": "https://doi.org/10.1200/JCO.21.01293"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário adjuvante curativo. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1200/JCO.21.01293"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Cisplatina genérica + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "adjuvante_alto_risco",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: cisplatina adjuvante (semanal preferencial) em margens/ENE.",
+          "justificativa": "Concorda: cisplatina adjuvante (semanal preferencial) em margens/ENE.",
+          "fonte": "https://doi.org/10.1200/JCO.21.01293"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "eb981b28ea26ab22"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas (semanal ou 3 doses D1/D22/D43) e duração amarrada à RT, não declarada",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              22,
+              43
+            ],
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-cec-met-1l-pembrolizumabe-qt-cps1",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "CEC de cabeça e pescoço recidivado/metastático PD-L1 CPS≥1 — 1ª linha (QT+IO)",
+      "nome": "Pembrolizumabe + Cisplatina/Carboplatina + 5-FU/Paclitaxel (KEYNOTE-048)",
+      "esquema": "Pembrolizumabe 200 mg + cisplatina 100 mg/m² (ou carboplatina AUC 5) + 5-FU 1.000 mg/m²/dia D1-D4 (ou paclitaxel), a cada 21 dias por até 6 ciclos → pembrolizumabe manutenção",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d (+ manutenção)"
+        },
+        {
+          "nome": "Cisplatina/Carboplatina + 5-FU/Paclitaxel",
+          "dose": "conforme esquema",
+          "via": "EV",
+          "frequencia": "21/21d x6"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço recidivado/metastático (R/M) com PD-L1 CPS≥1, 1ª linha.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_cps1",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BURTNESS B et al. Pembrolizumab alone or with chemotherapy versus cetuximab with chemotherapy for recurrent/metastatic head and neck squamous cell carcinoma (KEYNOTE-048). Lancet. 2019;394(10212):1915-1928.",
+        "doi": "10.1016/S0140-6736(19)32591-7",
+        "pmid": null,
+        "estudo": "KEYNOTE-048",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global (CPS≥1)",
+        "magnitude": "KEYNOTE-048: SG superior com pembrolizumabe+QT vs EXTREME em CPS≥1",
+        "fonte": "10.1016/S0140-6736(19)32591-7"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "KEYNOTE-048 (fase 3): ganho de SG com pembrolizumabe+QT em CPS≥1. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(19)32591-7"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG em doença R/M CPS≥1 → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(19)32591-7"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Pembrolizumabe de custo alto; restrição a CPS≥1. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "pdl1_cps1",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: KEYNOTE-048 restringe a CPS≥1, uso adversarialmente correto do biomarcador.",
+          "justificativa": "Concorda: KEYNOTE-048 restringe a CPS≥1, uso adversarialmente correto do biomarcador.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(19)32591-7"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "2938795a21412e12"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "QT por ATÉ 6 ciclos (teto) seguida de pembrolizumabe de manutenção; pivotal sem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Pembrolizumabe",
+            "dose_valor": 200.0,
+            "dose_unidade": "mg",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 100.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": 5.0,
+            "dose_unidade": "AUC",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "5-Fluorouracil",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "Paclitaxel",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Carboplatina; 5-Fluorouracil … Paclitaxel) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 2 de 5 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-cec-met-1l-pembrolizumabe-mono-cps",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "CEC de cabeça e pescoço R/M PD-L1 CPS≥1 — pembrolizumabe monoterapia",
+      "nome": "Pembrolizumabe monoterapia (KEYNOTE-048)",
+      "esquema": "Pembrolizumabe 200 mg EV a cada 3 semanas até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Pembrolizumabe",
+          "dose": "200 mg",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço R/M com CPS≥1, baixo volume de doença, que necessitam de menor taxa de resposta ou são frágeis para quimioterapia (melhores resultados em CPS≥20).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_cps1",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BURTNESS B et al. KEYNOTE-048. Lancet. 2019;394(10212):1915-1928.",
+        "doi": "10.1016/S0140-6736(19)32591-7",
+        "pmid": null,
+        "estudo": "KEYNOTE-048",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global (CPS≥1, maior em CPS≥20)",
+        "magnitude": "KEYNOTE-048: pembrolizumabe isolado não inferior/superior em CPS≥1, melhor em CPS≥20",
+        "fonte": "10.1016/S0140-6736(19)32591-7"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "KEYNOTE-048 (fase 3): pembrolizumabe monoterapia com benefício em CPS≥1, maior em CPS≥20. Recomendação forte (frágeis/baixo volume).",
+          "fonte": "https://doi.org/10.1016/S0140-6736(19)32591-7"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG em CPS≥1 → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(19)32591-7"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Pembrolizumabe de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "pdl1_cps1",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: pembrolizumabe mono em CPS≥1 (frágeis/baixo volume).",
+          "justificativa": "Concorda: pembrolizumabe mono em CPS≥1 (frágeis/baixo volume).",
+          "fonte": "https://doi.org/10.1016/S0140-6736(19)32591-7"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "2938795a21412e12"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Pembrolizumabe",
+            "dose_valor": 200.0,
+            "dose_unidade": "mg",
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": true,
+        "indeterminado": false,
+        "nota": null,
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-cec-met-1l-cetuximabe-cps-neg",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "CEC de cabeça e pescoço R/M PD-L1 CPS<1 — 1ª linha (EXTREME)",
+      "nome": "Cisplatina + 5-FU + Cetuximabe (EXTREME)",
+      "esquema": "Cisplatina 100 mg/m² D1 + 5-FU 1.000 mg/m²/dia D1-D4 + Cetuximabe (ataque 400 → 250 mg/m² semanal), a cada 21 dias por até 6 ciclos → cetuximabe manutenção",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        },
+        {
+          "nome": "5-Fluorouracil",
+          "dose": "1.000 mg/m²/dia",
+          "via": "EV",
+          "frequencia": "D1-D4"
+        },
+        {
+          "nome": "Cetuximabe",
+          "dose": "400 → 250 mg/m²",
+          "via": "EV",
+          "frequencia": "semanal"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço R/M com PD-L1 CPS<1, 1ª linha (regime EXTREME).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "pdl1_cps1",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "VERMORKEN JB et al. Platinum-based chemotherapy plus cetuximab in head and neck cancer (EXTREME). N Engl J Med. 2008;359(11):1116-1127.",
+        "doi": "10.1056/NEJMoa0802656",
+        "pmid": null,
+        "estudo": "EXTREME",
+        "ano": 2008
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs quimioterapia isolada",
+        "magnitude": "EXTREME: SG 10,1 vs 7,4 meses; HR 0,80",
+        "fonte": "10.1056/NEJMoa0802656"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        },
+        {
+          "nome": "Rash acneiforme (cetuximabe)",
+          "severidade": "moderada",
+          "conduta": "tetraciclina",
+          "fonte": "Bula/ficha técnica: Cetuximabe"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "EXTREME (fase 3): ganho de SG com cetuximabe + QT. Padrão em CPS<1. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0802656"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "3",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG (~2,7 meses) → ESMO-MCBS ~3. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0802656"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Cetuximabe de custo intermediário-alto. Affordability intermediária.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo intermediário."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "pdl1_cps1",
+              "operador": "=",
+              "valor": false
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: EXTREME em CPS<1.",
+          "justificativa": "Concorda: EXTREME em CPS<1.",
+          "fonte": "https://doi.org/10.1056/NEJMoa0802656"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "5721e9662378aaee"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 5.6,
+        "fonte_doi": "10.1056/NEJMoa0802656",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço com cetuximabe (EXTREME); QT por até 6 ciclos + cetuximabe de manutenção",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 100.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "5-Fluorouracil",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "Cetuximabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 2 de 3 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-cec-met-2l-nivolumabe",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "CEC de cabeça e pescoço R/M — 2ª linha (nivolumabe, CPS≥1/HPV+)",
+      "nome": "Nivolumabe (CheckMate 141)",
+      "esquema": "Nivolumabe 240 mg a cada 14 dias (ou 480 mg a cada 28 dias) até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Nivolumabe",
+          "dose": "240/480 mg",
+          "via": "EV",
+          "frequencia": "2/2 ou 4/4 sem"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço R/M que nunca recebeu imunoterapia ou recidivou <6 meses após platina neoadjuvante/adjuvante (protocolo restringe a CPS≥1 ou HPV positivo pela maior magnitude de benefício).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "cps1_ou_hpv_pos",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FERRIS RL et al. Nivolumab for recurrent squamous-cell carcinoma of the head and neck (CheckMate 141). N Engl J Med. 2016;375(19):1856-1867.",
+        "doi": "10.1056/NEJMoa1602252",
+        "pmid": null,
+        "estudo": "CheckMate 141",
+        "ano": 2016
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global vs quimioterapia de agente único",
+        "magnitude": "CheckMate 141: SG 7,5 vs 5,1 meses; HR 0,70",
+        "fonte": "10.1056/NEJMoa1602252"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "CheckMate 141 (fase 3): ganho de SG com nivolumabe em 2ª linha. Recomendação forte (protocolo restringe a CPS≥1/HPV+).",
+          "fonte": "https://doi.org/10.1056/NEJMoa1602252"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SG em 2ª linha → ESMO-MCBS 4.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1602252"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Nivolumabe de custo alto. Affordability baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "cps1_ou_hpv_pos",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: CheckMate 141; protocolo restringe a CPS≥1/HPV+ por maior magnitude.",
+          "justificativa": "Concorda: CheckMate 141; protocolo restringe a CPS≥1/HPV+ por maior magnitude.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1602252"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "62309fb244ab0de2"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 2.0,
+        "fonte_doi": "10.1056/NEJMoa1602252",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço nivolumabe (CheckMate 141)",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Nivolumabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-cec-met-2l-nivolumabe-cps-neg-nao-incorporado",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "CEC de cabeça e pescoço R/M CPS<1 — nivolumabe 2ª linha (não incorporado)",
+      "nome": "Nivolumabe 2ª linha CPS<1 (NÃO incorporado)",
+      "esquema": "Nivolumabe em 2ª linha para pacientes com CPS<1 — não incorporado",
+      "farmacos": [
+        {
+          "nome": "Nivolumabe",
+          "dose": "240/480 mg",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "CEC de cabeça e pescoço R/M com CPS<1 (protocolo NÃO incorpora nivolumabe nesse subgrupo: baixa magnitude do benefício, baixa custo-efetividade).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "cec_cabeca_pescoco"
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            },
+            {
+              "eq": [
+                "cps1_ou_hpv_pos",
+                false
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "FERRIS RL et al. CheckMate 141. N Engl J Med. 2016;375(19):1856-1867. (Benefício menos expressivo no subgrupo CPS<1.)",
+        "doi": "10.1056/NEJMoa1602252",
+        "pmid": null,
+        "estudo": "CheckMate 141 (subgrupo CPS<1)",
+        "ano": 2016
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Benefício menos expressivo em CPS<1",
+        "magnitude": "CheckMate 141: benefício demonstrado independente de CPS, mas de menor magnitude em CPS<1",
+        "fonte": "10.1056/NEJMoa1602252"
+      },
+      "toxicidades": [
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1B",
+          "afirmado_protocolo": null,
+          "justificativa": "CheckMate 141 mostrou benefício independente de CPS, porém de menor magnitude em CPS<1. Protocolo restringe por custo-efetividade. Coerente.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1602252"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "2",
+          "afirmado_protocolo": null,
+          "justificativa": "Benefício de menor magnitude em CPS<1 → MCBS baixo. Sem afirmação MCBS do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1602252"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Nivolumabe de custo alto para benefício menor em CPS<1. Affordability baixa. Sustenta a não incorporação nesse subgrupo.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Não incorporado (CPS<1)."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "cec_cabeca_pescoco"
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            },
+            {
+              "campo": "cps1_ou_hpv_pos",
+              "operador": "=",
+              "valor": false
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: menor magnitude em CPS<1 e custo-efetividade sustentam a não incorporação nesse subgrupo.",
+          "justificativa": "Concorda: menor magnitude em CPS<1 e custo-efetividade sustentam a não incorporação nesse subgrupo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1602252"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [
+          "nao_incorporado: benefício menor em CPS<1, baixa custo-efetividade"
+        ],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "a1da5a337ddcfc12"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "nao_incorporado: benefício menor em CPS<1, baixa custo-efetividade"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "CheckMate 141 não reporta a mediana de PFS do subgrupo CPS<1, que é a população deste regime",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Nivolumabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-naso-crt-cisplatina",
+      "tumor": "cabeca-pescoco",
+      "cenario": "localmente-avancado",
+      "subtipo": "Carcinoma de nasofaringe — quimiorradiação",
+      "nome": "Cisplatina + RT (nasofaringe)",
+      "esquema": "Cisplatina 100 mg/m² a cada 21 dias (ou 40 mg/m² semanal) concomitante à radioterapia",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "100 mg/m² (ou 40 mg/m² semanal)",
+          "via": "EV",
+          "frequencia": "concomitante à RT"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de nasofaringe estádio II com linfonodos >3 cm/extensão extranodal/N nível IV-Vb ou <4 mil cópias/mL de EBV-DNA (quimiorradiação).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "nasofaringe"
+              ]
+            },
+            {
+              "eq": [
+                "crt",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Base de quimiorradiação com cisplatina em nasofaringe (padrão consolidado; ver Zhang NEJM 2019 para indução).",
+        "doi": "10.1056/NEJMoa1905287",
+        "pmid": null,
+        "estudo": "Zhang (base CRT nasofaringe)",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Controle locorregional/cura com quimiorradiação",
+        "magnitude": "Cisplatina + RT é o padrão curativo em nasofaringe localmente avançada",
+        "fonte": "10.1056/NEJMoa1905287"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Quimiorradiação com cisplatina é o padrão curativo em nasofaringe. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1905287"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1905287"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Cisplatina genérica + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "nasofaringe"
+            },
+            {
+              "campo": "crt",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: cisplatina + RT em nasofaringe.",
+          "justificativa": "Concorda: cisplatina + RT em nasofaringe.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1905287"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "2c5f56b39d9fde6d"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "duas alternativas de periodicidade (21/21d ou semanal) e duração amarrada à RT, não declarada",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-naso-inducao-cisplatina-gemcitabina",
+      "tumor": "cabeca-pescoco",
+      "cenario": "localmente-avancado",
+      "subtipo": "Carcinoma de nasofaringe estádio III/IVA — indução + quimiorradiação",
+      "nome": "Cisplatina + Gemcitabina (indução) → QRT",
+      "esquema": "Cisplatina 80-100 mg/m² D1 + Gemcitabina 1.000 mg/m² D1,D8, a cada 21 dias, 3 ciclos, seguido de quimiorradiação com cisplatina",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "80-100 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d x3"
+        },
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de nasofaringe estádio III/IVA com bom performance (ECOG 0-1), indução seguida de quimiorradiação.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "nasofaringe"
+              ]
+            },
+            {
+              "eq": [
+                "inducao_iii_iva",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ZHANG Y et al. Gemcitabine and cisplatin induction chemotherapy in nasopharyngeal carcinoma. N Engl J Med. 2019;381(12):1124-1135.",
+        "doi": "10.1056/NEJMoa1905287",
+        "pmid": null,
+        "estudo": "Zhang (indução gem-cis)",
+        "ano": 2019
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de recidiva e sobrevida global",
+        "magnitude": "Zhang 2019: ganho de SLR/SG com indução gem+cis antes da quimiorradiação",
+        "fonte": "10.1056/NEJMoa1905287"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Zhang (fase 3): indução gem+cis melhora SLR/SG em nasofaringe III/IVA. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1905287"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "A (curativo)",
+          "afirmado_protocolo": null,
+          "justificativa": "Cenário curativo. Formulário curativo qualitativo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1905287"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos + RT, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "nasofaringe"
+            },
+            {
+              "campo": "inducao_iii_iva",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: indução gem+cis em nasofaringe III/IVA.",
+          "justificativa": "Concorda: indução gem+cis em nasofaringe III/IVA.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1905287"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "6fc7076172c51067"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 3,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 9.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "3 ciclos de indução; a quimiorradiação subsequente não está contabilizada aqui",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": true,
+            "nota": "dose em faixa/alternativa ou uso contínuo diário no esquema — sem número único por aplicação"
+          },
+          {
+            "farmaco": "Gemcitabina",
+            "dose_valor": 1000.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-naso-met-cisplatina-gemcitabina",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de nasofaringe metastático/recidivado — 1ª linha",
+      "nome": "Cisplatina + Gemcitabina (paliativo)",
+      "esquema": "Cisplatina 80 mg/m² D1 + Gemcitabina 1.000 mg/m² D1,D8, a cada 21 dias por 6 ciclos",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "80 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        },
+        {
+          "nome": "Gemcitabina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de nasofaringe com doença sistêmica ou recidiva local, 1ª linha paliativa.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "nasofaringe"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "ZHANG L et al. Gemcitabine plus cisplatin versus fluorouracil plus cisplatin in recurrent or metastatic nasopharyngeal carcinoma: a phase 3 trial. Lancet. 2016;388(10054):1883-1892.",
+        "doi": "10.1016/S0140-6736(16)31388-5",
+        "pmid": null,
+        "estudo": "Zhang (met gem-cis)",
+        "ano": 2016
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão vs 5-FU+cisplatina",
+        "magnitude": "Zhang 2016: gem+cis superior a 5-FU+cisplatina em SLP",
+        "fonte": "10.1016/S0140-6736(16)31388-5"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "Zhang (fase 3): gem+cis superior ao 5-FU+cisplatina em nasofaringe metastática. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(16)31388-5"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "3",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SLP vs comparador ativo → MCBS ~3. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(16)31388-5"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, no SUS. Affordability alta.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "nasofaringe"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: gem+cis em nasofaringe metastática.",
+          "justificativa": "Concorda: gem+cis em nasofaringe metastática.",
+          "fonte": "https://doi.org/10.1016/S0140-6736(16)31388-5"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "a173f36d451c4178"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "6 ciclos de gencitabina+cisplatina paliativos",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 80.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Gemcitabina",
+            "dose_valor": 1000.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": [
+              1,
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina)",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-naso-toripalimabe-nao-incluido",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de nasofaringe metastático — toripalimabe (não incluído)",
+      "nome": "Toripalimabe + QT (JUPITER-02) — NÃO incluído",
+      "esquema": "Toripalimabe associado a cisplatina + gemcitabina — não incluído",
+      "farmacos": [
+        {
+          "nome": "Toripalimabe + Cisplatina + Gemcitabina",
+          "dose": "conforme JUPITER-02",
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma de nasofaringe metastático PD-L1+ (protocolo NÃO inclui toripalimabe: baixa magnitude do benefício, ESMO-MCBS 3).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "nasofaringe"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "MAI HQ, Chen QY, Chen D, et al. Toripalimab Plus Chemotherapy for Recurrent or Metastatic Nasopharyngeal Carcinoma: The JUPITER-02 Randomized Clinical Trial. JAMA. 2023;330(20):1961-1970.",
+        "doi": "10.1001/jama.2023.20181",
+        "pmid": "38015220",
+        "estudo": "JUPITER-02 (análise final de SG)",
+        "ano": 2023,
+        "primeiro_autor": "Mai",
+        "verificacao": {
+          "registro": "Crossref + Europe PMC + PubMed",
+          "data": "2026-09-17",
+          "congruente": true,
+          "tema": "fase 3 duplo-cego, n=289, nasofaringe recidivada/metastática sem QT prévia no cenário R/M: toripalimabe 240 mg vs placebo + gemcitabina-cisplatina ×6 → manutenção até 2 anos; PFS final 21,4 vs 8,2 m (HR 0,52; 0,37–0,73); seguimento mediano 36 m: OS HR 0,63 (0,45–0,89), p=0,008, mediana NR vs 33,7 m; efeito de OS consistente em PD-L1 alto e baixo"
+        },
+        "nota_troca": "Mesmo DOI do card; verificação e descrição atualizadas para a análise final de SG (o card descrevia só a SLP da análise interina)."
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": "3",
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida global e livre de progressão (1ª linha, nasofaringe R/M)",
+        "magnitude": "JUPITER-02 (análise final, seguimento 36 m): OS HR 0,63 (IC95% 0,45–0,89; p=0,008), mediana NR vs 33,7 m; OS 3 anos 64,5% vs 49,2%; PFS 21,4 vs 8,2 m (HR 0,52). ESMO-MCBS 4 (scorecard 354).",
+        "fonte": "10.1001/jama.2023.20181"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        },
+        {
+          "nome": "Eventos imunomediados",
+          "severidade": "grave",
+          "conduta": "corticoide; suspender conforme grau",
+          "fonte": "Bula/ficha técnica: inibidor de checkpoint"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "JUPITER-02 (Mai 2023, JAMA; PMID 38015220): fase 3 duplo-cego, n=289 (146 toripalimabe, 143 placebo); PFS final 21,4 vs 8,2 m (HR 0,52; 0,37–0,73); seguimento mediano 36,0 m: OS HR 0,63 (0,45–0,89), p bicaudal 0,008; mediana NR vs 33,7 m; OS 1/2/3 anos 90,9 vs 87,1% · 78,0 vs 65,1% · 64,5 vs 49,2% (corpo do artigo, conferido no dossiê WHO EML 2025 a.28); EA levando a descontinuação 11,6 vs 4,9%; EA imunomediados 54,1 vs 21,7%, G≥3 9,6 vs 1,4%. Ganho de OS estatisticamente significativo e clinicamente relevante, consistente por PD-L1 → certeza alta, recomendação forte para a EFICÁCIA. A não inclusão institucional NÃO é por evidência: é por custo/política (ver incorporacao).",
+          "fonte": "https://doi.org/10.1001/jama.2023.20181"
+        },
+        "esmo_mcbs": {
+          "status": "diverge",
+          "valor_rederivado": "4",
+          "afirmado_protocolo": "3",
+          "justificativa": "Protocolo afirma ESMO-MCBS 3 (derivado da SLP interina do Nat Med 2021). Re-derivação pela análise final de SG (JAMA 2023) e pelo scorecard OFICIAL da ESMO: ESMO-MCBS Scorecards, scorecard 354 (lido em 16/09/2026): toripalimabe + gemcitabina/cisplatina, nasofaringe R/M, JUPITER-02; ESMO-MCBS v2.0, Form 2a, desfecho avaliado OS (controle mediana 33,7 m, 3 a 49,2%; ganho estimado 19,8 m, 3 a +15,3%; HR 0,63); QoL pendente; score preliminar 4, score FINAL 4; emitido 22/09/2022, atualizado 02/07/2025. → 4. DIVERGE do protocolo (3); o revisor (16/09) aponta o mesmo.",
+          "fonte": "https://www.esmo.org/guidelines/esmo-mcbs/esmo-mcbs-for-solid-tumours/esmo-mcbs-scorecards/scorecard-354-1"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 4,
+          "afirmado_protocolo": null,
+          "justificativa": "Toripalimabe de custo alto; benefício de OS relevante (MCBS 4) — a razão de não inclusão passa a ser custo/impacto orçamentário, não magnitude do benefício. Affordability baixa (estimativa). Registro Anvisa: Registro novo Zytorvi (toripalimabe), Dr. Reddy's Farmacêutica do Brasil, Resolução-RE nº 3.085 (DOU 06/08/2026) — conferido em imprensa (O Tempo 07/08/2026; TribeMD); página gov.br/anvisa não lida diretamente.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Registrado na Anvisa (Zytorvi, RE 3.085, 06/08/2026); não incluído pelo protocolo institucional (custo)."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "nasofaringe"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Regra (nasofaringe ∧ metastático) coincide com a população do JUPITER-02 (R/M sem QT prévia no cenário R/M; benefício independente de PD-L1). O texto do protocolo diz 'PD-L1+' — o ensaio não selecionou por PD-L1 (a regra do card já não exige).",
+          "justificativa": "Concorda com a população do ensaio; a não inclusão é institucional (custo), não de elegibilidade.",
+          "fonte": "https://doi.org/10.1001/jama.2023.20181",
+          "rederivado_em": "2026-09-17",
+          "rederivado_por": "intake-lote4:verificador-elegibilidade"
+        }
+      },
+      "consolidacao": {
+        "status": "divergencia",
+        "selo_confianca": "divergencia",
+        "eixos_diverge": [
+          "esmo_mcbs"
+        ],
+        "lacunas": [],
+        "flags": [
+          "nao_incluido: custo/política institucional (registro Anvisa 08/2026; ESMO-MCBS 4; OS positiva no JUPITER-02) — motivo detalhado visível por alçada",
+          "doi_reparado: 10.1001/jama.2023.20181 (404) → 10.1001/jama.2023.20181 (200), via Crossref por nome (JUPITER-02, MAI 2023; score 0.8 vs 2º 0.5932)",
+          "evidencia_atualizada: JUPITER-02 análise final (JAMA 2023) — OS HR 0,63; ESMO-MCBS oficial 4 (scorecard 354, 07/2025); motivo 'MCBS 3 / benefício modesto' ficou desatualizado",
+          "regulatorio_br: Zytorvi (toripalimabe) registrado na Anvisa — RE 3.085, DOU 06/08/2026 (Dr. Reddy's)",
+          "divergencia_revisor:esmo_mcbs — protocolo 3 × ESMO oficial 4 (revisor concorda com 4); mantida visível para o Portão C",
+          "divergencia:esmo_mcbs"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
+        "nota_revisao": "Discutir. Medicação já aprovada no Brasil (não colocar como não incorporada). Na análise final de sobrevida global, com seguimento mediano de 36,0 meses, houve melhora significativa com toripalimabe versus placebo (HR 0,63; IC 95% 0,45-0,89; p=0,008). A sobrevida global mediana não foi atingida no grupo toripalimabe, versus 33,7 meses no grupo placebo. As taxas de sobrevida global em 1, 2 e 3 anos foram, respectivamente, 90,9% vs 87,1%, 78,0% vs 65,1%, e 64,5% vs 49,2%. Esses dados fizeram que a ESMO trocasse para score 4, ao inves de 3. Discutir devido a custo caro.",
+        "notas_revisao": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "refutar",
+            "natureza": "dado",
+            "eixo": "geral",
+            "nota": "Discutir. Medicação já aprovada no Brasil (não colocar como não incorporada). Na análise final de sobrevida global, com seguimento mediano de 36,0 meses, houve melhora significativa com toripalimabe versus placebo (HR 0,63; IC 95% 0,45-0,89; p=0,008). A sobrevida global mediana não foi atingida no grupo toripalimabe, versus 33,7 meses no grupo placebo. As taxas de sobrevida global em 1, 2 e 3 anos foram, respectivamente, 90,9% vs 87,1%, 78,0% vs 65,1%, e 64,5% vs 49,2%. Esses dados fizeram que a ESMO trocasse para score 4, ao inves de 3. Discutir devido a custo caro.",
+            "nota_squad": "Contradição interna do parecer (ação refutar = manter fora × texto 'não colocar como não incorporada / discutir') resolvida por DECISÃO HUMANA D1 (Gustavo Couto, 17/09): caminho A — o card fica FORA (não incorporado), mas passa a dizer a verdade: JUPITER-02 final com OS positiva (números do revisor CONFEREM: HR 0,63, IC 0,45–0,89, p=0,008; taxas 1/2/3 anos conferidas no corpo do artigo), ESMO-MCBS oficial 4 (scorecard 354 — o revisor está certo), registro Anvisa (RE 3.085, 06/08/2026). Eixo ESMO-MCBS re-derivado 4 e marcado DIVERGE do protocolo (3); selo confirmado→divergencia; hash muda (parecer expira pela execução). Motivo de não inclusão = custo/política, visível por alçada (clínico vê 'política institucional'; gestor/revisor/auditor/admin veem o motivo). Caminho B (incorporar: regime novo + código de app) fica para decisão do Gustavo + revisor + direção, fora desta rodada."
+          }
+        ]
+      },
+      "versao": 2,
+      "atualizado_em": "2026-09-17",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-22",
+          "origem": "reparo-doi",
+          "mudanca": "doi_reparado: 10.1001/jama.2023.20181 (404) → 10.1001/jama.2023.20181 (200), via Crossref por nome (JUPITER-02, MAI 2023; score 0.8 vs 2º 0.5932)",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-09-17",
+          "origem": "intake-lote4:refutar→manter_fora+atualizar (D1 caminho A)",
+          "mudanca": "Card atualizado para a análise final do JUPITER-02 (OS), ESMO-MCBS oficial 4 (diverge do protocolo 3), registro Anvisa 08/2026 e motivo custo/política por alçada; permanece não incorporado por decisão humana D1; eixos GRADE/ESMO/elegibilidade re-derivados; selo confirmado→divergencia.",
+          "eixos_afetados": [
+            "grade",
+            "esmo_mcbs",
+            "elegibilidade"
+          ],
+          "fonte": "10.1001/jama.2023.20181",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro"
+        }
+      ],
+      "flags": [
+        "nao_incluido: custo/política institucional (registro Anvisa 08/2026; ESMO-MCBS 4; OS positiva no JUPITER-02) — motivo detalhado visível por alçada",
+        "doi_reparado: 10.1001/jama.2023.20181 (404) → 10.1001/jama.2023.20181 (200), via Crossref por nome (JUPITER-02, MAI 2023; score 0.8 vs 2º 0.5932)",
+        "evidencia_atualizada: JUPITER-02 análise final (JAMA 2023) — OS HR 0,63; ESMO-MCBS oficial 4 (scorecard 354, 07/2025); motivo 'MCBS 3 / benefício modesto' ficou desatualizado",
+        "regulatorio_br: Zytorvi (toripalimabe) registrado na Anvisa — RE 3.085, DOU 06/08/2026 (Dr. Reddy's)",
+        "divergencia_revisor:esmo_mcbs — protocolo 3 × ESMO oficial 4 (revisor concorda com 4); mantida visível para o Portão C",
+        "divergencia:esmo_mcbs"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 21.4,
+        "fonte_doi": "10.1001/jama.2023.20181",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço toripalimabe (JUPITER-02)",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Toripalimabe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          },
+          {
+            "farmaco": "Gemcitabina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não declarada no esquema para este fármaco"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      },
+      "incorporacao": {
+        "status": "nao_incorporado",
+        "motivo": "custo",
+        "motivo_publico": "politica_institucional",
+        "alcada_motivo": [
+          "gestor",
+          "revisor",
+          "auditor",
+          "admin"
+        ],
+        "texto_publico": "Protocolo avaliado e não incorporado por política institucional. Evidência: JUPITER-02 (fase 3) com ganho de sobrevida global; ESMO-MCBS 4; registrado na Anvisa (08/2026).",
+        "nota_revisao": "Não incluído por custo/impacto orçamentário (ESMO-MCBS 4; OS HR 0,63 no JUPITER-02; registro Anvisa RE 3.085, 06/08/2026). O revisor pede discussão: 'medicação já aprovada no Brasil; discutir devido a custo caro'. Incorporação = decisão de política (Gustavo Couto + revisor + direção), fora desta rodada.",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "data": "2026-09-16",
+        "decisao_humana": "D1 — caminho A (Gustavo Couto, 2026-09-17): manter fora; card atualizado; caminho B (incorporar) fora de rodada",
+        "citacao_verificada": {
+          "estudo": "JUPITER-02 (análise final de SG)",
+          "doi": "10.1001/jama.2023.20181",
+          "pmid": "38015220",
+          "citacao": "MAI HQ, Chen QY, Chen D, et al. Toripalimab Plus Chemotherapy for Recurrent or Metastatic Nasopharyngeal Carcinoma: The JUPITER-02 Randomized Clinical Trial. JAMA. 2023;330(20):1961-1970.",
+          "verificado_em": "2026-09-17"
+        },
+        "regulatorio_br": "Registro novo Zytorvi (toripalimabe), Dr. Reddy's Farmacêutica do Brasil, Resolução-RE nº 3.085 (DOU 06/08/2026) — conferido em imprensa (O Tempo 07/08/2026; TribeMD); página gov.br/anvisa não lida diretamente.",
+        "esmo_mcbs_oficial": "ESMO-MCBS Scorecards, scorecard 354 (lido em 16/09/2026): toripalimabe + gemcitabina/cisplatina, nasofaringe R/M, JUPITER-02; ESMO-MCBS v2.0, Form 2a, desfecho avaliado OS (controle mediana 33,7 m, 3 a 49,2%; ganho estimado 19,8 m, 3 a +15,3%; HR 0,63); QoL pendente; score preliminar 4, score FINAL 4; emitido 22/09/2022, atualizado 02/07/2025."
+      }
+    },
+    {
+      "regimen_id": "cp-tireoide-diferenciado-lenvatinibe",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma diferenciado de tireoide refratário a iodo — lenvatinibe",
+      "nome": "Lenvatinibe (SELECT)",
+      "esquema": "Lenvatinibe 24 mg VO 1x/dia até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Lenvatinibe",
+          "dose": "24 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma diferenciado de tireoide (papilífero/folicular) localmente avançado ou metastático, progressivo, refratário a radioiodo.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "tireoide_diferenciado"
+              ]
+            },
+            {
+              "eq": [
+                "refratario_iodo",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "SCHLUMBERGER M et al. Lenvatinib versus placebo in radioiodine-refractory thyroid cancer (SELECT). N Engl J Med. 2015;372(7):621-630.",
+        "doi": "10.1056/NEJMoa1406470",
+        "pmid": null,
+        "estudo": "SELECT",
+        "ano": 2015
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão",
+        "magnitude": "SELECT: SLP 18,3 vs 3,6 meses; HR 0,21",
+        "fonte": "10.1056/NEJMoa1406470"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hipertensão/diarreia/síndrome mão-pé (TKI)",
+          "severidade": "moderada",
+          "conduta": "suporte; ajuste",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "SELECT (fase 3): ganho robusto de SLP com lenvatinibe em tireoide refratário a iodo. Recomendação forte.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1406470"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "3",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho robusto de SLP sem ganho maduro de SG → MCBS ~3. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1406470"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Lenvatinibe de custo alto. Affordability intermediária-baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "tireoide_diferenciado"
+            },
+            {
+              "campo": "refratario_iodo",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: SELECT em diferenciado refratário a iodo.",
+          "justificativa": "Concorda: SELECT em diferenciado refratário a iodo.",
+          "fonte": "https://doi.org/10.1056/NEJMoa1406470"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "f39b48321b766197"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": "pfs",
+        "pfs_mediana_meses": 18.3,
+        "fonte_doi": "10.1056/NEJMoa1406470",
+        "indeterminado": false,
+        "nota": "PFS mediana do braço lenvatinibe (SELECT)",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Lenvatinibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-tireoide-diferenciado-cabozantinibe",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma diferenciado de tireoide refratário a iodo — cabozantinibe (2ª linha)",
+      "nome": "Cabozantinibe (COSMIC-311)",
+      "esquema": "Cabozantinibe 60 mg VO 1x/dia até progressão/toxicidade",
+      "farmacos": [
+        {
+          "nome": "Cabozantinibe",
+          "dose": "60 mg",
+          "via": "VO",
+          "frequencia": "1x/dia"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma diferenciado de tireoide refratário/inelegível a iodo, 2ª linha após progressão a terapia anti-VEGFR.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "tireoide_diferenciado"
+              ]
+            },
+            {
+              "eq": [
+                "segunda_linha",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BROSE MS et al. Cabozantinib for radioiodine-refractory differentiated thyroid cancer (COSMIC-311): a phase 3 trial. Lancet Oncol. 2021;22(8):1126-1138.",
+        "doi": "10.1016/S1470-2045(21)00332-6",
+        "pmid": null,
+        "estudo": "COSMIC-311",
+        "ano": 2021
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "↑ sobrevida livre de progressão (SG imatura)",
+        "magnitude": "COSMIC-311: SLP amplamente superior (+9,1 meses); SG imatura",
+        "fonte": "10.1016/S1470-2045(21)00332-6"
+      },
+      "toxicidades": [
+        {
+          "nome": "Hipertensão/diarreia/síndrome mão-pé (TKI)",
+          "severidade": "moderada",
+          "conduta": "suporte; ajuste",
+          "fonte": "Bula/ficha técnica: TKI"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "1A",
+          "afirmado_protocolo": null,
+          "justificativa": "COSMIC-311 (fase 3): ganho robusto de SLP em 2ª linha; SG imatura. Recomendação forte.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(21)00332-6"
+        },
+        "esmo_mcbs": {
+          "status": "re_derivado",
+          "valor_rederivado": "3",
+          "afirmado_protocolo": null,
+          "justificativa": "Ganho de SLP com SG imatura → MCBS ~3. Sem afirmação do protocolo.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(21)00332-6"
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 3,
+          "afirmado_protocolo": null,
+          "justificativa": "Cabozantinibe de custo alto. Affordability intermediária-baixa.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Custo alto."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "tireoide_diferenciado"
+            },
+            {
+              "campo": "segunda_linha",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Concorda: COSMIC-311 em 2ª linha.",
+          "justificativa": "Concorda: COSMIC-311 em 2ª linha.",
+          "fonte": "https://doi.org/10.1016/S1470-2045(21)00332-6"
+        }
+      },
+      "consolidacao": {
+        "status": "re_derivado",
+        "selo_confianca": "re_derivado",
+        "eixos_diverge": [],
+        "lacunas": [],
+        "flags": [],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "61cf7192a8b1e80c"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "COSMIC-311: PFS mediana do braço cabozantinibe não atingida na análise interina",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cabozantinibe",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "VO",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "frequência intra-diária/uso contínuo sem os dias do ciclo escritos — nº de aplicações por ciclo indefinido"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "1 de 1 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-tireoide-medular-quimio",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma medular de tireoide avançado — quimioterapia",
+      "nome": "Doxorrubicina / Dacarbazina (medular)",
+      "esquema": "Doxorrubicina 60 mg/m² EV D1 a cada 21 dias; ou Dacarbazina 1.000 mg/m² EV D1-D5 a cada 21 dias",
+      "farmacos": [
+        {
+          "nome": "Doxorrubicina",
+          "dose": "60 mg/m²",
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Dacarbazina",
+          "dose": "1.000 mg/m²",
+          "via": "EV",
+          "frequencia": "D1-D5"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma medular de tireoide avançado (quimioterapia; alvos terapêuticos discutidos individualmente).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "tireoide_medular"
+              ]
+            },
+            {
+              "eq": [
+                "avancado",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "Orlandi F et al. Chemotherapy with dacarbazine and 5-fluorouracil in advanced medullary thyroid cancer. Ann Oncol. 1994. DOI 10.1093/oxfordjournals.annonc.a058984. 2ª ref: série de Nocera.",
+        "doi": "10.1093/oxfordjournals.annonc.a058984",
+        "pmid": null,
+        "estudo": "Orlandi (série) / Nocera",
+        "ano": 1994
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Cardiotoxicidade (doxorrubicina)",
+          "severidade": "grave",
+          "conduta": "monitorar FEVE; dose cumulativa",
+          "fonte": "Bula/ficha técnica: Doxorrubicina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "",
+          "afirmado_protocolo": null,
+          "justificativa": "Quimioterapia em medular avançado baseada em séries antigas (Orlandi/Nocer), sem RCT dedicado; terapias alvo (vandetanibe/cabozantinibe/selpercatinibe) discutidas individualmente. Lacuna de fonte primária robusta para a quimioterapia.",
+          "fonte": ""
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Séries antigas; não graduável de forma discreta.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, no SUS. Affordability alta — eixo de evidência incompleto.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Séries antigas; sem RCT dedicado."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "tireoide_medular"
+            },
+            {
+              "campo": "avancado",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "No SUS.",
+          "justificativa": "No SUS.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "evidencia_series_antigas: quimioterapia em medular sem RCT dedicado; considerar terapias alvo (RET)",
+          "doi_reparado: (vazio) (vazio) → 10.1093/oxfordjournals.annonc.a058984 (200), via Crossref por nome (Orlandi / Nocer (séries), ORLANDI None; score 1.1 vs 2º 0.25)"
+        ],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "57cd450a9a45cbe5"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        },
+        {
+          "versao": 2,
+          "data": "2026-07-22",
+          "origem": "reparo-doi",
+          "mudanca": "doi_reparado: (vazio) (vazio) → 10.1093/oxfordjournals.annonc.a058984 (200), via Crossref por nome (Orlandi / Nocer (séries), ORLANDI None; score 1.1 vs 2º 0.25)",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "evidencia_series_antigas: quimioterapia em medular sem RCT dedicado; considerar terapias alvo (RET)",
+        "doi_reparado: (vazio) (vazio) → 10.1093/oxfordjournals.annonc.a058984 (200), via Crossref por nome (Orlandi / Nocer (séries), ORLANDI None; score 1.1 vs 2º 0.25)"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "pivotal do regime não reporta duração mediana de tratamento nem PFS mediana no abstract",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Doxorrubicina",
+            "dose_valor": 60.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Dacarbazina",
+            "dose_valor": 1000.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Doxorrubicina … Dacarbazina) — somar as doses seria ler escolha como combinação",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-tireoide-anaplasico-quimio",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma anaplásico de tireoide — quimioterapia (± RT)",
+      "nome": "Doxorrubicina / Paclitaxel / Carbo+Paclitaxel",
+      "esquema": "Doxorrubicina (20 mg/m² semanal com RT, ou 60 mg/m² 21/21d sistêmico); ou paclitaxel; ou carboplatina AUC 5 + paclitaxel 175 mg/m²",
+      "farmacos": [
+        {
+          "nome": "Doxorrubicina / Paclitaxel / Carbo+Paclitaxel",
+          "dose": "conforme esquema",
+          "via": "EV",
+          "frequencia": "conforme esquema"
+        }
+      ],
+      "elegibilidade_protocolo": "Carcinoma anaplásico de tireoide (quimioterapia, sobretudo na ausência de mutação acionável ou impossibilidade de avaliação; alvos BRAF/NTRK/RET quando presentes).",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "tireoide_anaplasico"
+              ]
+            },
+            {
+              "eq": [
+                "quimioterapia",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "BIBLE KC et al. 2021 American Thyroid Association guidelines for anaplastic thyroid cancer. Thyroid. 2021;31(3):337-386. (Base em séries; extrapolação do CEC de cabeça e pescoço.)",
+        "doi": null,
+        "pmid": null,
+        "estudo": "Séries/guidelines (ATA)",
+        "ano": null
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": null,
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Mucosite",
+          "severidade": "moderada",
+          "conduta": "suporte",
+          "fonte": "Bula/ficha técnica: quimiorradioterapia"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "indeterminado",
+          "valor_rederivado": "",
+          "afirmado_protocolo": null,
+          "justificativa": "Quimioterapia em anaplásico baseada em séries/guidelines (ATA), sem RCT dedicado; extrapolação. Para mutação BRAF, dabrafenibe+trametinibe é a opção-alvo. Lacuna de fonte primária robusta para a quimioterapia.",
+          "fonte": ""
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Séries/guidelines; não graduável de forma discreta.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, no SUS. Affordability alta — eixo de evidência incompleto.",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "Séries/guidelines; sem RCT dedicado."
+        },
+        "elegibilidade": {
+          "status": "indeterminado",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "tireoide_anaplasico"
+            },
+            {
+              "campo": "quimioterapia",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "No SUS.",
+          "justificativa": "No SUS.",
+          "fonte": null
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "evidencia_series_guidelines: quimioterapia em anaplásico sem RCT dedicado; considerar alvo BRAF/NTRK/RET",
+          "doi_incongruente: 4 candidatos resolvíveis para 'Séries/guidelines (ATA)' (BIBLE None); topo 0.3424 vs 2º 0.2121 sem margem clara — não escolher; mantém incompleto"
+        ],
+        "decisao_revisao": "aprovado_revisao_clinica",
+        "aprovacoes": [
+          {
+            "lote": 4,
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "content_hash": "21fa9694bc06e2bf"
+          }
+        ]
+      },
+      "versao": 1,
+      "atualizado_em": "2026-07-22",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-07-21",
+          "origem": "extracao-inicial",
+          "mudanca": "Primeira consolidação do regime a partir do protocolo institucional (cabeça e pescoço) e confronto adversarial dos quatro eixos contra a fonte primária.",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": null
+        }
+      ],
+      "flags": [
+        "evidencia_series_guidelines: quimioterapia em anaplásico sem RCT dedicado; considerar alvo BRAF/NTRK/RET",
+        "doi_incongruente: 4 candidatos resolvíveis para 'Séries/guidelines (ATA)' (BIBLE None); topo 0.3424 vs 2º 0.2121 sem margem clara — não escolher; mantém incompleto"
+      ],
+      "expectativa_uso": {
+        "tipo": "ate_progressao",
+        "duracao_mediana_tratamento_meses": null,
+        "proxy": null,
+        "pfs_mediana_meses": null,
+        "fonte_doi": null,
+        "indeterminado": true,
+        "nota": "regime sem pivotal com DOI no corpus — sem fonte para derivar duração",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Doxorrubicina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "mais de uma dose no mesmo trecho — o esquema oferece alternativas e escolher uma seria decisão nossa"
+          },
+          {
+            "farmaco": "Paclitaxel",
+            "dose_valor": 175.0,
+            "dose_unidade": "mg_m2",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": 5.0,
+            "dose_unidade": "AUC",
+            "via": null,
+            "dias_do_ciclo": null,
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "o esquema oferece ALTERNATIVA entre fármacos (Doxorrubicina … Paclitaxel; Paclitaxel … Carboplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-salivar-met-cap",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de glândula salivar recidivado/metastático — quimioterapia paliativa (opção acrescida pelo revisor)",
+      "nome": "Cisplatina + Doxorrubicina + Ciclofosfamida (CAP)",
+      "esquema": "Ciclofosfamida 500 mg/m² EV D1 + Doxorrubicina 50 mg/m² EV D1 + Cisplatina 50 mg/m² EV D1, a cada 21–28 dias (Dreyfuss 1987: D1 de ciclo de 28 dias; Licitra 1996 não declara periodicidade no abstract)",
+      "farmacos": [
+        {
+          "nome": "Ciclofosfamida",
+          "dose": "500 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21–28/21–28d"
+        },
+        {
+          "nome": "Doxorrubicina",
+          "dose": "50 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21–28/21–28d"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "50 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21–28/21–28d"
+        }
+      ],
+      "elegibilidade_protocolo": "Não consta do protocolo institucional. Acrescido por decisão do revisor (WhatsApp, 2026-09-16): carcinoma de glândula salivar recidivado (sem opção de resgate local) ou metastático, tratamento sistêmico paliativo. Sem restrição de linha nem de histologia no pedido.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glandula_salivar"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "LICITRA L, CAVINA R, GRANDI C, et al. Cisplatin, doxorubicin and cyclophosphamide in advanced salivary gland carcinoma. A phase II trial of 22 patients. Ann Oncol. 1996;7(6):640-642.",
+        "doi": "10.1093/oxfordjournals.annonc.a010684",
+        "pmid": "8879381",
+        "estudo": "Licitra (CAP, fase II) / Dreyfuss 1987 / Laurie 2011 (RS)",
+        "ano": 1996,
+        "primeiro_autor": "Licitra",
+        "verificacao": {
+          "registro": "Europe PMC (abstract) + Crossref",
+          "data": "2026-09-16",
+          "congruente": true,
+          "tema": "fase II braço único, n=22, carcinoma de glândula salivar avançado ('most common histologies included'), CAP; TRO 27% (IC95% 11–50%), duração mediana de resposta 7 m, sobrevida mediana 21 m. Dose do esquema vem do Dreyfuss 1987 (n=13; TRO 46%). O PMID 21147032 citado pelo revisor (Laurie 2011) é a revisão sistemática de ACC que enquadra o CAP — mantida como referência de contexto, não como pivô."
+        }
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Taxa de resposta objetiva (braço único)",
+        "magnitude": "Licitra 1996: TRO 27% (6/22, só RP), resposta mediana 7 m, SG mediana 21 m; Dreyfuss 1987: TRO 46% (6/13, 3 RC), resposta mediana 5 m",
+        "fonte": "10.1093/oxfordjournals.annonc.a010684"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma; G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Cardiotoxicidade (doxorrubicina)",
+          "severidade": "grave",
+          "conduta": "monitorar FEVE; dose cumulativa",
+          "fonte": "Bula/ficha técnica: Doxorrubicina"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náuseas/vômitos",
+          "severidade": "moderada",
+          "conduta": "antiemese de alto risco emetogênico",
+          "fonte": "Bula/ficha técnica: Cisplatina/Ciclofosfamida"
+        },
+        {
+          "nome": "Cistite hemorrágica (ciclofosfamida)",
+          "severidade": "moderada",
+          "conduta": "hidratação",
+          "fonte": "Bula/ficha técnica: Ciclofosfamida"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2C",
+          "afirmado_protocolo": null,
+          "justificativa": "sem_afirmacao_protocolo. Licitra 1996: fase II braço único, n=22, TRO 27% sem RC; Dreyfuss 1987: série de 13, TRO 46%. Laurie 2011 (RS de ACC, 34 ensaios/441 pts) conclui que o esquema ótimo é incerto. Desfecho de resposta, sem comparador, n pequeno → certeza baixa; recomendação condicional (paliação sintomática).",
+          "fonte": "https://doi.org/10.1093/oxfordjournals.annonc.a010684"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Estudos de braço único → ESMO-MCBS não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, disponíveis no SUS. Affordability alta — porém eixo de evidência incompleto (tumor raro).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "valor_rederivado": null,
+          "afirmado_protocolo": null,
+          "justificativa": "Derivado do texto do revisor (sítio + doença recidivada/metastática); sem RCT para confronto (tumor raro).",
+          "fonte": "https://doi.org/10.1093/oxfordjournals.annonc.a010684",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "glandula_salivar"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Regime não consta do protocolo. Regra derivada literalmente do pedido (glândula salivar recidivada/metastática), sem restrição de histologia. Ressalva: a referência dada pelo revisor (Laurie 2011) é específica de adenoide cístico; Licitra/Dreyfuss incluíram outras histologias — conferir se o revisor quer restringir a adenoide cístico.",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "proposta-salivar:verificador-elegibilidade"
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+          "referencia:conferir — PMID 21147032 (Laurie 2011) é revisão sistemática de ACC, não ensaio do CAP; pivô proposto = Licitra 1996 (PMID 8879381), dose = Dreyfuss 1987 (PMID 2824016)",
+          "periodicidade:conferir — Dreyfuss usa ciclo de 28 dias; Licitra não declara no abstract",
+          "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
+        "nota_revisao": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+        "notas_revisao": [
+          {
+            "lote": "salivar",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "outro",
+            "natureza": "clinico",
+            "eixo": "geral",
+            "nota": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+            "nota_squad": "Regime criado a partir desta decisão (recebida por WhatsApp, fora do fluxo de parecer da app). Nasce pendente de referendo do revisor."
+          }
+        ],
+        "origem": {
+          "decisao_em": null,
+          "lote": "salivar",
+          "data": "2026-09-16",
+          "revisor": "Gustavo Drummond Pinho Ribeiro",
+          "canal": "WhatsApp ao Gustavo Couto (fora da app; não veio pelo export da Mesa)",
+          "run": "2026-09-17-intake-revisao-4/v1"
+        }
+      },
+      "versao": 1,
+      "atualizado_em": "2026-09-17",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-09-16",
+          "origem": "intake-salivar:outro (regime novo)",
+          "mudanca": "Criado por decisão do revisor (WhatsApp, 2026-09-16): Cisplatina + Doxorrubicina + Ciclofosfamida (CAP) em carcinoma de glândula salivar recidivado/metastático. Quatro eixos derivados com selo honesto; referência verificada ao vivo.",
+          "eixos_afetados": [
+            "grade",
+            "esmo_mcbs",
+            "nccn_affordability",
+            "elegibilidade"
+          ],
+          "fonte": "10.1093/oxfordjournals.annonc.a010684",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro (por WhatsApp; relatado por Gustavo Couto)"
+        },
+        {
+          "versao": 1,
+          "data": "2026-09-17",
+          "origem": "intake-salivar:inserido",
+          "mudanca": "Inserido no run 2026-09-17-intake-revisao-4/v1 (item D7 do lote 4) a partir da proposta 2026-09-16-salivar-proposta, aprovada como está pelo Gustavo Couto em 17/09. Conteúdo revisável idêntico à proposta (hash conferido).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": "Gustavo Couto (aprovação da proposta, 2026-09-17)"
+        }
+      ],
+      "flags": [
+        "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+        "referencia:conferir — PMID 21147032 (Laurie 2011) é revisão sistemática de ACC, não ensaio do CAP; pivô proposto = Licitra 1996 (PMID 8879381), dose = Dreyfuss 1987 (PMID 2824016)",
+        "periodicidade:conferir — Dreyfuss usa ciclo de 28 dias; Licitra não declara no abstract",
+        "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "nº de ciclos não fixado pelas fontes (Dreyfuss: média 4,7 ciclos; ciclo de 28 d); periodicidade 21–28 d — indeterminado de propósito",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Ciclofosfamida",
+            "dose_valor": 500.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Doxorrubicina",
+            "dose_valor": 50.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 50.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": true,
+        "indeterminado": false,
+        "nota": "doses do Dreyfuss 1987 (abstract); periodicidade em aberto (21–28 d)",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-salivar-met-carboplatina-paclitaxel",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de glândula salivar recidivado/metastático — quimioterapia paliativa (opção acrescida pelo revisor)",
+      "nome": "Carboplatina + Paclitaxel",
+      "esquema": "Carboplatina + Paclitaxel a cada 21 dias (doses não constam do abstract do Nakano 2016; texto completo fechado — dose a informar pelo revisor)",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": null,
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Paclitaxel",
+          "dose": null,
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Não consta do protocolo institucional. Acrescido por decisão do revisor (WhatsApp, 2026-09-16): carcinoma de glândula salivar recidivado (sem opção de resgate local) ou metastático, tratamento sistêmico paliativo. Sem restrição de linha nem de histologia no pedido.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glandula_salivar"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "NAKANO K, SATO Y, SASAKI T, et al. Combination chemotherapy of carboplatin and paclitaxel for advanced/metastatic salivary gland carcinoma patients: differences in responses by different pathological diagnoses. Acta Otolaryngol. 2016;136(9):948-951.",
+        "doi": "10.3109/00016489.2016.1170876",
+        "pmid": "27094013",
+        "estudo": "Nakano (carbo+paclitaxel, retrospectivo)",
+        "ano": 2016,
+        "primeiro_autor": "Nakano",
+        "verificacao": {
+          "registro": "Europe PMC + Crossref + OpenAlex; texto completo fechado (Taylor & Francis) — dose NÃO recuperável de fonte aberta",
+          "data": "2026-09-16",
+          "congruente": true,
+          "tema": "retrospectivo, n=38, carcinoma de glândula salivar avançado/metastático (18 ductal salivar, 9 adenoide cístico, 11 outros), carboplatina + paclitaxel; TRO 39%, PFS mediana 6,5 m, SG mediana 26,5 m; TRO 9% em adenoide cístico; bem tolerado."
+        }
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Taxa de resposta objetiva por histologia (retrospectivo)",
+        "magnitude": "Nakano 2016: TRO 39% (15/38), PFS mediana 6,5 m, SG mediana 26,5 m; TRO 9% em adenoide cístico (sem diferença de PFS/SG entre histologias)",
+        "fonte": "10.3109/00016489.2016.1170876"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma; G-CSF se indicado",
+          "fonte": "Bula/ficha técnica: Carboplatina/Paclitaxel"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Reação de hipersensibilidade",
+          "severidade": "moderada",
+          "conduta": "pré-medicação",
+          "fonte": "Bula/ficha técnica: Paclitaxel/Carboplatina"
+        },
+        {
+          "nome": "Alopecia",
+          "severidade": "leve",
+          "conduta": "orientação",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2C",
+          "afirmado_protocolo": null,
+          "justificativa": "sem_afirmacao_protocolo. Nakano 2016: retrospectivo, n=38, TRO 39%, PFS 6,5 m, SG 26,5 m; resposta concentrada em ductal salivar/outros (ACC 9%). Evidência observacional, sem comparador → certeza baixa; recomendação condicional.",
+          "fonte": "https://doi.org/10.3109/00016489.2016.1170876"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Estudo retrospectivo sem comparador → ESMO-MCBS não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, disponíveis no SUS. Affordability alta — porém eixo de evidência incompleto (tumor raro).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "valor_rederivado": null,
+          "afirmado_protocolo": null,
+          "justificativa": "Derivado do texto do revisor (sítio + doença recidivada/metastática); sem RCT para confronto (tumor raro).",
+          "fonte": "https://doi.org/10.3109/00016489.2016.1170876",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "glandula_salivar"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Regime não consta do protocolo. Regra derivada literalmente do pedido (glândula salivar recidivada/metastática), sem restrição de histologia nem de elegibilidade a cisplatina. Ressalva: TRO 9% em adenoide cístico no Nakano 2016 — o card avisa, a regra não restringe; conferir com o revisor.",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "proposta-salivar:verificador-elegibilidade"
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+          "evidencia_retrospectiva: Nakano 2016 é série retrospectiva (n=38); nenhuma série prospectiva de carbo+paclitaxel em salivar citada pelo revisor",
+          "esquema_sem_dose: abstract não traz dose/AUC; texto completo fechado (Taylor & Francis) — dose a informar pelo revisor; composição e expectativa de uso indeterminadas de propósito",
+          "histologia:conferir — TRO 9% em adenoide cístico (Nakano); regra por sítio sem restrição, como no pedido",
+          "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
+        "nota_revisao": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+        "notas_revisao": [
+          {
+            "lote": "salivar",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "outro",
+            "natureza": "clinico",
+            "eixo": "geral",
+            "nota": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+            "nota_squad": "Regime criado a partir desta decisão (recebida por WhatsApp, fora do fluxo de parecer da app). Nasce pendente de referendo do revisor."
+          }
+        ],
+        "origem": {
+          "decisao_em": null,
+          "lote": "salivar",
+          "data": "2026-09-16",
+          "revisor": "Gustavo Drummond Pinho Ribeiro",
+          "canal": "WhatsApp ao Gustavo Couto (fora da app; não veio pelo export da Mesa)",
+          "run": "2026-09-17-intake-revisao-4/v1"
+        }
+      },
+      "versao": 1,
+      "atualizado_em": "2026-09-17",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-09-16",
+          "origem": "intake-salivar:outro (regime novo)",
+          "mudanca": "Criado por decisão do revisor (WhatsApp, 2026-09-16): Carboplatina + Paclitaxel em carcinoma de glândula salivar recidivado/metastático. Quatro eixos derivados com selo honesto; referência verificada ao vivo.",
+          "eixos_afetados": [
+            "grade",
+            "esmo_mcbs",
+            "nccn_affordability",
+            "elegibilidade"
+          ],
+          "fonte": "10.3109/00016489.2016.1170876",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro (por WhatsApp; relatado por Gustavo Couto)"
+        },
+        {
+          "versao": 1,
+          "data": "2026-09-17",
+          "origem": "intake-salivar:inserido",
+          "mudanca": "Inserido no run 2026-09-17-intake-revisao-4/v1 (item D7 do lote 4) a partir da proposta 2026-09-16-salivar-proposta, aprovada como está pelo Gustavo Couto em 17/09. Conteúdo revisável idêntico à proposta (hash conferido).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": "Gustavo Couto (aprovação da proposta, 2026-09-17)"
+        }
+      ],
+      "flags": [
+        "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+        "evidencia_retrospectiva: Nakano 2016 é série retrospectiva (n=38); nenhuma série prospectiva de carbo+paclitaxel em salivar citada pelo revisor",
+        "esquema_sem_dose: abstract não traz dose/AUC; texto completo fechado (Taylor & Francis) — dose a informar pelo revisor; composição e expectativa de uso indeterminadas de propósito",
+        "histologia:conferir — TRO 9% em adenoide cístico (Nakano); regra por sítio sem restrição, como no pedido",
+        "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "nº de ciclos não declarado no abstract; periodicidade 21 d é convenção do par carbo+paclitaxel, não do abstract — indeterminado",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose/AUC não recuperável de fonte aberta"
+          },
+          {
+            "farmaco": "Paclitaxel",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não recuperável de fonte aberta"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "2 de 2 itens indeterminados (abstract sem dose; texto completo fechado)",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-salivar-met-cisplatina-vinorelbina",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de glândula salivar recidivado/metastático — quimioterapia paliativa (opção acrescida pelo revisor)",
+      "nome": "Cisplatina + Vinorelbina",
+      "esquema": "Cisplatina 80 mg/m² EV D1 + Vinorelbina 25 mg/m² EV D1,D8, a cada 21 dias, por 4 a 6 ciclos",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "80 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        },
+        {
+          "nome": "Vinorelbina",
+          "dose": "25 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Não consta do protocolo institucional. Acrescido por decisão do revisor (WhatsApp, 2026-09-16): carcinoma de glândula salivar recidivado (sem opção de resgate local) ou metastático, tratamento sistêmico paliativo. Sem restrição de linha nem de histologia no pedido.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glandula_salivar"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HONG MH, KIM CG, KOH YW, et al. Efficacy and safety of vinorelbine plus cisplatin chemotherapy for patients with recurrent and/or metastatic salivary gland cancer of the head and neck. Head Neck. 2018;40(1):55-62.",
+        "doi": "10.1002/hed.24933",
+        "pmid": "29044862",
+        "estudo": "Hong (cis+vinorelbina, fase II) / Airoldi 2001 (fase II randomizado)",
+        "ano": 2018,
+        "primeiro_autor": "Hong",
+        "verificacao": {
+          "registro": "Crossref (abstract JATS) + Europe PMC + OpenAlex; online 2017-10-16, vol. 40, 2018",
+          "data": "2026-09-16",
+          "congruente": true,
+          "tema": "fase II braço único, n=40, carcinoma de glândula salivar recidivado e/ou metastático, vinorelbina 25 mg/m² D1,D8 + cisplatina 80 mg/m² D1 q3s × 4–6 ciclos; TRO 35% (1 RC), PFS mediana 6,3 m, SG mediana 16,9 m, sem morte relacionada. Corroborado por Airoldi 2001 (fase II randomizado, n=36, mesmo esquema exato: RC 19% + RP 25% no braço combinado vs RP 20% com vinorelbina isolada)."
+        }
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Taxa de resposta objetiva (desfecho primário do Hong 2018)",
+        "magnitude": "Hong 2018: TRO 35% (1 RC), PFS mediana 6,3 m, SG mediana 16,9 m; Airoldi 2001 (randomizado): TRO 44% (3 RC) vs 20% (0 RC) com vinorelbina isolada",
+        "fonte": "10.1002/hed.24933"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão (neutropenia)",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma; G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: Vinorelbina/Cisplatina"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náuseas/vômitos",
+          "severidade": "moderada",
+          "conduta": "antiemese de alto risco emetogênico",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Neuropatia periférica / constipação",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Vinorelbina"
+        },
+        {
+          "nome": "Flebite no local da infusão",
+          "severidade": "leve",
+          "conduta": "infusão em veia calibrosa; lavagem",
+          "fonte": "Bula/ficha técnica: Vinorelbina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2B",
+          "afirmado_protocolo": null,
+          "justificativa": "sem_afirmacao_protocolo. Hong 2018: fase II braço único, n=40, TRO 35%, PFS 6,3 m, SG 16,9 m (desfecho primário = TRO). Airoldi 2001: fase II RANDOMIZADO, n=36, mesmo esquema, resposta e RC maiores com cisplatina (19% RC vs 0). Duas séries prospectivas concordantes, uma randomizada de n pequeno → certeza moderada/baixa; recomendação condicional. Melhor base entre os 3 regimes propostos.",
+          "fonte": "https://doi.org/10.1002/hed.24933"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Hong 2018 é braço único; Airoldi 2001 é fase II randomizado sem desfecho de sobrevida graduável no abstract → ESMO-MCBS não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, disponíveis no SUS. Affordability alta — porém eixo de evidência incompleto (tumor raro).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "valor_rederivado": null,
+          "afirmado_protocolo": null,
+          "justificativa": "Derivado do texto do revisor (sítio + doença recidivada/metastática); sem RCT para confronto (tumor raro).",
+          "fonte": "https://doi.org/10.1002/hed.24933",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "glandula_salivar"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Regime não consta do protocolo. Regra derivada literalmente do pedido (glândula salivar recidivada/metastática), sem restrição de histologia. Populações do Hong 2018 e do Airoldi 2001 (61% adenoide cístico) concordam com a regra ampla.",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "proposta-salivar:verificador-elegibilidade"
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+          "corroboracao: Airoldi 2001 (PMID 11169936, fase II randomizado, mesmo esquema) não foi citado pelo revisor — acrescido pelo squad como 2ª referência",
+          "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
+        "nota_revisao": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+        "notas_revisao": [
+          {
+            "lote": "salivar",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "outro",
+            "natureza": "clinico",
+            "eixo": "geral",
+            "nota": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+            "nota_squad": "Regime criado a partir desta decisão (recebida por WhatsApp, fora do fluxo de parecer da app). Nasce pendente de referendo do revisor."
+          }
+        ],
+        "origem": {
+          "decisao_em": null,
+          "lote": "salivar",
+          "data": "2026-09-16",
+          "revisor": "Gustavo Drummond Pinho Ribeiro",
+          "canal": "WhatsApp ao Gustavo Couto (fora da app; não veio pelo export da Mesa)",
+          "run": "2026-09-17-intake-revisao-4/v1"
+        }
+      },
+      "versao": 1,
+      "atualizado_em": "2026-09-17",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-09-16",
+          "origem": "intake-salivar:outro (regime novo)",
+          "mudanca": "Criado por decisão do revisor (WhatsApp, 2026-09-16): Cisplatina + Vinorelbina em carcinoma de glândula salivar recidivado/metastático. Quatro eixos derivados com selo honesto; referência verificada ao vivo.",
+          "eixos_afetados": [
+            "grade",
+            "esmo_mcbs",
+            "nccn_affordability",
+            "elegibilidade"
+          ],
+          "fonte": "10.1002/hed.24933",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro (por WhatsApp; relatado por Gustavo Couto)"
+        },
+        {
+          "versao": 1,
+          "data": "2026-09-17",
+          "origem": "intake-salivar:inserido",
+          "mudanca": "Inserido no run 2026-09-17-intake-revisao-4/v1 (item D7 do lote 4) a partir da proposta 2026-09-16-salivar-proposta, aprovada como está pelo Gustavo Couto em 17/09. Conteúdo revisável idêntico à proposta (hash conferido).",
+          "eixos_afetados": [],
+          "fonte": null,
+          "decidido_por": "Gustavo Couto (aprovação da proposta, 2026-09-17)"
+        }
+      ],
+      "flags": [
+        "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+        "corroboracao: Airoldi 2001 (PMID 11169936, fase II randomizado, mesmo esquema) não foi citado pelo revisor — acrescido pelo squad como 2ª referência",
+        "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "4 a 6 ciclos (Hong 2018); teto de 6 ciclos usado no cálculo",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 80.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Vinorelbina",
+            "dose_valor": 25.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1,
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": true,
+        "indeterminado": false,
+        "nota": null,
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    }
+  ]
+}

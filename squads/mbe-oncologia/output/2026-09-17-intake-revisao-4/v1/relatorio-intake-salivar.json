@@ -1,0 +1,97 @@
+{
+  "total_regimes": 304,
+  "placar_selo": {
+    "re_derivado": 182,
+    "incompleto": 60,
+    "divergencia": 19,
+    "confirmado": 43
+  },
+  "cabeca_pescoco": {
+    "tumor": "cabeca-pescoco",
+    "regimes": 21,
+    "selo": {
+      "re_derivado": 15,
+      "divergencia": 1,
+      "incompleto": 5
+    }
+  },
+  "regimes_novos": [
+    {
+      "regimen_id": "cp-salivar-met-cap",
+      "origem_decisao": "decisão fora do fluxo — revisor por WhatsApp 2026-09-16 (D7)",
+      "selo": "incompleto",
+      "doi": "10.1093/oxfordjournals.annonc.a010684",
+      "content_hash": "189729d195cdad9b"
+    },
+    {
+      "regimen_id": "cp-salivar-met-carboplatina-paclitaxel",
+      "origem_decisao": "decisão fora do fluxo — revisor por WhatsApp 2026-09-16 (D7)",
+      "selo": "incompleto",
+      "doi": "10.3109/00016489.2016.1170876",
+      "content_hash": "78fef43af32a8ba5"
+    },
+    {
+      "regimen_id": "cp-salivar-met-cisplatina-vinorelbina",
+      "origem_decisao": "decisão fora do fluxo — revisor por WhatsApp 2026-09-16 (D7)",
+      "selo": "incompleto",
+      "doi": "10.1002/hed.24933",
+      "content_hash": "8979b74cdff473bb"
+    }
+  ],
+  "hashes_previstos_conferem": true,
+  "hashes_existentes_que_mudaram": 0,
+  "vocabulario": {
+    "tumor.opcoes": [
+      "cec_cabeca_pescoco",
+      "nasofaringe",
+      "tireoide_diferenciado",
+      "tireoide_medular",
+      "tireoide_anaplasico",
+      "glandula_salivar"
+    ],
+    "histologia_salivar": {
+      "campo": "histologia_salivar",
+      "tipo": "enum",
+      "label": "Histologia (glândula salivar)",
+      "secao": "Biologia molecular",
+      "opcoes": [
+        "nao_informada",
+        "adenoide_cistico",
+        "ductal_salivar",
+        "adenocarcinoma_nos",
+        "mucoepidermoide",
+        "outra"
+      ],
+      "indeterminado": [
+        "nao_informada"
+      ],
+      "rotulos": {
+        "nao_informada": "Não informada",
+        "adenoide_cistico": "Adenoide cístico",
+        "ductal_salivar": "Ductal salivar",
+        "adenocarcinoma_nos": "Adenocarcinoma NOS",
+        "mucoepidermoide": "Mucoepidermoide",
+        "outra": "Outra"
+      },
+      "nota": "Registrado, mas NÃO condiciona nenhuma das 3 regras nesta proposta (o revisor não restringiu por histologia e as fontes misturam histologias). Fica no dado para (a) o oncologista ver a ressalva certa no card e (b) o revisor poder restringir depois sem vocabulário novo. Seção 'Biologia molecular' → estavel:true pelo classificador do build-data."
+    }
+  },
+  "pendencias_referendo": [
+    "CAP: restringir a adenoide cístico? (a referência dada, Laurie 2011, é RS de ACC; Licitra/Dreyfuss incluíram outras histologias)",
+    "CAP: periodicidade 21 ou 28 dias? (Dreyfuss: 28; Licitra não declara no abstract)",
+    "Carbo+paclitaxel: dose/AUC e nº de ciclos (não recuperáveis de fonte aberta) — revisor informa ou fica indeterminado",
+    "Carbo+paclitaxel: posicionar só para inelegíveis a cisplatina? (não pedido; não imposto) e avisar sobre TRO 9% em ACC",
+    "Cis+vinorelbina: aceitar Airoldi 2001 como 2ª referência (corroboração não citada pelo revisor)?",
+    "Linha: os três nascem sem restrição de linha (Licitra/Airoldi tinham pré-tratados; Hong 'recidivado e/ou metastático') — confirmar",
+    "histologia_salivar: manter só registrada (proposta) ou já condicionar regras?"
+  ],
+  "decisao_fora_do_fluxo": {
+    "canal": "WhatsApp ao Gustavo Couto (fora da app; não veio pelo export da Mesa)",
+    "decidido_por": "Gustavo Drummond Pinho Ribeiro (revisor)",
+    "data": "2026-09-16",
+    "relatado_por": "Gustavo Couto",
+    "texto": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+    "efeito": "3 regimes novos em cabeca-pescoco, nascidos pendentes de referendo do revisor (como todo regime novo); vocabulário de cabeca-pescoco ganha tumor=glandula_salivar (+ histologia_salivar). Nenhum regime existente muda.",
+    "precedente": "renal-met-2l-pos-io-cabozantinibe (lote 2, 2026-09-13): decisão por mensagem registrada com canal e origem"
+  }
+}

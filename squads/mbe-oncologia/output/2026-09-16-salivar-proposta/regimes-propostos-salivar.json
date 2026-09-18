@@ -1,0 +1,898 @@
+{
+  "meta": {
+    "titulo": "PROPOSTA (Fase 1) — 3 regimes de glândula salivar a pedido do revisor — NÃO É RUN, NÃO É INTAKE",
+    "gerado_em": "2026-09-16",
+    "sobre_run_ativo": "2026-09-16-drivers-pulmao/v1",
+    "status": "APROVADA como está em 2026-09-17 (Gustavo Couto); entra no run de sexta 2026-09-18 junto com o lote 4 (D7 da outra sessão), por comando humano, pós-demo; 7 pendências de referendo → fila do revisor",
+    "decisao_fora_do_fluxo": {
+      "canal": "WhatsApp ao Gustavo Couto (fora da app; não veio pelo export da Mesa)",
+      "decidido_por": "Gustavo Drummond Pinho Ribeiro (revisor)",
+      "data": "2026-09-16",
+      "relatado_por": "Gustavo Couto",
+      "texto": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+      "efeito": "3 regimes novos em cabeca-pescoco, nascidos pendentes de referendo do revisor (como todo regime novo); vocabulário de cabeca-pescoco ganha tumor=glandula_salivar (+ histologia_salivar). Nenhum regime existente muda.",
+      "precedente": "renal-met-2l-pos-io-cabozantinibe (lote 2, 2026-09-13): decisão por mensagem registrada com canal e origem"
+    },
+    "referencias_verificadas": [
+      {
+        "doi": "10.1016/s1470-2045(10)70245-x",
+        "pmid": "21147032",
+        "primeiro_autor": "Laurie",
+        "ano": 2011,
+        "tipo": "revisão sistemática (OpenAlex: review; 401 citações)",
+        "citacao": "LAURIE SA, HO AL, FURY MG, SHERMAN E, PFISTER DG. Systemic therapy in the management of metastatic or locally recurrent adenoid cystic carcinoma of the salivary glands: a systematic review. Lancet Oncol. 2011;12(8):815-824.",
+        "congruente_com_pedido": "PARCIAL — o revisor citou este PMID para o CAP; é uma revisão sistemática de terapia sistêmica em carcinoma ADENOIDE CÍSTICO (34 ensaios, 441 pacientes), não um ensaio do CAP. O CAP está dentro dela; a fonte primária do esquema com dose é Licitra 1996 / Dreyfuss 1987 (abaixo).",
+        "abstract_trecho": "34 trials involving 441 patients are included. We give evidence-based recommendations for management of ACC with chemotherapy",
+        "registro": "Europe PMC + Crossref + OpenAlex"
+      },
+      {
+        "doi": "10.1093/oxfordjournals.annonc.a010684",
+        "pmid": "8879381",
+        "primeiro_autor": "Licitra",
+        "ano": 1996,
+        "tipo": "fase II braço único, n=22",
+        "citacao": "LICITRA L, CAVINA R, GRANDI C, et al. Cisplatin, doxorubicin and cyclophosphamide in advanced salivary gland carcinoma. A phase II trial of 22 patients. Ann Oncol. 1996;7(6):640-642.",
+        "congruente_com_pedido": true,
+        "abstract_trecho": "Of 22 patients, six achieved a partial response (27%, 95% CI: 11%-50%): no complete response was observed. Response duration ranged between 3 and 13 months (median seven months). The median survival time for the entire series was 21 months. [...] The most common histologies were included.",
+        "registro": "Europe PMC (abstract) + Crossref"
+      },
+      {
+        "doi": "10.1002/1097-0142(19871215)60:12<2869::aid-cncr2820601203>3.0.co;2-y",
+        "pmid": "2824016",
+        "primeiro_autor": "Dreyfuss",
+        "ano": 1987,
+        "tipo": "série prospectiva, n=13 (9 adenoide cístico + 4 adenocarcinoma)",
+        "citacao": "DREYFUSS AI, CLARK JR, FALLON BG, et al. Cyclophosphamide, doxorubicin, and cisplatin combination chemotherapy for advanced carcinomas of salivary gland origin. Cancer. 1987;60(12):2869-2872.",
+        "congruente_com_pedido": true,
+        "abstract_trecho": "cyclophosphamide (500 mg/m2), doxorubicin (50 mg/m2), and cisplatin (50 mg/m2) (CAP) by intravenous injections on the first day of a 28-day regimen [...] Three complete and three partial responses to chemotherapy were noted for an overall response rate of 46%. The median duration of response in palliative patients was 5 months",
+        "registro": "Europe PMC (abstract)"
+      },
+      {
+        "doi": "10.3109/00016489.2016.1170876",
+        "pmid": "27094013",
+        "primeiro_autor": "Nakano",
+        "ano": 2016,
+        "tipo": "retrospectivo, n=38 (18 ductal salivar, 9 adenoide cístico, 11 outros)",
+        "citacao": "NAKANO K, SATO Y, SASAKI T, et al. Combination chemotherapy of carboplatin and paclitaxel for advanced/metastatic salivary gland carcinoma patients: differences in responses by different pathological diagnoses. Acta Otolaryngol. 2016;136(9):948-951.",
+        "congruente_com_pedido": true,
+        "abstract_trecho": "A total of 38 patients [...] 18 had salivary duct carcinomas (SDCs), nine had adenoid cystic carcinomas (ACCs), and 11 had other pathological diagnoses. Objective responses were observed in 15 (39%) patients. The median progression-free survival (PFS) was 6.5 months, and the median overall survival (OS) was 26.5 months. ACC patients had relatively low response rates (9%)",
+        "doses_no_abstract": false,
+        "registro": "Europe PMC + Crossref + OpenAlex; texto completo fechado (Taylor & Francis) — dose NÃO recuperável de fonte aberta"
+      },
+      {
+        "doi": "10.1002/hed.24933",
+        "pmid": "29044862",
+        "primeiro_autor": "Hong",
+        "ano": 2018,
+        "tipo": "fase II braço único, n=40",
+        "citacao": "HONG MH, KIM CG, KOH YW, et al. Efficacy and safety of vinorelbine plus cisplatin chemotherapy for patients with recurrent and/or metastatic salivary gland cancer of the head and neck. Head Neck. 2018;40(1):55-62.",
+        "congruente_com_pedido": true,
+        "abstract_trecho": "vinorelbine (25 mg/m2) on days 1 and 8 plus cisplatin (80 mg/m2) on day 1 every 3 weeks for 4 or 6 cycles [...] The objective response rate was 35.0%, including 1 complete response. Median PFS and OS rates were 6.3 months and 16.9 months, respectively. No treatment-related deaths occurred.",
+        "registro": "Crossref (abstract JATS) + Europe PMC + OpenAlex; online 2017-10-16, vol. 40, 2018"
+      },
+      {
+        "doi": "10.1002/1097-0142(20010201)91:3<541::aid-cncr1032>3.0.co;2-y",
+        "pmid": "11169936",
+        "primeiro_autor": "Airoldi",
+        "ano": 2001,
+        "tipo": "fase II randomizado, n=36 (16 cis+VNB vs 20 VNB)",
+        "citacao": "AIROLDI M, PEDANI F, SUCCO G, et al. Phase II randomized trial comparing vinorelbine versus vinorelbine plus cisplatin in patients with recurrent salivary gland malignancies. Cancer. 2001;91(3):541-547.",
+        "congruente_com_pedido": "corroboração (não citada pelo revisor) — mesmo esquema exato do Hong 2018",
+        "abstract_trecho": "cisplatin, 80 mg/m(2), on Day 1 plus VNB, 25 mg/m(2), on Days 1 and 8 (every 3 weeks) [...] 22 patients had adenoid cystic carcinoma [...] Arm A: CR 3 (19%), PR 4 (25%); Arm B: CR 0, PR 4 (20%)",
+        "registro": "Europe PMC (abstract)"
+      }
+    ],
+    "vocabulario_cabeca_pescoco": {
+      "tumor": {
+        "acao": "acrescentar opção ao enum existente",
+        "opcao_nova": "glandula_salivar",
+        "rotulo": "Carcinoma de glândula salivar (maior ou menor)",
+        "nota": "Nenhuma regra existente de cabeca-pescoco dispara para este valor (todas as 18 têm eq tumor=<outro>). Nenhum hash muda: vocabulário é do arquivo, não do regime."
+      },
+      "histologia_salivar": {
+        "campo": "histologia_salivar",
+        "tipo": "enum",
+        "label": "Histologia (glândula salivar)",
+        "secao": "Biologia molecular",
+        "opcoes": [
+          "nao_informada",
+          "adenoide_cistico",
+          "ductal_salivar",
+          "adenocarcinoma_nos",
+          "mucoepidermoide",
+          "outra"
+        ],
+        "indeterminado": [
+          "nao_informada"
+        ],
+        "rotulos": {
+          "nao_informada": "Não informada",
+          "adenoide_cistico": "Adenoide cístico",
+          "ductal_salivar": "Ductal salivar",
+          "adenocarcinoma_nos": "Adenocarcinoma NOS",
+          "mucoepidermoide": "Mucoepidermoide",
+          "outra": "Outra"
+        },
+        "nota": "Registrado, mas NÃO condiciona nenhuma das 3 regras nesta proposta (o revisor não restringiu por histologia e as fontes misturam histologias). Fica no dado para (a) o oncologista ver a ressalva certa no card e (b) o revisor poder restringir depois sem vocabulário novo. Seção 'Biologia molecular' → estavel:true pelo classificador do build-data."
+      }
+    },
+    "hashes_previstos": {
+      "cp-salivar-met-cap": "189729d195cdad9b",
+      "cp-salivar-met-carboplatina-paclitaxel": "78fef43af32a8ba5",
+      "cp-salivar-met-cisplatina-vinorelbina": "8979b74cdff473bb"
+    },
+    "consequencias_previstas": {
+      "regimes": "301 → 304",
+      "hashes_existentes_que_mudam": 0,
+      "aprovacoes_que_expiram": 0,
+      "selos_novos": {
+        "incompleto": 3
+      },
+      "fila_do_revisor": "3 em Pendente (rederivado_aguarda_revisao)",
+      "app": "sem código novo: enum + campo com indeterminado/rotulos já são suportados pelo motor desde os drivers de pulmão (94dc6cd)"
+    },
+    "pendencias_referendo": [
+      "CAP: restringir a adenoide cístico? (a referência dada, Laurie 2011, é RS de ACC; Licitra/Dreyfuss incluíram outras histologias)",
+      "CAP: periodicidade 21 ou 28 dias? (Dreyfuss: 28; Licitra não declara no abstract)",
+      "Carbo+paclitaxel: dose/AUC e nº de ciclos (não recuperáveis de fonte aberta) — revisor informa ou fica indeterminado",
+      "Carbo+paclitaxel: posicionar só para inelegíveis a cisplatina? (não pedido; não imposto) e avisar sobre TRO 9% em ACC",
+      "Cis+vinorelbina: aceitar Airoldi 2001 como 2ª referência (corroboração não citada pelo revisor)?",
+      "Linha: os três nascem sem restrição de linha (Licitra/Airoldi tinham pré-tratados; Hong 'recidivado e/ou metastático') — confirmar",
+      "histologia_salivar: manter só registrada (proposta) ou já condicionar regras?"
+    ]
+  },
+  "regimes": [
+    {
+      "regimen_id": "cp-salivar-met-cap",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de glândula salivar recidivado/metastático — quimioterapia paliativa (opção acrescida pelo revisor)",
+      "nome": "Cisplatina + Doxorrubicina + Ciclofosfamida (CAP)",
+      "esquema": "Ciclofosfamida 500 mg/m² EV D1 + Doxorrubicina 50 mg/m² EV D1 + Cisplatina 50 mg/m² EV D1, a cada 21–28 dias (Dreyfuss 1987: D1 de ciclo de 28 dias; Licitra 1996 não declara periodicidade no abstract)",
+      "farmacos": [
+        {
+          "nome": "Ciclofosfamida",
+          "dose": "500 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21–28/21–28d"
+        },
+        {
+          "nome": "Doxorrubicina",
+          "dose": "50 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21–28/21–28d"
+        },
+        {
+          "nome": "Cisplatina",
+          "dose": "50 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21–28/21–28d"
+        }
+      ],
+      "elegibilidade_protocolo": "Não consta do protocolo institucional. Acrescido por decisão do revisor (WhatsApp, 2026-09-16): carcinoma de glândula salivar recidivado (sem opção de resgate local) ou metastático, tratamento sistêmico paliativo. Sem restrição de linha nem de histologia no pedido.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glandula_salivar"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "LICITRA L, CAVINA R, GRANDI C, et al. Cisplatin, doxorubicin and cyclophosphamide in advanced salivary gland carcinoma. A phase II trial of 22 patients. Ann Oncol. 1996;7(6):640-642.",
+        "doi": "10.1093/oxfordjournals.annonc.a010684",
+        "pmid": "8879381",
+        "estudo": "Licitra (CAP, fase II) / Dreyfuss 1987 / Laurie 2011 (RS)",
+        "ano": 1996,
+        "primeiro_autor": "Licitra",
+        "verificacao": {
+          "registro": "Europe PMC (abstract) + Crossref",
+          "data": "2026-09-16",
+          "congruente": true,
+          "tema": "fase II braço único, n=22, carcinoma de glândula salivar avançado ('most common histologies included'), CAP; TRO 27% (IC95% 11–50%), duração mediana de resposta 7 m, sobrevida mediana 21 m. Dose do esquema vem do Dreyfuss 1987 (n=13; TRO 46%). O PMID 21147032 citado pelo revisor (Laurie 2011) é a revisão sistemática de ACC que enquadra o CAP — mantida como referência de contexto, não como pivô."
+        }
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Taxa de resposta objetiva (braço único)",
+        "magnitude": "Licitra 1996: TRO 27% (6/22, só RP), resposta mediana 7 m, SG mediana 21 m; Dreyfuss 1987: TRO 46% (6/13, 3 RC), resposta mediana 5 m",
+        "fonte": "10.1093/oxfordjournals.annonc.a010684"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma; G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: quimioterapia"
+        },
+        {
+          "nome": "Cardiotoxicidade (doxorrubicina)",
+          "severidade": "grave",
+          "conduta": "monitorar FEVE; dose cumulativa",
+          "fonte": "Bula/ficha técnica: Doxorrubicina"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náuseas/vômitos",
+          "severidade": "moderada",
+          "conduta": "antiemese de alto risco emetogênico",
+          "fonte": "Bula/ficha técnica: Cisplatina/Ciclofosfamida"
+        },
+        {
+          "nome": "Cistite hemorrágica (ciclofosfamida)",
+          "severidade": "moderada",
+          "conduta": "hidratação",
+          "fonte": "Bula/ficha técnica: Ciclofosfamida"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2C",
+          "afirmado_protocolo": null,
+          "justificativa": "sem_afirmacao_protocolo. Licitra 1996: fase II braço único, n=22, TRO 27% sem RC; Dreyfuss 1987: série de 13, TRO 46%. Laurie 2011 (RS de ACC, 34 ensaios/441 pts) conclui que o esquema ótimo é incerto. Desfecho de resposta, sem comparador, n pequeno → certeza baixa; recomendação condicional (paliação sintomática).",
+          "fonte": "https://doi.org/10.1093/oxfordjournals.annonc.a010684"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Estudos de braço único → ESMO-MCBS não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, disponíveis no SUS. Affordability alta — porém eixo de evidência incompleto (tumor raro).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "valor_rederivado": null,
+          "afirmado_protocolo": null,
+          "justificativa": "Derivado do texto do revisor (sítio + doença recidivada/metastática); sem RCT para confronto (tumor raro).",
+          "fonte": "https://doi.org/10.1093/oxfordjournals.annonc.a010684",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "glandula_salivar"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Regime não consta do protocolo. Regra derivada literalmente do pedido (glândula salivar recidivada/metastática), sem restrição de histologia. Ressalva: a referência dada pelo revisor (Laurie 2011) é específica de adenoide cístico; Licitra/Dreyfuss incluíram outras histologias — conferir se o revisor quer restringir a adenoide cístico.",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "proposta-salivar:verificador-elegibilidade"
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+          "referencia:conferir — PMID 21147032 (Laurie 2011) é revisão sistemática de ACC, não ensaio do CAP; pivô proposto = Licitra 1996 (PMID 8879381), dose = Dreyfuss 1987 (PMID 2824016)",
+          "periodicidade:conferir — Dreyfuss usa ciclo de 28 dias; Licitra não declara no abstract",
+          "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
+        "nota_revisao": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+        "notas_revisao": [
+          {
+            "lote": "salivar",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "outro",
+            "natureza": "clinico",
+            "eixo": "geral",
+            "nota": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+            "nota_squad": "Regime criado a partir desta decisão (recebida por WhatsApp, fora do fluxo de parecer da app). Nasce pendente de referendo do revisor."
+          }
+        ],
+        "origem": {
+          "decisao_em": null,
+          "lote": "salivar",
+          "data": "2026-09-16",
+          "revisor": "Gustavo Drummond Pinho Ribeiro",
+          "canal": "WhatsApp ao Gustavo Couto (fora da app; não veio pelo export da Mesa)"
+        }
+      },
+      "versao": 1,
+      "atualizado_em": "2026-09-16",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-09-16",
+          "origem": "intake-salivar:outro (regime novo)",
+          "mudanca": "Criado por decisão do revisor (WhatsApp, 2026-09-16): Cisplatina + Doxorrubicina + Ciclofosfamida (CAP) em carcinoma de glândula salivar recidivado/metastático. Quatro eixos derivados com selo honesto; referência verificada ao vivo.",
+          "eixos_afetados": [
+            "grade",
+            "esmo_mcbs",
+            "nccn_affordability",
+            "elegibilidade"
+          ],
+          "fonte": "10.1093/oxfordjournals.annonc.a010684",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro (por WhatsApp; relatado por Gustavo Couto)"
+        }
+      ],
+      "flags": [
+        "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+        "referencia:conferir — PMID 21147032 (Laurie 2011) é revisão sistemática de ACC, não ensaio do CAP; pivô proposto = Licitra 1996 (PMID 8879381), dose = Dreyfuss 1987 (PMID 2824016)",
+        "periodicidade:conferir — Dreyfuss usa ciclo de 28 dias; Licitra não declara no abstract",
+        "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": null,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "nº de ciclos não fixado pelas fontes (Dreyfuss: média 4,7 ciclos; ciclo de 28 d); periodicidade 21–28 d — indeterminado de propósito",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Ciclofosfamida",
+            "dose_valor": 500.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Doxorrubicina",
+            "dose_valor": 50.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 50.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": true,
+        "indeterminado": false,
+        "nota": "doses do Dreyfuss 1987 (abstract); periodicidade em aberto (21–28 d)",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-salivar-met-carboplatina-paclitaxel",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de glândula salivar recidivado/metastático — quimioterapia paliativa (opção acrescida pelo revisor)",
+      "nome": "Carboplatina + Paclitaxel",
+      "esquema": "Carboplatina + Paclitaxel a cada 21 dias (doses não constam do abstract do Nakano 2016; texto completo fechado — dose a informar pelo revisor)",
+      "farmacos": [
+        {
+          "nome": "Carboplatina",
+          "dose": null,
+          "via": "EV",
+          "frequencia": "21/21d"
+        },
+        {
+          "nome": "Paclitaxel",
+          "dose": null,
+          "via": "EV",
+          "frequencia": "21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Não consta do protocolo institucional. Acrescido por decisão do revisor (WhatsApp, 2026-09-16): carcinoma de glândula salivar recidivado (sem opção de resgate local) ou metastático, tratamento sistêmico paliativo. Sem restrição de linha nem de histologia no pedido.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glandula_salivar"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "NAKANO K, SATO Y, SASAKI T, et al. Combination chemotherapy of carboplatin and paclitaxel for advanced/metastatic salivary gland carcinoma patients: differences in responses by different pathological diagnoses. Acta Otolaryngol. 2016;136(9):948-951.",
+        "doi": "10.3109/00016489.2016.1170876",
+        "pmid": "27094013",
+        "estudo": "Nakano (carbo+paclitaxel, retrospectivo)",
+        "ano": 2016,
+        "primeiro_autor": "Nakano",
+        "verificacao": {
+          "registro": "Europe PMC + Crossref + OpenAlex; texto completo fechado (Taylor & Francis) — dose NÃO recuperável de fonte aberta",
+          "data": "2026-09-16",
+          "congruente": true,
+          "tema": "retrospectivo, n=38, carcinoma de glândula salivar avançado/metastático (18 ductal salivar, 9 adenoide cístico, 11 outros), carboplatina + paclitaxel; TRO 39%, PFS mediana 6,5 m, SG mediana 26,5 m; TRO 9% em adenoide cístico; bem tolerado."
+        }
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Taxa de resposta objetiva por histologia (retrospectivo)",
+        "magnitude": "Nakano 2016: TRO 39% (15/38), PFS mediana 6,5 m, SG mediana 26,5 m; TRO 9% em adenoide cístico (sem diferença de PFS/SG entre histologias)",
+        "fonte": "10.3109/00016489.2016.1170876"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma; G-CSF se indicado",
+          "fonte": "Bula/ficha técnica: Carboplatina/Paclitaxel"
+        },
+        {
+          "nome": "Neuropatia periférica",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        },
+        {
+          "nome": "Reação de hipersensibilidade",
+          "severidade": "moderada",
+          "conduta": "pré-medicação",
+          "fonte": "Bula/ficha técnica: Paclitaxel/Carboplatina"
+        },
+        {
+          "nome": "Alopecia",
+          "severidade": "leve",
+          "conduta": "orientação",
+          "fonte": "Bula/ficha técnica: Paclitaxel"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2C",
+          "afirmado_protocolo": null,
+          "justificativa": "sem_afirmacao_protocolo. Nakano 2016: retrospectivo, n=38, TRO 39%, PFS 6,5 m, SG 26,5 m; resposta concentrada em ductal salivar/outros (ACC 9%). Evidência observacional, sem comparador → certeza baixa; recomendação condicional.",
+          "fonte": "https://doi.org/10.3109/00016489.2016.1170876"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Estudo retrospectivo sem comparador → ESMO-MCBS não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, disponíveis no SUS. Affordability alta — porém eixo de evidência incompleto (tumor raro).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "valor_rederivado": null,
+          "afirmado_protocolo": null,
+          "justificativa": "Derivado do texto do revisor (sítio + doença recidivada/metastática); sem RCT para confronto (tumor raro).",
+          "fonte": "https://doi.org/10.3109/00016489.2016.1170876",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "glandula_salivar"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Regime não consta do protocolo. Regra derivada literalmente do pedido (glândula salivar recidivada/metastática), sem restrição de histologia nem de elegibilidade a cisplatina. Ressalva: TRO 9% em adenoide cístico no Nakano 2016 — o card avisa, a regra não restringe; conferir com o revisor.",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "proposta-salivar:verificador-elegibilidade"
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+          "evidencia_retrospectiva: Nakano 2016 é série retrospectiva (n=38); nenhuma série prospectiva de carbo+paclitaxel em salivar citada pelo revisor",
+          "esquema_sem_dose: abstract não traz dose/AUC; texto completo fechado (Taylor & Francis) — dose a informar pelo revisor; composição e expectativa de uso indeterminadas de propósito",
+          "histologia:conferir — TRO 9% em adenoide cístico (Nakano); regra por sítio sem restrição, como no pedido",
+          "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
+        "nota_revisao": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+        "notas_revisao": [
+          {
+            "lote": "salivar",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "outro",
+            "natureza": "clinico",
+            "eixo": "geral",
+            "nota": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+            "nota_squad": "Regime criado a partir desta decisão (recebida por WhatsApp, fora do fluxo de parecer da app). Nasce pendente de referendo do revisor."
+          }
+        ],
+        "origem": {
+          "decisao_em": null,
+          "lote": "salivar",
+          "data": "2026-09-16",
+          "revisor": "Gustavo Drummond Pinho Ribeiro",
+          "canal": "WhatsApp ao Gustavo Couto (fora da app; não veio pelo export da Mesa)"
+        }
+      },
+      "versao": 1,
+      "atualizado_em": "2026-09-16",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-09-16",
+          "origem": "intake-salivar:outro (regime novo)",
+          "mudanca": "Criado por decisão do revisor (WhatsApp, 2026-09-16): Carboplatina + Paclitaxel em carcinoma de glândula salivar recidivado/metastático. Quatro eixos derivados com selo honesto; referência verificada ao vivo.",
+          "eixos_afetados": [
+            "grade",
+            "esmo_mcbs",
+            "nccn_affordability",
+            "elegibilidade"
+          ],
+          "fonte": "10.3109/00016489.2016.1170876",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro (por WhatsApp; relatado por Gustavo Couto)"
+        }
+      ],
+      "flags": [
+        "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+        "evidencia_retrospectiva: Nakano 2016 é série retrospectiva (n=38); nenhuma série prospectiva de carbo+paclitaxel em salivar citada pelo revisor",
+        "esquema_sem_dose: abstract não traz dose/AUC; texto completo fechado (Taylor & Francis) — dose a informar pelo revisor; composição e expectativa de uso indeterminadas de propósito",
+        "histologia:conferir — TRO 9% em adenoide cístico (Nakano); regra por sítio sem restrição, como no pedido",
+        "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": null,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": null,
+        "fonte": "esquema",
+        "indeterminado": true,
+        "nota": "nº de ciclos não declarado no abstract; periodicidade 21 d é convenção do par carbo+paclitaxel, não do abstract — indeterminado",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Carboplatina",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose/AUC não recuperável de fonte aberta"
+          },
+          {
+            "farmaco": "Paclitaxel",
+            "dose_valor": null,
+            "dose_unidade": null,
+            "via": "EV",
+            "dias_do_ciclo": null,
+            "indeterminado": true,
+            "nota": "dose não recuperável de fonte aberta"
+          }
+        ],
+        "completa": false,
+        "indeterminado": true,
+        "nota": "2 de 2 itens indeterminados (abstract sem dose; texto completo fechado)",
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    },
+    {
+      "regimen_id": "cp-salivar-met-cisplatina-vinorelbina",
+      "tumor": "cabeca-pescoco",
+      "cenario": "metastatico",
+      "subtipo": "Carcinoma de glândula salivar recidivado/metastático — quimioterapia paliativa (opção acrescida pelo revisor)",
+      "nome": "Cisplatina + Vinorelbina",
+      "esquema": "Cisplatina 80 mg/m² EV D1 + Vinorelbina 25 mg/m² EV D1,D8, a cada 21 dias, por 4 a 6 ciclos",
+      "farmacos": [
+        {
+          "nome": "Cisplatina",
+          "dose": "80 mg/m²",
+          "via": "EV",
+          "frequencia": "D1 21/21d"
+        },
+        {
+          "nome": "Vinorelbina",
+          "dose": "25 mg/m²",
+          "via": "EV",
+          "frequencia": "D1,D8 21/21d"
+        }
+      ],
+      "elegibilidade_protocolo": "Não consta do protocolo institucional. Acrescido por decisão do revisor (WhatsApp, 2026-09-16): carcinoma de glândula salivar recidivado (sem opção de resgate local) ou metastático, tratamento sistêmico paliativo. Sem restrição de linha nem de histologia no pedido.",
+      "elegibilidade": {
+        "criterios": [],
+        "regra": {
+          "and": [
+            {
+              "eq": [
+                "tumor",
+                "glandula_salivar"
+              ]
+            },
+            {
+              "eq": [
+                "metastatico",
+                true
+              ]
+            }
+          ]
+        }
+      },
+      "referencia": {
+        "citacao": "HONG MH, KIM CG, KOH YW, et al. Efficacy and safety of vinorelbine plus cisplatin chemotherapy for patients with recurrent and/or metastatic salivary gland cancer of the head and neck. Head Neck. 2018;40(1):55-62.",
+        "doi": "10.1002/hed.24933",
+        "pmid": "29044862",
+        "estudo": "Hong (cis+vinorelbina, fase II) / Airoldi 2001 (fase II randomizado)",
+        "ano": 2018,
+        "primeiro_autor": "Hong",
+        "verificacao": {
+          "registro": "Crossref (abstract JATS) + Europe PMC + OpenAlex; online 2017-10-16, vol. 40, 2018",
+          "data": "2026-09-16",
+          "congruente": true,
+          "tema": "fase II braço único, n=40, carcinoma de glândula salivar recidivado e/ou metastático, vinorelbina 25 mg/m² D1,D8 + cisplatina 80 mg/m² D1 q3s × 4–6 ciclos; TRO 35% (1 RC), PFS mediana 6,3 m, SG mediana 16,9 m, sem morte relacionada. Corroborado por Airoldi 2001 (fase II randomizado, n=36, mesmo esquema exato: RC 19% + RP 25% no braço combinado vs RP 20% com vinorelbina isolada)."
+        }
+      },
+      "afirmado_protocolo": {
+        "grade": null,
+        "esmo_mcbs": null,
+        "nccn_affordability": null
+      },
+      "beneficio": {
+        "desfecho_principal": "Taxa de resposta objetiva (desfecho primário do Hong 2018)",
+        "magnitude": "Hong 2018: TRO 35% (1 RC), PFS mediana 6,3 m, SG mediana 16,9 m; Airoldi 2001 (randomizado): TRO 44% (3 RC) vs 20% (0 RC) com vinorelbina isolada",
+        "fonte": "10.1002/hed.24933"
+      },
+      "toxicidades": [
+        {
+          "nome": "Mielossupressão (neutropenia)",
+          "severidade": "grave",
+          "conduta": "monitorar hemograma; G-CSF conforme risco",
+          "fonte": "Bula/ficha técnica: Vinorelbina/Cisplatina"
+        },
+        {
+          "nome": "Nefrotoxicidade/ototoxicidade (cisplatina)",
+          "severidade": "grave",
+          "conduta": "hidratação; audiometria",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Náuseas/vômitos",
+          "severidade": "moderada",
+          "conduta": "antiemese de alto risco emetogênico",
+          "fonte": "Bula/ficha técnica: Cisplatina"
+        },
+        {
+          "nome": "Neuropatia periférica / constipação",
+          "severidade": "moderada",
+          "conduta": "ajuste de dose",
+          "fonte": "Bula/ficha técnica: Vinorelbina"
+        },
+        {
+          "nome": "Flebite no local da infusão",
+          "severidade": "leve",
+          "conduta": "infusão em veia calibrosa; lavagem",
+          "fonte": "Bula/ficha técnica: Vinorelbina"
+        }
+      ],
+      "verificacao": {
+        "grade": {
+          "status": "re_derivado",
+          "valor_rederivado": "2B",
+          "afirmado_protocolo": null,
+          "justificativa": "sem_afirmacao_protocolo. Hong 2018: fase II braço único, n=40, TRO 35%, PFS 6,3 m, SG 16,9 m (desfecho primário = TRO). Airoldi 2001: fase II RANDOMIZADO, n=36, mesmo esquema, resposta e RC maiores com cisplatina (19% RC vs 0). Duas séries prospectivas concordantes, uma randomizada de n pequeno → certeza moderada/baixa; recomendação condicional. Melhor base entre os 3 regimes propostos.",
+          "fonte": "https://doi.org/10.1002/hed.24933"
+        },
+        "esmo_mcbs": {
+          "status": "indeterminado",
+          "valor_rederivado": "n/a",
+          "afirmado_protocolo": null,
+          "justificativa": "Hong 2018 é braço único; Airoldi 2001 é fase II randomizado sem desfecho de sobrevida graduável no abstract → ESMO-MCBS não graduável.",
+          "fonte": ""
+        },
+        "nccn_affordability": {
+          "status": "estimativa",
+          "valor_rederivado": 1,
+          "afirmado_protocolo": null,
+          "justificativa": "Genéricos, disponíveis no SUS. Affordability alta — porém eixo de evidência incompleto (tumor raro).",
+          "fonte": "estimativa qualitativa",
+          "flag_contexto_br": "No SUS."
+        },
+        "elegibilidade": {
+          "status": "re_derivado",
+          "valor_rederivado": null,
+          "afirmado_protocolo": null,
+          "justificativa": "Derivado do texto do revisor (sítio + doença recidivada/metastática); sem RCT para confronto (tumor raro).",
+          "fonte": "https://doi.org/10.1002/hed.24933",
+          "criterios_inclusao": [
+            {
+              "campo": "tumor",
+              "operador": "=",
+              "valor": "glandula_salivar"
+            },
+            {
+              "campo": "metastatico",
+              "operador": "=",
+              "valor": true
+            }
+          ],
+          "criterios_exclusao": [],
+          "amplitude": null,
+          "divergencia_vs_protocolo": "Regime não consta do protocolo. Regra derivada literalmente do pedido (glândula salivar recidivada/metastática), sem restrição de histologia. Populações do Hong 2018 e do Airoldi 2001 (61% adenoide cístico) concordam com a regra ampla.",
+          "rederivado_em": "2026-09-16",
+          "rederivado_por": "proposta-salivar:verificador-elegibilidade"
+        }
+      },
+      "consolidacao": {
+        "status": "incompleto",
+        "selo_confianca": "incompleto",
+        "eixos_diverge": [],
+        "lacunas": [
+          "grade_sem_estudo_pivo"
+        ],
+        "flags": [
+          "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+          "corroboracao: Airoldi 2001 (PMID 11169936, fase II randomizado, mesmo esquema) não foi citado pelo revisor — acrescido pelo squad como 2ª referência",
+          "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+        ],
+        "decisao_revisao": "rederivado_aguarda_revisao",
+        "nota_revisao": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+        "notas_revisao": [
+          {
+            "lote": "salivar",
+            "data": "2026-09-16",
+            "revisor": "Gustavo Drummond Pinho Ribeiro",
+            "acao": "outro",
+            "natureza": "clinico",
+            "eixo": "geral",
+            "nota": "Acrescentar 3 regimes para carcinoma de glândula salivar (cabeça e pescoço): (1) cisplatina + doxorrubicina + ciclofosfamida (CAP) — PMID 21147032; (2) carboplatina + paclitaxel — PMID 27094013; (3) cisplatina + vinorelbina — DOI 10.1002/hed.24933.",
+            "nota_squad": "Regime criado a partir desta decisão (recebida por WhatsApp, fora do fluxo de parecer da app). Nasce pendente de referendo do revisor."
+          }
+        ],
+        "origem": {
+          "decisao_em": null,
+          "lote": "salivar",
+          "data": "2026-09-16",
+          "revisor": "Gustavo Drummond Pinho Ribeiro",
+          "canal": "WhatsApp ao Gustavo Couto (fora da app; não veio pelo export da Mesa)"
+        }
+      },
+      "versao": 1,
+      "atualizado_em": "2026-09-16",
+      "revisado_por": "Gustavo Drummond Pinho Ribeiro",
+      "revisado_em": "2026-09-16",
+      "historico_versoes": [
+        {
+          "versao": 1,
+          "data": "2026-09-16",
+          "origem": "intake-salivar:outro (regime novo)",
+          "mudanca": "Criado por decisão do revisor (WhatsApp, 2026-09-16): Cisplatina + Vinorelbina em carcinoma de glândula salivar recidivado/metastático. Quatro eixos derivados com selo honesto; referência verificada ao vivo.",
+          "eixos_afetados": [
+            "grade",
+            "esmo_mcbs",
+            "nccn_affordability",
+            "elegibilidade"
+          ],
+          "fonte": "10.1002/hed.24933",
+          "decidido_por": "Gustavo Drummond Pinho Ribeiro (por WhatsApp; relatado por Gustavo Couto)"
+        }
+      ],
+      "flags": [
+        "regime_acrescido_pelo_revisor: não consta do protocolo institucional (WhatsApp, 2026-09-16)",
+        "corroboracao: Airoldi 2001 (PMID 11169936, fase II randomizado, mesmo esquema) não foi citado pelo revisor — acrescido pelo squad como 2ª referência",
+        "histologia:conferir — regra por sítio (glandula_salivar) sem restrição de histologia, como no pedido; histologia_salivar fica registrada para o revisor restringir se quiser"
+      ],
+      "expectativa_uso": {
+        "tipo": "fixa",
+        "ciclos": 6,
+        "periodicidade_dias": 21,
+        "duracao_total_semanas": 18.0,
+        "fonte": "esquema",
+        "indeterminado": false,
+        "nota": "4 a 6 ciclos (Hong 2018); teto de 6 ciclos usado no cálculo",
+        "selo": "estimativa"
+      },
+      "composicao": {
+        "itens": [
+          {
+            "farmaco": "Cisplatina",
+            "dose_valor": 80.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1
+            ],
+            "indeterminado": false,
+            "nota": null
+          },
+          {
+            "farmaco": "Vinorelbina",
+            "dose_valor": 25.0,
+            "dose_unidade": "mg_m2",
+            "via": "EV",
+            "dias_do_ciclo": [
+              1,
+              8
+            ],
+            "indeterminado": false,
+            "nota": null
+          }
+        ],
+        "completa": true,
+        "indeterminado": false,
+        "nota": null,
+        "fonte": "esquema",
+        "selo": "estimativa"
+      }
+    }
+  ]
+}

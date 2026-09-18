@@ -44,7 +44,9 @@ async function req(rota, tk) { const r = await fetch(API + rota, { headers: { Au
     const tkRev = await tokenApi(API, 'revisor');
     const ev = await req('/evidencia', tkRev);
     const regs = ev.body.regimes;
-    ok('D6 /evidencia serve o run dos drivers (301 regimes, fonte 2026-09-16-drivers-pulmao)', ev.status === 200 && regs.length === 301 && /2026-09-16-drivers-pulmao/.test(ev.body._source.path), ev.body._source.path);
+    // Fonte = RUN_ATIVO (o run dos drivers foi 2026-09-16-drivers-pulmao/v1; runs posteriores herdam o vocabulário e o 407).
+    const RUN_ATIVO = require('fs').readFileSync(path.join(ROOT, 'squads/mbe-oncologia/RUN_ATIVO'), 'utf8').trim().split('\n').pop().trim();
+    ok(`D6 /evidencia serve o RUN_ATIVO (${RUN_ATIVO}; ≥301 regimes)`, ev.status === 200 && regs.length >= 301 && ev.body._source.path.includes(RUN_ATIVO), `${regs.length} · ${ev.body._source.path}`);
     const r407 = regs.find(r => r.regimen_id === ID_407), r189 = regs.find(r => r.regimen_id === ID_189);
     ok('D6 KEYNOTE-407 existe como regime próprio (escamoso, doi 10.1056/NEJMoa1810865) e o 189 ficou com o id antigo (não-escamoso)',
       !!r407 && r407.referencia.doi === '10.1056/NEJMoa1810865' && /escamoso/i.test(r407.nome) && !!r189 && /189/.test(r189.nome) && /não-escamoso/i.test(r189.nome), r407 && r407.nome);

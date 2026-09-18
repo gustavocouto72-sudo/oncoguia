@@ -28,6 +28,7 @@ import { RegistroUnico1789862400000 } from './migrations/1789862400000-RegistroU
 import { AplicadaEmDriversPulmao1789948800000 } from './migrations/1789948800000-AplicadaEmDriversPulmao';
 import { ListaProblemas1790035200000 } from './migrations/1790035200000-ListaProblemas';
 import { JustificativaSolicitante1790121600000 } from './migrations/1790121600000-JustificativaSolicitante';
+import { AplicadaEmLote41790208000000 } from './migrations/1790208000000-AplicadaEmLote4';
 
 @Module({
   imports: [
@@ -43,7 +44,7 @@ import { JustificativaSolicitante1790121600000 } from './migrations/179012160000
           url,
           driver: isNeon ? neon : undefined,
           entities: [Usuario, Paciente, SelecaoProtocolo, Avaliacao, Revisao, FonteSugerida, Retorno, CustoRegime, Insumo, Apresentacao, PremissasRecursos, EventoAdministrativo, ImportacaoProposta],
-          migrations: [InitialSchema1784419200000, SeguimentoAvaliacoes1784505600000, RevisaoClinica1784592000000, UnificaRevisao1784851200000, FontesSugeridas1785110400000, FonteArquivoNoBanco1785196800000, AcaoRevisao1787356800000, RefutarExcluir1787616000000, AplicadaEm1788566400000, SolicitacaoExcecao1788652800000, RetornoTrilha1788739200000, ProfissionalSolicitante1788825600000, ProximoRetorno1788912000000, CustosRegime1788998400000, CustoPeriodoDias1789084800000, Recursos1789171200000, PerfisMultiplos1789257600000, PerfilSecretaria1789430400000, AplicadaEmLote21789603200000, AplicadaEmLote31789689600000, ImportacaoPropostas1789776000000, RegistroUnico1789862400000, AplicadaEmDriversPulmao1789948800000, ListaProblemas1790035200000, JustificativaSolicitante1790121600000],
+          migrations: [InitialSchema1784419200000, SeguimentoAvaliacoes1784505600000, RevisaoClinica1784592000000, UnificaRevisao1784851200000, FontesSugeridas1785110400000, FonteArquivoNoBanco1785196800000, AcaoRevisao1787356800000, RefutarExcluir1787616000000, AplicadaEm1788566400000, SolicitacaoExcecao1788652800000, RetornoTrilha1788739200000, ProfissionalSolicitante1788825600000, ProximoRetorno1788912000000, CustosRegime1788998400000, CustoPeriodoDias1789084800000, Recursos1789171200000, PerfisMultiplos1789257600000, PerfilSecretaria1789430400000, AplicadaEmLote21789603200000, AplicadaEmLote31789689600000, ImportacaoPropostas1789776000000, RegistroUnico1789862400000, AplicadaEmDriversPulmao1789948800000, ListaProblemas1790035200000, JustificativaSolicitante1790121600000, AplicadaEmLote41790208000000],
           migrationsRun: true,
           synchronize: false,
           ssl:

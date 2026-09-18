@@ -1,0 +1,568 @@
+{
+  "decisoes_humanas": [
+    {
+      "codigo": "D6",
+      "regimen_id": "cp-cec-def-cetuximabe-rt",
+      "canal": "mensagem do Gustavo Couto ao squad, 2026-09-17 (resposta ao PLANO-lote4.md §7)",
+      "decidido_por": "Gustavo Couto",
+      "decisao": "nota literal do NRG-HN004 agora + re_revisao; primitivos desenhados, não entram",
+      "efeito": "hash intacto; 0 primitivos novos"
+    },
+    {
+      "codigo": "D4",
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "canal": "mensagem do Gustavo Couto ao squad, 2026-09-17 (resposta ao PLANO-lote4.md §7)",
+      "decidido_por": "Gustavo Couto",
+      "decisao": "PATTERN pivô; Du 2020 secundário; ciente de que o aprovado de 16/09 expira",
+      "efeito": "hash muda; 1 aprovação expira"
+    },
+    {
+      "codigo": "D5",
+      "regimen_id": "mama-neo-her2pos-ct1c-tch",
+      "canal": "mensagem do Gustavo Couto ao squad, 2026-09-17 (resposta ao PLANO-lote4.md §7)",
+      "decidido_por": "Gustavo Couto",
+      "decisao": "BCIRG-006 volta como pivô do TCH; KRISTINE + TRAIN-2 em pivos; refs do revisor como contexto",
+      "efeito": "hash muda; selo divergencia mantido"
+    },
+    {
+      "codigo": "D2",
+      "regimen_id": null,
+      "canal": "mensagem do Gustavo Couto ao squad, 2026-09-17 (resposta ao PLANO-lote4.md §7)",
+      "decidido_por": "Gustavo Couto",
+      "decisao": "política de abstract de congresso aprovada como proposta (PLANO §2)",
+      "efeito": "meta.revisao_humana.politica_abstract_congresso"
+    },
+    {
+      "codigo": "D3",
+      "regimen_id": "ovario-resistente-bevacizumabe-nao-incluido",
+      "canal": "mensagem do Gustavo Couto ao squad, 2026-09-17 (resposta ao PLANO-lote4.md §7)",
+      "decidido_por": "Gustavo Couto",
+      "decisao": "ovário beva como complementar abstract_congresso + vigilância; card mantido",
+      "efeito": "hash intacto; pivô AURELIA"
+    },
+    {
+      "codigo": "D1",
+      "regimen_id": "cp-naso-toripalimabe-nao-incluido",
+      "canal": "mensagem do Gustavo Couto ao squad, 2026-09-17 (resposta ao PLANO-lote4.md §7)",
+      "decidido_por": "Gustavo Couto",
+      "decisao": "caminho A (manter fora; card atualizado com MCBS 4, JUPITER-02 final e Anvisa; motivo por alçada); caminho B fora de rodada",
+      "efeito": "hash muda; selo confirmado→divergencia; app: rótulo público por perfil (incorporacao.motivo_publico/alcada_motivo)"
+    },
+    {
+      "codigo": "D7",
+      "regimen_id": null,
+      "canal": "mensagem do Gustavo Couto ao squad, 2026-09-17 (resposta ao PLANO-lote4.md §7)",
+      "decidido_por": "Gustavo Couto",
+      "decisao": "salivar no mesmo run, script separado (intake-salivar.py), depois deste",
+      "efeito": "+3 regimes; vocabulário cabeca-pescoco"
+    }
+  ],
+  "politica_abstract_congresso": {
+    "aprovada_em": "2026-09-17",
+    "aprovada_por": "Gustavo Couto (D2)",
+    "regras": [
+      "abstract de congresso nunca é pivô (referencia.doi) e nunca re-deriva eixo (ESMO-MCBS só pontua publicação revisada por pares; GRADE de abstract seria rebaixado por relato incompleto)",
+      "pedido corrigir_referencia com abstract → não troca; vira balde manter_anotar + referência complementar (registrado como triagem resolvida com decisão humana)",
+      "entra em consolidacao.referencias_complementares[] com tipo=abstract_congresso, congresso, desenho, verificado_em, status_publicacao=aguardando_periodico",
+      "flag visível 'evidencia_emergente: …' no card; selo e hash intactos (referências complementares ficam fora do content_hash)",
+      "vigilância explícita em meta.revisao_humana.vigilancia[] com gatilho 'publicação em periódico' — quando publicar, vira corrigir_referencia normal",
+      "proposta para verificar_dados.py (não deste lote): WARN se referencia.doi de qualquer regime contiver '_suppl'"
+    ]
+  },
+  "placar_por_acao": [
+    {
+      "acao": "manter_anotar",
+      "total": 4,
+      "status": {
+        "executado": 4
+      }
+    },
+    {
+      "acao": "ajustar_elegibilidade",
+      "total": 1,
+      "status": {
+        "executado": 1
+      }
+    },
+    {
+      "acao": "corrigir_referencia",
+      "total": 3,
+      "status": {
+        "executado_com_ressalva": 3
+      }
+    },
+    {
+      "acao": "refutar",
+      "total": 1,
+      "status": {
+        "executado_com_ressalva": 1
+      }
+    }
+  ],
+  "resultado": [
+    {
+      "regimen_id": "ovario-recidiva-platina-resistente-monoterapia",
+      "data_decisao": "2026-09-16",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "sarcoma-ntrk-larotrectinibe-nao-incorporado",
+      "data_decisao": "2026-09-16",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-act-docetaxel",
+      "data_decisao": "2026-09-16",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "cp-cec-def-cetuximabe-rt",
+      "data_decisao": "2026-09-16",
+      "acao": "manter_anotar",
+      "status": "executado",
+      "nota": "nota incorporada (visível no card via notas_revisao); hash intacto"
+    },
+    {
+      "regimen_id": "colo-qrt-io-keynote-a18",
+      "data_decisao": "2026-09-16",
+      "acao": "ajustar_elegibilidade",
+      "status": "executado",
+      "nota": "regra restrita (III–IVA ∧ CPS≥1); eixo re-derivado mais_estreito; hash muda"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "data_decisao": "2026-09-16",
+      "acao": "corrigir_referencia",
+      "status": "executado_com_ressalva",
+      "nota": "pivô = PATTERN (não o DOI do revisor, que é outro esquema; D4); Du 2020 secundário; selo divergencia→re_derivado; aprovado de 16/09 expira"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-tch",
+      "data_decisao": "2026-09-16",
+      "acao": "corrigir_referencia",
+      "status": "executado_com_ressalva",
+      "nota": "pivô = BCIRG-006 (nenhuma das 3 refs do revisor é o TCH; D5); KRISTINE+TRAIN-2 em pivos; elegibilidade segue diverge"
+    },
+    {
+      "regimen_id": "ovario-resistente-bevacizumabe-nao-incluido",
+      "data_decisao": "2026-09-16",
+      "acao": "corrigir_referencia",
+      "status": "executado_com_ressalva",
+      "nota": "abstract verificado; complementar tipo abstract_congresso + vigilância (D2/D3); pivô AURELIA, selo e hash intactos; incorporação em 2L → re_revisao"
+    },
+    {
+      "regimen_id": "cp-naso-toripalimabe-nao-incluido",
+      "data_decisao": "2026-09-16",
+      "acao": "refutar",
+      "status": "executado_com_ressalva",
+      "nota": "D1 caminho A: mantido fora; eixos re-derivados (MCBS 4 diverge); motivo custo/política por alçada; incorporação → decisão de política"
+    }
+  ],
+  "triagem_manual": [
+    {
+      "regimen_id": "ovario-resistente-bevacizumabe-nao-incluido",
+      "acao": "corrigir_referencia",
+      "balde_proposto": "manter_anotar + referência complementar (abstract_congresso) + vigilância",
+      "resolvida_por": "Gustavo Couto (mensagem, 2026-09-17, sobre PLANO-lote4.md §7) — D3",
+      "motivo": "a referência é abstract de congresso, retrospectivo; trocar o pivô (AURELIA, fase 3) por ela seria rebaixar a base do card; a política de abstract (D2) proíbe abstract como pivô"
+    },
+    {
+      "regimen_id": "cp-naso-toripalimabe-nao-incluido",
+      "acao": "refutar",
+      "balde_proposto": "caminho A: manter fora + atualizar card (MCBS 4 diverge; motivo custo/política por alçada)",
+      "resolvida_por": "Gustavo Couto (mensagem, 2026-09-17, sobre PLANO-lote4.md §7) — D1",
+      "motivo": "contradição interna (refutar × justificativa pró-incorporação); incorporação é decisão de política, fora de rodada"
+    }
+  ],
+  "pareceres_expirados": [
+    {
+      "regimen_id": "colo-qrt-io-keynote-a18",
+      "decisao": "ajuste_solicitado",
+      "acao": "ajustar_elegibilidade",
+      "data": "2026-09-16",
+      "content_hash_parecer": "52eebfa771b03a18",
+      "hash_novo": "5d3545724636ac24"
+    },
+    {
+      "regimen_id": "cp-naso-toripalimabe-nao-incluido",
+      "decisao": "contestado",
+      "acao": "refutar",
+      "data": "2026-09-16",
+      "content_hash_parecer": "37128000dbab73b5",
+      "hash_novo": "8b59c3734d0aa10d"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-tch",
+      "decisao": "ajuste_solicitado",
+      "acao": "corrigir_referencia",
+      "data": "2026-09-16",
+      "content_hash_parecer": "173c4a39533b60e3",
+      "hash_novo": "1a71a3c924c7ea2a"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "decisao": "aprovado",
+      "acao": null,
+      "data": "2026-09-16",
+      "content_hash_parecer": "c5713fb8cef11258",
+      "hash_novo": "9434c5acbb804587"
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "decisao": "ajuste_solicitado",
+      "acao": "corrigir_referencia",
+      "data": "2026-09-16",
+      "content_hash_parecer": "c5713fb8cef11258",
+      "hash_novo": "9434c5acbb804587"
+    }
+  ],
+  "ja_expirados_antes": [
+    "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
+    "bexiga-met-erdafitinibe-fgfr",
+    "bexiga-mibc-adj-nivolumabe",
+    "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
+    "gastrico-met-1l-io-qt-cps",
+    "mama-adj-her2neg-act-docetaxel",
+    "mama-adj-her2neg-carbo-paclitaxel",
+    "mama-adj-her2pos-tdm1-katherine",
+    "mama-met-hrpos-2l-sacituzumab-govitecan",
+    "mama-met-tnbc-3l-sacituzumab-ascent",
+    "mama-neo-her2pos-ct1c-acth",
+    "mama-neo-her2pos-ct1c-tch",
+    "mama-neo-tnbc-acdd-ct",
+    "nsclc-adj-alectinibe-alk",
+    "nsclc-adj-atezolizumabe-pdl1",
+    "nsclc-adj-osimertinibe-egfr",
+    "nsclc-def-crt-durvalumab",
+    "nsclc-met-alectinibe-alk",
+    "nsclc-met-amivantamab-nao-incluido",
+    "nsclc-met-crizotinibe-ros1",
+    "nsclc-met-io-mono-pdl1alto",
+    "nsclc-met-io-qt-pdl1baixo",
+    "nsclc-met-osi-qt-egfr",
+    "nsclc-met-osimertinibe-egfr",
+    "nsclc-met-papillon-exon20-nao-incluido",
+    "nsclc-neoadj-nivolumabe-qt",
+    "nsclc-periop-pembrolizumabe-qt",
+    "penis-adj-tip",
+    "prostata-mcrpc-1l-abiraterona-prednisona",
+    "renal-adj-pembrolizumab",
+    "testiculo-nsgct-eI-bep1",
+    "testiculo-refrataria-paliativo-gemox"
+  ],
+  "amostra_sorteada": [
+    {
+      "regimen_id": "mama-adj-her2neg-act-docetaxel",
+      "acao": "manter_anotar",
+      "texto_revisor": "Confirmado — a informação está correta em todos os pontos técnicos. Portanto, a análise do revisor está correta: nenhum dos três estudos citados (PACS 01, NSABP B-28, CALGB 9344) avaliou população N0, mesmo de alto risco. A extensão do critério de elegibilidade para incluir \"linfonodo-negativo de alto risco\" (baseado em tamanho >2 cm, grau 2-3, Ki-67 >20% ou invasão linfovascular) não tem respaldo direto nesses três ensaios — é inferência clínica extrapolada, não achado primário da fonte. Também é correto o mismatch de esquema: o PACS 01 usou FEC (epirubicina), não AC (doxorrubicina), como backbone antes do docetaxel.",
+      "nota_gravada": {
+        "lote": 4,
+        "data": "2026-09-16",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "acao": "manter_anotar",
+        "natureza": "clinico",
+        "eixo": "elegibilidade",
+        "nota": "Confirmado — a informação está correta em todos os pontos técnicos. Portanto, a análise do revisor está correta: nenhum dos três estudos citados (PACS 01, NSABP B-28, CALGB 9344) avaliou população N0, mesmo de alto risco. A extensão do critério de elegibilidade para incluir \"linfonodo-negativo de alto risco\" (baseado em tamanho >2 cm, grau 2-3, Ki-67 >20% ou invasão linfovascular) não tem respaldo direto nesses três ensaios — é inferência clínica extrapolada, não achado primário da fonte. Também é correto o mismatch de esquema: o PACS 01 usou FEC (epirubicina), não AC (doxorrubicina), como backbone antes do docetaxel.",
+        "nota_squad": "O revisor CONFIRMA a análise do squad: nenhum dos três estudos (PACS 01, NSABP B-28, CALGB 9344) avaliou N0, e o backbone do PACS 01 é FEC, não AC. A regra NÃO foi alterada (ação = manter_anotar): o ramo 'alto_risco_tumoral' (N0 de alto risco) continua na regra e o eixo elegibilidade continua 'diverge' (mais_amplo). Pergunta ao revisor em re_revisao: retirar o ramo N0 (ajustar_elegibilidade → selo vira re_derivado) ou mantê-lo como extensão clínica documentada (eixo passa a decisao_revisor, como abiraterona no lote 2)?"
+      },
+      "flag_gravada": "nota_revisor: confirmado — critério 'linfonodo-negativo de alto risco' é inferência clínica extrapolada (PACS 01, B-28 e 9344 são node-positive); PACS 01 usou FEC, não AC"
+    },
+    {
+      "regimen_id": "colo-qrt-io-keynote-a18",
+      "acao": "ajustar_elegibilidade",
+      "texto_revisor": "O maior benefício no KEYNOTE-A18 (ENGOT-cx11/GOG-3047) concentra-se no estágio FIGO III-IVA e nas pacientes com PD-L1 positivo (CPS ≥1), enquanto o subgrupo IB2-IIB linfonodo-positivo e o pequeno subgrupo PD-L1 negativo (CPS <1) mostram benefício mais incerto ou ausente. Portanto, inclua apensas essas pacientes",
+      "nota_gravada": {
+        "lote": 4,
+        "data": "2026-09-16",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "acao": "ajustar_elegibilidade",
+        "natureza": "clinico",
+        "eixo": "elegibilidade",
+        "nota": "O maior benefício no KEYNOTE-A18 (ENGOT-cx11/GOG-3047) concentra-se no estágio FIGO III-IVA e nas pacientes com PD-L1 positivo (CPS ≥1), enquanto o subgrupo IB2-IIB linfonodo-positivo e o pequeno subgrupo PD-L1 negativo (CPS <1) mostram benefício mais incerto ou ausente. Portanto, inclua apensas essas pacientes",
+        "nota_squad": "Regra computável aplicada com primitivos existentes (estadio_iii_iv_locavancado, pdl1_cps1); eixo elegibilidade re-derivado (mais_estreito); hash muda — o próprio parecer expira pela execução (mecânica ASCENT/drivers). Selo re_derivado mantido."
+      },
+      "flag_gravada": "elegibilidade:mais_estreito (…)"
+    },
+    {
+      "regimen_id": "cp-naso-toripalimabe-nao-incluido",
+      "acao": "refutar → caminho A",
+      "texto_revisor": "Discutir. Medicação já aprovada no Brasil (não colocar como não incorporada). Na análise final de sobrevida global, com seguimento mediano de 36,0 meses, houve melhora significativa com toripalimabe versus placebo (HR 0,63; IC 95% 0,45-0,89; p=0,008). A sobrevida global mediana não foi atingida no grupo toripalimabe, versus 33,7 meses no grupo placebo. As taxas de sobrevida global em 1, 2 e 3 anos foram, respectivamente, 90,9% vs 87,1%, 78,0% vs 65,1%, e 64,5% vs 49,2%. Esses dados fizeram que a ESMO trocasse para score 4, ao inves de 3. Discutir devido a custo caro.",
+      "nota_gravada": {
+        "lote": 4,
+        "data": "2026-09-16",
+        "revisor": "Gustavo Drummond Pinho Ribeiro",
+        "acao": "refutar",
+        "natureza": "dado",
+        "eixo": "geral",
+        "nota": "Discutir. Medicação já aprovada no Brasil (não colocar como não incorporada). Na análise final de sobrevida global, com seguimento mediano de 36,0 meses, houve melhora significativa com toripalimabe versus placebo (HR 0,63; IC 95% 0,45-0,89; p=0,008). A sobrevida global mediana não foi atingida no grupo toripalimabe, versus 33,7 meses no grupo placebo. As taxas de sobrevida global em 1, 2 e 3 anos foram, respectivamente, 90,9% vs 87,1%, 78,0% vs 65,1%, e 64,5% vs 49,2%. Esses dados fizeram que a ESMO trocasse para score 4, ao inves de 3. Discutir devido a custo caro.",
+        "nota_squad": "Contradição interna do parecer (ação refutar = manter fora × texto 'não colocar como não incorporada / discutir') resolvida por DECISÃO HUMANA D1 (Gustavo Couto, 17/09): caminho A — o card fica FORA (não incorporado), mas passa a dizer a verdade: JUPITER-02 final com OS positiva (números do revisor CONFEREM: HR 0,63, IC 0,45–0,89, p=0,008; taxas 1/2/3 anos conferidas no corpo do artigo), ESMO-MCBS oficial 4 (scorecard 354 — o revisor está certo), registro Anvisa (RE 3.085, 06/08/2026). Eixo ESMO-MCBS re-derivado 4 e marcado DIVERGE do protocolo (3); selo confirmado→divergencia; hash muda (parecer expira pela execução). Motivo de não inclusão = custo/política, visível por alçada (clínico vê 'política institucional'; gestor/revisor/auditor/admin veem o motivo). Caminho B (incorporar: regime novo + código de app) fica para decisão do Gustavo + revisor + direção, fora desta rodada."
+      },
+      "flag_gravada": "nao_incluido: custo/política institucional …"
+    }
+  ],
+  "re_revisao": [
+    {
+      "regimen_id": "mama-adj-her2neg-act-docetaxel",
+      "item": "ramo_n0_alto_risco",
+      "descricao": "Revisor confirmou (16/09) que o ramo N0 de alto risco não tem respaldo em PACS 01/B-28/CALGB 9344. Decidir: (a) retirar o ramo — regra vira só N+ (ajustar_elegibilidade; eixo re_derivado; selo re_derivado); ou (b) manter como extensão clínica explícita e documentada — eixo marcado decisao_revisor/mais_amplo (precedente: abiraterona lote 2). Sem resposta, o card fica como está (divergencia).",
+      "status": "aberto",
+      "data": "2026-09-17"
+    },
+    {
+      "regimen_id": "cp-cec-def-cetuximabe-rt",
+      "item": "criterios_inelegibilidade_cisplatina_computaveis",
+      "descricao": "O parecer manter_anotar de 16/09 lista os critérios do NRG-HN004. Se o revisor quiser que o semáforo os compute, confirmar como ajustar_elegibilidade: entram 3 primitivos em cabeca-pescoco (clearance_creatinina [mL/min, numérico], perda_auditiva_clinica [booleano; aparelho auditivo ou queda ≥25 dB em 2 freq. contíguas], neuropatia_grau [ordinal 0–4]) e a regra vira inelegivel_cisplatina ∨ clcr<60 ∨ perda_auditiva ∨ neuropatia≥1 (o booleano atual fica para PS/idade/cardio). Hash muda nesse lote. Perguntas: ClCr<60 ou a janela do ensaio (>30 e <60)? incluir PS 2 e idade/comorbidade como no ensaio?",
+      "status": "aberto",
+      "data": "2026-09-17"
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-tch",
+      "item": "regra_ct1c_sem_n",
+      "descricao": "Com BCIRG-006/KRISTINE/TRAIN-2 como base, a regra 'cT1c sem N nem fator de risco' segue fora de todas as populações estudadas (e exclui T2–T4). Se o revisor quiser alinhar (ex.: N+ ou T>2 cm, ou cT1c com fator de alto risco), é ajustar_elegibilidade num lote seguinte; se mantiver como política institucional, o eixo pode passar a decisao_revisor.",
+      "status": "aberto",
+      "data": "2026-09-17"
+    },
+    {
+      "regimen_id": "ovario-resistente-bevacizumabe-nao-incluido",
+      "item": "incorporacao_bevacizumabe_2l_proc",
+      "descricao": "Revisor sugere 'considerar a discutir em pacientes resistentes a platina em 2ª linha' com base no abstract ASCO 2026 (retrospectivo). O card é 'não incluído' pelo protocolo (AURELIA: SLP sem SG robusta, MCBS 3). Incorporar é decisão de política institucional (revisor + Gustavo + direção), não de dado; a evidência nova é observacional e ainda não publicada. Confirmar se fica como está (nota + vigilância) ou se abre pedido de incorporação.",
+      "status": "aberto",
+      "data": "2026-09-17"
+    },
+    {
+      "regimen_id": "cp-naso-toripalimabe-nao-incluido",
+      "item": "incorporacao_toripalimabe_politica",
+      "descricao": "Card corrigido (OS final, MCBS 4, Anvisa) e mantido não incorporado por custo/política (D1-A). Pedido de incorporação ('não colocar como não incorporada') é decisão do Gustavo Couto + revisor + direção — caminho B pronto no PLANO-lote4.md §4 (regime novo cp-naso-met-1l-toripalimabe-gp + destino do card atual + código de app). Portão C: confirmar MCBS 4 × protocolo 3.",
+      "status": "aberto",
+      "data": "2026-09-17"
+    }
+  ],
+  "vigilancia": [
+    {
+      "regimen_id": "ovario-resistente-bevacizumabe-nao-incluido",
+      "doi_abstract": "10.1200/jco.2026.44.16_suppl.5607",
+      "congresso": "ASCO 2026",
+      "gatilho": "publicação em periódico revisado por pares (mesma coorte/autores) → corrigir_referencia normal ou complementar tipo artigo",
+      "aberto_em": "2026-09-17",
+      "status": "aberto"
+    }
+  ],
+  "elegibilidade_resultado": [
+    {
+      "id": "colo-qrt-io-keynote-a18",
+      "mudou": true,
+      "antes": "{\"and\": [{\"eq\": [\"tumor\", \"colo_utero\"]}, {\"eq\": [\"estadio_iii_iv_locavancado\", true]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"tumor\", \"colo_utero\"]}, {\"ref\": \"figo_iii_iva\"}, {\"ref\": \"pdl1_cps1\"}]}",
+      "texto_revisor": "O maior benefício no KEYNOTE-A18 (ENGOT-cx11/GOG-3047) concentra-se no estágio FIGO III-IVA e nas pacientes com PD-L1 positivo (CPS ≥1), enquanto o subgrupo IB2-IIB linfonodo-positivo e o pequeno subgrupo PD-L1 negativo (CPS <1) mostram benefício mais incerto ou ausente. Portanto, inclua apensas essas pacientes",
+      "novosPrim": []
+    },
+    {
+      "id": "mama-adj-her2neg-carbo-paclitaxel",
+      "mudou": false,
+      "antes": "{\"and\": [{\"eq\": [\"cenario\", \"adjuvancia\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"rh\", \"negativo\"]}]}",
+      "depois": "{\"and\": [{\"eq\": [\"cenario\", \"adjuvancia\"]}, {\"eq\": [\"her2\", \"negativo\"]}, {\"eq\": [\"rh\", \"negativo\"]}]}",
+      "texto_revisor": "O esquema carboplatina + paclitaxel isolado (sem antraciclina) tem respaldo específico para câncer de mama triplo-negativo (TNBC). Um estudo chinês de fase III demonstrou que carboplatina + taxano foi não inferior a epirrubicina/ciclofosfamida seguido de taxano (EC-T) como adjuvância em TNBC precoce, sustentando o uso de esquema livre de antraciclina baseado em platina nesse subgrupo. Então, esta errada sua afirmação de não ser regime isolado. Ou seja, carboplatina + paclitaxel (esquema anthracycline-free) é uma opção aceitável principalmente em TNBC, especialmente quando há contraindicação a antraciclina, mas o padrão internacional (NCCN, ASCO) ainda recomenda preferencialmente esquemas com antraciclina e taxano sequenciais (ex: AC-T ou EC-T) para a maioria dos pacientes de alto risco, reservando platina como adição/alternativa em TNBC",
+      "novosPrim": []
+    },
+    {
+      "id": "mama-neo-her2pos-ct1c-tch",
+      "mudou": false,
+      "antes": "{\"and\": [{\"eq\": [\"cenario\", \"neoadjuvancia\"]}, {\"eq\": [\"her2\", \"positivo\"]}, {\"ref\": \"ate_ct1c\"}]}",
+      "depois": "{\"and\": [{\"eq\": [\"cenario\", \"neoadjuvancia\"]}, {\"eq\": [\"her2\", \"positivo\"]}, {\"ref\": \"ate_ct1c\"}]}",
+      "texto_revisor": "Parcialmente correto — a informação sobre a população do TRAIN-2 está certa, mas a afirmação sobre o TCH carecer de estudo está incorreta.\nO TCH (docetaxel, carboplatina, trastuzumabe) não é um esquema sem respaldo em estudo — ele tem evidência robusta de ensaios clínicos randomizados, tanto no cenário adjuvante quanto neoadjuvante:\n1) BCIRG-006 (adjuvante/randomizado): comparou AC-T, AC-TH e TCH em câncer de mama HER2+ inicial. TCH teve sobrevida livre de doença e sobrevida global significativamente superiores ao braço sem trastuzumabe (AC-T), com toxicidade cardíaca significativamente menor que AC-TH, embora com eficácia numericamente um pouco inferior a longo prazo (DFS 10 anos: 73% TCH vs 74,6% AC-TH; OS: 83,3% vs 85,9%). \n2) TRYPHAENA (neoadjuvante, fase II não comparativo): TCHP (TCH + pertuzumabe) atingiu pCR de 57-66%. \n3) KRISTINE (fase III neoadjuvante): TCHP como braço comparador validado, com pCR superior a T-DM1 + pertuzumabe. \nMúltiplas séries retrospectivas multicêntricas confirmam pCR ~40-48% com TCH isolado no neoadjuvante. Portanto, a afirmação de que TCH é \"esquema clássico e validado... apesar de não ter estudo\" é uma contradição interna incorreta — o TCH tem, sim, estudo (aliás, é um dos regimes com mais dados de ensaio clínico randomizado em HER2+, justamente por ser a alternativa livre de antraciclina ao AC-TH)",
+      "novosPrim": []
+    }
+  ],
+  "rehash": [
+    {
+      "regimen_id": "ovario-resistente-bevacizumabe-nao-incluido",
+      "content_hash_antes": "62a2fdc6a285d127",
+      "content_hash_depois": "62a2fdc6a285d127",
+      "mudou": false
+    },
+    {
+      "regimen_id": "ovario-recidiva-platina-resistente-monoterapia",
+      "content_hash_antes": "5b6386735b39f165",
+      "content_hash_depois": "5b6386735b39f165",
+      "mudou": false
+    },
+    {
+      "regimen_id": "colo-qrt-io-keynote-a18",
+      "content_hash_antes": "52eebfa771b03a18",
+      "content_hash_depois": "5d3545724636ac24",
+      "mudou": true
+    },
+    {
+      "regimen_id": "cp-cec-def-cetuximabe-rt",
+      "content_hash_antes": "308c768476de0160",
+      "content_hash_depois": "308c768476de0160",
+      "mudou": false
+    },
+    {
+      "regimen_id": "cp-naso-toripalimabe-nao-incluido",
+      "content_hash_antes": "37128000dbab73b5",
+      "content_hash_depois": "8b59c3734d0aa10d",
+      "mudou": true
+    },
+    {
+      "regimen_id": "sarcoma-ntrk-larotrectinibe-nao-incorporado",
+      "content_hash_antes": "2a24fdca7e9b3171",
+      "content_hash_depois": "2a24fdca7e9b3171",
+      "mudou": false
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-act-docetaxel",
+      "content_hash_antes": "f61e8a47d433c49d",
+      "content_hash_depois": "f61e8a47d433c49d",
+      "mudou": false
+    },
+    {
+      "regimen_id": "mama-neo-her2pos-ct1c-tch",
+      "content_hash_antes": "173c4a39533b60e3",
+      "content_hash_depois": "1a71a3c924c7ea2a",
+      "mudou": true
+    },
+    {
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "content_hash_antes": "c5713fb8cef11258",
+      "content_hash_depois": "9434c5acbb804587",
+      "mudou": true
+    }
+  ],
+  "placar_selo": {
+    "re_derivado": 182,
+    "incompleto": 57,
+    "divergencia": 19,
+    "confirmado": 43
+  },
+  "total_regimes": 301,
+  "hashes_mudaram": [
+    "colo-qrt-io-keynote-a18",
+    "cp-naso-toripalimabe-nao-incluido",
+    "mama-adj-her2neg-carbo-paclitaxel",
+    "mama-neo-her2pos-ct1c-tch"
+  ],
+  "aprovados": 88,
+  "aprovados_decisao_revisao_flip": 88,
+  "selos_que_mudaram": [
+    {
+      "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
+      "de": "divergencia",
+      "para": "re_derivado"
+    },
+    {
+      "regimen_id": "cp-naso-toripalimabe-nao-incluido",
+      "de": "confirmado",
+      "para": "divergencia"
+    }
+  ],
+  "referencias_verificadas": [
+    {
+      "doi": "10.1001/jamaoncol.2020.2965",
+      "congruente": true,
+      "primeiro_autor": "Yu",
+      "ano": 2020,
+      "estudo": "PATTERN",
+      "tema": "fase 3, 9 centros (China), n=647, TNBC operável adjuvante (N+ ou N0 com tumor >10 mm; excluídos localmente avançado/metastático e terapia pré-operatória): PCb = paclitaxel 80 mg/m² + carboplatina AUC 2 D1,8,15 a cada 28 d × 6 vs CEF×3→docetaxel×3; desfecho primário DFS",
+      "tipo_publicacao": "artigo"
+    },
+    {
+      "doi": "10.1007/s10549-020-05648-9",
+      "congruente": true,
+      "primeiro_autor": "Du",
+      "ano": 2020,
+      "estudo": "Du 2020 (TP vs EC-T, não-inferioridade)",
+      "tema": "fase II randomizado de NÃO-INFERIORIDADE, n=308, TNBC após cirurgia: TP = docetaxel 75 ou paclitaxel 175 mg/m² D1 + carboplatina AUC 5 D1, a cada 21 d × 6 vs EC×4→T×4; desfecho primário DFS em 5 anos — esquema DIFERENTE do card (q21, AUC 5), citado pelo revisor como 'fase III'",
+      "tipo_publicacao": "artigo"
+    },
+    {
+      "doi": "10.1056/NEJMoa0910383",
+      "congruente": true,
+      "primeiro_autor": "Slamon",
+      "ano": 2011,
+      "estudo": "BCIRG-006",
+      "tema": "fase 3 ADJUVANTE, n=3.222, HER2+ inicial (N+ ou N0 de alto risco): AC-T vs AC-TH vs TCH (docetaxel + carboplatina + trastuzumabe 52 sem); desfecho primário DFS",
+      "tipo_publicacao": "artigo"
+    },
+    {
+      "doi": "10.1016/S1470-2045(17)30716-7",
+      "congruente": true,
+      "primeiro_autor": "Hurvitz",
+      "ano": 2018,
+      "estudo": "KRISTINE",
+      "tema": "fase 3 NEOADJUVANTE, HER2+ EC II–III operável (tumor >2 cm): TCHP ×6 (docetaxel + carboplatina + trastuzumabe + pertuzumabe) vs T-DM1 + pertuzumabe; desfecho primário pCR",
+      "tipo_publicacao": "artigo"
+    },
+    {
+      "doi": "10.1016/S1470-2045(18)30570-9",
+      "congruente": true,
+      "primeiro_autor": "van Ramshorst",
+      "ano": 2018,
+      "estudo": "TRAIN-2",
+      "tema": "fase 3 neoadjuvante, n=438, HER2+ EC II–III, bloqueio DUPLO (trastuzumabe + pertuzumabe): FEC×3→paclitaxel+carbo×6 vs paclitaxel+carbo×9; pCR 67% vs 68% (pivô anterior do card, mantido em pivos)",
+      "tipo_publicacao": "artigo"
+    },
+    {
+      "doi": "10.1016/S0140-6736(16)32417-5",
+      "congruente": true,
+      "primeiro_autor": "Loibl",
+      "ano": 2017,
+      "estudo": "Loibl & Gianni 2017 (Seminar, revisão)",
+      "tema": "REVISÃO (Lancet Series) do tratamento do câncer de mama HER2+ — citada pelo revisor (PMID 27939064) como se fosse ensaio; não é fonte primária",
+      "tipo_publicacao": "artigo"
+    },
+    {
+      "doi": "10.1007/s10549-021-06266-9",
+      "congruente": true,
+      "primeiro_autor": "Lopresti",
+      "ano": 2021,
+      "estudo": "BrUOG (wPCbTP)",
+      "tema": "fase II braço único, n=30, HER2+ EC II–III neoadjuvante: paclitaxel semanal 80 + carboplatina AUC 2 + trastuzumabe + pertuzumabe (bloqueio DUPLO, paclitaxel); pCR 77% — esquema diferente do TCH",
+      "tipo_publicacao": "artigo"
+    },
+    {
+      "doi": "10.1200/jco.2026.44.16_suppl.5607",
+      "congruente": true,
+      "primeiro_autor": "Sousa Filho",
+      "ano": 2026,
+      "estudo": "ASCO 2026 abstract 5607 (bevacizumabe em PROC, PSM retrospectivo)",
+      "tema": "ABSTRACT DE CONGRESSO; coorte RETROSPECTIVA unicêntrica (A.C. Camargo, SP), pareamento por escore de propensão 1:2, n=149 com PROC, QT ± bevacizumabe; PFS 7,79 vs 4,37 m (HR 0,49; 0,36–0,68); OS 23,06 vs 10,45 m (HR 0,47; 0,34–0,66); virgens de beva: PFS HR 0,47, OS HR 0,46; re-expostos: PFS HR 0,61 (p=0,15), OS HR 0,54 (0,26–1,11; p=0,09); interação p=0,60",
+      "tipo_publicacao": "abstract_congresso"
+    },
+    {
+      "doi": "10.1001/jama.2023.20181",
+      "congruente": true,
+      "primeiro_autor": "Mai",
+      "ano": 2023,
+      "estudo": "JUPITER-02 (análise final de SG)",
+      "tema": "fase 3 duplo-cego, n=289, nasofaringe recidivada/metastática sem QT prévia no cenário R/M: toripalimabe 240 mg vs placebo + gemcitabina-cisplatina ×6 → manutenção até 2 anos; PFS final 21,4 vs 8,2 m (HR 0,52; 0,37–0,73); seguimento mediano 36 m: OS HR 0,63 (0,45–0,89), p=0,008, mediana NR vs 33,7 m; efeito de OS consistente em PD-L1 alto e baixo",
+      "tipo_publicacao": "artigo"
+    },
+    {
+      "doi": "10.1016/s1470-2045(24)00507-2",
+      "congruente": true,
+      "primeiro_autor": "Mell",
+      "ano": 2024,
+      "estudo": "NRG-HN004",
+      "tema": "fase 2/3, 89 centros, HNSCC localmente avançado com contraindicação a cisplatina (PS 2, insuficiência renal ou auditiva, neuropatia periférica, ≥70 a c/ comorbidade moderada/grave, <70 a c/ comorbidade grave): RT + cetuximabe vs RT + durvalumabe",
+      "tipo_publicacao": "artigo"
+    }
+  ],
+  "abstracts_lidos": {
+    "PATTERN": "n=647 (322 CEF-T, 325 PCb), seguimento mediano 62 m: DFS 5 anos 86,5% vs 80,3% (HR 0,65; IC95% 0,44–0,96; p=0,03); DDFS e RFS semelhantes; OS HR 0,71 (0,42–1,22; p=0,22, NS); subgrupos exploratórios BRCA1/2 HR 0,44 (0,15–1,31), HRR HR 0,39 (0,15–0,99).",
+    "Du2020": "n=308, seguimento mediano 66,9 m: DFS 5 anos 85,8% (EC-T) vs 84,4% (TP), p não-inferioridade 0,034, log-rank 0,712; OS 5 anos 94,4 vs 93,5% (p=0,77); TP com menos neutropenia G3/4 e alopecia, mais trombocitopenia G1–4.",
+    "BCIRG-006": "n=3.222, seguimento mediano 65 m, 656 eventos: DFS 5 anos 75% (AC-T), 84% (AC-TH), 81% (TCH); OS 87%, 92%, 91%; sem diferença significativa entre os dois braços com trastuzumabe, ambos superiores a AC-T; ICC/disfunção cardíaca significativamente maiores no AC-TH que no TCH (p<0,001); 8 leucemias agudas (7 nos braços com antraciclina).",
+    "KRISTINE": "HER2+ EC II–III operável (>2 cm), PS 0–1; TCHP ×6 como braço comparador; desfecho primário pCR.",
+    "JUPITER-02": "n=289 (146 toripalimabe, 143 placebo); PFS final 21,4 vs 8,2 m (HR 0,52; 0,37–0,73); seguimento mediano 36,0 m: OS HR 0,63 (0,45–0,89), p bicaudal 0,008; mediana NR vs 33,7 m; OS 1/2/3 anos 90,9 vs 87,1% · 78,0 vs 65,1% · 64,5 vs 49,2% (corpo do artigo, conferido no dossiê WHO EML 2025 a.28); EA levando a descontinuação 11,6 vs 4,9%; EA imunomediados 54,1 vs 21,7%, G≥3 9,6 vs 1,4%.",
+    "ESMO-MCBS-354": "ESMO-MCBS Scorecards, scorecard 354 (lido em 16/09/2026): toripalimabe + gemcitabina/cisplatina, nasofaringe R/M, JUPITER-02; ESMO-MCBS v2.0, Form 2a, desfecho avaliado OS (controle mediana 33,7 m, 3 a 49,2%; ganho estimado 19,8 m, 3 a +15,3%; HR 0,63); QoL pendente; score preliminar 4, score FINAL 4; emitido 22/09/2022, atualizado 02/07/2025.",
+    "ANVISA-toripalimabe": "Registro novo Zytorvi (toripalimabe), Dr. Reddy's Farmacêutica do Brasil, Resolução-RE nº 3.085 (DOU 06/08/2026) — conferido em imprensa (O Tempo 07/08/2026; TribeMD); página gov.br/anvisa não lida diretamente.",
+    "NRG-HN004-protocolo": "Protocolo NRG-HN004 (NCT03258554, v. 09/03/2022, §3.2, ClinicalTrials.gov): contraindicação absoluta ou relativa a cisplatina = ≥1 de: clearance de creatinina >30 e <60 mL/min (Cockcroft-Gault); Zubrod PS 2; neuropatia periférica pré-existente grau ≥1; história de perda auditiva (necessidade de aparelho auditivo OU queda ≥25 dB em 2 frequências contíguas no audiograma pré-tratamento); ≥70 anos com comorbidade moderada/grave; <70 anos com comorbidade grave.",
+    "KEYNOTE-A18": "Lorusso, Lancet 2024 (PFS; PMID 38521086): n=1.060, FIGO 2014 IB2–IIB N+ ou III–IVA; PFS 24 m 68% vs 57%, HR 0,70 (0,55–0,89). Lancet 2024 (OS; PMID 39288779): OS 36 m 82,6 vs 74,8%, HR 0,67 (0,50–0,90), p=0,004. FDA (12/01/2024) aprovou só FIGO 2014 III–IVA: PFS HR 0,59 (0,43–0,82) em III–IVA (n=596) vs 0,91 (0,63–1,31) em IB2–IIB N+ (n=462). PD-L1 CPS<1 ≈ 4–5% dos pacientes (≈50) — subgrupo sem estimativa útil."
+  }
+}

@@ -4717,7 +4717,18 @@ const INCORP_MOTIVO_META = {
   indisponivel:           { t:"indisponível na instituição", tip:"A instituição não oferece este protocolo neste cenário." },
   evidencia_insuficiente: { t:"evidência insuficiente",     tip:"Evidência imatura, de baixa qualidade ou de magnitude pequena demais para incorporar." },
   custo:                  { t:"custo",                      tip:"Custo/impacto orçamentário desfavorável frente ao benefício (ICER/affordability)." },
+  politica_institucional: { t:"política institucional",     tip:"Decisão de incorporação da instituição. O motivo detalhado é visível aos perfis de gestão/revisão." },
 };
+// Alçada do motivo (lote 4, D1): o dado pode declarar `incorporacao.motivo_publico` +
+// `incorporacao.alcada_motivo` (perfis que veem o motivo real e a nota). Fora da alçada, o
+// card mostra o rótulo público (ex.: "política institucional") e `texto_publico`; a evidência
+// (eixos, referências, notas do revisor) continua visível para todos — só o PORQUÊ
+// institucional é por alçada.
+function motivoNaAlcada(ex){
+  const alc = Array.isArray(ex && ex.alcada_motivo) ? ex.alcada_motivo : null;
+  if(!alc || !ex.motivo_publico) return true;
+  return !!(USUARIO && alc.includes(USUARIO.perfil));
+}
 // Estado de incorporação do regime: {incorporado:true} ou {incorporado:false, motivo,
 // motivoLabel, motivoTip, texto, revisor?, data?}. Fontes do estado, em ordem de precedência:
 // campo EXPLÍCITO r.incorporacao (gravado pelo Step 08 quando o revisor refuta — vem com
@@ -4726,9 +4737,16 @@ const INCORP_MOTIVO_META = {
 // nome/status_incorporacao. O texto curto do porquê vem, na ordem: razão da flag >
 // justificativa_protocolo > status_incorporacao.
 function incorporacao(r){
-  if(r.__inc) return r.__inc;
+  const perfilAtual = USUARIO ? USUARIO.perfil : null;
+  if(r.__inc && r.__incPerfil === perfilAtual) return r.__inc;
+  r.__incPerfil = perfilAtual;
   const ex = r.incorporacao;
   if(ex && ex.status==="nao_incorporado"){
+    if(!motivoNaAlcada(ex)){
+      const Mp = INCORP_MOTIVO_META[ex.motivo_publico] || INCORP_MOTIVO_META.politica_institucional;
+      return (r.__inc = {incorporado:false, motivo:ex.motivo_publico, motivoLabel:Mp.t, motivoTip:Mp.tip,
+        texto:String(ex.texto_publico||"").trim(), revisor:ex.revisor||null, data:ex.data||null, porAlcada:true});
+    }
     const motivo = INCORP_MOTIVO_META[ex.motivo] ? ex.motivo : classificarMotivoIncorp(String(ex.nota_revisao||""));
     const M = INCORP_MOTIVO_META[motivo];
     return (r.__inc = {incorporado:false, motivo, motivoLabel:M.t, motivoTip:M.tip,
@@ -4774,6 +4792,9 @@ function incPillHtml(r, status){
 function notasRevisaoDe(r){
   const c = (r && r.consolidacao) || {};
   const inc = r ? incorporacao(r) : {texto:""};
+  // Fora da alçada do motivo (lote 4, D1): as notas deste card discutem o porquê
+  // institucional (custo) — ficam com quem tem alçada; o clínico vê o rótulo público.
+  if(inc.porAlcada) return [];
   const norm = t => String(t||"").trim();
   let out = [];
   if(Array.isArray(c.notas_revisao) && c.notas_revisao.length){

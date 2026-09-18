@@ -3669,8 +3669,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Paclitaxel … Paclitaxel; Paclitaxel … G-CSF) — somar as doses seria ler escolha como combinação; sigla de combinação no esquema (AC (doxorrubicina + ciclofosfamida)) — as doses das drogas da sigla não estão escritas; 2 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "1f5f955e7f86fc65"
+      }
     },
     {
       "regimen_id": "mama-adj-her2neg-tc",
@@ -3936,8 +3935,7 @@
         "nota": "1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "8c156574e2324ba3"
+      }
     },
     {
       "regimen_id": "mama-adj-her2neg-ac",
@@ -4146,8 +4144,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "378c72b021d65cfa"
+      }
     },
     {
       "regimen_id": "mama-adj-her2neg-act-docetaxel",
@@ -4494,8 +4491,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; sigla de combinação no esquema (AC (doxorrubicina + ciclofosfamida)) — as doses das drogas da sigla não estão escritas; 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f61e8a47d433c49d"
+      }
     },
     {
       "regimen_id": "mama-adj-her2neg-carbo-paclitaxel",
@@ -4843,8 +4839,7 @@
         "estudo": "CALGB 40603",
         "ano": 2015,
         "primeiro_autor": "Sikov"
-      },
-      "content_hash": "9434c5acbb804587"
+      }
     },
     {
       "regimen_id": "mama-adj-her2neg-cmf",
@@ -5135,8 +5130,7 @@
         "nota": "sigla de combinação no esquema (CMF (ciclofosfamida + metotrexato + 5-FU)) — as doses das drogas da sigla não estão escritas; 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e7c9392339f5ee9e"
+      }
     },
     {
       "regimen_id": "mama-adj-brca-olaparibe",
@@ -5471,8 +5465,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c4da2ac8b9010954"
+      }
     },
     {
       "regimen_id": "mama-adj-tnbc-capecitabina",
@@ -5680,8 +5673,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5c1bc0633b195981"
+      }
     },
     {
       "regimen_id": "mama-adj-her2pos-th",
@@ -5932,8 +5924,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Trastuzumabe … Trastuzumabe) — somar as doses seria ler escolha como combinação; 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "302b97cc589055b2"
+      }
     },
     {
       "regimen_id": "mama-adj-her2pos-tp-aphinity",
@@ -6196,8 +6187,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Carboplatina … Docetaxel; Docetaxel … Paclitaxel) — somar as doses seria ler escolha como combinação; sigla de combinação no esquema (AC (doxorrubicina + ciclofosfamida), TC (docetaxel + ciclofosfamida)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (platina); 5 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "db3df43d7d154905"
+      }
     },
     {
       "regimen_id": "mama-adj-her2pos-tdm1-katherine",
@@ -6478,8 +6468,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "170a7af7ac327837"
+      }
     },
     {
       "regimen_id": "mama-adj-rhpos-abemaciclibe-monarche",
@@ -6762,8 +6751,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; termo genérico no lugar do fármaco (terapia endocrina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "61de881e4de39456"
+      }
     },
     {
       "regimen_id": "mama-adj-ht-tamoxifeno-pre",
@@ -6945,8 +6933,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d2f66f8ae5260d28"
+      }
     },
     {
       "regimen_id": "mama-adj-ht-lhrh-ia-pre",
@@ -7175,8 +7162,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; termo genérico no lugar do fármaco (inibidor de aromatase, analogo lhrh); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "1d6199a00e65fcc7"
+      }
     },
     {
       "regimen_id": "mama-adj-ht-ia-pos",
@@ -7346,8 +7332,7 @@
         "nota": "nenhum fármaco do léxico reconhecido no esquema; texto usa termo genérico (inibidor de aromatase)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0e809cabccd41d50"
+      }
     },
     {
       "regimen_id": "mama-adj-ht-tam-ia-switch-pos",
@@ -7548,8 +7533,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Tamoxifeno … Tamoxifeno) — somar as doses seria ler escolha como combinação; cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "b7cf2045e9e65690"
+      }
     },
     {
       "regimen_id": "mama-neo-her2pos-ct1c-acth",
@@ -7887,8 +7871,7 @@
         "nota": "sigla de combinação no esquema (AC (doxorrubicina + ciclofosfamida)) — as doses das drogas da sigla não estão escritas; 4 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "004e7aeb68ed6966"
+      }
     },
     {
       "regimen_id": "mama-neo-her2pos-ct1c-tch",
@@ -8281,8 +8264,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "1a71a3c924c7ea2a"
+      }
     },
     {
       "regimen_id": "mama-neo-her2pos-gtct1c-acthp",
@@ -8623,8 +8605,7 @@
         "nota": "cobertura curta: 3 item(ns) derivados para 4 fármaco(s) cadastrados no regime; sigla de combinação no esquema (AC (doxorrubicina + ciclofosfamida), THP (docetaxel + trastuzumabe + pertuzumabe)) — as doses das drogas da sigla não estão escritas; 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d20f258f78b4eb27"
+      }
     },
     {
       "regimen_id": "mama-neo-her2pos-gtct1c-tchp",
@@ -8975,8 +8956,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 2 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "4090644d42dfe5b3"
+      }
     },
     {
       "regimen_id": "mama-neo-her2pos-gtct1c-thp",
@@ -9244,8 +9224,7 @@
         "nota": "2 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e022ca4d5c448496"
+      }
     },
     {
       "regimen_id": "mama-neo-her2pos-phesgo-nao-incorporado",
@@ -9498,8 +9477,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d4757f7af87b1929"
+      }
     },
     {
       "regimen_id": "mama-neo-tnbc-pembro-keynote522",
@@ -9900,8 +9878,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Carboplatina … Pembrolizumabe; Ciclofosfamida … Epirrubicina; Ciclofosfamida … Pembrolizumabe) — somar as doses seria ler escolha como combinação; sigla de combinação no esquema (AC (doxorrubicina + ciclofosfamida), EC (epirrubicina + ciclofosfamida)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (platina); 3 de 6 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "90ca4ac56dd06046"
+      }
     },
     {
       "regimen_id": "mama-neo-tnbc-acdd-ct",
@@ -10269,8 +10246,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Carboplatina … Carboplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 2 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d07342c649fb52d9"
+      }
     },
     {
       "regimen_id": "mama-neo-tnbc-tc",
@@ -10543,8 +10519,7 @@
         "nota": "1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "3a2e901fb309aa80"
+      }
     },
     {
       "regimen_id": "mama-neo-rhpos-act-acddt",
@@ -10906,8 +10881,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Paclitaxel … G-CSF) — somar as doses seria ler escolha como combinação; sigla de combinação no esquema (AC (doxorrubicina + ciclofosfamida)) — as doses das drogas da sigla não estão escritas; 2 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "6e0befd855b4cf7a"
+      }
     },
     {
       "regimen_id": "mama-neo-rhpos-tc",
@@ -11249,8 +11223,7 @@
         "nota": "1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "af78b62a1f2e4b9e"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-ia-cdk46",
@@ -11609,8 +11582,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Anastrozol … Letrozol; Ribociclibe … Abemaciclibe; Abemaciclibe … Palbociclibe) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (analogo lhrh, icdk4/6); 6 de 6 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2dc3636c59e8ea92"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-fulvestranto-cdk46",
@@ -11925,8 +11897,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Ribociclibe … Abemaciclibe; Abemaciclibe … Palbociclibe) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (icdk4/6); 4 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c9507c288c99cdc6"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-ia-abemaciclibe",
@@ -12199,8 +12170,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Letrozol … Anastrozol) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (inibidor de aromatase); 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "cf07697410a56b98"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-ht-isolada",
@@ -12443,8 +12413,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Anastrozol … Letrozol; Letrozol … Fulvestranto) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (inibidor de aromatase); 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0af9870b04da5e2f"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-anastrozol",
@@ -12719,8 +12688,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "8617e00869a969ff"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-letrozol",
@@ -12995,8 +12963,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a1be4b7f2b5f4eef"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-exemestano",
@@ -13262,8 +13229,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "8e29fc20fc2e68c0"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-tamoxifeno",
@@ -13546,8 +13512,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "ec26c00350be8030"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-qt-crise-visceral",
@@ -13702,8 +13667,7 @@
         "nota": "nenhum fármaco do léxico reconhecido no esquema; texto usa termo genérico (quimioterapia)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e636a404335b4d38"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-1l-ribociclibe-crise-visceral",
@@ -13950,8 +13914,7 @@
         "nota": "termo genérico no lugar do fármaco (inibidor de aromatase); 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7cebd16abc3a0ceb"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-seq-cdk46-nao-incorporado",
@@ -14163,8 +14126,7 @@
         "nota": "nenhum fármaco do léxico reconhecido no esquema; texto usa termo genérico (icdk4/6, inibidor de ciclina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "4a880999ecda1a16"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-capivasertibe-nao-incorporado",
@@ -14411,8 +14373,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "8e14bf971f67601c"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-alpelisibe-nao-incorporado",
@@ -14643,8 +14604,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "edc3c65c3773f4ad"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-tdxd-db04",
@@ -14854,8 +14814,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "acc7d5afde0c4837"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-tdxd-db06-nao-incorporado",
@@ -15073,8 +15032,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "02aa08d2004bbc0b"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-capecitabina",
@@ -15280,8 +15238,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2c6b8d133daa1e54"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-paclitaxel",
@@ -15470,8 +15427,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "cde7d1264c8270b0"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-eribulina",
@@ -15685,8 +15641,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "fa0dc87e97530387"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-docetaxel",
@@ -15880,8 +15835,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "262b2c984fe4bbcb"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-vinorelbina-iv",
@@ -16069,8 +16023,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "92d68fd76cab1c62"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-vinorelbina-vo",
@@ -16258,8 +16211,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "741b82ea8025ccb1"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-gencitabina",
@@ -16451,8 +16403,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "92d68fd76cab1c62"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-doxo-lipossomal",
@@ -16640,8 +16591,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "63717f02bb3cebf1"
+      }
     },
     {
       "regimen_id": "mama-met-hrpos-2l-sacituzumab-govitecan",
@@ -16941,8 +16891,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c7153e1795532f9a"
+      }
     },
     {
       "regimen_id": "mama-met-her2pos-1l-thp-cleopatra",
@@ -17226,8 +17175,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Docetaxel … Paclitaxel) — somar as doses seria ler escolha como combinação; 4 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e54cef7c47680118"
+      }
     },
     {
       "regimen_id": "mama-met-her2pos-2l-tdxd-db03",
@@ -17449,8 +17397,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f2649e93f2b14837"
+      }
     },
     {
       "regimen_id": "mama-met-her2pos-2l-tdm1-emilia",
@@ -17683,8 +17630,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "01fbd948ff480320"
+      }
     },
     {
       "regimen_id": "mama-met-her2pos-3l-tdm1-th3resa",
@@ -17902,8 +17848,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "cf86d26ecc30ea99"
+      }
     },
     {
       "regimen_id": "mama-met-her2pos-3l-trastuzumabe-citotoxico",
@@ -18246,8 +18191,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Vinorelbina … Eribulina; Eribulina … Gemcitabina; Gemcitabina … Gemcitabina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 4 de 6 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "1e32f251240d8c6d"
+      }
     },
     {
       "regimen_id": "mama-met-tnbc-1l-pembro-keynote355",
@@ -18606,8 +18550,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Paclitaxel … Gemcitabina) — somar as doses seria ler escolha como combinação; dias do ciclo escritos para parte dos fármacos (Paclitaxel, Carboplatina) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c74ad4caaf4a4dcf"
+      }
     },
     {
       "regimen_id": "mama-met-tnbc-1l-atezolizumabe-nao-incorporado",
@@ -18851,8 +18794,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Atezolizumabe … Paclitaxel) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "9ec13e8ab0d6bce7"
+      }
     },
     {
       "regimen_id": "mama-met-tnbc-1l-qt-opcoes",
@@ -19233,8 +19175,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Paclitaxel, Eribulina) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina); 2 de 6 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "879bad066df928b4"
+      }
     },
     {
       "regimen_id": "mama-met-tnbc-2l-qt-opcoes",
@@ -19583,8 +19524,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Paclitaxel) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina); 2 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "52ed230839d44291"
+      }
     },
     {
       "regimen_id": "mama-met-tnbc-3l-sacituzumab-ascent",
@@ -19859,8 +19799,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e726e28ac1bbe812"
+      }
     },
     {
       "regimen_id": "mama-met-tnbc-3l-tdxd-nao-incorporado",
@@ -20109,8 +20048,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "85d1a913adc15cdf"
+      }
     },
     {
       "regimen_id": "mama-met-tnbc-3l-qt-opcoes",
@@ -20473,8 +20411,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Paclitaxel) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina); 2 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "098af87645533c5d"
+      }
     },
     {
       "regimen_id": "mama-met-tnbc-bevacizumabe-nao-incorporado",
@@ -20727,8 +20664,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f2101384ce61f648"
+      }
     },
     {
       "regimen_id": "nsclc-neoadj-nivolumabe-qt",
@@ -21001,8 +20937,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c1723334ffdcc1e6"
+      }
     },
     {
       "regimen_id": "nsclc-periop-pembrolizumabe-qt",
@@ -21254,8 +21189,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; termo genérico no lugar do fármaco (qt platina, platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0466c1fb17f556e6"
+      }
     },
     {
       "regimen_id": "nsclc-periop-durva-nivo-nao-incluido",
@@ -21434,8 +21368,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Durvalumabe … Nivolumabe) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "64749ea84cf56502"
+      }
     },
     {
       "regimen_id": "nsclc-adj-qt-platina",
@@ -21657,8 +21590,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Pemetrexede … Vinorelbina; Vinorelbina … Docetaxel; Docetaxel … Gemcitabina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 5 de 6 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5ee529fe79656759"
+      }
     },
     {
       "regimen_id": "nsclc-adj-osimertinibe-egfr",
@@ -21865,8 +21797,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2352961b36f4d531"
+      }
     },
     {
       "regimen_id": "nsclc-adj-alectinibe-alk",
@@ -22073,8 +22004,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "67f66e0f27ae9bf5"
+      }
     },
     {
       "regimen_id": "nsclc-adj-atezolizumabe-pdl1",
@@ -22317,8 +22247,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "1011d5ccf0be273a"
+      }
     },
     {
       "regimen_id": "nsclc-adj-io-estagioI-nao-incluido",
@@ -22491,8 +22420,7 @@
         "nota": "nenhum fármaco do léxico reconhecido no esquema; texto usa termo genérico (imunoterapia)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "ec1787d73be47bc8"
+      }
     },
     {
       "regimen_id": "nsclc-def-crt-durvalumab",
@@ -22744,8 +22672,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Pemetrexede … Etoposídeo; Etoposídeo … Paclitaxel) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 3 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "cb801038c2fe52a9"
+      }
     },
     {
       "regimen_id": "nsclc-met-io-mono-pdl1alto",
@@ -23006,8 +22933,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Pembrolizumabe … Atezolizumabe; Atezolizumabe … Cemiplimabe) — somar as doses seria ler escolha como combinação",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "28ef622348f3c33c"
+      }
     },
     {
       "regimen_id": "nsclc-met-io-qt-pdl1baixo",
@@ -23314,8 +23240,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Carboplatina … Cisplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 3 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "966311b700b5a046"
+      }
     },
     {
       "regimen_id": "nsclc-met-io-qt-pdl1baixo-escamoso",
@@ -23569,8 +23494,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Paclitaxel … Nab-paclitaxel) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 3 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "604aa87f1c303a00"
+      }
     },
     {
       "regimen_id": "nsclc-met-atezo-bev-nao-incluido",
@@ -23767,8 +23691,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 4 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2995374ae6a85e55"
+      }
     },
     {
       "regimen_id": "nsclc-met-qt-durva-treme-nao-incluido",
@@ -23947,8 +23870,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "fbf48f4b4860c28e"
+      }
     },
     {
       "regimen_id": "nsclc-met-osimertinibe-egfr",
@@ -24145,8 +24067,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5c17901321863384"
+      }
     },
     {
       "regimen_id": "nsclc-met-osi-qt-egfr",
@@ -24390,8 +24311,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5fdb21434074fba0"
+      }
     },
     {
       "regimen_id": "nsclc-met-amivantamab-nao-incluido",
@@ -24610,8 +24530,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Lazertinibe … Amivantamabe) — somar as doses seria ler escolha como combinação; 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "77bb665d0ee0b59e"
+      }
     },
     {
       "regimen_id": "nsclc-met-papillon-exon20-nao-incluido",
@@ -24838,8 +24757,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5c1e23bc9e53063d"
+      }
     },
     {
       "regimen_id": "nsclc-met-alectinibe-alk",
@@ -25054,8 +24972,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Alectinibe … Lorlatinibe; Lorlatinibe … Brigatinibe) — somar as doses seria ler escolha como combinação; 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c73e9cc7d798de6b"
+      }
     },
     {
       "regimen_id": "nsclc-met-crizotinibe-ros1",
@@ -25252,8 +25169,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "fb2f6db8a43d5c98"
+      }
     },
     {
       "regimen_id": "nsclc-met-2l-io-ou-docetaxel",
@@ -25486,8 +25402,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Nivolumabe … Atezolizumabe; Atezolizumabe … Pembrolizumabe; Pembrolizumabe … Docetaxel) — somar as doses seria ler escolha como combinação; 6 de 6 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "97e3dae1f3a4958f"
+      }
     },
     {
       "regimen_id": "nsclc-met-2l-nao-incluidos",
@@ -25702,8 +25617,7 @@
         "nota": "termo genérico no lugar do fármaco (imunoterapia); 5 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "8ad0bb74196c7f4c"
+      }
     },
     {
       "regimen_id": "sclc-limitada-cisplatina-etoposideo-rt-durvalumab",
@@ -25916,8 +25830,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e7b96ba733e4d4f2"
+      }
     },
     {
       "regimen_id": "sclc-extensa-cisplatina-etoposideo",
@@ -26119,8 +26032,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "234424b56abca306"
+      }
     },
     {
       "regimen_id": "sclc-extensa-io-1l-nao-incluido",
@@ -26332,8 +26244,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Durvalumabe … Atezolizumabe) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 4 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "223770db924cf4c7"
+      }
     },
     {
       "regimen_id": "sclc-2l-topotecano",
@@ -26510,8 +26421,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7f1069c2016346ed"
+      }
     },
     {
       "regimen_id": "sclc-retratamento-mesmo-esquema",
@@ -26704,8 +26614,7 @@
         "nota": "termo genérico no lugar do fármaco (imunoterapia, platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c85e56543a3347b7"
+      }
     },
     {
       "regimen_id": "sclc-2l-tarlatamabe-nao-incluido",
@@ -26910,8 +26819,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e764943f53a489df"
+      }
     },
     {
       "regimen_id": "retal-neoadj-crt-capecitabina",
@@ -27088,8 +26996,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "afe7ecf13bdbe56d"
+      }
     },
     {
       "regimen_id": "retal-tnt-folfox-capox",
@@ -27314,8 +27221,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (5-Fluorouracil … Oxaliplatina) — somar as doses seria ler escolha como combinação; sigla de combinação no esquema (FOLFOX (5-FU + leucovorina + oxaliplatina), CAPOX (capecitabina + oxaliplatina)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (platina); 4 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a3886ade28b73602"
+      }
     },
     {
       "regimen_id": "retal-tnt-folfirinox",
@@ -27548,8 +27454,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 4 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "dc8c5698b2f74619"
+      }
     },
     {
       "regimen_id": "colon-adj-fluoropirimidina-stageII",
@@ -27766,8 +27671,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Capecitabina … 5-Fluorouracil; 5-Fluorouracil … Leucovorina) — somar as doses seria ler escolha como combinação; 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "098082e9892ae7b6"
+      }
     },
     {
       "regimen_id": "colon-adj-oxaliplatina-stageIII",
@@ -27977,8 +27881,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (5-Fluorouracil … Leucovorina; Leucovorina … Oxaliplatina) — somar as doses seria ler escolha como combinação; sigla de combinação no esquema (CAPOX (capecitabina + oxaliplatina)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (platina); 4 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "06ae8213d5446cf3"
+      }
     },
     {
       "regimen_id": "crc-met-quimio-doublet",
@@ -28169,8 +28072,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Oxaliplatina … Irinotecano) — somar as doses seria ler escolha como combinação; sigla de combinação no esquema (FOLFOX (5-FU + leucovorina + oxaliplatina), FOLFIRI (5-FU + leucovorina + irinotecano), CAPOX (capecitabina + oxaliplatina)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (fluoropirimidina, platina); 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "195085ecc68ad7d2"
+      }
     },
     {
       "regimen_id": "crc-met-folfoxiri",
@@ -28406,8 +28308,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 3 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "311d417a62f5884a"
+      }
     },
     {
       "regimen_id": "crc-met-anti-egfr",
@@ -28614,8 +28515,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cetuximabe … Panitumumabe) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (quimioterapia); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d266115b8a14c0b7"
+      }
     },
     {
       "regimen_id": "crc-met-pembrolizumabe-msi",
@@ -28780,8 +28680,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "1c92a34a0a0144ff"
+      }
     },
     {
       "regimen_id": "crc-met-tas-bevacizumab",
@@ -28991,8 +28890,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d3687ed12603a0a5"
+      }
     },
     {
       "regimen_id": "crc-met-bevacizumabe-1l-nao-incorporado",
@@ -29177,8 +29075,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "423f4f3a274cfb14"
+      }
     },
     {
       "regimen_id": "crc-met-aflibercepte-nao-incorporado",
@@ -29347,8 +29244,7 @@
         "nota": "sigla de combinação no esquema (FOLFIRI (5-FU + leucovorina + irinotecano)) — as doses das drogas da sigla não estão escritas; 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "efa332891e5c3509"
+      }
     },
     {
       "regimen_id": "crc-met-regorafenibe-nao-incorporado",
@@ -29533,8 +29429,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "8dedd438f101c97a"
+      }
     },
     {
       "regimen_id": "prostata-loc-altorisco-ebrt-tda",
@@ -29726,8 +29621,7 @@
         "nota": "nenhum fármaco do léxico reconhecido no esquema; texto usa termo genérico (agonista lhrh, antagonista lhrh)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "12070e6385e59129"
+      }
     },
     {
       "regimen_id": "prostata-rb-rt-salvamento-tda",
@@ -29891,8 +29785,7 @@
         "nota": "nenhum fármaco do léxico reconhecido no esquema",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "9011aae9bd885ae3"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-abiraterona-prednisona",
@@ -30098,8 +29991,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7136667cf754b827"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-enzalutamida",
@@ -30290,8 +30182,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f68067c6f3e9d2cd"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-apalutamida",
@@ -30468,8 +30359,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "90724cfe39059272"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-tripla-docetaxel-darolutamida",
@@ -30697,8 +30587,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "05d1fcfa7ea1b8f0"
+      }
     },
     {
       "regimen_id": "prostata-mcspc-docetaxel",
@@ -30881,8 +30770,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "40e6d209de828ee7"
+      }
     },
     {
       "regimen_id": "prostata-nmcrpc-enzalutamida",
@@ -31084,8 +30972,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f1ed8b87352de07b"
+      }
     },
     {
       "regimen_id": "prostata-nmcrpc-apalutamida",
@@ -31267,8 +31154,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "298778d4ef6fb1bd"
+      }
     },
     {
       "regimen_id": "prostata-nmcrpc-darolutamida",
@@ -31450,8 +31336,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "b95ac198d45f8b8a"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-1l-abiraterona-prednisona",
@@ -31709,8 +31594,7 @@
         "pmid": null,
         "estudo": "COU-AA-302",
         "ano": 2015
-      },
-      "content_hash": "7bb350279ea82325"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-1l-enzalutamida",
@@ -31906,8 +31790,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "cf0f4d4354b7c628"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-1l-docetaxel-prednisona",
@@ -32095,8 +31978,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "33607a0cbfe9fbf7"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-1l-parp-nao-incorporado",
@@ -32346,8 +32228,7 @@
           "verificado_em": "2026-09-13"
         },
         "nota_verificacao_squad": "VERIFICAÇÃO DO SQUAD (não altera a decisão do revisor): a SG final do TALAPRO-2 já foi publicada — AGARWAL N, Azad AA, Carles J, et al. Talazoparib plus enzalutamide in men with metastatic castration-resistant prostate cancer: final overall survival results from the randomised, placebo-controlled, phase 3 TALAPRO-2 trial. Lancet. 2025;406(10502):447-460. (PMID 40683290; Crossref 200). Resultado: coorte não selecionada (n=805), seguimento mediano 52,5 meses: SG HR 0,80 (IC95% 0,66–0,96; p=0,016), mediana 45,8 vs 37,0 meses; HRR-deficientes (n=169) HR 0,55 (0,36–0,83; p=0,0035); HRR não-deficiente/desconhecido HR 0,88 (0,71–1,08). Os números da justificativa do revisor (SG 3 anos 78% vs 72%; HR 0,77, IC 0,56–1,04; 'não significativo, dados imaturos') NÃO correspondem a esta publicação final — parecem vir de uma análise interina anterior. A não-incorporação é decisão do revisor e fica; a justificativa numérica precisa de re-revisão à luz da SG final."
-      },
-      "content_hash": "db571228927c2e04"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-2l-cabazitaxel-nao-incorporado",
@@ -32579,8 +32460,7 @@
         "revisor": "Gustavo Drummond Pinho Ribeiro",
         "data": "2026-09-12",
         "nota_squad": "Ação registrada como ajustar_elegibilidade; o texto pedia 'manter não incorporar, trocar a justificativa'. Balde refutar confirmado pelo humano em 2026-09-13 (pendência do lote 2). Sem primitivo novo, eixos não reprocessados."
-      },
-      "content_hash": "5cc257fcfdfc7b76"
+      }
     },
     {
       "regimen_id": "prostata-variante-agressiva-carbo-taxano",
@@ -32770,8 +32650,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Docetaxel … Paclitaxel) — somar as doses seria ler escolha como combinação; dias do ciclo escritos para parte dos fármacos (Docetaxel) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "fd094e4f28d4753d"
+      }
     },
     {
       "regimen_id": "prostata-variante-agressiva-cisplatina-etoposideo",
@@ -32964,8 +32843,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "b3361725c5d056b5"
+      }
     },
     {
       "regimen_id": "prostata-mcrpc-terapia-ossea-zoledronico",
@@ -33188,8 +33066,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 3 fármaco(s) cadastrados no regime",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2f6babc922ce021b"
+      }
     },
     {
       "regimen_id": "testiculo-seminoma-eI-carboplatina-adj",
@@ -33382,8 +33259,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "05eb67240fff4cb5"
+      }
     },
     {
       "regimen_id": "testiculo-nsgct-eI-bep1",
@@ -33691,8 +33567,7 @@
         "pmid": null,
         "estudo": "MRC (Cullen)",
         "ano": 1996
-      },
-      "content_hash": "8d2aaf155f29d1c8"
+      }
     },
     {
       "regimen_id": "testiculo-seminoma-eII-bep-ep",
@@ -33926,8 +33801,7 @@
         "nota": "sigla de combinação no esquema (BEP (bleomicina + etoposídeo + cisplatina)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c2998283eff627cd"
+      }
     },
     {
       "regimen_id": "testiculo-avancado-baixorisco-bep3-ep4",
@@ -34176,8 +34050,7 @@
         "nota": "cobertura curta: 2 item(ns) derivados para 3 fármaco(s) cadastrados no regime; sigla de combinação no esquema (BEP (bleomicina + etoposídeo + cisplatina)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "44bafaf4d061d6ac"
+      }
     },
     {
       "regimen_id": "testiculo-avancado-intalto-bep4-vip4",
@@ -34456,8 +34329,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Cisplatina) — o texto não diz se valem para os demais; sigla de combinação no esquema (BEP (bleomicina + etoposídeo + cisplatina), VIP (etoposídeo + ifosfamida + cisplatina)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (platina); 1 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "09eed1fb479c0650"
+      }
     },
     {
       "regimen_id": "testiculo-recidiva-tip-veip",
@@ -34704,8 +34576,7 @@
         "nota": "sigla de combinação no esquema (VeIP (vimblastina + ifosfamida + cisplatina), TIP (paclitaxel + ifosfamida + cisplatina)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (platina); 1 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "11aa378c03627409"
+      }
     },
     {
       "regimen_id": "testiculo-refrataria-paliativo-gemox",
@@ -34955,8 +34826,7 @@
         "pmid": null,
         "estudo": null,
         "ano": null
-      },
-      "content_hash": "9e3f00bceb25b330"
+      }
     },
     {
       "regimen_id": "eso-perioperatorio-flot",
@@ -35186,8 +35056,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (5-Fluorouracil) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7f2a289811021cdb"
+      }
     },
     {
       "regimen_id": "eso-neoadj-crt-carbo-paclitaxel",
@@ -35379,8 +35248,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "70ff6eec490b2877"
+      }
     },
     {
       "regimen_id": "eso-def-crt-cisplatina-5fu",
@@ -35585,8 +35453,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "888268394c72066f"
+      }
     },
     {
       "regimen_id": "gastrico-adj-nivolumabe",
@@ -35768,8 +35635,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5ebf81657ddf6fc8"
+      }
     },
     {
       "regimen_id": "gastrico-adj-capox",
@@ -35984,8 +35850,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "70c9cedf549d4c96"
+      }
     },
     {
       "regimen_id": "gastrico-adj-crt-5fu-lv",
@@ -36177,8 +36042,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "12d58f6f18e137cd"
+      }
     },
     {
       "regimen_id": "gastrico-met-1l-cisplatina-5fu",
@@ -36397,8 +36261,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "de24442b39d7cb37"
+      }
     },
     {
       "regimen_id": "gastrico-met-1l-folfox",
@@ -36605,8 +36468,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0c7255f2904d9e64"
+      }
     },
     {
       "regimen_id": "gastrico-met-1l-capox",
@@ -36821,8 +36683,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0c7255f2904d9e64"
+      }
     },
     {
       "regimen_id": "gastrico-met-2l-paclitaxel",
@@ -36999,8 +36860,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2ac5d246219e7ad7"
+      }
     },
     {
       "regimen_id": "gastrico-met-2l-irinotecano-folfiri",
@@ -37201,8 +37061,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; sigla de combinação no esquema (FOLFIRI (5-FU + leucovorina + irinotecano)) — as doses das drogas da sigla não estão escritas; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0a3fb36f548b0c68"
+      }
     },
     {
       "regimen_id": "gastrico-met-docetaxel",
@@ -37391,8 +37250,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "9edf5a98e3540498"
+      }
     },
     {
       "regimen_id": "gastrico-met-1l-io-qt-cps",
@@ -37661,8 +37519,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Nivolumabe … Pembrolizumabe) — somar as doses seria ler escolha como combinação; sigla de combinação no esquema (FOLFOX (5-FU + leucovorina + oxaliplatina), CAPOX (capecitabina + oxaliplatina), XELOX (capecitabina + oxaliplatina)) — as doses das drogas da sigla não estão escritas; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "09c4592b3c830d28"
+      }
     },
     {
       "regimen_id": "gastrico-met-her2-trastuzumabe-qt",
@@ -37866,8 +37723,7 @@
         "nota": "termo genérico no lugar do fármaco (fluoropirimidina, platina); 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "dc25d40777183acd"
+      }
     },
     {
       "regimen_id": "gastrico-met-her2-pembro-tras-qt",
@@ -38103,8 +37959,7 @@
         "nota": "cobertura curta: 2 item(ns) derivados para 3 fármaco(s) cadastrados no regime; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "9d799a040472ddee"
+      }
     },
     {
       "regimen_id": "gastrico-met-her2-2l-tdxd",
@@ -38292,8 +38147,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "dc6dbcb35e21a49d"
+      }
     },
     {
       "regimen_id": "gastrico-tas102-nao-rotineiro",
@@ -38495,8 +38349,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c699166537c43782"
+      }
     },
     {
       "regimen_id": "gastrico-ramucirumabe-nao-incorporado",
@@ -38680,8 +38533,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Ramucirumabe … Paclitaxel) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5be358390a5f1839"
+      }
     },
     {
       "regimen_id": "gastrico-zolbetuximabe-nao-incorporado",
@@ -38879,8 +38731,7 @@
         "nota": "sigla de combinação no esquema (FOLFOX (5-FU + leucovorina + oxaliplatina), CAPOX (capecitabina + oxaliplatina)) — as doses das drogas da sigla não estão escritas; 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "9ea9340f27fa1093"
+      }
     },
     {
       "regimen_id": "cp-cec-def-cisplatina-crt",
@@ -39061,8 +38912,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "567cf1a2c5df2225"
+      }
     },
     {
       "regimen_id": "cp-cec-def-cisplatina-semanal",
@@ -39239,8 +39089,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c96334ae5a217300"
+      }
     },
     {
       "regimen_id": "cp-cec-def-cetuximabe-rt",
@@ -39443,8 +39292,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "308c768476de0160"
+      }
     },
     {
       "regimen_id": "cp-cec-inducao-dcf",
@@ -39676,8 +39524,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 2 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a85042c4226d33fa"
+      }
     },
     {
       "regimen_id": "cp-cec-adj-cisplatina-crt",
@@ -39858,8 +39705,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "eb981b28ea26ab22"
+      }
     },
     {
       "regimen_id": "cp-cec-met-1l-pembrolizumabe-qt-cps1",
@@ -40100,8 +39946,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Carboplatina; 5-Fluorouracil … Paclitaxel) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 2 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2938795a21412e12"
+      }
     },
     {
       "regimen_id": "cp-cec-met-1l-pembrolizumabe-mono-cps",
@@ -40277,8 +40122,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2938795a21412e12"
+      }
     },
     {
       "regimen_id": "cp-cec-met-1l-cetuximabe-cps-neg",
@@ -40509,8 +40353,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 2 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5721e9662378aaee"
+      }
     },
     {
       "regimen_id": "cp-cec-met-2l-nivolumabe",
@@ -40686,8 +40529,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "62309fb244ab0de2"
+      }
     },
     {
       "regimen_id": "cp-cec-met-2l-nivolumabe-cps-neg-nao-incorporado",
@@ -40867,8 +40709,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a1da5a337ddcfc12"
+      }
     },
     {
       "regimen_id": "cp-naso-crt-cisplatina",
@@ -41045,8 +40886,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2c5f56b39d9fde6d"
+      }
     },
     {
       "regimen_id": "cp-naso-inducao-cisplatina-gemcitabina",
@@ -41243,8 +41083,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "6fc7076172c51067"
+      }
     },
     {
       "regimen_id": "cp-naso-met-cisplatina-gemcitabina",
@@ -41441,8 +41280,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a173f36d451c4178"
+      }
     },
     {
       "regimen_id": "cp-naso-toripalimabe-nao-incluido",
@@ -41721,8 +41559,7 @@
         },
         "regulatorio_br": "Registro novo Zytorvi (toripalimabe), Dr. Reddy's Farmacêutica do Brasil, Resolução-RE nº 3.085 (DOU 06/08/2026) — conferido em imprensa (O Tempo 07/08/2026; TribeMD); página gov.br/anvisa não lida diretamente.",
         "esmo_mcbs_oficial": "ESMO-MCBS Scorecards, scorecard 354 (lido em 16/09/2026): toripalimabe + gemcitabina/cisplatina, nasofaringe R/M, JUPITER-02; ESMO-MCBS v2.0, Form 2a, desfecho avaliado OS (controle mediana 33,7 m, 3 a 49,2%; ganho estimado 19,8 m, 3 a +15,3%; HR 0,63); QoL pendente; score preliminar 4, score FINAL 4; emitido 22/09/2022, atualizado 02/07/2025."
-      },
-      "content_hash": "8b59c3734d0aa10d"
+      }
     },
     {
       "regimen_id": "cp-tireoide-diferenciado-lenvatinibe",
@@ -41887,8 +41724,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f39b48321b766197"
+      }
     },
     {
       "regimen_id": "cp-tireoide-diferenciado-cabozantinibe",
@@ -42053,8 +41889,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "61cf7192a8b1e80c"
+      }
     },
     {
       "regimen_id": "cp-tireoide-medular-quimio",
@@ -42255,8 +42090,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Doxorrubicina … Dacarbazina) — somar as doses seria ler escolha como combinação",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "57cd450a9a45cbe5"
+      }
     },
     {
       "regimen_id": "cp-tireoide-anaplasico-quimio",
@@ -42455,8 +42289,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Doxorrubicina … Paclitaxel; Paclitaxel … Carboplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "21fa9694bc06e2bf"
+      }
     },
     {
       "regimen_id": "colo-adj-cisplatina-crt",
@@ -42627,8 +42460,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "4f57015e30364392"
+      }
     },
     {
       "regimen_id": "colo-qrt-induction-interlace",
@@ -42823,8 +42655,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 2 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d53f3cab04edf3f5"
+      }
     },
     {
       "regimen_id": "colo-qrt-io-keynote-a18",
@@ -43066,8 +42897,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5d3545724636ac24"
+      }
     },
     {
       "regimen_id": "colo-met-1l-pembrolizumabe-qt-cps1",
@@ -43297,8 +43127,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Carboplatina; Paclitaxel … Bevacizumabe) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 1 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "efa4277fabf101ab"
+      }
     },
     {
       "regimen_id": "colo-met-1l-qt-cps-neg",
@@ -43523,8 +43352,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Carboplatina; Carboplatina … Gemcitabina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 1 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "631a7932b40a24a2"
+      }
     },
     {
       "regimen_id": "colo-met-cemiplimabe-refrataria",
@@ -43702,8 +43530,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "6ca72119ae69b301"
+      }
     },
     {
       "regimen_id": "colo-met-bevacizumabe-nao-incluido",
@@ -43895,8 +43722,7 @@
         "nota": "termo genérico no lugar do fármaco (quimioterapia, platina); 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d7a44677a6941639"
+      }
     },
     {
       "regimen_id": "colo-met-2l-monoterapia",
@@ -44121,8 +43947,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Pemetrexede … Topotecano) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (agente unico); 7 de 7 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "387fba3139155bd1"
+      }
     },
     {
       "regimen_id": "bexiga-nmibc-intermediario-gemcitabina-intravesical",
@@ -44283,8 +44108,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7aa8bb02b4f9a2d3"
+      }
     },
     {
       "regimen_id": "bexiga-nmibc-bcg-intravesical",
@@ -44463,8 +44287,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "91c2fbbb8c49c5d4"
+      }
     },
     {
       "regimen_id": "bexiga-nmibc-bcg-unresponsive-gem-docetaxel",
@@ -44704,8 +44527,7 @@
         "pmid": null,
         "estudo": "Steinberg (série retrospectiva)",
         "ano": 2015
-      },
-      "content_hash": "8dd5e5ca7dcb1397"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-tmt-cisplatina",
@@ -44929,8 +44751,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7da5042fc5411395"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-tmt-5fu-mitomicina",
@@ -45161,8 +44982,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "393d9e45d0747f11"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-neoadj-gc-durvalumab",
@@ -45400,8 +45220,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "6cf498d6ab8b9f24"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-neoadj-gc",
@@ -45609,8 +45428,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "854f66ec068580aa"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-neoadj-mvac-dd",
@@ -45860,8 +45678,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "23cab06da5360cea"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-adj-gc-mvac",
@@ -46052,8 +45869,7 @@
         "nota": "nenhum fármaco do léxico reconhecido no esquema; sigla de combinação (MVAC (metotrexato + vimblastina + doxorrubicina + cisplatina))",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e87941424a081de5"
+      }
     },
     {
       "regimen_id": "bexiga-mibc-adj-nivolumabe",
@@ -46382,8 +46198,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a4440269278f065b"
+      }
     },
     {
       "regimen_id": "bexiga-utuc-adj-gc",
@@ -46600,8 +46415,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Carboplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7904bc7fbcaa63a3"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-enfortumab-pembrolizumabe",
@@ -46838,8 +46652,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "dce4dbdfcf21de64"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-gc-nivolumabe",
@@ -47086,8 +46899,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "b7a7cb3eddb3fe70"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-gc-avelumabe-manutencao",
@@ -47276,8 +47088,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e9e9fe489907a77f"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-io-isolada-cisplatina-inelegivel",
@@ -47543,8 +47354,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Pembrolizumabe … Atezolizumabe) — somar as doses seria ler escolha como combinação; 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "378b7e4b6bc236cc"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-gc",
@@ -47745,8 +47555,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "acf09e388f4d2c00"
+      }
     },
     {
       "regimen_id": "bexiga-met-1l-gcarbo",
@@ -47935,8 +47744,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "1e7c66e2e54e8b9d"
+      }
     },
     {
       "regimen_id": "bexiga-met-2l-pembrolizumabe",
@@ -48136,8 +47944,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "3324c08fde5db2dd"
+      }
     },
     {
       "regimen_id": "bexiga-met-3l-enfortumab-vedotin",
@@ -48343,8 +48150,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "ef52327fe037078d"
+      }
     },
     {
       "regimen_id": "bexiga-met-erdafitinibe-fgfr",
@@ -48574,8 +48380,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "99b8818096295417"
+      }
     },
     {
       "regimen_id": "melanoma-adj-pembrolizumabe-iib-iic",
@@ -48740,8 +48545,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a60d623fccbaa1dc"
+      }
     },
     {
       "regimen_id": "melanoma-adj-anti-pd1-iii-iv-braf-wt",
@@ -48942,8 +48746,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Pembrolizumabe … Nivolumabe) — somar as doses seria ler escolha como combinação; 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "61ad2a2fd6348e38"
+      }
     },
     {
       "regimen_id": "melanoma-adj-dt-braf-mut",
@@ -49134,8 +48937,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "38a511336af58f03"
+      }
     },
     {
       "regimen_id": "melanoma-met-1l-ipi-nivo",
@@ -49315,8 +49117,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "6b3dfc3ed6e48ab2"
+      }
     },
     {
       "regimen_id": "melanoma-met-1l-anti-pd1-mono",
@@ -49500,8 +49301,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Pembrolizumabe … Nivolumabe) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "6bb63e984f6bc3a6"
+      }
     },
     {
       "regimen_id": "melanoma-met-snc-ipi-nivo",
@@ -49681,8 +49481,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "07c3ad7d944385b4"
+      }
     },
     {
       "regimen_id": "melanoma-met-relatlimabe-nao-incorporado",
@@ -49860,8 +49659,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "efc2026a119a920e"
+      }
     },
     {
       "regimen_id": "melanoma-met-quimio-paliativa",
@@ -50056,8 +49854,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Paclitaxel … Dacarbazina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "fa65bc1220089f78"
+      }
     },
     {
       "regimen_id": "renal-adj-pembrolizumab",
@@ -50427,8 +50224,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f7eb0d9fd7ffc633"
+      }
     },
     {
       "regimen_id": "renal-met-favoravel-pazopanibe",
@@ -50630,8 +50426,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d5cd7401239722fc"
+      }
     },
     {
       "regimen_id": "renal-met-favoravel-sunitinibe",
@@ -50819,8 +50614,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e7b3a631c1eda0b0"
+      }
     },
     {
       "regimen_id": "renal-met-favoravel-ipilimumabe-nivolumabe",
@@ -51055,8 +50849,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2e836ae7b6bac272"
+      }
     },
     {
       "regimen_id": "renal-met-intalto-ipilimumabe-nivolumabe",
@@ -51273,8 +51066,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "16b65e0d420b48b6"
+      }
     },
     {
       "regimen_id": "renal-met-intalto-axitinibe-pembrolizumabe",
@@ -51489,8 +51281,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "73c8d5e498d6b39f"
+      }
     },
     {
       "regimen_id": "renal-met-intalto-nivolumabe-cabozantinibe",
@@ -51737,8 +51528,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Nivolumabe … Cabozantinibe) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0d9118c39ffda4b7"
+      }
     },
     {
       "regimen_id": "renal-met-2l-pos-vegfr-nivolumabe",
@@ -51940,8 +51730,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "3a17f50119c2d203"
+      }
     },
     {
       "regimen_id": "renal-met-2l-pos-io-cabozantinibe",
@@ -52174,8 +51963,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "6ea8c068ecd52c5e"
+      }
     },
     {
       "regimen_id": "renal-naoclaras-sunitinibe-pazopanibe",
@@ -52365,8 +52153,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Sunitinibe … Pazopanibe) — somar as doses seria ler escolha como combinação; 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "49bfbed818c26e8d"
+      }
     },
     {
       "regimen_id": "endometrio-adj-carbo-paclitaxel",
@@ -52558,8 +52345,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "fbc3d33593d3ea6e"
+      }
     },
     {
       "regimen_id": "endometrio-adj-crt-cisplatina",
@@ -52774,8 +52560,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Cisplatina) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a2344f6f8fa97fc6"
+      }
     },
     {
       "regimen_id": "endometrio-met-1l-carbo-paclitaxel",
@@ -52967,8 +52752,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "ec3999bf21332123"
+      }
     },
     {
       "regimen_id": "endometrio-met-1l-dostarlimabe-msi",
@@ -53186,8 +52970,7 @@
         "nota": "2 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "189f021a89e1566b"
+      }
     },
     {
       "regimen_id": "endometrio-met-dostarlimabe-mss-nao-incluido",
@@ -53409,8 +53192,7 @@
         "nota": "3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e6ae39643b628464"
+      }
     },
     {
       "regimen_id": "endometrio-met-pembrolizumabe-qt-nao-incluido",
@@ -53615,8 +53397,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "fdc331ce78130de9"
+      }
     },
     {
       "regimen_id": "endometrio-met-2l-lenvatinibe-pembrolizumabe",
@@ -53831,8 +53612,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f8dc393c0eb83fc3"
+      }
     },
     {
       "regimen_id": "endometrio-met-2l-io-msi-nao-incorporado",
@@ -54021,8 +53801,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Pembrolizumabe … Dostarlimabe) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (imunoterapia); 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "715d3c4e0fd3395a"
+      }
     },
     {
       "regimen_id": "endometrio-met-durva-olaparibe-nao-incluido",
@@ -54263,8 +54042,7 @@
         "nota": "4 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "8c69bc3006273ad2"
+      }
     },
     {
       "regimen_id": "ovario-epitelial-adj-carbo-paclitaxel",
@@ -54466,8 +54244,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7be820285cc2f596"
+      }
     },
     {
       "regimen_id": "ovario-epitelial-neoadj-carbo-paclitaxel",
@@ -54659,8 +54436,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "90be51c86057d4fc"
+      }
     },
     {
       "regimen_id": "ovario-bevacizumabe-1l-nao-incluido",
@@ -54861,8 +54637,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "3e91e578ceb51fc5"
+      }
     },
     {
       "regimen_id": "ovario-manutencao-olaparibe-brca",
@@ -55038,8 +54813,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "db8ebd92a1bffeb2"
+      }
     },
     {
       "regimen_id": "ovario-niraparibe-nao-incluido",
@@ -55208,8 +54982,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "799ccc81b2c86a86"
+      }
     },
     {
       "regimen_id": "ovario-olaparibe-bevacizumabe-nao-incluido",
@@ -55387,8 +55160,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "480a6910a329b957"
+      }
     },
     {
       "regimen_id": "ovario-recidiva-platina-sensivel-doublet",
@@ -55601,8 +55373,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Paclitaxel … Doxorrubicina lipossomal peguilada; Doxorrubicina lipossomal peguilada … Gemcitabina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 3 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "86cf1ca73f42b0ae"
+      }
     },
     {
       "regimen_id": "ovario-recidiva-manutencao-olaparibe-brca",
@@ -55778,8 +55549,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a6ad329e76ea57da"
+      }
     },
     {
       "regimen_id": "ovario-carbo-gem-bevacizumabe-nao-incluido",
@@ -55978,8 +55748,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d716522988723754"
+      }
     },
     {
       "regimen_id": "ovario-recidiva-platina-resistente-monoterapia",
@@ -56209,8 +55978,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Gemcitabina … Docetaxel) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (agente unico); 3 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5b6386735b39f165"
+      }
     },
     {
       "regimen_id": "ovario-resistente-bevacizumabe-nao-incluido",
@@ -56423,8 +56191,7 @@
         "nota": "termo genérico no lugar do fármaco (quimioterapia, platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "62a2fdc6a285d127"
+      }
     },
     {
       "regimen_id": "ovario-estroma-granulosa-peb",
@@ -56670,8 +56437,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Carboplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 2 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "bfd7c34ba9c95559"
+      }
     },
     {
       "regimen_id": "ovario-germinativo-peb",
@@ -56908,8 +56674,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "3f267d1b6d395700"
+      }
     },
     {
       "regimen_id": "pancreas-adj-mfolfirinox",
@@ -57153,8 +56918,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (5-Fluorouracil) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "058069da43429ce2"
+      }
     },
     {
       "regimen_id": "pancreas-adj-gemcitabina",
@@ -57325,8 +57089,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "5fb86142ff224c26"
+      }
     },
     {
       "regimen_id": "pancreas-adj-nabpac-gem-nao-incorporado",
@@ -57509,8 +57272,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "1d1efc885748145c"
+      }
     },
     {
       "regimen_id": "pancreas-adj-gem-cape-nao-incorporado",
@@ -57705,8 +57467,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "893114435fac404b"
+      }
     },
     {
       "regimen_id": "pancreas-met-mfolfirinox",
@@ -57950,8 +57711,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (5-Fluorouracil) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0893434f4c782a7b"
+      }
     },
     {
       "regimen_id": "pancreas-met-gemcitabina",
@@ -58126,8 +57886,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7a0b42c63e709a9b"
+      }
     },
     {
       "regimen_id": "pancreas-met-nabpac-gem-nao-incorporado",
@@ -58318,8 +58077,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Gemcitabina) — o texto não diz se valem para os demais",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d4007e4d8a59cb6f"
+      }
     },
     {
       "regimen_id": "pancreas-met-olaparibe-nao-incorporado",
@@ -58501,8 +58259,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0e26bd4fefe4a764"
+      }
     },
     {
       "regimen_id": "hcc-1l-atezolizumabe-bevacizumabe",
@@ -58719,8 +58476,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "4f8577ff87ce1c9c"
+      }
     },
     {
       "regimen_id": "hcc-1l-tremelimumabe-durvalumabe",
@@ -58941,8 +58697,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "7dd4ad514b2df9b3"
+      }
     },
     {
       "regimen_id": "hcc-1l-sorafenibe",
@@ -59130,8 +58885,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "b112727488a9c05c"
+      }
     },
     {
       "regimen_id": "hcc-1l-lenvatinibe",
@@ -59319,8 +59073,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "27a0ec65f902bcd4"
+      }
     },
     {
       "regimen_id": "hcc-2l-sorafenibe-lenvatinibe",
@@ -59517,8 +59270,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Sorafenibe … Lenvatinibe) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "46162097fbb323be"
+      }
     },
     {
       "regimen_id": "hcc-2l-pembrolizumabe-nao-incorporado",
@@ -59691,8 +59443,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "dadd63d3d6d1d820"
+      }
     },
     {
       "regimen_id": "hcc-2l-regorafenibe-nao-incorporado",
@@ -59885,8 +59636,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "13668538604b4d14"
+      }
     },
     {
       "regimen_id": "gbm-stupp",
@@ -60069,8 +59819,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e3494adc12ad43a4"
+      }
     },
     {
       "regimen_id": "gbm-perry",
@@ -60253,8 +60002,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "6917cbed3ee485f5"
+      }
     },
     {
       "regimen_id": "gbm-tmz-mono-frageis",
@@ -60431,8 +60179,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "43c46e16dd08f7ef"
+      }
     },
     {
       "regimen_id": "gbm-recorrencia-tmz-carmustina",
@@ -60624,8 +60371,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Temozolomida … Carmustina) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0559e96dd2f37af4"
+      }
     },
     {
       "regimen_id": "gbm-bevacizumabe-contra",
@@ -60794,8 +60540,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "68d1991a1ab59000"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-neoadj-doxo-ifosfamida",
@@ -61005,8 +60750,7 @@
         "nota": "2 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "327045e6940bc5b4"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-adj-doxo-ifosfamida",
@@ -61216,8 +60960,7 @@
         "nota": "2 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d20284cdd00e3d83"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-paliativo-1l-doxorrubicina",
@@ -61417,8 +61160,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Doxorrubicina … Ifosfamida) — somar as doses seria ler escolha como combinação",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2df703da74c31f56"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-paliativo-2l-gem-docetaxel",
@@ -61618,8 +61360,7 @@
         "nota": "3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e83ad4a5b03e92af"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-eribulina-lipossarcoma",
@@ -61808,8 +61549,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "70117eb73c5b91ad"
+      }
     },
     {
       "regimen_id": "sarcoma-pm-pazopanibe-nao-incorporado",
@@ -61978,8 +61718,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "aff9c4a79e5cb00e"
+      }
     },
     {
       "regimen_id": "sarcoma-kaposi-paclitaxel-pld",
@@ -62165,8 +61904,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Paclitaxel … Doxorrubicina lipossomal peguilada) — somar as doses seria ler escolha como combinação",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "eb1f42053d6b18e5"
+      }
     },
     {
       "regimen_id": "sarcoma-angiossarcoma-paclitaxel",
@@ -62337,8 +62075,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "749447e2a16a5c23"
+      }
     },
     {
       "regimen_id": "sarcoma-dfsp-imatinibe-contra",
@@ -62513,8 +62250,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "ac62bf60637f4394"
+      }
     },
     {
       "regimen_id": "sarcoma-ntrk-larotrectinibe-nao-incorporado",
@@ -62699,8 +62435,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2a24fdca7e9b3171"
+      }
     },
     {
       "regimen_id": "osteossarcoma-neoadj-map",
@@ -62913,8 +62648,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Doxorrubicina, Cisplatina) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d6ca6b36b10c0bbd"
+      }
     },
     {
       "regimen_id": "osteossarcoma-adj-doxo-cisplatina",
@@ -63125,8 +62859,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c97e1fa86a9fa41a"
+      }
     },
     {
       "regimen_id": "osteossarcoma-paliativo",
@@ -63352,8 +63085,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Etoposídeo … Gemcitabina; Docetaxel … Topotecano) — somar as doses seria ler escolha como combinação; dias do ciclo escritos para parte dos fármacos (Etoposídeo) — o texto não diz se valem para os demais; sigla de combinação no esquema (IE (ifosfamida + etoposídeo)) — as doses das drogas da sigla não estão escritas; 4 de 6 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "768172a293ddde09"
+      }
     },
     {
       "regimen_id": "ewing-localizado-vdc-ie",
@@ -63581,8 +63313,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Doxorrubicina, Etoposídeo) — o texto não diz se valem para os demais; sigla de combinação no esquema (VDC (vincristina + doxorrubicina + ciclofosfamida), IE (ifosfamida + etoposídeo)) — as doses das drogas da sigla não estão escritas",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "685e0ccd6bdd2b07"
+      }
     },
     {
       "regimen_id": "ewing-metastatico-vdc-ie",
@@ -63775,8 +63506,7 @@
         "nota": "sigla de combinação no esquema (VDC (vincristina + doxorrubicina + ciclofosfamida), IE (ifosfamida + etoposídeo)) — as doses das drogas da sigla não estão escritas; 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "bc74bba3b44ce71f"
+      }
     },
     {
       "regimen_id": "net-baixograu-analogo-somatostatina",
@@ -63962,8 +63692,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Octreotídeo LAR … Lanreotídeo) — somar as doses seria ler escolha como combinação",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "0185b00c38cbfa9b"
+      }
     },
     {
       "regimen_id": "net-baixograu-lu177-dotatate",
@@ -64134,8 +63863,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "d33be6f6a8e41f4c"
+      }
     },
     {
       "regimen_id": "net-baixograu-alvo-nao-incluido",
@@ -64310,8 +64038,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Everolimo … Sunitinibe) — somar as doses seria ler escolha como combinação; 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f20202438a8cb3df"
+      }
     },
     {
       "regimen_id": "net-baixograu-capetem",
@@ -64532,8 +64259,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "3e62fed762e8b4d9"
+      }
     },
     {
       "regimen_id": "net-altograu-platina-etoposideo",
@@ -64739,8 +64465,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Carboplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "a4ef8e77e62a2e2a"
+      }
     },
     {
       "regimen_id": "biliares-1l-gemcitabina-cisplatina",
@@ -64935,8 +64660,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Gemcitabina) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "3a235ed525d8f8f5"
+      }
     },
     {
       "regimen_id": "biliares-1l-gemcitabina-mono",
@@ -65128,8 +64852,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "cc05ccaa0b72b3df"
+      }
     },
     {
       "regimen_id": "biliares-1l-5fu",
@@ -65336,8 +65059,7 @@
         "fonte": "esquema",
         "selo": "estimativa"
       },
-      "subtipo_anterior": "Câncer de vias biliares avançado — 1ª linha (alternativa fluoropirimidina)",
-      "content_hash": "d98b7cec2ff593c6"
+      "subtipo_anterior": "Câncer de vias biliares avançado — 1ª linha (alternativa fluoropirimidina)"
     },
     {
       "regimen_id": "biliares-2l-folfox",
@@ -65551,8 +65273,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 2 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c2966ca296b9a0c6"
+      }
     },
     {
       "regimen_id": "biliares-durvalumab-gemcis-nao-incorporado",
@@ -65757,8 +65478,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 3 de 3 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "4119e61d7297e1e4"
+      }
     },
     {
       "regimen_id": "anal-crt-mitomicina-5fu",
@@ -65951,8 +65671,7 @@
         "nota": "2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "8ebc449f2ee42266"
+      }
     },
     {
       "regimen_id": "anal-crt-cisplatina-5fu",
@@ -66145,8 +65864,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "c9d0f8575058e27a"
+      }
     },
     {
       "regimen_id": "anal-met-carboplatina-paclitaxel",
@@ -66351,8 +66069,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "813bb14ecb016ab3"
+      }
     },
     {
       "regimen_id": "anal-met-dcf",
@@ -66574,8 +66291,7 @@
         "nota": "dias do ciclo escritos para parte dos fármacos (Docetaxel, Cisplatina) — o texto não diz se valem para os demais; termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "86c438d79723d314"
+      }
     },
     {
       "regimen_id": "anal-met-nivolumabe-nao-incorporado",
@@ -66744,8 +66460,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "1f90f157e676cb8f"
+      }
     },
     {
       "regimen_id": "glioma-astrocitoma-idh-g2-oligo-g2-tmz",
@@ -66926,8 +66641,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "86d49d0e72d62449"
+      }
     },
     {
       "regimen_id": "glioma-astrocitoma-idh-g3-tmz",
@@ -67104,8 +66818,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "af756f455509ed98"
+      }
     },
     {
       "regimen_id": "glioma-astrocitoma-idh-g4-tmz",
@@ -67292,8 +67005,7 @@
         "nota": "cobertura curta: 1 item(ns) derivados para 2 fármaco(s) cadastrados no regime; 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "2b26f2afffd69cec"
+      }
     },
     {
       "regimen_id": "glioma-oligodendroglioma-g3-tmz",
@@ -67474,8 +67186,7 @@
         "nota": "1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "86976d8de0485ed2"
+      }
     },
     {
       "regimen_id": "penis-locregional-neoadj-tip",
@@ -67694,8 +67405,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "04d2f7159a1bb35b"
+      }
     },
     {
       "regimen_id": "penis-adj-tip",
@@ -67937,8 +67647,7 @@
         "nota": "nenhum fármaco do léxico reconhecido no esquema; sigla de combinação (TIP (paclitaxel + ifosfamida + cisplatina))",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "bdd457b734c4669c"
+      }
     },
     {
       "regimen_id": "penis-met-1l-tip",
@@ -68168,8 +67877,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "3b267e990064d55a"
+      }
     },
     {
       "regimen_id": "penis-met-1l-5fu-cisplatina",
@@ -68370,8 +68078,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "142f0c3533e63212"
+      }
     },
     {
       "regimen_id": "penis-met-1l-tpf",
@@ -68589,8 +68296,7 @@
         "nota": "termo genérico no lugar do fármaco (platina)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "142f0c3533e63212"
+      }
     },
     {
       "regimen_id": "penis-met-2l-paclitaxel",
@@ -68804,8 +68510,7 @@
         "nota": "termo genérico no lugar do fármaco (agente unico); 1 de 1 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "77db43c7c9cad5bd"
+      }
     },
     {
       "regimen_id": "penis-met-1l-paclitaxel-carboplatina",
@@ -69040,8 +68745,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 2 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "6bb541256da7c39c"
+      }
     },
     {
       "regimen_id": "vulva-neoadj-cisplatina-crt",
@@ -69239,8 +68943,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … Cisplatina) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 3 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "44b48ddab0440495"
+      }
     },
     {
       "regimen_id": "vulva-avancada-recidivada",
@@ -69442,8 +69145,7 @@
         "nota": "o esquema oferece ALTERNATIVA entre fármacos (Cisplatina … 5-Fluorouracil; 5-Fluorouracil … Gemcitabina; Gemcitabina … Mitomicina C) — somar as doses seria ler escolha como combinação; termo genérico no lugar do fármaco (platina); 4 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "39b3403609ad0011"
+      }
     },
     {
       "regimen_id": "trofo-baixo-risco-metotrexato",
@@ -69644,8 +69346,7 @@
         "nota": "1 de 2 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "f408fe98752b1d5c"
+      }
     },
     {
       "regimen_id": "trofo-alto-risco-emaco",
@@ -69886,8 +69587,7 @@
         "nota": "1 de 5 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "64d56915e3f00917"
+      }
     },
     {
       "regimen_id": "trofo-resistente-ema-ep",
@@ -70118,8 +69818,7 @@
         "nota": "termo genérico no lugar do fármaco (platina); 1 de 4 itens indeterminados",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "e827430127d60883"
+      }
     },
     {
       "regimen_id": "cp-salivar-met-cap",
@@ -70394,8 +70093,7 @@
         "nota": "doses do Dreyfuss 1987 (abstract); periodicidade em aberto (21–28 d)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "189729d195cdad9b"
+      }
     },
     {
       "regimen_id": "cp-salivar-met-carboplatina-paclitaxel",
@@ -70645,8 +70343,7 @@
         "nota": "2 de 2 itens indeterminados (abstract sem dose; texto completo fechado)",
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "78fef43af32a8ba5"
+      }
     },
     {
       "regimen_id": "cp-salivar-met-cisplatina-vinorelbina",
@@ -70903,2302 +70600,7 @@
         "nota": null,
         "fonte": "esquema",
         "selo": "estimativa"
-      },
-      "content_hash": "8979b74cdff473bb"
+      }
     }
-  ],
-  "campos_primitivos": {
-    "ovario": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "ovario_epitelial",
-          "ovario_estroma_granulosa",
-          "ovario_germinativo"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "adjuvante",
-        "tipo": "boolean",
-        "label": "Adjuvante",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "neoadjuvante",
-        "tipo": "boolean",
-        "label": "Neoadjuvante",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "primeira_linha",
-        "tipo": "boolean",
-        "label": "Primeira linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "mutacao_brca",
-        "tipo": "boolean",
-        "label": "Mutacao brca",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "resposta_platina",
-        "tipo": "boolean",
-        "label": "Resposta platina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "manutencao_1l",
-        "tipo": "boolean",
-        "label": "Manutencao 1l",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "recidiva_platina_sensivel",
-        "tipo": "boolean",
-        "label": "Recidiva platina sensivel",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "recidiva_platina_resistente",
-        "tipo": "boolean",
-        "label": "Recidiva platina resistente",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "sistemico",
-        "tipo": "boolean",
-        "label": "Sistemico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "colorretal": [
-      {
-        "campo": "sitio",
-        "tipo": "enum",
-        "label": "Sitio",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "reto",
-          "colon"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "localmente_avancado",
-        "tipo": "boolean",
-        "label": "Localmente avancado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "tnt",
-        "tipo": "boolean",
-        "label": "Tnt",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "alto_risco",
-        "tipo": "boolean",
-        "label": "Alto risco",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "estadio",
-        "tipo": "enum",
-        "label": "Estadio",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "II_alto_risco",
-          "III"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "paciente_robusto",
-        "tipo": "boolean",
-        "label": "Paciente robusto",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "ras_wt",
-        "tipo": "boolean",
-        "label": "Ras wt",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "braf_wt",
-        "tipo": "boolean",
-        "label": "Braf wt",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "msi_alto",
-        "tipo": "boolean",
-        "label": "Msi alto",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "refratario_2_linhas",
-        "tipo": "boolean",
-        "label": "Refratario 2 linhas",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "primeira_linha",
-        "tipo": "boolean",
-        "label": "Primeira linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "segunda_linha",
-        "tipo": "boolean",
-        "label": "Segunda linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "refratario",
-        "tipo": "boolean",
-        "label": "Refratario",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "penis": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "penis_escamoso"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "locorregional_avancado",
-        "tipo": "boolean",
-        "label": "Locorregional avancado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "alto_risco_pos_cirurgia",
-        "tipo": "boolean",
-        "label": "Alto risco pos cirurgia",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "ecog",
-        "tipo": "integer",
-        "label": "Ecog",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "segunda_linha",
-        "tipo": "boolean",
-        "label": "Segunda linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "linfonodo_pelvico_positivo",
-        "tipo": "boolean",
-        "label": "Envolvimento linfonodal pélvico (pós-linfadenectomia)",
-        "secao": "Estadiamento patológico",
-        "estavel": false
-      },
-      {
-        "campo": "extensao_extranodal",
-        "tipo": "boolean",
-        "label": "Extensão extranodal (ENE)",
-        "secao": "Estadiamento patológico",
-        "estavel": false
-      },
-      {
-        "campo": "estadio_pn",
-        "tipo": "enum",
-        "label": "Estádio N patológico (pN) — pós-linfadenectomia",
-        "secao": "Estadiamento patológico",
-        "opcoes": [
-          "pN0",
-          "pN1",
-          "pN2",
-          "pN3"
-        ],
-        "ordinal": {
-          "pN0": 0,
-          "pN1": 1,
-          "pN2": 2,
-          "pN3": 3
-        },
-        "estadiamento": "pN",
-        "estavel": false
-      }
-    ],
-    "esofago-estomago": [
-      {
-        "campo": "histologia",
-        "tipo": "enum",
-        "label": "Histologia",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "adenocarcinoma_gastrico_jeg",
-          "adenocarcinoma_gastrico"
-        ],
-        "estavel": true
-      },
-      {
-        "campo": "ressecavel",
-        "tipo": "boolean",
-        "label": "Ressecavel",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "sitio",
-        "tipo": "enum",
-        "label": "Sitio",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "esofago_jeg",
-          "esofago"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "candidato_trimodal",
-        "tipo": "boolean",
-        "label": "Candidato trimodal",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "tratamento",
-        "tipo": "enum",
-        "label": "Tratamento",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "definitivo_crt"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "pos_neoadj_crt_cirurgia",
-        "tipo": "boolean",
-        "label": "Pos neoadj crt cirurgia",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "resposta_patologica_completa",
-        "tipo": "boolean",
-        "label": "Resposta patologica completa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "pos_gastrectomia_d2",
-        "tipo": "boolean",
-        "label": "Pos gastrectomia d2",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "resseccao_incompleta_ou_d0d1",
-        "tipo": "boolean",
-        "label": "Resseccao incompleta ou d0d1",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "her2",
-        "tipo": "enum",
-        "label": "Her2",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "negativo",
-          "positivo"
-        ],
-        "estavel": true
-      },
-      {
-        "campo": "segunda_linha",
-        "tipo": "boolean",
-        "label": "Segunda linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "progressao_pos_platina",
-        "tipo": "boolean",
-        "label": "Progressao pos platina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "pdl1_cps",
-        "tipo": "integer",
-        "label": "Pdl1 cps",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "politratado",
-        "tipo": "boolean",
-        "label": "Politratado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "cldn18_2_positivo",
-        "tipo": "boolean",
-        "label": "Cldn18 2 positivo",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "endometrio": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "endometrio"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "alto_risco",
-        "tipo": "boolean",
-        "label": "Alto risco",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "indicacao_rt",
-        "tipo": "boolean",
-        "label": "Indicacao rt",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "avancado_recidivado",
-        "tipo": "boolean",
-        "label": "Avancado recidivado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "msi_alto",
-        "tipo": "boolean",
-        "label": "Msi alto",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "segunda_linha",
-        "tipo": "boolean",
-        "label": "Segunda linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "pulmao-nsclc": [
-      {
-        "campo": "ressecavel",
-        "tipo": "boolean",
-        "label": "Ressecavel",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "histologia",
-        "tipo": "enum",
-        "label": "Histologia",
-        "secao": "Biologia molecular",
-        "opcoes": [
-          "nao_escamoso",
-          "escamoso"
-        ],
-        "rotulos": {
-          "nao_escamoso": "Não-escamoso (adenocarcinoma, grandes células, adenoescamoso, NOS)",
-          "escamoso": "Escamoso (CEC)"
-        },
-        "nota": "Default não-escamoso = o lado que exige mais (drivers). Misto/NOS conta como não-escamoso: testa drivers e admite pemetrexede.",
-        "estavel": true
-      },
-      {
-        "campo": "egfr_status",
-        "tipo": "enum",
-        "label": "EGFR",
-        "secao": "Biologia molecular",
-        "opcoes": [
-          "nao_testado",
-          "negativo",
-          "mutado_sensibilizante",
-          "mutado_exon20",
-          "mutado_outra"
-        ],
-        "indeterminado": [
-          "nao_testado"
-        ],
-        "rotulos": {
-          "nao_testado": "Não testado",
-          "negativo": "Negativo (selvagem)",
-          "mutado_sensibilizante": "Mutado — sensibilizante (ex19del / L858R)",
-          "mutado_exon20": "Mutado — inserção exon 20",
-          "mutado_outra": "Mutado — outra mutação"
-        },
-        "nota": "'nao_testado' é indeterminado para o motor: nunca libera verde, segura no amarelo pedindo o dado.",
-        "estavel": true
-      },
-      {
-        "campo": "alk_status",
-        "tipo": "enum",
-        "label": "ALK",
-        "secao": "Biologia molecular",
-        "opcoes": [
-          "nao_testado",
-          "negativo",
-          "rearranjado"
-        ],
-        "indeterminado": [
-          "nao_testado"
-        ],
-        "rotulos": {
-          "nao_testado": "Não testado",
-          "negativo": "Negativo",
-          "rearranjado": "Rearranjado / fusão (ALK+)"
-        },
-        "estavel": true
-      },
-      {
-        "campo": "ros1_status",
-        "tipo": "enum",
-        "label": "ROS1",
-        "secao": "Biologia molecular",
-        "opcoes": [
-          "nao_testado",
-          "negativo",
-          "rearranjado"
-        ],
-        "indeterminado": [
-          "nao_testado"
-        ],
-        "rotulos": {
-          "nao_testado": "Não testado",
-          "negativo": "Negativo",
-          "rearranjado": "Rearranjado / fusão (ROS1+)"
-        },
-        "estavel": true
-      },
-      {
-        "campo": "pdl1_pos",
-        "tipo": "boolean",
-        "label": "Pdl1 pos",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "ressecado",
-        "tipo": "boolean",
-        "label": "Ressecado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "estadio",
-        "tipo": "enum",
-        "label": "Estadio",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "II_IIIA",
-          "I",
-          "III_irressecavel"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "pdl1_alto",
-        "tipo": "boolean",
-        "label": "Pdl1 alto",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "alto_volume_ou_snc",
-        "tipo": "boolean",
-        "label": "Alto volume ou snc",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "segunda_linha",
-        "tipo": "boolean",
-        "label": "Segunda linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "io_previa",
-        "tipo": "boolean",
-        "label": "Io previa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "linha_subsequente",
-        "tipo": "boolean",
-        "label": "Linha subsequente",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "colo-utero": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "colo_utero"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "criterios_peters",
-        "tipo": "boolean",
-        "label": "Criterios peters",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "localmente_avancado",
-        "tipo": "boolean",
-        "label": "Localmente avancado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "estadio_iii_iv_locavancado",
-        "tipo": "boolean",
-        "label": "Estádio FIGO 2014 III–IVA (localmente avançado)",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "pdl1_cps1",
-        "tipo": "boolean",
-        "label": "PD-L1 positivo (CPS ≥1)",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "refratario",
-        "tipo": "boolean",
-        "label": "Refratario",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "io_previa",
-        "tipo": "boolean",
-        "label": "Io previa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "progressao_pos_platina",
-        "tipo": "boolean",
-        "label": "Progressao pos platina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "bexiga": [
-      {
-        "campo": "invasao_muscular",
-        "tipo": "boolean",
-        "label": "Invasao muscular",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "risco",
-        "tipo": "enum",
-        "label": "Risco",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "intermediario",
-          "['intermediario', 'alto']"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "bcg_unresponsive",
-        "tipo": "boolean",
-        "label": "Bcg unresponsive",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "recusa_ou_inelegivel_cistectomia",
-        "tipo": "boolean",
-        "label": "Recusa ou inelegivel cistectomia",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "elegivel_cisplatina",
-        "tipo": "boolean",
-        "label": "Elegivel cisplatina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "candidato_preservacao",
-        "tipo": "boolean",
-        "label": "Candidato preservacao",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "hidronefrose_extensa",
-        "tipo": "boolean",
-        "label": "Hidronefrose extensa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "elegivel_cistectomia",
-        "tipo": "boolean",
-        "label": "Elegivel cistectomia",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "doenca_autoimune_ativa",
-        "tipo": "boolean",
-        "label": "Doenca autoimune ativa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "alto_risco_pos_cistectomia",
-        "tipo": "boolean",
-        "label": "Alto risco pos cistectomia",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "utuc",
-        "tipo": "boolean",
-        "label": "Utuc",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "pos_nefroureterectomia",
-        "tipo": "boolean",
-        "label": "Pos nefroureterectomia",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "alto_risco",
-        "tipo": "boolean",
-        "label": "Alto risco",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "candidato_io",
-        "tipo": "boolean",
-        "label": "Candidato io",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "neuropatia_grave_ou_dm_descontrolado",
-        "tipo": "boolean",
-        "label": "Neuropatia grave ou dm descontrolado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "sem_progressao_pos_platina",
-        "tipo": "boolean",
-        "label": "Sem progressao pos platina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "inelegivel_platina",
-        "tipo": "boolean",
-        "label": "Inelegivel platina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "pdl1_positivo",
-        "tipo": "boolean",
-        "label": "Pdl1 positivo",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "progressao_pos_platina",
-        "tipo": "boolean",
-        "label": "Progressao pos platina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "io_previa",
-        "tipo": "boolean",
-        "label": "Io previa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "progressao_pos_io",
-        "tipo": "boolean",
-        "label": "Progressao pos io",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "ev_previo",
-        "tipo": "boolean",
-        "label": "Ev previo",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "alteracao_fgfr",
-        "tipo": "boolean",
-        "label": "Alteração de FGFR2/FGFR3 (mutação ou fusão)",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "pdl1_cps",
-        "tipo": "integer",
-        "label": "PD-L1 CPS (combined positive score)",
-        "secao": "Biomarcadores",
-        "estavel": true
-      },
-      {
-        "campo": "pdl1_expressao_pct",
-        "tipo": "number",
-        "label": "Expressão de PD-L1 (%) — atezolizumabe: ≥5%",
-        "secao": "Biomarcadores",
-        "estavel": true
-      },
-      {
-        "campo": "estadio_pt",
-        "tipo": "enum",
-        "label": "Estádio T patológico (pT; ypT se houve neoadjuvância)",
-        "secao": "Estadiamento patológico",
-        "opcoes": [
-          "pT0",
-          "pTa",
-          "pTis",
-          "pT1",
-          "pT2",
-          "pT2a",
-          "pT2b",
-          "pT3",
-          "pT3a",
-          "pT3b",
-          "pT4",
-          "pT4a",
-          "pT4b"
-        ],
-        "ordinal": {
-          "pT0": 0,
-          "pTa": 0.1,
-          "pTis": 0.2,
-          "pT1": 1,
-          "pT2": 2,
-          "pT2a": 2.1,
-          "pT2b": 2.2,
-          "pT3": 3,
-          "pT3a": 3.1,
-          "pT3b": 3.2,
-          "pT4": 4,
-          "pT4a": 4.1,
-          "pT4b": 4.2
-        },
-        "estadiamento": "pT",
-        "estavel": false
-      },
-      {
-        "campo": "pn_positivo",
-        "tipo": "boolean",
-        "label": "Linfonodo patológico positivo (pN+ / ypN+)",
-        "secao": "Estadiamento patológico",
-        "estavel": false
-      },
-      {
-        "campo": "neoadjuvancia_previa",
-        "tipo": "boolean",
-        "label": "Quimioterapia neoadjuvante à base de cisplatina realizada",
-        "secao": "Contexto",
-        "estavel": false
-      }
-    ],
-    "vulva": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "vulva"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "estadio_iii_iva",
-        "tipo": "boolean",
-        "label": "Estadio iii iva",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "avancada_recidivada",
-        "tipo": "boolean",
-        "label": "Avancada recidivada",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "canal-anal": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "carcinoma_anal_escamoso"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "paciente_robusto",
-        "tipo": "boolean",
-        "label": "Paciente robusto",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "melanoma": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "melanoma"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "estadio_iib_iic",
-        "tipo": "boolean",
-        "label": "Estadio iib iic",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "estadio_iii_iv_resecado",
-        "tipo": "boolean",
-        "label": "Estadio iii iv resecado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "braf",
-        "tipo": "enum",
-        "label": "Braf",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "selvagem",
-          "mutado"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "estadio_iii_resecado",
-        "tipo": "boolean",
-        "label": "Estadio iii resecado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico_favoravel",
-        "tipo": "boolean",
-        "label": "Metastatico favoravel",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastase_snc",
-        "tipo": "boolean",
-        "label": "Metastase snc",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "refratario_ou_contraindicacao_io",
-        "tipo": "boolean",
-        "label": "Refratario ou contraindicacao io",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "renal": [
-      {
-        "campo": "histologia_ccrcc",
-        "tipo": "boolean",
-        "label": "Histologia ccrcc",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "ressecado_completo",
-        "tipo": "boolean",
-        "label": "Ressecado completo",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "alto_risco_recidiva",
-        "tipo": "boolean",
-        "label": "Alto risco recidiva",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "doenca_autoimune_ativa",
-        "tipo": "boolean",
-        "label": "Doenca autoimune ativa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "risco_imdc",
-        "tipo": "enum",
-        "label": "Risco imdc",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "favoravel",
-          "['intermediario', 'alto']"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "disfuncao_hepatica_grave",
-        "tipo": "boolean",
-        "label": "Disfuncao hepatica grave",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "progressao_pos_vegfr",
-        "tipo": "boolean",
-        "label": "Progressao pos vegfr",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "progressao_pos_io",
-        "tipo": "boolean",
-        "label": "Progressao pos io",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "estadio_pt",
-        "tipo": "enum",
-        "label": "Estádio T patológico (pT) da nefrectomia",
-        "secao": "Estadiamento patológico",
-        "opcoes": [
-          "pT1",
-          "pT1a",
-          "pT1b",
-          "pT2",
-          "pT2a",
-          "pT2b",
-          "pT3",
-          "pT3a",
-          "pT3b",
-          "pT3c",
-          "pT4"
-        ],
-        "ordinal": {
-          "pT1": 1,
-          "pT1a": 1.1,
-          "pT1b": 1.2,
-          "pT2": 2,
-          "pT2a": 2.1,
-          "pT2b": 2.2,
-          "pT3": 3,
-          "pT3a": 3.1,
-          "pT3b": 3.2,
-          "pT3c": 3.3,
-          "pT4": 4
-        },
-        "estadiamento": "pT",
-        "estavel": false
-      },
-      {
-        "campo": "pn_positivo",
-        "tipo": "boolean",
-        "label": "Linfonodo patológico positivo (pN+)",
-        "secao": "Estadiamento patológico",
-        "estavel": false
-      },
-      {
-        "campo": "grau_nuclear",
-        "tipo": "integer",
-        "label": "Grau nuclear (WHO/ISUP) 1–4",
-        "secao": "Patologia",
-        "opcoes": [
-          1,
-          2,
-          3,
-          4
-        ],
-        "estavel": true
-      },
-      {
-        "campo": "diferenciacao_sarcomatoide",
-        "tipo": "boolean",
-        "label": "Diferenciação sarcomatoide",
-        "secao": "Patologia",
-        "estavel": false
-      },
-      {
-        "campo": "m1_ressecado",
-        "tipo": "boolean",
-        "label": "M1 ao diagnóstico com metástases completamente ressecadas (síncrono ou ≤1 ano da nefrectomia), sem evidência de doença",
-        "secao": "Contexto",
-        "estavel": false
-      }
-    ],
-    "hepatocarcinoma": [
-      {
-        "campo": "hcc",
-        "tipo": "boolean",
-        "label": "Hcc",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "child_pugh",
-        "tipo": "enum",
-        "label": "Child pugh",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "A"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "ecog",
-        "tipo": "integer",
-        "label": "Ecog",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "varizes_alto_risco_nao_tratadas",
-        "tipo": "boolean",
-        "label": "Varizes alto risco nao tratadas",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "segunda_linha",
-        "tipo": "boolean",
-        "label": "Segunda linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "progressao_pos_sorafenibe",
-        "tipo": "boolean",
-        "label": "Progressao pos sorafenibe",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "sarcomas": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "sarcoma_partes_moles",
-          "sarcoma_kaposi",
-          "angiossarcoma",
-          "dfsp",
-          "osteossarcoma",
-          "ewing"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "alto_risco",
-        "tipo": "boolean",
-        "label": "Alto risco",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "adjuvante_alto_risco",
-        "tipo": "boolean",
-        "label": "Adjuvante alto risco",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "segunda_linha",
-        "tipo": "boolean",
-        "label": "Segunda linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "lipossarcoma",
-        "tipo": "boolean",
-        "label": "Lipossarcoma",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "nao_lipocitico",
-        "tipo": "boolean",
-        "label": "Nao lipocitico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "sistemico",
-        "tipo": "boolean",
-        "label": "Sistemico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "avancado_metastatico",
-        "tipo": "boolean",
-        "label": "Avancado metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "avancado_irressecavel",
-        "tipo": "boolean",
-        "label": "Avancado irressecavel",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "fusao_ntrk",
-        "tipo": "boolean",
-        "label": "Fusao ntrk",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "neoadjuvante",
-        "tipo": "boolean",
-        "label": "Neoadjuvante",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "adjuvante",
-        "tipo": "boolean",
-        "label": "Adjuvante",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "localizado",
-        "tipo": "boolean",
-        "label": "Localizado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "testiculo": [
-      {
-        "campo": "cenario",
-        "tipo": "enum",
-        "opcoes": [
-          "adjuvancia",
-          "localmente-avancado",
-          "metastatico"
-        ],
-        "label": "Cenário de tratamento",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "linha_tratamento",
-        "tipo": "enum",
-        "opcoes": [
-          "primeira",
-          "recidiva",
-          "refrataria"
-        ],
-        "label": "Linha de tratamento",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "pos_orquiectomia",
-        "tipo": "boolean",
-        "label": "Após orquiectomia",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "histologia",
-        "tipo": "enum",
-        "opcoes": [
-          "seminoma",
-          "nao_seminoma"
-        ],
-        "label": "Histologia do tumor germinativo",
-        "secao": "Biologia",
-        "estavel": true
-      },
-      {
-        "campo": "estadio_clinico",
-        "tipo": "enum",
-        "opcoes": [
-          "I",
-          "II",
-          "III"
-        ],
-        "label": "Estádio clínico",
-        "secao": "Estadiamento",
-        "estavel": false
-      },
-      {
-        "campo": "risco_igcccg",
-        "tipo": "enum",
-        "opcoes": [
-          "bom",
-          "intermediario",
-          "alto"
-        ],
-        "label": "Grupo prognóstico IGCCCG (doença avançada)",
-        "secao": "Estadiamento",
-        "estavel": true
-      },
-      {
-        "campo": "invasao_linfovascular",
-        "tipo": "boolean",
-        "label": "Invasão linfovascular (fator de alto risco no EI não-seminoma)",
-        "secao": "Patologia",
-        "estavel": true
-      },
-      {
-        "campo": "contraindicacao_bleomicina",
-        "tipo": "boolean",
-        "label": "Contraindicação à bleomicina (ex.: disfunção pulmonar)",
-        "secao": "Comorbidade",
-        "estavel": false
-      }
-    ],
-    "neuroendocrinos": [
-      {
-        "campo": "net_bem_diferenciado",
-        "tipo": "boolean",
-        "label": "Net bem diferenciado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "sstr_positivo",
-        "tipo": "boolean",
-        "label": "Sstr positivo",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "sitio",
-        "tipo": "enum",
-        "label": "Sitio",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "pancreas"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "nec_alto_grau",
-        "tipo": "boolean",
-        "label": "Nec alto grau",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      }
-    ],
-    "pulmao-sclc": [
-      {
-        "campo": "sclc",
-        "tipo": "boolean",
-        "label": "Sclc",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "doenca_limitada",
-        "tipo": "boolean",
-        "label": "Doenca limitada",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "doenca_extensa",
-        "tipo": "boolean",
-        "label": "Doenca extensa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "segunda_linha",
-        "tipo": "boolean",
-        "label": "Segunda linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "intervalo_livre_meses",
-        "tipo": "integer",
-        "label": "Intervalo livre meses",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "prostata": [
-      {
-        "campo": "estadio_t",
-        "tipo": "enum",
-        "label": "Estadio t",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "Tis",
-          "Ta",
-          "T1",
-          "T1a",
-          "T1b",
-          "T1c",
-          "T2",
-          "T2a",
-          "T2b",
-          "T3",
-          "T3a",
-          "T3b",
-          "T4",
-          "T4a",
-          "T4b",
-          "T4c",
-          "T4d"
-        ],
-        "ordinal": {
-          "Tis": 0,
-          "Ta": 0,
-          "T1": 1,
-          "T1a": 1.1,
-          "T1b": 1.2,
-          "T1c": 1.3,
-          "T2": 2,
-          "T2a": 2.1,
-          "T2b": 2.2,
-          "T3": 3,
-          "T3a": 3.1,
-          "T3b": 3.2,
-          "T4": 4,
-          "T4a": 4.1,
-          "T4b": 4.2,
-          "T4c": 4.3,
-          "T4d": 4.4
-        },
-        "estadiamento": "T",
-        "estavel": false
-      },
-      {
-        "campo": "gleason",
-        "tipo": "integer",
-        "label": "Gleason",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "psa",
-        "tipo": "integer",
-        "label": "Psa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastase_distancia",
-        "tipo": "boolean",
-        "label": "Metastase distancia",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "psa_nadir_pos_pr",
-        "tipo": "number",
-        "label": "Psa nadir pos pr",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "sensivel_castracao",
-        "tipo": "boolean",
-        "label": "Sensivel castracao",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "variante_neuroendocrina",
-        "tipo": "boolean",
-        "label": "Variante neuroendocrina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "convulsao_previa",
-        "tipo": "boolean",
-        "label": "Convulsao previa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "candidato_docetaxel",
-        "tipo": "boolean",
-        "label": "Candidato docetaxel",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "ecog",
-        "tipo": "integer",
-        "label": "Ecog",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "ari_ou_abiraterona_previo",
-        "tipo": "boolean",
-        "label": "Ari ou abiraterona previo",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "resistente_castracao",
-        "tipo": "boolean",
-        "label": "Resistente castracao",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "psadt_meses",
-        "tipo": "integer",
-        "label": "Psadt meses",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "quimio_naive",
-        "tipo": "boolean",
-        "label": "Quimio naive",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "assintomatico_ou_pouco_sintomatico",
-        "tipo": "boolean",
-        "label": "Assintomatico ou pouco sintomatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastase_visceral",
-        "tipo": "boolean",
-        "label": "Metastase visceral",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "mutacao_brca",
-        "tipo": "boolean",
-        "label": "Mutacao brca",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "progressao_pos_docetaxel",
-        "tipo": "boolean",
-        "label": "Progressao pos docetaxel",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "variante_agressiva",
-        "tipo": "boolean",
-        "label": "Variante agressiva",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "histologia_pequenas_celulas",
-        "tipo": "boolean",
-        "label": "Histologia pequenas celulas",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "metastase_ossea",
-        "tipo": "boolean",
-        "label": "Metastase ossea",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "trofoblastica": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "ntg"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "baixo_risco",
-        "tipo": "boolean",
-        "label": "Baixo risco",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "alto_risco",
-        "tipo": "boolean",
-        "label": "Alto risco",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "resistente_emaco",
-        "tipo": "boolean",
-        "label": "Resistente emaco",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "glioblastoma": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "glioblastoma"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "idade_menor_70",
-        "tipo": "boolean",
-        "label": "Idade menor 70",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "idade_maior_70",
-        "tipo": "boolean",
-        "label": "Idade maior 70",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "fragil_mgmt_metilado",
-        "tipo": "boolean",
-        "label": "Fragil mgmt metilado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "recorrente",
-        "tipo": "boolean",
-        "label": "Recorrente",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "mama": [
-      {
-        "campo": "cenario",
-        "tipo": "enum",
-        "opcoes": [
-          "adjuvancia",
-          "neoadjuvancia",
-          "metastatico"
-        ],
-        "label": "Cenário de tratamento",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "menopausa",
-        "tipo": "enum",
-        "opcoes": [
-          "pre",
-          "pos"
-        ],
-        "label": "Status menopausal",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "her2",
-        "tipo": "enum",
-        "opcoes": [
-          "positivo",
-          "negativo",
-          "baixa_expressao"
-        ],
-        "label": "HER2 (baixa_expressao = IHC 1+ ou 2+/ISH-)",
-        "secao": "Biologia",
-        "estavel": true
-      },
-      {
-        "campo": "rh",
-        "tipo": "enum",
-        "opcoes": [
-          "positivo",
-          "negativo"
-        ],
-        "label": "Receptor hormonal",
-        "secao": "Biologia",
-        "estavel": true
-      },
-      {
-        "campo": "brca",
-        "tipo": "enum",
-        "opcoes": [
-          "selvagem",
-          "mutado_germinativo"
-        ],
-        "label": "BRCA1/2 germinativo",
-        "secao": "Biologia",
-        "estavel": true
-      },
-      {
-        "campo": "grau",
-        "tipo": "integer",
-        "opcoes": [
-          1,
-          2,
-          3
-        ],
-        "label": "Grau histológico",
-        "secao": "Biologia",
-        "estavel": true
-      },
-      {
-        "campo": "ki67",
-        "tipo": "number",
-        "unidade": "%",
-        "label": "Ki-67",
-        "secao": "Biologia",
-        "estavel": true
-      },
-      {
-        "campo": "tamanho_cm",
-        "tipo": "number",
-        "unidade": "cm",
-        "label": "Tamanho do tumor",
-        "secao": "Estadiamento",
-        "estavel": false
-      },
-      {
-        "campo": "t",
-        "tipo": "enum",
-        "opcoes": [
-          "Tis",
-          "T1",
-          "T1a",
-          "T1b",
-          "T1c",
-          "T2",
-          "T3",
-          "T4"
-        ],
-        "label": "Estádio T clínico",
-        "secao": "Estadiamento",
-        "estavel": false
-      },
-      {
-        "campo": "n",
-        "tipo": "enum",
-        "opcoes": [
-          "N0",
-          "N1",
-          "N2",
-          "N3"
-        ],
-        "label": "Estádio N clínico",
-        "secao": "Estadiamento",
-        "estavel": false
-      },
-      {
-        "campo": "linfonodos_pos",
-        "tipo": "integer",
-        "label": "Nº de linfonodos positivos",
-        "secao": "Estadiamento",
-        "estavel": false
-      },
-      {
-        "campo": "m",
-        "tipo": "enum",
-        "opcoes": [
-          "M0",
-          "M1"
-        ],
-        "label": "Metástase à distância",
-        "secao": "Estadiamento",
-        "estavel": false
-      },
-      {
-        "campo": "pcr",
-        "tipo": "boolean",
-        "label": "Resposta patológica completa (pCR) após neoadjuvância",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "feve",
-        "tipo": "number",
-        "unidade": "%",
-        "label": "FEVE",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "ecog",
-        "tipo": "integer",
-        "opcoes": [
-          0,
-          1,
-          2,
-          3,
-          4
-        ],
-        "label": "ECOG performance status",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "clcr",
-        "tipo": "number",
-        "unidade": "mL/min",
-        "label": "Clearance de creatinina",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "linhas_previas",
-        "tipo": "integer",
-        "label": "Nº de linhas sistêmicas prévias (cenário avançado)",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "crise_visceral",
-        "tipo": "boolean",
-        "label": "Crise visceral",
-        "secao": "Contexto",
-        "estavel": false
-      },
-      {
-        "campo": "pdl1_cps",
-        "tipo": "score",
-        "score_clinico": true,
-        "label": "PD-L1 CPS (teste 22C3)",
-        "secao": "Scores",
-        "estavel": true
-      },
-      {
-        "campo": "cps_eg",
-        "tipo": "score",
-        "score_clinico": true,
-        "faixa": [
-          0,
-          6
-        ],
-        "label": "Escore CPS+EG (clínico-patológico + estrogênio/grau)",
-        "secao": "Scores",
-        "estavel": false
-      },
-      {
-        "campo": "alto_risco_clinico",
-        "tipo": "boolean",
-        "label": "Alto risco clínico (avaliação do oncologista, sem definição fechada no protocolo)",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "recidiva_endocrino_sensivel",
-        "tipo": "boolean",
-        "label": "Recidiva endócrino-sensível (>2 anos de tamoxifeno, >12 meses após IA adjuvante, ou sem HT prévia)",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "recidiva_precoce_pos_adjuvancia",
-        "tipo": "boolean",
-        "label": "Recidiva ≤6 meses do término da adjuvância / progressão precoce",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "exposicao_previa_trastuzumabe",
-        "tipo": "boolean",
-        "label": "Exposição prévia a trastuzumabe",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "exposicao_previa_tdxd",
-        "tipo": "boolean",
-        "label": "Exposição prévia a trastuzumabe-deruxtecana (T-DXd)",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "exposicao_previa_tdm1",
-        "tipo": "boolean",
-        "label": "Exposição prévia a T-DM1",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "exposicao_previa_taxano",
-        "tipo": "boolean",
-        "label": "Exposição prévia a taxano",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "exposicao_previa_icdk46",
-        "tipo": "boolean",
-        "label": "Exposição prévia a inibidor de CDK4/6",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "exposicao_previa_endocrino",
-        "tipo": "boolean",
-        "label": "Terapia endócrina prévia esgotada",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "contraindicacao_icdk46",
-        "tipo": "boolean",
-        "label": "Contraindicação a inibidor de CDK4/6",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "contraindicacao_antraciclico_platina",
-        "tipo": "boolean",
-        "label": "Contraindicação a antracíclico e/ou platina",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "tdxd_indisponivel",
-        "tipo": "boolean",
-        "label": "T-DXd indisponível ou contraindicado",
-        "secao": "História de tratamento",
-        "estavel": false
-      },
-      {
-        "campo": "invasao_linfovascular",
-        "tipo": "boolean",
-        "label": "Invasão linfovascular",
-        "secao": "Patologia",
-        "estavel": true
-      }
-    ],
-    "pancreas": [
-      {
-        "campo": "pancreas_ressecado",
-        "tipo": "boolean",
-        "label": "Pancreas ressecado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "paciente_robusto",
-        "tipo": "boolean",
-        "label": "Paciente robusto",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "ecog",
-        "tipo": "integer",
-        "label": "Ecog",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "mutacao_brca_germinativa",
-        "tipo": "boolean",
-        "label": "Mutacao brca germinativa",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "sem_progressao_pos_platina",
-        "tipo": "boolean",
-        "label": "Sem progressao pos platina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "vias-biliares": [
-      {
-        "campo": "sitio",
-        "tipo": "enum",
-        "label": "Sitio",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "vias_biliares"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "avancado_metastatico",
-        "tipo": "boolean",
-        "label": "Avancado metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "candidato_platina",
-        "tipo": "boolean",
-        "label": "Candidato platina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "progressao_pos_gemcis",
-        "tipo": "boolean",
-        "label": "Progressao pos gemcis",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "glioma-baixo-grau": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "glioma_baixo_grau"
-        ],
-        "estavel": false
-      },
-      {
-        "campo": "grau",
-        "tipo": "enum",
-        "label": "Grau",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "2",
-          "3",
-          "4"
-        ],
-        "estavel": true
-      },
-      {
-        "campo": "oligodendroglioma_g3",
-        "tipo": "boolean",
-        "label": "Oligodendroglioma g3",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      }
-    ],
-    "cabeca-pescoco": [
-      {
-        "campo": "tumor",
-        "tipo": "enum",
-        "label": "Tumor",
-        "secao": "Critérios de elegibilidade",
-        "opcoes": [
-          "cec_cabeca_pescoco",
-          "nasofaringe",
-          "tireoide_diferenciado",
-          "tireoide_medular",
-          "tireoide_anaplasico",
-          "glandula_salivar"
-        ],
-        "rotulos": {
-          "glandula_salivar": "Carcinoma de glândula salivar (maior ou menor)"
-        },
-        "estavel": false
-      },
-      {
-        "campo": "definitivo_crt",
-        "tipo": "boolean",
-        "label": "Definitivo crt",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "inelegivel_cisplatina",
-        "tipo": "boolean",
-        "label": "Inelegivel cisplatina",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "inducao",
-        "tipo": "boolean",
-        "label": "Inducao",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "adjuvante_alto_risco",
-        "tipo": "boolean",
-        "label": "Adjuvante alto risco",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "metastatico",
-        "tipo": "boolean",
-        "label": "Metastatico",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "pdl1_cps1",
-        "tipo": "boolean",
-        "label": "Pdl1 cps1",
-        "secao": "Critérios de elegibilidade",
-        "estavel": true
-      },
-      {
-        "campo": "segunda_linha",
-        "tipo": "boolean",
-        "label": "Segunda linha",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "cps1_ou_hpv_pos",
-        "tipo": "boolean",
-        "label": "Cps1 ou hpv pos",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "crt",
-        "tipo": "boolean",
-        "label": "Crt",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "inducao_iii_iva",
-        "tipo": "boolean",
-        "label": "Inducao iii iva",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "refratario_iodo",
-        "tipo": "boolean",
-        "label": "Refratario iodo",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "avancado",
-        "tipo": "boolean",
-        "label": "Avancado",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "quimioterapia",
-        "tipo": "boolean",
-        "label": "Quimioterapia",
-        "secao": "Critérios de elegibilidade",
-        "estavel": false
-      },
-      {
-        "campo": "histologia_salivar",
-        "tipo": "enum",
-        "label": "Histologia (glândula salivar)",
-        "secao": "Biologia molecular",
-        "opcoes": [
-          "nao_informada",
-          "adenoide_cistico",
-          "ductal_salivar",
-          "adenocarcinoma_nos",
-          "mucoepidermoide",
-          "outra"
-        ],
-        "indeterminado": [
-          "nao_informada"
-        ],
-        "rotulos": {
-          "nao_informada": "Não informada",
-          "adenoide_cistico": "Adenoide cístico",
-          "ductal_salivar": "Ductal salivar",
-          "adenocarcinoma_nos": "Adenocarcinoma NOS",
-          "mucoepidermoide": "Mucoepidermoide",
-          "outra": "Outra"
-        },
-        "nota": "Registrado, mas NÃO condiciona nenhuma das 3 regras nesta proposta (o revisor não restringiu por histologia e as fontes misturam histologias). Fica no dado para (a) o oncologista ver a ressalva certa no card e (b) o revisor poder restringir depois sem vocabulário novo. Seção 'Biologia molecular' → estavel:true pelo classificador do build-data.",
-        "estavel": true
-      }
-    ]
-  },
-  "_source": {
-    "kind": "squad",
-    "path": "squads/mbe-oncologia/output/2026-09-17-intake-revisao-4/v1/regimes-consolidados.json",
-    "regimes_count": 304
-  }
+  ]
 }
