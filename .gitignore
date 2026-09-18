@@ -51,3 +51,8 @@ squads/mbe-oncologia/extracao-expectativa-uso/candidatos.json
 # Screenshot que os portões gravam quando um check de UI falha: artefato de depuração de
 # UMA rodada, regenerável, e que um `git add -A` distraído leva junto para o commit.
 portao-*-erro.png
+
+# Mockups de tela: são desenhados sobre CASO REAL (prontuário de paciente, com registro,
+# datas e série de exames) e não têm anonimização que resista ao contexto da instituição.
+# Ficam fora do repositório — a cópia de trabalho vive em ~/Downloads/oncoguia-mockups/.
+app/mockups/

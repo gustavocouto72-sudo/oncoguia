@@ -103,6 +103,38 @@ export interface ItemListaProblemas {
 export type ListaProblemas = 'comorbidades' | 'medicacoes_uso' | 'alergias';
 export const LISTAS_PROBLEMAS: ListaProblemas[] = ['comorbidades', 'medicacoes_uso', 'alergias'];
 
+// ---- CABEÇALHO ONCOLÓGICO (lista de problemas · parte clínica) ----
+// A estrutura é a do guia de cabeçalho oncológico do revisor — o que ele já escreve à mão
+// no "Evoluções Anteriores" do TASY. Princípio que atravessa tudo: OMITIR É PREFERÍVEL A
+// INFERIR. Campo sem informação fica ausente (não vira "não realizou"); data incompleta
+// fica incompleta (mm/aaaa e aaaa são válidas como estão; ninguém completa dia ou mês).
+export type TipoLinhaCabecalho = 'apresentacao' | 'propedeutica' | 'terapeutica';
+export const TIPOS_LINHA_CABECALHO: TipoLinhaCabecalho[] = ['apresentacao', 'propedeutica', 'terapeutica'];
+// Campo de texto com autoria: título, subtítulo e status atual. `em`/`por` são do servidor.
+export interface TextoCabecalho { texto: string; em: string; por: { id: number; nome: string } | null }
+export interface LinhaCabecalho {
+  id: string;
+  tipo: TipoLinhaCabecalho;
+  data: string | null;      // dd/mm/aaaa | mm/aaaa | aaaa — parcial fica parcial
+  rotulo: string | null;    // alternativa curta à data (S1, C3, D15) — típico da intercorrência
+  texto: string;
+  pai_id: string | null;    // preenchido = intercorrência da linha-pai (só terapêutica tem filhos)
+  origem: string;           // 'manual' | 'importacao (evolução de dd/mm/aaaa)'
+  por: { id: number; nome: string } | null;
+  em: string;               // ISO timestamp
+}
+// Marcador tumoral NÃO é linha de texto: é série (valor, data) — a tela destaca subida e
+// último valor; o texto do prontuário imprime a série com setas.
+export interface PontoMarcador { valor: string; data: string }
+export interface MarcadorCabecalho { id: string; nome: string; unidade: string | null; pontos: PontoMarcador[] }
+export interface CabecalhoOncologico {
+  titulo?: TextoCabecalho;
+  subtitulo?: TextoCabecalho;
+  linhas?: LinhaCabecalho[];
+  marcadores?: MarcadorCabecalho[];
+  status_atual?: TextoCabecalho;
+}
+
 @Entity('pacientes')
 export class Paciente {
   @PrimaryGeneratedColumn()
@@ -176,6 +208,17 @@ export class Paciente {
 
   @Column({ type: 'jsonb', default: () => `'[]'::jsonb` })
   alergias: ItemListaProblemas[];
+
+  // ---- CABEÇALHO ONCOLÓGICO ----
+  // O resto da lista de problemas: título, subtítulo, linhas tipadas (apresentação ·
+  // propedêutica · terapêutica, com intercorrências como filhas), marcadores em série e
+  // status atual. Um objeto só, default {} (a ficha não distingue "sem cabeçalho" de
+  // "cabeçalho vazio"). O CHECK da migration limita `tipo` das linhas ao vocabulário
+  // literal; o resto da validação (data parcial, pai só em terapêutica) é do serviço.
+  // Mesmo regime das três listas: estado mutável, rastro append-only na trilha (evento
+  // 'cabecalho_oncologico'), dado clínico fora do payload da secretaria.
+  @Column({ type: 'jsonb', default: () => `'{}'::jsonb` })
+  cabecalho_oncologico: CabecalhoOncologico;
 
   // ---- Agenda de reestadiamento (LEMBRETE, não registro clínico) ----
   // Diferente de avaliacoes/retornos (append-only), a agenda é ESTADO MUTÁVEL e descartável:
@@ -614,7 +657,7 @@ export class Retorno {
 // do paciente vê que a agenda foi mexida, por quem e por quê.
 // Quem pode registrar é whitelist de ROTA (secretaria + quem trata o paciente) — o perfil
 // ativo fica carimbado aqui como nos irmãos (Avaliacao.perfil_ativo).
-export type TipoEventoAdministrativo = 'reagendamento' | 'contato' | 'lista_problemas';
+export type TipoEventoAdministrativo = 'reagendamento' | 'contato' | 'lista_problemas' | 'cabecalho_oncologico';
 export type MeioContato = 'telefone' | 'whatsapp' | 'email' | 'presencial' | 'outro';
 export const MEIOS_CONTATO: MeioContato[] = ['telefone', 'whatsapp', 'email', 'presencial', 'outro'];
 

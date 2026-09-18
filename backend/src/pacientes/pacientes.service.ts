@@ -2,12 +2,13 @@ import { BadRequestException, ConflictException, Injectable, NotFoundException }
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, In, Repository } from 'typeorm';
 import {
-  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, EventoAdministrativo, ImportacaoProposta, ItemListaProblemas,
+  AUTORIZACAO_VIGENTE, Avaliacao, AutorizacaoEstado, CabecalhoOncologico, EventoAdministrativo, ImportacaoProposta, ItemListaProblemas,
   LISTAS_PROBLEMAS, ListaProblemas, Paciente, Perfil, Retorno, SelecaoProtocolo, Semaforo,
 } from '../database/entities';
 import { EvidenciaService } from '../evidencia/evidencia.service';
 import { diaLocal, estadoReestadiamento, estadoRetorno, hojeISO, somarMeses } from '../retornos/retornos.service';
 import { mapEventoAdministrativo } from '../retornos/eventos-administrativos';
+import { OperacaoCabecalho, aplicarOperacoesCabecalho, ordenarCabecalho } from './cabecalho';
 
 // Payload de uma nova avaliação (reavaliação). data e avaliado_por são do servidor.
 export interface NovaAvaliacao {
@@ -422,6 +423,9 @@ export class PacientesService {
       comorbidades: p.comorbidades || [],
       medicacoes_uso: p.medicacoes_uso || [],
       alergias: p.alergias || [],
+      // Cabeçalho oncológico — sempre a chave, sempre objeto (vazio = {}), linhas já na
+      // ordem da tela (por tipo e data parcial, intercorrências sob a linha-pai).
+      cabecalho_oncologico: ordenarCabecalho(p.cabecalho_oncologico || {}),
       // Agenda de reestadiamento com "vencido" já derivado do relógio do SERVIDOR — a app
       // não decide o que está vencido a partir da data da máquina do usuário.
       reestadiamento: estadoReestadiamento(p),
@@ -531,6 +535,59 @@ export class PacientesService {
     const full = await eventoRepo.findOne({ where: { id: evento.id }, relations: { registradoPor: true } });
     const depois = await pacienteRepo.findOne({ where: { id: pacienteId }, select: { id: true, comorbidades: true, medicacoes_uso: true, alergias: true } });
     return { paciente: depois || p, evento: full, entraram, sairam };
+  }
+
+  // ── CABEÇALHO ONCOLÓGICO (título · subtítulo · linhas tipadas · marcadores · status) ──
+  // A metade clínica da lista de problemas, PATCH /pacientes/:id/cabecalho com uma lista
+  // de operações (ver cabecalho.ts). Tudo validado no servidor: tipo literal, data parcial
+  // exata (nunca completada), pai só terapêutica, nome de marcador único. Um PATCH = um
+  // evento administrativo append-only na trilha ("Cabeçalho oncológico atualizado por X:
+  // +linha terapêutica 05/04/2022 / −linha propedêutica 14/03/2022") — correção é registro
+  // novo, nada sai da trilha. Devolve o cabeçalho inteiro (ordenado) e o evento.
+  async atualizarCabecalho(
+    pacienteId: number,
+    operacoes: OperacaoCabecalho[],
+    autor: { id: number; nome: string },
+    perfilAtivo: Perfil,
+  ) {
+    await this.pacienteOr404(pacienteId);
+    const r = await this.aplicarCabecalho(pacienteId, operacoes, autor, perfilAtivo, 'manual');
+    return { cabecalho_oncologico: r.cabecalho, evento: r.evento ? mapEventoAdministrativo(r.evento) : null };
+  }
+
+  // Núcleo compartilhado — a Fase 2 (validação de proposta de importação) chama este mesmo
+  // caminho com origem "importacao (evolução de …)" e o EntityManager da transação: um jeito
+  // só de escrever no cabeçalho, um jeito só de deixar rastro. Sem mudança efetiva (texto
+  // igual ao que já estava) = sem escrita e sem evento.
+  async aplicarCabecalho(
+    pacienteId: number,
+    operacoes: OperacaoCabecalho[],
+    autor: { id: number; nome: string },
+    perfilAtivo: Perfil,
+    origem: string,
+    em?: EntityManager,
+  ): Promise<{ cabecalho: CabecalhoOncologico; evento: EventoAdministrativo | null; partes: string[] }> {
+    const pacienteRepo = em ? em.getRepository(Paciente) : this.pacienteRepo;
+    const eventoRepo = em ? em.getRepository(EventoAdministrativo) : this.eventoAdmRepo;
+    const p = await pacienteRepo.findOne({ where: { id: pacienteId }, select: { id: true, cabecalho_oncologico: true } });
+    if (!p) throw new NotFoundException('Paciente não encontrado');
+    const r = aplicarOperacoesCabecalho(p.cabecalho_oncologico, operacoes, { autor, agora: new Date().toISOString(), origem });
+    if (!r.alterou) return { cabecalho: ordenarCabecalho(p.cabecalho_oncologico || {}), evento: null, partes: [] };
+    await pacienteRepo.update({ id: pacienteId }, { cabecalho_oncologico: r.cabecalho });
+    let nota = `Cabeçalho oncológico atualizado por ${autor.nome}: ${r.partes.join(' / ')}`;
+    if (nota.length > NOTA_EVENTO_MAX) nota = nota.slice(0, NOTA_EVENTO_MAX - 2) + ' …';
+    const evento = await eventoRepo.save(eventoRepo.create({
+      paciente_id: pacienteId,
+      tipo: 'cabecalho_oncologico',
+      data: hojeISO(),
+      data_anterior: null,
+      meio: null,
+      nota,
+      registrado_por: autor.id,
+      perfil_ativo: perfilAtivo,
+    }));
+    const full = await eventoRepo.findOne({ where: { id: evento.id }, relations: { registradoPor: true } });
+    return { cabecalho: r.cabecalho, evento: full, partes: r.partes };
   }
 
   // Histórico completo, ordem cronológica (mais antiga → mais recente).

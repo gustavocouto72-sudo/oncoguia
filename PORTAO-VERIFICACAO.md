@@ -1140,3 +1140,77 @@ SELECT name FROM migrations ORDER BY id DESC LIMIT 1;  -- ListaProblemas17900352
 ```
 Depois do deploy: **repovoar o #80 em produção pela tela** (o oncologista adiciona os itens
 — viram registro dele, origem `registro manual`).
+
+## Cabeçalho oncológico (lista de problemas · parte clínica, 2026-09-18) — `scripts/portao-cabecalho.js`
+
+**Fase 1 (modelo, tela, edição manual) — aprovada no teste humano em 2026-09-18, commitada,
+aguardando deploy (backend primeiro, app depois).** A Fase 2 (a importação alimenta o
+cabeçalho) só começa com comando explícito.
+
+O que é: a metade clínica da lista de problemas, com a estrutura do guia de cabeçalho
+oncológico do revisor — título em caixa, subtítulo, três seções (apresentação ·
+propedêutica · terapêutica) com data em coluna, intercorrências como sublinha da
+terapêutica, marcadores tumorais em série e status atual. O desenho aprovado (mockup)
+fica **fora do repositório** (`~/Downloads/oncoguia-mockups/`, `app/mockups/` no
+.gitignore): foi desenhado sobre caso real, e iniciais não anonimizam registro + datas +
+série de exames. Uma coluna jsonb `pacientes.cabecalho_oncologico`
+(NOT NULL DEFAULT `{}`; CHECK literal no `tipo` das linhas por `jsonb_path_exists`);
+regras puras em `backend/src/pacientes/cabecalho.ts`; `PATCH /pacientes/:id/cabecalho`
+recebe uma **lista de operações** e deixa **um evento `cabecalho_oncologico`** na trilha por
+chamada. Princípio: **omitir é preferível a inferir** — campo vazio some do objeto, data
+parcial (`mm/aaaa`, `aaaa`) fica parcial e ordena pelo início do período.
+
+*Automação:* `node scripts/portao-cabecalho.js` (mesmas portas; credenciais do
+`.env.local`; cria e apaga uma secretaria descartável e 3 pacientes `TESTE-PORTAO-CAB-*`).
+**72 checks, 5 logins** (o revisor entra na tela por injeção do token na sessão). Os ★★/★:
+`A2` ordenação por data **parcial** e por tipo (`2024 < 01/2024 < 01/01/2024`, sem data no fim
+da seção) · `A3` intercorrência **só em terapêutica**, um nível, logo abaixo do pai, rótulo
+em ordem natural (`S1 < S3 < S11`) · `A4` data inválida = **400** em oito formas (31/02, mês
+13, ISO, sem zero, ano de 2 dígitos, mês 00, < 1900, texto) e nada gravado "em parte" ·
+`A5` série de marcador ordenada, ponto novo mantém a ordem, nome duplicado 409, remoção
+por `valor+data` · `A6` remoção gera **evento na trilha** (append-only, autor, "−linha …") e
+PATCH sem mudança **não** gera evento · `W1` PATCH = **403** para secretaria, revisor e
+auditor · `W2` a **secretaria não recebe a chave** (lista e ficha) nem o evento; `W3`
+revisor/auditor recebem (contraprova) · `U1`–`U5` bloco acima das três caixas, seções
+`<details>` abertas, "+ linha" no summary **não** fecha a seção, resumo quando fechada,
+"▸ ver N anteriores", ↳ sob o pai, subida (`up`) e último (`last`) na série · `U6`/`U7`
+**0 re-render** ao digitar (contador em `render` **e** em `coRepintar`) · `U8` trilha com
+"Cabeçalho oncológico atualizado" · `C1` ★★ texto do prontuário **igual ao gabarito**
+(comparação exata, diff impresso na primeira linha divergente) e sem markdown/asterisco/
+emoji · `C2` o botão põe **esse texto na área de transferência** (permissão de clipboard
+no contexto) · `U9` **estado vazio de quem edita**: só o título do bloco e a linha
+"+ montar cabeçalho oncológico" (sem seções, placeholders, status, marcador); o clique revela o esqueleto com **zero chamada ao servidor** (flag de sessão
+`CO_UI.montar[pid]`, provada escutando `page.on('request')`); a primeira linha gravada
+pela tela (0 re-render) traz o bloco normal e o botão de copiar; a recarga sem a flag vem
+normal direto; **"Copiar para o prontuário" segue o TEXTO gerado**, não o cabeçalho — com
+comorbidade e cabeçalho vazio o botão existe (P3, `Comorbidades: DPOC`), sem nada não existe
+(P2) · `R1`/`R3` revisor vê e não edita; no vazio vê só a linha discreta, sem "+ montar".
+
+Por que o estado vazio: todo paciente nasce com `{}` — sem isto, no dia do deploy a equipe
+veria o esqueleto inteiro em cima de todo prontuário, ruído para zero conteúdo.
+
+As fixtures do portão são um caso **sintético** (mama, datas de 2021–2025, CEA inventado):
+a varredura pré-commit achou que a primeira versão reaproveitava datas e a série de CA-125
+do caso real do mockup, e isso saiu antes do commit — dado de paciente não entra no
+repositório nem como fixture.
+
+**Ledger 2026-09-18 (fechamento da Fase 1), versão commitada:** `portao-cabecalho`
+72/72 · 72/72 (Copiar pelo texto gerado; antes, 71/71 ×4 e 64/64 ×2 nas versões anteriores); `portao-secretaria` 93/93 · 93/93 (uma rodada anterior,
+encadeada sem janela logo após o Portão B, teve 1 FAIL de console 429 — rate limit do
+login, não o código; refeita 2× com janela de 80 s); `portao-b` tudo passou (2×). Portão C
+(mérito clínico do formato do texto, das quatro pendências de apresentação) é do revisor.
+
+**Pendentes do revisor (constantes no topo do bloco em `app/index.html`, um lugar cada):**
+`CO_DATA_NA_COLUNA` (data à esquerda vs. dentro do texto) · `CO_SUB_MOSTRA` (intercorrência
+com rótulo, data ou ambos) · `CO_RECENTES` (quantas linhas visíveis antes do "ver
+anteriores") · `CO_ABERTO_PADRAO` (seções abertas por padrão).
+
+**SQLs de conferência do Neon (quando for a produção):**
+```sql
+SELECT column_default, is_nullable FROM information_schema.columns
+ WHERE table_name = 'pacientes' AND column_name = 'cabecalho_oncologico';   -- '{}'::jsonb · NO
+SELECT conname FROM pg_constraint WHERE conname LIKE 'CHK_pacientes_cabecalho%';  -- 2 linhas
+SELECT pg_get_constraintdef(oid) FROM pg_constraint WHERE conname = 'CHK_eventos_administrativos_tipo';
+-- … 'lista_problemas','cabecalho_oncologico'
+SELECT name FROM migrations ORDER BY id DESC LIMIT 1;  -- CabecalhoOncologico1790294400000
+```

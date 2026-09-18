@@ -2,7 +2,7 @@ import {
   Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Request, UseGuards,
 } from '@nestjs/common';
 import {
-  ArrayMaxSize, IsArray, IsIn, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, Max, MaxLength, Min,
+  ArrayMaxSize, ArrayMinSize, IsArray, IsIn, IsInt, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, Max, MaxLength, Min,
   ValidateIf,
 } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
@@ -12,7 +12,8 @@ import { OncologistaOuAdminGuard } from '../auth/oncologista.guard';
 import {
   CadastroCriarGuard, CadastroEditarGuard, LeituraCadastroGuard, recusarClinicoDaSecretaria,
 } from '../auth/cadastro.guard';
-import { ListaProblemasEditarGuard } from '../auth/lista-problemas.guard';
+import { CabecalhoEditarGuard, ListaProblemasEditarGuard } from '../auth/lista-problemas.guard';
+import type { OperacaoCabecalho } from './cabecalho';
 import { PacientesService } from './pacientes.service';
 import { LISTAS_PROBLEMAS } from '../database/entities';
 import type { ListaProblemas, Perfil, Semaforo } from '../database/entities';
@@ -71,6 +72,13 @@ class AtualizarListaProblemasDto {
   @IsIn(LISTAS_PROBLEMAS) lista: ListaProblemas;
   @IsOptional() @IsArray() @ArrayMaxSize(30) @IsString({ each: true }) @MaxLength(120, { each: true }) adicionar?: string[];
   @IsOptional() @IsArray() @ArrayMaxSize(30) @IsString({ each: true }) @MaxLength(120, { each: true }) remover?: string[];
+}
+
+// Cabeçalho oncológico: LISTA de operações num PATCH (título, subtítulo, status, linha,
+// marcador, ponto — ver cabecalho.ts). O DTO só garante a forma da lista; cada operação é
+// validada literalmente no serviço (op, tipo, data parcial, limites), onde as regras vivem.
+class AtualizarCabecalhoDto {
+  @IsArray() @ArrayMinSize(1) @ArrayMaxSize(60) operacoes: OperacaoCabecalho[];
 }
 
 class CriarAvaliacaoDto {
@@ -154,6 +162,20 @@ export class PacientesController {
     @Request() req: { user: { id: number; nome: string; perfil: Perfil } },
   ) {
     return this.pacientesService.atualizarListaProblemas(id, dto, { id: req.user.id, nome: req.user.nome }, req.user.perfil);
+  }
+
+  // CABEÇALHO ONCOLÓGICO (título · linhas tipadas · marcadores · status) — a outra metade da
+  // lista de problemas, mesma alçada, whitelist literal própria (CabecalhoEditarGuard).
+  // Leitura vem no GET /pacientes/:id do perfil clínico; o payload da secretaria nem
+  // seleciona a coluna. Cada PATCH deixa um evento administrativo na trilha.
+  @UseGuards(CabecalhoEditarGuard)
+  @Patch(':id/cabecalho')
+  atualizarCabecalho(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: AtualizarCabecalhoDto,
+    @Request() req: { user: { id: number; nome: string; perfil: Perfil } },
+  ) {
+    return this.pacientesService.atualizarCabecalho(id, dto.operacoes, { id: req.user.id, nome: req.user.nome }, req.user.perfil);
   }
 
   // Remoção administrativa (limpeza de cadastros de teste) — perfil admin apenas.

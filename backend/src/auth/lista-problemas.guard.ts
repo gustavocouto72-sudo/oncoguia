@@ -20,3 +20,20 @@ export class ListaProblemasEditarGuard implements CanActivate {
     return true;
   }
 }
+
+// CABEÇALHO ONCOLÓGICO (título · linhas tipadas · marcadores · status) — a outra metade da
+// lista de problemas, PATCH /pacientes/:id/cabecalho. Mesma alçada, whitelist PRÓPRIA e
+// literal: estreitar uma não pode estreitar a outra por acidente. A leitura fica com o
+// payload clínico da ficha (o da secretaria nem seleciona a coluna).
+const PERFIS_CABECALHO: Perfil[] = ['oncologista', 'admin'];
+
+@Injectable()
+export class CabecalhoEditarGuard implements CanActivate {
+  canActivate(ctx: ExecutionContext): boolean {
+    const { user } = ctx.switchToHttp().getRequest();
+    if (!user || !PERFIS_CABECALHO.includes(user.perfil as Perfil)) {
+      throw new ForbiddenException('Acesso negado: o cabeçalho oncológico é registro clínico — exige perfil oncologista ou admin');
+    }
+    return true;
+  }
+}

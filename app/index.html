@@ -496,6 +496,83 @@
   .lp-prop .lp-box{background:#fff}
   .lp-prop .lp-chip{cursor:default}
   .lp-prop .lp-trecho{display:block;font-size:11px;color:var(--muted);font-weight:400;font-style:italic;margin-top:2px;white-space:normal}
+  /* ---- Cabeçalho oncológico (lista de problemas · parte clínica) — desenho do mockup ---- */
+  .co{margin-top:14px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  .co-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f7fafc;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .co-head h3{margin:0;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:#46545f;font-weight:700}
+  .co-head .sp{margin-left:auto;display:flex;gap:8px}
+  .co-btn{padding:6px 12px;border-radius:8px;font-size:12.5px}
+  .co-dx{padding:12px 14px 2px}
+  .co-title{font-size:16.5px;font-weight:700;line-height:1.35}
+  .co-sub{color:var(--muted);font-size:13px;margin-top:3px}
+  .co-edit{border-radius:6px;padding:2px 6px;margin:0 -6px}
+  .co-edit.pode{cursor:text}
+  .co-edit.pode:hover{background:#f6f9fb;box-shadow:inset 0 0 0 1px var(--line)}
+  .co-ph{color:#a3aeb8;font-weight:400;font-style:italic;font-size:13px}
+  .co-secs{padding:6px 14px 10px}
+  details.co-sec{margin:0}
+  details.co-sec>summary{list-style:none;display:flex;align-items:center;gap:8px;margin:10px 0 4px;cursor:pointer;padding:3px 0;border-radius:6px}
+  details.co-sec>summary::-webkit-details-marker{display:none}
+  details.co-sec>summary::before{content:"▸";color:var(--muted);font-size:13px;line-height:1;display:inline-block;transition:.12s;width:12px}
+  details.co-sec[open]>summary::before{transform:rotate(90deg)}
+  .co-tag{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:5px}
+  .co-tag.apresentacao{background:#fbf1da;color:#8f6300}.co-tag.propedeutica{background:#e4f0fa;color:#1c5e88}.co-tag.terapeutica{background:#e3f1ef;color:#0f6e68}
+  .co-resumo{font-size:12px;color:var(--muted)}
+  details.co-sec[open]>summary .co-resumo{display:none}
+  .co-add{margin-left:auto;border:1px dashed var(--line);background:#fff;color:var(--accent);border-radius:7px;padding:3px 10px;font-size:12px;cursor:pointer;font-weight:600}
+  .co-add:hover{border-color:var(--accent);background:#f4f9fc}
+  .co-vermais{border:0;background:none;color:var(--accent);font-size:12px;cursor:pointer;padding:4px 10px;font-weight:600}
+  .co-vermais:hover{text-decoration:underline}
+  .co-row{display:flex;gap:12px;align-items:flex-start;padding:6px 10px;border-radius:8px;position:relative}
+  .co-row:hover,.co-row:focus-within{background:#f6f9fb}
+  .co-row .dt{flex:0 0 92px;font-variant-numeric:tabular-nums;color:var(--muted);font-size:12.5px;padding-top:1px;white-space:nowrap}
+  .co-row .tx{flex:1;font-size:13.5px;min-width:0;white-space:pre-wrap;overflow-wrap:anywhere}
+  .co-row .tx.pode{cursor:text}
+  .co-row .tx small{color:var(--muted)}
+  .co-row .acts{display:flex;gap:2px;opacity:0;flex:none}
+  .co-row:hover .acts,.co-row:focus-within .acts{opacity:1}
+  .co-row .acts button{border:0;background:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0 5px;line-height:1.3;border-radius:5px}
+  .co-row .acts button:hover{background:#e9eff4;color:var(--ink)}
+  .co-row.filha{padding-left:34px}
+  .co-row.filha .tx{font-size:13px;color:#46545f}
+  .co-row.filha::before{content:"↳";position:absolute;left:16px;top:6px;color:var(--muted);font-size:12px}
+  .co-form{margin:4px 0 6px;padding:8px 10px;border:1px solid #cfdbe5;border-radius:9px;background:#fbfdff}
+  .co-form.filha{margin-left:34px}
+  .co-form .l1{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .co-form input,.co-form select,.co-form textarea{font-size:12.5px;padding:5px 8px;height:30px}
+  .co-form select{width:auto}
+  .co-form input.dt{width:112px;font-variant-numeric:tabular-nums}
+  .co-form input.rt{width:64px}
+  .co-form input.nm{width:200px}.co-form input.un{width:80px}.co-form input.vl{width:90px}
+  .co-form textarea{width:100%;height:auto;min-height:54px;margin-top:6px;resize:vertical;border:1px solid var(--line);border-radius:8px;font-family:inherit;color:var(--ink);box-sizing:border-box}
+  .co-form .l2{display:flex;gap:6px;align-items:center;margin-top:6px;flex-wrap:wrap}
+  .co-form .l2 .hint{margin:0 0 0 auto;text-align:right}
+  .co-form .btn{height:30px;padding:0 12px;font-size:12px}
+  .co-mk{padding:6px 10px;border-radius:8px}
+  .co-mk:hover{background:#f6f9fb}
+  .co-mk:hover .x,.co-mk:focus-within .x{opacity:1}
+  .co-mkName{font-weight:600;font-size:13px;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .co-mkName small{color:var(--muted);font-weight:400}
+  .co-mkName .x{opacity:0;border:0;background:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0 5px;border-radius:5px}
+  .co-mkName .x:hover{background:#e9eff4;color:var(--ink)}
+  .co-serie{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12.5px;font-variant-numeric:tabular-nums}
+  .co-serie span.pt{background:#f1f5f8;border-radius:5px;padding:2px 7px;color:#46545f;position:relative;display:inline-flex;gap:4px;align-items:center}
+  .co-serie span.pt.up{background:#fbeae7;color:#a5281b}
+  .co-serie span.pt.last{background:var(--greenbg);color:#157a49;font-weight:700}
+  .co-serie span.pt i{color:var(--muted);font-style:normal;font-weight:400}
+  .co-serie span.pt button{display:none;border:0;background:none;color:inherit;cursor:pointer;font-size:12px;padding:0 0 0 2px;line-height:1}
+  .co-serie span.pt:hover button{display:inline}
+  .co-serie .seta{color:var(--muted)}
+  .co-serie .co-add{margin-left:4px;padding:1px 8px;font-size:11.5px}
+  .co-mk-add{margin:4px 10px 0}
+  .co-status{margin:8px 14px 14px;background:#f7fafc;border:1px solid var(--line);border-radius:9px;padding:10px 14px;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+  .co-status b{color:var(--navy)}
+  .co-status.pode{cursor:text}
+  .co-status.pode:hover{border-color:#b9c9d6}
+  .co-vazio{padding:10px 14px 14px;font-size:12.5px;color:var(--muted);font-style:italic}
+  .co-montar{padding:10px 14px 12px;font-size:13px;font-weight:600;color:var(--accent);cursor:pointer}
+  .co-montar:hover{text-decoration:underline;background:#f6f9fb}
+  @media (max-width:760px){.co-row .dt{flex-basis:78px}.co-head .sp{margin-left:0;width:100%}}
   /* ---- Reestadiamento: lembrete e item pendente ---- */
   .reest-ok{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);background:#f6f9fb;border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin-top:12px}
   .reest-venc{background:var(--redbg);border:1px solid #f0c3bd;border-radius:9px;padding:11px 13px;margin-top:12px}
@@ -2529,6 +2606,7 @@ function podeRedesenhar(id){
   if(REAVAL && REAVAL.pid===id) return false;
   if(AGENDA_FORM && AGENDA_FORM.pid===id) return false;
   if(LP_FORM && LP_FORM.pid===id) return false;
+  if(CO_FORM && CO_FORM.pid===id) return false;
   return true;
 }
 // Carrega o paciente + última avaliação + linha do tempo (GET /pacientes/:id).
@@ -2582,6 +2660,7 @@ function renderPaciente(){
       <div><h2>${esc(p.nome)}</h2><div class="sub">${idade(p.nasc)} · ${p.sexo==="F"?"Feminino":"Masculino"} · ${esc(p.cidade||"—")} · ${esc(p.operadora||"—")}${p.plano?` (${esc(p.plano)})`:""}${p.identificador?` · reg. ${esc(p.identificador)}`:""}</div></div>
       <div style="text-align:right;flex:none">${tumorPill}${USUARIO&&(USUARIO.perfil==="oncologista"||USUARIO.perfil==="admin")?`<div style="margin-top:8px"><button class="btn ghost" style="padding:5px 12px" onclick="editarCadastro(${p.id})">✎ Editar dados cadastrais</button></div>`:""}</div>
     </div>
+    <div id="co-bloco">${coBlocoHtml(p.id)}</div>
     <div id="lp-faixa">${lpFaixaHtml(p.id)}</div>
     <nav class="tabs pac-tabs">
       <a class="${pacTab==='trilha'?'':'on'}" onclick="setPacTab('dados')">Seguimento</a>
@@ -2736,6 +2815,368 @@ async function lpRemover(pid, lista, btn){
 function lpAplicarResposta(pid, r){
   const d = PAC_DETAIL[pid]; if(d){ d.comorbidades=r.comorbidades||[]; d.medicacoes_uso=r.medicacoes_uso||[]; d.alergias=r.alergias||[]; }
   if(TRILHA[pid]!=null) carregarTrilha(pid);
+}
+
+// =================== CABEÇALHO ONCOLÓGICO (lista de problemas · parte clínica) ===================
+// Bloco ACIMA das três caixas, desenho de app/mockups/mockup-lista-problemas.html: título e
+// subtítulo no topo; três seções recolhíveis (apresentação · propedêutica · terapêutica)
+// com linha comprida, data em coluna à esquerda, × só no hover; intercorrência como
+// sublinha (↳) da linha terapêutica; marcador tumoral como SÉRIE (valor + data, subida em
+// vermelho, último em verde), não como linha de texto; status atual em caixa no fim.
+// Estrutura = guia de cabeçalho oncológico do revisor (o que ele escreve à mão no TASY).
+//
+// Princípio: OMITIR É PREFERÍVEL A INFERIR. Campo sem informação não aparece (nem vira "não
+// realizou"); data parcial (mm/aaaa, aaaa) é mostrada como está e enviada como está — quem
+// valida é o servidor (PATCH /pacientes/:id/cabecalho, lista de operações). Dado vem no
+// GET /pacientes/:id (chave `cabecalho_oncologico`, linhas já ordenadas pelo servidor).
+// Oncologista/admin editam; revisor/auditor só leem; a secretaria nunca chega aqui.
+//
+// Digitar NUNCA re-renderiza: o texto dos formulários vive em CO_FORM (oninput) e só
+// abrir/fechar/gravar repintam #co-bloco. Estado de tela (seção fechada, "ver anteriores")
+// fica em CO_UI e não vai ao servidor.
+//
+// PENDENTES DO REVISOR (fáceis de ajustar, um lugar cada): CO_DATA_NA_COLUNA (data à
+// esquerda vs. dentro do texto), CO_SUB_MOSTRA (intercorrência mostra rótulo, data ou
+// ambos), CO_RECENTES (quantas linhas ficam visíveis antes do "ver anteriores"),
+// CO_ABERTO_PADRAO (seções abertas por padrão).
+const CO_DATA_NA_COLUNA = true;
+const CO_SUB_MOSTRA = "rotulo_ou_data"; // "rotulo_ou_data" | "data_ou_rotulo" | "ambos"
+const CO_RECENTES = 3;
+const CO_ABERTO_PADRAO = true;
+const CO_TIPOS = ["apresentacao","propedeutica","terapeutica"];
+const CO_META = {
+  apresentacao: {t:"Apresentação",  um:"linha",  ph:"Ex.: Tosse seca e dor torácica há 2 meses; ex-tabagista 30 maços-ano"},
+  propedeutica: {t:"Propedêutica",  um:"exame",  ph:"Ex.: TC de tórax: massa em lobo superior direito de 4,2 cm; linfonodomegalia mediastinal"},
+  terapeutica:  {t:"Terapêutica",   um:"tratamento", ph:"Ex.: 1ª linha — Carboplatina + Pemetrexede, 4 ciclos · até 07/2023"},
+};
+let CO_FORM = null; // {pid, kind:"linha"|"texto"|"marcador"|"ponto", ...campos}
+const CO_UI = {fechado:{}, expandido:{}, montar:{}}; // fechado/expandido por tipo, montar por paciente — só na tela
+function podeEditarCO(){ return podeEditarLP(); }
+function coDados(pid){ const d = PAC_DETAIL[pid]; const c = d && d.cabecalho_oncologico; return (c && typeof c==="object") ? c : {}; }
+// Mesma chave de ordenação do servidor: início do período (2024 < 01/2024 < 01/01/2024).
+function coChaveData(s){
+  if(!s) return null; let g;
+  if((g=String(s).match(/^(\d{2})\/(\d{2})\/(\d{4})$/))) return `${g[3]}-${g[2]}-${g[1]}`;
+  if((g=String(s).match(/^(\d{2})\/(\d{4})$/))) return `${g[2]}-${g[1]}-00`;
+  if((g=String(s).match(/^(\d{4})$/))) return `${g[1]}-00-00`;
+  return null;
+}
+// Data curta da série de marcador (10/24, 06/26, 2024): a série é longa, a coluna é estreita.
+function coDataCurta(s){ let g; if((g=String(s||"").match(/^(\d{2})\/(\d{2})\/(\d{4})$/))) return `${g[1]}/${g[2]}/${g[3].slice(2)}`; if((g=String(s||"").match(/^(\d{2})\/(\d{4})$/))) return `${g[1]}/${g[2].slice(2)}`; return String(s||""); }
+function coNumero(v){ const n = parseFloat(String(v==null?"":v).replace(/[^\d,.\-]/g,"").replace(",", ".")); return isNaN(n) ? null : n; }
+function coQuandoSub(l){
+  if(CO_SUB_MOSTRA==="ambos") return [l.rotulo, l.data].filter(Boolean).join(" · ");
+  if(CO_SUB_MOSTRA==="data_ou_rotulo") return l.data || l.rotulo || "";
+  return l.rotulo || l.data || "";
+}
+// Cabeça da linha para dar peso visual ("1ª linha — Carboplatina + Pemetrexede"): só apresentação,
+// nada é inferido — se não houver " — " ou ": " nos primeiros 60 caracteres, texto plano.
+function coCabecaTexto(texto){
+  const t = String(texto||""); const lim = t.slice(0, 60);
+  const i1 = lim.indexOf(" — "), i2 = lim.indexOf(": ");
+  const cands = [i1, i2].filter(i=>i>0);
+  if(!cands.length) return null;
+  const i = Math.min(...cands); const sep = t.slice(i, i + (i===i1 ? 3 : 2));
+  return {cabeca:t.slice(0,i), sep, resto:t.slice(i+sep.length)};
+}
+function coTextoLinhaHtml(l){
+  if(l.pai_id) return esc(l.texto);
+  const c = coCabecaTexto(l.texto);
+  return c ? `<b>${esc(c.cabeca)}</b>${esc(c.sep)}${esc(c.resto)}` : esc(l.texto);
+}
+function coTooltip(x){ const quem = x.por && x.por.nome ? x.por.nome : "—"; return `${x.origem||"—"} · ${x.em?fmtDataHora(x.em):"—"} · por ${quem}`; }
+
+// ---- render ----
+function coBlocoHtml(pid){
+  const d = PAC_DETAIL[pid];
+  if(!d || ehSecretaria()) return "";
+  const cab = coDados(pid), edita = podeEditarCO();
+  const linhas = Array.isArray(cab.linhas) ? cab.linhas : [];
+  const marcadores = Array.isArray(cab.marcadores) ? cab.marcadores : [];
+  const vazio = !cab.titulo && !cab.subtitulo && !linhas.length && !marcadores.length && !cab.status_atual;
+  const f = CO_FORM && CO_FORM.pid===pid ? CO_FORM : null;
+  // ESTADO VAZIO: todo paciente nasce com {} — sem isto, no dia do deploy a equipe veria o
+  // esqueleto inteiro (placeholders, três seções "nenhuma linha") em cima de todo prontuário.
+  // Quem só lê vê uma linha discreta. Quem edita vê o título do bloco e UMA linha clicável,
+  // "+ montar cabeçalho oncológico"; o clique liga CO_UI.montar[pid] (estado de sessão, sem
+  // servidor) e aí sim vem o esqueleto. Com qualquer conteúdo gravado, a flag é ignorada.
+  // "Copiar para o prontuário" só quando o TEXTO GERADO não é vazio: o texto mescla o
+  // cabeçalho com comorbidades, medicações e alergias — com as três caixas preenchidas há
+  // o que copiar mesmo sem cabeçalho (o caso de todo paciente no dia do deploy). Botão que
+  // copia nada é botão morto.
+  const btnCopiar = coTextoProntuario(pid) ? `<button class="btn ghost co-btn" onclick="coCopiar(${pid})" title="Copia o cabeçalho e as três listas como texto puro, no formato do guia">Copiar para o prontuário</button>` : "";
+  const head = `<div class="co-head"><h3>Lista de problemas · cabeçalho oncológico</h3><div class="sp">
+      ${btnCopiar}
+      ${edita?`<button class="btn primary co-btn" onclick="coAbrirLinha(${pid},{})">+ Linha</button>`:""}
+    </div></div>`;
+  if(vazio && !edita) return `<div class="co" id="co-bloco-in">${head}<div class="co-vazio">— cabeçalho oncológico ainda não preenchido —</div></div>`;
+  if(vazio && edita && !f && !CO_UI.montar[pid]){
+    return `<div class="co" id="co-bloco-in"><div class="co-head"><h3>Lista de problemas · cabeçalho oncológico</h3>${btnCopiar?`<div class="sp">${btnCopiar}</div>`:""}</div>
+      <div class="co-montar" onclick="CO_UI.montar[${pid}]=true;coRepintar(${pid})">+ montar cabeçalho oncológico</div></div>`;
+  }
+  // Título e subtítulo (editáveis no lugar).
+  const campoTexto = (chave, cls, ph) => {
+    if(f && f.kind==="texto" && f.chave===chave) return coFormTextoHtml(pid, f);
+    const v = cab[chave] && cab[chave].texto;
+    if(!v && !edita) return "";
+    return `<div class="${cls} co-edit${edita?" pode":""}" ${edita?`onclick="coAbrirTexto(${pid},'${chave}')" title="${esc(v?coTooltip(cab[chave]):"Clique para preencher")}"`:`title="${esc(coTooltip(cab[chave]))}"`}>${v?esc(v):`<span class="co-ph">${ph}</span>`}</div>`;
+  };
+  const dx = `<div class="co-dx">${campoTexto("titulo","co-title","Título — diagnóstico, estadiamento ao diagnóstico e atual")}${campoTexto("subtitulo","co-sub","Subtítulo — marcadores que definiram o tratamento, data do diagnóstico, finalidade")}
+    ${f && f.kind==="linha" && !f.id && !f.pai_id && f.solto ? coFormLinhaHtml(pid, f) : ""}</div>`;
+  const secs = CO_TIPOS.map(tipo=>coSecaoHtml(pid, tipo, linhas, marcadores, edita, f)).join("");
+  let status = "";
+  if(f && f.kind==="texto" && f.chave==="status_atual") status = `<div class="co-status">${coFormTextoHtml(pid, f)}</div>`;
+  else if(cab.status_atual && cab.status_atual.texto) status = `<div class="co-status${edita?" pode":""}" ${edita?`onclick="coAbrirTexto(${pid},'status_atual')"`:""} title="${esc(coTooltip(cab.status_atual))}"><b>Status atual</b> — ${esc(cab.status_atual.texto)}</div>`;
+  else if(edita) status = `<div class="co-status pode" onclick="coAbrirTexto(${pid},'status_atual')"><b>Status atual</b> — <span class="co-ph">clique para registrar (em tratamento, em reestadiamento, seguimento…)</span></div>`;
+  return `<div class="co" id="co-bloco-in">${head}${dx}<div class="co-secs">${secs}</div>${status}</div>`;
+}
+function coResumo(tipo, topo, marcadores){
+  const partes = [];
+  if(topo.length){ const m = CO_META[tipo]; partes.push(`${topo.length} ${m.um}${topo.length>1?"s":""}`); const ult = [...topo].reverse().find(l=>l.data); if(ult) partes.push(`últim${tipo==="apresentacao"?"a":"o"} ${ult.data}`); }
+  if(tipo==="propedeutica" && marcadores.length) partes.push(`${marcadores.length} marcador${marcadores.length>1?"es":""}`);
+  return partes.length ? partes.join(" · ") : "vazia";
+}
+function coSecaoHtml(pid, tipo, linhas, marcadores, edita, f){
+  const topo = linhas.filter(l=>l.tipo===tipo && !l.pai_id);
+  const aberta = CO_UI.fechado[tipo]==null ? CO_ABERTO_PADRAO : !CO_UI.fechado[tipo];
+  const formAqui = f && f.kind==="linha" && f.tipo===tipo && !f.solto;
+  const expandido = !!CO_UI.expandido[tipo] || (f && f.kind==="linha" && f.id && f.tipo===tipo);
+  const ocultas = expandido ? 0 : Math.max(0, topo.length - CO_RECENTES);
+  const visiveis = topo.slice(ocultas);
+  let corpo = "";
+  if(ocultas) corpo += `<button class="co-vermais" onclick="CO_UI.expandido['${tipo}']=true;coRepintar(${pid})">▸ ver ${ocultas} anterior${ocultas>1?"es":""}</button>`;
+  for(const l of visiveis){
+    corpo += coLinhaHtml(pid, l, edita, f);
+    for(const s of linhas.filter(x=>x.pai_id===l.id)) corpo += coLinhaHtml(pid, s, edita, f);
+    if(formAqui && f.pai_id===l.id && !f.id) corpo += coFormLinhaHtml(pid, f);
+  }
+  if(formAqui && !f.id && !f.pai_id) corpo += coFormLinhaHtml(pid, f);
+  if(!topo.length && !formAqui && !(tipo==="propedeutica" && marcadores.length)) corpo += `<div class="lp-vazio" style="padding:2px 10px">— nenhuma linha —</div>`;
+  if(tipo==="propedeutica"){
+    corpo += marcadores.map(m=>coMarcadorHtml(pid, m, edita, f)).join("");
+    if(f && f.kind==="marcador") corpo += coFormMarcadorHtml(pid, f);
+    else if(edita) corpo += `<div class="co-mk-add"><button class="co-add" onclick="coAbrirMarcador(${pid})">+ marcador tumoral</button></div>`;
+  }
+  return `<details class="co-sec" data-tipo="${tipo}"${aberta?" open":""} ontoggle="CO_UI.fechado['${tipo}']=!this.open">
+    <summary><span class="co-tag ${tipo}">${CO_META[tipo].t}</span><span class="co-resumo">${esc(coResumo(tipo, topo, marcadores))}</span>${edita?`<button class="co-add" onclick="event.preventDefault();event.stopPropagation();coAbrirLinha(${pid},{tipo:'${tipo}'})">+ linha</button>`:""}</summary>
+    <div class="co-linhas">${corpo}</div></details>`;
+}
+function coLinhaHtml(pid, l, edita, f){
+  if(f && f.kind==="linha" && f.id===l.id) return coFormLinhaHtml(pid, f);
+  const sub = !!l.pai_id;
+  const quando = sub ? coQuandoSub(l) : (l.data || l.rotulo || "");
+  const dt = CO_DATA_NA_COLUNA ? `<div class="dt">${esc(quando)}</div>` : "";
+  const tx = CO_DATA_NA_COLUNA ? coTextoLinhaHtml(l) : `${quando?`<small>${esc(quando)}</small> · `:""}${coTextoLinhaHtml(l)}`;
+  return `<div class="co-row${sub?" filha":""}" data-id="${l.id}" title="${esc(coTooltip(l))}">${dt}<div class="tx${edita?" pode":""}" ${edita?`onclick="coEditarLinha(${pid},'${l.id}')"`:""}>${tx}</div>
+    ${edita?`<div class="acts">${(!sub && l.tipo==="terapeutica")?`<button title="Adicionar intercorrência deste tratamento" onclick="coAbrirLinha(${pid},{pai_id:'${l.id}'})">↳</button>`:""}<button title="Remover linha" onclick="coRemoverLinha(${pid},'${l.id}')">×</button></div>`:""}</div>`;
+}
+function coMarcadorHtml(pid, m, edita, f){
+  const pts = Array.isArray(m.pontos) ? m.pontos : [];
+  let ant = null;
+  const serie = pts.map((p,i)=>{
+    const n = coNumero(p.valor); const up = n!=null && ant!=null && n>ant; if(n!=null) ant = n;
+    const cls = i===pts.length-1 ? " last" : (up ? " up" : "");
+    return `<span class="pt${cls}" title="${esc(p.valor)} em ${esc(p.data)}${up?" — subiu em relação ao anterior":""}">${esc(p.valor)} <i>${esc(coDataCurta(p.data))}</i>${edita?`<button title="Remover este ponto" onclick="coRemoverPonto(${pid},'${m.id}',this)" data-valor="${esc(p.valor)}" data-data="${esc(p.data)}">×</button>`:""}</span>`;
+  }).join(`<span class="seta">→</span>`);
+  const formPonto = f && f.kind==="ponto" && f.marcador_id===m.id;
+  return `<div class="co-mk" data-id="${m.id}"><div class="co-mkName">${esc(m.nome)}${m.unidade?` <small>· ${esc(m.unidade)}</small>`:""}${edita?`<button class="x" title="Remover marcador e toda a série" onclick="coRemoverMarcador(${pid},'${m.id}')">×</button>`:""}</div>
+    <div class="co-serie">${serie||`<span class="lp-vazio">sem pontos</span>`}${edita&&!formPonto?`<button class="co-add" onclick="coAbrirPonto(${pid},'${m.id}')">+ ponto</button>`:""}</div>
+    ${formPonto?coFormPontoHtml(pid, f):""}</div>`;
+}
+const CO_HINT_DATA = "Data como está no prontuário: dd/mm/aaaa, mm/aaaa ou aaaa — o que falta fica em branco, nunca é completado.";
+function coFormLinhaHtml(pid, f){
+  const sub = !!f.pai_id;
+  const podeTipo = !sub;
+  return `<div class="co-form${sub?" filha":""}" id="co-form">
+    <div class="l1">
+      ${podeTipo?`<select onchange="CO_FORM.tipo=this.value;${f.solto?"const t=document.getElementById('co_texto');if(t)t.placeholder=CO_META[this.value].ph;":`coRepintar(${pid})`}" title="Seção">${CO_TIPOS.map(t=>`<option value="${t}"${f.tipo===t?" selected":""}>${CO_META[t].t}</option>`).join("")}</select>`:`<span class="co-tag terapeutica">Intercorrência</span>`}
+      <input class="dt" id="co_data" placeholder="dd/mm/aaaa" maxlength="10" value="${esc(f.data||"")}" oninput="CO_FORM.data=this.value" title="${CO_HINT_DATA}">
+      <input class="rt" id="co_rotulo" placeholder="${sub?"S1, C3, D15":"rótulo"}" maxlength="12" value="${esc(f.rotulo||"")}" oninput="CO_FORM.rotulo=this.value" title="Rótulo curto no lugar da data (S1, C3, D15)">
+    </div>
+    <textarea id="co_texto" placeholder="${esc(sub?"Ex.: Neutropenia febril, internação · Náusea G2":CO_META[f.tipo].ph)}" oninput="CO_FORM.texto=this.value" onkeydown="if(event.key==='Escape'){coFecharForm();}else if(event.key==='Enter'&&(event.metaKey||event.ctrlKey)){event.preventDefault();coSalvarLinha(${pid});}">${esc(f.texto||"")}</textarea>
+    <div class="l2"><button class="btn primary" onclick="coSalvarLinha(${pid})">${f.id?"Salvar":"Adicionar"}</button><button class="btn ghost" onclick="coFecharForm()">Cancelar</button><span class="hint">${CO_HINT_DATA}</span></div>
+  </div>`;
+}
+function coFormTextoHtml(pid, f){
+  const rot = {titulo:"Título", subtitulo:"Subtítulo", status_atual:"Status atual"}[f.chave];
+  return `<div class="co-form" id="co-form" onclick="event.stopPropagation()">
+    <textarea id="co_texto" placeholder="${rot}" oninput="CO_FORM.texto=this.value" onkeydown="if(event.key==='Escape'){coFecharForm();}else if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();coSalvarTexto(${pid});}">${esc(f.texto||"")}</textarea>
+    <div class="l2"><button class="btn primary" onclick="coSalvarTexto(${pid})">Salvar</button><button class="btn ghost" onclick="coFecharForm()">Cancelar</button><span class="hint">Vazio = remove o campo (nada fica em branco no prontuário).</span></div>
+  </div>`;
+}
+function coFormMarcadorHtml(pid, f){
+  return `<div class="co-form" id="co-form"><div class="l1">
+      <input class="nm" id="co_nome" placeholder="Marcador (CA 125, CEA, PSA…)" maxlength="40" value="${esc(f.nome||"")}" oninput="CO_FORM.nome=this.value">
+      <input class="un" placeholder="unidade" maxlength="20" value="${esc(f.unidade||"")}" oninput="CO_FORM.unidade=this.value">
+      <input class="vl" placeholder="1º valor" maxlength="20" value="${esc(f.valor||"")}" oninput="CO_FORM.valor=this.value">
+      <input class="dt" placeholder="mm/aaaa" maxlength="10" value="${esc(f.data||"")}" oninput="CO_FORM.data=this.value" onkeydown="if(event.key==='Enter'){event.preventDefault();coSalvarMarcador(${pid});}else if(event.key==='Escape'){coFecharForm();}" title="${CO_HINT_DATA}">
+    </div><div class="l2"><button class="btn primary" onclick="coSalvarMarcador(${pid})">Adicionar marcador</button><button class="btn ghost" onclick="coFecharForm()">Cancelar</button><span class="hint">Primeiro ponto opcional (valor + data); os próximos entram por "+ ponto".</span></div></div>`;
+}
+function coFormPontoHtml(pid, f){
+  return `<div class="co-form" id="co-form" style="margin-top:6px"><div class="l1">
+      <input class="vl" id="co_valor" placeholder="valor" maxlength="20" value="${esc(f.valor||"")}" oninput="CO_FORM.valor=this.value">
+      <input class="dt" placeholder="mm/aaaa" maxlength="10" value="${esc(f.data||"")}" oninput="CO_FORM.data=this.value" onkeydown="if(event.key==='Enter'){event.preventDefault();coSalvarPonto(${pid});}else if(event.key==='Escape'){coFecharForm();}" title="${CO_HINT_DATA}">
+      <button class="btn primary" onclick="coSalvarPonto(${pid})">Adicionar ponto</button><button class="btn ghost" onclick="coFecharForm()">Cancelar</button>
+    </div></div>`;
+}
+// Antes de repintar, lê o estado aberto/fechado das seções direto do DOM: o evento
+// `toggle` é assíncrono, e um repaint logo depois do clique leria CO_UI desatualizado.
+function coRepintar(pid){
+  const el=document.getElementById("co-bloco"); if(!el || current!==pid) return;
+  el.querySelectorAll("details.co-sec").forEach(d=>{ CO_UI.fechado[d.getAttribute("data-tipo")] = !d.open; });
+  el.innerHTML = coBlocoHtml(pid);
+}
+function coFoco(id){ const el=document.getElementById(id); if(el){ el.focus(); if(el.tagName==="TEXTAREA"){ el.selectionStart = el.selectionEnd = el.value.length; } } }
+
+// ---- abrir / fechar formulários (estado em CO_FORM; digitar não re-renderiza) ----
+function coAbrirLinha(pid, o){
+  const solto = !o.tipo && !o.pai_id; // "+ Linha" do cabeçalho: formulário no topo, com seletor de seção
+  CO_FORM = {pid, kind:"linha", id:null, tipo:o.tipo||"terapeutica", pai_id:o.pai_id||null, data:"", rotulo:"", texto:"", solto};
+  if(o.pai_id){ const l = (coDados(pid).linhas||[]).find(x=>x.id===o.pai_id); if(l) CO_FORM.tipo = l.tipo; CO_UI.expandido[CO_FORM.tipo] = true; }
+  if(o.tipo) CO_UI.fechado[o.tipo] = false;
+  coRepintar(pid); coFoco(o.pai_id ? "co_texto" : "co_data");
+}
+function coEditarLinha(pid, id){
+  const l = (coDados(pid).linhas||[]).find(x=>x.id===id); if(!l) return;
+  CO_FORM = {pid, kind:"linha", id, tipo:l.tipo, pai_id:l.pai_id||null, data:l.data||"", rotulo:l.rotulo||"", texto:l.texto||"", solto:false};
+  coRepintar(pid); coFoco("co_texto");
+}
+function coAbrirTexto(pid, chave){
+  const c = coDados(pid)[chave];
+  CO_FORM = {pid, kind:"texto", chave, texto:(c&&c.texto)||""};
+  coRepintar(pid); coFoco("co_texto");
+}
+function coAbrirMarcador(pid){ CO_FORM = {pid, kind:"marcador", nome:"", unidade:"", valor:"", data:""}; coRepintar(pid); coFoco("co_nome"); }
+function coAbrirPonto(pid, marcador_id){ CO_FORM = {pid, kind:"ponto", marcador_id, valor:"", data:""}; coRepintar(pid); coFoco("co_valor"); }
+function coFecharForm(){ const pid = CO_FORM && CO_FORM.pid; CO_FORM = null; if(pid) coRepintar(pid); }
+
+// ---- gravar (um PATCH = uma lista de operações = um evento na trilha) ----
+async function coPatch(pid, operacoes){
+  const botoes = document.querySelectorAll("#co-form .btn"); botoes.forEach(b=>b.disabled=true);
+  try{
+    const r = await api(`/pacientes/${pid}/cabecalho`, {method:"PATCH", body:JSON.stringify({operacoes})});
+    const d = PAC_DETAIL[pid]; if(d) d.cabecalho_oncologico = r.cabecalho_oncologico || {};
+    if(TRILHA[pid]!=null) carregarTrilha(pid);
+    return r;
+  }catch(e){ botoes.forEach(b=>b.disabled=false); throw e; }
+}
+async function coSalvarLinha(pid){
+  const f = CO_FORM; if(!f || f.pid!==pid || f.kind!=="linha") return;
+  const texto = (f.texto||"").trim(); if(!texto){ coFoco("co_texto"); return; }
+  const data = (f.data||"").trim(), rotulo = (f.rotulo||"").trim();
+  let ops;
+  if(f.id){
+    const l = (coDados(pid).linhas||[]).find(x=>x.id===f.id) || {};
+    const op = {op:"linha_editar", id:f.id};
+    if(texto!==(l.texto||"")) op.texto = texto;
+    if(data!==(l.data||"")) op.data = data || null;
+    if(rotulo!==(l.rotulo||"")) op.rotulo = rotulo || null;
+    if(!f.pai_id && f.tipo!==l.tipo) op.tipo = f.tipo;
+    if(Object.keys(op).length===2){ coFecharForm(); return; }
+    ops = [op];
+  }else{
+    ops = [Object.assign({op:"linha_adicionar", texto}, f.pai_id ? {pai_id:f.pai_id} : {tipo:f.tipo}, data ? {data} : {}, rotulo ? {rotulo} : {})];
+  }
+  try{
+    await coPatch(pid, ops);
+    const tipo = f.tipo; CO_FORM = null; CO_UI.fechado[tipo] = false; coRepintar(pid);
+    toast(f.id ? "Linha atualizada." : (f.pai_id ? "Intercorrência registrada." : `${CO_META[tipo].t}: linha registrada.`));
+  }catch(e){ alert("Falha ao gravar: "+e.message); }
+}
+async function coRemoverLinha(pid, id){
+  const l = (coDados(pid).linhas||[]).find(x=>x.id===id); if(!l) return;
+  const filhos = (coDados(pid).linhas||[]).filter(x=>x.pai_id===id).length;
+  if(!confirm(`Remover a linha "${(l.texto||"").slice(0,80)}"${filhos?` e ${filhos} intercorrência(s)`:""}?\n\nA remoção fica registrada na trilha do paciente.`)) return;
+  try{ await coPatch(pid, [{op:"linha_remover", id}]); coRepintar(pid); toast("Linha removida."); }
+  catch(e){ alert("Falha ao remover: "+e.message); }
+}
+async function coSalvarTexto(pid){
+  const f = CO_FORM; if(!f || f.pid!==pid || f.kind!=="texto") return;
+  try{ await coPatch(pid, [{op:f.chave, texto:(f.texto||"").trim()}]); CO_FORM = null; coRepintar(pid); toast("Cabeçalho atualizado."); }
+  catch(e){ alert("Falha ao gravar: "+e.message); }
+}
+async function coSalvarMarcador(pid){
+  const f = CO_FORM; if(!f || f.pid!==pid || f.kind!=="marcador") return;
+  const nome = (f.nome||"").trim(); if(!nome){ coFoco("co_nome"); return; }
+  const valor = (f.valor||"").trim(), data = (f.data||"").trim();
+  if((valor && !data) || (!valor && data)){ alert("O primeiro ponto precisa de valor E data — ou deixe os dois vazios."); return; }
+  const op = {op:"marcador_adicionar", nome}; if((f.unidade||"").trim()) op.unidade = f.unidade.trim(); if(valor) op.pontos = [{valor, data}];
+  try{ await coPatch(pid, [op]); CO_FORM = null; CO_UI.fechado.propedeutica = false; coRepintar(pid); toast(`Marcador ${nome} registrado.`); }
+  catch(e){ alert("Falha ao gravar: "+e.message); }
+}
+async function coSalvarPonto(pid){
+  const f = CO_FORM; if(!f || f.pid!==pid || f.kind!=="ponto") return;
+  const valor = (f.valor||"").trim(), data = (f.data||"").trim();
+  if(!valor){ coFoco("co_valor"); return; }
+  try{ await coPatch(pid, [{op:"ponto_adicionar", marcador_id:f.marcador_id, valor, data}]); CO_FORM = null; coRepintar(pid); toast("Ponto registrado."); }
+  catch(e){ alert("Falha ao gravar: "+e.message); }
+}
+async function coRemoverPonto(pid, marcador_id, btn){
+  const valor = btn.getAttribute("data-valor"), data = btn.getAttribute("data-data");
+  if(!confirm(`Remover o ponto ${valor} (${data}) da série?\n\nA remoção fica registrada na trilha do paciente.`)) return;
+  try{ await coPatch(pid, [{op:"ponto_remover", marcador_id, valor, data}]); coRepintar(pid); toast("Ponto removido."); }
+  catch(e){ alert("Falha ao remover: "+e.message); }
+}
+async function coRemoverMarcador(pid, id){
+  const m = (coDados(pid).marcadores||[]).find(x=>x.id===id); if(!m) return;
+  if(!confirm(`Remover o marcador ${m.nome} e toda a série (${(m.pontos||[]).length} ponto(s))?\n\nA remoção fica registrada na trilha do paciente.`)) return;
+  try{ await coPatch(pid, [{op:"marcador_remover", id}]); coRepintar(pid); toast(`Marcador ${m.nome} removido.`); }
+  catch(e){ alert("Falha ao remover: "+e.message); }
+}
+
+// ---- COPIAR PARA O PRONTUÁRIO — texto puro, na ordem do guia ----
+// TÍTULO EM CAIXA ALTA / (subtítulo) / linhas com hífen em ordem cronológica — as três
+// seções mescladas pela data parcial, sem data ao fim —, intercorrências como "     > "
+// sob a linha do tratamento / - Status atual / Comorbidades: / Alergias: / Medicações de
+// uso domiciliar: / Marcadores tumorais: (uma linha por marcador, série com setas) /
+// Exames relevantes: (o exame mais recente da propedêutica). Seção sem conteúdo NÃO sai
+// (nada de "Alergias: nenhuma"). Sem markdown, sem asterisco, sem emoji — vai para o TASY.
+// A linha "cabeça (data): resto" usa a mesma cabeça da tela (" — " ou ": " no início);
+// sem cabeça, "texto (data)"; sem data, só o texto.
+function coLinhaTexto(l){
+  const data = l.data || l.rotulo || "";
+  const c = coCabecaTexto(l.texto);
+  if(!data) return l.texto;
+  return c ? `${c.cabeca} (${data}): ${c.resto}` : `${l.texto} (${data})`;
+}
+function coTextoProntuario(pid){
+  const d = PAC_DETAIL[pid] || {}; const cab = coDados(pid);
+  const linhas = Array.isArray(cab.linhas) ? cab.linhas : [];
+  const marcadores = Array.isArray(cab.marcadores) ? cab.marcadores : [];
+  const out = [];
+  if(cab.titulo && cab.titulo.texto) out.push(cab.titulo.texto.toLocaleUpperCase("pt-BR"));
+  if(cab.subtitulo && cab.subtitulo.texto) out.push(cab.subtitulo.texto);
+  const topo = linhas.filter(l=>!l.pai_id).map((l,i)=>({l,i,k:coChaveData(l.data)}))
+    .sort((a,b)=> (a.k&&b.k) ? (a.k<b.k?-1:a.k>b.k?1:a.i-b.i) : (a.k&&!b.k) ? -1 : (!a.k&&b.k) ? 1 : a.i-b.i).map(x=>x.l);
+  const cron = [];
+  for(const l of topo){
+    cron.push(`- ${coLinhaTexto(l)}`);
+    const filhos = linhas.filter(x=>x.pai_id===l.id);
+    if(filhos.length) cron.push(`     > ${filhos.map(f=>{ const q = f.rotulo || f.data || ""; return q ? `${f.texto} (${q})` : f.texto; }).join("; ")}`);
+  }
+  if(cab.status_atual && cab.status_atual.texto) cron.push(`- Status atual: ${cab.status_atual.texto}`);
+  if(cron.length){ if(out.length) out.push(""); out.push(...cron); }
+  const lista = (chave, rotulo) => { const itens = Array.isArray(d[chave]) ? d[chave].map(i=>i.texto).filter(Boolean) : []; if(itens.length){ out.push(""); out.push(`${rotulo}: ${itens.join("; ")}`); } };
+  lista("comorbidades", "Comorbidades");
+  lista("alergias", "Alergias");
+  lista("medicacoes_uso", "Medicações de uso domiciliar");
+  const comSerie = marcadores.filter(m=>(m.pontos||[]).length);
+  if(comSerie.length){
+    out.push(""); out.push("Marcadores tumorais:");
+    for(const m of comSerie) out.push(`${m.nome}${m.unidade?` (${m.unidade})`:""}: ${m.pontos.map(p=>`${p.valor} (${p.data})`).join(" -> ")}`);
+  }
+  const exames = topo.filter(l=>l.tipo==="propedeutica" && l.data);
+  if(exames.length){ out.push(""); out.push("Exames relevantes:"); out.push(coLinhaTexto(exames[exames.length-1])); }
+  return out.join("\n").replace(/^\n+/, "").trim();
+}
+async function coCopiar(pid){
+  const txt = coTextoProntuario(pid);
+  if(!txt){ toast("Nada para copiar — o cabeçalho e as listas estão vazios."); return; }
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(txt);
+    else { const ta = document.createElement("textarea"); ta.value = txt; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); }
+    toast("Texto do prontuário copiado ✓");
+  }catch(e){ alert("Não foi possível copiar automaticamente. Texto:\n\n"+txt); }
 }
 
 // ---- FICHA ADMINISTRATIVA (secretaria) ----
@@ -3847,6 +4288,8 @@ function administrativoEntryHtml(it){
     ? `📅 Retorno reagendado: ${fmtData(it.data_anterior)} → <b>${fmtData(it.data)}</b>`
     : ev==="lista_problemas"
     ? `📋 Lista de problemas atualizada`
+    : ev==="cabecalho_oncologico"
+    ? `📋 Cabeçalho oncológico atualizado`
     : `📞 Contato com o paciente · ${esc(MEIO_CONTATO_LABEL[it.meio]||it.meio||"—")} · ${fmtData(it.data)}`;
   return `<div class="proto hist-entry adm">
     <div class="row1">
