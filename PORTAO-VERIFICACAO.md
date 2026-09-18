@@ -313,6 +313,11 @@ migration em dev antes de fazer deploy é o ponto de ter os dois.
          decisão baseado em evidência — nada aqui é recomendação clínica; informa, o
          médico decide."* O badge era uma afirmação **falsa** sobre o conteúdo do banco a
          partir do momento em que entra paciente de verdade.
+   - [ ] **"Instituição", não "hospital"** (Rodada C, 2026-09-17): os textos da app dizem
+         *instituição* — "Identificador (registro da instituição)", "o que a instituição
+         paga pelos insumos" (Recursos, duas vezes). O nome próprio "Hospital Orizonti" no
+         cabeçalho de Pacientes ficou como está (é nome, não substantivo); comentários de
+         código não contam como texto da app.
    - [ ] **Campo de nome orienta, não bloqueia.** Rótulo e placeholder dizem "Iniciais +
          nº de atendimento (não usar nome)". É orientação de tela: validação que recusasse
          texto aqui só ensinaria a burlá-la (o nome entraria com um ponto no meio).
@@ -492,11 +497,27 @@ que a resposta **não contém** `regra`, `referencia`, `beneficio`, `custo` nem 
 (`A1 ★`), e que revisor e gestor levam 403 nela.
 
 **Whitelists literais** (`backend/src/auth/importacao.guard.ts`): propor =
-`['secretaria','admin']` (o oncologista **não** propõe — ele registra direto, e passar
-pela proposta seria assinar duas vezes); ler = `['oncologista','admin','secretaria']`
-(o serviço corta o payload para a secretaria); decidir (validar/descartar) =
-`['oncologista','admin']` — mesma lista da escrita de avaliação, **escrita de novo** em
-vez de importada, para que estreitar uma não estreite a outra por acidente.
+`['secretaria','oncologista','admin']` (e a extração do PDF herda esta lista); ler =
+`['oncologista','admin','secretaria']` (o serviço corta o payload para a secretaria);
+decidir (validar/descartar) = `['oncologista','admin']` — mesma lista da escrita de
+avaliação, **escrita de novo** em vez de importada, para que estreitar uma não estreite
+a outra por acidente; vocabulário = a mesma lista de quem propõe.
+
+**O oncologista importa (2026-09-17, pedido da direção — Rodada C).** Até aqui ele não
+propunha ("registra direto; passar pela proposta seria assinar duas vezes"). Com a leitura
+do PDF o caminho PDF → extração → proposta poupa a digitação também para ele, então a
+whitelist de propor (e a do vocabulário) ganhou `oncologista`. Quando é ele quem importa,
+**ele mesmo valida em seguida** — não há regra de conflito aqui, ao contrário da
+autorização de exceção: as duas pontas são a mesma alçada clínica, e a proposta continua
+sendo envelope (nada vira registro antes do Validar, seja de quem for). Na tela, o
+"+ Novo paciente" dele oferece "Cadastrar manualmente | Importar"; no modo Importar o bloco
+"Tumor do paciente" **some** (o tumor vem na proposta e é gravado na validação), e
+"Cadastrar e enviar proposta" abre a ficha **já com o painel de validação** ("Enviada por
+… (você)"). Revisor e gestor seguem 403 em propor, extrair e vocabulário. Checks `I1`–`I6`
+do `portao-importacao` (API: vocabulário 200, proposta 201 **com** o payload de volta,
+validação pelo próprio → vigente assinado por ele, trilha com "proposta por <ele>" e
+"validada por <ele>"; UI: toggle, sem bloco de tumor, painel na própria ficha, Validar →
+vigente) e `A1` do `portao-extracao` (oncologista passa da whitelist de extrair).
 
 **Validação é TUDO ou NADA.** Primitivos, avaliação, retorno e o carimbo da proposta
 entram num commit só (`dataSource.transaction`; `criarAvaliacao` e `RetornosService.criar`
@@ -716,6 +737,40 @@ por API, **somente leitura** (nenhum POST sai do simulador; nada é criado no ba
 Roda 2×. Em produção (`PORTAO_API=https://oncoguia-backend.vercel.app/api`) só depois de
 publicado; D6 então tem de mostrar os 14 em *Aguardando re-revisão*. Se o `semaforo.ts` ou o
 `evalExpr` da app mudarem, é este portão (D7) que acusa a dessincronia — junto com o da importação.
+
+## Justificativa do solicitante (2026-09-17, Rodada C) — checks `U4`/`U6`/`A3`/`A7`/`B5`/`E0`/`E1` do `portao-autorizacao`
+
+Pedido da direção: ao pedir um protocolo **Inelegível** ou **Não incorporado**, o
+oncologista escreve uma **justificativa obrigatória**; o auditor a lê ao decidir; a
+trilha registra **as duas pontas** (justificativa + parecer). Até aqui o Inelegível era um
+`confirm()` sem texto e o Não incorporado um `prompt()` cujo texto ia **embutido** em
+`detalhe_semaforo.ressalva` ("… — justificativa: <texto>").
+
+- **Coluna própria:** `avaliacoes.justificativa_solicitante` (migration
+  `JustificativaSolicitante1790121600000`, com **backfill** do legado pelo marcador
+  `justificativa: ` da ressalva — a ressalva não é alterada). A ressalva passa a guardar
+  só o **contexto** montado pela app ("Selecionado apesar de Inelegível — critérios: …" /
+  "apesar de NÃO incorporado (motivo)").
+- **Obrigatória NO SERVIDOR, depois de o servidor decidir que é exceção**
+  (`PacientesService.criarAvaliacao`): exceção sem texto (ausente ou em branco) = **400**
+  nomeando a justificativa, **nada criado** — nos dois eixos e também quando o cliente
+  mente `nao_necessaria` para um não incorporado (a mentira não vira vigente **nem**
+  pendente sem texto). Seleção normal ignora o campo (coluna `null`).
+- **Um diálogo só** na app (`pedirJustificativaExcecao`, overlay `#exc-modal`) para os
+  dois eixos: mostra **por que** é exceção (critérios que falharam / motivo da não
+  incorporação + nota do revisor), avisa que só vira vigente com o auditor, e pede a
+  justificativa numa textarea. Confirmar vazio **não envia** (aviso inline, diálogo
+  aberto, 0 avaliações); digitar é **0 re-render** (o overlay vive fora do `render()`);
+  Escape/Cancelar = nada gravado. Os dois pontos de seleção (ficha ao vivo e reavaliação)
+  passam por ele.
+- **Onde aparece:** fila do auditor — seção **"Justificativa do solicitante"** (do
+  payload `justificativa`; para o legado a app extrai da ressalva; sem nada, diz
+  "solicitação anterior a 17/09/2026") + linha "Contexto da seleção" com a ressalva;
+  seguimento (bloco "Solicitações de exceção"), card do vigente, item da seleção na trilha
+  e **item da decisão** na trilha (que traz justificativa **e** parecer, para ler as duas
+  pontas juntas — `retornos.service` trilha, `justificativa_solicitante` nos dois itens).
+- **Portões que criam exceção por API mandam o campo** (`portao-autorizacao`,
+  `portao-perfis` K2, `portao-retorno` L9) — sem ele, 400.
 
 ## Decisão de papel — o auditor decide MÉRITO, não custo
 

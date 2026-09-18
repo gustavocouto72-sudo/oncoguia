@@ -403,8 +403,9 @@ export class RetornosService {
         snapshot_campos: a.snapshot_campos,
         retorno_id: a.retorno_id ?? null, // ≠ null: nasceu de um retorno (troca de protocolo)
         // Estado da solicitação de exceção desta seleção (⏳ pendente aparece aqui; a
-        // decisão vira item próprio, abaixo).
+        // decisão vira item próprio, abaixo) e a justificativa de quem pediu.
         autorizacao_estado: a.autorizacao_estado,
+        justificativa_solicitante: a.justificativa_solicitante ?? null,
         por: a.avaliadoPor
           ? { id: a.avaliadoPor.id, nome: a.avaliadoPor.nome, perfil: a.avaliadoPor.perfil }
           : null,
@@ -420,6 +421,9 @@ export class RetornosService {
           _instante: new Date(a.autorizacao_decidida_em).getTime(),
           estado: a.autorizacao_estado, // aprovada | negada
           regimen_id: a.regimen_id,
+          // As duas pontas no item da decisão: o que o médico pediu e o que o auditor
+          // respondeu — lidas juntas, sem ir procurar a seleção mais acima na trilha.
+          justificativa_solicitante: a.justificativa_solicitante ?? null,
           parecer: a.autorizacao_parecer,
           por: a.autorizacaoAuditor
             ? { id: a.autorizacaoAuditor.id, nome: a.autorizacaoAuditor.nome, perfil: a.autorizacaoAuditor.perfil }

@@ -2261,17 +2261,22 @@ function renderCadastro(){
       <div class="field"><label>Plano</label><input id="f_plano" placeholder="Ex.: Pleno / Executivo" value="${esc(CADASTRO.plano||"")}" oninput="CADASTRO.plano=this.value"></div>
       <div class="field"><label>Carteirinha</label><input id="f_cart" placeholder="Número da carteirinha" value="${esc(CADASTRO.cart||"")}" oninput="CADASTRO.cart=this.value"></div>
     </div>`;
-  // SECRETARIA, cadastro novo: "Cadastrar manualmente | Importar". Importar = o mesmo
-  // cadastro administrativo + a seção "dados clínicos para validação médica", que vira
-  // PROPOSTA (envelope) — nada clínico entra no paciente por ela. Ver bloco IMPORTAÇÃO.
-  const importar = adm && !edit && CADASTRO.modo==="importar";
-  const modoHtml = (adm && !edit) ? `<div class="seg cad-modo">
+  // Cadastro novo de quem PROPÕE (secretaria, oncologista, admin): "Cadastrar manualmente
+  // | Importar". Importar = o mesmo cadastro administrativo + a seção "dados clínicos para
+  // validação médica", que vira PROPOSTA (envelope) — nada clínico entra no paciente por
+  // ela, seja de quem for. Para o perfil clínico o bloco "Tumor do paciente" some neste
+  // modo: o tumor vem na proposta e é gravado na validação, que ele mesmo faz em seguida
+  // na ficha. Ver bloco IMPORTAÇÃO.
+  const importar = podeProporImportacao() && !edit && CADASTRO.modo==="importar";
+  const modoHtml = (podeProporImportacao() && !edit) ? `<div class="seg cad-modo">
       <button id="cad_modo_manual" class="${importar?"":"on"}" onclick="setCadModo('manual')">Cadastrar manualmente</button>
       <button id="cad_modo_importar" class="${importar?"on":""}" onclick="setCadModo('importar')">Importar (com dados clínicos para validação)</button>
     </div>` : "";
   const importarHtml = importar ? `
     <div class="section-t">Dados clínicos para validação médica</div>
-    <div class="hint" style="margin-bottom:8px">O que você preencher aqui <b>não vira registro clínico</b>: fica como <b>proposta pendente</b> até o médico abrir o paciente, conferir cada valor contra o trecho do prontuário e validar. Você verá apenas "proposta enviada, aguardando validação".</div>
+    <div class="hint" style="margin-bottom:8px">${adm
+      ? `O que você preencher aqui <b>não vira registro clínico</b>: fica como <b>proposta pendente</b> até o médico abrir o paciente, conferir cada valor contra o trecho do prontuário e validar. Você verá apenas "proposta enviada, aguardando validação".`
+      : `O que você preencher aqui entra como <b>proposta</b>, não como registro: ao enviar, a ficha do paciente abre com o painel de validação — você confere cada valor contra o trecho do prontuário, corrige o que precisar e <b>valida</b>. Só a validação grava os primitivos e, se o semáforo for verde, o protocolo vigente.`}</div>
     <div id="imp-clin">${impFormHtml()}</div>` : "";
   app().innerHTML = `
   <div class="crumbs"><a onclick="go('lista')">Pacientes</a> › <b>${edit?"Editar dados cadastrais":importar?"Importar paciente":"Novo paciente"}</b></div>
@@ -2283,16 +2288,18 @@ function renderCadastro(){
               : `Cadastro administrativo do paciente. O contexto clínico é registrado pelo médico.`)
       : edit
       ? `Correção dos dados cadastrais: nome, identificador, contexto tumoral e biologia estável. O histórico de avaliações permanece imutável.`
+      : importar
+      ? `Dados administrativos + os dados clínicos lidos do prontuário (PDF ou formulário), que entram como <b>proposta</b> e viram registro quando você validar na ficha.`
       : `Dados administrativos + o <b>tumor do paciente</b> (atributo do paciente, não escolha por visita) e a <b>biologia estável</b> (imutável no tempo). O estado clínico dinâmico é registrado nas avaliações.`}</div>
     <div class="grid2">
       <div class="field"><label>Iniciais + nº de atendimento (não usar nome)</label><input id="f_nome" placeholder="Iniciais + nº de atendimento (não usar nome)" value="${esc(CADASTRO.nome||"")}" oninput="CADASTRO.nome=this.value"><div class="hint">Ex.: <b>M.S.R. — 2026-004821</b>. Piloto com pacientes reais anonimizados: o nome não entra no sistema.</div></div>
-      <div class="field"><label>Identificador (registro do hospital)</label><input id="f_ident" placeholder="Ex.: 2026-004821" value="${esc(CADASTRO.ident||"")}" oninput="CADASTRO.ident=this.value"></div>
+      <div class="field"><label>Identificador (registro da instituição)</label><input id="f_ident" placeholder="Ex.: 2026-004821" value="${esc(CADASTRO.ident||"")}" oninput="CADASTRO.ident=this.value"></div>
     </div>
     ${adminHtml}
     ${medidasHtml}
     ${importarHtml}
 
-    ${adm ? "" : `<div class="section-t">Tumor do paciente</div>
+    ${(adm || importar) ? "" : `<div class="section-t">Tumor do paciente</div>
     <div id="cad-onco">${cadOncoHtml()}</div>`}
 
     ${edit?"":`<div class="hint" style="margin-top:14px">Vínculo sempre por operadora (saúde suplementar). A guia gerada segue o padrão TISS/ANS.</div>`}
@@ -2428,29 +2435,7 @@ async function salvarCadastro(){
         abrir(pid);
         return;
       }
-      if(CADASTRO.modo==="importar"){
-        // IMPORTAR: cadastro pela rota normal + proposta pela rota nova. Se a proposta
-        // falhar (JSON colado com valor fora do vocabulário, por exemplo), o paciente já
-        // existe: a tela fica aberta e a próxima tentativa envia SÓ a proposta.
-        if(!IMP || !IMP.tumor){ alert("Selecione o tumor do paciente para enviar a proposta (ou volte para Cadastrar manualmente)."); return; }
-        const payload = impPayload();
-        let pid = CADASTRO.pacienteCriadoId;
-        if(!pid){
-          const p = await api("/pacientes", {method:"POST", body:JSON.stringify(adm)});
-          pid = p.id; CADASTRO.pacienteCriadoId = pid;
-        }
-        try{
-          await api(`/pacientes/${pid}/importacao-proposta`, {method:"POST", body:JSON.stringify(payload)});
-        }catch(e){
-          alert("Paciente cadastrado, mas a proposta NÃO foi enviada: "+e.message+"\n\nCorrija e clique de novo em \"Cadastrar e enviar proposta\" — só a proposta será reenviada.");
-          return;
-        }
-        CADASTRO=null; IMP=null;
-        await carregarPacientes();
-        toast("Proposta enviada — aguardando validação clínica.");
-        abrir(pid);
-        return;
-      }
+      if(CADASTRO.modo==="importar"){ await cadastrarEImportar(adm); return; }
       const p = await api("/pacientes", {method:"POST", body:JSON.stringify(adm)});
       CADASTRO=null;
       await carregarPacientes();
@@ -2480,6 +2465,18 @@ async function salvarCadastro(){
       abrir(pid);
       return;
     }
+    if(CADASTRO.modo==="importar"){
+      // ONCOLOGISTA/ADMIN importando: o cadastro nasce só com o administrativo (sem tumor —
+      // ele vem na proposta e é gravado na validação, que este mesmo usuário faz em
+      // seguida na ficha). Mesmo fluxo da secretaria; a ficha abre com o painel.
+      await cadastrarEImportar({
+        nome, nasc:CADASTRO.nasc||null, sexo:CADASTRO.sexo||"F",
+        cidade:CADASTRO.cidade||"—", operadora:CADASTRO.oper||OPERADORAS[0], plano:CADASTRO.plano||"—", carteirinha:CADASTRO.cart||"—",
+        identificador:(CADASTRO.ident||"").trim()||null,
+        peso_kg: peso, altura_cm: altura,
+      });
+      return;
+    }
     const p = await api("/pacientes", {method:"POST", body:JSON.stringify({
       nome, nasc:CADASTRO.nasc||null, sexo:CADASTRO.sexo||"F",
       cidade:CADASTRO.cidade||"—", operadora:CADASTRO.oper||OPERADORAS[0], plano:CADASTRO.plano||"—", carteirinha:CADASTRO.cart||"—",
@@ -2493,6 +2490,30 @@ async function salvarCadastro(){
     current=p.id; pacTab="dados"; REAVAL=null; view="paciente"; render();
     carregarDetalhe(p.id);
   }catch(e){ alert("Falha ao salvar paciente: "+e.message); }
+}
+// IMPORTAR (secretaria, oncologista, admin): cadastro pela rota normal + proposta pela
+// rota de importação. Se a proposta falhar (JSON colado com valor fora do vocabulário,
+// por exemplo), o paciente já existe: a tela fica aberta e a próxima tentativa envia SÓ
+// a proposta. Depois, a ficha abre — para a secretaria, o aviso "aguardando validação";
+// para o oncologista/admin, o painel de validação, já que o validador é ele.
+async function cadastrarEImportar(adm){
+  if(!IMP || !IMP.tumor){ alert("Selecione o tumor do paciente para enviar a proposta (ou volte para Cadastrar manualmente)."); return; }
+  const payload = impPayload();
+  let pid = CADASTRO.pacienteCriadoId;
+  if(!pid){
+    const p = await api("/pacientes", {method:"POST", body:JSON.stringify(adm)});
+    pid = p.id; CADASTRO.pacienteCriadoId = pid;
+  }
+  try{
+    await api(`/pacientes/${pid}/importacao-proposta`, {method:"POST", body:JSON.stringify(payload)});
+  }catch(e){
+    alert("Paciente cadastrado, mas a proposta NÃO foi enviada: "+e.message+"\n\nCorrija e clique de novo em \"Cadastrar e enviar proposta\" — só a proposta será reenviada.");
+    return;
+  }
+  CADASTRO=null; IMP=null;
+  await carregarPacientes();
+  toast(ehSecretaria() ? "Proposta enviada — aguardando validação clínica." : "Proposta enviada — confira e valide na ficha do paciente.");
+  abrir(pid);
 }
 function abrir(id, tab){
   current=id; pacTab=tab||"dados"; REAVAL=null; RETORNO=null; SADT=null; LP_FORM=null; view="paciente"; render();
@@ -2854,13 +2875,15 @@ async function salvarContato(pid, btn){
 }
 
 // =================== IMPORTAÇÃO DE PACIENTES — duas alçadas, um ponto de digitação ===================
-// A secretaria importa o paciente inteiro: o cadastro vai pela rota normal (POST /pacientes,
-// só administrativo) e os dados clínicos vão como PROPOSTA PENDENTE (POST
-// /pacientes/:id/importacao-proposta) — envelope, não registro. Ela vê só "proposta enviada,
-// aguardando validação". O oncologista abre o paciente, vê a tabela pronta (campo, valor
-// proposto, trecho do prontuário), corrige o que precisar e VALIDA: o clique dele é o que
-// grava os primitivos, roda o semáforo NO SERVIDOR e — só no verde — cria a avaliação
-// vigente com a nota de importação (o servidor monta a nota; a tela só mostra os fatos).
+// Quem importa (secretaria, oncologista, admin — podeProporImportacao) importa o paciente
+// inteiro: o cadastro vai pela rota normal (POST /pacientes, só administrativo) e os dados
+// clínicos vão como PROPOSTA PENDENTE (POST /pacientes/:id/importacao-proposta) — envelope,
+// não registro. A secretaria vê só "proposta enviada, aguardando validação". O oncologista
+// abre o paciente, vê a tabela pronta (campo, valor proposto, trecho do prontuário), corrige
+// o que precisar e VALIDA: o clique dele é o que grava os primitivos, roda o semáforo NO
+// SERVIDOR e — só no verde — cria a avaliação vigente com a nota de importação (o servidor
+// monta a nota; a tela só mostra os fatos). Quando é o próprio oncologista quem importa
+// (desde 17/09/2026), a ficha abre direto no painel e ele valida em seguida.
 //
 // Vocabulário: a secretaria não lê /evidencia (403; EVIDENCIA fica nula na sessão dela).
 // O formulário dela desenha tumores, campos primitivos e NOMES de protocolo a partir de
@@ -2876,7 +2899,10 @@ let IMP_VOCAB = null;  // GET /importacao/vocabulario (null = não carregado)
 let IMP_PROP = {};     // pid -> proposta mais recente (GET) | null (nenhuma) | undefined (carregando)
 let IMP_VAL = null;    // painel de validação aberto: {pid, id, tumor, valores:{campo→valor}, regimen_id, linha}
 function podeLerProposta(){ return !!(USUARIO && ["oncologista","admin","secretaria"].includes(USUARIO.perfil)); }
-function podeProporImportacao(){ return !!(USUARIO && ["secretaria","admin"].includes(USUARIO.perfil)); }
+// Quem IMPORTA (PDF → extração → proposta): secretaria, oncologista e admin — whitelist
+// literal, espelho de PERFIS_PROPOR no backend. O oncologista entrou em 17/09/2026 (pedido
+// da direção): quando é ele quem importa, valida em seguida na própria ficha.
+function podeProporImportacao(){ return !!(USUARIO && ["secretaria","oncologista","admin"].includes(USUARIO.perfil)); }
 
 async function carregarVocabImportacao(){
   if(IMP_VOCAB) return IMP_VOCAB;
@@ -3101,7 +3127,7 @@ function impPainelHtml(pid, pr){
   }).join("");
   return `<div class="imp-painel" id="imp-painel">
     <div class="rv-t" style="color:#8a5d05">⏳ Proposta de importação aguardando a sua validação</div>
-    <div class="hint" style="margin-top:4px">Enviada por <b>${esc(pr.criada_por?pr.criada_por.nome:"—")}</b> em ${fmtDataHora(pr.criada_em)}. Nada abaixo é registro clínico ainda: ao <b>Validar</b>, os primitivos são gravados no paciente, o semáforo é conferido no servidor e, <b>só se verde</b> (elegível + incorporado), o protocolo entra como vigente com a nota de importação — assinado por você. Qualquer outra cor: nada é selecionado e o motivo volta aqui.</div>
+    <div class="hint" style="margin-top:4px">Enviada por <b>${esc(pr.criada_por?pr.criada_por.nome:"—")}</b>${pr.criada_por&&USUARIO&&pr.criada_por.id===USUARIO.id?" (você)":""} em ${fmtDataHora(pr.criada_em)}. Nada abaixo é registro clínico ainda: ao <b>Validar</b>, os primitivos são gravados no paciente, o semáforo é conferido no servidor e, <b>só se verde</b> (elegível + incorporado), o protocolo entra como vigente com a nota de importação — assinado por você. Qualquer outra cor: nada é selecionado e o motivo volta aqui.</div>
     ${fatos?`<div class="hint" style="margin-top:6px">${fatos}</div>`:""}
     ${m.sem_campo&&m.sem_campo.length?`<div class="hint" style="margin-top:4px">Sem campo no sistema (vai para a nota): ${m.sem_campo.map(esc).join("; ")}</div>`:""}
     ${m.historico?`<div class="hint" style="margin-top:4px;white-space:pre-wrap">${esc(m.historico)}</div>`:""}
@@ -3418,6 +3444,7 @@ function renderSeguimentoResumo(p, detail){
       </div>
       <div class="hm" style="margin-top:8px">${u.linha_tratamento?`<b>${u.linha_tratamento}ª linha</b> · `:""}em <b>${fmtDataHora(u.data)}</b> · por <b>${esc(u.avaliado_por?u.avaliado_por.nome:"—")}</b>${u.avaliado_por&&u.avaliado_por.perfil?` <span class="hint">(${esc(u.avaliado_por.perfil)})</span>`:""}</div>
       ${u.detalhe_semaforo&&u.detalhe_semaforo.ressalva?`<div class="hint" style="margin-top:8px;color:var(--amber);font-weight:700">⚠️ ${esc(u.detalhe_semaforo.ressalva)}</div>`:""}
+      ${autorizacaoSeloHtml(u)}
       <div class="hint" style="margin-top:10px;font-weight:700">Fotografia clínica desta avaliação</div>
       <div class="crit" style="margin-top:6px">${snapshotChipsFor(u.snapshot_campos, detail.tumor)}</div>
     </div>`;
@@ -3435,6 +3462,7 @@ function renderSeguimentoResumo(p, detail){
     const M = AUT_ESTADO_META[e.autorizacao_estado]||{};
     return `<div class="aut-pend-item"><span class="aut-selo ${M.cls}" title="${esc(M.tip||"")}">${M.ic} ${M.t}</span>
       <b>${esc(protocoloNome(e.regimen_id))}</b>${e.linha_tratamento?` · ${e.linha_tratamento}ª linha`:""} · ${fmtDataHora(e.data)}
+      ${justificativaHtml(e, e.avaliado_por)}
       ${e.autorizacao_parecer?`<div class="aut-parecer"><b>Parecer${e.autorizacao_auditor?` (${esc(e.autorizacao_auditor)})`:""}:</b> ${esc(e.autorizacao_parecer)}</div>`:""}</div>`;
   };
   const excHtml = (pend.length||decid.length) ? `<div class="aut-pend-aviso">
@@ -3712,23 +3740,23 @@ async function gravarAvaliacao(pid, rid, status, btn){
     critsSel = crits;
     detalhe_semaforo = {status, crits: crits.map(c=>({label:c.label, status:c.status, detail:c.detail||""}))};
   }
-  // Inelegível não bloqueia: confirma com o médico e grava a ressalva (rastro de auditoria).
-  const ressalvaElig = confirmarSeInelegivel(status, critsSel);
-  if(ressalvaElig===null) return;
-  // Não incorporado também não bloqueia — mas exige justificativa textual.
-  const ressalvaInc = reg ? confirmarSeNaoIncorporado(reg) : "";
-  if(ressalvaInc===null) return;
-  const ressalva = [ressalvaElig, ressalvaInc].filter(Boolean).join(" · ");
+  // Inelegível / Não incorporado não bloqueiam ("informa, médico decide"): a ressalva
+  // guarda o CONTEXTO (critérios que falharam, motivo da não incorporação) e o diálogo
+  // colhe a JUSTIFICATIVA DO SOLICITANTE — obrigatória; o servidor também exige.
+  const ressalva = [ressalvaInelegivel(status, critsSel), reg ? ressalvaNaoIncorporado(reg) : ""].filter(Boolean).join(" · ");
   if(ressalva){ detalhe_semaforo = detalhe_semaforo || {status, crits:[]}; detalhe_semaforo.ressalva = ressalva; }
   // Solicitação de exceção: Inelegível OU Não incorporado nasce 'pendente' — não conta
   // como protocolo vigente até um auditor autorizar. Seleção normal: 'nao_necessaria'.
   const requerAut = (status==="bad") || !!(reg && !incorporacao(reg).incorporado);
+  let justificativa = null;
+  if(requerAut){ justificativa = await pedirJustificativaExcecao({r:reg, status, crits:critsSel}); if(justificativa===null) return; }
   if(btn) btn.disabled = true;
   try{
     await api(`/pacientes/${pid}/avaliacoes`, {method:"POST", body:JSON.stringify({
       regimen_id: rid, linha_tratamento: REAVAL.linha,
       snapshot_campos, semaforo, detalhe_semaforo,
       autorizacao_estado: requerAut ? "pendente" : "nao_necessaria",
+      justificativa_solicitante: requerAut ? justificativa : undefined,
       retorno_id: REAVAL.retorno_id || undefined,
     })});
     REAVAL = null;
@@ -3903,7 +3931,8 @@ function autorizacaoEntryHtml(it){
       </div>
     </div>
     <div class="hm">Decisão do auditor <b>${esc(quem)}</b>${it.estado==="negada"?" — o registro permanece na trilha; nova tentativa é uma nova solicitação.":""}</div>
-    ${it.parecer?`<div class="hint" style="margin-top:10px;font-weight:700">Parecer</div><div style="font-size:12.5px;white-space:pre-wrap;margin-top:3px">${esc(it.parecer)}</div>`:""}
+    ${it.justificativa_solicitante?`<div class="hint" style="margin-top:10px;font-weight:700">Justificativa do solicitante</div><div style="font-size:12.5px;white-space:pre-wrap;margin-top:3px">${esc(it.justificativa_solicitante)}</div>`:""}
+    ${it.parecer?`<div class="hint" style="margin-top:10px;font-weight:700">Parecer do auditor</div><div style="font-size:12.5px;white-space:pre-wrap;margin-top:3px">${esc(it.parecer)}</div>`:""}
   </div>`;
 }
 
@@ -4668,13 +4697,13 @@ function fmtDataCurta(iso){
 // Escrita de avaliação: perfil oncologista (e acima) — espelha o RolesGuard do backend.
 function podeAvaliar(){ return !!(USUARIO && (USUARIO.perfil==="oncologista"||USUARIO.perfil==="admin")); }
 
-// Confirmação de seleção com semáforo Inelegível ("informa, médico decide"): lista os
-// critérios que falharam e devolve o texto da ressalva para o rastro de auditoria — ou
-// null se o médico cancelar. Para ok/warn devolve "" (sem ressalva, sem confirmação).
-function confirmarSeInelegivel(status, crits){
+// Seleção com semáforo Inelegível ("informa, médico decide"): o contexto que vai para a
+// ressalva (rastro de auditoria) — os critérios que falharam. Para ok/warn devolve "".
+// Quem pede a JUSTIFICATIVA do solicitante é o diálogo de exceção (pedirJustificativaExcecao),
+// um só para os dois eixos; até 2026-09-17 isto era um confirm sem texto livre.
+function ressalvaInelegivel(status, crits){
   if(status!=="bad") return "";
   const falhas = (crits||[]).filter(c=>c.status==="bad").map(c=>c.label).join("; ") || "critérios não atendidos";
-  if(!confirm(`Este protocolo está Inelegível para esta paciente — ${falhas}.\n\nSelecionar mesmo assim abre uma SOLICITAÇÃO DE EXCEÇÃO: o protocolo só passa a ser o vigente depois que um auditor autorizar.\n\nConfirmar?`)) return null;
   return `Selecionado apesar de Inelegível — critérios não atendidos: ${falhas}.`;
 }
 
@@ -4775,21 +4804,84 @@ function notasRevisaoHtml(r){
   }).join("");
   return `<div class="rnotas" data-notas="${notas.length}"><div class="rnotas-h">📝 Notas da revisão clínica</div>${itens}</div>`;
 }
-// Seleção de protocolo NÃO incorporado ("informa, médico decide"): não há botão padrão;
-// quando o médico insiste, exige justificativa textual (mais forte que o confirm do
-// Inelegível) e devolve a ressalva para o rastro de auditoria — null se cancelar.
-function confirmarSeNaoIncorporado(r){
+// Seleção de protocolo NÃO incorporado ("informa, médico decide"): o contexto que vai
+// para a ressalva — o motivo pelo qual a instituição não oferece. "" se incorporado.
+// A justificativa do médico NÃO vai mais embutida aqui (até 2026-09-17 ia, colhida por
+// prompt): tem coluna própria (justificativa_solicitante) e um diálogo só para os dois
+// eixos — ver pedirJustificativaExcecao.
+function ressalvaNaoIncorporado(r){
   const inc = incorporacao(r);
   if(inc.incorporado) return "";
-  const j = prompt(`Este protocolo NÃO é incorporado pela instituição — motivo: ${inc.motivoLabel}.`
-    +(inc.texto?`\n${inc.texto}`:"")
-    +(inc.revisor?`\nDecisão de revisão clínica — ${inc.revisor}${inc.data?`, ${inc.data}`:""}.`:"")
-    +`\n\nSelecionar mesmo assim abre uma SOLICITAÇÃO DE EXCEÇÃO — o protocolo só vira vigente após autorização de um auditor.`
-    +`\n\nJustificativa clínica (obrigatória; é ela que o auditor lê):`, "");
-  if(j===null) return null;
-  if(!String(j).trim()){ alert("Seleção de protocolo não incorporado exige justificativa."); return null; }
-  return `Selecionado apesar de NÃO incorporado (${inc.motivoLabel}) — justificativa: ${String(j).trim()}`;
+  return `Selecionado apesar de NÃO incorporado (${inc.motivoLabel}).`;
 }
+
+// ═══ DIÁLOGO DE SOLICITAÇÃO DE EXCEÇÃO ═══════════════════════════════════════
+// Um diálogo só para os dois eixos (Inelegível / Não incorporado): mostra POR QUE a
+// seleção é exceção, avisa que o protocolo só vira vigente com autorização do auditor e
+// pede a JUSTIFICATIVA DO SOLICITANTE — obrigatória (o servidor também exige: 400 sem
+// ela). Devolve Promise<string|null>: o texto, ou null se cancelou. É um overlay fora
+// do render(): digitar não re-renderiza nada, e o estado vive só aqui até o clique.
+// Pedido da direção (17/09/2026): o auditor decide lendo isto; a trilha guarda as duas
+// pontas (esta justificativa e o parecer).
+let EXC_DLG = null;   // {resolve, texto} enquanto o diálogo está aberto
+function pedirJustificativaExcecao({r, status, crits}){
+  const inc = r ? incorporacao(r) : {incorporado:true};
+  const falhas = (crits||[]).filter(c=>c.status==="bad");
+  const porque = [];
+  if(status==="bad") porque.push(`<div class="exc-why bad"><div class="exc-why-h">⛔ Inelegível — critério(s) que o paciente não atende</div>
+      <div class="crit">${falhas.length ? falhas.map(c=>`<span class="chip bad" title="${esc(c.detail||"")}">✕ ${esc(c.label)}</span>`).join("") : `<span class="hint">critérios não atendidos</span>`}</div></div>`);
+  if(!inc.incorporado) porque.push(`<div class="exc-why noinc"><div class="exc-why-h" title="${esc(inc.motivoTip||"")}">🚫 Não incorporado — ${esc(inc.motivoLabel)}</div>
+      ${inc.texto?`<div class="exc-why-txt">${esc(inc.texto)}</div>`:""}
+      ${inc.revisor?`<div class="exc-why-txt">Decisão de revisão clínica — ${esc(inc.revisor)}${inc.data?`, ${esc(String(inc.data))}`:""}.</div>`:""}</div>`);
+  return new Promise(resolve=>{
+    if(EXC_DLG) excFechar(null);
+    EXC_DLG = {resolve, texto:""};
+    const ov = document.createElement("div");
+    ov.id = "exc-modal"; ov.className = "exc-ov";
+    ov.innerHTML = `<div class="exc-box" role="dialog" aria-modal="true" aria-labelledby="exc_t">
+      <div class="exc-t" id="exc_t">Solicitação de exceção</div>
+      <div class="exc-proto">${esc(r ? (r.nome||r.regimen_id) : "")}${r&&r.esquema?`<div class="hint">${esc(r.esquema)}</div>`:""}</div>
+      <div class="exc-sec">Por que é exceção</div>
+      ${porque.join("")}
+      <div class="hint" style="margin-top:8px">Selecionar mesmo assim <b>abre uma solicitação de exceção</b>: o protocolo só passa a ser o vigente depois que um auditor autorizar. Nada é apagado — negada, a solicitação fica na trilha com o parecer.</div>
+      <label class="exc-lab" for="exc_just">Justificativa do solicitante <b>(obrigatória — é o que o auditor lê para decidir)</b></label>
+      <textarea id="exc_just" rows="4" placeholder="Por que este protocolo, para este paciente, apesar do motivo acima." oninput="EXC_DLG.texto=this.value; const e=document.getElementById('exc_err'); if(e) e.hidden=true"></textarea>
+      <div class="login-err" id="exc_err" hidden>A justificativa é obrigatória.</div>
+      <div class="row-actions" style="margin-top:12px">
+        <button class="btn ghost" id="exc_cancelar" onclick="excFechar(null)">Cancelar</button>
+        <button class="btn primary" id="exc_confirmar" onclick="excConfirmar()">Abrir solicitação de exceção</button>
+      </div>
+    </div>`;
+    ov.addEventListener("keydown", e=>{ if(e.key==="Escape"){ e.preventDefault(); excFechar(null); } });
+    document.body.appendChild(ov);
+    const ta = document.getElementById("exc_just"); if(ta) ta.focus();
+  });
+}
+function excConfirmar(){
+  if(!EXC_DLG) return;
+  const t = String(EXC_DLG.texto||"").trim();
+  if(!t){ const e=document.getElementById("exc_err"); if(e) e.hidden=false; const ta=document.getElementById("exc_just"); if(ta) ta.focus(); return; }
+  excFechar(t);
+}
+function excFechar(valor){
+  const d = EXC_DLG; EXC_DLG = null;
+  const ov = document.getElementById("exc-modal"); if(ov) ov.remove();
+  if(d) d.resolve(valor);
+}
+(function(){ if(document.getElementById("exc-css")) return; const s=document.createElement("style"); s.id="exc-css"; s.textContent=`
+.exc-ov{position:fixed;inset:0;background:rgba(20,30,40,.45);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px}
+.exc-box{background:#fff;border-radius:12px;max-width:640px;width:100%;max-height:90vh;overflow:auto;padding:18px 20px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.exc-t{font-weight:800;font-size:17px}
+.exc-proto{margin-top:6px;padding:8px 10px;background:#f7f8fa;border-radius:8px;font-weight:700}
+.exc-sec{margin-top:12px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#8797a5}
+.exc-why{margin-top:6px;padding:9px 11px;border-radius:8px;background:#fbfbfc;border:1px solid #eceff2}
+.exc-why.bad{border-color:#f3c9c2;background:#fff7f6}
+.exc-why.noinc{border-color:#e6d6b4;background:#fffcf3}
+.exc-why-h{font-weight:700;font-size:13px}
+.exc-why-txt{font-size:12.5px;color:#556;margin-top:4px;white-space:pre-wrap}
+.exc-lab{display:block;margin-top:14px;font-size:13px;font-weight:600}
+.exc-box textarea{width:100%;box-sizing:border-box;margin-top:6px;font:inherit;padding:8px 10px;border:1px solid var(--border,#d7dbe0);border-radius:8px;resize:vertical}
+`; document.head.appendChild(s); })();
 
 // Grava a escolha do protocolo como AVALIAÇÃO do paciente (POST /pacientes/:id/avaliacoes).
 // O botão existe em todo semáforo/selo; Inelegível confirma e grava a ressalva. Se o paciente
@@ -4805,12 +4897,12 @@ async function selecionarProtocolo(pid, rid, status, btn){
     const res = usaPrim(p.tumor) ? classificarPrim(r,p.tumor,p.clin) : classificar(r,p.clin,specsByCampo);
     crits = res.crits; status = res.status;
   }catch(_){}
-  const ressalvaElig = confirmarSeInelegivel(status, crits);
-  if(ressalvaElig===null) return;
-  // Não incorporado: seleção consciente — exige justificativa textual (auditoria).
-  const ressalvaInc = confirmarSeNaoIncorporado(r);
-  if(ressalvaInc===null) return;
-  const ressalva = [ressalvaElig, ressalvaInc].filter(Boolean).join(" · ");
+  // Inelegível ou Não incorporado → solicitação de exceção: ressalva = contexto (auditoria);
+  // justificativa do solicitante colhida no diálogo (obrigatória; o servidor também exige).
+  const ressalva = [ressalvaInelegivel(status, crits), ressalvaNaoIncorporado(r)].filter(Boolean).join(" · ");
+  const requerAut = (status==="bad") || !incorporacao(r).incorporado;
+  let justificativa = null;
+  if(requerAut){ justificativa = await pedirJustificativaExcecao({r, status, crits}); if(justificativa===null) return; }
   const detail = PAC_DETAIL[p.id];
   if(btn) btn.disabled = true;
   try{
@@ -4829,8 +4921,7 @@ async function selecionarProtocolo(pid, rid, status, btn){
     const detalhe_semaforo = {status,
       crits: crits.map(c=>({label:c.label, status:c.status, detail:c.detail||""}))};
     if(ressalva) detalhe_semaforo.ressalva = ressalva;
-    // Inelegível ou Não incorporado → solicitação de exceção (nasce pendente, não vigente).
-    const requerAut = (status==="bad") || !incorporacao(r).incorporado;
+    // Solicitação de exceção nasce pendente, não vigente — com a justificativa do solicitante.
     await api(`/pacientes/${p.id}/avaliacoes`, {method:"POST", body:JSON.stringify({
       regimen_id: r.regimen_id,
       linha_tratamento: (detail && detail.ultima_avaliacao && detail.ultima_avaliacao.linha_tratamento) || 1,
@@ -4838,6 +4929,7 @@ async function selecionarProtocolo(pid, rid, status, btn){
       semaforo: STATUS_TO_SEM[status] || "atencao",
       detalhe_semaforo,
       autorizacao_estado: requerAut ? "pendente" : "nao_necessaria",
+      justificativa_solicitante: requerAut ? justificativa : undefined,
     })});
     toast(requerAut
       ? "Solicitação de exceção registrada — aguardando autorização do auditor."
@@ -6699,7 +6791,24 @@ const AUT_ESTADO_META = {
               tip:"O auditor negou a exceção — o registro permanece na trilha (nada é apagado); uma nova tentativa exige nova solicitação." },
 };
 
-// Bloco de estado da autorização para a trilha do paciente (histórico e seguimento).
+// Justificativa do solicitante de uma avaliação/solicitação: a coluna própria
+// (justificativa_solicitante desde 2026-09-17; `justificativa` no card da fila) e, para o
+// legado, o texto que ia embutido na ressalva ("… — justificativa: <texto>"). Devolve ""
+// quando não há (inelegível antigo era só um confirm, sem texto).
+function justificativaDe(a){
+  if(!a) return "";
+  const j = a.justificativa_solicitante || a.justificativa;
+  if(j) return String(j);
+  const r = a.detalhe_semaforo && a.detalhe_semaforo.ressalva;
+  const m = r && String(r).match(/justificativa: (.*)$/);
+  return m ? m[1].trim() : "";
+}
+function justificativaHtml(a, quem){
+  const j = justificativaDe(a);
+  return j ? `<div class="aut-just-line"><b>Justificativa do solicitante${quem?` (${esc(quem)})`:""}:</b> ${esc(j)}</div>` : "";
+}
+// Bloco de estado da autorização para a trilha do paciente (histórico e seguimento) —
+// as DUAS pontas: a justificativa de quem pediu e o parecer de quem decidiu.
 // Recebe qualquer objeto com autorizacao_estado / autorizacao_parecer / autorizacao_auditor.
 function autorizacaoSeloHtml(a){
   const e = a && a.autorizacao_estado;
@@ -6711,7 +6820,7 @@ function autorizacaoSeloHtml(a){
   const parecer = a.autorizacao_parecer
     ? `<div class="aut-parecer"><b>Parecer do auditor${quem?` (${esc(quem)})`:""}${a.autorizacao_decidida_em?` · ${fmtDataHora(a.autorizacao_decidida_em)}`:""}:</b> ${esc(a.autorizacao_parecer)}</div>`
     : "";
-  return `<div class="aut-selo-box ${M.cls}"><span class="aut-selo ${M.cls}" title="${esc(M.tip)}">${M.ic} ${M.t}</span>${parecer}</div>`;
+  return `<div class="aut-selo-box ${M.cls}"><span class="aut-selo ${M.cls}" title="${esc(M.tip)}">${M.ic} ${M.t}</span>${justificativaHtml(a)}${parecer}</div>`;
 }
 
 async function carregarAutorizacoes(){
@@ -6795,7 +6904,8 @@ function autCard(a){
   const p = a.paciente || {};
   const reg = (REGIMES||[]).find(x=>x.regimen_id===a.regimen_id);
   const M = AUT_ESTADO_META[a.estado] || AUT_ESTADO_META.pendente;
-  const just = (a.detalhe_semaforo && a.detalhe_semaforo.ressalva) || "";
+  const just = justificativaDe(a);
+  const contexto = (a.detalhe_semaforo && a.detalhe_semaforo.ressalva) || "";
   const decidida = a.estado==="aprovada" || a.estado==="negada";
   const busy = AUT_BUSY===a.id;
   const f = AUT_FORM[a.id] || {};
@@ -6834,8 +6944,9 @@ function autCard(a){
     <div class="aut-sec-t">Por que precisa de exceção</div>
     ${autPorQue(a)}
 
-    <div class="aut-sec-t">Justificativa do médico</div>
-    <div class="aut-just">${just? esc(just) : `<span class="hint">— sem justificativa registrada —</span>`}</div>
+    <div class="aut-sec-t">Justificativa do solicitante</div>
+    <div class="aut-just">${just? esc(just) : `<span class="hint">— sem justificativa registrada (solicitação anterior a 17/09/2026; hoje é obrigatória) —</span>`}</div>
+    ${contexto?`<div class="hint" style="margin-top:4px">Contexto da seleção: ${esc(contexto)}</div>`:""}
 
     <div class="aut-sec-t">Evidência do protocolo</div>
     <div class="aut-evid">${reg? revcEvidencia(reg) : `<span class="hint">Protocolo não encontrado no corpus atual (${esc(a.regimen_id)}).</span>`}</div>
@@ -6919,6 +7030,7 @@ function renderAutorizacoes(){
 .aut-decidida.neg{background:#fdeeeb}
 .aut-dec-h{font-weight:700;font-size:13px}
 .aut-parecer{font-size:13px;margin-top:5px;white-space:pre-wrap}
+.aut-just-line{font-size:12.5px;margin-top:6px;white-space:pre-wrap}
 .aut-selo-box{margin-top:8px;padding:8px 10px;border-radius:8px;background:#fbfbfc;border:1px solid #eceff2}
 .aut-selo-box.pend{background:#fdf9ef;border-color:#f0e2c2}
 .aut-selo-box.ok{background:#f2fbf5;border-color:#cfeeda}
@@ -7123,7 +7235,7 @@ function renderRecursos(){
   <div class="card">
     <div class="rev-head">
       <div><h2>Recursos — projeção de compra, faturamento e margem</h2>
-      <div class="sub">Dois lados do dinheiro: <b>compra</b> (o que o hospital paga pelos insumos) e <b>faturamento</b> (o que cobra da operadora). <b>Margem = faturamento − compra.</b> Tudo em <b>faixa</b> onde há faixa, e todo número traz a <b>origem</b>. Quem calcula é o servidor.</div></div>
+      <div class="sub">Dois lados do dinheiro: <b>compra</b> (o que a instituição paga pelos insumos) e <b>faturamento</b> (o que cobra da operadora). <b>Margem = faturamento − compra.</b> Tudo em <b>faixa</b> onde há faixa, e todo número traz a <b>origem</b>. Quem calcula é o servidor.</div></div>
       <div class="rev-run">${esc(USUARIO.perfil)} <b>${esc(USUARIO.nome)}</b></div>
     </div>
     ${REC_ERRO?`<div class="login-err">${esc(REC_ERRO)}</div>`:""}
@@ -7447,7 +7559,7 @@ function apresFormHtml(chave, insumoId, ap){
           <option value="" ${f.padrao?"":"selected"}>não</option>
           <option value="1" ${f.padrao?"selected":""}>sim</option></select></label>
     </div>
-    <div class="rec-apf-sec">Compra — o que o hospital paga</div>
+    <div class="rec-apf-sec">Compra — o que a instituição paga</div>
     <div class="rec-apf-g">
       <label>Tabela (CMED)<input type="text" inputmode="decimal" value="${esc(f.ct)}" placeholder="2400,00"
         oninput="setRecForm('${esc(chave)}','ct',this.value)"></label>

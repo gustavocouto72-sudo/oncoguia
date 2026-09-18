@@ -221,7 +221,7 @@ autenticado" até o perfil `gestor` existir, e aí deixou de ser suficiente.
 
 ## Recursos (aba "Recursos") — os dois lados do dinheiro
 
-Perfil **gestor** + admin. Projeta **compra** (o que o hospital paga pelos insumos) e
+Perfil **gestor** + admin. Projeta **compra** (o que a instituição paga pelos insumos) e
 **faturamento** (o que cobra da operadora) por horizonte de 3, 6 ou 12 meses.
 **Margem = faturamento − compra**, sempre em faixa onde há faixa.
 

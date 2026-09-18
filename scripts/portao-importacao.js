@@ -39,6 +39,17 @@
 //    "Lista de problemas proposta" (× tira, + acrescenta, 0 render); ficha com a faixa
 //    (chips, tooltip com origem/data; vazio = "— nenhuma registrada —"; + e × só para
 //    oncologista/admin, × pede confirmação; revisor só lê).
+//  ONCOLOGISTA IMPORTA (2026-09-17, pedido da direção): o mesmo fluxo, agora também para
+//    o perfil oncologista (whitelists literais de propor e do vocabulário ganharam
+//    'oncologista'; revisor e gestor seguem 403). Quando é ele quem importa, ele mesmo
+//    valida em seguida — não há regra de conflito aqui (as duas pontas são a mesma
+//    alçada clínica). API (checks I1–I3): vocabulário 200, proposta 201 com o payload de
+//    volta (ele lê o que propôs), validação pelo próprio → vigente assinado por ele,
+//    trilha com "proposta por <ele>" e "validada por <ele>". UI (checks I4–I6): o
+//    "+ Novo paciente" dele oferece "Cadastrar manualmente | Importar"; no modo Importar
+//    o bloco "Tumor do paciente" SOME (o tumor vem na proposta); "Cadastrar e enviar
+//    proposta" abre a ficha JÁ com o painel de validação ("Enviada por … (você)"); Validar
+//    → vigente.
 //  Limpeza: apaga pacientes (cascata leva propostas) e a usuária; relê a carteira.
 //
 // NÃO ENCADEIE com outro portão sem ~1 min de janela: login é 5/min por IP e este portão
@@ -200,8 +211,10 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     ok('A1 ★ GET /importacao/vocabulario (secretaria) = 200: tumores com campos primitivos e NOMES de protocolo — sem critério, referência nem custo',
       voc.status === 200 && !!vocPro && vocPro.campos.length >= 20 && vocPro.regimes.some(r => r.regimen_id === RID_VERDE)
       && !JSON.stringify(voc.body).match(/"regra"|"referencia"|"beneficio"|"custo"|"doi"/i), `campos=${vocPro && vocPro.campos.length} regimes=${vocPro && vocPro.regimes.length}`);
-    ok('A1 revisor e gestor NÃO leem o vocabulário (403) — whitelist literal secretaria/admin',
+    ok('A1 revisor NÃO lê o vocabulário (403) — whitelist literal secretaria/oncologista/admin',
       (await req('GET', '/importacao/vocabulario', tkRev)).status === 403);
+    ok('I1 ★ oncologista lê o vocabulário (200) — ele também importa desde 17/09/2026',
+      (await req('GET', '/importacao/vocabulario', tkOnco)).status === 200);
     ok('A1 /evidencia continua 403 para a secretaria (o vocabulário não abriu o corpus)', (await req('GET', '/evidencia', tkSec)).status === 403);
 
     // --- P1: J.M.G.M. cadastrado e proposto pela secretaria ---
@@ -261,11 +274,31 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     ok('S4 ★ secretaria NÃO valida (403) nem descarta (403)',
       (await req('POST', `/importacao-propostas/${prop1Id}/validar`, tkSec, {})).status === 403
       && (await req('POST', `/importacao-propostas/${prop1Id}/descartar`, tkSec, { motivo: 'x' })).status === 403);
-    ok('S4 revisor NÃO lê a proposta (403), não valida (403), não propõe (403); oncologista não propõe (403)',
+    ok('S4 revisor NÃO lê a proposta (403), não valida (403), não propõe (403)',
       (await req('GET', `/pacientes/${p1}/importacao-proposta`, tkRev)).status === 403
       && (await req('POST', `/importacao-propostas/${prop1Id}/validar`, tkRev, {})).status === 403
-      && (await req('POST', `/pacientes/${p1}/importacao-proposta`, tkRev, PROPOSTA_JMGM)).status === 403
-      && (await req('POST', `/pacientes/${p1}/importacao-proposta`, tkOnco, PROPOSTA_JMGM)).status === 403);
+      && (await req('POST', `/pacientes/${p1}/importacao-proposta`, tkRev, PROPOSTA_JMGM)).status === 403);
+    ok('S4 ★ oncologista PODE propor (não é 403): sobre P1, que já tem pendente, leva 409 — a whitelist abriu, a regra "uma pendente" continua',
+      (await req('POST', `/pacientes/${p1}/importacao-proposta`, tkOnco, PROPOSTA_JMGM)).status === 409);
+    // ── ONCOLOGISTA IMPORTA E VALIDA ELE MESMO (API) ──
+    const c5 = await req('POST', '/pacientes', tkOnco, { nome: NOME(5), identificador: IDENT(5), sexo: 'M', nasc: '1958-02-08' });
+    const p5 = c5.body && c5.body.id; if (p5) pacientes.push(p5);
+    const pr5 = await req('POST', `/pacientes/${p5}/importacao-proposta`, tkOnco, PROPOSTA_JMGM);
+    ok('I2 ★★ oncologista propõe = 201, pendente, autor = ele com perfil oncologista, e a resposta TRAZ o payload (ele lê o que propôs)',
+      pr5.status === 201 && pr5.body.estado === 'pendente' && pr5.body.criada_por && pr5.body.criada_por.nome === NOME_ONCO && pr5.body.criada_por.perfil === 'oncologista'
+      && !!pr5.body.payload && pr5.body.payload.regimen_id === RID_VERDE, `${pr5.status} ${JSON.stringify(pr5.body && pr5.body.criada_por)}`);
+    const f5antes = await req('GET', `/pacientes/${p5}`, tkOnco);
+    ok('I2 a proposta dele também é envelope: nada clínico no paciente antes de validar (tumor null, 0 avaliações)',
+      f5antes.body.tumor === null && ((await req('GET', `/pacientes/${p5}/avaliacoes`, tkOnco)).body || []).length === 0);
+    const v5 = await req('POST', `/importacao-propostas/${pr5.body.id}/validar`, tkOnco, {});
+    const tr5 = await req('GET', `/pacientes/${p5}/trilha`, tkOnco);
+    const it5 = (tr5.body.itens || []).find(i => i.evento === 'proposta_importacao');
+    ok('I3 ★★ ele mesmo valida (sem regra de conflito): 201, vigente, avaliação assinada por ele; proposta validada_por = ele',
+      v5.status === 201 && v5.body.vigente === true && v5.body.avaliacao && v5.body.avaliacao.avaliado_por.nome === NOME_ONCO
+      && v5.body.proposta.validada_por.nome === NOME_ONCO, `${v5.status} vigente=${v5.body && v5.body.vigente}`);
+    ok('I3 ★ trilha: "proposta de importação por <oncologista>" (perfil oncologista) e validada por ele',
+      !!it5 && it5.por && it5.por.nome === NOME_ONCO && it5.por.perfil === 'oncologista' && it5.estado === 'validada' && it5.decidida_por && it5.decidida_por.nome === NOME_ONCO,
+      JSON.stringify(it5 && { por: it5.por, dec: it5.decidida_por }).slice(0, 160));
     const dup = await req('POST', `/pacientes/${p1}/importacao-proposta`, tkSec, PROPOSTA_JMGM);
     ok('S5 ★ segunda proposta pendente para o mesmo paciente = 409', dup.status === 409 && /pendente/.test(dup.body.message || ''), `${dup.status} ${dup.body && dup.body.message}`);
     // --- LISTA DE PROBLEMAS: whitelist, adição/remoção manual, evento, secretaria às cegas ---
@@ -644,6 +677,40 @@ const PROIBIDO_NA_TELA = ['Semáforo', 'Protocolo', 'Elegível', 'Inelegível', 
     await po.waitForFunction(id => IMP_PROP[id] && IMP_PROP[id].estado === 'descartada' && !document.getElementById('imp-painel'), p3, { timeout: 25000 });
     const gp3 = await req('GET', `/pacientes/${p3}/importacao-proposta`, tkOnco);
     ok('O7 ★ Descartar… pela tela pede o motivo (prompt), grava e o painel some', ctxO.dialogs.some(d => d.startsWith('prompt:')) && gp3.body.proposta.estado === 'descartada' && /descartado pela tela/.test(gp3.body.proposta.motivo_descarte));
+
+    // ═══ FASE 4 — TELA do oncologista: ELE importa e valida em seguida ═══
+    await po.evaluate(() => { view = 'lista'; render(); });
+    await po.waitForSelector('button:has-text("+ Novo paciente")', { timeout: 25000 });
+    await po.click('button:has-text("+ Novo paciente")');
+    await po.waitForSelector('#f_nome', { timeout: 10000 });
+    ok('I4 ★ o "+ Novo paciente" do ONCOLOGISTA oferece "Cadastrar manualmente | Importar"', !!(await po.$('#cad_modo_manual')) && !!(await po.$('#cad_modo_importar')));
+    ok('I4 no modo manual o bloco "Tumor do paciente" está lá (nada mudou no cadastro manual)', !!(await po.$('#cad-onco')));
+    await po.click('#cad_modo_importar');
+    await po.waitForSelector('#imp_tumor', { timeout: 15000 });
+    const txtI = await textoApp(po);
+    ok('I4 ★★ modo Importar: formulário + "Ler PDF" + seção clínica com o vocabulário; o bloco "Tumor do paciente" SOME (o tumor vem na proposta)',
+      !(await po.$('#cad-onco')) && /Ler PDF da evolução/i.test(txtI) && /Dados clínicos para validação médica/i.test(txtI) && /valide na ficha|valida/i.test(txtI), txtI.slice(0, 100).replace(/\n/g, ' '));
+    await po.type('#f_nome', NOME(6), { delay: 3 });
+    await po.fill('#f_ident', IDENT(6));
+    await po.selectOption('#f_sexo', 'M');
+    await po.evaluate(() => { document.querySelector('.imp-json').open = true; });
+    await po.fill('#imp_json', JSON.stringify(clone(PROPOSTA_JMGM)));
+    await po.click('button:has-text("Carregar JSON no formulário")');
+    await po.waitForFunction(() => IMP && IMP.tumor === 'prostata' && IMP.campos && IMP.campos.estadio_t === 'T3b', null, { timeout: 5000 });
+    await po.click('button:has-text("Cadastrar e enviar proposta")');
+    await po.waitForSelector('#imp-painel', { timeout: 30000 });
+    const p6 = await po.evaluate(() => current); if (p6) pacientes.push(p6);
+    const txtI5 = await textoApp(po);
+    ok('I5 ★★ "Cadastrar e enviar proposta" abre a FICHA já com o painel de validação — "Enviada por <ele> (você)"',
+      !!p6 && /aguardando a sua validação/.test(txtI5) && txtI5.includes(NOME_ONCO) && /\(você\)/.test(txtI5), txtI5.slice(0, 120).replace(/\n/g, ' '));
+    const gp6 = await req('GET', `/pacientes/${p6}`, tkOnco);
+    ok('I5 o paciente nasceu SEM tumor (o tumor vem na validação), com o cadastro administrativo', gp6.body.tumor === null && gp6.body.nome === NOME(6) && gp6.body.identificador === IDENT(6));
+    await po.click('#imp_validar');
+    await po.waitForFunction(id => view === 'paciente' && PAC_DETAIL[id] && PAC_DETAIL[id].ultima_avaliacao && !document.getElementById('imp-painel'), p6, { timeout: 30000 });
+    const av6 = ((await req('GET', `/pacientes/${p6}/avaliacoes`, tkOnco)).body || [])[0];
+    const gp6d = await req('GET', `/pacientes/${p6}`, tkOnco);
+    ok('I6 ★★ Validar na mesma sessão: Enzalutamida vigente, assinado por ele; tumor gravado; painel some',
+      !!av6 && av6.regimen_id === RID_VERDE && av6.autorizacao_estado === 'nao_necessaria' && av6.avaliado_por.nome === NOME_ONCO && gp6d.body.tumor === TUMOR, JSON.stringify(av6 && { r: av6.regimen_id, por: av6.avaliado_por.nome }));
     ok('O8 console do oncologista sem erro', ctxO.errs.length === 0, JSON.stringify(ctxO.errs));
   } catch (e) {
     ok('EXCEÇÃO no portão', false, e.stack ? e.stack.split('\n').slice(0, 2).join(' ') : e.message);

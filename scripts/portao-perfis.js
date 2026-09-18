@@ -276,7 +276,7 @@ const trocaConcluida = (page, perfil) => page.waitForFunction(
     pacienteId = pac.body && pac.body.id;
     ok('K1 paciente de teste criado pelo chapéu de oncologista', !!pacienteId, `${pac.status} id=${pacienteId}`);
     const propria = await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkXOnco,
-      avaliacaoBase(RID_NAO_INC, { detalhe_semaforo: { ressalva: JUST_TESTE } }));
+      avaliacaoBase(RID_NAO_INC, { detalhe_semaforo: { ressalva: JUST_TESTE }, justificativa_solicitante: JUST_TESTE }));
     ok('K2 seleção de não incorporado nasce PENDENTE',
       propria.body && propria.body.autorizacao_estado === 'pendente',
       `${propria.status} ${propria.body && propria.body.autorizacao_estado}`);

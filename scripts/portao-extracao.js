@@ -9,7 +9,7 @@
 //      no portão, pelo mesmo pdf.js, e que fica só no portão) CONTÉM nome, atendimento,
 //      prontuário e nascimento, e o texto raspado NÃO contém nenhum deles; o estado da app
 //      não guarda nome completo nem texto original.
-//  A   API: 403 fora da whitelist (oncologista, revisor), 400 tumor inválido / texto curto,
+//  A   API: 403 fora da whitelist (revisor; o oncologista entrou em 17/09), 400 tumor inválido / texto curto,
 //      503 SEM CHAVE — provado num backend efêmero subido pelo portão em outra porta com
 //      ANTHROPIC_API_KEY vazia (o de 3005 fica como está).
 //  E   extração REAL (custa centavos): com a chave em backend/.env, clica "Extrair dados
@@ -167,9 +167,14 @@ function checarTrechos(nome, ext) {
 
     // ═══ A — API ═══
     const TXT = 'Texto de teste com mais de quarenta caracteres para passar do mínimo da rota.';
-    ok('A1 ★ /importacao/extrair: 403 para oncologista e revisor (whitelist literal secretaria/admin)',
-      (await req('POST', '/importacao/extrair', tkOnco, { tumor: 'prostata', texto_raspado: TXT })).status === 403
-      && (await req('POST', '/importacao/extrair', tkRev, { tumor: 'prostata', texto_raspado: TXT })).status === 403);
+    // 17/09/2026: o oncologista também importa — a whitelist de extrair é a de propor
+    // (secretaria/oncologista/admin). Revisor segue fora. O oncologista não faz a extração
+    // real aqui (custa centavos e o E já a prova): basta NÃO ser 403 — com a chave, a rota
+    // aceita e responde 200 ou o 4xx/5xx do provedor; o que se afirma é a whitelist.
+    const exOnco = await req('POST', '/importacao/extrair', tkOnco, { tumor: 'inexistente', texto_raspado: TXT });
+    ok('A1 ★ /importacao/extrair: 403 para revisor; oncologista PASSA da whitelist (400 no tumor inválido, não 403)',
+      exOnco.status === 400
+      && (await req('POST', '/importacao/extrair', tkRev, { tumor: 'prostata', texto_raspado: TXT })).status === 403, `onco=${exOnco.status}`);
     const tRuim = await req('POST', '/importacao/extrair', tkSec, { tumor: 'inexistente', texto_raspado: TXT });
     const tCurto = await req('POST', '/importacao/extrair', tkSec, { tumor: 'prostata', texto_raspado: 'curto' });
     ok('A2 400 em tumor fora do corpus e em texto curto demais', tRuim.status === 400 && tCurto.status === 400, `${tRuim.status}/${tCurto.status}`);

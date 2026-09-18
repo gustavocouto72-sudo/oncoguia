@@ -255,14 +255,25 @@ export class Avaliacao {
 
   @Column({ type: 'jsonb', nullable: true })
   detalhe_semaforo: Record<string, any>; // quais regras passaram/falharam
-  // (detalhe_semaforo.ressalva guarda a justificativa do médico ao selecionar fora do
-  //  padrão — é ela que o auditor lê no card da fila de autorizações.)
+  // (detalhe_semaforo.ressalva guarda o CONTEXTO montado pela app ao selecionar fora do
+  //  padrão — "selecionado apesar de Inelegível — critérios: …" / "apesar de NÃO
+  //  incorporado (motivo)". Até 2026-09-17 a justificativa livre do médico ia embutida
+  //  aqui; agora tem coluna própria, abaixo.)
 
   // ---- Solicitação de exceção (autorização do auditor) ----
   // Seleção normal nasce 'nao_necessaria'. Inelegível/Não incorporado nasce 'pendente' e
   // só vira vigente quando um auditor aprova. Ver AutorizacaoEstado.
   @Column({ type: 'varchar', length: 20, default: 'nao_necessaria' })
   autorizacao_estado: AutorizacaoEstado;
+
+  // JUSTIFICATIVA DO SOLICITANTE — o texto do médico ao pedir a exceção (Inelegível ou
+  // Não incorporado). OBRIGATÓRIA no servidor sempre que a avaliação nasce 'pendente':
+  // é o que o auditor lê para decidir, e a trilha guarda as duas pontas (esta + o
+  // parecer). Null nas seleções normais e nas solicitações anteriores a 2026-09-17 sem
+  // texto livre (inelegível era só um confirm); as antigas de não incorporado foram
+  // migradas a partir da ressalva ("— justificativa: …").
+  @Column({ type: 'text', nullable: true })
+  justificativa_solicitante: string;
 
   // Parecer do auditor — OBRIGATÓRIO nas duas decisões (aprovar e negar). O médico lê
   // o desfecho na trilha do paciente; negada permanece visível com este texto.

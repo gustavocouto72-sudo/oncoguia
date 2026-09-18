@@ -1,11 +1,15 @@
 // Portão do módulo AUTORIZAÇÃO / solicitação de exceção — fluxos reais em browser isolado
 // (headless) + API. É o check que NÃO passa pelo agente.
 //
-//  Fase 1 (UI, oncologista): seleciona protocolo NÃO INCORPORADO com justificativa →
-//    nasce 'pendente', NÃO vira protocolo vigente, aparece como exceção aguardando; e o
-//    oncologista não enxerga a aba Autorizações (nem forçando a view).
-//  Fase 2 (UI, auditor): fila com o card (paciente, protocolo, justificativa do médico),
-//    parecer digitado com contador de render = 0, aprovação → passa a vigente.
+//  Fase 1 (UI, oncologista): seleciona protocolo NÃO INCORPORADO → abre o DIÁLOGO de
+//    exceção (17/09/2026: um só para os dois eixos, com o "por quê" e a textarea da
+//    JUSTIFICATIVA DO SOLICITANTE — obrigatória: confirmar vazio não envia; digitar não
+//    re-renderiza) → nasce 'pendente', NÃO vira protocolo vigente, a justificativa vai
+//    para a COLUNA PRÓPRIA (justificativa_solicitante) e a ressalva guarda só o contexto;
+//    e o oncologista não enxerga a aba Autorizações (nem forçando a view).
+//  Fase 2 (UI, auditor): fila com o card (paciente, protocolo, "Justificativa do
+//    solicitante"), parecer digitado com contador de render = 0, aprovação → passa a
+//    vigente; a trilha mostra as DUAS pontas (justificativa + parecer).
 //  Fase 2b (UI, auditor): o caminho do usuário que escapou — decidir com a VISÃO DO
 //    PACIENTE ABERTA (detalhe + trilha em cache). Foi por aqui que o `AVAL_HIST` órfão
 //    (sobra do rename Histórico→Trilha) alertou "Falha ao registrar a decisão" para uma
@@ -14,9 +18,11 @@
 //    único perfil que pode ler /custos e abrir esta aba, então é onde a regra falharia
 //    calada. E a contraprova: a aba Recursos dele continua cheia de R$.
 //  Fase 3 (API): o que a UI não pode garantir — enforcement SERVER-SIDE do não-incorporado
-//    (POST direto sem autorizacao_estado nasce pendente do mesmo jeito), estado inicial
-//    não escolhível pelo cliente, decisão única e imutável, parecer obrigatório nas duas
-//    decisões, e a matriz de perfil (auditor é eixo próprio, não degrau de hierarquia) —
+//    (POST direto sem autorizacao_estado nasce pendente do mesmo jeito), JUSTIFICATIVA
+//    obrigatória no servidor (exceção sem texto = 400, nada criado — inclusive quando o
+//    cliente mente 'nao_necessaria'), estado inicial não escolhível pelo cliente, decisão
+//    única e imutável, parecer obrigatório nas duas decisões, e a matriz de perfil
+//    (auditor é eixo próprio, não degrau de hierarquia) —
 //    incluindo a ponta nova: o auditor leva 403 em /custos e /recursos, e mesmo assim
 //    decide. Decide MÉRITO, sem ver custo.
 //  Limpeza: apaga o paciente de teste (DELETE admin, JWT assinado).
@@ -99,8 +105,11 @@ async function req(metodo, rota, tk, body) {
   let j = null; try { j = await r.json(); } catch (_) { }
   return { status: r.status, body: j };
 }
+// Toda exceção por API leva a justificativa do solicitante (obrigatória no servidor desde
+// 17/09/2026); o E0 abaixo prova o que acontece sem ela.
 const avaliacaoBase = (rid, extra) => Object.assign({
   regimen_id: rid, linha_tratamento: 1, snapshot_campos: { teste: true }, semaforo: 'elegivel',
+  justificativa_solicitante: JUST_TESTE,
 }, extra || {});
 
 async function ctxLogin(browser, perfil) {
@@ -178,7 +187,8 @@ async function ctxLogin(browser, perfil) {
     pacienteId = await page.evaluate(() => current);
     ok('U3 paciente de teste criado', !!pacienteId, 'id=' + pacienteId);
 
-    // seleção de protocolo NÃO INCORPORADO — exige justificativa (prompt) e nasce pendente
+    // seleção de protocolo NÃO INCORPORADO — abre o diálogo de exceção, exige a
+    // justificativa do solicitante e nasce pendente
     const temBotaoNoInc = await page.evaluate(rid => {
       const b = Array.from(document.querySelectorAll('.sel-btn.noinc'))
         .find(x => (x.getAttribute('onclick') || '').includes(rid));
@@ -186,8 +196,28 @@ async function ctxLogin(browser, perfil) {
       return false;
     }, RID_NAO_INC);
     ok('U4 card de não incorporado traz o botão "selecionar mesmo assim"', temBotaoNoInc);
-    await page.waitForFunction(pid => PAC_DETAIL[pid] && (PAC_DETAIL[pid].linha_do_tempo || []).length > 0,
+    await page.waitForSelector('#exc-modal #exc_just', { timeout: 10000 });
+    const dlgTxt = await page.evaluate(() => document.getElementById('exc-modal').innerText);
+    ok('U4 ★ o clique abre o DIÁLOGO de exceção: diz por que é exceção (Não incorporado + motivo) e pede a justificativa do solicitante',
+      /Solicitação de exceção/.test(dlgTxt) && /Não incorporado/.test(dlgTxt) && /Justificativa do solicitante/i.test(dlgTxt) && /auditor/.test(dlgTxt), dlgTxt.slice(0, 120).replace(/\n/g, ' '));
+    // confirmar VAZIO: não envia (nenhuma avaliação nasce), o diálogo fica e mostra o erro
+    const avAntesVazio = ((await req('GET', `/pacientes/${pacienteId}/avaliacoes`, tkOnco)).body || []).length;
+    await page.click('#exc_confirmar');
+    await page.waitForTimeout(600);
+    const aindaAberto = await page.evaluate(() => !!document.getElementById('exc-modal') && !document.getElementById('exc_err').hidden);
+    const avDepoisVazio = ((await req('GET', `/pacientes/${pacienteId}/avaliacoes`, tkOnco)).body || []).length;
+    ok('U4 ★★ confirmar com a justificativa VAZIA não envia: diálogo continua aberto com o aviso, 0 avaliações criadas',
+      aindaAberto && avDepoisVazio === avAntesVazio, `aberto=${aindaAberto} av=${avAntesVazio}→${avDepoisVazio}`);
+    // digitar a justificativa: 0 re-render (o diálogo vive fora do render())
+    await page.evaluate(() => { window.__rc = 0; const o = window.render; window.render = function () { window.__rc++; return o.apply(this, arguments); }; });
+    await page.type('#exc_just', JUST_TESTE, { delay: 6 });
+    const rcJust = await page.evaluate(() => window.__rc);
+    ok('U4 ★ digitar a justificativa no diálogo: 0 re-render e texto íntegro',
+      rcJust === 0 && (await page.inputValue('#exc_just')) === JUST_TESTE, 'renders=' + rcJust);
+    await page.click('#exc_confirmar');
+    await page.waitForFunction(pid => !document.getElementById('exc-modal') && PAC_DETAIL[pid] && (PAC_DETAIL[pid].linha_do_tempo || []).length > 0,
       pacienteId, { timeout: 25000 });
+    ok('U4 confirmar com texto fecha o diálogo e registra', true);
 
     const dep = await page.evaluate(pid => PAC_DETAIL[pid], pacienteId);
     const linha0 = dep.linha_do_tempo[0];
@@ -197,9 +227,13 @@ async function ctxLogin(browser, perfil) {
     ok('U5 protocolo pendente NÃO é o vigente (ultima_avaliacao)',
       dep.ultima_avaliacao === null, JSON.stringify(dep.ultima_avaliacao && dep.ultima_avaliacao.regimen_id));
     const justGravada = await req('GET', `/pacientes/${pacienteId}/avaliacoes`, tkOnco);
-    ok('U6 justificativa do médico gravada na ressalva (é o que o auditor lê)',
-      /justificativa/i.test(JSON.stringify(justGravada.body[0].detalhe_semaforo || {})),
-      JSON.stringify((justGravada.body[0].detalhe_semaforo || {}).ressalva || '').slice(0, 90));
+    const av0 = justGravada.body[0] || {};
+    ok('U6 ★★ justificativa do solicitante gravada na COLUNA PRÓPRIA (justificativa_solicitante = o texto digitado)',
+      av0.justificativa_solicitante === JUST_TESTE, JSON.stringify(av0.justificativa_solicitante || '').slice(0, 90));
+    ok('U6 ★ a ressalva guarda só o CONTEXTO ("apesar de NÃO incorporado (motivo)") — sem o texto do médico embutido',
+      /apesar de NÃO incorporado/.test((av0.detalhe_semaforo || {}).ressalva || '') && !((av0.detalhe_semaforo || {}).ressalva || '').includes(JUST_TESTE),
+      JSON.stringify((av0.detalhe_semaforo || {}).ressalva || '').slice(0, 90));
+    ok('U6 a linha do tempo da ficha (GET /pacientes/:id) também traz a justificativa', linha0.justificativa_solicitante === JUST_TESTE, String(linha0.justificativa_solicitante).slice(0, 60));
     const telaPend = await page.evaluate(() => document.body.textContent);
     ok('U7 a tela do paciente avisa que aguarda autorização', /Aguardando autoriza/i.test(telaPend));
     ok('U8 console sem erro (fluxo do oncologista)', f1.errs.length === 0, f1.errs.join(' | '));
@@ -218,7 +252,9 @@ async function ctxLogin(browser, perfil) {
     ok('A2 solicitação aparece na fila do auditor', naFila);
     const cardTxt = await pa.evaluate(() => document.body.textContent);
     ok('A3 card mostra o paciente', cardTxt.includes(NOME_TESTE));
-    ok('A3 card mostra a justificativa do médico', cardTxt.includes(JUST_TESTE.slice(0, 40)));
+    ok('A3 ★ card mostra a seção "Justificativa do solicitante" com o texto do médico (vindo da coluna própria — `justificativa` no payload da fila)',
+      /Justificativa do solicitante/.test(cardTxt) && cardTxt.includes(JUST_TESTE.slice(0, 40))
+      && await pa.evaluate(id => (AUT_LISTA || []).some(a => a.id === id && a.justificativa && a.justificativa.startsWith('TESTE PORTAO AUT')), avaliacaoPendenteId));
 
     // ---- a fila NÃO mostra dinheiro (auditor) --------------------------------
     // Espera generosa de propósito: o bloco de custo removido chegava ASSÍNCRONO (lote
@@ -271,6 +307,12 @@ async function ctxLogin(browser, perfil) {
       linhaAprov.autorizacao_estado === 'aprovada' && linhaAprov.autorizacao_parecer === PARECER_TESTE
       && !!linhaAprov.autorizacao_auditor,
       `${linhaAprov.autorizacao_estado} · ${linhaAprov.autorizacao_auditor}`);
+    const trilhaApi = await req('GET', `/pacientes/${pacienteId}/trilha`, tkOnco);
+    const itSel = (trilhaApi.body.itens || []).find(i => i.tipo === 'avaliacao' && i.id === avaliacaoPendenteId);
+    const itDec = (trilhaApi.body.itens || []).find(i => i.tipo === 'autorizacao' && i.avaliacao_id === avaliacaoPendenteId);
+    ok('A7 ★★ trilha (API) registra as DUAS pontas: a seleção com a justificativa do solicitante e a decisão com justificativa + parecer',
+      !!itSel && itSel.justificativa_solicitante === JUST_TESTE && !!itDec && itDec.justificativa_solicitante === JUST_TESTE && itDec.parecer === PARECER_TESTE,
+      JSON.stringify({ sel: itSel && itSel.justificativa_solicitante, dec: itDec && [itDec.justificativa_solicitante, itDec.parecer] }).slice(0, 160));
 
     // ═══ FASE 2b — decidir com a VISÃO DO PACIENTE ABERTA (o caminho que escapou) ═══
     // Em 2026-09-03 o auditor negou uma exceção e levou o alerta "Falha ao registrar a
@@ -337,6 +379,8 @@ async function ctxLogin(browser, perfil) {
     const trilhaTxt = await pa.evaluate(() => document.body.textContent);
     ok('B5 trilha do paciente recarrega e mostra a decisão do auditor',
       trilhaTxt.includes(PARECER_TESTE), 'parecer visível na trilha');
+    ok('B5 ★ a trilha na TELA mostra as duas pontas: "Justificativa do solicitante" com o texto do médico e "Parecer do auditor"',
+      /Justificativa do solicitante/.test(trilhaTxt) && trilhaTxt.includes(JUST_TESTE) && /Parecer do auditor/.test(trilhaTxt));
     ok('B6 console sem erro no caminho completo do auditor', f2.errs.length === 0, f2.errs.join(' | '));
     await f2.ctx.close();
 
@@ -344,11 +388,31 @@ async function ctxLogin(browser, perfil) {
     // tkOnco/tkAud vêm das sessões da UI acima; só o revisor precisa de um login próprio.
     const tkRev = await token('revisor');
 
+    // ★ JUSTIFICATIVA OBRIGATÓRIA NO SERVIDOR (17/09/2026): exceção sem texto = 400 e
+    // nada criado — nos dois eixos, e também quando o cliente mente 'nao_necessaria'
+    // (a mentira não vira vigente NEM vira pendente muda: 400).
+    const nAntes = ((await req('GET', `/pacientes/${pacienteId}/avaliacoes`, tkOnco)).body || []).length;
+    const semJust = await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkOnco, avaliacaoBase(RID_NAO_INC, { justificativa_solicitante: undefined }));
+    const justVazia = await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkOnco, avaliacaoBase(RID_NAO_INC, { justificativa_solicitante: '   ' }));
+    const inelSemJust = await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkOnco, avaliacaoBase(RID_INC, { semaforo: 'inelegivel', justificativa_solicitante: undefined }));
+    const mentiraSemJust = await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkOnco, avaliacaoBase(RID_NAO_INC, { autorizacao_estado: 'nao_necessaria', justificativa_solicitante: undefined }));
+    const nDepois = ((await req('GET', `/pacientes/${pacienteId}/avaliacoes`, tkOnco)).body || []).length;
+    ok('E0 ★★ não incorporado SEM justificativa (ausente ou em branco) = 400 nomeando a justificativa',
+      semJust.status === 400 && justVazia.status === 400 && /[Jj]ustificativa/.test((semJust.body && semJust.body.message) || ''), `${semJust.status}/${justVazia.status} ${semJust.body && semJust.body.message}`);
+    ok('E0 ★ inelegível SEM justificativa = 400', inelSemJust.status === 400, String(inelSemJust.status));
+    ok('E0 ★★ cliente mentindo "nao_necessaria" sem justificativa = 400 (nunca vigente, e nem pendente sem texto)', mentiraSemJust.status === 400, String(mentiraSemJust.status));
+    ok('E0 ★ nenhuma avaliação nasceu das quatro tentativas', nDepois === nAntes, `${nAntes}→${nDepois}`);
+    const normalSemJust = await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkOnco, avaliacaoBase(RID_INC, { justificativa_solicitante: undefined }));
+    ok('E0 seleção normal (incorporado + elegível) não pede justificativa: 201, nao_necessaria, coluna null',
+      normalSemJust.status === 201 && normalSemJust.body.autorizacao_estado === 'nao_necessaria' && normalSemJust.body.justificativa_solicitante === null, `${normalSemJust.status} ${normalSemJust.body && normalSemJust.body.justificativa_solicitante}`);
+
     // ★ a pergunta em aberto: POST DIRETO, sem autorizacao_estado, semáforo elegível.
     const direto = await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkOnco, avaliacaoBase(RID_NAO_INC));
     ok('E1 ★ não incorporado por POST direto (sem autorizacao_estado) nasce PENDENTE no servidor',
       direto.status === 201 && direto.body.autorizacao_estado === 'pendente',
       `${direto.status} estado=${direto.body && direto.body.autorizacao_estado}`);
+    ok('E1 a justificativa volta na resposta e na fila do auditor', direto.body.justificativa_solicitante === JUST_TESTE
+      && ((await req('GET', '/autorizacoes', tkAud)).body || []).some(a => a.id === direto.body.id && a.justificativa === JUST_TESTE));
     const idDireto = direto.body && direto.body.id;
 
     // cliente mentindo: manda 'nao_necessaria' de propósito para um não incorporado

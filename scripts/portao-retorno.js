@@ -525,6 +525,7 @@ async function req(metodo, rota, tk, body) {
     await req('POST', `/pacientes/${pacienteId}/avaliacoes`, tkOnco, {
       regimen_id: ridEscolhido, linha_tratamento: 3, snapshot_campos: {},
       semaforo: 'inelegivel', autorizacao_estado: 'pendente',
+      justificativa_solicitante: 'TESTE PORTAO RETORNO - justificativa de fumaca (obrigatoria desde 17/09)',
     });
     await page.evaluate(() => carregarPacientes().then(() => render()));
     linha = await linhaLista(page, NOME_TESTE);

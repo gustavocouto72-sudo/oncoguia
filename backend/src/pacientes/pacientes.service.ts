@@ -20,6 +20,8 @@ export interface NovaAvaliacao {
   // ou Não incorporado. Só estes dois valores são aceitos na criação — 'aprovada'/'negada'
   // são do auditor, nunca de quem registra a avaliação.
   autorizacao_estado?: Extract<AutorizacaoEstado, 'nao_necessaria' | 'pendente'>;
+  // Justificativa do solicitante — obrigatória quando a avaliação nasce 'pendente'.
+  justificativa_solicitante?: string | null;
   // Retorno que motivou esta avaliação (conduta = troca_protocolo). Fecha o ciclo
   // retorno → troca: a avaliação nova não fica solta na trilha.
   retorno_id?: number;
@@ -438,6 +440,7 @@ export class PacientesService {
         semaforo: a.semaforo,
         avaliado_por: a.avaliadoPor ? a.avaliadoPor.nome : null,
         autorizacao_estado: a.autorizacao_estado,
+        justificativa_solicitante: a.justificativa_solicitante ?? null,
         autorizacao_parecer: a.autorizacao_parecer,
         autorizacao_auditor: a.autorizacaoAuditor ? a.autorizacaoAuditor.nome : null,
         autorizacao_decidida_em: a.autorizacao_decidida_em,
@@ -561,6 +564,19 @@ export class PacientesService {
       dados.semaforo === 'inelegivel' ||
       this.evidencia.naoIncorporado(dados.regimen_id);
     const autorizacao_estado: AutorizacaoEstado = exigeAutorizacao ? 'pendente' : 'nao_necessaria';
+    // JUSTIFICATIVA DO SOLICITANTE — obrigatória em toda solicitação de exceção, e
+    // conferida DEPOIS de o servidor decidir que é exceção (não antes, pela app): um
+    // cliente que mande 'nao_necessaria' para um não incorporado e não justifique leva
+    // 400 aqui — nunca nasce vigente, e também não nasce pendente sem o texto que o
+    // auditor precisa ler. Seleção normal ignora o campo (não é pedido a ninguém).
+    const justificativa = String(dados.justificativa_solicitante ?? '').trim();
+    if (exigeAutorizacao && !justificativa) {
+      throw new BadRequestException(
+        'Justificativa do solicitante obrigatória: este protocolo é Inelegível ou Não incorporado, ' +
+        'e a seleção abre uma solicitação de exceção — o auditor decide pela sua justificativa.',
+      );
+    }
+    if (justificativa.length > 4000) throw new BadRequestException('Justificativa muito longa (máx. 4000 caracteres)');
     const nova = avaliacaoRepo.create({
       paciente_id: pacienteId,
       avaliado_por: usuarioId,
@@ -573,6 +589,7 @@ export class PacientesService {
       semaforo: dados.semaforo,
       detalhe_semaforo: dados.detalhe_semaforo ?? null,
       autorizacao_estado,
+      justificativa_solicitante: exigeAutorizacao ? justificativa : null,
       retorno_id: dados.retorno_id ?? null,
     });
     const salva = await avaliacaoRepo.save(nova);
@@ -615,8 +632,10 @@ export class PacientesService {
       snapshot_campos: a.snapshot_campos,
       semaforo: a.semaforo,
       detalhe_semaforo: a.detalhe_semaforo,
-      // Estado da solicitação de exceção (⏳ pendente · ✅ aprovada · ⛔ negada) + parecer.
+      // Estado da solicitação de exceção (⏳ pendente · ✅ aprovada · ⛔ negada), as duas
+      // pontas do registro — a justificativa de quem pediu e o parecer de quem decidiu.
       autorizacao_estado: a.autorizacao_estado,
+      justificativa_solicitante: a.justificativa_solicitante ?? null,
       autorizacao_parecer: a.autorizacao_parecer,
       autorizacao_decidida_em: a.autorizacao_decidida_em,
       autorizacao_auditor: a.autorizacaoAuditor

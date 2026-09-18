@@ -107,8 +107,8 @@ export class AutorizacoesService {
   }
 
   // Card da fila: o paciente (contexto clínico), o protocolo, o snapshot que gerou o
-  // semáforo, o detalhe (critérios que falharam + a justificativa do médico na ressalva)
-  // e quem pediu. A evidência do protocolo (selos/eixos/pivô com DOI) a app cruza pelo
+  // semáforo, o detalhe (critérios que falharam + o contexto da seleção na ressalva), a
+  // justificativa do solicitante e quem pediu. A evidência do protocolo (selos/eixos/pivô com DOI) a app cruza pelo
   // regimen_id no corpus que já carrega de /evidencia.
   private map(a: Avaliacao) {
     const p = a.paciente;
@@ -135,6 +135,9 @@ export class AutorizacoesService {
       solicitante: a.avaliadoPor
         ? { id: a.avaliadoPor.id, nome: a.avaliadoPor.nome, perfil: a.perfil_ativo || a.avaliadoPor.perfil }
         : null,
+      // As duas pontas: a justificativa de quem pediu (coluna própria desde 2026-09-17;
+      // antes, embutida na ressalva — a app faz o fallback para o legado) e o parecer.
+      justificativa: a.justificativa_solicitante ?? null,
       parecer: a.autorizacao_parecer,
       auditor: a.autorizacaoAuditor
         ? {

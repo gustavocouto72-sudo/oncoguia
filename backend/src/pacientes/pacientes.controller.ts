@@ -80,10 +80,14 @@ class CriarAvaliacaoDto {
   @IsIn(['elegivel', 'atencao', 'inelegivel']) semaforo: Semaforo;
   @IsOptional() @IsObject() detalhe_semaforo?: Record<string, any>;
   // Solicitação de exceção: 'pendente' quando o médico seleciona um protocolo Inelegível
-  // ou Não incorporado (a justificativa vai em detalhe_semaforo.ressalva). Só estes dois
+  // ou Não incorporado (com justificativa_solicitante obrigatória, abaixo). Só estes dois
   // valores entram por aqui — 'aprovada'/'negada' são decisão do auditor, em outra rota.
   // E é só um PEDIDO: o servidor reconfere os dois eixos e pode forçar 'pendente'.
   @IsOptional() @IsIn(['nao_necessaria', 'pendente']) autorizacao_estado?: 'nao_necessaria' | 'pendente';
+  // Justificativa do solicitante — OBRIGATÓRIA (no serviço, 400) sempre que a avaliação
+  // nasce 'pendente', ou seja, sempre que é uma solicitação de exceção. É o texto que o
+  // auditor lê; a ressalva em detalhe_semaforo é só o contexto montado pela app.
+  @IsOptional() @IsString() @MaxLength(4000) justificativa_solicitante?: string;
   // Retorno que motivou a troca de protocolo (conduta = troca_protocolo). Opcional: a
   // primeira seleção e a reavaliação avulsa não nascem de retorno nenhum.
   @IsOptional() @IsInt() retorno_id?: number;
